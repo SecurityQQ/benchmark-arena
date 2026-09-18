@@ -249,6 +249,7 @@ table.wide td:first-child, table.wide th:first-child { padding-left: 0; }
 .people .person:last-child { border-bottom: 0; }
 .person.inline { gap: 10px; padding: 0; border: 0; }
 .avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--surface-2); border: 1px solid var(--border); flex-shrink: 0; object-fit: cover; }
+.avatar.fam-avatar { padding: 7px; object-fit: contain; background: var(--surface-2); }
 .person .n { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500; }
 .person .pm { flex: 1; min-width: 0; }
 .person .sub { color: var(--dim); font-size: 12.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

@@ -28,7 +28,7 @@ const FAM = {
   bytedance: ["ByteDance/Seed", "#5E9C9A"], harmonic: ["Harmonic", "#B58A4C"], axiom: ["Axiom Math", "#8C6A8E"], "other-ai": ["Other AI", "#B0AEA5"], human: ["Human", "#8FB3A6"], unknown: ["Unknown", "#B0AEA5"],
 };
 // brand marks from @lobehub/icons-static-svg, self-hosted under /icons
-const FAM_ICON = { anthropic: "claude-color", openai: "openai", google: "gemini-color", deepseek: "deepseek-color", meta: "meta-color", xai: "xai", mistral: "mistral-color", alibaba: "qwen-color", moonshot: "kimi-color", zhipu: "zhipu-color", bytedance: "bytedance-color" };
+const FAM_ICON = { anthropic: "claude-color", openai: "openai", google: "gemini-color", deepseek: "deepseek-color", meta: "meta-color", xai: "xai", mistral: "mistral-color", alibaba: "qwen-color", moonshot: "kimi-color", zhipu: "zhipu-color", bytedance: "bytedance-color", harmonic: "harmonic-color", axiom: "axiom-color", "other-ai": "other-ai" };
 const famIcon = (f, size = 14) => FAM_ICON[f] ? `<img class="fam-ico" src="/icons/${FAM_ICON[f]}.svg" width="${size}" height="${size}" alt="" loading="lazy">` : `<span class="fam-dot-sm" style="--c:${FAM[f]?.[1] || "#B0AEA5"};width:${Math.round(size * .6)}px;height:${Math.round(size * .6)}px"></span>`;
 const famChip = (f, extra = "") => f && FAM[f] ? `<a class="fam has-ico" href="/agents/${f}" style="--c:${FAM[f][1]}" title="Where ${FAM[f][0]} is used" onclick="event.stopPropagation();return nav('/agents/${f}')">${famIcon(f, 14)}${FAM[f][0]}${extra}</a>` : "";
 // flat geometric placeholder for competitions without an image — one accent per card, seeded by id
@@ -158,7 +158,7 @@ function showEgg(k) {
   }, true);
 })();
 
-const avatar = (url) => { const m = url && /github\.com\/([^/]+)$/.exec(url); return m ? `<img class="avatar" src="https://github.com/${m[1]}.png?size=64" alt="" onerror="this.style.visibility='hidden'">` : `<span class="avatar"></span>`; };
+const avatar = (url, family) => { const m = url && /github\.com\/([^/]+)$/.exec(url); return m ? `<img class="avatar" src="https://github.com/${m[1]}.png?size=64" alt="" onerror="this.style.visibility='hidden'">` : (family && FAM_ICON[family] ? `<img class="avatar fam-avatar" src="/icons/${FAM_ICON[family]}.svg" alt="">` : `<span class="avatar" style="--c:${family && FAM[family] ? FAM[family][1] : '#B0AEA5'}"></span>`); };
 const ghUrl = (n, u) => u || (/^[\w-]+$/.test(n) ? `https://github.com/${n}` : null);
 
 // ── Routing ──
@@ -620,7 +620,7 @@ function agentsBar(agents) {
 function personRow(p, showComps = true) {
   const u = ghUrl(p.name, p.url);
   const fams = Object.entries(p.agents || {}).sort((a, b) => b[1] - a[1]).slice(0, 2);
-  return `<div class="person">${avatar(u)}
+  return `<div class="person">${avatar(u, fams[0]?.[0])}
     <div class="pm">
       <div class="n">${u ? `<a href="${esc(u)}" target="_blank">${esc(p.name)}</a>` : esc(p.name)} ${p.currentBests ? `<span class="crown">★ ${p.currentBests}</span>` : ""}</div>
       <div class="sub">${p.records} record${p.records === 1 ? "" : "s"}${showComps ? ` · ${p.competitions.slice(0, 2).map((c) => `<a href="/c/${c.id}" onclick="return nav('/c/${c.id}')">${esc(c.name)}</a>`).join(", ")}${p.competitions.length > 2 ? ` +${p.competitions.length - 2}` : ""}` : ""}</div>
@@ -917,9 +917,9 @@ function renderPeople() {
     <section class="band tight"><div class="wrap">
     <div class="table-scroll">
       <table class="wide"><thead><tr><th class="c-idx">#</th><th>Contributor</th><th>Records</th><th class="c-bests">Current bests</th><th class="c-comps">Competitions</th><th class="c-fams">Agents used</th><th class="c-date">Last active</th></tr></thead><tbody>
-      ${list.map((p, i) => { const u = ghUrl(p.name, p.url); return `<tr>
+      ${list.map((p, i) => { const u = ghUrl(p.name, p.url); const pf = Object.entries(p.agents || {}).sort((a, b) => b[1] - a[1])[0]; return `<tr>
         <td class="dim c-idx">${i + 1}</td>
-        <td><div class="person inline">${avatar(u)}<span class="n">${u ? `<a href="${esc(u)}" target="_blank">${esc(p.name)}</a>` : esc(p.name)}${p.currentBests ? ` <span class="crown m-only">★ ${p.currentBests}</span>` : ""}</span></div></td>
+        <td><div class="person inline">${avatar(u, pf?.[0])}<span class="n">${u ? `<a href="${esc(u)}" target="_blank">${esc(p.name)}</a>` : esc(p.name)}${p.currentBests ? ` <span class="crown m-only">★ ${p.currentBests}</span>` : ""}</span></div></td>
         <td class="mono">${p.records}</td>
         <td class="mono c-bests">${p.currentBests ? `<span class="crown">★ ${p.currentBests}</span>` : "—"}</td>
         <td class="small c-comps">${p.competitions.map((c) => `<a href="/c/${c.id}" onclick="return nav('/c/${c.id}')">${esc(c.name)}</a>${c.bests ? ` <span class="crown">★${c.bests}</span>` : ""}`).join(" · ")}</td>

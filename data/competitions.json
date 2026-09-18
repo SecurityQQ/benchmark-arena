@@ -10032,11 +10032,12 @@
               ],
               "isCurrentBest": true,
               "agent": {
-                "family": "other-ai",
-                "model": "Green Agent",
-                "evidence": "Green Agent ID: 019d76c2-3bb7-7652-b932-76ad868837b0",
+                "family": "openai",
+                "model": "gpt-4o-mini",
+                "evidence": "scenario.toml: AGENT_LLM = \"openai/gpt-4o-mini\"",
                 "confidence": "high",
-                "role": "author"
+                "role": "author",
+                "tool": "Green Agent"
               }
             },
             {
@@ -10049,11 +10050,12 @@
               ],
               "isCurrentBest": false,
               "agent": {
-                "family": "other-ai",
-                "model": "Green Agent",
-                "evidence": "Green Agent ID: 019d76c2-3bb7-7652-b932-76ad868837b0",
+                "family": "openai",
+                "model": "gpt-4o-mini",
+                "evidence": "scenario.toml: AGENT_LLM = \"openai/gpt-4o-mini\"",
                 "confidence": "high",
-                "role": "author"
+                "role": "author",
+                "tool": "Green Agent"
               }
             },
             {
@@ -10066,11 +10068,12 @@
               ],
               "isCurrentBest": false,
               "agent": {
-                "family": "other-ai",
-                "model": "Green Agent",
-                "evidence": "Green Agent ID: 019d76c2-3bb7-7652-b932-76ad868837b0",
+                "family": "openai",
+                "model": "gpt-4o-mini",
+                "evidence": "scenario.toml: AGENT_LLM = \"openai/gpt-4o-mini\"",
                 "confidence": "high",
-                "role": "author"
+                "role": "author",
+                "tool": "Green Agent"
               }
             },
             {
@@ -10083,11 +10086,12 @@
               ],
               "isCurrentBest": false,
               "agent": {
-                "family": "other-ai",
-                "model": "Green Agent",
-                "evidence": "Green Agent ID: 019d76c2-3bb7-7652-b932-76ad868837b0",
+                "family": "openai",
+                "model": "gpt-4o-mini",
+                "evidence": "scenario.toml: AGENT_LLM = \"openai/gpt-4o-mini\"",
                 "confidence": "high",
-                "role": "author"
+                "role": "author",
+                "tool": "Green Agent"
               }
             },
             {
@@ -10100,11 +10104,12 @@
               ],
               "isCurrentBest": false,
               "agent": {
-                "family": "other-ai",
-                "model": "Green Agent",
-                "evidence": "Green Agent ID: 019d87ef-2c6d-7091-8d93-827799c2ade3",
+                "family": "openai",
+                "model": "gpt-4o-mini",
+                "evidence": "scenario.toml: AGENT_LLM = \"openai/gpt-4o-mini\"",
                 "confidence": "high",
-                "role": "author"
+                "role": "author",
+                "tool": "Green Agent"
               }
             },
             {
@@ -10117,11 +10122,12 @@
               ],
               "isCurrentBest": false,
               "agent": {
-                "family": "other-ai",
-                "model": "Green Agent",
-                "evidence": "Green Agent ID: 019d87ef-2c6d-7091-8d93-827799c2ade3",
+                "family": "openai",
+                "model": "gpt-4o-mini",
+                "evidence": "scenario.toml: AGENT_LLM = \"openai/gpt-4o-mini\"",
                 "confidence": "high",
-                "role": "author"
+                "role": "author",
+                "tool": "Green Agent"
               }
             },
             {
@@ -10134,11 +10140,12 @@
               ],
               "isCurrentBest": false,
               "agent": {
-                "family": "other-ai",
-                "model": "Green Agent",
-                "evidence": "Green Agent ID: 019d87ef-2c6d-7091-8d93-827799c2ade3",
+                "family": "openai",
+                "model": "gpt-4o-mini",
+                "evidence": "scenario.toml: AGENT_LLM = \"openai/gpt-4o-mini\"",
                 "confidence": "high",
-                "role": "author"
+                "role": "author",
+                "tool": "Green Agent"
               }
             }
           ],
@@ -10180,11 +10187,11 @@
       },
       "agentStats": [
         {
-          "family": "other-ai",
+          "family": "openai",
           "records": 7,
           "currentBests": 1,
           "models": [
-            "Green Agent"
+            "gpt-4o-mini"
           ],
           "contributors": [
             "019d76c4-59a1-70f3-a147-643ce7091b40",
