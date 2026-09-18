@@ -75,8 +75,13 @@ async function main() {
   const competitions: Competition[] = [];
   const errors: { repo: string; error: string }[] = [];
 
+  // ONLY accepts a comma-separated list of substrings of "owner/name"
   const only = process.env.ONLY?.toLowerCase();
-  if (only) repos = repos.filter((r) => `${r.owner}/${r.name}`.toLowerCase().includes(only));
+  const onlyList = only ? only.split(",").map((x) => x.trim()).filter(Boolean) : [];
+  if (only) repos = repos.filter((r) => onlyList.some((o) => `${r.owner}/${r.name}`.toLowerCase().includes(o)));
+  // Previous crawl: the safety net. An LLM pass is noisy, so a known competition is never dropped or gutted by a single bad answer.
+  const prevComps: Competition[] = existsSync(RESULT_PATH) ? (JSON.parse(readFileSync(RESULT_PATH, "utf-8")) as CrawlResult).competitions : [];
+  const prevByRepo = new Map(prevComps.map((c) => [`${c.repo?.owner}/${c.repo?.name}`.toLowerCase(), c]));
   for (let i = 0; i < repos.length; i++) {
     const repo = repos[i];
     const repoKey = `${repo.owner}/${repo.name}`;
@@ -148,6 +153,21 @@ async function main() {
       console.log(`    ✗ FAILED: ${msg}`);
       errors.push({ repo: repoKey, error: msg });
     }
+  }
+
+  // Safety net, part 1: a suspicious shrink (LLM truncation) keeps the previous, richer version
+  for (let i = 0; i < competitions.length; i++) {
+    const c = competitions[i], prev = prevByRepo.get(`${c.repo?.owner}/${c.repo?.name}`.toLowerCase());
+    if (prev && prev.stats.totalRecords >= 10 && c.stats.totalRecords < prev.stats.totalRecords * 0.6) {
+      console.log(`  ! ${c.name}: records ${prev.stats.totalRecords} → ${c.stats.totalRecords}, keeping the previous version`);
+      competitions[i] = prev;
+    }
+  }
+  // Safety net, part 2: a known competition that came back "not a competition" or failed this time is carried over, not deleted
+  const produced = new Set(competitions.map((c) => `${c.repo?.owner}/${c.repo?.name}`.toLowerCase()));
+  for (const e of errors) {
+    const k = e.repo.toLowerCase(), prev = prevByRepo.get(k);
+    if (prev && !produced.has(k) && !MERGED_INTO[e.repo]) { console.log(`  ! ${e.repo}: "${e.error}" this run, carrying over the previous entry`); competitions.push(prev); produced.add(k); e.error += " (previous entry kept)"; }
   }
 
   // Step 3: Save results

@@ -88,7 +88,8 @@ Agent attribution — this is a core feature, be thorough but never guess:
 - Model name → family: Claude/Opus/Sonnet/Haiku/Fable→anthropic; GPT/o1/o3/Codex→openai; Gemini/Gemma→google; DeepSeek→deepseek; Llama→meta; Grok→xai; Mistral/Mixtral→mistral; Qwen→alibaba; Kimi→moonshot; GLM→zhipu; Seed Prover/Doubao→bytedance; Aristotle→harmonic; Axiom Prover→axiom. Any other named AI system→other-ai.
 
 Rules:
-- Tracks (Problem entries) and their records come ONLY from leaderboard tables/lists in docs or data files (README tables, LEADERBOARD.md, results/*.json, *.csv). NEVER derive tracks or records from commit messages, PR titles or the __attribution__ page — that page is evidence for agent attribution only. A repo whose only "results" are commit logs is not a leaderboard: return null.
+- Tracks (Problem entries) and their records come ONLY from leaderboard tables/lists in docs or data files (README tables, LEADERBOARD.md, results/*.json, *.csv). NEVER derive tracks or records from commit messages, PR titles or the __attribution__ page — that page is evidence for agent attribution only.
+- A competition with a documented submission path is still a competition when its leaderboard is empty, hosted on an external site, or not yet populated: return it with the tracks the docs describe and empty records. Return null only when there is no competition/benchmark people can submit to at all.
 - One track = one ranked table where entries compete on the same metric. Do not create a track per problem when the repo's own leaderboard ranks models/people across problems; model it the way the repo ranks.
 - Extract ALL leaderboard rows. Do not summarize or truncate tables.
 - Multiple leaderboard tables = multiple Problem entries (e.g. "4x4" and "16x16" tracks, "20% target" and "40% target").
