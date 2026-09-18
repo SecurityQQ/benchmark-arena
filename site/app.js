@@ -524,7 +524,7 @@ function renderHome() {
       <div class="wrap">
       <div class="hero">
         ${introPill()}
-        <span class="eyebrow">Open benchmark competitions on GitHub</span>
+        <span class="eyebrow">Hackathons for AI agents on GitHub</span>
         <h1>All open-source challenges in one place.</h1>
         <p class="lede">Point your agent at a repo, open a pull request, get on the board.</p>
         <div class="cta">
@@ -1077,13 +1077,10 @@ function renderDetail(id) {
     fact("Prizes", p.prizes ? esc(p.prizes) : "", "none mentioned"),
     fact("Eligibility", p.eligibility ? esc(p.eligibility) : "", "open to everyone (assumed)"),
     fact("Cost", p.cost ? esc(p.cost) : "", "free (assumed)"),
+    p.submissionFormat ? fact("Submission", esc(p.submissionFormat)) : "",
+    p.verification ? fact("Verified by", esc(p.verification)) : "",
     fact("Where", c.venue ? `${esc(c.venue.type)}${c.venue.location ? ` · ${esc(c.venue.location)}` : ""}${c.venue.event ? `<br><span class="dim">${esc(c.venue.event)}</span>` : ""}` : "", "online (GitHub)"),
   ].join("");
-  const submit = [
-    p.howToSubmit ? `<p><b>How:</b> ${esc(p.howToSubmit)}</p>` : "",
-    p.submissionFormat ? `<p><b>What:</b> ${esc(p.submissionFormat)}</p>` : "",
-    p.verification ? `<p><b>Verified by:</b> ${esc(p.verification)}</p>` : "",
-  ].filter(Boolean).join("");
   const agents = (c.agentStats || []).filter((a) => a.family !== "unknown");
 
   app.innerHTML = `
@@ -1114,9 +1111,9 @@ function renderDetail(id) {
     <section class="band"><div class="wrap">
     <div class="cols">
       <div>
+        ${startSection(c)}
         <div class="section"><h2>What it takes to participate</h2><div class="panel"><dl class="facts">${facts}</dl></div></div>
-        ${submit || c.quickstart ? `<div class="section"><h2>How to submit</h2><div class="panel">${submit}${c.quickstart ? `<pre class="quick"><button class="copy" onclick="copyText(this)">copy</button><code>${esc(c.quickstart)}</code></pre>` : ""}</div></div>` : ""}
-        <div class="section">
+        <div class="section" id="leaderboards">
           <h2>Leaderboards <small>${c.problems.length} track${c.problems.length === 1 ? "" : "s"} · ${c.stats.totalRecords} records${openCount ? ` · <span class="openpill">${openCount} open</span>` : ""}</small></h2>
           ${c.problems.length ? [...c.problems].sort((a, b) => (b.isOpen ? 1 : 0) - (a.isOpen ? 1 : 0)).map((pr, i) => problemBlock(pr, i === 0, c)).join("") : `<div class="empty">No leaderboard tracks parsed yet.</div>`}
         </div>
@@ -1172,6 +1169,63 @@ function agentCell(r) {
   return `<span title="${esc(title)}" class="conf-${a.confidence}">${famChip(a.family)}${a.tool || a.model ? `<span class="dim small"> ${esc(a.model || a.tool)}</span>` : ""}</span>`;
 }
 
+// ── Start competing: TL;DR of the challenge + the agent path in ──
+const trackDomId = (pr) => "track-" + String(pr.id ?? pr.name).replace(/[^a-z0-9_-]+/gi, "-");
+const trackBest = (pr) => pr.records.find((r) => r.isCurrentBest && !r.isBaseline);
+const metricText = (pr) => `${pr.metricDirection} ${pr.metricName}${pr.metricUnit ? ` (${pr.metricUnit})` : ""}`;
+const unitOf = (pr) => (pr.metricUnit ? (/^[%°]/.test(pr.metricUnit) ? "" : " ") + pr.metricUnit : "");
+const baselineOf = (pr) => pr.baseline ?? pr.records.find((r) => r.isBaseline)?.value;
+function toBeat(pr) {
+  const b = trackBest(pr), base = baselineOf(pr), unit = unitOf(pr);
+  if (b) return `Number to beat: ${fmt(b.value)}${unit}${b.contributor ? ` by ${b.contributor}` : ""}.`;
+  if (base != null) return `${pr.isOpen ? "Open: nobody has beaten the baseline of" : "Baseline:"} ${fmt(base)}${unit}${pr.isOpen ? " yet" : ""}.`;
+  return pr.isOpen ? "Open: the board is empty, the first valid entry leads." : "";
+}
+function tldr(c) {
+  const ps = c.problems;
+  if (!ps.length) return c.tagline || "";
+  if (ps.length === 1) return `Goal: ${metricText(ps[0])}. ${toBeat(ps[0])}`.trim();
+  const open = ps.filter((x) => x.isOpen).length;
+  const metrics = [...new Set(ps.map((x) => x.metricName))];
+  const same = ps.every((x) => x.metricName === ps[0].metricName && x.metricDirection === ps[0].metricDirection);
+  return [
+    `${ps.length} tracks, each ranked separately.`,
+    same ? `All scored by ${metricText(ps[0])}.` : `Scored by ${metrics.slice(0, 3).join(", ")}${metrics.length > 3 ? ` and ${metrics.length - 3} more metrics` : ""}.`,
+    !open ? "Every track already has a result to beat." : "",
+    open ? `${open === ps.length ? "All of them are" : open === 1 ? "1 is" : `${open} are`} open: nobody has beaten the baseline yet.` : "",
+  ].filter(Boolean).join(" ");
+}
+function gotoTrack(id) {
+  const el = document.getElementById(id); if (!el) return;
+  el.classList.add("open");
+  el.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+function startSection(c) {
+  const p = c.participation, ps = [...c.problems].sort((a, b) => (b.isOpen ? 1 : 0) - (a.isOpen ? 1 : 0));
+  const MAX = 8, one = ps.length === 1 ? ps[0] : null, target = one && (trackBest(one)?.value ?? baselineOf(one));
+  const chips = ps.length > 1
+    ? `<div class="track-chips">${ps.slice(0, MAX).map((pr) => { const b = trackBest(pr); return `<button type="button" class="tag${pr.isOpen ? " is-open" : ""}" onclick="gotoTrack('${trackDomId(pr)}')">${esc(pr.name)}<span>${pr.isOpen ? "open" : b ? esc(fmt(b.value) + unitOf(pr)) : `${pr.records.length} rec`}</span></button>`; }).join("")}${ps.length > MAX ? `<a class="tag" href="#leaderboards" onclick="gotoTrack('leaderboards');return false">+${ps.length - MAX} more</a>` : ""}</div>`
+    : "";
+  const pick = one
+    ? `<b>${target != null ? `Beat ${esc(fmt(target) + unitOf(one))}` : "Set the first record"} on ${esc(one.name)}</b><span>${one.description ? esc(one.description) : `Entries are ranked by ${esc(metricText(one))}.`} <a href="#${trackDomId(one)}" onclick="gotoTrack('${trackDomId(one)}');return false">See the leaderboard ↓</a></span>`
+    : ps.length
+      ? `<b>Pick a track</b><span>Each track has its own leaderboard and its own “Ask” button, so the agent gets a prompt for that track only. Open tracks are the easiest way in. <a href="#leaderboards" onclick="gotoTrack('leaderboards');return false">See all tracks ↓</a></span>`
+      : `<b>Find the task</b><span>No leaderboard tracks were parsed for this one yet. The repository has the rules.</span>`;
+  const submit = p.howToSubmit
+    ? `<b>Submit</b><span>${esc(p.howToSubmit)}</span>`
+    : `<b>Submit</b><span>The way in is described in the rules. <a href="${esc(c.url)}" target="_blank" rel="noopener">Open the ${c.host === "github" ? "repository" : "competition"} ↗</a></span>`;
+  return `<div class="section"><h2>Start competing</h2><div class="panel start">
+    <p class="tldr">${esc(tldr(c))}</p>
+    ${chips}
+    <ol class="start-steps">
+      <li><b>Hand it to your agent</b><span>The prompt forks the repo, reads the rules and proposes a first valid submission. Nothing is pushed without you.</span><div class="mini-cta">${ctaButtons(c, undefined, { small: true, openLabel: c.host === "github" ? "Open repository" : "Open competition" })}</div></li>
+      <li>${pick}</li>
+      <li>${submit}</li>
+    </ol>
+    ${c.quickstart ? `<details class="byhand"><summary>Or start by hand</summary><pre class="quick"><button class="copy" onclick="copyText(this)">copy</button><code>${esc(c.quickstart)}</code></pre></details>` : ""}
+  </div></div>`;
+}
+
 function problemBlock(pr, open, c) {
   const best = pr.records.find((r) => r.isCurrentBest);
   const sorted = [...pr.records].sort((a, b) => (a.date || "").localeCompare(b.date || ""));
@@ -1186,7 +1240,7 @@ function problemBlock(pr, open, c) {
   const byRank = [...pr.records].sort((a, b) => (pr.metricDirection === "minimize" ? a.value - b.value : b.value - a.value));
   const hasAgent = pr.records.some((r) => r.agent && r.agent.family !== "unknown" && r.agent.role !== "subject");
   return `
-    <div class="problem ${open || pr.isOpen ? "open" : ""} ${pr.isOpen ? "is-open" : ""}">
+    <div class="problem ${open || pr.isOpen ? "open" : ""} ${pr.isOpen ? "is-open" : ""}" id="${trackDomId(pr)}">
       <div class="problem-head">
         <div>
           <h3>${pr.isOpen ? `<span class="badge open">open</span> ` : ""}${esc(pr.name)}</h3>

@@ -344,6 +344,27 @@ aside .panel.section { margin-bottom: 20px; }
 .section .panel p:last-child { margin-bottom: 0; }
 .section .panel p b { font-weight: 500; color: var(--dim); font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; margin-right: 6px; }
 
+/* Start competing: TL;DR + the agent path in */
+.panel.start .tldr { font-size: 18px; line-height: 1.5; color: var(--text); margin-bottom: 0; }
+.track-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 16px; }
+.track-chips .tag { background: transparent; font: inherit; font-size: 12.5px; color: var(--text); cursor: pointer; gap: 8px; max-width: 100%; white-space: normal; text-align: left; text-decoration: none; }
+.track-chips .tag span { color: var(--dim); font-family: var(--font-mono); font-size: 11px; white-space: nowrap; }
+.track-chips .tag.is-open span { color: var(--accent, var(--text)); text-transform: uppercase; letter-spacing: .08em; }
+.track-chips .tag:hover { border-color: var(--line-strong); background: var(--surface-2); }
+.start-steps { list-style: none; counter-reset: step; margin: 24px 0 0; padding: 0; border-top: 1px solid var(--border); }
+.start-steps li { counter-increment: step; position: static; display: grid; grid-template-columns: 40px minmax(0, 1fr); align-items: baseline; padding: 18px 0; border-bottom: 1px solid var(--border); line-height: 1.6; }
+.start-steps li:last-child { border-bottom: 0; padding-bottom: 0; }
+.start-steps li::before { content: "0" counter(step); grid-column: 1; grid-row: 1 / span 3; font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; color: var(--dim); }
+.start-steps li > * { grid-column: 2; }
+.start-steps li > b { display: block; font-weight: 500; }
+.start-steps li > span { display: block; color: var(--muted); font-size: 14.5px; overflow-wrap: anywhere; }
+.start-steps li a { text-decoration: underline; text-underline-offset: 3px; }
+.start-steps .mini-cta { margin-top: 12px; }
+details.byhand { margin-top: 20px; border-top: 1px solid var(--border); padding-top: 16px; }
+details.byhand > summary { cursor: pointer; color: var(--dim); font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; }
+details.byhand > summary:hover { color: var(--text); }
+.problem, #leaderboards { scroll-margin-top: 88px; }
+
 pre.quick { background: var(--ink); color: var(--canvas); border-radius: var(--r-sm); padding: 18px 20px; overflow-x: auto; position: relative; line-height: 1.65; margin-top: 16px; font-size: 13px; }
 pre.quick code { color: inherit; }
 .copy { position: absolute; top: 10px; right: 10px; padding: 5px 10px; border-radius: 999px; border: 1px solid rgba(250, 249, 245, .3); background: transparent; color: var(--canvas); cursor: pointer; }
