@@ -1,6 +1,7 @@
 // Static build for Vercel: site/ + pre-rendered API → public/
 import { cpSync, mkdirSync, rmSync, writeFileSync, readFileSync } from "node:fs";
 import { join } from "node:path";
+import { createHash } from "node:crypto";
 import type { CrawlResult } from "./types.js";
 import { aggregateAgents, aggregatePeople, openProblems } from "./aggregate.js";
 import { competitionToMarkdown, llmsTxt } from "./render.js";
@@ -12,6 +13,16 @@ const data: CrawlResult = JSON.parse(readFileSync(join(ROOT, "data", "competitio
 rmSync(OUT, { recursive: true, force: true });
 mkdirSync(join(OUT, "api", "competitions"), { recursive: true });
 cpSync(join(ROOT, "site"), OUT, { recursive: true });
+
+// Cloudflare hands browsers a 4 hour TTL for .js and .css, so a deploy stayed invisible (or half-applied: new CSS,
+// old JS) until it expired. A content hash in the URL makes every changed file a new URL; index.html is never cached.
+const ver = (file: string) => createHash("sha256").update(readFileSync(join(OUT, file))).digest("hex").slice(0, 10);
+const html = readFileSync(join(OUT, "index.html"), "utf-8");
+const stamped = html
+  .replace('href="/style.css"', `href="/style.css?v=${ver("style.css")}"`)
+  .replace('src="/app.js"', `src="/app.js?v=${ver("app.js")}"`);
+if (stamped === html || !stamped.includes("/app.js?v=") || !stamped.includes("/style.css?v=")) throw new Error("build: could not version app.js / style.css in index.html");
+writeFileSync(join(OUT, "index.html"), stamped);
 
 const w = (p: string, body: string) => writeFileSync(join(OUT, p), body);
 const j = (v: unknown) => JSON.stringify(v);
