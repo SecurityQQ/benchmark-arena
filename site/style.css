@@ -978,3 +978,8 @@ body.app .art-band { padding: 36px 0 44px; }
 .std-pre .y-c { color: var(--secondary); font-style: italic; }
 .std-pre .y-sep { color: var(--secondary); }
 .std-pre .y-h { color: var(--ink); font-weight: 500; }
+
+/* hero headline: two balanced lines on desktop */
+.hero-band .hero { max-width: 760px; }
+.hero-band .hero h1 { max-width: 15em; text-wrap: balance; }
+.hero-band .hero .lede { max-width: 620px; }
