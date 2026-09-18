@@ -1,5 +1,5 @@
 {
-  "crawledAt": "2026-09-18T06:17:04.174Z",
+  "crawledAt": "2026-09-18T16:32:41.740Z",
   "competitions": [
     {
       "id": "assetopsbench",
@@ -78,7 +78,7 @@
         "recordsLast90d": 0
       },
       "agentStats": [],
-      "lastUpdated": "2026-09-18T06:17:36.096Z"
+      "lastUpdated": "2026-09-18T16:32:55.531Z"
     },
     {
       "id": "cogdl",
@@ -1789,7 +1789,7 @@
         "recordsLast90d": 0
       },
       "agentStats": [],
-      "lastUpdated": "2026-09-18T06:17:36.098Z"
+      "lastUpdated": "2026-09-18T16:32:55.536Z"
     },
     {
       "id": "vbench",
@@ -1903,7 +1903,7 @@
         "recordsLast90d": 0
       },
       "agentStats": [],
-      "lastUpdated": "2026-09-18T06:17:36.099Z"
+      "lastUpdated": "2026-09-18T16:32:55.537Z"
     },
     {
       "id": "mle-bench",
@@ -3657,7 +3657,7 @@
           ]
         }
       ],
-      "lastUpdated": "2026-09-18T06:17:36.099Z"
+      "lastUpdated": "2026-09-18T16:32:55.537Z"
     },
     {
       "id": "llm-colosseum",
@@ -3898,7 +3898,7 @@
         "recordsLast90d": 0
       },
       "agentStats": [],
-      "lastUpdated": "2026-09-18T06:17:36.099Z"
+      "lastUpdated": "2026-09-18T16:32:55.537Z"
     },
     {
       "id": "skab",
@@ -4138,7 +4138,7 @@
         "recordsLast90d": 0
       },
       "agentStats": [],
-      "lastUpdated": "2026-09-18T06:17:36.099Z"
+      "lastUpdated": "2026-09-18T16:32:55.537Z"
     },
     {
       "id": "putnambench",
@@ -4206,7 +4206,7 @@
         "recordsLast90d": 0
       },
       "agentStats": [],
-      "lastUpdated": "2026-09-18T06:17:36.099Z"
+      "lastUpdated": "2026-09-18T16:32:55.537Z"
     },
     {
       "id": "lora-speedrun",
@@ -4453,7 +4453,7 @@
           ]
         }
       ],
-      "lastUpdated": "2026-09-18T06:17:36.099Z"
+      "lastUpdated": "2026-09-18T16:32:55.537Z"
     },
     {
       "id": "sokoban-speedrun",
@@ -4744,1153 +4744,7 @@
           ]
         }
       ],
-      "lastUpdated": "2026-09-18T06:17:36.099Z"
-    },
-    {
-      "id": "sutro-problems",
-      "name": "Sutro Problems",
-      "tagline": "Optimize algorithms for energy efficiency using Bill Dally's physical data movement model and A100 GPUs.",
-      "description": "A collection of small, self-contained benchmark problems for energy-efficient learning research. It features tasks like matrix multiplication, sparse parity, and MNIST classification. Submissions are evaluated on physical data movement costs or real GPU energy usage.",
-      "url": "https://github.com/cybertronai/sutro-problems",
-      "host": "github",
-      "status": "active",
-      "tags": [
-        "energy-efficiency",
-        "hardware-efficiency",
-        "matrix-multiplication",
-        "sparse-parity",
-        "mnist",
-        "benchmark"
-      ],
-      "domain": "hardware-efficiency",
-      "images": [
-        "https://github.com/user-attachments/assets/dfab8831-876a-4cdd-bda4-79a7ef869152",
-        "https://github.com/user-attachments/assets/e4610f22-00e6-4d70-adee-1948f219cf51",
-        "https://github.com/user-attachments/assets/0d71bd80-7da8-4e0c-942d-7bd6b741a193"
-      ],
-      "organizer": {
-        "name": "Sutro Group",
-        "url": "https://docs.google.com/document/d/1B9867EN6Bg4ZVQK9vI_ZqykZ5HEtMAHJ7zBGGas4szQ/edit?tab=t.0#heading=h.j6rssh3enbtd",
-        "type": "community"
-      },
-      "participation": {
-        "howToSubmit": "Open a pull request against main adding your IR file, python generator, and markdown report under the problem's submissions/ directory.",
-        "submissionFormat": "An IR file containing straight-line instructions, a Python generator script, and a markdown report.",
-        "requirements": [
-          "Python",
-          "NumPy",
-          "PyTorch",
-          "CUDA"
-        ],
-        "compute": "datacenter-gpu",
-        "computeDetails": "A100 GPU for MNIST track; Dally model is scored symbolically/simulated on CPU.",
-        "deadline": "rolling",
-        "prizes": "recognition only",
-        "cost": "free",
-        "verification": "Symbolic correctness check and static read-cost simulation for Dally model; NVML energy measurement on A100 for MNIST."
-      },
-      "quickstart": "import mask_sparse_parity as mp\n\nir = mp.generate_scan(4095)\nres = mp.evaluate_mask(ir)\nprint(res.cost, res.recovery)",
-      "links": [
-        {
-          "label": "Sutro Group Document",
-          "url": "https://docs.google.com/document/d/1B9867EN6Bg4ZVQK9vI_ZqykZ5HEtMAHJ7zBGGas4szQ/edit?tab=t.0#heading=h.j6rssh3enbtd"
-        },
-        {
-          "label": "Simplified Dally Model",
-          "url": "https://github.com/cybertronai/simplified-dally-model"
-        }
-      ],
-      "problems": [
-        {
-          "id": "matmul-4x4",
-          "name": "4x4 Matrix Multiplication",
-          "description": "Optimize 4x4 matrix multiplication for energy efficiency using the simplified Bill Dally model.",
-          "metricName": "cost",
-          "metricDirection": "minimize",
-          "baseline": 1316,
-          "records": [
-            {
-              "date": "2026-04-29",
-              "value": 1316,
-              "contributor": "yaroslavvb",
-              "contributorKind": "person",
-              "isBaseline": true,
-              "contributorUrl": "https://github.com/yaroslavvb"
-            },
-            {
-              "date": "2026-04-30",
-              "value": 800,
-              "contributor": "sjbaebae",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/sjbaebae"
-            },
-            {
-              "date": "2026-09-01",
-              "value": 689,
-              "contributor": "jurajselep",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/jurajselep"
-            },
-            {
-              "date": "2026-09-01",
-              "value": 683,
-              "contributor": "npow",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/npow"
-            },
-            {
-              "date": "2026-09-01",
-              "value": 681,
-              "contributor": "jurajselep",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/jurajselep"
-            },
-            {
-              "date": "2026-09-04",
-              "value": 675,
-              "contributor": "jurajselep",
-              "contributorKind": "person",
-              "isCurrentBest": true,
-              "contributorUrl": "https://github.com/jurajselep"
-            }
-          ],
-          "isOpen": false,
-          "contested": true
-        },
-        {
-          "id": "matmul-16x16",
-          "name": "16x16 Matrix Multiplication",
-          "description": "Optimize 16x16 matrix multiplication for energy efficiency using the simplified Bill Dally model.",
-          "metricName": "cost",
-          "metricDirection": "minimize",
-          "baseline": 340704,
-          "records": [
-            {
-              "date": "2026-04-29",
-              "value": 340704,
-              "contributor": "yaroslavvb",
-              "contributorKind": "person",
-              "isBaseline": true,
-              "contributorUrl": "https://github.com/yaroslavvb"
-            },
-            {
-              "date": "2026-05-08",
-              "value": 237456,
-              "contributor": "yaroslavvb",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/yaroslavvb"
-            },
-            {
-              "date": "2026-04-29",
-              "value": 133783,
-              "contributor": "yaroslavvb",
-              "contributorKind": "person",
-              "isBaseline": true,
-              "contributorUrl": "https://github.com/yaroslavvb"
-            },
-            {
-              "date": "2026-04-30",
-              "value": 110743,
-              "contributor": "SethTS",
-              "contributorKind": "person",
-              "agent": {
-                "family": "anthropic",
-                "model": "Claude Sonnet 4.6",
-                "evidence": "Co-authored-by: Claude Sonnet 4.6 <noreply@anthropic.com>",
-                "confidence": "high",
-                "role": "author"
-              },
-              "contributorUrl": "https://github.com/SethTS"
-            },
-            {
-              "date": "2026-04-30",
-              "value": 80217,
-              "contributor": "sjbaebae",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/sjbaebae"
-            },
-            {
-              "date": "2026-04-30",
-              "value": 73602,
-              "contributor": "adotzh",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/adotzh"
-            },
-            {
-              "date": "2026-05-01",
-              "value": 72642,
-              "contributor": "sjbaebae",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/sjbaebae"
-            },
-            {
-              "date": "2026-05-01",
-              "value": 71724,
-              "contributor": "sjbaebae",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/sjbaebae"
-            },
-            {
-              "date": "2026-05-01",
-              "value": 70053,
-              "contributor": "sjbaebae",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/sjbaebae"
-            },
-            {
-              "date": "2026-05-06",
-              "value": 69697,
-              "contributor": "yaroslavvb",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/yaroslavvb"
-            },
-            {
-              "date": "2026-05-05",
-              "value": 68452,
-              "contributor": "zh4ngx",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/zh4ngx"
-            },
-            {
-              "date": "2026-05-13",
-              "value": 68390,
-              "contributor": "cosminscn",
-              "contributorKind": "person",
-              "agent": {
-                "family": "openai",
-                "tool": "Codex",
-                "evidence": "Author: Codex and Cosmin",
-                "confidence": "high",
-                "role": "author"
-              },
-              "contributorUrl": "https://github.com/cosminscn"
-            },
-            {
-              "date": "2026-05-13",
-              "value": 67834,
-              "contributor": "cosminscn",
-              "contributorKind": "person",
-              "agent": {
-                "family": "openai",
-                "tool": "Codex",
-                "evidence": "Author: Codex and Cosmin",
-                "confidence": "high",
-                "role": "author"
-              },
-              "contributorUrl": "https://github.com/cosminscn"
-            },
-            {
-              "date": "2026-05-14",
-              "value": 67821,
-              "contributor": "cosminscn",
-              "contributorKind": "person",
-              "agent": {
-                "family": "openai",
-                "tool": "Codex",
-                "evidence": "Author: Codex and Cosmin",
-                "confidence": "high",
-                "role": "author"
-              },
-              "contributorUrl": "https://github.com/cosminscn"
-            },
-            {
-              "date": "2026-05-08",
-              "value": 66707,
-              "contributor": "sjbaebae",
-              "contributorKind": "person",
-              "agent": {
-                "family": "openai",
-                "tool": "Codex",
-                "evidence": "Merge pull request #25 from sjbaebae/codex/weighted-lifetime-matmul [codex]",
-                "confidence": "high",
-                "role": "author"
-              },
-              "contributorUrl": "https://github.com/sjbaebae"
-            },
-            {
-              "date": "2026-05-25",
-              "value": 66633,
-              "contributor": "cosminscn",
-              "contributorKind": "person",
-              "agent": {
-                "family": "openai",
-                "tool": "Codex",
-                "evidence": "Author: Codex and Cosmin",
-                "confidence": "high",
-                "role": "author"
-              },
-              "contributorUrl": "https://github.com/cosminscn"
-            },
-            {
-              "date": "2026-05-25",
-              "value": 66524,
-              "contributor": "cosminscn",
-              "contributorKind": "person",
-              "agent": {
-                "family": "openai",
-                "tool": "Codex",
-                "evidence": "Author: Codex and Cosmin",
-                "confidence": "high",
-                "role": "author"
-              },
-              "contributorUrl": "https://github.com/cosminscn"
-            },
-            {
-              "date": "2026-05-26",
-              "value": 66400,
-              "contributor": "cosminscn",
-              "contributorKind": "person",
-              "agent": {
-                "family": "openai",
-                "tool": "Codex",
-                "evidence": "Author: Codex and Cosmin",
-                "confidence": "high",
-                "role": "author"
-              },
-              "contributorUrl": "https://github.com/cosminscn"
-            },
-            {
-              "date": "2026-05-28",
-              "value": 66300,
-              "contributor": "cosminscn",
-              "contributorKind": "person",
-              "agent": {
-                "family": "openai",
-                "tool": "Codex",
-                "evidence": "Author: Codex and Cosmin",
-                "confidence": "high",
-                "role": "author"
-              },
-              "contributorUrl": "https://github.com/cosminscn"
-            },
-            {
-              "date": "2026-08-29",
-              "value": 66199,
-              "contributor": "sigkillme0",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/sigkillme0"
-            },
-            {
-              "date": "2026-08-30",
-              "value": 66178,
-              "contributor": "sigkillme0",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/sigkillme0"
-            },
-            {
-              "date": "2026-09-04",
-              "value": 65084,
-              "contributor": "jurajselep",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/jurajselep"
-            },
-            {
-              "date": "2026-09-04",
-              "value": 64431,
-              "contributor": "cosminscn",
-              "contributorKind": "person",
-              "agent": {
-                "family": "openai",
-                "model": "Codex 5.6",
-                "tool": "Codex",
-                "evidence": "codex 5.6 improvement",
-                "confidence": "high",
-                "role": "author"
-              },
-              "contributorUrl": "https://github.com/cosminscn"
-            },
-            {
-              "date": "2026-09-07",
-              "value": 64074,
-              "contributor": "SecurityQQ",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/SecurityQQ"
-            },
-            {
-              "date": "2026-09-07",
-              "value": 63819,
-              "contributor": "SecurityQQ",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/SecurityQQ"
-            },
-            {
-              "date": "2026-09-15",
-              "value": 63639,
-              "contributor": "jurajselep",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/jurajselep"
-            },
-            {
-              "date": "2026-09-15",
-              "value": 63354,
-              "contributor": "jurajselep",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/jurajselep"
-            },
-            {
-              "date": "2026-09-18",
-              "value": 63350,
-              "contributor": "jurajselep",
-              "contributorKind": "person",
-              "isCurrentBest": true,
-              "contributorUrl": "https://github.com/jurajselep"
-            }
-          ],
-          "isOpen": false,
-          "contested": true
-        },
-        {
-          "id": "mnist-small-67",
-          "name": "MNIST-small (67% accuracy target)",
-          "description": "Achieve at least 67% accuracy on MNIST-small with the lowest possible energy on an A100 GPU.",
-          "metricName": "energy",
-          "metricUnit": "mJ",
-          "metricDirection": "minimize",
-          "records": [
-            {
-              "date": "2026-09-11",
-              "value": 3300,
-              "contributor": "H32 MLP",
-              "contributorKind": "method",
-              "agent": {
-                "family": "openai",
-                "tool": "Codex",
-                "evidence": "Merge pull request #65 from cybertronai/codex/mnist-small-60-submission",
-                "confidence": "high",
-                "role": "author"
-              }
-            },
-            {
-              "date": "2026-09-14",
-              "value": 2600,
-              "contributor": "NR-K8 Adam MLP",
-              "contributorKind": "method"
-            },
-            {
-              "date": "2026-09-15",
-              "value": 3200,
-              "contributor": "Panel-cached H32 MLP (1,000/1,000)",
-              "contributorKind": "method"
-            },
-            {
-              "date": "2026-09-15",
-              "value": 0.59,
-              "contributor": "QDA",
-              "contributorKind": "method",
-              "isCurrentBest": true,
-              "agent": {
-                "family": "anthropic",
-                "model": "Claude Fable 5.1",
-                "evidence": "Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>",
-                "confidence": "high",
-                "role": "author"
-              }
-            }
-          ],
-          "isOpen": false,
-          "contested": true
-        },
-        {
-          "id": "mnist-medium-2",
-          "name": "MNIST-medium (2% error target)",
-          "description": "Achieve at most 2% error on MNIST-medium with the lowest possible energy on an A100 GPU.",
-          "metricName": "energy",
-          "metricUnit": "mJ",
-          "metricDirection": "minimize",
-          "records": [
-            {
-              "date": "2026-09-16",
-              "value": 65000,
-              "contributor": "512-filter CG pair",
-              "contributorKind": "method",
-              "isCurrentBest": true
-            }
-          ],
-          "isOpen": false,
-          "contested": false
-        },
-        {
-          "id": "mnist-medium-5",
-          "name": "MNIST-medium (5% error target)",
-          "description": "Achieve at most 5% error on MNIST-medium with the lowest possible energy on an A100 GPU.",
-          "metricName": "energy",
-          "metricUnit": "mJ",
-          "metricDirection": "minimize",
-          "records": [
-            {
-              "date": "2026-09-11",
-              "value": 290000,
-              "contributor": "512-unit MLP (96% target)",
-              "contributorKind": "method",
-              "agent": {
-                "family": "openai",
-                "tool": "Codex",
-                "evidence": "Merge pull request #66 from cybertronai/codex/mnist-medium-submission",
-                "confidence": "high",
-                "role": "author"
-              }
-            },
-            {
-              "date": "2026-09-15",
-              "value": 174,
-              "contributor": "PCA-QDA",
-              "contributorKind": "method",
-              "isCurrentBest": true,
-              "agent": {
-                "family": "openai",
-                "tool": "Codex",
-                "evidence": "Merge pull request #85 from cybertronai/codex/pca-qda-energy-correction",
-                "confidence": "high",
-                "role": "author"
-              }
-            }
-          ],
-          "isOpen": false,
-          "contested": true
-        },
-        {
-          "id": "mnist-medium-12",
-          "name": "MNIST-medium (12% error target)",
-          "description": "Achieve at most 12% error on MNIST-medium with the lowest possible energy on an A100 GPU.",
-          "metricName": "energy",
-          "metricUnit": "mJ",
-          "metricDirection": "minimize",
-          "records": [
-            {
-              "date": "2026-09-14",
-              "value": 1000,
-              "contributor": "Reversible MLP, smaller workspace (12% error target)",
-              "contributorKind": "method",
-              "isCurrentBest": true,
-              "agent": {
-                "family": "openai",
-                "tool": "Codex",
-                "evidence": "Merge pull request #74 from cybertronai/codex/rev88-20260914",
-                "confidence": "high",
-                "role": "author"
-              }
-            }
-          ],
-          "isOpen": false,
-          "contested": false
-        },
-        {
-          "id": "sparse-parity-20",
-          "name": "Sparse Parity (20% target)",
-          "description": "Recover the k secret bit positions at the lowest energy with at least 20% accuracy.",
-          "metricName": "cost",
-          "metricDirection": "minimize",
-          "records": [
-            {
-              "date": "2026-09-02",
-              "value": 86753,
-              "contributor": "b0nce",
-              "contributorKind": "person",
-              "isCurrentBest": true,
-              "contributorUrl": "https://github.com/b0nce"
-            },
-            {
-              "date": "2026-09-01",
-              "value": 135348,
-              "contributor": "jurajselep",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/jurajselep"
-            },
-            {
-              "date": "2026-08-31",
-              "value": 151117,
-              "contributor": "npow",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/npow"
-            },
-            {
-              "date": "2026-08-30",
-              "value": 1317480,
-              "contributor": "zh4ngx",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/zh4ngx"
-            },
-            {
-              "date": "2026-08-27",
-              "value": 17331683,
-              "contributor": "yaroslavvb",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/yaroslavvb"
-            },
-            {
-              "date": "2026-08-26",
-              "value": 12042480,
-              "contributor": "yaroslavvb",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/yaroslavvb"
-            }
-          ],
-          "isOpen": false,
-          "contested": true
-        },
-        {
-          "id": "sparse-parity-40",
-          "name": "Sparse Parity (40% target)",
-          "description": "Recover the k secret bit positions at the lowest energy with at least 40% accuracy.",
-          "metricName": "cost",
-          "metricDirection": "minimize",
-          "records": [
-            {
-              "date": "2026-09-01",
-              "value": 141218,
-              "contributor": "npow",
-              "contributorKind": "person",
-              "isCurrentBest": true,
-              "contributorUrl": "https://github.com/npow"
-            },
-            {
-              "date": "2026-09-02",
-              "value": 147000,
-              "contributor": "b0nce",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/b0nce"
-            },
-            {
-              "date": "2026-09-01",
-              "value": 151943,
-              "contributor": "jurajselep",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/jurajselep"
-            },
-            {
-              "date": "2026-08-31",
-              "value": 163378,
-              "contributor": "npow",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/npow"
-            },
-            {
-              "date": "2026-08-30",
-              "value": 1317480,
-              "contributor": "zh4ngx",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/zh4ngx"
-            },
-            {
-              "date": "2026-08-28",
-              "value": 17418235,
-              "contributor": "zh4ngx",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/zh4ngx"
-            },
-            {
-              "date": "2026-08-27",
-              "value": 18764343,
-              "contributor": "yaroslavvb",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/yaroslavvb"
-            },
-            {
-              "date": "2026-08-27",
-              "value": 17945660,
-              "contributor": "yaroslavvb",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/yaroslavvb"
-            }
-          ],
-          "isOpen": false,
-          "contested": true
-        },
-        {
-          "id": "sparse-parity-60",
-          "name": "Sparse Parity (60% target)",
-          "description": "Recover the k secret bit positions at the lowest energy with at least 60% accuracy.",
-          "metricName": "cost",
-          "metricDirection": "minimize",
-          "records": [
-            {
-              "date": "2026-09-01",
-              "value": 149665,
-              "contributor": "npow",
-              "contributorKind": "person",
-              "isCurrentBest": true,
-              "contributorUrl": "https://github.com/npow"
-            },
-            {
-              "date": "2026-09-02",
-              "value": 176331,
-              "contributor": "b0nce",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/b0nce"
-            },
-            {
-              "date": "2026-09-01",
-              "value": 200937,
-              "contributor": "jurajselep",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/jurajselep"
-            },
-            {
-              "date": "2026-08-31",
-              "value": 284049,
-              "contributor": "npow",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/npow"
-            },
-            {
-              "date": "2026-08-30",
-              "value": 2137725,
-              "contributor": "zh4ngx",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/zh4ngx"
-            },
-            {
-              "date": "2026-08-28",
-              "value": 18509753,
-              "contributor": "zh4ngx",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/zh4ngx"
-            },
-            {
-              "date": "2026-08-27",
-              "value": 26951367,
-              "contributor": "yaroslavvb",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/yaroslavvb"
-            },
-            {
-              "date": "2026-08-26",
-              "value": 23676539,
-              "contributor": "yaroslavvb",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/yaroslavvb"
-            }
-          ],
-          "isOpen": false,
-          "contested": true
-        },
-        {
-          "id": "sparse-parity-80",
-          "name": "Sparse Parity (80% target)",
-          "description": "Recover the k secret bit positions at the lowest energy with at least 80% accuracy.",
-          "metricName": "cost",
-          "metricDirection": "minimize",
-          "records": [
-            {
-              "date": "2026-09-01",
-              "value": 182744,
-              "contributor": "npow",
-              "contributorKind": "person",
-              "isCurrentBest": true,
-              "contributorUrl": "https://github.com/npow"
-            },
-            {
-              "date": "2026-09-02",
-              "value": 196139,
-              "contributor": "b0nce",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/b0nce"
-            },
-            {
-              "date": "2026-09-01",
-              "value": 200937,
-              "contributor": "jurajselep",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/jurajselep"
-            },
-            {
-              "date": "2026-08-31",
-              "value": 493193,
-              "contributor": "npow",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/npow"
-            },
-            {
-              "date": "2026-08-30",
-              "value": 5593997,
-              "contributor": "zh4ngx",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/zh4ngx"
-            },
-            {
-              "date": "2026-08-27",
-              "value": 33501030,
-              "contributor": "yaroslavvb",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/yaroslavvb"
-            },
-            {
-              "date": "2026-08-27",
-              "value": 30226172,
-              "contributor": "yaroslavvb",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/yaroslavvb"
-            }
-          ],
-          "isOpen": false,
-          "contested": true
-        },
-        {
-          "id": "sparse-parity-100",
-          "name": "Sparse Parity (100% target)",
-          "description": "Recover the k secret bit positions at the lowest energy with 100% accuracy.",
-          "metricName": "cost",
-          "metricDirection": "minimize",
-          "records": [
-            {
-              "date": "2026-09-02",
-              "value": 392666,
-              "contributor": "jurajselep, b0nce",
-              "contributorKind": "team",
-              "isCurrentBest": true
-            },
-            {
-              "date": "2026-08-31",
-              "value": 938331,
-              "contributor": "npow",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/npow"
-            },
-            {
-              "date": "2026-08-30",
-              "value": 12461610,
-              "contributor": "zh4ngx",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/zh4ngx"
-            },
-            {
-              "date": "2026-08-26",
-              "value": 43325468,
-              "contributor": "yaroslavvb",
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/yaroslavvb"
-            }
-          ],
-          "isOpen": false,
-          "contested": true
-        },
-        {
-          "id": "symmetry-6bit",
-          "name": "Symmetry (6-bit, 100% target)",
-          "description": "Classify a 6-bit pattern as a palindrome or not at the lowest energy.",
-          "metricName": "cost",
-          "metricDirection": "minimize",
-          "baseline": 20,
-          "records": [
-            {
-              "date": "2026-05-11",
-              "value": 20,
-              "contributor": "baseline",
-              "contributorKind": "method",
-              "isBaseline": true,
-              "isCurrentBest": true
-            }
-          ],
-          "isOpen": true,
-          "contested": false
-        },
-        {
-          "id": "symmetry-8bit",
-          "name": "Symmetry (8-bit, 100% target)",
-          "description": "Classify an 8-bit pattern as a palindrome or not at the lowest energy.",
-          "metricName": "cost",
-          "metricDirection": "minimize",
-          "baseline": 29,
-          "records": [
-            {
-              "date": "2026-05-11",
-              "value": 29,
-              "contributor": "baseline",
-              "contributorKind": "method",
-              "isBaseline": true,
-              "isCurrentBest": true
-            }
-          ],
-          "isOpen": true,
-          "contested": false
-        },
-        {
-          "id": "mnist-small-historical",
-          "name": "MNIST-small (Historical)",
-          "description": "Historical submissions for MNIST-small using the former single-core-with-tape model.",
-          "metricName": "energy",
-          "metricUnit": "mJ",
-          "metricDirection": "minimize",
-          "records": [
-            {
-              "date": "2026-09-12",
-              "value": 1800,
-              "contributor": "Panel-cached MLP (600/600)",
-              "contributorKind": "method"
-            },
-            {
-              "date": "2026-09-10",
-              "value": 2000,
-              "contributor": "32-unit MLP",
-              "contributorKind": "method",
-              "agent": {
-                "family": "openai",
-                "tool": "Codex",
-                "evidence": "branch prefix \"codex/mnist-small-60-submission\"",
-                "confidence": "medium",
-                "role": "author"
-              }
-            },
-            {
-              "date": "2026-09-10",
-              "value": 0.52,
-              "contributor": "1NN",
-              "contributorKind": "method",
-              "isCurrentBest": true,
-              "agent": {
-                "family": "openai",
-                "tool": "Codex",
-                "evidence": "Merge pull request #64 from cybertronai/codex/mnist-small-1nn-submission",
-                "confidence": "high",
-                "role": "author"
-              }
-            }
-          ],
-          "isOpen": false,
-          "contested": true
-        },
-        {
-          "id": "mnist-medium-historical",
-          "name": "MNIST-medium (Historical)",
-          "description": "Historical submissions for MNIST-medium using the former single-core-with-tape model.",
-          "metricName": "energy",
-          "metricUnit": "mJ",
-          "metricDirection": "minimize",
-          "records": [
-            {
-              "date": "2026-09-11",
-              "value": 780000,
-              "contributor": "Ordered ConvNets (3% error target)",
-              "contributorKind": "method",
-              "isCurrentBest": true,
-              "agent": {
-                "family": "openai",
-                "tool": "Codex",
-                "evidence": "Merge pull request #70 from cybertronai/codex/mnist-medium-four-percent-scored",
-                "confidence": "high",
-                "role": "author"
-              }
-            },
-            {
-              "date": "2026-09-10",
-              "value": 1700000,
-              "contributor": "Three ConvNets",
-              "contributorKind": "method",
-              "agent": {
-                "family": "openai",
-                "tool": "Codex",
-                "evidence": "branch prefix \"codex/mnist-medium-convnet-submission\"",
-                "confidence": "medium",
-                "role": "author"
-              }
-            },
-            {
-              "date": "2026-09-10",
-              "value": 150000,
-              "contributor": "512-unit MLP",
-              "contributorKind": "method",
-              "agent": {
-                "family": "openai",
-                "tool": "Codex",
-                "evidence": "branch prefix \"codex/mnist-medium-submission\"",
-                "confidence": "medium",
-                "role": "author"
-              }
-            }
-          ],
-          "isOpen": false,
-          "contested": true
-        }
-      ],
-      "repo": {
-        "owner": "cybertronai",
-        "name": "sutro-problems",
-        "branch": "main"
-      },
-      "participants": [
-        {
-          "name": "jurajselep",
-          "url": "https://github.com/jurajselep",
-          "submissions": 11,
-          "problems": [
-            "matmul-4x4",
-            "matmul-16x16",
-            "sparse-parity-20",
-            "sparse-parity-40",
-            "sparse-parity-60",
-            "sparse-parity-80"
-          ],
-          "lastActive": "2026-09-18",
-          "bestRank": 1
-        },
-        {
-          "name": "npow",
-          "url": "https://github.com/npow",
-          "submissions": 9,
-          "problems": [
-            "matmul-4x4",
-            "sparse-parity-20",
-            "sparse-parity-40",
-            "sparse-parity-60",
-            "sparse-parity-80",
-            "sparse-parity-100"
-          ],
-          "lastActive": "2026-09-01",
-          "bestRank": 1
-        },
-        {
-          "name": "b0nce",
-          "url": "https://github.com/b0nce",
-          "submissions": 4,
-          "problems": [
-            "sparse-parity-20",
-            "sparse-parity-40",
-            "sparse-parity-60",
-            "sparse-parity-80"
-          ],
-          "bestRank": 1,
-          "lastActive": "2026-09-02"
-        },
-        {
-          "name": "jurajselep, b0nce",
-          "submissions": 1,
-          "problems": [
-            "sparse-parity-100"
-          ],
-          "bestRank": 1,
-          "lastActive": "2026-09-02"
-        },
-        {
-          "name": "yaroslavvb",
-          "url": "https://github.com/yaroslavvb",
-          "submissions": 14,
-          "problems": [
-            "matmul-4x4",
-            "matmul-16x16",
-            "sparse-parity-20",
-            "sparse-parity-40",
-            "sparse-parity-60",
-            "sparse-parity-80",
-            "sparse-parity-100"
-          ],
-          "lastActive": "2026-08-27"
-        },
-        {
-          "name": "zh4ngx",
-          "url": "https://github.com/zh4ngx",
-          "submissions": 8,
-          "problems": [
-            "matmul-16x16",
-            "sparse-parity-20",
-            "sparse-parity-40",
-            "sparse-parity-60",
-            "sparse-parity-80",
-            "sparse-parity-100"
-          ],
-          "lastActive": "2026-08-30"
-        },
-        {
-          "name": "cosminscn",
-          "url": "https://github.com/cosminscn",
-          "submissions": 8,
-          "problems": [
-            "matmul-16x16"
-          ],
-          "lastActive": "2026-09-04"
-        },
-        {
-          "name": "sjbaebae",
-          "url": "https://github.com/sjbaebae",
-          "submissions": 6,
-          "problems": [
-            "matmul-4x4",
-            "matmul-16x16"
-          ],
-          "lastActive": "2026-05-08"
-        },
-        {
-          "name": "sigkillme0",
-          "url": "https://github.com/sigkillme0",
-          "submissions": 2,
-          "problems": [
-            "matmul-16x16"
-          ],
-          "lastActive": "2026-08-30"
-        },
-        {
-          "name": "SecurityQQ",
-          "url": "https://github.com/SecurityQQ",
-          "submissions": 2,
-          "problems": [
-            "matmul-16x16"
-          ],
-          "lastActive": "2026-09-07"
-        },
-        {
-          "name": "SethTS",
-          "url": "https://github.com/SethTS",
-          "submissions": 1,
-          "problems": [
-            "matmul-16x16"
-          ],
-          "lastActive": "2026-04-30"
-        },
-        {
-          "name": "adotzh",
-          "url": "https://github.com/adotzh",
-          "submissions": 1,
-          "problems": [
-            "matmul-16x16"
-          ],
-          "lastActive": "2026-04-30"
-        }
-      ],
-      "stats": {
-        "totalRecords": 83,
-        "uniqueParticipants": 12,
-        "firstSubmission": "2026-04-29",
-        "lastSubmission": "2026-09-18",
-        "recordsLast30d": 60,
-        "recordsLast90d": 60
-      },
-      "agentStats": [
-        {
-          "family": "openai",
-          "records": 18,
-          "currentBests": 3,
-          "models": [
-            "Codex 5.6"
-          ],
-          "contributors": [
-            "cosminscn",
-            "sjbaebae",
-            "H32 MLP",
-            "512-unit MLP (96% target)",
-            "PCA-QDA",
-            "Reversible MLP, smaller workspace (12% error target)",
-            "32-unit MLP",
-            "1NN",
-            "Ordered ConvNets (3% error target)",
-            "Three ConvNets",
-            "512-unit MLP"
-          ],
-          "uncontestedBests": 1
-        },
-        {
-          "family": "anthropic",
-          "records": 2,
-          "currentBests": 1,
-          "models": [
-            "Claude Sonnet 4.6",
-            "Claude Fable 5.1"
-          ],
-          "contributors": [
-            "SethTS",
-            "QDA"
-          ]
-        }
-      ],
-      "lastUpdated": "2026-09-18T06:17:36.099Z"
+      "lastUpdated": "2026-09-18T16:32:55.537Z"
     },
     {
       "id": "lean-eval",
@@ -5954,6 +4808,864 @@
         }
       ],
       "problems": [
+        {
+          "id": "open-annals_absolute_profinite_rigidity",
+          "name": "Absolute profinite rigidity and hyperbolic geometry",
+          "description": "Unsolved. Group: formalization-evaluation. Source: M. R. Bridson, D. B. McReynolds, A. W. Reid, and R. Spitler, `Absolute profinite rigidity and hyperbolic geometry`, Annals of Math, 192 (3) 2020. Statement take Problem by Thomas Browning.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-annals_bose_gases",
+          "name": "The energy of dilute Bose gases",
+          "description": "Unsolved. Group: formalization-evaluation. Source: S. Fournais and J. P. Solovej, `The energy of dilute Bose gases`, Annals of Math, 192 (3) 2020. Statement taken from https://github.com/ImperialCollegeLondon/An Problem by David Ledvinka.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-annals_bounded_multiplicative_functions",
+          "name": "Higher uniformity of bounded multiplicative functions in short intervals on average",
+          "description": "Unsolved. Group: formalization-evaluation. Source: K. Matomäki, M. Radziwiłł, T. Tao, J. Teräväinen, and T. Ziegler, `Higher uniformity of bounded multiplicative functions in short intervals on average`, Annals  Problem by David Ledvinka.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-annals_chowla_and_twin_prime_over_fq_t",
+          "name": "On the Chowla and twin primes conjectures over 𝔽_q[T]",
+          "description": "Unsolved. Group: formalization-evaluation. Source: W. Sawin and M. Shusterman, `On the Chowla and twin primes conjectures over 𝔽_q[T]`, Annals of Math, 196 (2) 2022. Statement taken from https://github.com/Impe Problem by Thomas Browning.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-annals_dirichlet_weyl_bound",
+          "name": "The Weyl bound for Dirichlet L-functions of cube-free conductor",
+          "description": "Unsolved. Group: formalization-evaluation. Source: I. Petrow and M. P. Young, `The Weyl bound for Dirichlet L-functions of cube-free conductor`, Annals of Math, 192 (2) 2020. Statement taken from https://github. Problem by Thomas Browning.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-annals_erdos_faber_lovasz_conjecture",
+          "name": "A proof of the Erdős–Faber–Lovász conjecture",
+          "description": "Unsolved. Group: formalization-evaluation. Source: D. Y. Kang, T. Kelly, D. Kühn, A. Methuku, and D. Osthus, `A proof of the Erdős–Faber–Lovász conjecture`, Annals of Math, 198 (2) 2023. Statement taken from htt Problem by David Ledvinka.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-annals_erdos_supersingular_primes",
+          "name": "A conjecture of Erdős, supersingular primes and short character sums",
+          "description": "Unsolved. Group: formalization-evaluation. Source: M. Bennett and S. Siksek, `A conjecture of Erdős, supersingular primes and short character sums`, Annals of Math, 191 (2) 2020. Statement taken from https://git Problem by Justus Springer.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-annals_finite_time_singularity",
+          "name": "Finite-time singularity formation for C^{1,α} solutions to the incompressible Euler equations on ℝ³",
+          "description": "Unsolved. Group: formalization-evaluation. Source: T. M. Elgindi, `Finite-time singularity formation for C^{1,α} solutions to the incompressible Euler equations on ℝ³`, Annals of Math, 194 (3) 2021. Statement ta Problem by David Ledvinka.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-annals_good_lt_codes",
+          "name": "Good Locally Testable Codes",
+          "description": "Unsolved. Group: formalization-evaluation. Source: I. Dinur, S. Evra, R. Livne, A. Lubotzky, and S. Mozes, `Good Locally Testable Codes`, Annals of Math, 203 (2) 2026. Statement taken from https://github.com/Imp Problem by Thomas Browning, Katerina Hristova.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-annals_hasse_principle_random_fano",
+          "name": "The Hasse principle for random Fano hypersurfaces",
+          "description": "Unsolved. Group: formalization-evaluation. Source: T. Browning, P. L. Boudec, and W. Sawin, `The Hasse principle for random Fano hypersurfaces`, Annals of Math, 197 (3) 2023. Statement taken from https://github. Problem by Justus Springer.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-annals_integer_multiplication",
+          "name": "Integer multiplication in time O(n log n)",
+          "description": "Unsolved. Group: formalization-evaluation. Source: D. Harvey and J. van der Hoeven, `Integer multiplication in time O(n log n)`, Annals of Math, 193 (2) 2021. Statement taken from https://github.com/ImperialColl Problem by Justus Springer.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-annals_mckay_conjecture",
+          "name": "The McKay Conjecture on character degrees",
+          "description": "Unsolved. Group: formalization-evaluation. Source: M. Cabanes and B. Späth, `The McKay Conjecture on character degrees`, Annals of Math, 203 (3) 2026. Statement taken from https://github.com/ImperialCollegeLondo Problem by Thomas Browning.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-annals_motivic_invariants",
+          "name": "Motivic invariants of birational maps",
+          "description": "Unsolved. Group: formalization-evaluation. Source: H.-Y. Lin and E. Shinder, `Motivic invariants of birational maps`, Annals of Math, 199 (1) 2024. Statement taken from https://github.com/ImperialCollegeLondon/A Problem by Justus Springer.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-annals_on_coherence_of_one_relator_groups",
+          "name": "On the coherence of one-relator groups and their group algebras",
+          "description": "Unsolved. Group: formalization-evaluation. Source: A. Jaikin-Zapirain and M. Linton, `On the coherence of one-relator groups and their group algebras`, Annals of Math, 201 (3) 2025. Statement taken from https:// Problem by Katerina Hristova.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-annals_on_property_t",
+          "name": "On property (T) for Aut(F_n) and SL_n(Z)",
+          "description": "Unsolved. Group: formalization-evaluation. Source: M. Kaluba, D. Kielak, and P. W. Nowak, `On property (T) for Aut(F_n) and SL_n(Z)`, Annals of Math, 193 (2) 2021. Statement taken from https://github.com/Imperia Problem by Thomas Browning.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-annals_pointwise_ergodic_theorems",
+          "name": "Pointwise ergodic theorems for non-conventional bilinear polynomial averages",
+          "description": "Unsolved. Group: formalization-evaluation. Source: B. Krause, M. Mirek, and T. Tao, `Pointwise ergodic theorems for non-conventional bilinear polynomial averages`, Annals of Math, 195 (3) 2022. Statement taken f Problem by David Ledvinka.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-annals_rectangular_peg_problem",
+          "name": "The rectangular peg problem",
+          "description": "Unsolved. Group: formalization-evaluation. Source: J. E. Greene and A. Lobb, `The rectangular peg problem`, Annals of Math, 194 (2) 2021. Statement taken from https://github.com/ImperialCollegeLondon/AnnalsChall Problem by Katerina Hristova.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-annals_simplicity_conjecture",
+          "name": "Proof of the simplicity conjecture",
+          "description": "Unsolved. Group: formalization-evaluation. Source: D. Cristofaro-Gardiner, V. Humilière, and S. Seyfaddini, `Proof of the simplicity conjecture`, Annals of Math, 199 (1) 2024. Statement taken from https://github Problem by Thomas Browning.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-annals_spread_of_a_finite_group",
+          "name": "The spread of a finite group",
+          "description": "Unsolved. Group: formalization-evaluation. Source: T. C. Burness, R. M. Guralnick, and S. Harper, `The spread of a finite group`, Annals of Math, 193 (2) 2021. Statement taken from https://github.com/ImperialCol Problem by Katerina Hristova.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-annals_symplectic_monodromy",
+          "name": "Symplectic monodromy at radius zero and equimultiplicity of μ-constant families",
+          "description": "Unsolved. Group: formalization-evaluation. Source: J. Fernández de Bobadilla and T. Pełka, `Symplectic monodromy at radius zero and equimultiplicity of μ-constant families`, Annals of Math, 200 (1) 2024. Stateme Problem by Justus Springer.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-annals_uniform_mordell_lang",
+          "name": "Uniformity in Mordell–Lang for curves",
+          "description": "Unsolved. Group: formalization-evaluation. Source: V. Dimitrov, Z. Gao, and P. Habegger, `Uniformity in Mordell–Lang for curves`, Annals of Math, 194 (1) 2021. Statement taken from https://github.com/ImperialCol Problem by Thomas Browning, Christian Merten.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-annals_wilkies_conjecture",
+          "name": "Wilkie's conjecture for Pfaffian structures",
+          "description": "Unsolved. Group: formalization-evaluation. Source: G. Binyamini, D. Novikov, and B. Zak, `Wilkie's conjecture for Pfaffian structures`, Annals of Math, 199 (2) 2024. Statement taken from https://github.com/Imper Problem by Justus Springer, Mathias Stout.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-annulus_theorem_dim_four",
+          "name": "The Annulus Theorem in dimension 4 (Quinn)",
+          "description": "Unsolved. Group: formalization-evaluation. Source: F. Quinn, *Ends of maps III: dimensions 4 and 5*, J. Differential Geom. 17 (1982), building on M. H. Freedman, *The topology of four-dimensional manifolds*, J.  Problem by Kim Morrison.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-annulus_theorem_high_dim",
+          "name": "The Annulus Theorem in dimension ≥ 5 (Kirby)",
+          "description": "Unsolved. Group: formalization-evaluation. Source: R. C. Kirby, *Stable homeomorphisms and the annulus conjecture*, Ann. of Math. 89 (1969). Problem by Kim Morrison.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-aspherical_integer_homology_four_sphere",
+          "name": "Existence of an aspherical integer homology 4-sphere",
+          "description": "Unsolved. Group: formalization-evaluation. Source: J. G. Ratcliffe and S. T. Tschantz, *On the Davis hyperbolic 4-manifold*, Topology Appl. 111 (2001); see also the discussion of [Kir97, Problem 4.17] in the K3  Problem by Kim Morrison.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-bakerWustholz_linearForms_logs",
+          "name": "Baker-Wüstholz theorem on linear forms in logarithms",
+          "description": "Unsolved. Group: formalization-evaluation. Source: A. Baker, G. Wüstholz, Logarithmic forms and group varieties, J. reine angew. Math. 442 (1993), 19-62. Problem by Ralf Stephan.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-bourgain_polynomial_ergodic",
+          "name": "Bourgain's polynomial ergodic theorem",
+          "description": "Unsolved. Group: formalization-evaluation. Source: J. Bourgain, *Pointwise ergodic theorems for arithmetic sets*, Publ. Math. IHÉS 69 (1989). Knill, *Some fundamental theorems in mathematics*, §173. Problem by Kim Morrison.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-budney_gabai_knotted_three_spheres",
+          "name": "Budney--Gabai knotted three-spheres in S¹ × S³",
+          "description": "Unsolved. Group: formalization-evaluation. Source: R. Budney and D. Gabai, 'Knotted 3-balls in S⁴', Corollary 8.6, arXiv:1912.09029v3 (2021), https://arxiv.org/abs/1912.09029. Problem by Vasily Ilin.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-cdt_linearIndependent",
+          "name": "Linear independence results of Calegari–Dimitrov–Tang",
+          "description": "Unsolved. Group: formalization-evaluation. Source: https://arxiv.org/abs/2408.15403 Problem by Junyan Xu.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-cerf_gamma_four",
+          "name": "Cerf's theorem: every self-diffeomorphism of S3 is smoothly isotopic to a linear isometry",
+          "description": "Unsolved. Group: formalization-evaluation. Source: J. Cerf, Sur les diffeomorphismes de la sphere de dimension trois, Lecture Notes in Mathematics 53, Springer (1968). Problem by Kim Morrison.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-ckmrv_fourier_interpolation",
+          "name": "Fourier interpolation in dimensions 8 and 24",
+          "description": "Unsolved. Group: formalization-evaluation. Source: H. Cohn, A. Kumar, S. D. Miller, D. Radchenko, and M. Viazovska, 'Universal optimality of the E8 and Leech lattices and interpolation formulas', Ann. of Math. 1 Problem by Kim Morrison.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-conway_knot_not_smoothly_slice",
+          "name": "The Conway knot is not smoothly slice",
+          "description": "Unsolved. Group: formalization-evaluation. Source: https://arxiv.org/abs/1808.02923 Problem by Kim Morrison.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-conway_knot_topologically_slice",
+          "name": "The Conway knot is topologically slice",
+          "description": "Unsolved. Group: formalization-evaluation. Source: Freedman, *The topology of four-dimensional manifolds*, J. Diff. Geom. 17 (1982). See also Freedman-Quinn, *Topology of 4-Manifolds*, Princeton 1990. Problem by Kim Morrison.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-derived_solidification_free_CW_homology",
+          "name": "Derived solidification of free CW complexes (light condensed mathematics)",
+          "description": "Unsolved. Group: formalization-evaluation. Source: https://github.com/dagurtomas/LeanCondensed (LeanCondensed/Projects/DerivedSolidCWHomology.lean); D. Clausen and P. Scholze, lectures on analytic stacks and lig Problem by Dagur Asgeirsson.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-direct_summand",
+          "name": "Direct summand theorem and derived variant",
+          "description": "Unsolved. Group: formalization-evaluation. Problem by Junyan Xu.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-einsiedler_katok_lindenstrauss",
+          "name": "Smallness of exceptional set to Littlewood's conjecture",
+          "description": "Unsolved. Group: formalization-evaluation. Problem by Junyan Xu.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-equichordal_point_unique",
+          "name": "Equichordal point theorem (convex curves have a unique equichordal point)",
+          "description": "Unsolved. Group: formalization-evaluation. Source: M. R. Rychlik, A complete solution to the equichordal point problem of Fujiwara, Blaschke, Rothe and Weizenböck, Invent. Math. 129 (1997). Listed as §205 in O.  Problem by Kim Morrison.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-exists_topologically_slice_not_smoothly_slice",
+          "name": "Existence of a topologically slice, not smoothly slice knot",
+          "description": "Unsolved. Group: formalization-evaluation. Source: Casson, 1980s (unpublished); Akbulut-Matveyev, *A convex decomposition theorem for 4-manifolds*, IMRN 1998. See also Hedden-Kirk-Livingston, *Non-slice linear c Problem by Kim Morrison.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-faltings",
+          "name": "Faltings' theorem (Mordell conjecture)",
+          "description": "Unsolved. Group: formalization-evaluation. Problem by Junyan Xu.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-fermat_last_theorem",
+          "name": "Fermat's Last Theorem",
+          "description": "Unsolved. Group: formalization-evaluation. Source: https://en.wikipedia.org/wiki/Fermat%27s_Last_Theorem Problem by Xuanji Li.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-five_transitive_card_classification",
+          "name": "Possible orders of 5-transitive finite permutation groups",
+          "description": "Unsolved. Group: formalization-evaluation. Source: Folklore via CFSG; classical work of Mathieu, Jordan; modern accounts in P. Cameron, Permutation Groups (1999). Problem by Kim Morrison.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-four_manifold_not_smooth",
+          "name": "Freedman's non-smoothability theorem",
+          "description": "Unsolved. Group: formalization-evaluation. Problem by Oliver Nash.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-friedlander_iwaniec",
+          "name": "Friedlander–Iwaniec theorem",
+          "description": "Unsolved. Group: formalization-evaluation. Source: Friedlander, John, and Henryk Iwaniec. “The Polynomial X² + Y⁴ Captures Its Primes.” Annals of Mathematics, vol. 148, no. 3, 1998, pp. 945–1040. JSTOR, https:// Problem by Bolton Bailey/Project Numina.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-hSpace_sphere_iff",
+          "name": "Adams: S^n is an H-space iff n = 0, 1, 3, 7",
+          "description": "Unsolved. Group: formalization-evaluation. Source: J. F. Adams, 'On the non-existence of elements of Hopf invariant one', Ann. of Math. 72 (1960), 20-104; J. F. Adams and M. F. Atiyah, 'K-theory and the Hopf inv Problem by Vasily Ilin.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-hilbert_smith_padic_dimension_three",
+          "name": "No continuous faithful ℤ_p action on a connected 3-manifold (Pardon 2013)",
+          "description": "Unsolved. Group: formalization-evaluation. Source: John Pardon, 'The Hilbert-Smith conjecture for three-manifolds', Journal of the American Mathematical Society 26 (2013), no. 3, 879-899, Theorem 1.5. https://do Problem by Jack McCarthy.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-jacobian_challenge_alggeo",
+          "name": "Jacobian of a smooth proper curve (Merten challenge)",
+          "description": "Unsolved. Group: formalization-evaluation. Source: https://leanprover.zulipchat.com/#narrow/stream/583336-Autoformalization/topic/Jacobian%20challenge/near/587802685 Problem by Christian Merten.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-kepler_conjecture",
+          "name": "Kepler conjecture (optimal sphere packing in ℝ³)",
+          "description": "Unsolved. Group: formalization-evaluation. Source: Kepler conjecture 1611 (J. Kepler, *Strena seu de Nive Sexangula*); proof T. Hales, 'A proof of the Kepler conjecture', Ann. of Math. (2) 162 (2005) 1065–1185;  Problem by Kim Morrison.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-kollar_lieblich_olsson_sawin",
+          "name": "Topological reconstruction theorems for varieties",
+          "description": "Unsolved. Group: formalization-evaluation. Source: János Kollár, Max Lieblich, Martin Olsson, and Will Sawin. The Zariski topology, linear systems, and algebraic varieties. Problem by Junyan Xu.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-linnik",
+          "name": "Linnik's theorem (L = 5.5)",
+          "description": "Unsolved. Group: formalization-evaluation. Source: Heath-Brown, D.R. (1992), Zero-Free Regions for Dirichlet L-Functions, and the Least Prime in an Arithmetic Progression. Proceedings of the London Mathematical  Problem by Bolton Bailey/Project Numina.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-mandelbar_not_path_connected",
+          "name": "Mandelbar (tricorn) is not path-connected (Hubbard–Schleicher)",
+          "description": "Unsolved. Group: formalization-evaluation. Source: John H. Hubbard and Dierk Schleicher, *Multicorns are not Path Connected*, arXiv:1209.1753 (2012); published in *Frontiers in Complex Dynamics* (Princeton Unive Problem by Kim Morrison.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-mandelbrot_boundary_dimh",
+          "name": "Hausdorff dimension of the Mandelbrot boundary (Shishikura)",
+          "description": "Unsolved. Group: formalization-evaluation. Source: M. Shishikura, The Hausdorff dimension of the boundary of the Mandelbrot set and Julia sets, Ann. of Math. 147 (1998). Listed as §260 in O. Knill, Some Fundamen Problem by Kim Morrison.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-manolescu_triangulation_disproof",
+          "name": "Manolescu's disproof of the triangulation conjecture",
+          "description": "Unsolved. Group: formalization-evaluation. Source: C. Manolescu, *Pin(2)-equivariant Seiberg–Witten Floer homology and the triangulation conjecture*, J. Amer. Math. Soc. 29 (2016), via the Galewski–Stern and Mat Problem by Kim Morrison.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-mazur_torsion",
+          "name": "Mazur's torsion theorem",
+          "description": "Unsolved. Group: formalization-evaluation. Source: B. Mazur, *Modular curves and the Eisenstein ideal*, Publ. IHÉS 47 (1977). Knill, *Some fundamental theorems in mathematics*, §139. Problem by Kim Morrison.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-milnor_exotic_sphere_seven",
+          "name": "Milnor's exotic 7-sphere",
+          "description": "Unsolved. Group: formalization-evaluation. Source: J. Milnor, On manifolds homeomorphic to the 7-sphere, Ann. of Math. 64 (1956), 399-405. Recorded as a `proof_wanted` in Mathlib/Geometry/Manifold/PoincareConjec Problem by Kim Morrison.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-mostow_rigidity",
+          "name": "Mostow rigidity",
+          "description": "Unsolved. Group: formalization-evaluation. Source: https://en.wikipedia.org/wiki/Mostow_rigidity_theorem#Algebraic_form and Gopal Prasad, *Strong rigidity of ℚ-rank 1 lattices*, Invent. Math. 21 (1973), 255–286. Problem by Junyan Xu.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-newlander_nirenberg",
+          "name": "Newlander–Nirenberg theorem",
+          "description": "Unsolved. Group: formalization-evaluation. Source: A. Newlander and L. Nirenberg, `Complex analytic coordinates in almost complex manifolds`, Annals of Math, 65 (3) 1957, 391-404. Problem by Kim Morrison.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-nikolov_segal",
+          "name": "Nikolov–Segal strong completeness theorem",
+          "description": "Unsolved. Group: formalization-evaluation. Source: Nikolay Nikolov and Dan Segal, *On finitely generated profinite groups, I: strong completeness and uniform bounds*, Annals of Mathematics 165 (2007), no. 1, 171 Problem by Adam Topaz.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-ore_conjecture",
+          "name": "The Ore conjecture: every element of a finite nonabelian simple group is a commutator",
+          "description": "Unsolved. Group: formalization-evaluation. Source: Martin W. Liebeck, E. A. O'Brien, Aner Shalev, and Pham Huu Tiep, *The Ore conjecture*, Journal of the European Mathematical Society 12 (2010), no. 4, 939–1008, Problem by Adam Topaz.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-pi6_sphere_three_mulEquiv_zmod_twelve",
+          "name": "pi_6 of the 3-sphere is Z/12",
+          "description": "Unsolved. Group: formalization-evaluation. Source: H. Toda, 'Composition Methods in Homotopy Groups of Spheres', Annals of Mathematics Studies 49, Princeton University Press, 1962. The value pi_6(S^3) = Z/12 als Problem by Vasily Ilin.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-pi_sphere_infinite_iff",
+          "name": "Serre finiteness for homotopy groups of spheres",
+          "description": "Unsolved. Group: formalization-evaluation. Source: J.-P. Serre, 'Homologie singuliere des espaces fibres. Applications', Ann. of Math. 54 (1951), 425-505; J.-P. Serre, 'Groupes d'homotopie et classes de groupes  Problem by Vasily Ilin.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-poincare_3d_smooth",
+          "name": "3D smooth Poincaré conjecture (Perelman)",
+          "description": "Unsolved. Group: formalization-evaluation. Source: G. Perelman, three arXiv preprints 2002-2003 (math/0211159, math/0303109, math/0307245). Recorded as a `proof_wanted` in Mathlib/Geometry/Manifold/PoincareConje Problem by Kim Morrison.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-poincare_3d_topological",
+          "name": "3D topological Poincaré conjecture (Perelman)",
+          "description": "Unsolved. Group: formalization-evaluation. Source: G. Perelman, The entropy formula for the Ricci flow and its geometric applications (arXiv:math/0211159, 2002); Ricci flow with surgery on three-manifolds (arXiv Problem by Kim Morrison.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-poincare_4d_topological",
+          "name": "4D topological Poincaré conjecture (Freedman)",
+          "description": "Unsolved. Group: formalization-evaluation. Source: M. H. Freedman, The topology of four-dimensional manifolds, J. Differential Geom. 17 (1982), 357-453. Specialization of `proof_wanted ContinuousMap.HomotopyEqui Problem by Kim Morrison.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-poincare_high_dim_topological",
+          "name": "Generalized topological Poincaré conjecture in dimensions ≥ 5 (Smale)",
+          "description": "Unsolved. Group: formalization-evaluation. Source: S. Smale, Generalized Poincaré's conjecture in dimensions greater than four, Ann. of Math. 74 (1961), 391-406. Topological case: M. H. A. Newman, The engulfing  Problem by Kim Morrison.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-ramanujan_petersson",
+          "name": "Ramanujan–Petersson conjecture for the τ-function (Deligne's theorem)",
+          "description": "Unsolved. Group: formalization-evaluation. Source: S. Ramanujan, 'On certain arithmetical functions', Trans. Cambridge Philos. Soc. 22 (1916) 159–184. H. Petersson, 'Theorie der automorphen Formen beliebiger ree Problem by Seewoo Lee.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-schreier_conjecture",
+          "name": "Schreier's conjecture: outer automorphism group of a finite simple group is solvable",
+          "description": "Unsolved. Group: formalization-evaluation. Source: O. Schreier, Über die Erweiterung von Gruppen II, Abh. Math. Sem. Univ. Hamburg 4 (1926); CFSG, completed c. 2004. Problem by Kim Morrison.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-shafarevich_solvable_galois",
+          "name": "Shafarevich's theorem on solvable Galois groups",
+          "description": "Unsolved. Group: formalization-evaluation. Source: I. R. Shafarevich, 'Construction of fields of algebraic numbers with given solvable Galois group', Izv. Akad. Nauk SSSR Ser. Mat. 18 (1954), no. 6, 525–578, htt Problem by Ryan Smith.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-smale_conjecture",
+          "name": "Smale conjecture (Hatcher) in relative parameterized form",
+          "description": "Unsolved. Group: formalization-evaluation. Source: A. Hatcher, A proof of the Smale conjecture, Diff(S3) = O(4), Ann. of Math. 117 (1983). Problem by Kim Morrison.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-space_groups_230",
+          "name": "230 space groups (Fedorov 1891 / Schoenflies 1891)",
+          "description": "Unsolved. Group: formalization-evaluation. Source: E. Fedorov, 'Симметрія правильныхъ системъ фигуръ' (Symmetry of regular systems of figures), Trans. Min. Soc. St. Petersburg 28 (1891) 1–146; A. Schoenflies, *K Problem by Kim Morrison.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-sphere_theorem_differentiable",
+          "name": "Differentiable sphere theorem (Brendle–Schoen)",
+          "description": "Unsolved. Group: formalization-evaluation. Source: S. Brendle & R. Schoen, *Manifolds with 1/4-pinched curvature are space forms*, J. AMS 22 (2009). Knill, *Some fundamental theorems in mathematics*, §121. Problem by Kim Morrison.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-ten_martini_problem",
+          "name": "Avila-Jitomirskaya Ten Martini Problem",
+          "description": "Unsolved. Group: formalization-evaluation. Source: A. Avila and S. Jitomirskaya, 'The Ten Martini Problem', Ann. of Math. 170 (2009), 303-342, https://doi.org/10.4007/annals.2009.170.303. Problem by Kim Morrison.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-two_ninety_theorem",
+          "name": "The 290 theorem",
+          "description": "Unsolved. Group: formalization-evaluation. Source: M. Bhargava, J. Hanke, Universal quadratic forms and the 290-theorem, preprint (2011). See also https://en.wikipedia.org/wiki/15_and_290_theorems Problem by Bolton Bailey/Project Numina.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-wang_zahl_kakeya_dimH",
+          "name": "Wang-Zahl: the three-dimensional Kakeya conjecture",
+          "description": "Unsolved. Group: formalization-evaluation. Source: H. Wang and J. Zahl, 'Volume estimates for unions of convex sets, and the Kakeya set conjecture in three dimensions', Theorem 1.1, arXiv:2502.17655 (2025), http Problem by Kim Morrison.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-watanabe_four_dim_smale_disproof",
+          "name": "Watanabe's disproof of the 4-dimensional Smale conjecture",
+          "description": "Unsolved. Group: formalization-evaluation. Source: T. Watanabe, *Some exotic nontrivial elements of the rational homotopy groups of Diff(S⁴)*, arXiv:1812.02448 (2018). Pairs with the positive S³ statement of Hat Problem by Kim Morrison.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-weak_goldbach",
+          "name": "Weak Goldbach theorem",
+          "description": "Unsolved. Group: formalization-evaluation. Source: H. A. Helfgott, The ternary Goldbach conjecture is true, arXiv:1312.7748 (2013), https://arxiv.org/abs/1312.7748; H. A. Helfgott and D. J. Platt, Numerical Veri Problem by Vasily Ilin.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-weil_conjectures",
+          "name": "Weil conjectures in terms of point counts",
+          "description": "Unsolved. Group: formalization-evaluation. Source: P. Deligne, 'La conjecture de Weil. I', Publications Mathématiques de l'Institut des Hautes Études Scientifiques, Volume 43, pages 273–307 (1974), https://www.n Problem by Junyan Xu.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-weinstein_conjecture_dim3",
+          "name": "Weinstein conjecture in dimension three (Taubes 2007)",
+          "description": "Unsolved. Group: formalization-evaluation. Source: C.H. Taubes, 'The Seiberg–Witten equations and the Weinstein conjecture', Geom. Topol. 11 (2007) 2117–2202; arXiv:math/0611007. Conjecture: A. Weinstein, 'On th Problem by Kim Morrison.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "id": "open-whitney_embedding",
+          "name": "Whitney embedding theorem (strong form, dimension 2n)",
+          "description": "Unsolved. Group: formalization-evaluation. Source: H. Whitney, 'The self-intersections of a smooth n-manifold in 2n-space', Ann. of Math. (2) 45 (1944) 220–246. Earlier 2n+1 form: H. Whitney, 'Differentiable man Problem by Kim Morrison.",
+          "metricName": "solved",
+          "metricDirection": "maximize",
+          "baseline": 0,
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
         {
           "id": "models",
           "name": "Models — problems solved",
@@ -8285,864 +7997,6 @@
             }
           ],
           "contested": true
-        },
-        {
-          "id": "open-annals_absolute_profinite_rigidity",
-          "name": "Absolute profinite rigidity and hyperbolic geometry",
-          "description": "Unsolved. Group: formalization-evaluation. Source: M. R. Bridson, D. B. McReynolds, A. W. Reid, and R. Spitler, `Absolute profinite rigidity and hyperbolic geometry`, Annals of Math, 192 (3) 2020. Statement take Problem by Thomas Browning.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-annals_bose_gases",
-          "name": "The energy of dilute Bose gases",
-          "description": "Unsolved. Group: formalization-evaluation. Source: S. Fournais and J. P. Solovej, `The energy of dilute Bose gases`, Annals of Math, 192 (3) 2020. Statement taken from https://github.com/ImperialCollegeLondon/An Problem by David Ledvinka.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-annals_bounded_multiplicative_functions",
-          "name": "Higher uniformity of bounded multiplicative functions in short intervals on average",
-          "description": "Unsolved. Group: formalization-evaluation. Source: K. Matomäki, M. Radziwiłł, T. Tao, J. Teräväinen, and T. Ziegler, `Higher uniformity of bounded multiplicative functions in short intervals on average`, Annals  Problem by David Ledvinka.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-annals_chowla_and_twin_prime_over_fq_t",
-          "name": "On the Chowla and twin primes conjectures over 𝔽_q[T]",
-          "description": "Unsolved. Group: formalization-evaluation. Source: W. Sawin and M. Shusterman, `On the Chowla and twin primes conjectures over 𝔽_q[T]`, Annals of Math, 196 (2) 2022. Statement taken from https://github.com/Impe Problem by Thomas Browning.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-annals_dirichlet_weyl_bound",
-          "name": "The Weyl bound for Dirichlet L-functions of cube-free conductor",
-          "description": "Unsolved. Group: formalization-evaluation. Source: I. Petrow and M. P. Young, `The Weyl bound for Dirichlet L-functions of cube-free conductor`, Annals of Math, 192 (2) 2020. Statement taken from https://github. Problem by Thomas Browning.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-annals_erdos_faber_lovasz_conjecture",
-          "name": "A proof of the Erdős–Faber–Lovász conjecture",
-          "description": "Unsolved. Group: formalization-evaluation. Source: D. Y. Kang, T. Kelly, D. Kühn, A. Methuku, and D. Osthus, `A proof of the Erdős–Faber–Lovász conjecture`, Annals of Math, 198 (2) 2023. Statement taken from htt Problem by David Ledvinka.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-annals_erdos_supersingular_primes",
-          "name": "A conjecture of Erdős, supersingular primes and short character sums",
-          "description": "Unsolved. Group: formalization-evaluation. Source: M. Bennett and S. Siksek, `A conjecture of Erdős, supersingular primes and short character sums`, Annals of Math, 191 (2) 2020. Statement taken from https://git Problem by Justus Springer.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-annals_finite_time_singularity",
-          "name": "Finite-time singularity formation for C^{1,α} solutions to the incompressible Euler equations on ℝ³",
-          "description": "Unsolved. Group: formalization-evaluation. Source: T. M. Elgindi, `Finite-time singularity formation for C^{1,α} solutions to the incompressible Euler equations on ℝ³`, Annals of Math, 194 (3) 2021. Statement ta Problem by David Ledvinka.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-annals_good_lt_codes",
-          "name": "Good Locally Testable Codes",
-          "description": "Unsolved. Group: formalization-evaluation. Source: I. Dinur, S. Evra, R. Livne, A. Lubotzky, and S. Mozes, `Good Locally Testable Codes`, Annals of Math, 203 (2) 2026. Statement taken from https://github.com/Imp Problem by Thomas Browning, Katerina Hristova.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-annals_hasse_principle_random_fano",
-          "name": "The Hasse principle for random Fano hypersurfaces",
-          "description": "Unsolved. Group: formalization-evaluation. Source: T. Browning, P. L. Boudec, and W. Sawin, `The Hasse principle for random Fano hypersurfaces`, Annals of Math, 197 (3) 2023. Statement taken from https://github. Problem by Justus Springer.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-annals_integer_multiplication",
-          "name": "Integer multiplication in time O(n log n)",
-          "description": "Unsolved. Group: formalization-evaluation. Source: D. Harvey and J. van der Hoeven, `Integer multiplication in time O(n log n)`, Annals of Math, 193 (2) 2021. Statement taken from https://github.com/ImperialColl Problem by Justus Springer.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-annals_mckay_conjecture",
-          "name": "The McKay Conjecture on character degrees",
-          "description": "Unsolved. Group: formalization-evaluation. Source: M. Cabanes and B. Späth, `The McKay Conjecture on character degrees`, Annals of Math, 203 (3) 2026. Statement taken from https://github.com/ImperialCollegeLondo Problem by Thomas Browning.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-annals_motivic_invariants",
-          "name": "Motivic invariants of birational maps",
-          "description": "Unsolved. Group: formalization-evaluation. Source: H.-Y. Lin and E. Shinder, `Motivic invariants of birational maps`, Annals of Math, 199 (1) 2024. Statement taken from https://github.com/ImperialCollegeLondon/A Problem by Justus Springer.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-annals_on_coherence_of_one_relator_groups",
-          "name": "On the coherence of one-relator groups and their group algebras",
-          "description": "Unsolved. Group: formalization-evaluation. Source: A. Jaikin-Zapirain and M. Linton, `On the coherence of one-relator groups and their group algebras`, Annals of Math, 201 (3) 2025. Statement taken from https:// Problem by Katerina Hristova.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-annals_on_property_t",
-          "name": "On property (T) for Aut(F_n) and SL_n(Z)",
-          "description": "Unsolved. Group: formalization-evaluation. Source: M. Kaluba, D. Kielak, and P. W. Nowak, `On property (T) for Aut(F_n) and SL_n(Z)`, Annals of Math, 193 (2) 2021. Statement taken from https://github.com/Imperia Problem by Thomas Browning.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-annals_pointwise_ergodic_theorems",
-          "name": "Pointwise ergodic theorems for non-conventional bilinear polynomial averages",
-          "description": "Unsolved. Group: formalization-evaluation. Source: B. Krause, M. Mirek, and T. Tao, `Pointwise ergodic theorems for non-conventional bilinear polynomial averages`, Annals of Math, 195 (3) 2022. Statement taken f Problem by David Ledvinka.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-annals_rectangular_peg_problem",
-          "name": "The rectangular peg problem",
-          "description": "Unsolved. Group: formalization-evaluation. Source: J. E. Greene and A. Lobb, `The rectangular peg problem`, Annals of Math, 194 (2) 2021. Statement taken from https://github.com/ImperialCollegeLondon/AnnalsChall Problem by Katerina Hristova.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-annals_simplicity_conjecture",
-          "name": "Proof of the simplicity conjecture",
-          "description": "Unsolved. Group: formalization-evaluation. Source: D. Cristofaro-Gardiner, V. Humilière, and S. Seyfaddini, `Proof of the simplicity conjecture`, Annals of Math, 199 (1) 2024. Statement taken from https://github Problem by Thomas Browning.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-annals_spread_of_a_finite_group",
-          "name": "The spread of a finite group",
-          "description": "Unsolved. Group: formalization-evaluation. Source: T. C. Burness, R. M. Guralnick, and S. Harper, `The spread of a finite group`, Annals of Math, 193 (2) 2021. Statement taken from https://github.com/ImperialCol Problem by Katerina Hristova.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-annals_symplectic_monodromy",
-          "name": "Symplectic monodromy at radius zero and equimultiplicity of μ-constant families",
-          "description": "Unsolved. Group: formalization-evaluation. Source: J. Fernández de Bobadilla and T. Pełka, `Symplectic monodromy at radius zero and equimultiplicity of μ-constant families`, Annals of Math, 200 (1) 2024. Stateme Problem by Justus Springer.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-annals_uniform_mordell_lang",
-          "name": "Uniformity in Mordell–Lang for curves",
-          "description": "Unsolved. Group: formalization-evaluation. Source: V. Dimitrov, Z. Gao, and P. Habegger, `Uniformity in Mordell–Lang for curves`, Annals of Math, 194 (1) 2021. Statement taken from https://github.com/ImperialCol Problem by Thomas Browning, Christian Merten.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-annals_wilkies_conjecture",
-          "name": "Wilkie's conjecture for Pfaffian structures",
-          "description": "Unsolved. Group: formalization-evaluation. Source: G. Binyamini, D. Novikov, and B. Zak, `Wilkie's conjecture for Pfaffian structures`, Annals of Math, 199 (2) 2024. Statement taken from https://github.com/Imper Problem by Justus Springer, Mathias Stout.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-annulus_theorem_dim_four",
-          "name": "The Annulus Theorem in dimension 4 (Quinn)",
-          "description": "Unsolved. Group: formalization-evaluation. Source: F. Quinn, *Ends of maps III: dimensions 4 and 5*, J. Differential Geom. 17 (1982), building on M. H. Freedman, *The topology of four-dimensional manifolds*, J.  Problem by Kim Morrison.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-annulus_theorem_high_dim",
-          "name": "The Annulus Theorem in dimension ≥ 5 (Kirby)",
-          "description": "Unsolved. Group: formalization-evaluation. Source: R. C. Kirby, *Stable homeomorphisms and the annulus conjecture*, Ann. of Math. 89 (1969). Problem by Kim Morrison.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-aspherical_integer_homology_four_sphere",
-          "name": "Existence of an aspherical integer homology 4-sphere",
-          "description": "Unsolved. Group: formalization-evaluation. Source: J. G. Ratcliffe and S. T. Tschantz, *On the Davis hyperbolic 4-manifold*, Topology Appl. 111 (2001); see also the discussion of [Kir97, Problem 4.17] in the K3  Problem by Kim Morrison.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-bakerWustholz_linearForms_logs",
-          "name": "Baker-Wüstholz theorem on linear forms in logarithms",
-          "description": "Unsolved. Group: formalization-evaluation. Source: A. Baker, G. Wüstholz, Logarithmic forms and group varieties, J. reine angew. Math. 442 (1993), 19-62. Problem by Ralf Stephan.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-bourgain_polynomial_ergodic",
-          "name": "Bourgain's polynomial ergodic theorem",
-          "description": "Unsolved. Group: formalization-evaluation. Source: J. Bourgain, *Pointwise ergodic theorems for arithmetic sets*, Publ. Math. IHÉS 69 (1989). Knill, *Some fundamental theorems in mathematics*, §173. Problem by Kim Morrison.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-budney_gabai_knotted_three_spheres",
-          "name": "Budney--Gabai knotted three-spheres in S¹ × S³",
-          "description": "Unsolved. Group: formalization-evaluation. Source: R. Budney and D. Gabai, 'Knotted 3-balls in S⁴', Corollary 8.6, arXiv:1912.09029v3 (2021), https://arxiv.org/abs/1912.09029. Problem by Vasily Ilin.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-cdt_linearIndependent",
-          "name": "Linear independence results of Calegari–Dimitrov–Tang",
-          "description": "Unsolved. Group: formalization-evaluation. Source: https://arxiv.org/abs/2408.15403 Problem by Junyan Xu.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-cerf_gamma_four",
-          "name": "Cerf's theorem: every self-diffeomorphism of S3 is smoothly isotopic to a linear isometry",
-          "description": "Unsolved. Group: formalization-evaluation. Source: J. Cerf, Sur les diffeomorphismes de la sphere de dimension trois, Lecture Notes in Mathematics 53, Springer (1968). Problem by Kim Morrison.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-ckmrv_fourier_interpolation",
-          "name": "Fourier interpolation in dimensions 8 and 24",
-          "description": "Unsolved. Group: formalization-evaluation. Source: H. Cohn, A. Kumar, S. D. Miller, D. Radchenko, and M. Viazovska, 'Universal optimality of the E8 and Leech lattices and interpolation formulas', Ann. of Math. 1 Problem by Kim Morrison.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-conway_knot_not_smoothly_slice",
-          "name": "The Conway knot is not smoothly slice",
-          "description": "Unsolved. Group: formalization-evaluation. Source: https://arxiv.org/abs/1808.02923 Problem by Kim Morrison.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-conway_knot_topologically_slice",
-          "name": "The Conway knot is topologically slice",
-          "description": "Unsolved. Group: formalization-evaluation. Source: Freedman, *The topology of four-dimensional manifolds*, J. Diff. Geom. 17 (1982). See also Freedman-Quinn, *Topology of 4-Manifolds*, Princeton 1990. Problem by Kim Morrison.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-derived_solidification_free_CW_homology",
-          "name": "Derived solidification of free CW complexes (light condensed mathematics)",
-          "description": "Unsolved. Group: formalization-evaluation. Source: https://github.com/dagurtomas/LeanCondensed (LeanCondensed/Projects/DerivedSolidCWHomology.lean); D. Clausen and P. Scholze, lectures on analytic stacks and lig Problem by Dagur Asgeirsson.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-direct_summand",
-          "name": "Direct summand theorem and derived variant",
-          "description": "Unsolved. Group: formalization-evaluation. Problem by Junyan Xu.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-einsiedler_katok_lindenstrauss",
-          "name": "Smallness of exceptional set to Littlewood's conjecture",
-          "description": "Unsolved. Group: formalization-evaluation. Problem by Junyan Xu.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-equichordal_point_unique",
-          "name": "Equichordal point theorem (convex curves have a unique equichordal point)",
-          "description": "Unsolved. Group: formalization-evaluation. Source: M. R. Rychlik, A complete solution to the equichordal point problem of Fujiwara, Blaschke, Rothe and Weizenböck, Invent. Math. 129 (1997). Listed as §205 in O.  Problem by Kim Morrison.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-exists_topologically_slice_not_smoothly_slice",
-          "name": "Existence of a topologically slice, not smoothly slice knot",
-          "description": "Unsolved. Group: formalization-evaluation. Source: Casson, 1980s (unpublished); Akbulut-Matveyev, *A convex decomposition theorem for 4-manifolds*, IMRN 1998. See also Hedden-Kirk-Livingston, *Non-slice linear c Problem by Kim Morrison.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-faltings",
-          "name": "Faltings' theorem (Mordell conjecture)",
-          "description": "Unsolved. Group: formalization-evaluation. Problem by Junyan Xu.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-fermat_last_theorem",
-          "name": "Fermat's Last Theorem",
-          "description": "Unsolved. Group: formalization-evaluation. Source: https://en.wikipedia.org/wiki/Fermat%27s_Last_Theorem Problem by Xuanji Li.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-five_transitive_card_classification",
-          "name": "Possible orders of 5-transitive finite permutation groups",
-          "description": "Unsolved. Group: formalization-evaluation. Source: Folklore via CFSG; classical work of Mathieu, Jordan; modern accounts in P. Cameron, Permutation Groups (1999). Problem by Kim Morrison.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-four_manifold_not_smooth",
-          "name": "Freedman's non-smoothability theorem",
-          "description": "Unsolved. Group: formalization-evaluation. Problem by Oliver Nash.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-friedlander_iwaniec",
-          "name": "Friedlander–Iwaniec theorem",
-          "description": "Unsolved. Group: formalization-evaluation. Source: Friedlander, John, and Henryk Iwaniec. “The Polynomial X² + Y⁴ Captures Its Primes.” Annals of Mathematics, vol. 148, no. 3, 1998, pp. 945–1040. JSTOR, https:// Problem by Bolton Bailey/Project Numina.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-hSpace_sphere_iff",
-          "name": "Adams: S^n is an H-space iff n = 0, 1, 3, 7",
-          "description": "Unsolved. Group: formalization-evaluation. Source: J. F. Adams, 'On the non-existence of elements of Hopf invariant one', Ann. of Math. 72 (1960), 20-104; J. F. Adams and M. F. Atiyah, 'K-theory and the Hopf inv Problem by Vasily Ilin.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-hilbert_smith_padic_dimension_three",
-          "name": "No continuous faithful ℤ_p action on a connected 3-manifold (Pardon 2013)",
-          "description": "Unsolved. Group: formalization-evaluation. Source: John Pardon, 'The Hilbert-Smith conjecture for three-manifolds', Journal of the American Mathematical Society 26 (2013), no. 3, 879-899, Theorem 1.5. https://do Problem by Jack McCarthy.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-jacobian_challenge_alggeo",
-          "name": "Jacobian of a smooth proper curve (Merten challenge)",
-          "description": "Unsolved. Group: formalization-evaluation. Source: https://leanprover.zulipchat.com/#narrow/stream/583336-Autoformalization/topic/Jacobian%20challenge/near/587802685 Problem by Christian Merten.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-kepler_conjecture",
-          "name": "Kepler conjecture (optimal sphere packing in ℝ³)",
-          "description": "Unsolved. Group: formalization-evaluation. Source: Kepler conjecture 1611 (J. Kepler, *Strena seu de Nive Sexangula*); proof T. Hales, 'A proof of the Kepler conjecture', Ann. of Math. (2) 162 (2005) 1065–1185;  Problem by Kim Morrison.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-kollar_lieblich_olsson_sawin",
-          "name": "Topological reconstruction theorems for varieties",
-          "description": "Unsolved. Group: formalization-evaluation. Source: János Kollár, Max Lieblich, Martin Olsson, and Will Sawin. The Zariski topology, linear systems, and algebraic varieties. Problem by Junyan Xu.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-linnik",
-          "name": "Linnik's theorem (L = 5.5)",
-          "description": "Unsolved. Group: formalization-evaluation. Source: Heath-Brown, D.R. (1992), Zero-Free Regions for Dirichlet L-Functions, and the Least Prime in an Arithmetic Progression. Proceedings of the London Mathematical  Problem by Bolton Bailey/Project Numina.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-mandelbar_not_path_connected",
-          "name": "Mandelbar (tricorn) is not path-connected (Hubbard–Schleicher)",
-          "description": "Unsolved. Group: formalization-evaluation. Source: John H. Hubbard and Dierk Schleicher, *Multicorns are not Path Connected*, arXiv:1209.1753 (2012); published in *Frontiers in Complex Dynamics* (Princeton Unive Problem by Kim Morrison.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-mandelbrot_boundary_dimh",
-          "name": "Hausdorff dimension of the Mandelbrot boundary (Shishikura)",
-          "description": "Unsolved. Group: formalization-evaluation. Source: M. Shishikura, The Hausdorff dimension of the boundary of the Mandelbrot set and Julia sets, Ann. of Math. 147 (1998). Listed as §260 in O. Knill, Some Fundamen Problem by Kim Morrison.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-manolescu_triangulation_disproof",
-          "name": "Manolescu's disproof of the triangulation conjecture",
-          "description": "Unsolved. Group: formalization-evaluation. Source: C. Manolescu, *Pin(2)-equivariant Seiberg–Witten Floer homology and the triangulation conjecture*, J. Amer. Math. Soc. 29 (2016), via the Galewski–Stern and Mat Problem by Kim Morrison.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-mazur_torsion",
-          "name": "Mazur's torsion theorem",
-          "description": "Unsolved. Group: formalization-evaluation. Source: B. Mazur, *Modular curves and the Eisenstein ideal*, Publ. IHÉS 47 (1977). Knill, *Some fundamental theorems in mathematics*, §139. Problem by Kim Morrison.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-milnor_exotic_sphere_seven",
-          "name": "Milnor's exotic 7-sphere",
-          "description": "Unsolved. Group: formalization-evaluation. Source: J. Milnor, On manifolds homeomorphic to the 7-sphere, Ann. of Math. 64 (1956), 399-405. Recorded as a `proof_wanted` in Mathlib/Geometry/Manifold/PoincareConjec Problem by Kim Morrison.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-mostow_rigidity",
-          "name": "Mostow rigidity",
-          "description": "Unsolved. Group: formalization-evaluation. Source: https://en.wikipedia.org/wiki/Mostow_rigidity_theorem#Algebraic_form and Gopal Prasad, *Strong rigidity of ℚ-rank 1 lattices*, Invent. Math. 21 (1973), 255–286. Problem by Junyan Xu.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-newlander_nirenberg",
-          "name": "Newlander–Nirenberg theorem",
-          "description": "Unsolved. Group: formalization-evaluation. Source: A. Newlander and L. Nirenberg, `Complex analytic coordinates in almost complex manifolds`, Annals of Math, 65 (3) 1957, 391-404. Problem by Kim Morrison.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-nikolov_segal",
-          "name": "Nikolov–Segal strong completeness theorem",
-          "description": "Unsolved. Group: formalization-evaluation. Source: Nikolay Nikolov and Dan Segal, *On finitely generated profinite groups, I: strong completeness and uniform bounds*, Annals of Mathematics 165 (2007), no. 1, 171 Problem by Adam Topaz.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-ore_conjecture",
-          "name": "The Ore conjecture: every element of a finite nonabelian simple group is a commutator",
-          "description": "Unsolved. Group: formalization-evaluation. Source: Martin W. Liebeck, E. A. O'Brien, Aner Shalev, and Pham Huu Tiep, *The Ore conjecture*, Journal of the European Mathematical Society 12 (2010), no. 4, 939–1008, Problem by Adam Topaz.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-pi6_sphere_three_mulEquiv_zmod_twelve",
-          "name": "pi_6 of the 3-sphere is Z/12",
-          "description": "Unsolved. Group: formalization-evaluation. Source: H. Toda, 'Composition Methods in Homotopy Groups of Spheres', Annals of Mathematics Studies 49, Princeton University Press, 1962. The value pi_6(S^3) = Z/12 als Problem by Vasily Ilin.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-pi_sphere_infinite_iff",
-          "name": "Serre finiteness for homotopy groups of spheres",
-          "description": "Unsolved. Group: formalization-evaluation. Source: J.-P. Serre, 'Homologie singuliere des espaces fibres. Applications', Ann. of Math. 54 (1951), 425-505; J.-P. Serre, 'Groupes d'homotopie et classes de groupes  Problem by Vasily Ilin.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-poincare_3d_smooth",
-          "name": "3D smooth Poincaré conjecture (Perelman)",
-          "description": "Unsolved. Group: formalization-evaluation. Source: G. Perelman, three arXiv preprints 2002-2003 (math/0211159, math/0303109, math/0307245). Recorded as a `proof_wanted` in Mathlib/Geometry/Manifold/PoincareConje Problem by Kim Morrison.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-poincare_3d_topological",
-          "name": "3D topological Poincaré conjecture (Perelman)",
-          "description": "Unsolved. Group: formalization-evaluation. Source: G. Perelman, The entropy formula for the Ricci flow and its geometric applications (arXiv:math/0211159, 2002); Ricci flow with surgery on three-manifolds (arXiv Problem by Kim Morrison.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-poincare_4d_topological",
-          "name": "4D topological Poincaré conjecture (Freedman)",
-          "description": "Unsolved. Group: formalization-evaluation. Source: M. H. Freedman, The topology of four-dimensional manifolds, J. Differential Geom. 17 (1982), 357-453. Specialization of `proof_wanted ContinuousMap.HomotopyEqui Problem by Kim Morrison.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-poincare_high_dim_topological",
-          "name": "Generalized topological Poincaré conjecture in dimensions ≥ 5 (Smale)",
-          "description": "Unsolved. Group: formalization-evaluation. Source: S. Smale, Generalized Poincaré's conjecture in dimensions greater than four, Ann. of Math. 74 (1961), 391-406. Topological case: M. H. A. Newman, The engulfing  Problem by Kim Morrison.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-ramanujan_petersson",
-          "name": "Ramanujan–Petersson conjecture for the τ-function (Deligne's theorem)",
-          "description": "Unsolved. Group: formalization-evaluation. Source: S. Ramanujan, 'On certain arithmetical functions', Trans. Cambridge Philos. Soc. 22 (1916) 159–184. H. Petersson, 'Theorie der automorphen Formen beliebiger ree Problem by Seewoo Lee.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-schreier_conjecture",
-          "name": "Schreier's conjecture: outer automorphism group of a finite simple group is solvable",
-          "description": "Unsolved. Group: formalization-evaluation. Source: O. Schreier, Über die Erweiterung von Gruppen II, Abh. Math. Sem. Univ. Hamburg 4 (1926); CFSG, completed c. 2004. Problem by Kim Morrison.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-shafarevich_solvable_galois",
-          "name": "Shafarevich's theorem on solvable Galois groups",
-          "description": "Unsolved. Group: formalization-evaluation. Source: I. R. Shafarevich, 'Construction of fields of algebraic numbers with given solvable Galois group', Izv. Akad. Nauk SSSR Ser. Mat. 18 (1954), no. 6, 525–578, htt Problem by Ryan Smith.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-smale_conjecture",
-          "name": "Smale conjecture (Hatcher) in relative parameterized form",
-          "description": "Unsolved. Group: formalization-evaluation. Source: A. Hatcher, A proof of the Smale conjecture, Diff(S3) = O(4), Ann. of Math. 117 (1983). Problem by Kim Morrison.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-space_groups_230",
-          "name": "230 space groups (Fedorov 1891 / Schoenflies 1891)",
-          "description": "Unsolved. Group: formalization-evaluation. Source: E. Fedorov, 'Симметрія правильныхъ системъ фигуръ' (Symmetry of regular systems of figures), Trans. Min. Soc. St. Petersburg 28 (1891) 1–146; A. Schoenflies, *K Problem by Kim Morrison.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-sphere_theorem_differentiable",
-          "name": "Differentiable sphere theorem (Brendle–Schoen)",
-          "description": "Unsolved. Group: formalization-evaluation. Source: S. Brendle & R. Schoen, *Manifolds with 1/4-pinched curvature are space forms*, J. AMS 22 (2009). Knill, *Some fundamental theorems in mathematics*, §121. Problem by Kim Morrison.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-ten_martini_problem",
-          "name": "Avila-Jitomirskaya Ten Martini Problem",
-          "description": "Unsolved. Group: formalization-evaluation. Source: A. Avila and S. Jitomirskaya, 'The Ten Martini Problem', Ann. of Math. 170 (2009), 303-342, https://doi.org/10.4007/annals.2009.170.303. Problem by Kim Morrison.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-two_ninety_theorem",
-          "name": "The 290 theorem",
-          "description": "Unsolved. Group: formalization-evaluation. Source: M. Bhargava, J. Hanke, Universal quadratic forms and the 290-theorem, preprint (2011). See also https://en.wikipedia.org/wiki/15_and_290_theorems Problem by Bolton Bailey/Project Numina.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-wang_zahl_kakeya_dimH",
-          "name": "Wang-Zahl: the three-dimensional Kakeya conjecture",
-          "description": "Unsolved. Group: formalization-evaluation. Source: H. Wang and J. Zahl, 'Volume estimates for unions of convex sets, and the Kakeya set conjecture in three dimensions', Theorem 1.1, arXiv:2502.17655 (2025), http Problem by Kim Morrison.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-watanabe_four_dim_smale_disproof",
-          "name": "Watanabe's disproof of the 4-dimensional Smale conjecture",
-          "description": "Unsolved. Group: formalization-evaluation. Source: T. Watanabe, *Some exotic nontrivial elements of the rational homotopy groups of Diff(S⁴)*, arXiv:1812.02448 (2018). Pairs with the positive S³ statement of Hat Problem by Kim Morrison.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-weak_goldbach",
-          "name": "Weak Goldbach theorem",
-          "description": "Unsolved. Group: formalization-evaluation. Source: H. A. Helfgott, The ternary Goldbach conjecture is true, arXiv:1312.7748 (2013), https://arxiv.org/abs/1312.7748; H. A. Helfgott and D. J. Platt, Numerical Veri Problem by Vasily Ilin.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-weil_conjectures",
-          "name": "Weil conjectures in terms of point counts",
-          "description": "Unsolved. Group: formalization-evaluation. Source: P. Deligne, 'La conjecture de Weil. I', Publications Mathématiques de l'Institut des Hautes Études Scientifiques, Volume 43, pages 273–307 (1974), https://www.n Problem by Junyan Xu.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-weinstein_conjecture_dim3",
-          "name": "Weinstein conjecture in dimension three (Taubes 2007)",
-          "description": "Unsolved. Group: formalization-evaluation. Source: C.H. Taubes, 'The Seiberg–Witten equations and the Weinstein conjecture', Geom. Topol. 11 (2007) 2117–2202; arXiv:math/0611007. Conjecture: A. Weinstein, 'On th Problem by Kim Morrison.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "id": "open-whitney_embedding",
-          "name": "Whitney embedding theorem (strong form, dimension 2n)",
-          "description": "Unsolved. Group: formalization-evaluation. Source: H. Whitney, 'The self-intersections of a smooth n-manifold in 2n-space', Ann. of Math. (2) 45 (1944) 220–246. Earlier 2n+1 form: H. Whitney, 'Differentiable man Problem by Kim Morrison.",
-          "metricName": "solved",
-          "metricDirection": "maximize",
-          "baseline": 0,
-          "isOpen": true,
-          "records": [],
-          "contested": false
         }
       ],
       "agentStats": [
@@ -9837,7 +8691,7 @@
         "recordsLast30d": 39,
         "recordsLast90d": 95
       },
-      "lastUpdated": "2026-09-18T06:17:36.100Z"
+      "lastUpdated": "2026-09-18T16:32:55.538Z"
     },
     {
       "id": "agent-anvil-leaderboard",
@@ -9931,7 +8785,7 @@
         "recordsLast90d": 0
       },
       "agentStats": [],
-      "lastUpdated": "2026-09-18T06:17:36.100Z"
+      "lastUpdated": "2026-09-18T16:32:55.538Z"
     },
     {
       "id": "modded-nanogpt-npu",
@@ -10895,7 +9749,7 @@
         "recordsLast90d": 0
       },
       "agentStats": [],
-      "lastUpdated": "2026-09-18T06:17:36.100Z"
+      "lastUpdated": "2026-09-18T16:32:55.538Z"
     },
     {
       "id": "swe-bench-pro-leaderboard",
@@ -11113,7 +9967,7 @@
           ]
         }
       ],
-      "lastUpdated": "2026-09-18T06:17:36.100Z"
+      "lastUpdated": "2026-09-18T16:32:55.538Z"
     },
     {
       "id": "terminal-bench-leaderboard",
@@ -11338,7 +10192,7 @@
           ]
         }
       ],
-      "lastUpdated": "2026-09-18T06:17:36.100Z"
+      "lastUpdated": "2026-09-18T16:32:55.538Z"
     },
     {
       "id": "alpaca-eval",
@@ -11833,7 +10687,7 @@
           ]
         }
       ],
-      "lastUpdated": "2026-09-18T06:17:36.100Z"
+      "lastUpdated": "2026-09-18T16:32:55.538Z"
     },
     {
       "id": "clawprobench",
@@ -11954,7 +10808,7 @@
         "recordsLast90d": 0
       },
       "agentStats": [],
-      "lastUpdated": "2026-09-18T06:17:36.100Z"
+      "lastUpdated": "2026-09-18T16:32:55.538Z"
     },
     {
       "id": "gpu-mode-reference-kernels",
@@ -12010,41 +10864,6 @@
       ],
       "problems": [
         {
-          "id": "gated-deltanet-chunk-fwd-o",
-          "name": "Gated Deltanet chunk_fwd_o",
-          "description": "Optimize the chunk_fwd_o kernel from the Helion Kernel Challenge.",
-          "metricName": "time",
-          "metricUnit": "ms",
-          "metricDirection": "minimize",
-          "baseline": 2.08,
-          "records": [
-            {
-              "value": 1.19,
-              "contributor": "yf225",
-              "contributorKind": "person",
-              "description": "Remove redundant duplicate dot products and increase warps from 1 to 8",
-              "isCurrentBest": true,
-              "agent": {
-                "family": "anthropic",
-                "model": "Claude Opus 4.6 (1M context)",
-                "tool": "Claude Code",
-                "evidence": "Co-authored-by: Claude Opus 4.6 (1M context) <noreply@anthropic.com> ... Generated with Claude Code",
-                "confidence": "high",
-                "role": "author"
-              },
-              "contributorUrl": "https://github.com/yf225"
-            },
-            {
-              "value": 2.08,
-              "contributor": "baseline",
-              "contributorKind": "method",
-              "isBaseline": true
-            }
-          ],
-          "isOpen": false,
-          "contested": false
-        },
-        {
           "id": "causal-conv1d",
           "name": "Causal Conv1d",
           "description": "Optimize the causal_conv1d kernel from the Helion Kernel Challenge.",
@@ -12083,6 +10902,41 @@
           "records": [],
           "isOpen": true,
           "contested": false
+        },
+        {
+          "id": "gated-deltanet-chunk-fwd-o",
+          "name": "Gated Deltanet chunk_fwd_o",
+          "description": "Optimize the chunk_fwd_o kernel from the Helion Kernel Challenge.",
+          "metricName": "time",
+          "metricUnit": "ms",
+          "metricDirection": "minimize",
+          "baseline": 2.08,
+          "records": [
+            {
+              "value": 1.19,
+              "contributor": "yf225",
+              "contributorKind": "person",
+              "description": "Remove redundant duplicate dot products and increase warps from 1 to 8",
+              "isCurrentBest": true,
+              "agent": {
+                "family": "anthropic",
+                "model": "Claude Opus 4.6 (1M context)",
+                "tool": "Claude Code",
+                "evidence": "Co-authored-by: Claude Opus 4.6 (1M context) <noreply@anthropic.com> ... Generated with Claude Code",
+                "confidence": "high",
+                "role": "author"
+              },
+              "contributorUrl": "https://github.com/yf225"
+            },
+            {
+              "value": 2.08,
+              "contributor": "baseline",
+              "contributorKind": "method",
+              "isBaseline": true
+            }
+          ],
+          "isOpen": false,
+          "contested": false
         }
       ],
       "repo": {
@@ -12120,7 +10974,7 @@
           "uncontestedBests": 1
         }
       ],
-      "lastUpdated": "2026-09-18T06:17:36.100Z"
+      "lastUpdated": "2026-09-18T16:32:55.538Z"
     },
     {
       "id": "equational-theories-lean-stage2",
@@ -12213,7 +11067,7 @@
         "recordsLast90d": 0
       },
       "agentStats": [],
-      "lastUpdated": "2026-09-18T06:17:36.100Z"
+      "lastUpdated": "2026-09-18T16:32:55.538Z"
     },
     {
       "id": "chi-bench",
@@ -13314,7 +12168,7 @@
           ]
         }
       ],
-      "lastUpdated": "2026-09-18T06:17:36.100Z"
+      "lastUpdated": "2026-09-18T16:32:55.538Z"
     },
     {
       "id": "geo-bench-2",
@@ -13427,7 +12281,7 @@
         "recordsLast90d": 0
       },
       "agentStats": [],
-      "lastUpdated": "2026-09-18T06:17:36.100Z"
+      "lastUpdated": "2026-09-18T16:32:55.538Z"
     },
     {
       "id": "programbench",
@@ -13716,7 +12570,7 @@
           ]
         }
       ],
-      "lastUpdated": "2026-09-18T06:17:36.100Z"
+      "lastUpdated": "2026-09-18T16:32:55.538Z"
     },
     {
       "id": "s2n-bignum-bench",
@@ -13802,7 +12656,7 @@
         "recordsLast90d": 0
       },
       "agentStats": [],
-      "lastUpdated": "2026-09-18T06:17:36.100Z"
+      "lastUpdated": "2026-09-18T16:32:55.538Z"
     },
     {
       "id": "humanoid-parkour",
@@ -13899,7 +12753,7 @@
         "recordsLast90d": 0
       },
       "agentStats": [],
-      "lastUpdated": "2026-09-18T06:17:36.100Z"
+      "lastUpdated": "2026-09-18T16:32:55.538Z"
     },
     {
       "id": "llm-leaderboard",
@@ -16266,13 +15120,1276 @@
           ]
         }
       ],
-      "lastUpdated": "2026-09-18T06:17:36.101Z"
+      "lastUpdated": "2026-09-18T16:32:55.539Z"
+    },
+    {
+      "id": "sutro-problems",
+      "name": "Sutro Problems",
+      "tagline": "Energy-efficient learning and computation benchmarks scored on physical data movement and hardware energy.",
+      "description": "A collection of small, self-contained problems used as benchmarks for energy-efficient learning research. Submissions are scored on physical data movement using a simplified Bill Dally model or measured on A100 GPUs. Run by the Sutro Group, these benchmarks aim to address the memory wall in modern AI.",
+      "url": "https://github.com/cybertronai/sutro-problems",
+      "host": "github",
+      "status": "active",
+      "tags": [
+        "energy-efficient",
+        "hardware-efficiency",
+        "matrix-multiplication",
+        "sparse-parity",
+        "mnist",
+        "dally-model"
+      ],
+      "domain": "hardware-efficiency",
+      "images": [
+        "https://github.com/user-attachments/assets/dfab8831-876a-4cdd-bda4-79a7ef869152",
+        "https://github.com/user-attachments/assets/e4610f22-00e6-4d70-adee-1948f219cf51",
+        "https://github.com/user-attachments/assets/0d71bd80-7da8-4e0c-942d-7bd6b741a193",
+        "https://raw.githubusercontent.com/cybertronai/sutro-problems/main/sparse-parity/doc/task.svg"
+      ],
+      "organizer": {
+        "name": "Sutro Group",
+        "url": "https://docs.google.com/document/d/1B9867EN6Bg4ZVQK9vI_ZqykZ5HEtMAHJ7zBGGas4szQ/edit?tab=t.0#heading=h.j6rssh3enbtd",
+        "type": "community"
+      },
+      "participation": {
+        "howToSubmit": "Open a pull request against main adding your source/generator, reproduction commands, and a standalone report under the problem's submissions/ directory, and update the leaderboard table.",
+        "submissionFormat": "An IR file (straight-line program), a Python generator script, and a markdown report.",
+        "requirements": [
+          "Python 3.10+",
+          "NumPy",
+          "SciPy"
+        ],
+        "compute": "datacenter-gpu",
+        "computeDetails": "Dally model tracks require no compute (scored symbolically/analytically); MNIST tracks are evaluated on NVIDIA A100 GPUs.",
+        "deadline": "rolling",
+        "cost": "free",
+        "verification": "CI, symbolic check, or hardware energy measurement via NVML"
+      },
+      "quickstart": "import matmul\n\n# Verify your IR computes A @ B correctly and return its read-cost.\ncost = matmul.score_1x1(\"1,2;mul 3,1,2;3\")\n\nir = matmul.generate_baseline_4x4()\ncost = matmul.score_4x4(ir)",
+      "links": [
+        {
+          "label": "Sutro Group Document",
+          "url": "https://docs.google.com/document/d/1B9867EN6Bg4ZVQK9vI_ZqykZ5HEtMAHJ7zBGGas4szQ/edit?tab=t.0#heading=h.j6rssh3enbtd"
+        },
+        {
+          "label": "Bill Dally's Model",
+          "url": "https://github.com/cybertronai/simplified-dally-model"
+        }
+      ],
+      "problems": [
+        {
+          "id": "mnist-medium-3",
+          "name": "MNIST-medium (3% error target)",
+          "group": "mnist",
+          "description": "Learn from 9x9 images and predict test digits with at most 3% error at the lowest A100 energy.",
+          "metricName": "energy",
+          "metricUnit": "mJ",
+          "metricDirection": "minimize",
+          "records": [],
+          "isOpen": true,
+          "contested": false
+        },
+        {
+          "id": "mnist-medium-8",
+          "name": "MNIST-medium (8% error target)",
+          "group": "mnist",
+          "description": "Learn from 9x9 images and predict test digits with at most 8% error at the lowest A100 energy.",
+          "metricName": "energy",
+          "metricUnit": "mJ",
+          "metricDirection": "minimize",
+          "records": [],
+          "isOpen": true,
+          "contested": false
+        },
+        {
+          "id": "mnist-original",
+          "name": "MNIST-original (1% test error target)",
+          "group": "mnist",
+          "description": "Learn from original 28x28 images and predict test digits with at most 1% error at the lowest A100 energy.",
+          "metricName": "energy",
+          "metricUnit": "mJ",
+          "metricDirection": "minimize",
+          "records": [],
+          "isOpen": true,
+          "contested": false
+        },
+        {
+          "id": "mnist-small-67",
+          "name": "MNIST-small (67% accuracy target)",
+          "group": "mnist",
+          "description": "Learn from 3x3 images and predict test digits with at least 67% accuracy at the lowest A100 energy.",
+          "metricName": "energy",
+          "metricUnit": "mJ",
+          "metricDirection": "minimize",
+          "records": [
+            {
+              "date": "2026-09-11",
+              "value": 3300,
+              "contributor": "H32 MLP",
+              "contributorKind": "method",
+              "description": "Accuracy: 67.08% ± 1.54 pp, Time: 130 ms",
+              "agent": {
+                "family": "openai",
+                "tool": "Codex",
+                "evidence": "Merge pull request #65 from cybertronai/codex/mnist-small-60-submission",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "date": "2026-09-14",
+              "value": 2600,
+              "contributor": "NR-K8 Adam MLP",
+              "contributorKind": "method",
+              "description": "Accuracy: 67.35% ± 1.76 pp, Time: 110 ms"
+            },
+            {
+              "date": "2026-09-15",
+              "value": 3200,
+              "contributor": "Panel-cached H32 MLP (1,000/1,000)",
+              "contributorKind": "method",
+              "description": "Accuracy: 67.11% ± 1.63 pp, Time: 120 ms"
+            },
+            {
+              "date": "2026-09-15",
+              "value": 0.59,
+              "contributor": "QDA",
+              "contributorKind": "method",
+              "description": "Accuracy: 67.95% ± 1.64 pp, Time: 0.017 ms",
+              "isCurrentBest": true,
+              "agent": {
+                "family": "anthropic",
+                "model": "Claude Fable 5.1",
+                "confidence": "high",
+                "evidence": "Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>",
+                "role": "author"
+              }
+            }
+          ],
+          "isOpen": false,
+          "contested": true
+        },
+        {
+          "id": "mnist-medium-2",
+          "name": "MNIST-medium (2% error target)",
+          "group": "mnist",
+          "description": "Learn from 9x9 images and predict test digits with at most 2% error at the lowest A100 energy.",
+          "metricName": "energy",
+          "metricUnit": "mJ",
+          "metricDirection": "minimize",
+          "records": [
+            {
+              "date": "2026-09-16",
+              "value": 65000,
+              "contributor": "512-filter CG pair",
+              "contributorKind": "method",
+              "description": "Accuracy: 98.12% ± 0.15 pp (A100); 98.11% ± 0.14 pp (grid), Time: 260 ms",
+              "isCurrentBest": true
+            }
+          ],
+          "isOpen": false,
+          "contested": false
+        },
+        {
+          "id": "mnist-medium-5",
+          "name": "MNIST-medium (5% error target)",
+          "group": "mnist",
+          "description": "Learn from 9x9 images and predict test digits with at most 5% error at the lowest A100 energy.",
+          "metricName": "energy",
+          "metricUnit": "mJ",
+          "metricDirection": "minimize",
+          "records": [
+            {
+              "date": "2026-09-11",
+              "value": 290000,
+              "contributor": "512-unit MLP (96% target)",
+              "contributorKind": "method",
+              "description": "Accuracy: 96.41% ± 0.13 pp, Time: 9,300 ms",
+              "agent": {
+                "family": "openai",
+                "tool": "Codex",
+                "evidence": "Merge pull request #66 from cybertronai/codex/mnist-medium-submission",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "date": "2026-09-15",
+              "value": 174,
+              "contributor": "PCA-QDA",
+              "contributorKind": "method",
+              "description": "Accuracy: 95.57% ± 0.17 pp, Time: 3.3 ms",
+              "isCurrentBest": true,
+              "agent": {
+                "family": "openai",
+                "tool": "Codex",
+                "confidence": "medium",
+                "evidence": "PR branch codex/pca-qda-energy-correction",
+                "role": "author"
+              }
+            }
+          ],
+          "isOpen": false,
+          "contested": true
+        },
+        {
+          "id": "mnist-medium-12",
+          "name": "MNIST-medium (12% error target)",
+          "group": "mnist",
+          "description": "Learn from 9x9 images and predict test digits with at most 12% error at the lowest A100 energy.",
+          "metricName": "energy",
+          "metricUnit": "mJ",
+          "metricDirection": "minimize",
+          "records": [
+            {
+              "date": "2026-09-14",
+              "value": 1000,
+              "contributor": "Reversible MLP, smaller workspace (12% error target)",
+              "contributorKind": "method",
+              "description": "Accuracy: 89.28% ± 0.36 pp, Time: 39 ms",
+              "isCurrentBest": true,
+              "agent": {
+                "family": "openai",
+                "tool": "Codex",
+                "confidence": "medium",
+                "evidence": "PR branch codex/rev88-20260914",
+                "role": "author"
+              }
+            }
+          ],
+          "isOpen": false,
+          "contested": false
+        },
+        {
+          "id": "mnist-small-historical",
+          "name": "MNIST-small (Historical)",
+          "group": "mnist",
+          "description": "Historical submissions for MNIST-small under the previous specification (600/600 sizes).",
+          "metricName": "energy",
+          "metricUnit": "mJ",
+          "metricDirection": "minimize",
+          "records": [
+            {
+              "date": "2026-09-12",
+              "value": 1800,
+              "contributor": "Panel-cached MLP (600/600)",
+              "contributorKind": "method",
+              "description": "Accuracy: 65.0% ± 2.1 pp, Time: 57 ms"
+            },
+            {
+              "date": "2026-09-10",
+              "value": 2000,
+              "contributor": "32-unit MLP",
+              "contributorKind": "method",
+              "description": "Accuracy: 62%, Time: 71 ms",
+              "agent": {
+                "family": "openai",
+                "tool": "Codex",
+                "confidence": "medium",
+                "evidence": "PR branch codex/mnist-small-60-submission",
+                "role": "author"
+              }
+            },
+            {
+              "date": "2026-09-10",
+              "value": 0.52,
+              "contributor": "1NN",
+              "contributorKind": "method",
+              "description": "Accuracy: 51%, Time: 0.0069 ms",
+              "isCurrentBest": true,
+              "agent": {
+                "family": "openai",
+                "tool": "Codex",
+                "confidence": "medium",
+                "evidence": "PR branch codex/mnist-small-1nn-submission",
+                "role": "author"
+              }
+            }
+          ],
+          "isOpen": false,
+          "contested": true
+        },
+        {
+          "id": "mnist-medium-historical",
+          "name": "MNIST-medium (Historical)",
+          "group": "mnist",
+          "description": "Historical submissions for MNIST-medium under the previous specification (6,000/6,000 sizes).",
+          "metricName": "energy",
+          "metricUnit": "mJ",
+          "metricDirection": "minimize",
+          "records": [
+            {
+              "date": "2026-09-11",
+              "value": 780000,
+              "contributor": "Ordered ConvNets (3% error target)",
+              "contributorKind": "method",
+              "description": "Accuracy: 97.8% ± 0.1 pp, Time: 13,000 ms",
+              "agent": {
+                "family": "openai",
+                "tool": "Codex",
+                "confidence": "medium",
+                "evidence": "PR branch codex/mnist-medium-four-percent-scored",
+                "role": "author"
+              }
+            },
+            {
+              "date": "2026-09-10",
+              "value": 1700000,
+              "contributor": "Three ConvNets",
+              "contributorKind": "method",
+              "description": "Accuracy: 98.1% ± 0.1 pp, Time: 5.9 × 10⁴ ms",
+              "agent": {
+                "family": "openai",
+                "tool": "Codex",
+                "confidence": "medium",
+                "evidence": "PR branch codex/mnist-medium-convnet-submission",
+                "role": "author"
+              }
+            },
+            {
+              "date": "2026-09-10",
+              "value": 150000,
+              "contributor": "512-unit MLP",
+              "contributorKind": "method",
+              "description": "Accuracy: 96%, Time: 4,700 ms",
+              "isCurrentBest": true,
+              "agent": {
+                "family": "openai",
+                "tool": "Codex",
+                "confidence": "medium",
+                "evidence": "PR branch codex/mnist-medium-submission",
+                "role": "author"
+              }
+            }
+          ],
+          "isOpen": false,
+          "contested": true
+        },
+        {
+          "id": "sparse-parity-20",
+          "name": "Sparse Parity (20% target)",
+          "group": "sparse-parity",
+          "description": "Recover the k secret bit positions at the lowest energy with at least 20% accuracy.",
+          "metricName": "cost",
+          "metricDirection": "minimize",
+          "records": [
+            {
+              "date": "2026-09-02",
+              "value": 86753,
+              "contributor": "b0nce",
+              "contributorKind": "person",
+              "description": "`generate_packed_static20()` (packed static information set)",
+              "isCurrentBest": true,
+              "contributorUrl": "https://github.com/b0nce"
+            },
+            {
+              "date": "2026-09-01",
+              "value": 135348,
+              "contributor": "jurajselep",
+              "contributorKind": "person",
+              "description": "`generate_packed_scan(1)` (packed-column scan + SSA layout)",
+              "contributorUrl": "https://github.com/jurajselep"
+            },
+            {
+              "date": "2026-08-31",
+              "value": 151117,
+              "contributor": "npow",
+              "contributorKind": "person",
+              "description": "`generate_packed_sis(cap=2, seed=13, g2=8)` (packed SIS, partial cap-2 walk, exhaustive information-set tuning)",
+              "contributorUrl": "https://github.com/npow"
+            },
+            {
+              "date": "2026-08-30",
+              "value": 1317480,
+              "contributor": "zh4ngx",
+              "contributorKind": "person",
+              "description": "`optimize_layout(generate_sis_mask(1, 2))` (static-IS walk, staged layout)",
+              "contributorUrl": "https://github.com/zh4ngx"
+            },
+            {
+              "date": "2026-08-27",
+              "value": 17331683,
+              "contributor": "yaroslavvb",
+              "contributorKind": "person",
+              "description": "`generate_scan(127)` (Gray scan)",
+              "contributorUrl": "https://github.com/yaroslavvb"
+            },
+            {
+              "date": "2026-08-26",
+              "value": 12042480,
+              "contributor": "yaroslavvb",
+              "contributorKind": "person",
+              "description": "`generate_isd_mask(8)` (ISD restarts)",
+              "contributorUrl": "https://github.com/yaroslavvb"
+            }
+          ],
+          "isOpen": false,
+          "contested": true
+        },
+        {
+          "id": "sparse-parity-40",
+          "name": "Sparse Parity (40% target)",
+          "group": "sparse-parity",
+          "description": "Recover the k secret bit positions at the lowest energy with at least 40% accuracy.",
+          "metricName": "cost",
+          "metricDirection": "minimize",
+          "records": [
+            {
+              "date": "2026-09-01",
+              "value": 141218,
+              "contributor": "npow",
+              "contributorKind": "person",
+              "description": "55 audited weight-2 states + compact flow + reverse route ★ best",
+              "isCurrentBest": true,
+              "contributorUrl": "https://github.com/npow"
+            },
+            {
+              "date": "2026-09-02",
+              "value": 147000,
+              "contributor": "b0nce",
+              "contributorKind": "person",
+              "description": "`generate_packed_route40()` (cap-2 Gray prefix)",
+              "contributorUrl": "https://github.com/b0nce"
+            },
+            {
+              "date": "2026-09-01",
+              "value": 151943,
+              "contributor": "jurajselep",
+              "contributorKind": "person",
+              "description": "`generate_packed_scan(2)` (packed-column scan + SSA layout)",
+              "contributorUrl": "https://github.com/jurajselep"
+            },
+            {
+              "date": "2026-08-31",
+              "value": 163378,
+              "contributor": "npow",
+              "contributorKind": "person",
+              "description": "`generate(1, 2, seed=5)` (bit-packed SIS walk, 3-phase layout, higher dev recovery)",
+              "contributorUrl": "https://github.com/npow"
+            },
+            {
+              "date": "2026-08-30",
+              "value": 1317480,
+              "contributor": "zh4ngx",
+              "contributorKind": "person",
+              "description": "`optimize_layout(generate_sis_mask(1, 2))` (static-IS walk, staged layout)",
+              "contributorUrl": "https://github.com/zh4ngx"
+            },
+            {
+              "date": "2026-08-28",
+              "value": 17418235,
+              "contributor": "zh4ngx",
+              "contributorKind": "person",
+              "description": "`generate_scan(0, walk=\"weight\", weight_cap=2)` (weight-ordered scan)",
+              "contributorUrl": "https://github.com/zh4ngx"
+            },
+            {
+              "date": "2026-08-27",
+              "value": 18764343,
+              "contributor": "yaroslavvb",
+              "contributorKind": "person",
+              "description": "`generate_scan(1023)` (Gray scan)",
+              "contributorUrl": "https://github.com/yaroslavvb"
+            },
+            {
+              "date": "2026-08-27",
+              "value": 17945660,
+              "contributor": "yaroslavvb",
+              "contributorKind": "person",
+              "description": "`generate_scan(511)` (Gray scan)",
+              "contributorUrl": "https://github.com/yaroslavvb"
+            }
+          ],
+          "isOpen": false,
+          "contested": true
+        },
+        {
+          "id": "sparse-parity-60",
+          "name": "Sparse Parity (60% target)",
+          "group": "sparse-parity",
+          "description": "Recover the k secret bit positions at the lowest energy with at least 60% accuracy.",
+          "metricName": "cost",
+          "metricDirection": "minimize",
+          "records": [
+            {
+              "date": "2026-09-01",
+              "value": 149665,
+              "contributor": "npow",
+              "contributorKind": "person",
+              "description": "19 audited weight-3 states + compact flow + reversed 2-opt walk ★ best",
+              "isCurrentBest": true,
+              "contributorUrl": "https://github.com/npow"
+            },
+            {
+              "date": "2026-09-02",
+              "value": 176331,
+              "contributor": "b0nce",
+              "contributorKind": "person",
+              "description": "`generate_packed_route60()` (cap-3 Gray prefix)",
+              "contributorUrl": "https://github.com/b0nce"
+            },
+            {
+              "date": "2026-09-01",
+              "value": 200937,
+              "contributor": "jurajselep",
+              "contributorKind": "person",
+              "description": "`generate_packed_scan(3)` (packed-column scan + SSA layout)",
+              "contributorUrl": "https://github.com/jurajselep"
+            },
+            {
+              "date": "2026-08-31",
+              "value": 284049,
+              "contributor": "npow",
+              "contributorKind": "person",
+              "description": "`generate_packed_sis(cap=3, seed=13)` (bit-packed SIS walk, full cap-3, tuned seed)",
+              "contributorUrl": "https://github.com/npow"
+            },
+            {
+              "date": "2026-08-30",
+              "value": 2137725,
+              "contributor": "zh4ngx",
+              "contributorKind": "person",
+              "description": "`optimize_layout(generate_sis_mask(1, 3))` (static-IS walk, staged layout)",
+              "contributorUrl": "https://github.com/zh4ngx"
+            },
+            {
+              "date": "2026-08-28",
+              "value": 18509753,
+              "contributor": "zh4ngx",
+              "contributorKind": "person",
+              "description": "`generate_scan(0, walk=\"weight\", weight_cap=3)` (weight-ordered scan)",
+              "contributorUrl": "https://github.com/zh4ngx"
+            },
+            {
+              "date": "2026-08-27",
+              "value": 26951367,
+              "contributor": "yaroslavvb",
+              "contributorKind": "person",
+              "description": "`generate_scan(6143)` (Gray scan)",
+              "contributorUrl": "https://github.com/yaroslavvb"
+            },
+            {
+              "date": "2026-08-26",
+              "value": 23676539,
+              "contributor": "yaroslavvb",
+              "contributorKind": "person",
+              "description": "`generate_scan(4095)` (Gray scan)",
+              "contributorUrl": "https://github.com/yaroslavvb"
+            }
+          ],
+          "isOpen": false,
+          "contested": true
+        },
+        {
+          "id": "sparse-parity-80",
+          "name": "Sparse Parity (80% target)",
+          "group": "sparse-parity",
+          "description": "Recover the k secret bit positions at the lowest energy with at least 80% accuracy.",
+          "metricName": "cost",
+          "metricDirection": "minimize",
+          "records": [
+            {
+              "date": "2026-09-01",
+              "value": 182744,
+              "contributor": "npow",
+              "contributorKind": "person",
+              "description": "269 audited weight-3 states + compact flow + reversed 2-opt walk ★ best",
+              "isCurrentBest": true,
+              "contributorUrl": "https://github.com/npow"
+            },
+            {
+              "date": "2026-09-02",
+              "value": 196139,
+              "contributor": "b0nce",
+              "contributorKind": "person",
+              "description": "`generate_packed_route80()` (cap-3 Gray prefix)",
+              "contributorUrl": "https://github.com/b0nce"
+            },
+            {
+              "date": "2026-09-01",
+              "value": 200937,
+              "contributor": "jurajselep",
+              "contributorKind": "person",
+              "description": "`generate_packed_scan(3)` (packed-column scan + SSA layout)",
+              "contributorUrl": "https://github.com/jurajselep"
+            },
+            {
+              "date": "2026-08-31",
+              "value": 493193,
+              "contributor": "npow",
+              "contributorKind": "person",
+              "description": "`generate_staged(weight_cap=3)` (septet-packed dynamic RREF + row-coordinate walk)",
+              "contributorUrl": "https://github.com/npow"
+            },
+            {
+              "date": "2026-08-30",
+              "value": 5593997,
+              "contributor": "zh4ngx",
+              "contributorKind": "person",
+              "description": "`optimize_layout(generate_scan(0, walk=\"weight\", weight_cap=3))` (weight-ordered scan, staged layout)",
+              "contributorUrl": "https://github.com/zh4ngx"
+            },
+            {
+              "date": "2026-08-27",
+              "value": 33501030,
+              "contributor": "yaroslavvb",
+              "contributorKind": "person",
+              "description": "`generate_scan(10239)` (Gray scan)",
+              "contributorUrl": "https://github.com/yaroslavvb"
+            },
+            {
+              "date": "2026-08-27",
+              "value": 30226172,
+              "contributor": "yaroslavvb",
+              "contributorKind": "person",
+              "description": "`generate_scan(8191)` (Gray scan)",
+              "contributorUrl": "https://github.com/yaroslavvb"
+            }
+          ],
+          "isOpen": false,
+          "contested": true
+        },
+        {
+          "id": "sparse-parity-100",
+          "name": "Sparse Parity (100% target)",
+          "group": "sparse-parity",
+          "description": "Recover the k secret bit positions at the lowest energy with 100% accuracy.",
+          "metricName": "cost",
+          "metricDirection": "minimize",
+          "records": [
+            {
+              "date": "2026-09-02",
+              "value": 392666,
+              "contributor": "jurajselep, b0nce",
+              "contributorKind": "team",
+              "description": "`generate_packed_scan(5)` (packed RREF + specialized capture)",
+              "isCurrentBest": true
+            },
+            {
+              "date": "2026-08-31",
+              "value": 938331,
+              "contributor": "npow",
+              "contributorKind": "person",
+              "description": "`generate_staged()` (septet-packed RREF + row-coordinate walk)",
+              "contributorUrl": "https://github.com/npow"
+            },
+            {
+              "date": "2026-08-30",
+              "value": 12461610,
+              "contributor": "zh4ngx",
+              "contributorKind": "person",
+              "description": "`optimize_layout(generate_scan(0, walk=\"weight\", weight_cap=5))` (weight-ordered scan, staged layout)",
+              "contributorUrl": "https://github.com/zh4ngx"
+            },
+            {
+              "date": "2026-08-26",
+              "value": 43325468,
+              "contributor": "yaroslavvb",
+              "contributorKind": "person",
+              "description": "`generate_scan(16383)` (Gray scan, full walk)",
+              "contributorUrl": "https://github.com/yaroslavvb"
+            }
+          ],
+          "isOpen": false,
+          "contested": true
+        },
+        {
+          "id": "symmetry-6bit",
+          "name": "Symmetry (6-bit, 100% target)",
+          "group": "symmetry",
+          "description": "Classify a 6-bit pattern as a palindrome (1) or not (0) at the lowest energy.",
+          "metricName": "cost",
+          "metricDirection": "minimize",
+          "baseline": 20,
+          "records": [
+            {
+              "date": "2026-05-11",
+              "value": 20,
+              "contributor": "baseline",
+              "contributorKind": "method",
+              "description": "`generate_baseline_six` (3× cmp eq + 2× and)",
+              "isBaseline": true,
+              "isCurrentBest": true
+            }
+          ],
+          "isOpen": true,
+          "contested": false
+        },
+        {
+          "id": "symmetry-8bit",
+          "name": "Symmetry (8-bit, 100% target)",
+          "group": "symmetry",
+          "description": "Classify an 8-bit pattern as a palindrome (1) or not (0) at the lowest energy.",
+          "metricName": "cost",
+          "metricDirection": "minimize",
+          "baseline": 29,
+          "records": [
+            {
+              "date": "2026-05-11",
+              "value": 29,
+              "contributor": "baseline",
+              "contributorKind": "method",
+              "description": "`generate_baseline_eight` (4× cmp eq + 3× and)",
+              "isBaseline": true,
+              "isCurrentBest": true
+            }
+          ],
+          "isOpen": true,
+          "contested": false
+        },
+        {
+          "id": "matmul-4x4",
+          "name": "4x4 Matrix Multiplication",
+          "group": "matmul",
+          "description": "Optimize 4x4 matrix multiplication read-cost under the simplified Bill Dally model.",
+          "metricName": "cost",
+          "metricDirection": "minimize",
+          "baseline": 1316,
+          "records": [
+            {
+              "date": "2026-04-29",
+              "value": 1316,
+              "contributor": "yaroslavvb",
+              "contributorKind": "person",
+              "description": "`generate_baseline_4x4` (naive)",
+              "isBaseline": true,
+              "contributorUrl": "https://github.com/yaroslavvb"
+            },
+            {
+              "date": "2026-04-30",
+              "value": 800,
+              "contributor": "sjbaebae",
+              "contributorKind": "person",
+              "description": "`generate_outer_product_4x4` (size-1 sA)",
+              "contributorUrl": "https://github.com/sjbaebae"
+            },
+            {
+              "date": "2026-09-01",
+              "value": 689,
+              "contributor": "jurajselep",
+              "contributorKind": "person",
+              "description": "row-wise lifetime fusion + dead-A output reuse + exact tier allocation",
+              "contributorUrl": "https://github.com/jurajselep"
+            },
+            {
+              "date": "2026-09-01",
+              "value": 683,
+              "contributor": "npow",
+              "contributorKind": "person",
+              "description": "HKKK + one deferred output add + exact fixed-schedule allocation",
+              "contributorUrl": "https://github.com/npow"
+            },
+            {
+              "date": "2026-09-01",
+              "value": 681,
+              "contributor": "jurajselep",
+              "contributorKind": "person",
+              "description": "hybrid row-0 schedule + JIT A staging + interleaved final adds",
+              "contributorUrl": "https://github.com/jurajselep"
+            },
+            {
+              "date": "2026-09-04",
+              "value": 675,
+              "contributor": "jurajselep",
+              "contributorKind": "person",
+              "description": "selective A/B lifetime splits + dependency-safe scheduling + exact lifetime coloring ★ best",
+              "isCurrentBest": true,
+              "contributorUrl": "https://github.com/jurajselep"
+            }
+          ],
+          "isOpen": false,
+          "contested": true
+        },
+        {
+          "id": "matmul-16x16",
+          "name": "16x16 Matrix Multiplication",
+          "group": "matmul",
+          "description": "Optimize 16x16 matrix multiplication read-cost under the simplified Bill Dally model.",
+          "metricName": "cost",
+          "metricDirection": "minimize",
+          "baseline": 340704,
+          "records": [
+            {
+              "date": "2026-04-29",
+              "value": 340704,
+              "contributor": "yaroslavvb",
+              "contributorKind": "person",
+              "description": "`generate_baseline_16x16` (naive)",
+              "isBaseline": true,
+              "contributorUrl": "https://github.com/yaroslavvb"
+            },
+            {
+              "date": "2026-05-08",
+              "value": 237456,
+              "contributor": "yaroslavvb",
+              "contributorKind": "person",
+              "description": "`generate_recursive_16x16` (1×1-leaf D&C, Z-order)",
+              "contributorUrl": "https://github.com/yaroslavvb"
+            },
+            {
+              "date": "2026-04-29",
+              "value": 133783,
+              "contributor": "yaroslavvb",
+              "contributorKind": "person",
+              "description": "`generate_tiled_16x16` (4×4 tiles)",
+              "contributorUrl": "https://github.com/yaroslavvb"
+            },
+            {
+              "date": "2026-04-30",
+              "value": 110743,
+              "contributor": "SethTS",
+              "contributorKind": "person",
+              "description": "`generate_tiled_16x16_opt1` (tmp@1)",
+              "agent": {
+                "family": "anthropic",
+                "model": "Claude Sonnet 4.6",
+                "evidence": "Co-authored-by: Claude Sonnet 4.6 <noreply@anthropic.com>",
+                "confidence": "high",
+                "role": "author"
+              },
+              "contributorUrl": "https://github.com/SethTS"
+            },
+            {
+              "date": "2026-04-30",
+              "value": 80217,
+              "contributor": "sjbaebae",
+              "contributorKind": "person",
+              "description": "`generate_hierarchical_16x16` (asym. reload)",
+              "contributorUrl": "https://github.com/sjbaebae"
+            },
+            {
+              "date": "2026-04-30",
+              "value": 73602,
+              "contributor": "adotzh",
+              "contributorKind": "person",
+              "description": "sA-cache + sB scratchpad (rank2)",
+              "contributorUrl": "https://github.com/adotzh"
+            },
+            {
+              "date": "2026-05-01",
+              "value": 72642,
+              "contributor": "sjbaebae",
+              "contributorKind": "person",
+              "description": "+ redirect last-mul to addr 1",
+              "contributorUrl": "https://github.com/sjbaebae"
+            },
+            {
+              "date": "2026-05-01",
+              "value": 71724,
+              "contributor": "sjbaebae",
+              "contributorKind": "person",
+              "description": "+ last-super-block outputs in sC",
+              "contributorUrl": "https://github.com/sjbaebae"
+            },
+            {
+              "date": "2026-05-01",
+              "value": 70053,
+              "contributor": "sjbaebae",
+              "contributorKind": "person",
+              "description": "+ dead-input output reuse + B packing",
+              "contributorUrl": "https://github.com/sjbaebae"
+            },
+            {
+              "date": "2026-05-06",
+              "value": 69697,
+              "contributor": "yaroslavvb",
+              "contributorKind": "person",
+              "description": "C↔A address aliasing + final-add fusion",
+              "contributorUrl": "https://github.com/yaroslavvb"
+            },
+            {
+              "date": "2026-05-05",
+              "value": 68452,
+              "contributor": "zh4ngx",
+              "contributorKind": "person",
+              "description": "+ column-major order + fused final copy-out",
+              "contributorUrl": "https://github.com/zh4ngx"
+            },
+            {
+              "date": "2026-05-13",
+              "value": 68390,
+              "contributor": "cosminscn",
+              "contributorKind": "person",
+              "description": "+ liveness order + output-read-aware packing + five-output scratch tail",
+              "agent": {
+                "family": "openai",
+                "tool": "Codex",
+                "confidence": "medium",
+                "evidence": "PR branch codex/matmul-68390-five-direct-tail",
+                "role": "author"
+              },
+              "contributorUrl": "https://github.com/cosminscn"
+            },
+            {
+              "date": "2026-05-13",
+              "value": 67834,
+              "contributor": "cosminscn",
+              "contributorKind": "person",
+              "description": "+ live-B evacuation + output deferral + A staging + value-lifetime coloring",
+              "agent": {
+                "family": "openai",
+                "tool": "Codex",
+                "confidence": "medium",
+                "evidence": "PR branch codex/matmul-67834-clean-submission",
+                "role": "author"
+              },
+              "contributorUrl": "https://github.com/cosminscn"
+            },
+            {
+              "date": "2026-05-14",
+              "value": 67821,
+              "contributor": "cosminscn",
+              "contributorKind": "person",
+              "description": "+ live-B evacuation + output deferral + tiny A-staging mask + staged-reload endpoint lift + value-lifetime coloring",
+              "agent": {
+                "family": "openai",
+                "tool": "Codex",
+                "confidence": "medium",
+                "evidence": "PR branch codex/matmul-wave15-67821",
+                "role": "author"
+              },
+              "contributorUrl": "https://github.com/cosminscn"
+            },
+            {
+              "date": "2026-05-08",
+              "value": 66707,
+              "contributor": "sjbaebae",
+              "contributorKind": "person",
+              "description": "weighted-lifetime pressure search + copy elimination",
+              "agent": {
+                "family": "openai",
+                "tool": "Codex",
+                "confidence": "medium",
+                "evidence": "PR branch codex/weighted-lifetime-matmul",
+                "role": "author"
+              },
+              "contributorUrl": "https://github.com/sjbaebae"
+            },
+            {
+              "date": "2026-05-25",
+              "value": 66633,
+              "contributor": "cosminscn",
+              "contributorKind": "person",
+              "description": "macro B-staging + row-7 later-panel prestaging from addr 1",
+              "agent": {
+                "family": "openai",
+                "tool": "Codex",
+                "confidence": "medium",
+                "evidence": "PR branch codex/matmul-66633-macro-b-staging",
+                "role": "author"
+              },
+              "contributorUrl": "https://github.com/cosminscn"
+            },
+            {
+              "date": "2026-05-25",
+              "value": 66524,
+              "contributor": "cosminscn",
+              "contributorKind": "person",
+              "description": "late B-block cheap capture from addr 1 + value-lifetime coloring",
+              "agent": {
+                "family": "openai",
+                "tool": "Codex",
+                "evidence": "Author: Codex and Cosmin",
+                "confidence": "high",
+                "role": "author"
+              },
+              "contributorUrl": "https://github.com/cosminscn"
+            },
+            {
+              "date": "2026-05-26",
+              "value": 66400,
+              "contributor": "cosminscn",
+              "contributorKind": "person",
+              "description": "late copy-schedule motif bundle + value-lifetime coloring",
+              "agent": {
+                "family": "openai",
+                "tool": "Codex",
+                "confidence": "medium",
+                "evidence": "PR branch codex/matmul-66400-motif-bundle",
+                "role": "author"
+              },
+              "contributorUrl": "https://github.com/cosminscn"
+            },
+            {
+              "date": "2026-05-28",
+              "value": 66300,
+              "contributor": "cosminscn",
+              "contributorKind": "person",
+              "description": "Claude-assisted simulated annealing over a prior leaderboard physical-address IR",
+              "agent": {
+                "family": "openai",
+                "tool": "Codex",
+                "confidence": "medium",
+                "evidence": "PR branch codex/matmul-66300-best-submission",
+                "role": "author"
+              },
+              "contributorUrl": "https://github.com/cosminscn"
+            },
+            {
+              "date": "2026-08-29",
+              "value": 66199,
+              "contributor": "sigkillme0",
+              "contributorKind": "person",
+              "description": "dependency-safe rescheduling + exact tier allocation",
+              "contributorUrl": "https://github.com/sigkillme0"
+            },
+            {
+              "date": "2026-08-30",
+              "value": 66178,
+              "contributor": "sigkillme0",
+              "contributorKind": "person",
+              "description": "exact LP-optimal address assignment (provably optimal for this operation order)",
+              "contributorUrl": "https://github.com/sigkillme0"
+            },
+            {
+              "date": "2026-09-04",
+              "value": 65084,
+              "contributor": "jurajselep",
+              "contributorKind": "person",
+              "description": "newest-first snake passes + JIT A staging + local exact tier allocation",
+              "contributorUrl": "https://github.com/jurajselep"
+            },
+            {
+              "date": "2026-09-04",
+              "value": 64431,
+              "contributor": "cosminscn",
+              "contributorKind": "person",
+              "description": "asymmetric panel schedule + persistent B captures + dependency-safe order search",
+              "agent": {
+                "family": "openai",
+                "tool": "Codex",
+                "confidence": "medium",
+                "evidence": "PR branch codex/matmul-record-64431-clean",
+                "role": "author"
+              },
+              "contributorUrl": "https://github.com/cosminscn"
+            },
+            {
+              "date": "2026-09-07",
+              "value": 64074,
+              "contributor": "SecurityQQ",
+              "contributorKind": "person",
+              "description": "temporary input captures + cheapest surviving replica reads + redundant-copy deletion",
+              "contributorUrl": "https://github.com/SecurityQQ"
+            },
+            {
+              "date": "2026-09-07",
+              "value": 63819,
+              "contributor": "SecurityQQ",
+              "contributorKind": "person",
+              "description": "6+10 asymmetric panels + dependency-safe scheduling + input captures and address allocation (frozen-artifact verifier)",
+              "contributorUrl": "https://github.com/SecurityQQ"
+            },
+            {
+              "date": "2026-09-15",
+              "value": 63639,
+              "contributor": "jurajselep",
+              "contributorKind": "person",
+              "description": "input copy-chain and neutral-plan optimization + whole-program allocation with an exact rational certificate",
+              "contributorUrl": "https://github.com/jurajselep"
+            },
+            {
+              "date": "2026-09-15",
+              "value": 63354,
+              "contributor": "jurajselep",
+              "contributorKind": "person",
+              "description": "exact block reordering + joint reduction-tree and storage allocation",
+              "contributorUrl": "https://github.com/jurajselep"
+            },
+            {
+              "date": "2026-09-18",
+              "value": 63350,
+              "contributor": "jurajselep",
+              "contributorKind": "person",
+              "description": "joint reduction-tree/storage repair + redundant-copy elimination ★ best",
+              "isCurrentBest": true,
+              "contributorUrl": "https://github.com/jurajselep"
+            }
+          ],
+          "isOpen": false,
+          "contested": true
+        }
+      ],
+      "repo": {
+        "owner": "cybertronai",
+        "name": "sutro-problems",
+        "branch": "main"
+      },
+      "participants": [
+        {
+          "name": "jurajselep",
+          "url": "https://github.com/jurajselep",
+          "submissions": 12,
+          "problems": [
+            "sparse-parity-20",
+            "sparse-parity-40",
+            "sparse-parity-60",
+            "sparse-parity-80",
+            "sparse-parity-100",
+            "matmul-4x4",
+            "matmul-16x16"
+          ],
+          "lastActive": "2026-09-18",
+          "bestRank": 1
+        },
+        {
+          "name": "npow",
+          "url": "https://github.com/npow",
+          "submissions": 9,
+          "problems": [
+            "sparse-parity-20",
+            "sparse-parity-40",
+            "sparse-parity-60",
+            "sparse-parity-80",
+            "sparse-parity-100",
+            "matmul-4x4"
+          ],
+          "lastActive": "2026-09-01",
+          "bestRank": 1
+        },
+        {
+          "name": "b0nce",
+          "url": "https://github.com/b0nce",
+          "submissions": 5,
+          "problems": [
+            "sparse-parity-20",
+            "sparse-parity-40",
+            "sparse-parity-60",
+            "sparse-parity-80",
+            "sparse-parity-100"
+          ],
+          "bestRank": 1,
+          "lastActive": "2026-09-02"
+        },
+        {
+          "name": "yaroslavvb",
+          "url": "https://github.com/yaroslavvb",
+          "submissions": 14,
+          "problems": [
+            "sparse-parity-20",
+            "sparse-parity-40",
+            "sparse-parity-60",
+            "sparse-parity-80",
+            "sparse-parity-100",
+            "matmul-4x4",
+            "matmul-16x16"
+          ],
+          "lastActive": "2026-08-27"
+        },
+        {
+          "name": "zh4ngx",
+          "url": "https://github.com/zh4ngx",
+          "submissions": 8,
+          "problems": [
+            "sparse-parity-20",
+            "sparse-parity-40",
+            "sparse-parity-60",
+            "sparse-parity-80",
+            "sparse-parity-100",
+            "matmul-16x16"
+          ],
+          "lastActive": "2026-08-30"
+        },
+        {
+          "name": "cosminscn",
+          "url": "https://github.com/cosminscn",
+          "submissions": 8,
+          "problems": [
+            "matmul-16x16"
+          ],
+          "lastActive": "2026-09-04"
+        },
+        {
+          "name": "sjbaebae",
+          "url": "https://github.com/sjbaebae",
+          "submissions": 6,
+          "problems": [
+            "matmul-4x4",
+            "matmul-16x16"
+          ],
+          "lastActive": "2026-05-08"
+        },
+        {
+          "name": "sigkillme0",
+          "url": "https://github.com/sigkillme0",
+          "submissions": 2,
+          "problems": [
+            "matmul-16x16"
+          ],
+          "lastActive": "2026-08-30"
+        },
+        {
+          "name": "SecurityQQ",
+          "url": "https://github.com/SecurityQQ",
+          "submissions": 2,
+          "problems": [
+            "matmul-16x16"
+          ],
+          "lastActive": "2026-09-07"
+        },
+        {
+          "name": "SethTS",
+          "url": "https://github.com/SethTS",
+          "submissions": 1,
+          "problems": [
+            "matmul-16x16"
+          ],
+          "lastActive": "2026-04-30"
+        },
+        {
+          "name": "adotzh",
+          "url": "https://github.com/adotzh",
+          "submissions": 1,
+          "problems": [
+            "matmul-16x16"
+          ],
+          "lastActive": "2026-04-30"
+        }
+      ],
+      "stats": {
+        "totalRecords": 83,
+        "uniqueParticipants": 11,
+        "firstSubmission": "2026-04-29",
+        "lastSubmission": "2026-09-18",
+        "recordsLast30d": 60,
+        "recordsLast90d": 60
+      },
+      "agentStats": [
+        {
+          "family": "openai",
+          "records": 18,
+          "currentBests": 3,
+          "models": [],
+          "contributors": [
+            "H32 MLP",
+            "512-unit MLP (96% target)",
+            "PCA-QDA",
+            "Reversible MLP, smaller workspace (12% error target)",
+            "32-unit MLP",
+            "1NN",
+            "Ordered ConvNets (3% error target)",
+            "Three ConvNets",
+            "512-unit MLP",
+            "cosminscn",
+            "sjbaebae"
+          ],
+          "uncontestedBests": 1
+        },
+        {
+          "family": "anthropic",
+          "records": 2,
+          "currentBests": 1,
+          "models": [
+            "Claude Fable 5.1",
+            "Claude Sonnet 4.6"
+          ],
+          "contributors": [
+            "QDA",
+            "SethTS"
+          ]
+        }
+      ],
+      "lastUpdated": "2026-09-18T16:32:55.539Z"
     }
   ],
-  "errors": [
-    {
-      "repo": "LudwigStumpp/llm-leaderboard",
-      "error": "LLM output truncated at max_tokens (71294 chars) — leaderboard too large for one pass (previous entry kept)"
-    }
-  ]
+  "errors": []
 }

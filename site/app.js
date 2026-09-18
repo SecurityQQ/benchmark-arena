@@ -279,7 +279,7 @@ function buildPrompt(c, pr) {
   const tracks = (n) => {
     if (pr) return `Track:\n${trackLine(pr)}${pr.description ? `\n  ${clip(pr.description, 300)}` : ""}${c.problems.length > 1 ? `\n(${c.problems.length - 1} other tracks, see the digest)` : ""}`;
     if (!c.problems.length || !n) return "";
-    const list = [...c.problems].sort((a, b) => (b.isOpen ? 1 : 0) - (a.isOpen ? 1 : 0));
+    const list = c.problems;
     return `Tracks (${list.length}):\n${list.slice(0, n).map(trackLine).join("\n")}${list.length > n ? `\n(+${list.length - n} more, see the digest)` : ""}`;
   };
   const links = (n) => (n && c.links.length ? `Links:\n${c.links.slice(0, n).map((l) => `- ${l.label}: ${l.url}`).join("\n")}` : "");
@@ -1115,7 +1115,7 @@ function renderDetail(id) {
         <div class="section"><h2>What it takes to participate</h2><div class="panel"><dl class="facts">${facts}</dl></div></div>
         <div class="section" id="leaderboards">
           <h2>Leaderboards <small>${c.problems.length} track${c.problems.length === 1 ? "" : "s"} · ${c.stats.totalRecords} records${openCount ? ` · <span class="openpill">${openCount} open</span>` : ""}</small></h2>
-          ${c.problems.length ? [...c.problems].sort((a, b) => (b.isOpen ? 1 : 0) - (a.isOpen ? 1 : 0)).map((pr, i) => problemBlock(pr, i === 0, c)).join("") : `<div class="empty">No leaderboard tracks parsed yet.</div>`}
+          ${c.problems.length ? c.problems.map((pr, i) => problemBlock(pr, i === 0, c)).join("") : `<div class="empty">No leaderboard tracks parsed yet.</div>`}
         </div>
       </div>
       <aside>
@@ -1201,7 +1201,7 @@ function gotoTrack(id) {
   el.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 function startSection(c) {
-  const p = c.participation, ps = [...c.problems].sort((a, b) => (b.isOpen ? 1 : 0) - (a.isOpen ? 1 : 0));
+  const p = c.participation, ps = c.problems;
   const MAX = 8, one = ps.length === 1 ? ps[0] : null, target = one && (trackBest(one)?.value ?? baselineOf(one));
   const chips = ps.length > 1
     ? `<div class="track-chips">${ps.slice(0, MAX).map((pr) => { const b = trackBest(pr); return `<button type="button" class="tag${pr.isOpen ? " is-open" : ""}" onclick="gotoTrack('${trackDomId(pr)}')">${esc(pr.name)}<span>${pr.isOpen ? "open" : b ? esc(fmt(b.value) + unitOf(pr)) : `${pr.records.length} rec`}</span></button>`; }).join("")}${ps.length > MAX ? `<a class="tag" href="#leaderboards" onclick="gotoTrack('leaderboards');return false">+${ps.length - MAX} more</a>` : ""}</div>`

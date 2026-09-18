@@ -1,6 +1,6 @@
 // Derive participants/stats and normalize URLs after LLM extraction
 
-import type { Competition, Participant, Stats, DiscoveredRepo, AgentFamily, AgentStat } from "./types.js";
+import type { Competition, Problem, Participant, Stats, DiscoveredRepo, AgentFamily, AgentStat } from "./types.js";
 import type { LLMCompetition } from "./llm.js";
 
 const DAY = 86_400_000;
@@ -125,12 +125,17 @@ export function postprocess(llm: LLMCompetition, repo: DiscoveredRepo): Competit
       const key = (r.contributor ?? "unknown").trim();
       if (!key || key === "unknown") continue;
       if (r.contributorKind === "model" || r.contributorKind === "method") continue;
-      const cur = pmap.get(key) ?? { name: key, url: r.contributorUrl, submissions: 0, problems: [] };
-      cur.submissions++;
-      if (!cur.problems.includes(p.id)) cur.problems.push(p.id);
-      if (r.isCurrentBest && p.contested) cur.bestRank = 1;
-      if (r.date && (!cur.lastActive || r.date > cur.lastActive)) cur.lastActive = r.date;
-      pmap.set(key, cur);
+      // a co-authored row ("alice, bob") credits each handle, it is not a third participant
+      const handles = key.split(/\s*[,&]\s*/).filter(Boolean);
+      const names = handles.length > 1 && handles.every((h) => /^[\w-]+$/.test(h)) ? handles : [key];
+      for (const name of names) {
+        const cur = pmap.get(name) ?? { name, url: names.length > 1 ? `https://github.com/${name}` : r.contributorUrl, submissions: 0, problems: [] };
+        cur.submissions++;
+        if (!cur.problems.includes(p.id)) cur.problems.push(p.id);
+        if (r.isCurrentBest && p.contested) cur.bestRank = 1;
+        if (r.date && (!cur.lastActive || r.date > cur.lastActive)) cur.lastActive = r.date;
+        pmap.set(name, cur);
+      }
     }
   }
   const participants = [...pmap.values()].sort((a, b) =>
@@ -166,11 +171,34 @@ export function postprocess(llm: LLMCompetition, repo: DiscoveredRepo): Competit
       requirements: llm.participation?.requirements ?? [],
       compute: llm.participation?.compute ?? "unknown",
     },
-    problems: llm.problems ?? [],
+    problems: orderProblems((llm.problems ?? []) as Problem[]),
     repo: { owner: repo.owner, name: repo.name, branch: repo.defaultBranch },
     participants,
     stats,
     agentStats,
     lastUpdated: new Date().toISOString(),
   };
+}
+
+// Track order: challenges (groups) newest first — by the date of their first record, a challenge with no records yet counts as newest —
+// and inside a challenge the open tracks lead. Without groups this is just "open first", in the order the docs list them.
+function orderProblems(problems: Problem[]): Problem[] {
+  const launched = new Map<string, string>();
+  for (const p of problems) {
+    const g = p.group ?? "";
+    const first = (p.records ?? []).map((r) => r.date ?? "").filter(Boolean).sort()[0] ?? "";
+    const cur = launched.get(g);
+    if (cur === undefined) launched.set(g, first);
+    else if (first && (!cur || first < cur)) launched.set(g, first);
+  }
+  const idx = new Map(problems.map((p, i) => [p, i]));
+  return [...problems].sort((a, b) => {
+    const ga = a.group ?? "", gb = b.group ?? "";
+    if (ga !== gb) {
+      const la = launched.get(ga) || "9999", lb = launched.get(gb) || "9999";
+      if (la !== lb) return la < lb ? 1 : -1;
+      return ga < gb ? -1 : 1;
+    }
+    return Number(b.isOpen) - Number(a.isOpen) || idx.get(a)! - idx.get(b)!;
+  });
 }

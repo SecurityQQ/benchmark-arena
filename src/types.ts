@@ -99,6 +99,7 @@ export interface AgentStat {
 export interface Problem {
   id: string;
   name: string;
+  group?: string;                // challenge the track belongs to, when the repo hosts several ("mnist", "matmul")
   description?: string;
   metricName: string;
   metricUnit?: string;

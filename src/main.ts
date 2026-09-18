@@ -137,7 +137,8 @@ async function main() {
       console.log(`    fetched ${pages.pages.length} pages, ${pages.totalChars} chars`);
 
       // Process with LLM, then overlay the facts declared in PROBLEM.md / SUBMISSION.md
-      const extracted = await processRepoWithLLM(pages);
+      const prevEntry = prevByRepo.get(repoKey.toLowerCase());
+      const extracted = await processRepoWithLLM(pages, undefined, (prevEntry?.problems ?? []).map((p) => ({ id: p.id, name: p.name })));
       const { competition: llmResult, info: standardInfo } = applyStandard(extracted, pages.standardDocs, { ...repo, branch: repo.defaultBranch });
       if (standardInfo) console.log(`    standard: PROBLEM.md ${standardInfo.problem ? "✓" : "—"} · ${standardInfo.submissions} SUBMISSION.md row(s)${standardInfo.warnings.length ? ` · ${standardInfo.warnings.length} warning(s)` : ""}`);
       if (llmResult === null) {
@@ -164,6 +165,17 @@ async function main() {
           }
           console.log(`    attribution pass: ${n}/${flat.length} records attributed (${evidencePages.length} evidence pages)`);
         } catch (e) { console.log(`    attribution pass failed: ${(e as Error).message}`); }
+      }
+
+      // Safety net for attribution: an evidenced agent found by an earlier crawl is not lost because this pass missed it
+      if (prevEntry) {
+        const prevAgents = new Map(prevEntry.problems.flatMap((p) => p.records.filter((r) => r.agent).map((r) => [`${p.id}|${r.date}|${r.value}|${r.contributor}`, r.agent!] as const)));
+        let kept = 0;
+        for (const p of llmResult.problems ?? []) for (const r of p.records ?? []) {
+          const a = prevAgents.get(`${p.id}|${r.date}|${r.value}|${r.contributor}`);
+          if (!r.agent && a) { r.agent = a; kept++; }
+        }
+        if (kept) console.log(`    attribution carried over from the previous crawl: ${kept}`);
       }
 
       const competition = postprocess(llmResult, repo);

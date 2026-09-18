@@ -51,6 +51,7 @@ interface Competition {
 interface Problem {
   id: string;                 // e.g. "matmul-4x4"
   name: string;
+  group?: string;             // when the repo splits its tracks into challenges (one folder/README each), the challenge slug: "matmul", "mnist". Same string for every track of one challenge. Omit for a single-challenge repo.
   description?: string;       // what exactly is optimized in this track
   metricName: string;         // "cost", "energy", "accuracy", "time", "score"
   metricUnit?: string;        // "mJ", "ms", "%", "reads" — omit if unitless
@@ -92,6 +93,7 @@ Rules:
 - Tracks (Problem entries) and their records come ONLY from leaderboard tables/lists in docs or data files (README tables, LEADERBOARD.md, results/*.json, *.csv). NEVER derive tracks or records from commit messages, PR titles or the __attribution__ page — that page is evidence for agent attribution only.
 - A competition with a documented submission path is still a competition when its leaderboard is empty, hosted on an external site, or not yet populated: return it with the tracks the docs describe and empty records. Return null only when there is no competition/benchmark people can submit to at all.
 - One track = one ranked table where entries compete on the same metric. Do not create a track per problem when the repo's own leaderboard ranks models/people across problems; model it the way the repo ranks.
+- A leaderboard table with a header and no rows yet is an OPEN track: return it as a Problem with records: []. A table the docs mark historical/archived/superseded is still a track when it has rows (say so in its name, keep all rows); only when such a table is empty, skip it.
 - Extract ALL leaderboard rows. Do not summarize or truncate tables.
 - Multiple leaderboard tables = multiple Problem entries (e.g. "4x4" and "16x16" tracks, "20% target" and "40% target").
 - Numbers: "1,316" → 1316, "67.08% ± 1.54" → 67.08, "2.1 m" → 2.1.
@@ -101,12 +103,12 @@ Rules:
 - Repos that are ONLY libraries, paper lists, static result tables with no submission path, or general eval harnesses without a public leaderboard → return null.
 - Return ONLY the JSON or null. No prose, no code fences.`;
 
-export async function processRepoWithLLM(repoPages: RepoPages, model?: string): Promise<LLMCompetition | null> {
+export async function processRepoWithLLM(repoPages: RepoPages, model?: string, knownTracks: { id: string; name: string }[] = []): Promise<LLMCompetition | null> {
   const apiKey = process.env.OPENROUTER_API_KEY;
   if (!apiKey) throw new Error("OPENROUTER_API_KEY not set");
 
   const { owner, name, branch } = repoPages.repo;
-  const repoMeta = `Repository: ${owner}/${name} (branch: ${branch})\nURL: https://github.com/${owner}/${name}\nToday: ${new Date().toISOString().slice(0, 10)}\n`;
+  const repoMeta = `Repository: ${owner}/${name} (branch: ${branch})\nURL: https://github.com/${owner}/${name}\nToday: ${new Date().toISOString().slice(0, 10)}\n${knownTracks.length ? `Track ids from the previous crawl — this list is only for id stability, NOT the list of tracks: reuse an id when that track still exists, and add every other track the docs have now (including empty, open ones) under a new id: ${knownTracks.map((t) => `${t.id} (${t.name})`).join("; ")}\n` : ""}`;
   const pagesText = repoPages.pages
     .map((p) => `\n=== FILE: ${p.path} ===\nURL: ${p.url}\n\n${p.content}\n`)
     .join("\n");
