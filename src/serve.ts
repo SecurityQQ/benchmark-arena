@@ -82,7 +82,8 @@ const server = createServer(async (req, res) => {
     }
 
     // ── Static ──
-    const filePath = join(SITE_DIR, path === "/" || path === "/people" || path.startsWith("/agents") || path.startsWith("/c/") ? "index.html" : path);
+    // SPA: any path without a file extension is a client-side route
+    const filePath = join(SITE_DIR, extname(path) ? path : "index.html");
     await stat(filePath);
     const content = await readFile(filePath);
     return send(res, 200, content, MIME[extname(filePath)] ?? "application/octet-stream");

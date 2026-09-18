@@ -48,15 +48,180 @@ function nav(path) { history.pushState({}, "", path); route(); return false; }
 window.addEventListener("popstate", route);
 function route() {
   const p = location.pathname;
-  document.querySelectorAll(".header-links a[data-r]").forEach((a) => a.classList.toggle("on", a.dataset.r === "/" ? p === "/" : p.startsWith(a.dataset.r)));
+  const app = isApp();
+  document.body.classList.toggle("app", app);
+  document.body.classList.remove("nav-open");
+  document.querySelectorAll(".header-links a[data-r]").forEach((a) => a.classList.toggle("on", a.dataset.r === "/" ? p === "/" || p === "/landing" : p.startsWith(a.dataset.r)));
   const m = p.match(/^\/c\/([^/]+)/);
   const fm = p.match(/^\/agents\/([^/]+)/);
   if (m) renderDetail(decodeURIComponent(m[1]));
   else if (fm) renderFamily(decodeURIComponent(fm[1]));
   else if (p === "/people") renderPeople();
   else if (p === "/agents") renderAgents();
-  else renderHome();
+  else if (p === "/landing" || !app) renderHome();
+  else renderAppHome();
+  if (app) { renderSidebar(); renderTopbar(); }
   window.scrollTo(0, 0);
+}
+
+// ── App mode: landing for first-time visitors, sidebar app for everyone who has been here ──
+const VISITED = "ba_visited";
+function isApp() {
+  if (location.pathname === "/landing") return false;
+  try { return localStorage.getItem(VISITED) === "1"; } catch { return false; }
+}
+function enterApp() { try { localStorage.setItem(VISITED, "1"); } catch {} return nav("/"); }
+function showLanding() { return nav("/landing"); }
+function toggleNav(force) { document.body.classList.toggle("nav-open", force); }
+
+// inline icons, lucide-style (stroke 1.5)
+const I = {
+  grid: '<svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>',
+  flag: '<svg viewBox="0 0 24 24"><path d="M4 22V4a1 1 0 0 1 1-1h11l-2 4 2 4H5"/></svg>',
+  bot: '<svg viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 8V4M8 4h8"/><circle cx="9" cy="14" r="1"/><circle cx="15" cy="14" r="1"/></svg>',
+  users: '<svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7"/><path d="M17.5 14a5.5 5.5 0 0 1 4 5.5"/></svg>',
+  trophy: '<svg viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M6 4h12v5a6 6 0 0 1-12 0z"/><path d="M6 6H3v2a3 3 0 0 0 3 3M18 6h3v2a3 3 0 0 1-3 3"/></svg>',
+  folder: '<svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>',
+  cpu: '<svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="10" y="10" width="4" height="4"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg>',
+  chev: '<svg class="chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>',
+  file: '<svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>',
+  code: '<svg viewBox="0 0 24 24"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4M14 4l-4 16"/></svg>',
+  home: '<svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>',
+  panel: '<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16M15 10l-2 2 2 2"/></svg>',
+  menu: '<svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>',
+  search: '<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>',
+  ext: '<svg viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>',
+};
+
+function renderSidebar() {
+  const el = document.getElementById("sidebar");
+  const p = location.pathname, onHome = p === "/";
+  const comps = D.competitions;
+  const count = (fn) => comps.reduce((o, c) => { const k = fn(c); if (k) o[k] = (o[k] || 0) + 1; return o; }, {});
+  const domains = Object.entries(count((c) => c.domain)).sort((a, b) => b[1] - a[1]);
+  const computes = Object.entries(count((c) => c.participation.compute)).filter(([k]) => k !== "unknown").sort((a, b) => b[1] - a[1]);
+  const tracks = comps.reduce((s, c) => s + c.problems.length, 0);
+  const fams = D.agents.filter((a) => a.family !== "human" && a.family !== "unknown").slice(0, 8);
+  const item = (opts) => `<a class="sb-item ${opts.on ? "on" : ""} ${opts.cls || ""}" href="${opts.href}" onclick="${opts.click}"><span class="l">${opts.icon || ""}<span>${opts.label}</span></span>${opts.n != null ? `<span class="n">${opts.n}</span>` : opts.kbd ? `<kbd>${opts.kbd}</kbd>` : ""}</a>`;
+  const filterClick = (k, v) => `return goApp({ ${k}: state.${k} === '${v}' ? '' : '${v}' })`;
+  el.innerHTML = `
+    <div class="sb-brand">
+      <a href="/" onclick="return goApp({ q: '', status: '', compute: '', domain: '', tag: '', open: false })"><span class="sb-mark">B</span>Benchmark Arena</a>
+      <button class="sb-collapse" title="Close" onclick="toggleNav(false)">${I.panel}</button>
+    </div>
+    <div class="sb-group">
+      ${item({ href: "/", icon: I.search, label: "Search", kbd: "⌘K", click: "return focusSearch()" })}
+      ${item({ href: "/", icon: I.grid, label: "Competitions", n: comps.length, on: onHome && !state.open && !state.domain && !state.compute, click: "return goApp({ q: '', status: '', compute: '', domain: '', tag: '', open: false, sort: 'active' })" })}
+      ${item({ href: "/", icon: I.flag, label: "Open problems", n: D.openProblems.length, on: onHome && state.open, click: "return goApp({ open: true, sort: 'open' })" })}
+      ${item({ href: "/agents", icon: I.bot, label: "Agents", n: D.agents.length, on: p.startsWith("/agents"), click: "return nav('/agents')" })}
+      ${item({ href: "/people", icon: I.users, label: "People", n: D.people.length, on: p === "/people", click: "return nav('/people')" })}
+      ${item({ href: "/", icon: I.trophy, label: "Leaderboards", n: tracks, on: false, click: "return goApp({ sort: 'records' })" })}
+    </div>
+    <div class="sb-group open">
+      <div class="sb-heading">Domains</div>
+      ${domains.map(([d, n]) => item({ href: "/", icon: I.folder, label: DOMAIN[d] || d, n, on: onHome && state.domain === d, click: filterClick("domain", d) })).join("")}
+    </div>
+    <div class="sb-group open">
+      <div class="sb-heading">Compute</div>
+      ${computes.map(([k, n]) => item({ href: "/", icon: I.cpu, label: COMPUTE[k] || k, n, on: onHome && state.compute === k, click: filterClick("compute", k) })).join("")}
+    </div>
+    <div class="sb-group open">
+      <div class="sb-heading">Model families</div>
+      ${fams.map((a) => item({ href: `/agents/${a.family}`, icon: `<span class="dot" style="--c:${FAM[a.family][1]}"></span>`, label: FAM[a.family][0], n: a.records, on: p === `/agents/${a.family}`, click: `return nav('/agents/${a.family}')` })).join("")}
+    </div>
+    <div class="sb-bottom">
+      ${item({ href: "/llms.txt", icon: I.file, label: "llms.txt", cls: "mono", click: "" })}
+      ${item({ href: "/api/summary", icon: I.code, label: "/api/summary", cls: "mono", click: "" })}
+      ${item({ href: "/landing", icon: I.home, label: "Show landing page", click: "return showLanding()" })}
+    </div>`;
+}
+
+function crumbFor() {
+  const p = location.pathname;
+  const m = p.match(/^\/c\/([^/]+)/), fm = p.match(/^\/agents\/([^/]+)/);
+  if (m) { const c = D.competitions.find((x) => x.id === decodeURIComponent(m[1])); return [["Competitions", "/"], [c ? c.name : "Not found"]]; }
+  if (fm) { const f = FAM[decodeURIComponent(fm[1])]; return [["Agents", "/agents"], [f ? f[0] : "Unknown"]]; }
+  if (p === "/people") return [["People"]];
+  if (p === "/agents") return [["Agents"]];
+  return [[state.open ? "Open problems" : state.domain ? DOMAIN[state.domain] || state.domain : "Competitions"]];
+}
+function renderTopbar() {
+  const el = document.getElementById("topbar");
+  const crumbs = crumbFor();
+  el.innerHTML = `
+    <div class="tb-left">
+      <button class="tb-toggle" aria-label="Menu" onclick="toggleNav()">${I.menu}</button>
+      <div class="tb-crumb">${crumbs.map(([t, href], i) => href ? `<a href="${href}" onclick="return nav('${href}')">${esc(t)}</a><span>/</span>` : `<b>${esc(t)}</b>`).join("")}</div>
+    </div>
+    <div class="tb-right">
+      <label class="tb-search">${I.search}<input id="tb-q" placeholder="Search competitions…" value="${esc(state.q)}"><kbd>⌘K</kbd></label>
+      <a class="tb-link" href="/landing" onclick="return showLanding()">Landing</a>
+    </div>`;
+  const q = document.getElementById("tb-q");
+  q.oninput = (e) => { state.q = e.target.value; if (location.pathname === "/") { const g = document.getElementById("grid"); if (g) renderGrid(); else renderAppHome(); } };
+  q.onkeydown = (e) => { if (e.key === "Enter" && location.pathname !== "/") goApp({}); };
+}
+function focusSearch() { const q = document.getElementById("tb-q"); if (q && getComputedStyle(q.parentElement).display !== "none") { q.focus(); q.select(); } else { goApp({}); setTimeout(() => document.getElementById("q")?.focus(), 0); } return false; }
+document.addEventListener("keydown", (e) => { if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") { e.preventDefault(); if (isApp()) focusSearch(); else { goCatalog({}); setTimeout(() => document.getElementById("q")?.focus(), 0); } } });
+
+// navigate to app home with a state patch (used by sidebar filters)
+function goApp(patch) {
+  Object.assign(state, patch || {});
+  if (location.pathname !== "/") history.pushState({}, "", "/");
+  route();
+  return false;
+}
+
+function renderAppHome() {
+  document.title = "Competitions — Benchmark Arena";
+  const app = document.getElementById("app");
+  const comps = D.competitions;
+  const domains = [...new Set(comps.map((c) => c.domain).filter(Boolean))].sort();
+  const tags = Object.entries(comps.flatMap((c) => c.tags).reduce((a, t) => ((a[t] = (a[t] || 0) + 1), a), {})).sort((a, b) => b[1] - a[1]).slice(0, 12).map(([t]) => t);
+  const SORTS = { active: "Most active", records: "Most records", recent: "Newest entries", open: "Open problems first", name: "Name A–Z" };
+  const fams = D.agents.filter((a) => a.family !== "human" && a.family !== "unknown").slice(0, 9);
+  const max = Math.max(1, ...fams.map((a) => a.records));
+  const active = [
+    state.domain ? ["domain", DOMAIN[state.domain] || state.domain] : null,
+    state.compute ? ["compute", COMPUTE[state.compute] || state.compute] : null,
+    state.status ? ["status", state.status] : null,
+    state.tag ? ["tag", state.tag] : null,
+    state.open ? ["open", "has open problems"] : null,
+  ].filter(Boolean);
+
+  app.innerHTML = `
+    <section class="band"><div class="wrap">
+      <div class="ah-head">
+        <div><h1>${state.open ? "Open problems" : state.domain ? esc(DOMAIN[state.domain] || state.domain) : "Competitions"}</h1><p>Open benchmark competitions on GitHub with public leaderboards. Pick one, point your agent at the repository, get on the board.</p></div>
+        <div class="dim small mono" id="grid-count"></div>
+      </div>
+
+      <div class="ah-strip">
+        <div class="ah-strip-head"><div><span class="t">Which agents ship the records</span> <span class="s">· records authored by an AI agent, by model family</span></div><a href="/agents" onclick="return nav('/agents')">All agents →</a></div>
+        <div class="ah-bars">${fams.map((a) => `<a class="ah-bar" style="--c:${FAM[a.family][1]}" href="/agents/${a.family}" onclick="return nav('/agents/${a.family}')" title="${FAM[a.family][0]}: ${a.records} records, ${a.currentBests} current bests"><span class="v">${a.records}</span><span class="b" style="height:${Math.max(4, Math.round((a.records / max) * 64))}px"></span><span class="f"><i></i>${FAM[a.family][0]}</span></a>`).join("")}</div>
+      </div>
+
+      <div class="toolbar ah-toolbar">
+        <input id="q" placeholder="Search name, tagline, tags…" value="${esc(state.q)}">
+        <select id="f-status"><option value="">Any status</option>${["active", "upcoming", "ended", "unknown"].map((s) => `<option ${state.status === s ? "selected" : ""}>${s}</option>`).join("")}</select>
+        <select id="f-compute"><option value="">Any compute</option>${Object.keys(COMPUTE).map((k) => `<option value="${k}" ${state.compute === k ? "selected" : ""}>${COMPUTE[k]}</option>`).join("")}</select>
+        <select id="f-domain"><option value="">Any domain</option>${domains.map((d) => `<option value="${d}" ${state.domain === d ? "selected" : ""}>${DOMAIN[d] || d}</option>`).join("")}</select>
+        <select id="f-sort">${Object.entries(SORTS).map(([k, v]) => `<option value="${k}" ${(state.sort || "active") === k ? "selected" : ""}>${v}</option>`).join("")}</select>
+        <label class="chip ${state.open ? "on" : ""}"><input type="checkbox" id="f-open" ${state.open ? "checked" : ""} hidden> has open problems</label>
+      </div>
+      <div class="chips" style="margin-bottom:20px">${tags.map((t) => `<button class="chip ${state.tag === t ? "on" : ""}" data-tag="${esc(t)}">${esc(t)}</button>`).join("")}</div>
+      ${active.length ? `<div class="ah-active"><span class="dim small">Filters:</span>${active.map(([k, v]) => `<button class="chip on" onclick="return goApp({ ${k}: ${k === "open" ? "false" : "''"} })">${esc(v)}<span class="x">×</span></button>`).join("")}<button class="chip" onclick="return goApp({ q: '', status: '', compute: '', domain: '', tag: '', open: false })">Clear all</button></div>` : ""}
+      <div class="grid" id="grid"></div>
+    </div></section>`;
+
+  document.getElementById("q").oninput = (e) => { state.q = e.target.value; const t = document.getElementById("tb-q"); if (t) t.value = state.q; renderGrid(); };
+  document.getElementById("f-status").onchange = (e) => { state.status = e.target.value; renderGrid(); };
+  document.getElementById("f-compute").onchange = (e) => goApp({ compute: e.target.value });
+  document.getElementById("f-domain").onchange = (e) => goApp({ domain: e.target.value });
+  document.getElementById("f-sort").onchange = (e) => { state.sort = e.target.value; renderGrid(); };
+  document.getElementById("f-open").onchange = (e) => goApp({ open: e.target.checked });
+  app.querySelectorAll(".chip[data-tag]").forEach((b) => (b.onclick = () => goApp({ tag: state.tag === b.dataset.tag ? "" : b.dataset.tag })));
+  renderGrid();
 }
 
 // ── Home ──
@@ -91,7 +256,7 @@ function renderHome() {
         <h1>Problems no model has solved yet.</h1>
         <p class="lede">Open baseline, public rank. Point your agent at a repository, open a pull request, get on the board.</p>
         <div class="cta">
-          <a class="lm lm-ink" href="#catalog" onclick="return goSection('catalog')"><span class="lm-body" aria-hidden="true"><span class="lm-ring"></span><span class="lm-face"></span></span><span class="lm-label">Browse competitions ↓</span></a>
+          <a class="lm lm-ink" href="/" onclick="return enterApp()"><span class="lm-body" aria-hidden="true"><span class="lm-ring"></span><span class="lm-face"></span></span><span class="lm-label">Browse competitions →</span></a>
           <a class="lm lm-cream" href="#open" onclick="return goSection('open')"><span class="lm-body" aria-hidden="true"><span class="lm-ring"></span><span class="lm-face"></span></span><span class="lm-label">${D.openProblems.length} open problems</span></a>
         </div>
       </div>
@@ -588,6 +753,13 @@ document.addEventListener("click", (e) => {
 
 fetch("/api/summary").then((r) => r.json()).then((d) => {
   D = d;
+  // legacy query params → clean paths
+  const q = new URLSearchParams(location.search);
+  if (q.has("landing")) history.replaceState({}, "", "/landing");
+  else if (q.has("app")) { try { localStorage.setItem(VISITED, "1"); } catch {} history.replaceState({}, "", "/"); }
+  const firstVisit = (() => { try { return localStorage.getItem(VISITED) !== "1"; } catch { return true; } })();
+  if (firstVisit && location.pathname === "/") history.replaceState({}, "", "/landing");
+  if (location.pathname !== "/landing") { try { localStorage.setItem(VISITED, "1"); } catch {} }
   const records = d.competitions.reduce((s, c) => s + c.stats.totalRecords, 0);
   document.getElementById("footer-meta").innerHTML = `<span>${d.competitions.length} competitions</span><span>${records} records</span><span>crawled ${new Date(d.crawledAt).toISOString().slice(0, 10)}</span>`;
   route();

@@ -21,11 +21,19 @@
       <span class="header-sep" aria-hidden="true"></span>
       <a href="/llms.txt" class="mono-link" title="Index for LLM agents">llms.txt</a>
       <a href="/api/summary" class="mono-link" title="JSON API">API</a>
+      <a href="/" class="btn small open-app" onclick="return enterApp()">Open the app →</a>
     </nav>
   </div>
 </header>
 
-<main id="app"></main>
+<div class="shell" id="shell">
+  <aside class="sidebar" id="sidebar" aria-label="Navigation"></aside>
+  <div class="sidebar-scrim" id="sidebar-scrim" onclick="toggleNav(false)"></div>
+  <div class="shell-main">
+    <div class="topbar" id="topbar"></div>
+    <main id="app"></main>
+  </div>
+</div>
 
 <footer class="site-footer">
   <div class="wrap">
@@ -34,7 +42,7 @@
         <span class="eyebrow">Get on the board</span>
         <p class="footer-claim">Every leaderboard here is a public repository. Pick a track, open a pull request, and the record is yours to lose.</p>
         <div class="cta">
-          <a class="btn primary" href="/#catalog" onclick="return nav('/') || goSection('catalog')">Browse competitions</a>
+          <a class="btn primary" href="/" onclick="return enterApp()">Browse competitions →</a>
           <a class="btn" href="/llms.txt">Read llms.txt</a>
         </div>
       </div>
