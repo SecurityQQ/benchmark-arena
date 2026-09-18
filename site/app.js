@@ -52,6 +52,14 @@ const ART = {
   horse:      { caption: "Citius, altius, fortius.",                   note: "An antique horse crowned with laurel; the field blurs behind.",    pos: "78% 30%" },
   velodrome:  { caption: "The clock is the only judge.",               note: "A blurred peloton, one sharp brass stopwatch.",                    pos: "62% 70%", hpos: "80% 82%" },
   datacenter: { caption: "The laurel is on the floor. Pick it up.",    note: "Racks under an open sky, a bronze wreath waiting.",                pos: "40% 72%", hpos: "30% 88%" },
+  finish:     { caption: "The tape breaks once.",                      note: "A finish line seen from the side; the winner is already a blur.",   pos: "70% 45%" },
+  blocks:     { caption: "On your marks.",                             note: "Low angle, spikes leaving the blocks, clay in the air.",            pos: "72% 60%" },
+  bend:       { caption: "Hold the inside line.",                      note: "The curve from above; the pack leans as one.",                     pos: "70% 62%" },
+  hurdles:    { caption: "Ten barriers, one rhythm.",                  note: "Hurdlers in flight over a terracotta straight.",                   pos: "82% 40%" },
+  relay:      { caption: "Nobody wins alone.",                         note: "Two hands, one baton, no time to look.",                           pos: "72% 70%" },
+  dawn:       { caption: "Before the gun, the track belongs to everyone.", note: "An empty track at sunrise, eight sets of blocks waiting.",     pos: "50% 72%" },
+  marathon:   { caption: "Far is a pace, not a place.",                note: "Road runners from behind, heading into the light.",                pos: "78% 55%" },
+  indoor:     { caption: "Two hundred metres of wood and echo.",       note: "An indoor arena, a banked wooden track, a long window wall.",      pos: "80% 60%" },
   pool:       { caption: "Dive into the sky.",                         note: "Swimmers leave for the clouds; the medal stays on the edge.",      pos: "70% 78%", hpos: "100% 96%" },
 };
 const ART_BY_DOMAIN = {
@@ -60,7 +68,20 @@ const ART_BY_DOMAIN = {
   robotics: ["horse"], security: ["caesar", "datacenter"], other: ["pool", "horse"],
 };
 const hashOf = (str) => { let h = 0; for (const ch of String(str)) h = (h * 31 + ch.charCodeAt(0)) >>> 0; return h; };
-function artKeyFor(c) { const opts = ART_BY_DOMAIN[c?.domain] || ART_BY_DOMAIN.other; return opts[hashOf(c?.id || "") % opts.length]; }
+// Covers for competitions with no repo image: the domain's themed plate first, then track scenes; always the least-used one, so neighbours differ
+const TRACK_SET = ["finish", "blocks", "bend", "hurdles", "relay", "marathon", "indoor", "dawn"];
+let COVER = null;
+function assignCovers() {
+  COVER = new Map(); const used = new Map();
+  for (const c of [...D.competitions].filter((x) => !x.images?.length).sort((a, b) => a.id.localeCompare(b.id))) {
+    const h = hashOf(c.id), rot = (arr) => arr.map((_, i) => arr[(i + h) % arr.length]);
+    let pool = [...rot(ART_BY_DOMAIN[c.domain] || ART_BY_DOMAIN.other), ...rot(TRACK_SET)];
+    if ((c.tagline || "").length > 105) pool = ["dawn", ...pool]; // the quiet plate for cards with a lot of text
+    const k = pool.reduce((best, x) => ((used.get(x) ?? 0) < (used.get(best) ?? 0) ? x : best), pool[0]);
+    used.set(k, (used.get(k) ?? 0) + 1); COVER.set(c.id, k);
+  }
+}
+function artKeyFor(c) { if (!COVER && D) assignCovers(); return COVER?.get(c?.id) || TRACK_SET[hashOf(c?.id || "") % TRACK_SET.length]; }
 function cardArt(c) { const k = artKeyFor(c); return `<img class="card-art" src="/art/${k}-sm.jpg" loading="lazy" alt="" style="object-position:${ART[k].pos}" onerror="this.outerHTML=placeholderArt('${esc(c?.id || k)}')">`; }
 function cardArtById(id) { return cardArt(D.competitions.find((x) => x.id === id) || { id }); }
 const artBg = (k) => `<div class="hero-bg art-bg" aria-hidden="true"><img src="/art/${k}.jpg" alt="" style="object-position:${ART[k].hpos || ART[k].pos}"></div>`;
