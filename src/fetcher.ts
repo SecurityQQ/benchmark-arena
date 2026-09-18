@@ -137,6 +137,39 @@ export async function fetchRepoPages(
     }
   }
 
+  // 4b. Machine-readable leaderboard data: results/, leaderboard/, data/, submissions/ (json/csv/yaml/tsv/md)
+  const DATA_DIRS = new Set(["results", "leaderboard", "leaderboards", "data", "submissions", "scores", "records"]);
+  let dataChars = 0;
+  for (const entry of rootEntries) {
+    if (entry.type !== "dir" || !DATA_DIRS.has(entry.name.toLowerCase())) continue;
+    if (totalChars >= maxChars || dataChars > 60000) break;
+    let sub: { name: string; path: string; type: string }[] = [];
+    try { sub = await listDir(owner, name, entry.path, branch); } catch { continue; }
+    const files = sub.filter((f) => f.type === "file" && /\.(json|csv|tsv|ya?ml|md)$/i.test(f.name) && !/^(readme|contributing|license)/i.test(f.name)).slice(0, 12);
+    for (const f of files) {
+      if (totalChars >= maxChars || dataChars > 60000) break;
+      const key = cacheKey(owner, name, f.path);
+      let content = cacheGet(key);
+      if (content === null) { try { content = await fetchRaw(owner, name, f.path, branch); cacheSet(key, content); } catch { continue; } }
+      if (!content || content.length < 40) continue;
+      const excerpt = content.slice(0, 12000);
+      dataChars += excerpt.length;
+      if (!addPage(f.path, excerpt)) break;
+    }
+    // one level deeper: submissions/<entry>/README.md
+    for (const d of sub.filter((f) => f.type === "dir").slice(0, 15)) {
+      if (totalChars >= maxChars || dataChars > 60000) break;
+      const p = `${d.path}/README.md`;
+      const key = cacheKey(owner, name, p);
+      let content = cacheGet(key);
+      if (content === null) { try { content = await fetchRaw(owner, name, p, branch); cacheSet(key, content); } catch { cacheSet(key, ""); continue; } }
+      if (!content || content.length < 100) continue;
+      const excerpt = content.slice(0, 2500);
+      dataChars += excerpt.length;
+      if (!addPage(p, excerpt)) break;
+    }
+  }
+
   // 5. Submission reports linked from leaderboard tables (often name the model/agent used)
   const reportLinks = new Set<string>();
   for (const pg of pages) {
@@ -186,7 +219,7 @@ async function fetchAttributionEvidence(owner: string, name: string): Promise<st
   const octokit = getOctokit();
   const lines: string[] = [];
   try {
-    const commits = await octokit.paginate(octokit.rest.repos.listCommits, { owner, repo: name, per_page: 100 }, (r, done) => { if (r.data.length < 100 || r.url.includes("page=3")) done(); return r.data; });
+    const commits = await octokit.paginate(octokit.rest.repos.listCommits, { owner, repo: name, per_page: 100 }, (r, done) => { if (r.data.length < 100 || /page=(1[0-9]|[2-9][0-9])\b/.test(r.url)) done(); return r.data; });
     lines.push("## Recent commits (author | date | message incl. trailers)");
     for (const c of commits) {
       const msg = c.commit.message.replace(/\s+/g, " ").trim();
@@ -195,7 +228,7 @@ async function fetchAttributionEvidence(owner: string, name: string): Promise<st
     }
   } catch { /* ignore */ }
   try {
-    const prs = await octokit.paginate(octokit.rest.pulls.list, { owner, repo: name, state: "closed", per_page: 100, sort: "created", direction: "desc" }, (r, done) => { if (r.data.length < 100 || r.url.includes("page=3")) done(); return r.data; });
+    const prs = await octokit.paginate(octokit.rest.pulls.list, { owner, repo: name, state: "closed", per_page: 100, sort: "created", direction: "desc" }, (r, done) => { if (r.data.length < 100 || /page=(1[0-9]|[2-9][0-9])\b/.test(r.url)) done(); return r.data; });
     lines.push("", "## Merged pull requests (author | merged | branch | title | body excerpt)");
     for (const pr of prs) {
       if (!pr.merged_at) continue;
@@ -206,7 +239,7 @@ async function fetchAttributionEvidence(owner: string, name: string): Promise<st
     }
   } catch { /* ignore */ }
 
-  const out = lines.length > 2 ? lines.join("\n").slice(0, 40000) : "";
+  const out = lines.length > 2 ? lines.join("\n").slice(0, 80000) : "";
   cacheSet(key, out);
   return out || null;
 }

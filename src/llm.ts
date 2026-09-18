@@ -70,7 +70,7 @@ interface RecordEntry {
   isCurrentBest?: boolean;    // exactly one per problem
   isBaseline?: boolean;       // row is the organizers' naive/reference/baseline entry
   agent?: {                   // WHICH AI MODEL/AGENT PRODUCED THIS RECORD — only when evidenced
-    family: "anthropic"|"openai"|"google"|"deepseek"|"meta"|"xai"|"mistral"|"alibaba"|"moonshot"|"zhipu"|"other-ai"|"human"|"unknown";
+    family: "anthropic"|"openai"|"google"|"deepseek"|"meta"|"xai"|"mistral"|"alibaba"|"moonshot"|"zhipu"|"bytedance"|"harmonic"|"axiom"|"other-ai"|"human"|"unknown";
     model?: string;           // exact model string as written: "Claude Opus 5", "GPT-5.6 Codex", "gemini-3.8-flash"
     tool?: string;            // harness: "Claude Code", "Codex", "Devin", "Cursor", "Copilot"
     evidence?: string;        // <=120 chars quote of the evidence
@@ -85,9 +85,11 @@ Agent attribution — this is a core feature, be thorough but never guess:
 - MEDIUM: branch prefix "codex/" or "[codex]" in PR title (→ openai, tool "Codex"), submission report says "Claude-assisted", "agent-driven session with GPT-…".
 - LOW: only a vague mention of "agent" without a vendor.
 - "human" only if the report explicitly says it was hand-derived. Otherwise omit agent entirely (unknown).
-- Model name → family: Claude/Opus/Sonnet/Haiku/Fable→anthropic; GPT/o1/o3/Codex→openai; Gemini/Gemma→google; DeepSeek→deepseek; Llama→meta; Grok→xai; Mistral/Mixtral→mistral; Qwen→alibaba; Kimi→moonshot; GLM→zhipu.
+- Model name → family: Claude/Opus/Sonnet/Haiku/Fable→anthropic; GPT/o1/o3/Codex→openai; Gemini/Gemma→google; DeepSeek→deepseek; Llama→meta; Grok→xai; Mistral/Mixtral→mistral; Qwen→alibaba; Kimi→moonshot; GLM→zhipu; Seed Prover/Doubao→bytedance; Aristotle→harmonic; Axiom Prover→axiom. Any other named AI system→other-ai.
 
 Rules:
+- Tracks (Problem entries) and their records come ONLY from leaderboard tables/lists in docs or data files (README tables, LEADERBOARD.md, results/*.json, *.csv). NEVER derive tracks or records from commit messages, PR titles or the __attribution__ page — that page is evidence for agent attribution only. A repo whose only "results" are commit logs is not a leaderboard: return null.
+- One track = one ranked table where entries compete on the same metric. Do not create a track per problem when the repo's own leaderboard ranks models/people across problems; model it the way the repo ranks.
 - Extract ALL leaderboard rows. Do not summarize or truncate tables.
 - Multiple leaderboard tables = multiple Problem entries (e.g. "4x4" and "16x16" tracks, "20% target" and "40% target").
 - Numbers: "1,316" → 1316, "67.08% ± 1.54" → 67.08, "2.1 m" → 2.1.
@@ -166,8 +168,8 @@ Return ONLY JSON: { "<recordKey>": { "family": ..., "model"?: ..., "tool"?: ...,
 role: "author" when an AI agent/model produced or co-authored the submission (commit trailers, codex branches, "Claude-assisted"); "subject" when the record row itself is a model being evaluated.
 Include ONLY records you can attribute. Omit the rest.
 
-family ∈ anthropic|openai|google|deepseek|meta|xai|mistral|alibaba|moonshot|zhipu|other-ai|human.
-Mapping: Claude/Opus/Sonnet/Haiku/Fable→anthropic · GPT/o1/o3/Codex→openai · Gemini/Gemma→google · DeepSeek→deepseek · Llama→meta · Grok→xai · Mistral→mistral · Qwen→alibaba · Kimi→moonshot · GLM→zhipu.
+family ∈ anthropic|openai|google|deepseek|meta|xai|mistral|alibaba|moonshot|zhipu|bytedance|harmonic|axiom|other-ai|human.
+Mapping: Claude/Opus/Sonnet/Haiku/Fable→anthropic · GPT/o1/o3/Codex→openai · Gemini/Gemma→google · DeepSeek→deepseek · Llama→meta · Grok→xai · Mistral→mistral · Qwen→alibaba · Kimi→moonshot · GLM→zhipu · Seed Prover→bytedance · Aristotle→harmonic · Axiom Prover→axiom.
 
 How to match a record to evidence:
 - Same contributor AND date within ±4 days of a commit/PR merge, OR the commit/PR/report mentions the record's score, file name (e.g. best_675, packedstatic20) or description keywords.

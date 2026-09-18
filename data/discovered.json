@@ -32,12 +32,72 @@
     "name": "EvoScientist",
     "url": "https://github.com/EvoScientist/EvoScientist",
     "description": "🔬 Harness Vibe Research with Self-evolving AI Scientists",
-    "stars": 4910,
+    "stars": 4912,
     "topics": [
       "ai-agent",
       "ai4science",
       "multi-agent-system",
       "vibe-research"
+    ],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "cporter202",
+    "name": "scraping-apis-for-devs",
+    "url": "https://github.com/cporter202/scraping-apis-for-devs",
+    "description": "This GitHub repo is a powerhouse collection of scraping APIs for developers that you can start using immediately to build everything from simple automations to full-scale applications. ",
+    "stars": 3894,
+    "topics": [
+      "api-library",
+      "api-list",
+      "developer-api",
+      "scraping-api"
+    ],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "starVLA",
+    "name": "starVLA",
+    "url": "https://github.com/starVLA/starVLA",
+    "description": "StarVLA: A Lego-like Codebase for Vision-Language-Action Model Developing",
+    "stars": 3685,
+    "topics": [
+      "robotic-foundation-model",
+      "robotics",
+      "vision-language-action-model",
+      "world-action-model"
+    ],
+    "defaultBranch": "starVLA_dev"
+  },
+  {
+    "owner": "AGI-Edgerunners",
+    "name": "LLM-Agents-Papers",
+    "url": "https://github.com/AGI-Edgerunners/LLM-Agents-Papers",
+    "description": "A repo lists papers related to LLM based agent",
+    "stars": 2345,
+    "topics": [
+      "agents",
+      "large-language-models",
+      "llm-agent",
+      "paper-list"
+    ],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "IBM",
+    "name": "AssetOpsBench",
+    "url": "https://github.com/IBM/AssetOpsBench",
+    "description": "AssetOpsBench - Industry 4.0: A unified benchmark and framework for building, orchestrating, and evaluating domain-specific AI agents for Industry 4.0 asset operations and maintenance, with 460+ scenarios, 5 specialist agents (IoT, FMSR, TSFM, Work Order,...), and multi-agent orchestration blueprints (MetaAgent, AgentHive) over MCP.",
+    "stars": 2302,
+    "topics": [
+      "ai-for-physical-assets",
+      "condition-based-maintenance",
+      "hvac-maintenance",
+      "iot",
+      "llm-agents",
+      "model-context-protocol",
+      "predictive-maintenance",
+      "time-series-forecasting"
     ],
     "defaultBranch": "main"
   },
@@ -88,6 +148,15 @@
     "defaultBranch": "main"
   },
   {
+    "owner": "LiveSplit",
+    "name": "LiveSplit",
+    "url": "https://github.com/LiveSplit/LiveSplit",
+    "description": "A sleek, highly customizable timer for speedrunners.",
+    "stars": 1850,
+    "topics": [],
+    "defaultBranch": "master"
+  },
+  {
     "owner": "THUDM",
     "name": "CogDL",
     "url": "https://github.com/THUDM/CogDL",
@@ -104,6 +173,157 @@
       "pytorch"
     ],
     "defaultBranch": "master"
+  },
+  {
+    "owner": "Vchitect",
+    "name": "VBench",
+    "url": "https://github.com/Vchitect/VBench",
+    "description": "[CVPR2024 Highlight] VBench - We Evaluate Video Generation",
+    "stars": 1781,
+    "topics": [
+      "aigc",
+      "benchmark",
+      "dataset",
+      "evaluation-kit",
+      "gen-ai",
+      "stable-diffusion",
+      "text-to-video",
+      "video-generation"
+    ],
+    "defaultBranch": "master"
+  },
+  {
+    "owner": "SebLague",
+    "name": "Chess-Challenge",
+    "url": "https://github.com/SebLague/Chess-Challenge",
+    "description": "Create your own tiny chess bot!",
+    "stars": 1779,
+    "topics": [],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "openai",
+    "name": "mle-bench",
+    "url": "https://github.com/openai/mle-bench",
+    "description": "MLE-bench is a benchmark for measuring how well AI agents perform at machine learning engineering",
+    "stars": 1748,
+    "topics": [],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "MLGroupJLU",
+    "name": "LLM-eval-survey",
+    "url": "https://github.com/MLGroupJLU/LLM-eval-survey",
+    "description": "The official GitHub page for the survey paper \"A Survey on Evaluation of Large Language Models\".",
+    "stars": 1611,
+    "topics": [
+      "benchmark",
+      "evaluation",
+      "large-language-models",
+      "llm",
+      "llms",
+      "model-assessment"
+    ],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "OpenGenerativeAI",
+    "name": "llm-colosseum",
+    "url": "https://github.com/OpenGenerativeAI/llm-colosseum",
+    "description": "Benchmark LLMs by fighting in Street Fighter 3! The new way to evaluate the quality of an LLM",
+    "stars": 1483,
+    "topics": [
+      "benchmark",
+      "genai",
+      "llm",
+      "streetfighterai"
+    ],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "tmgthb",
+    "name": "Autonomous-Agents",
+    "url": "https://github.com/tmgthb/Autonomous-Agents",
+    "description": "Autonomous Agents (LLMs) research papers. Updated Daily.",
+    "stars": 1379,
+    "topics": [
+      "agent",
+      "agent-context",
+      "agent-harness",
+      "agentic",
+      "agentic-ai",
+      "agents",
+      "ai",
+      "ai-agents",
+      "aiagent",
+      "aiagents",
+      "autonomous-agents",
+      "cognitive-agents",
+      "computer-use-agent",
+      "embodied-agent",
+      "generalist-agent",
+      "language-agent",
+      "llm",
+      "llm-agents",
+      "llmagents",
+      "research-paper"
+    ],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "marcelscruz",
+    "name": "dev-resources",
+    "url": "https://github.com/marcelscruz/dev-resources",
+    "description": "A collaborative list of resources for developers",
+    "stars": 1336,
+    "topics": [
+      "assets",
+      "awesome",
+      "awesome-list",
+      "courses",
+      "design",
+      "dev-resources",
+      "development",
+      "hacktoberfest",
+      "information",
+      "infrastructure",
+      "jobs",
+      "programming",
+      "public-apis",
+      "resources",
+      "tools"
+    ],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "RyanAlberts",
+    "name": "best-of-Agent-Harnesses",
+    "url": "https://github.com/RyanAlberts/best-of-Agent-Harnesses",
+    "description": "🏆 Curated, ranked list of AI agent harnesses (100+) — plus an MCP server, llms.txt & JSON so agents can recommend them too. Rescored weekly.",
+    "stars": 897,
+    "topics": [
+      "agent-framework",
+      "agent-harness",
+      "agentic-ai",
+      "agents",
+      "ai-agent",
+      "ai-agent-framework",
+      "ai-agents",
+      "ai-tools",
+      "awesome-list",
+      "best-of-list",
+      "claude-code",
+      "coding-agents",
+      "harness",
+      "harness-engineering",
+      "llm",
+      "llm-agents",
+      "llm-framework",
+      "llm-tools",
+      "mcp",
+      "model-context-protocol"
+    ],
+    "defaultBranch": "main"
   },
   {
     "owner": "suyoumo",
@@ -140,6 +360,53 @@
     "defaultBranch": "3.x"
   },
   {
+    "owner": "changwookjun",
+    "name": "nlp-paper",
+    "url": "https://github.com/changwookjun/nlp-paper",
+    "description": "NLP Paper",
+    "stars": 592,
+    "topics": [
+      "bert",
+      "deeplearning",
+      "language-model",
+      "meachinelearning",
+      "nlp",
+      "paper",
+      "transfer-learning",
+      "transformer"
+    ],
+    "defaultBranch": "master"
+  },
+  {
+    "owner": "yinizhilian",
+    "name": "ICLR2025-Papers-with-Code",
+    "url": "https://github.com/yinizhilian/ICLR2025-Papers-with-Code",
+    "description": "历年ICLR论文和开源项目合集，包含ICLR2021、ICLR2022、ICLR2023、ICLR2024、ICLR2025.",
+    "stars": 589,
+    "topics": [
+      "deep-learning-paper",
+      "gemmini",
+      "gpt",
+      "iclr2021",
+      "iclr2022",
+      "iclr2023",
+      "iclr2024",
+      "llama3",
+      "llm-agent",
+      "llm-framework",
+      "llm-reasoning",
+      "llm-training",
+      "llms",
+      "machine-learning",
+      "nlp-keywords-extraction",
+      "nlp-machine-learning",
+      "paperwithcode",
+      "python",
+      "transformer"
+    ],
+    "defaultBranch": "main"
+  },
+  {
     "owner": "rajpurkar",
     "name": "SQuAD-explorer",
     "url": "https://github.com/rajpurkar/SQuAD-explorer",
@@ -172,6 +439,25 @@
       "skoltech"
     ],
     "defaultBranch": "master"
+  },
+  {
+    "owner": "PetroIvaniuk",
+    "name": "llms-tools",
+    "url": "https://github.com/PetroIvaniuk/llms-tools",
+    "description": "A list of LLMs Tools & Projects",
+    "stars": 327,
+    "topics": [
+      "ai",
+      "chat-bot",
+      "chatbots",
+      "chatgpt",
+      "data-science",
+      "llm",
+      "llm-evaluation",
+      "machine-learning",
+      "open-source-llm"
+    ],
+    "defaultBranch": "main"
   },
   {
     "owner": "xcpcio",
@@ -219,6 +505,15 @@
     "defaultBranch": "main"
   },
   {
+    "owner": "lbx154",
+    "name": "Argus",
+    "url": "https://github.com/lbx154/Argus",
+    "description": "A self-evolving multi-agent system for autonomous research, operating 24/7 to explore, learn, and improve.",
+    "stars": 301,
+    "topics": [],
+    "defaultBranch": "main"
+  },
+  {
     "owner": "medmcqa",
     "name": "medmcqa",
     "url": "https://github.com/medmcqa/medmcqa",
@@ -242,6 +537,28 @@
     "defaultBranch": "main"
   },
   {
+    "owner": "DarwinBaker",
+    "name": "AATool",
+    "url": "https://github.com/DarwinBaker/AATool",
+    "description": "A tool to track Minecraft Advancement progress.",
+    "stars": 271,
+    "topics": [
+      "minecraft",
+      "speedrun",
+      "streaming"
+    ],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "trishullab",
+    "name": "PutnamBench",
+    "url": "https://github.com/trishullab/PutnamBench",
+    "description": "An evaluation benchmark for undergraduate competition math in Lean4, Isabelle, Coq, and natural language. ",
+    "stars": 262,
+    "topics": [],
+    "defaultBranch": "main"
+  },
+  {
     "owner": "AI4LIFE-GROUP",
     "name": "OpenXAI",
     "url": "https://github.com/AI4LIFE-GROUP/OpenXAI",
@@ -255,6 +572,15 @@
       "leaderboard",
       "reproducibility"
     ],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "LCLM-Horizon",
+    "name": "A-Comprehensive-Survey-For-Long-Context-Language-Modeling",
+    "url": "https://github.com/LCLM-Horizon/A-Comprehensive-Survey-For-Long-Context-Language-Modeling",
+    "description": "A Comprehensive Survey on Long Context Language Modeling",
+    "stars": 257,
+    "topics": [],
     "defaultBranch": "main"
   },
   {
@@ -282,6 +608,139 @@
       "rag"
     ],
     "defaultBranch": "master"
+  },
+  {
+    "owner": "tailuge",
+    "name": "billiards",
+    "url": "https://github.com/tailuge/billiards",
+    "description": "billiards physics in the browser",
+    "stars": 249,
+    "topics": [
+      "3-cushion",
+      "3d",
+      "billiards",
+      "carom",
+      "driebanden",
+      "eight-ball",
+      "online-game",
+      "open-source",
+      "physics",
+      "pool",
+      "simulation",
+      "snooker",
+      "threejs",
+      "typescript",
+      "webgl-game"
+    ],
+    "defaultBranch": "master"
+  },
+  {
+    "owner": "recursive-org",
+    "name": "first-steps-toward-automated-ai-research",
+    "url": "https://github.com/recursive-org/first-steps-toward-automated-ai-research",
+    "description": "Research artifacts from Recursive's automated AI research system",
+    "stars": 242,
+    "topics": [],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "Tencent-Hunyuan",
+    "name": "Hyra-results",
+    "url": "https://github.com/Tencent-Hunyuan/Hyra-results",
+    "description": "Research artifacts from Hyra (/ˈhaɪ.rɑː/)",
+    "stars": 155,
+    "topics": [
+      "agent",
+      "ai-for-science",
+      "ai4science",
+      "autoresearch",
+      "coding",
+      "llm",
+      "recursive-self-improvement"
+    ],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "Saivineeth147",
+    "name": "lora-speedrun",
+    "url": "https://github.com/Saivineeth147/lora-speedrun",
+    "description": "Speedrunning LoRA fine-tuning: frozen task, frozen hardware, public wall-clock leaderboard. modded-nanogpt for fine-tuning.",
+    "stars": 148,
+    "topics": [
+      "benchmark",
+      "fine-tuning",
+      "leaderboard",
+      "llm",
+      "lora",
+      "peft",
+      "qlora",
+      "speedrun"
+    ],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "microsoft",
+    "name": "ArgusAgent",
+    "url": "https://github.com/microsoft/ArgusAgent",
+    "description": "A persistent, reviewed multi-agent runtime for long-horizon research and engineering.",
+    "stars": 131,
+    "topics": [
+      "agentic-ai",
+      "ai-agents",
+      "autonomous-agents",
+      "claude",
+      "codex",
+      "copilot",
+      "llm",
+      "mcp",
+      "multi-agent-systems",
+      "python",
+      "research",
+      "software-engineering"
+    ],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "wonguo199-stack",
+    "name": "one-does-not-simply-speedrun",
+    "url": "https://github.com/wonguo199-stack/one-does-not-simply-speedrun",
+    "description": "The Hobbit Speedrun Mastery Toolkit 2026",
+    "stars": 55,
+    "topics": [
+      "practice",
+      "save-files",
+      "speedruns",
+      "tool",
+      "trainer"
+    ],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "blha303",
+    "name": "srcomapi",
+    "url": "https://github.com/blha303/srcomapi",
+    "description": "A Python implementation of the speedrun.com REST API",
+    "stars": 34,
+    "topics": [],
+    "defaultBranch": "master"
+  },
+  {
+    "owner": "LiveSplit",
+    "name": "SpeedrunComSharp",
+    "url": "https://github.com/LiveSplit/SpeedrunComSharp",
+    "description": "A .NET Library that can be used to interact with the Speedrun.com API",
+    "stars": 32,
+    "topics": [],
+    "defaultBranch": "master"
+  },
+  {
+    "owner": "JeanKaddour",
+    "name": "sokoban_speedrun",
+    "url": "https://github.com/JeanKaddour/sokoban_speedrun",
+    "description": "RL models to play Sokoban. The fastest recipe wins.",
+    "stars": 31,
+    "topics": [],
+    "defaultBranch": "main"
   },
   {
     "owner": "leanprover",

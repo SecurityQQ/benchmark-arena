@@ -73,6 +73,7 @@ export interface Competition {
 
 export type AgentFamily =
   | "anthropic" | "openai" | "google" | "deepseek" | "meta" | "xai" | "mistral" | "alibaba" | "moonshot" | "zhipu"
+  | "bytedance" | "harmonic" | "axiom"
   | "other-ai" | "human" | "unknown";
 
 export interface AgentAttribution {
@@ -87,7 +88,8 @@ export interface AgentAttribution {
 export interface AgentStat {
   family: AgentFamily;
   records: number;
-  currentBests: number;
+  currentBests: number;          // bests in contested tracks (≥2 distinct contributors)
+  uncontestedBests?: number;     // "bests" in tracks with a single contributor — not a win, just a first entry
   models: string[];
   contributors: string[];
 }
@@ -101,6 +103,7 @@ export interface Problem {
   metricDirection: "minimize" | "maximize";
   baseline?: number;             // naive/reference value, if known
   isOpen: boolean;               // derived: nobody beat the baseline yet (0 records, or only baseline rows)
+  contested?: boolean;           // derived: ≥2 distinct non-baseline contributors — only then does "current best" mean anything
   records: RecordEntry[];
 }
 

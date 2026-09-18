@@ -5,7 +5,8 @@ export interface PersonAgg {
   name: string;
   url?: string;
   records: number;
-  currentBests: number;
+  currentBests: number;           // bests in contested tracks only
+  uncontestedBests: number;       // solo entries that are trivially "best"
   competitions: { id: string; name: string; records: number; bests: number }[];
   agents: Partial<Record<AgentFamily, number>>;   // which model families this person ships with
   lastActive?: string;
@@ -14,7 +15,8 @@ export interface PersonAgg {
 export interface AgentAgg {
   family: AgentFamily;
   records: number;
-  currentBests: number;
+  currentBests: number;           // bests in contested tracks only
+  uncontestedBests: number;       // solo entries that are trivially "best"
   competitions: { id: string; name: string; records: number; bests: number }[];
   models: Record<string, number>;
   tools: Record<string, number>;
@@ -28,6 +30,9 @@ export interface OpenProblem {
   metricName: string; metricDirection: string; baseline?: number;
 }
 
+const isContested = (p: Competition["problems"][number]) =>
+  p.contested ?? new Set(p.records.filter((r) => !r.isBaseline).map((r) => (r.contributor ?? "").trim().toLowerCase()).filter(Boolean)).size >= 2;
+
 export function aggregatePeople(comps: Competition[]): PersonAgg[] {
   const m = new Map<string, PersonAgg>();
   for (const c of comps) {
@@ -37,12 +42,14 @@ export function aggregatePeople(comps: Competition[]): PersonAgg[] {
       if (r.agent?.role === "subject") continue;
       if (r.contributorKind === "model" || r.contributorKind === "method") continue;
       const key = r.contributor.toLowerCase();
-      const cur = m.get(key) ?? { name: r.contributor, url: r.contributorUrl, records: 0, currentBests: 0, competitions: [], agents: {} };
+      const cur = m.get(key) ?? { name: r.contributor, url: r.contributorUrl, records: 0, currentBests: 0, uncontestedBests: 0, competitions: [], agents: {} };
       cur.records++;
-      if (r.isCurrentBest) cur.currentBests++;
+      const best = !!r.isCurrentBest && isContested(p);
+      if (r.isCurrentBest && !best) cur.uncontestedBests++;
+      if (best) cur.currentBests++;
       let cc = cur.competitions.find((x) => x.id === c.id);
       if (!cc) { cc = { id: c.id, name: c.name, records: 0, bests: 0 }; cur.competitions.push(cc); }
-      cc.records++; if (r.isCurrentBest) cc.bests++;
+      cc.records++; if (best) cc.bests++;
       if (r.agent && r.agent.family !== "unknown") cur.agents[r.agent.family] = (cur.agents[r.agent.family] ?? 0) + 1;
       if (r.date && (!cur.lastActive || r.date > cur.lastActive)) cur.lastActive = r.date;
       m.set(key, cur);
@@ -58,16 +65,18 @@ export function aggregateAgents(comps: Competition[], role: "author" | "subject"
       if (!r.agent || r.isBaseline || r.agent.family === "unknown") continue;
       if ((r.agent.role ?? "author") !== role) continue;
       const f = r.agent.family;
-      const cur = m.get(f) ?? { family: f, records: 0, currentBests: 0, competitions: [], models: {}, tools: {}, contributors: [], highConfidence: 0 };
+      const cur = m.get(f) ?? { family: f, records: 0, currentBests: 0, uncontestedBests: 0, competitions: [], models: {}, tools: {}, contributors: [], highConfidence: 0 };
       cur.records++;
-      if (r.isCurrentBest) cur.currentBests++;
+      const best = !!r.isCurrentBest && isContested(p);
+      if (r.isCurrentBest && !best) cur.uncontestedBests++;
+      if (best) cur.currentBests++;
       if (r.agent.confidence === "high") cur.highConfidence++;
       if (r.agent.model) cur.models[r.agent.model] = (cur.models[r.agent.model] ?? 0) + 1;
       if (r.agent.tool) cur.tools[r.agent.tool] = (cur.tools[r.agent.tool] ?? 0) + 1;
       if (r.contributor && !cur.contributors.includes(r.contributor)) cur.contributors.push(r.contributor);
       let cc = cur.competitions.find((x) => x.id === c.id);
       if (!cc) { cc = { id: c.id, name: c.name, records: 0, bests: 0 }; cur.competitions.push(cc); }
-      cc.records++; if (r.isCurrentBest) cc.bests++;
+      cc.records++; if (best) cc.bests++;
       m.set(f, cur);
     }
   }

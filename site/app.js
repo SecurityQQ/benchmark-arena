@@ -24,7 +24,8 @@ const DOMAIN = { "formal-methods": "Formal methods", "hardware-efficiency": "Har
 const FAM = {
   anthropic: ["Anthropic", "#D97757"], openai: ["OpenAI", "#788C5D"], google: ["Google", "#6A9BCC"], deepseek: ["DeepSeek", "#5F6BB3"],
   meta: ["Meta", "#4E7DB0"], xai: ["xAI", "#3D3D3A"], mistral: ["Mistral", "#D4A27F"], alibaba: ["Alibaba/Qwen", "#C9A15A"],
-  moonshot: ["Moonshot/Kimi", "#C46686"], zhipu: ["Zhipu/GLM", "#9A98BD"], "other-ai": ["Other AI", "#B0AEA5"], human: ["Human", "#8FB3A6"], unknown: ["Unknown", "#B0AEA5"],
+  moonshot: ["Moonshot/Kimi", "#C46686"], zhipu: ["Zhipu/GLM", "#9A98BD"],
+  bytedance: ["ByteDance/Seed", "#5E9C9A"], harmonic: ["Harmonic", "#B58A4C"], axiom: ["Axiom Math", "#8C6A8E"], "other-ai": ["Other AI", "#B0AEA5"], human: ["Human", "#8FB3A6"], unknown: ["Unknown", "#B0AEA5"],
 };
 const famChip = (f, extra = "") => f && FAM[f] ? `<a class="fam" href="/agents/${f}" style="--c:${FAM[f][1]}" title="Where ${FAM[f][0]} is used" onclick="event.stopPropagation();return nav('/agents/${f}')">${FAM[f][0]}${extra}</a>` : "";
 // flat geometric placeholder for competitions without an image — one accent per card, seeded by id
@@ -303,7 +304,7 @@ function renderHome() {
         <div class="panel fill">
           <div class="panel-head"><h2>Records by model family</h2></div>
           ${agentsBar(D.agents)}
-          <div class="hint">Records <b>authored by an AI agent</b>, evidenced by commit trailers (<code>Co-Authored-By: Claude…</code>), PR bodies, <code>codex/</code> branches and submission reports. Unattributed records are not counted. ${D.evaluated?.length ? `Separately, <a href="/agents?view=subject" onclick="return nav('/agents?view=subject')">${D.evaluated.reduce((s, a) => s + a.records, 0)} rows</a> benchmark models as the subject.` : ""}</div>
+          <div class="hint">Records <b>authored by an AI agent</b>, evidenced by commit trailers (<code>Co-Authored-By: Claude…</code>), PR bodies, <code>codex/</code> branches and submission reports. Unattributed records are not counted. A <b>current best</b> counts only in tracks with at least two contributors; a lone entry is not a win. ${D.evaluated?.length ? `Separately, <a href="/agents?view=subject" onclick="return nav('/agents?view=subject')">${D.evaluated.reduce((s, a) => s + a.records, 0)} rows</a> benchmark models as the subject.` : ""}</div>
         </div>
         <div class="panel fill">
           <div class="panel-head"><h2>Top contributors</h2><a href="/people" onclick="return nav('/people')">All people →</a></div>
@@ -329,11 +330,11 @@ function agentsBar(agents) {
   const bests = list.reduce((s, a) => s + a.currentBests, 0);
   return `
     <div class="stack">${list.map((a) => `<span style="flex:${a.records};background:${FAM[a.family][1]}" title="${FAM[a.family][0]}: ${a.records} records"></span>`).join("")}</div>
-    <div class="table-scroll"><table class="mini"><thead><tr><th>Family</th><th>Records</th><th>Current bests</th><th>Models</th></tr></thead><tbody>
+    <div class="table-scroll"><table class="mini"><thead><tr><th>Family</th><th>Records</th><th title="Best entry in a track with at least two contributors">Current bests</th><th>Models</th></tr></thead><tbody>
       ${list.slice(0, 6).map((a) => `<tr>
         <td>${famChip(a.family)}</td>
         <td class="mono">${a.records} <span class="dim">(${Math.round((a.records / total) * 100)}%)</span></td>
-        <td class="mono">${a.currentBests}${bests ? ` <span class="dim">(${Math.round((a.currentBests / bests) * 100)}%)</span>` : ""}</td>
+        <td class="mono">${a.currentBests}${bests ? ` <span class="dim">(${Math.round((a.currentBests / bests) * 100)}%)</span>` : ""}${a.uncontestedBests ? ` <span class="dim small" title="Only entry in its track: not counted as a best">+${a.uncontestedBests} solo</span>` : ""}</td>
         <td class="dim small">${Object.entries(a.models).sort((x, y) => y[1] - x[1]).slice(0, 3).map(([m]) => esc(m)).join(", ") || "—"}</td>
       </tr>`).join("")}
     </tbody></table></div>`;
@@ -425,7 +426,7 @@ function renderPeople() {
   app.innerHTML = `
     <section class="band"><div class="wrap">
     <a class="back" href="/" onclick="return nav('/')">← Home</a>
-    <div class="hero"><span class="eyebrow">People</span><h1>Contributors</h1><p class="lede">${list.length} people with records across ${D.competitions.length} competitions. ★ marks a current record. Chips show which model families they ship with.</p></div>
+    <div class="hero"><span class="eyebrow">People</span><h1>Contributors</h1><p class="lede">${list.length} people with records across ${D.competitions.length} competitions. ★ marks a current best in a contested track. Chips show which model families they ship with.</p></div>
     </div></section>
     <section class="band tight"><div class="wrap">
     <div class="table-scroll">

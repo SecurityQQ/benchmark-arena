@@ -28,11 +28,21 @@ const SEARCH_QUERIES = [
   '"swe-bench" OR "terminal-bench" OR "agent-anvil" leaderboard in:readme',
   // GEO-Bench and similar
   '"geo-bench" OR "frontier-bench" OR "deep-swe" leaderboard in:readme',
+  // Speedruns and kernel/optimization records
+  '"speedrun" leaderboard "record" in:readme stars:>5',
+  'kernel optimization leaderboard "submission" in:readme stars:>3',
+  '"open problems" leaderboard "submit" in:readme stars:>3',
+  '"world record" benchmark "submit" "leaderboard" in:readme stars:>3',
+  // Theorem-proving / verification leaderboards
+  'verified proofs leaderboard "submit" lean OR coq OR isabelle OR dafny in:readme',
 ];
 
 // ─── GitHub Topics to search ───────────────────────────────────────────
 const SEARCH_TOPICS = [
   "leaderboard",
+  "speedrun",
+  "benchmark-competition",
+  "ai-competition",
   "benchmark-leaderboard",
   "agent-evals",
   "ai-benchmark",

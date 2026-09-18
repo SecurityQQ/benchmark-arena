@@ -10,6 +10,18 @@ import { discoverRepos } from "./discovery.js";
 import { fetchRepoPages } from "./fetcher.js";
 import { processRepoWithLLM, attributeRecordsWithLLM } from "./llm.js";
 import { postprocess } from "./postprocess.js";
+import { buildLeanEval } from "./structured/leanEval.js";
+import type { LLMCompetition } from "./llm.js";
+
+// Repos with an official machine-readable results store: build deterministically, never via LLM
+const STRUCTURED: Record<string, () => Promise<LLMCompetition>> = {
+  "leanprover/lean-eval-submissions": buildLeanEval,
+};
+// Repos that are facets of a competition handled elsewhere (site generator, benchmark source) — skip to avoid duplicates
+const MERGED_INTO: Record<string, string> = {
+  "leanprover/lean-eval-leaderboard": "leanprover/lean-eval-submissions",
+  "leanprover/lean-eval": "leanprover/lean-eval-submissions",
+};
 
 const DATA_DIR = join(process.cwd(), "data");
 const DISCOVERED_PATH = join(DATA_DIR, "discovered.json");
@@ -39,7 +51,7 @@ async function main() {
   // Step 1: Discovery
   if (mode === "discover" || mode === "full") {
     console.log("[1] Discovering repos...\n");
-    repos = await discoverRepos(50);
+    repos = await discoverRepos(Number(process.env.MAX_REPOS ?? 120));
     mkdirSync(DATA_DIR, { recursive: true });
     writeFileSync(DISCOVERED_PATH, JSON.stringify(repos, null, 2));
     console.log(`  Saved ${repos.length} repos to ${DISCOVERED_PATH}\n`);
@@ -70,6 +82,24 @@ async function main() {
     const repoKey = `${repo.owner}/${repo.name}`;
     console.log(`  [${i + 1}/${repos.length}] ${repoKey} ★${repo.stars}`);
 
+    if (MERGED_INTO[repoKey]) {
+      console.log(`    merged into ${MERGED_INTO[repoKey]}, skipping`);
+      errors.push({ repo: repoKey, error: `merged into ${MERGED_INTO[repoKey]}` });
+      continue;
+    }
+    if (STRUCTURED[repoKey]) {
+      try {
+        const built = await STRUCTURED[repoKey]();
+        const competition = postprocess(built, repo);
+        const fams = competition.agentStats.map((a) => `${a.family}:${a.records}`).join(" ");
+        console.log(`    ✓ ${competition.name} [structured] ${competition.problems.length} tracks, ${competition.stats.totalRecords} records, ${competition.stats.uniqueParticipants} participants${fams ? ` · agents ${fams}` : ""}`);
+        competitions.push(competition);
+      } catch (e) {
+        console.log(`    ✗ structured build FAILED: ${(e as Error).message}`);
+        errors.push({ repo: repoKey, error: (e as Error).message });
+      }
+      continue;
+    }
     try {
       // Fetch pages
       const pages = await fetchRepoPages(repo.owner, repo.name, repo.defaultBranch);
@@ -126,7 +156,8 @@ async function main() {
   if (only && existsSync(RESULT_PATH)) {
     const prev: CrawlResult = JSON.parse(readFileSync(RESULT_PATH, "utf-8"));
     const ids = new Set(competitions.map((c) => c.repo?.owner + "/" + c.repo?.name));
-    finalComps = [...prev.competitions.filter((c) => !ids.has(c.repo?.owner + "/" + c.repo?.name)), ...competitions];
+    const newIds = new Set(competitions.map((c) => c.id));
+    finalComps = [...prev.competitions.filter((c) => { const k = c.repo?.owner + "/" + c.repo?.name; return !ids.has(k) && !MERGED_INTO[k] && !newIds.has(c.id); }), ...competitions];
   }
   const result: CrawlResult = {
     crawledAt: new Date().toISOString(),

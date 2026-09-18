@@ -19,17 +19,21 @@ function isBadge(u: string): boolean {
   return /shields\.io|badge|img\.shields|travis|circleci|codecov|colab-badge|license/i.test(u);
 }
 
+// Word-boundary aware: "Metapath2vec" is not Meta, "glmnet" is not GLM, "Opus" alone (audio codec) is not Claude.
 const FAMILY_RX: [AgentFamily, RegExp][] = [
-  ["anthropic", /claude|opus|sonnet|haiku|fable|anthropic/i],
-  ["openai", /gpt|\bo[1-9]\b|codex|openai|chatgpt/i],
-  ["google", /gemini|gemma|google/i],
-  ["deepseek", /deepseek/i],
-  ["meta", /llama|meta/i],
-  ["xai", /grok|xai/i],
-  ["mistral", /mistral|mixtral|codestral/i],
-  ["alibaba", /qwen|alibaba/i],
-  ["moonshot", /kimi|moonshot/i],
-  ["zhipu", /glm|zhipu/i],
+  ["anthropic", /\bclaude\b|\bclaude[- ]?(opus|sonnet|haiku|fable)|\b(opus|sonnet|haiku|fable)[- ]?\d|\banthropic\b/i],
+  ["openai", /\bgpt[- ]?\d|\bgpt\b|\bo[1-9](-(mini|pro|high))?\b|\bcodex\b|\bopenai\b|\bchatgpt\b/i],
+  ["google", /\bgemini\b|\bgemma\b|\bgoogle\b|\bdeepmind\b/i],
+  ["deepseek", /\bdeepseek\b|deepseek[- ]?(v\d|r\d|prover|coder)/i],
+  ["meta", /\bllama\b|\bmeta[- ]?(ai|llama)\b|\bcode[- ]?llama\b/i],
+  ["xai", /\bgrok\b|\bxai\b/i],
+  ["mistral", /\bmistral\b|\bmixtral\b|\bcodestral\b|\bdevstral\b/i],
+  ["alibaba", /\bqwen\b|\bqwq\b|\balibaba\b/i],
+  ["moonshot", /\bkimi\b|\bmoonshot\b/i],
+  ["zhipu", /\bglm[- ]?\d|\bchatglm\b|\bzhipu\b/i],
+  ["bytedance", /\bbytedance\b|\bseed[- ]?prover\b|\bdoubao\b/i],
+  ["harmonic", /\bharmonic\b|\baristotle\b/i],
+  ["axiom", /\baxiom (prover|math)\b|\baxiom-prover\b/i],
 ];
 export function familyFromName(s?: string): AgentFamily | undefined {
   if (!s) return undefined;
@@ -91,6 +95,8 @@ export function postprocess(llm: LLMCompetition, repo: DiscoveredRepo): Competit
     // Open problem: nobody has beaten the baseline yet
     const nonBaseline = recs.filter((r) => !r.isBaseline);
     p.isOpen = nonBaseline.length === 0;
+    // Contested: a "current best" only means something when at least two distinct contributors compete
+    p.contested = new Set(nonBaseline.map((r) => (r.contributor ?? "").trim().toLowerCase()).filter(Boolean)).size >= 2;
   }
 
   // Agent stats per family
@@ -101,7 +107,7 @@ export function postprocess(llm: LLMCompetition, repo: DiscoveredRepo): Competit
       const fam = r.agent.family;
       const cur = amap.get(fam) ?? { family: fam, records: 0, currentBests: 0, models: [], contributors: [] };
       cur.records++;
-      if (r.isCurrentBest) cur.currentBests++;
+      if (r.isCurrentBest) { if (p.contested) cur.currentBests++; else cur.uncontestedBests = (cur.uncontestedBests ?? 0) + 1; }
       if (r.agent.model && !cur.models.includes(r.agent.model)) cur.models.push(r.agent.model);
       if (r.contributor && !cur.contributors.includes(r.contributor)) cur.contributors.push(r.contributor);
       amap.set(fam, cur);
@@ -121,7 +127,7 @@ export function postprocess(llm: LLMCompetition, repo: DiscoveredRepo): Competit
       const cur = pmap.get(key) ?? { name: key, url: r.contributorUrl, submissions: 0, problems: [] };
       cur.submissions++;
       if (!cur.problems.includes(p.id)) cur.problems.push(p.id);
-      if (r.isCurrentBest) cur.bestRank = 1;
+      if (r.isCurrentBest && p.contested) cur.bestRank = 1;
       if (r.date && (!cur.lastActive || r.date > cur.lastActive)) cur.lastActive = r.date;
       pmap.set(key, cur);
     }
