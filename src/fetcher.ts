@@ -3,6 +3,7 @@
 import { fetchRaw, listDir, getOctokit } from "./github.js";
 import { writeFileSync, readFileSync, existsSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
+import { STANDARD_FILES, parseStandardDoc, type StandardDoc } from "./standard.js";
 
 const CACHE_DIR = join(process.cwd(), "cache");
 
@@ -31,6 +32,7 @@ export interface RepoPages {
   repo: { owner: string; name: string; branch: string };
   pages: FetchedPage[];
   totalChars: number;
+  standardDocs: StandardDoc[];   // parsed PROBLEM.md / SUBMISSION.md, when the repo ships them
 }
 
 // Files that often contain leaderboards
@@ -75,6 +77,19 @@ export async function fetchRepoPages(
     totalChars += truncated.length;
     return true;
   };
+
+  // 0. The standard: PROBLEM.md and SUBMISSION.md are authoritative, so they go first and are never cached
+  const standardDocs: StandardDoc[] = [];
+  for (const path of STANDARD_FILES) {
+    const kind = /problem\.md$/i.test(path) ? "problem" : "submission";
+    if (standardDocs.some((d) => (/problem\.md$/i.test(d.path) ? "problem" : "submission") === kind)) continue;
+    try {
+      const content = await fetchRaw(owner, name, path, branch);
+      if (content.trim().length < 20) continue;
+      standardDocs.push(parseStandardDoc(path, content));
+      addPage(path, content.slice(0, 20000));
+    } catch { /* not there */ }
+  }
 
   // 1. Fetch known filenames (README, LEADERBOARD.md, etc.)
   for (const filename of LEADERBOARD_FILENAMES) {
@@ -206,6 +221,7 @@ export async function fetchRepoPages(
     repo: { owner, name, branch },
     pages,
     totalChars,
+    standardDocs,
   };
 }
 

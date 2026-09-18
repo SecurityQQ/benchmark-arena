@@ -2,6 +2,8 @@
 
 import { getOctokit } from "./github.js";
 import type { DiscoveredRepo } from "./types.js";
+import { fetchRaw } from "./github.js";
+import { parseStandardDoc, isStandardDoc, SPEC_MARKERS } from "./standard.js";
 import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 
@@ -76,9 +78,38 @@ const SEED_REPOS = [
   { owner: "tatsu-lab", name: "alpaca_eval" },             // AlpacaEval
 ];
 
+/** Repos anywhere on GitHub that ship PROBLEM.md / SUBMISSION.md with our front matter. Needs an authenticated token (code search). */
+export async function discoverStandardRepos(): Promise<DiscoveredRepo[]> {
+  const octokit = getOctokit();
+  const found = new Map<string, DiscoveredRepo>();
+  for (const q of [`"${SPEC_MARKERS.problem}" filename:PROBLEM.md`, `"${SPEC_MARKERS.submission}" filename:SUBMISSION.md`]) {
+    try {
+      const { data } = await octokit.rest.search.code({ q, per_page: 100 });
+      for (const item of data.items) {
+        const r = item.repository; const key = r.full_name;
+        if (found.has(key) || r.fork || r.private) continue;
+        try {
+          const { data: full } = await octokit.rest.repos.get({ owner: r.owner.login, repo: r.name });
+          // verify before it costs anything: the file must parse and carry our marker
+          const doc = parseStandardDoc(item.path, await fetchRaw(full.owner.login, full.name, item.path, full.default_branch));
+          if (!isStandardDoc(doc)) continue;
+          found.set(key, { owner: full.owner.login, name: full.name, url: full.html_url, description: full.description ?? undefined, stars: full.stargazers_count, topics: full.topics ?? [], defaultBranch: full.default_branch, priority: true });
+        } catch { /* gone */ }
+      }
+      console.log(`    standard search "${q.slice(0, 40)}…": ${data.items.length} files`);
+    } catch (e) { console.log(`    standard search failed: ${(e as Error).message.slice(0, 120)}`); }
+  }
+  return [...found.values()];
+}
+
 export async function discoverRepos(maxResults = 80): Promise<DiscoveredRepo[]> {
   const octokit = getOctokit();
   const found = new Map<string, DiscoveredRepo>();
+
+  // 0. The standard: repos that ship PROBLEM.md / SUBMISSION.md skip every heuristic filter below
+  console.log("  [standard]");
+  const standard = await discoverStandardRepos();
+  for (const r of standard) found.set(`${r.owner}/${r.name}`, r);
 
   // 1. Add seed repos
   console.log("  [seeds]");
@@ -167,6 +198,7 @@ export async function discoverRepos(maxResults = 80): Promise<DiscoveredRepo[]> 
 
   // Pre-filter: exclude obvious non-competitions
   const filtered = results.filter((r) => {
+    if (r.priority) return true;
     const name = (r.owner + "/" + r.name).toLowerCase();
     const desc = (r.description ?? "").toLowerCase();
     if (name.includes("awesome")) return false;
@@ -178,7 +210,7 @@ export async function discoverRepos(maxResults = 80): Promise<DiscoveredRepo[]> 
     return true;
   });
 
-  filtered.sort((a, b) => b.stars - a.stars);
+  filtered.sort((a, b) => Number(!!b.priority) - Number(!!a.priority) || b.stars - a.stars);
   console.log(`  ${results.length} found, ${filtered.length} after filtering`);
   return filtered;
 }

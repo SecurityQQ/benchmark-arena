@@ -11,6 +11,7 @@ import { fetchRepoPages } from "./fetcher.js";
 import { processRepoWithLLM, attributeRecordsWithLLM } from "./llm.js";
 import { postprocess } from "./postprocess.js";
 import { buildLeanEval } from "./structured/leanEval.js";
+import { applyStandard } from "./standard.js";
 import type { LLMCompetition } from "./llm.js";
 
 // Repos with an official machine-readable results store: build deterministically, never via LLM
@@ -28,7 +29,7 @@ const DISCOVERED_PATH = join(DATA_DIR, "discovered.json");
 const RESULT_PATH = join(DATA_DIR, "competitions.json");
 
 async function main() {
-  const mode = process.argv[2] ?? "full"; // "discover" | "process" | "full"
+  const mode = process.argv[2] ?? "full"; // "discover" | "process" | "full" | "priority" | "repost"
 
   console.log("=== Benchmark Arena Crawler ===");
   console.log(`Mode: ${mode}\n`);
@@ -49,7 +50,25 @@ async function main() {
   }
 
   // Step 1: Discovery
-  if (mode === "discover" || mode === "full") {
+  if (mode === "priority") {
+    // Fast lane: only repos that ship PROBLEM.md / SUBMISSION.md. Runs daily; results are merged into the existing data.
+    console.log("[1] Priority lane: discovering repos that follow the standard...\n");
+    const { discoverStandardRepos } = await import("./discovery.js");
+    const known: DiscoveredRepo[] = existsSync(DISCOVERED_PATH) ? JSON.parse(readFileSync(DISCOVERED_PATH, "utf-8")) : [];
+    const prevData: CrawlResult | null = existsSync(RESULT_PATH) ? JSON.parse(readFileSync(RESULT_PATH, "utf-8")) : null;
+    const already = new Set((prevData?.competitions ?? []).filter((c) => c.standard).map((c) => `${c.repo?.owner}/${c.repo?.name}`.toLowerCase()));
+    const found = await discoverStandardRepos();
+    const byKey = new Map(found.map((r) => [`${r.owner}/${r.name}`.toLowerCase(), r]));
+    for (const k of known) if (already.has(`${k.owner}/${k.name}`.toLowerCase()) && !byKey.has(`${k.owner}/${k.name}`.toLowerCase())) byKey.set(`${k.owner}/${k.name}`.toLowerCase(), { ...k, priority: true });
+    repos = [...byKey.values()];
+    // remember them for the regular crawl too
+    const merged = new Map(known.map((r) => [`${r.owner}/${r.name}`.toLowerCase(), r]));
+    for (const r of repos) merged.set(`${r.owner}/${r.name}`.toLowerCase(), { ...(merged.get(`${r.owner}/${r.name}`.toLowerCase()) ?? r), priority: true });
+    mkdirSync(DATA_DIR, { recursive: true });
+    writeFileSync(DISCOVERED_PATH, JSON.stringify([...merged.values()], null, 2));
+    console.log(`  ${repos.length} repos in the priority lane\n`);
+    if (!repos.length) { console.log("Nothing to do."); return; }
+  } else if (mode === "discover" || mode === "full") {
     console.log("[1] Discovering repos...\n");
     repos = await discoverRepos(Number(process.env.MAX_REPOS ?? 120));
     mkdirSync(DATA_DIR, { recursive: true });
@@ -76,6 +95,8 @@ async function main() {
   const errors: { repo: string; error: string }[] = [];
 
   // ONLY accepts a comma-separated list of substrings of "owner/name"
+  // the standard earns a place at the front of the queue
+  repos.sort((a, b) => Number(!!b.priority) - Number(!!a.priority));
   const only = process.env.ONLY?.toLowerCase();
   const onlyList = only ? only.split(",").map((x) => x.trim()).filter(Boolean) : [];
   if (only) repos = repos.filter((r) => onlyList.some((o) => `${r.owner}/${r.name}`.toLowerCase().includes(o)));
@@ -115,8 +136,10 @@ async function main() {
       }
       console.log(`    fetched ${pages.pages.length} pages, ${pages.totalChars} chars`);
 
-      // Process with LLM
-      const llmResult = await processRepoWithLLM(pages);
+      // Process with LLM, then overlay the facts declared in PROBLEM.md / SUBMISSION.md
+      const extracted = await processRepoWithLLM(pages);
+      const { competition: llmResult, info: standardInfo } = applyStandard(extracted, pages.standardDocs, repo);
+      if (standardInfo) console.log(`    standard: PROBLEM.md ${standardInfo.problem ? "✓" : "—"} SUBMISSION.md ${standardInfo.submission ? "✓" : "—"}${standardInfo.warnings.length ? ` · ${standardInfo.warnings.length} warning(s)` : ""}`);
       if (llmResult === null) {
         console.log(`    not a competition, skipping`);
         errors.push({ repo: repoKey, error: "not a competition" });
@@ -144,6 +167,7 @@ async function main() {
       }
 
       const competition = postprocess(llmResult, repo);
+      if (standardInfo) competition.standard = standardInfo;
       const { totalRecords, uniqueParticipants } = competition.stats;
       const fams = competition.agentStats.map((a) => `${a.family}:${a.records}`).join(" ");
       console.log(`    ✓ ${competition.name} [${competition.status}] ${competition.problems.length} problems, ${totalRecords} records, ${uniqueParticipants} participants, compute=${competition.participation.compute}${fams ? ` · agents ${fams}` : ""}`);
@@ -173,7 +197,7 @@ async function main() {
   // Step 3: Save results
   console.log(`\n[3] Saving results...`);
   let finalComps = competitions;
-  if (only && existsSync(RESULT_PATH)) {
+  if ((only || mode === "priority") && existsSync(RESULT_PATH)) {
     const prev: CrawlResult = JSON.parse(readFileSync(RESULT_PATH, "utf-8"));
     const ids = new Set(competitions.map((c) => c.repo?.owner + "/" + c.repo?.name));
     const newIds = new Set(competitions.map((c) => c.id));

@@ -175,6 +175,7 @@ function route() {
   const fm = p.match(/^\/agents\/([^/]+)/);
   if (m) renderDetail(decodeURIComponent(m[1]));
   else if (fm) renderFamily(decodeURIComponent(fm[1]));
+  else if (p === "/standard" || (p === "/" && /(^|\.)submission\.md$/i.test(location.hostname))) renderStandard();
   else if (p === "/submit") renderSubmit();
   else if (p === "/people") renderPeople();
   else if (p === "/agents") renderAgents();
@@ -211,6 +212,7 @@ const I = {
   menu: '<svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>',
   search: '<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>',
   plus: '<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>',
+  doc: '<svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 14l2 2 4-4"/></svg>',
   ext: '<svg viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>',
 };
 
@@ -377,6 +379,7 @@ function renderSidebar() {
       ${fams.map((a) => item({ href: `/agents/${a.family}`, icon: `<span class="sb-ico">${famIcon(a.family, 16)}</span>`, label: FAM[a.family][0], n: a.records, on: p === `/agents/${a.family}`, click: `return nav('/agents/${a.family}')` })).join("")}
     </div>
     <div class="sb-bottom">
+      ${item({ href: "/standard", icon: I.doc, label: "PROBLEM.md standard", on: p === "/standard", click: "return nav('/standard')" })}
       ${item({ href: "/submit", icon: I.plus, label: "Submit a competition", on: p === "/submit", click: "return nav('/submit')" })}
       ${item({ href: "/llms.txt", icon: I.file, label: "llms.txt", cls: "mono", click: "" })}
       ${item({ href: "/api/summary", icon: I.code, label: "/api/summary", cls: "mono", click: "" })}
@@ -389,6 +392,7 @@ function crumbFor() {
   const m = p.match(/^\/c\/([^/]+)/), fm = p.match(/^\/agents\/([^/]+)/);
   if (m) { const c = D.competitions.find((x) => x.id === decodeURIComponent(m[1])); return [["Competitions", "/"], [c ? c.name : "Not found"]]; }
   if (fm) { const f = FAM[decodeURIComponent(fm[1])]; return [["Agents", "/agents"], [f ? f[0] : "Unknown"]]; }
+  if (p === "/standard") return [["The standard"]];
   if (p === "/submit") return [["Submit a competition"]];
   if (p === "/people") return [["People"]];
   if (p === "/agents") return [["Agents"]];
@@ -545,6 +549,12 @@ function renderHome() {
       <div class="open-grid">${D.openProblems.slice(0, 9).map(openCard).join("")}</div>
     </div></section>` : ""}
 
+    <section class="band art-band std-promo">${artBg("d-coding")}<div class="wrap">
+      <div class="hero"><span class="eyebrow">For organizers</span><h2 style="font-size:36px;line-height:1.1">Ship <span class="mono-title">PROBLEM.md</span> and <span class="mono-title">SUBMISSION.md</span>. Get crawled first.</h2>
+      <p class="lede" style="margin-top:16px">Two files at the root of your repository: what the problem is, and how to enter. Our bot finds them on its own, reads them daily and takes your numbers over its own guesses.</p>
+      <div class="cta"><a class="btn primary" href="/standard" onclick="return nav('/standard')">Read the standard →</a><a class="btn" href="/submit" onclick="return nav('/submit')">Or just submit a repository</a></div></div>
+    </div></section>
+
     <section class="band" id="attribution"><div class="wrap">
       <div class="band-head">
         <div><span class="eyebrow">Attribution</span><h2>Which agents actually ship the records</h2></div>
@@ -633,7 +643,7 @@ function renderGrid() {
         case "recent": return (b.stats.lastSubmission || "").localeCompare(a.stats.lastSubmission || "") || st;
         case "open": return openN(b) - openN(a) || st || b.stats.totalRecords - a.stats.totalRecords;
         case "name": return a.name.localeCompare(b.name);
-        default: return st || b.stats.recordsLast90d - a.stats.recordsLast90d || b.stats.totalRecords - a.stats.totalRecords;
+        default: return st || Number(!!b.standard?.problem) - Number(!!a.standard?.problem) || b.stats.recordsLast90d - a.stats.recordsLast90d || b.stats.totalRecords - a.stats.totalRecords;
       }
     });
   const grid = document.getElementById("grid");
@@ -653,6 +663,7 @@ function card(c) {
       <div class="card-img">${img ? `<img src="${esc(img)}" loading="lazy" alt="" onerror="this.outerHTML=placeholderArt('${esc(c.id)}')">` : placeholderArt(c.id)}</div>
       <div class="card-body">
         <div class="card-top"><h3>${esc(c.name)}</h3><span class="badge ${c.status}">${c.status}</span></div>
+        ${stdBadge(c)}
         <div class="tagline">${esc(c.tagline)}</div>
         <div class="card-meta">
           <span><b>${c.problems.length}</b> track${c.problems.length === 1 ? "" : "s"}${open ? ` <span class="openpill">${open} open</span>` : ""}</span>
@@ -670,6 +681,83 @@ function card(c) {
       </div>
       <div class="card-cta">${ctaButtons(c, undefined, { small: true })}</div>
     </article>`;
+}
+
+// ── The standard: PROBLEM.md + SUBMISSION.md (problem.md · submission.md) ──
+const stdBadge = (c) => c.standard?.problem || c.standard?.submission ? `<a class="std-badge" href="/standard" title="This repository ships ${[c.standard.problem && "PROBLEM.md", c.standard.submission && "SUBMISSION.md"].filter(Boolean).join(" and ")}: crawled daily, facts taken from the organizers" onclick="event.stopPropagation();return nav('/standard')">${I.doc}<span>${c.standard.problem ? "PROBLEM.md" : "SUBMISSION.md"}</span></a>` : "";
+// does a repo ship the two files? raw.githubusercontent serves with CORS, so the browser can look
+async function checkStandard(owner, name, branch) {
+  const tryFile = async (file) => { for (const b of [branch, "main", "master"].filter(Boolean)) for (const p of [file, file.toLowerCase(), `.github/${file}`, `docs/${file}`]) { try { const r = await fetch(`https://raw.githubusercontent.com/${owner}/${name}/${b}/${p}`); if (r.ok) { const t = await r.text(); return { path: p, frontMatter: /^\uFEFF?---\r?\n[\s\S]*?\r?\n---/.test(t), text: t }; } } catch {} } return null; };
+  const [problem, submission] = await Promise.all([tryFile("PROBLEM.md"), tryFile("SUBMISSION.md")]);
+  return { problem, submission };
+}
+function stdReport(res) {
+  const line = (label, f, keys) => { if (!f) return `<li class="miss"><b>${label}</b> not found at the repository root.</li>`; const missing = f.frontMatter ? keys.filter((k) => !new RegExp(`^${k}\\s*:`, "m").test(f.text)) : []; return `<li class="${f.frontMatter && !missing.length ? "ok" : "warn"}"><b>${label}</b> found at <code>${esc(f.path)}</code>${!f.frontMatter ? ", but it has no YAML front matter, so only the prose is used." : missing.length ? `, front matter is missing: ${missing.map((k) => `<code>${k}</code>`).join(", ")}.` : ", front matter looks complete."}</li>`; };
+  return `<ul class="std-report">${line("PROBLEM.md", res.problem, ["spec", "name", "tracks"])}${line("SUBMISSION.md", res.submission, ["spec", "how"])}</ul>`;
+}
+function renderStandard() {
+  document.title = "PROBLEM.md and SUBMISSION.md — the standard";
+  const app = document.getElementById("app");
+  const n = D.competitions.filter((c) => c.standard?.problem).length;
+  app.innerHTML = `
+    <section class="band art-band">${artBg("d-formal")}<div class="wrap">
+      <a class="back" href="/" onclick="return nav('/')">← Home</a>
+      <div class="hero"><span class="eyebrow">The standard · v1</span><h1><span class="mono-title">PROBLEM.md</span> and <span class="mono-title">SUBMISSION.md</span></h1>
+      <p class="lede">Two Markdown files at the root of your repository. One states the problem, the other says how to enter. People read them; agents and our crawler parse them. Repositories that ship both go to the front of the queue.</p>
+      <div class="cta"><a class="btn primary" href="#templates" onclick="return goSection('templates')">Get the templates ↓</a><a class="btn" href="#check" onclick="return goSection('check')">Check my repository</a></div></div>
+    </div></section>
+
+    <section class="band"><div class="wrap">
+      <div class="band-head"><div><span class="eyebrow">Why bother</span><h2>What the two files buy you</h2></div>${n ? `<div class="dim small mono">${n} listed competition${n === 1 ? "" : "s"} ship${n === 1 ? "s" : ""} them</div>` : ""}</div>
+      <div class="std-grid">
+        <div class="panel"><h2>Found without asking</h2><p>The bot searches all of GitHub for these file names every day. No form, no approval queue, no star threshold: if the files are there, the repository is crawled.</p></div>
+        <div class="panel"><h2>First in line, daily</h2><p>Standard repositories are processed before everything else and re-crawled every day. The rest of the catalog is refreshed every three days.</p></div>
+        <div class="panel"><h2>Your facts, not our guess</h2><p>Name, tracks, metric direction, baseline, deadline, compute and how to submit are taken from your front matter. They override whatever a language model inferred from the README.</p></div>
+        <div class="panel"><h2>Ready for agents</h2><p>An agent pointed at your repository reads the same two files and knows what to optimize, what is allowed and how to disclose itself. Listed entries get a <span class="std-badge static">${I.doc}<span>PROBLEM.md</span></span> mark.</p></div>
+      </div>
+    </div></section>
+
+    <section class="band soft" id="templates"><div class="wrap">
+      <div class="band-head"><div><span class="eyebrow">Templates</span><h2>Copy, fill in, commit</h2><p>YAML front matter carries the facts, the Markdown body carries the prose. Every field is optional except the ones marked in the checker below; unknown fields are ignored.</p></div></div>
+      <div class="std-files">
+        ${["PROBLEM.md", "SUBMISSION.md"].map((f) => `<div class="std-file"><div class="std-file-head"><span class="mono">${f}</span><span><button class="btn small" data-copy="${f}">Copy</button> <a class="btn small" href="/standard/${f}" download="${f}">Download</a></span></div><pre class="std-pre" id="tpl-${f}"><code>Loading…</code></pre></div>`).join("")}
+      </div>
+      <div class="hint">From a terminal: <code>curl -O https://problem.md/standard/PROBLEM.md -O https://submission.md/standard/SUBMISSION.md</code></div>
+    </div></section>
+
+    <section class="band" id="check"><div class="wrap"><div class="submit-grid">
+      <form class="panel submit-form" id="std-form" novalidate>
+        <label class="field"><span class="eyebrow">Check a repository</span>
+          <input id="std-repo" autocomplete="off" spellcheck="false" placeholder="owner/repo or https://github.com/owner/repo">
+          <div class="field-state" id="std-state" aria-live="polite"></div>
+        </label>
+        <div class="submit-actions"><button type="submit" class="btn primary">Check</button><span class="hint" style="margin:0">Looks for both files on the default branch. Nothing is stored.</span></div>
+      </form>
+      <aside class="submit-side"><div class="panel fill"><h2>The rules of the lane</h2>
+        <ul class="ticks">
+          <li>Files live at the root (or in <code>.github/</code> or <code>docs/</code>), named exactly <code>PROBLEM.md</code> and <code>SUBMISSION.md</code>.</li>
+          <li>Each file starts with YAML front matter carrying the marker: <code>spec: problem.md/v1</code> and <code>spec: submission.md/v1</code>. Without it the file is just prose to us.</li>
+          <li><code>PROBLEM.md</code> needs <code>name</code> and at least one track with <code>metric</code> and <code>direction</code>.</li>
+          <li>Records still come from your leaderboard table or results files. The files describe the contest, not the scores.</li>
+          <li>The repository must be public. Forks are ignored.</li>
+        </ul></div></aside>
+    </div></div></section>`;
+
+  for (const f of ["PROBLEM.md", "SUBMISSION.md"]) fetch(`/standard/${f}`).then((r) => r.text()).then((t) => { const el = document.querySelector(`#tpl-${CSS.escape(f)} code`); if (el) el.textContent = t; });
+  app.querySelectorAll("[data-copy]").forEach((b) => (b.onclick = () => { const t = document.querySelector(`#tpl-${CSS.escape(b.dataset.copy)} code`)?.textContent || ""; navigator.clipboard.writeText(t).then(() => { b.textContent = "Copied"; setTimeout(() => (b.textContent = "Copy"), 1400); }); }));
+  const input = document.getElementById("std-repo"), st = document.getElementById("std-state");
+  const run = async () => {
+    const r = parseRepo(input.value); if (!r) { st.className = "field-state bad"; st.innerHTML = "Use <code>owner/repo</code> or a GitHub URL."; return; }
+    st.className = "field-state wait"; st.innerHTML = `Looking into <code>${esc(r.owner)}/${esc(r.name)}</code>…`;
+    const res = await checkStandard(r.owner, r.name);
+    const marked = (f, k) => !!f && f.frontMatter && new RegExp(`^spec\\s*:\\s*${k}\\.md/v\\d+`, "mi").test(f.text);
+    if (res.problem && !marked(res.problem, "problem")) res.problem.frontMatter = false;
+    if (res.submission && !marked(res.submission, "submission")) res.submission.frontMatter = false;
+    const both = marked(res.problem, "problem") && marked(res.submission, "submission"), listed = D.competitions.find((c) => c.repo && `${c.repo.owner}/${c.repo.name}`.toLowerCase() === `${r.owner}/${r.name}`.toLowerCase());
+    st.className = "field-state"; st.innerHTML = stdReport(res) + `<div class="std-verdict ${both ? "ok" : ""}">${both ? "Priority lane: this repository will be picked up by the daily crawl." : res.problem || res.submission ? "Halfway there. Add the other file to enter the priority lane." : "Not in the priority lane yet. Add the two files, or submit the repository the ordinary way."}${listed ? ` It is already listed as <a href="/c/${esc(listed.id)}" onclick="return nav('/c/${esc(listed.id)}')">${esc(listed.name)}</a>.` : !both ? ` <a href="/submit?repo=${encodeURIComponent(r.owner + "/" + r.name)}" onclick="state.prefillRepo='${esc(r.owner)}/${esc(r.name)}';return nav('/submit')">Submit it →</a>` : ""}</div>`;
+  };
+  document.getElementById("std-form").onsubmit = (e) => { e.preventDefault(); run(); };
+  const pre = state.prefillRepo || new URLSearchParams(location.search).get("repo"); if (pre) { input.value = pre; state.prefillRepo = null; run(); }
 }
 
 // ── Submit a competition: no backend; the form opens a prefilled GitHub issue that a maintainer approves ──
@@ -742,7 +830,8 @@ function renderSubmit() {
       if (!res.ok) return set("warn", "Could not verify the repository right now (GitHub rate limit). You can still continue.", true);
       const m = await res.json();
       current = { owner: m.owner.login, name: m.name };
-      set("ok", `<div class="repo-preview"><img src="${esc(m.owner.avatar_url)}&s=64" alt="" width="32" height="32"><div><div class="rp-name">${esc(m.full_name)} <span class="dim">★ ${fmt(m.stargazers_count)}</span></div><div class="rp-desc">${esc(m.description || "No description")}</div></div></div>${m.archived ? `<div class="rp-note">This repository is archived; it will be listed as ended.</div>` : ""}`, true);
+      checkStandard(m.owner.login, m.name, m.default_branch).then((std) => { if (my !== seq) return; const el = document.getElementById("sf-std"); if (el) el.innerHTML = std.problem && std.submission ? `<div class="std-verdict ok">Ships PROBLEM.md and SUBMISSION.md: it is in the priority lane and will be crawled daily, no approval needed.</div>` : `<div class="std-verdict">Tip: add <a href="/standard" onclick="return nav('/standard')">PROBLEM.md and SUBMISSION.md</a> to the repository and the bot crawls it daily, ahead of the queue.</div>`; });
+      set("ok", `<div class="repo-preview"><img src="${esc(m.owner.avatar_url)}&s=64" alt="" width="32" height="32"><div><div class="rp-name">${esc(m.full_name)} <span class="dim">★ ${fmt(m.stargazers_count)}</span></div><div class="rp-desc">${esc(m.description || "No description")}</div></div></div>${m.archived ? `<div class="rp-note">This repository is archived; it will be listed as ended.</div>` : ""}<div id="sf-std"></div>`, true);
     }).catch(() => { if (my === seq) set("warn", "Could not reach GitHub to verify. You can still continue.", true); });
   };
   repoEl.oninput = () => { clearTimeout(timer); timer = setTimeout(check, 450); const r = parseRepo(repoEl.value); go.disabled = !r; };
@@ -948,6 +1037,7 @@ function renderDetail(id) {
       <div>
         <div class="badges">
           <span class="badge ${c.status}">${c.status}</span>
+          ${stdBadge(c)}
           ${openCount ? `<span class="badge open">${openCount} open problem${openCount === 1 ? "" : "s"}</span>` : ""}
           ${c.domain ? `<span class="tag domain">${DOMAIN[c.domain] || c.domain}</span>` : ""}
           ${c.tags.map((t) => `<span class="tag">${esc(t)}</span>`).join("")}

@@ -88,6 +88,7 @@ Agent attribution — this is a core feature, be thorough but never guess:
 - Model name → family: Claude/Opus/Sonnet/Haiku/Fable→anthropic; GPT/o1/o3/Codex→openai; Gemini/Gemma→google; DeepSeek→deepseek; Llama→meta; Grok→xai; Mistral/Mixtral→mistral; Qwen→alibaba; Kimi→moonshot; GLM→zhipu; Seed Prover/Doubao→bytedance; Aristotle→harmonic; Axiom Prover→axiom. Any other named AI system→other-ai.
 
 Rules:
+- If the repo ships PROBLEM.md and/or SUBMISSION.md (the problem.md / submission.md standard), treat them as the organizers' authoritative statement of the task, tracks, metric directions, baselines and submission process. Prefer them over the README when they disagree. Such a repo is a competition.
 - Tracks (Problem entries) and their records come ONLY from leaderboard tables/lists in docs or data files (README tables, LEADERBOARD.md, results/*.json, *.csv). NEVER derive tracks or records from commit messages, PR titles or the __attribution__ page — that page is evidence for agent attribution only.
 - A competition with a documented submission path is still a competition when its leaderboard is empty, hosted on an external site, or not yet populated: return it with the tracks the docs describe and empty records. Return null only when there is no competition/benchmark people can submit to at all.
 - One track = one ranked table where entries compete on the same metric. Do not create a track per problem when the repo's own leaderboard ranks models/people across problems; model it the way the repo ranks.

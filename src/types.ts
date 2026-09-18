@@ -68,6 +68,8 @@ export interface Competition {
   participants: Participant[];   // derived
   stats: Stats;                  // derived
   agentStats: AgentStat[];       // derived: which model families produced records here
+  standard?: { problem: boolean; submission: boolean; version: number; warnings: string[] };  // repo ships PROBLEM.md / SUBMISSION.md
+  agentPolicy?: { agents?: string; attribution?: string };  // from SUBMISSION.md: are AI agents welcome, how to disclose them
   lastUpdated: string;
 }
 
@@ -128,6 +130,7 @@ export interface DiscoveredRepo {
   stars: number;
   topics: string[];
   defaultBranch: string;
+  priority?: boolean;            // ships PROBLEM.md / SUBMISSION.md: crawled first and daily
 }
 
 export interface CrawlResult {

@@ -49,6 +49,10 @@
     {
       "source": "/submit",
       "destination": "/"
+    },
+    {
+      "source": "/standard",
+      "destination": "/"
     }
   ],
   "headers": [

@@ -78,6 +78,8 @@ export function llmsTxt(data: CrawlResult): string {
         ``,
         `Machine-readable: GET /api/competitions (all) · GET /api/competitions/{id}.json · GET /api/competitions/{id}.md · GET /api/agents · GET /api/people · GET /api/open-problems`,
         ``,
+        `Run a competition? Ship PROBLEM.md and SUBMISSION.md at the root of the repository (templates: /standard/PROBLEM.md, /standard/SUBMISSION.md, spec: /standard). Such repositories are found by code search, crawled daily and their front matter overrides inferred data.`,
+        ``,
         `## Which agents ship winning submissions (records authored by an AI agent; current bests / total)`,
         ...aggregateAgents(data.competitions, "author").map((a) => `- ${a.family}: ${a.currentBests} bests / ${a.records} records · models: ${Object.keys(a.models).slice(0, 4).join(", ") || "n/a"}`),
         ``,

@@ -865,3 +865,31 @@ body.app .art-band { padding: 36px 0 44px; }
 .tb-add svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; }
 .btn.primary .btn-ico { filter: invert(1); }
 @media (max-width: 720px) { .tb-add span { display: none; } .tb-add { padding: 8px; } .submit-form { padding: 22px; } }
+
+/* ── The standard: PROBLEM.md / SUBMISSION.md ── */
+.mono-title { font-family: var(--font-mono); font-size: .78em; letter-spacing: -.02em; font-weight: 500; background: var(--canvas-2); border: 1px solid var(--line); border-radius: 12px; padding: 2px 12px 4px; white-space: nowrap; }
+.art-band .mono-title { background: rgba(250, 249, 245, .8); }
+.std-badge { display: inline-flex; align-items: center; gap: 5px; width: fit-content; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .04em; padding: 3px 9px 3px 7px; border-radius: 999px; border: 1px solid var(--olive); color: #55663F; background: rgba(120, 140, 93, .1); white-space: nowrap; }
+.std-badge:hover { text-decoration: none; background: rgba(120, 140, 93, .18); }
+.std-badge svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.std-badge.static { vertical-align: middle; }
+.std-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+.std-grid .panel > h2 { font-family: var(--font-serif); text-transform: none; letter-spacing: -.01em; font-size: 21px !important; color: var(--ink); margin-bottom: 10px; }
+.std-grid .panel p { color: var(--ink-soft); font-size: 14.5px; line-height: 1.6; }
+.std-files { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+@media (max-width: 1000px) { .std-files { grid-template-columns: 1fr; } }
+.std-file { border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; background: var(--ink); min-width: 0; }
+.std-file-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 14px 12px 18px; border-bottom: 1px solid rgba(250, 249, 245, .14); color: var(--canvas); font-size: 13px; }
+.std-file-head .btn { color: var(--canvas); border-color: rgba(250, 249, 245, .3); background: transparent; }
+.std-file-head .btn:hover { background: rgba(250, 249, 245, .12); border-color: var(--canvas); }
+.std-pre { margin: 0; padding: 18px; max-height: 460px; overflow: auto; color: #E9E6DC; font-size: 12.5px; line-height: 1.65; white-space: pre; }
+.std-report { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; color: var(--ink-soft); }
+.std-report li { padding-left: 22px; position: relative; }
+.std-report li::before { content: ""; position: absolute; left: 2px; top: 8px; width: 8px; height: 8px; border-radius: 50%; background: var(--secondary); }
+.std-report li.ok::before { background: var(--olive); }
+.std-report li.warn::before { background: var(--kraft); }
+.std-report li.miss::before { background: transparent; border: 1.5px solid var(--secondary); }
+.std-verdict { margin-top: 10px; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--canvas); color: var(--ink-soft); font-size: 13.5px; line-height: 1.5; }
+.std-verdict.ok { border-color: var(--olive); background: rgba(120, 140, 93, .08); color: #44552F; }
+.std-verdict a { text-decoration: underline; text-underline-offset: 3px; }
+.card .std-badge { margin-top: -2px; }

@@ -1,0 +1,40 @@
+name: Crawl priority lane (PROBLEM.md / SUBMISSION.md)
+
+# Repositories that ship PROBLEM.md and SUBMISSION.md are found by code search and re-crawled every day,
+# ahead of the regular three-day crawl.
+on:
+  schedule:
+    - cron: "41 5 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: crawl
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  priority:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Crawl priority lane
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: npx tsx src/main.ts priority
+      - name: Commit data
+        run: |
+          git config user.name "benchmark-arena-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data/
+          if git diff --cached --quiet; then echo "no changes"; exit 0; fi
+          git commit -m "data: priority crawl $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push
