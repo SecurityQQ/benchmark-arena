@@ -175,7 +175,7 @@ function route() {
   const fm = p.match(/^\/agents\/([^/]+)/);
   if (m) renderDetail(decodeURIComponent(m[1]));
   else if (fm) renderFamily(decodeURIComponent(fm[1]));
-  else if (p === "/standard" || (p === "/" && /(^|\.)submission\.md$/i.test(location.hostname))) renderStandard();
+  else if (p === "/standard") renderStandard();
   else if (p === "/submit") renderSubmit();
   else if (p === "/people") renderPeople();
   else if (p === "/agents") renderAgents();
@@ -1304,6 +1304,8 @@ fetch("/api/summary").then((r) => r.json()).then((d) => {
   const q = new URLSearchParams(location.search);
   if (q.has("landing")) history.replaceState({}, "", "/landing");
   else if (q.has("app")) { try { localStorage.setItem(VISITED, "1"); } catch {} history.replaceState({}, "", location.pathname + location.hash); }
+  // submission.md opens on the standard, but only as the entry page: "/" has to stay the catalog, or "Competitions" loops back here
+  if (location.pathname === "/" && !q.toString() && /(^|\.)submission\.md$/i.test(location.hostname)) history.replaceState({}, "", "/standard" + location.hash);
   const firstVisit = (() => { try { return localStorage.getItem(VISITED) !== "1"; } catch { return true; } })();
   if (firstVisit && location.pathname === "/") history.replaceState({}, "", "/landing");
   if (location.pathname !== "/landing") { try { localStorage.setItem(VISITED, "1"); } catch {} }
