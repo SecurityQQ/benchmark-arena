@@ -33,16 +33,43 @@ const famIcon = (f, size = 14) => FAM_ICON[f] ? `<img class="fam-ico" src="/icon
 const famChip = (f, extra = "") => f && FAM[f] ? `<a class="fam has-ico" href="/agents/${f}" style="--c:${FAM[f][1]}" title="Where ${FAM[f][0]} is used" onclick="event.stopPropagation();return nav('/agents/${f}')">${famIcon(f, 14)}${FAM[f][0]}${extra}</a>` : "";
 // flat geometric placeholder for competitions without an image — one accent per card, seeded by id
 const ACCENTS = ["#D97757", "#6A9BCC", "#788C5D", "#C46686", "#D4A27F", "#BCD1CA", "#CBCADB", "#EBDBBC"];
+let GEO = null;
 function placeholderArt(seed) {
+  // flat geometric cover: one strong accent + one soft tint + ink hairlines, eight compositions, slight hand-made tilt
   let h = 0; for (const ch of String(seed)) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
-  const c = ACCENTS[h % ACCENTS.length], k = Math.floor(h / 7919) % 4;
-  const shapes = [
-    `<circle cx="120" cy="80" r="46" fill="${c}"/><rect x="190" y="34" width="92" height="92" rx="14" fill="none" stroke="#141413" stroke-opacity=".25"/>`,
-    `<rect x="70" y="40" width="80" height="80" rx="12" fill="${c}"/><circle cx="230" cy="80" r="40" fill="none" stroke="#141413" stroke-opacity=".25"/>`,
-    `<path d="M90 120 L150 40 L210 120 Z" fill="${c}"/><circle cx="250" cy="70" r="26" fill="none" stroke="#141413" stroke-opacity=".25"/>`,
-    `<circle cx="100" cy="80" r="36" fill="none" stroke="${c}" stroke-width="10"/><rect x="180" y="44" width="72" height="72" rx="36" fill="${c}" fill-opacity=".55"/>`,
+  const STRONG = ["#D97757", "#6A9BCC", "#788C5D", "#C46686", "#D4A27F", "#5E9C9A", "#8C6A8E", "#B58A4C"];
+  const SOFT = ["#EBDBBC", "#BCD1CA", "#CBCADB", "#F0D9CC", "#DCE4D2", "#E6D5DF"];
+  // composition and colour are dealt least-used-first across the catalog, so neighbouring cards never repeat
+  if (!GEO && typeof D !== "undefined" && D) {
+    GEO = new Map();
+    // only cards that actually show a generated cover, in a stable order; composition cycles through all eight before repeating,
+    // and the colour step guarantees that a repeated composition never comes back in the same colour
+    const list = [...D.competitions].filter((x) => !x.images?.length).sort((p, q) => p.id.localeCompare(q.id));
+    list.forEach((x, i) => GEO.set(x.id, { k: (i * 3 + 1) % 8, ci: (i * 5 + Math.floor(i / 8) * 3 + 2) % STRONG.length }));
+  }
+  const dealt = GEO?.get(String(seed));
+  const c = STRONG[dealt ? dealt.ci : h % STRONG.length], t = SOFT[Math.floor(h / 8) % SOFT.length], k = dealt ? dealt.k : Math.floor(h / 53) % 8;
+  const rot = ((Math.floor(h / 389) % 9) - 4) * 0.7; // −2.8°…+2.8°
+  const ink = 'stroke="#141413" stroke-opacity=".28" stroke-width="1.2" fill="none"';
+  const comps = [
+    // sun and ring
+    `<circle cx="118" cy="84" r="50" fill="${c}"/><circle cx="226" cy="76" r="38" ${ink}/><circle cx="226" cy="76" r="9" fill="${t}"/><path d="M40 136H300" ${ink}/>`,
+    // square meets circle
+    `<rect x="64" y="34" width="92" height="92" rx="14" fill="${t}"/><circle cx="176" cy="92" r="44" fill="${c}" fill-opacity=".92"/><rect x="224" y="40" width="56" height="56" rx="28" ${ink}/>`,
+    // peak
+    `<path d="M70 128 L142 30 L214 128 Z" fill="${c}"/><path d="M150 128 L206 60 L262 128 Z" fill="${t}"/><circle cx="262" cy="50" r="17" ${ink}/><path d="M40 128H300" ${ink}/>`,
+    // two halves
+    `<path d="M150 30 A50 50 0 0 0 150 130 Z" fill="${c}"/><path d="M190 30 A50 50 0 0 1 190 130 Z" fill="${t}"/><path d="M170 18V142" ${ink}/><circle cx="276" cy="112" r="10" fill="${c}"/>`,
+    // concentric arcs
+    `<path d="M60 140 A110 110 0 0 1 170 30" stroke="${c}" stroke-width="22" fill="none" stroke-linecap="butt"/><path d="M100 140 A70 70 0 0 1 170 70" stroke="${t}" stroke-width="22" fill="none"/><circle cx="170" cy="140" r="16" fill="${c}"/><circle cx="250" cy="62" r="26" ${ink}/>`,
+    // dot field with one marked
+    `${[0,1,2,3,4,5].map((i) => [0,1,2].map((j) => `<circle cx="${72 + i * 28}" cy="${48 + j * 32}" r="7" fill="${(i * 3 + j) === (h % 18) ? c : t}"/>`).join("")).join("")}<circle cx="262" cy="80" r="40" ${ink}/><circle cx="262" cy="80" r="14" fill="${c}"/>`,
+    // bars under a sun
+    `${[46, 78, 58, 96, 70].map((v, i) => `<rect x="${66 + i * 30}" y="${134 - v}" width="20" height="${v}" rx="5" fill="${i === (h % 5) ? c : t}"/>`).join("")}<circle cx="258" cy="58" r="26" fill="${c}" fill-opacity=".9"/><path d="M50 134H300" ${ink}/>`,
+    // three circles
+    `<circle cx="130" cy="72" r="42" fill="${c}" fill-opacity=".9"/><circle cx="178" cy="72" r="42" fill="${t}" fill-opacity=".9"/><circle cx="154" cy="106" r="42" ${ink}/><circle cx="262" cy="46" r="8" fill="${c}"/>`,
   ];
-  return `<svg class="placeholder" viewBox="0 0 340 160" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${shapes[k]}</svg>`;
+  return `<svg class="placeholder" viewBox="0 0 340 160" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="340" height="160" fill="#F0EEE6"/><g transform="rotate(${rot} 170 80)">${comps[k]}</g></svg>`;
 }
 // ── Art: painted arenas. Used as card covers by domain, page headers, empty states and hidden easter eggs ──
 const ART = {
@@ -52,6 +79,20 @@ const ART = {
   horse:      { caption: "Citius, altius, fortius.",                   note: "An antique horse crowned with laurel; the field blurs behind.",    pos: "78% 30%" },
   velodrome:  { caption: "The clock is the only judge.",               note: "A blurred peloton, one sharp brass stopwatch.",                    pos: "62% 70%", hpos: "80% 82%" },
   datacenter: { caption: "The laurel is on the floor. Pick it up.",    note: "Racks under an open sky, a bronze wreath waiting.",                pos: "40% 72%", hpos: "30% 88%" },
+  // category plates: the discipline's object sharp in the foreground, the race blurred behind
+  "d-coding":   { caption: "Pass the baton, keep typing.",            note: "Coding agents: a relay exchange, typewriter keys in the foreground.",       pos: "74% 78%", hpos: "80% 86%" },
+  "d-llm":      { caption: "Weighed at the line.",                    note: "LLM eval: a finish by the judges' stand, brass scales on the kerb.",        pos: "78% 70%", hpos: "84% 80%" },
+  "d-ml":       { caption: "Look closer, then run again.",            note: "ML research: the back straight, a microscope and notebooks.",               pos: "80% 74%", hpos: "86% 84%" },
+  "d-formal":   { caption: "Every hurdle is a lemma.",                note: "Formal methods: hurdles, a marble dodecahedron and a compass.",             pos: "82% 72%", hpos: "88% 82%" },
+  "d-hardware": { caption: "Heat is the opponent.",                   note: "Hardware efficiency: a sprint, a copper heatsink and a silicon wafer.",     pos: "70% 80%", hpos: "74% 90%" },
+  "d-other":    { caption: "The plinth is still empty.",              note: "Other: open lanes and a blank marble medallion.",                           pos: "72% 78%", hpos: "78% 88%" },
+  "d-robotics": { caption: "A hand that learned to let go.",          note: "Robotics: a brass mechanical hand on the track.",                           pos: "82% 80%", hpos: "86% 90%" },
+  "d-systems":  { caption: "Thousandths decide it.",                  note: "Systems performance: the finish tape and a chronograph.",                   pos: "88% 62%", hpos: "92% 74%" },
+  "c-none":       { caption: "Pencil, paper, bare feet.",             note: "No compute: a barefoot runner across a meadow.",                            pos: "72% 78%", hpos: "76% 88%" },
+  "c-consumer":   { caption: "One card, one road.",                   note: "Consumer GPU: a lone runner, a graphics card on the kerb.",                 pos: "80% 78%", hpos: "86% 88%" },
+  "c-cpu":        { caption: "A single chip on a pedestal.",          note: "CPU only: a processor on a marble block.",                                  pos: "74% 80%", hpos: "78% 90%" },
+  "c-datacenter": { caption: "Run the aisle.",                        note: "Datacenter GPU: a runner between server racks, sky for a ceiling.",         pos: "88% 50%", hpos: "92% 60%" },
+  "c-cluster":    { caption: "Ten thousand at the gun.",              note: "Cluster: a mass marathon start from above, the starting pistol on the clay.", pos: "60% 80%", hpos: "66% 90%" },
   finish:     { caption: "The tape breaks once.",                      note: "A finish line seen from the side; the winner is already a blur.",   pos: "70% 45%" },
   blocks:     { caption: "On your marks.",                             note: "Low angle, spikes leaving the blocks, clay in the air.",            pos: "72% 60%" },
   bend:       { caption: "Hold the inside line.",                      note: "The curve from above; the pack leans as one.",                     pos: "70% 62%" },
@@ -63,10 +104,11 @@ const ART = {
   pool:       { caption: "Dive into the sky.",                         note: "Swimmers leave for the clouds; the medal stays on the edge.",      pos: "70% 78%", hpos: "100% 96%" },
 };
 const ART_BY_DOMAIN = {
-  "formal-methods": ["compass", "caesar"], "hardware-efficiency": ["datacenter", "velodrome"], "systems-perf": ["velodrome", "datacenter"],
-  "coding-agents": ["velodrome", "armillary"], "llm-eval": ["armillary", "caesar"], "ml-research": ["armillary", "pool"],
-  robotics: ["horse"], security: ["caesar", "datacenter"], other: ["pool", "horse"],
+  "formal-methods": ["d-formal", "compass", "caesar"], "hardware-efficiency": ["d-hardware", "datacenter", "velodrome"], "systems-perf": ["d-systems", "velodrome"],
+  "coding-agents": ["d-coding", "velodrome", "armillary"], "llm-eval": ["d-llm", "armillary", "caesar"], "ml-research": ["d-ml", "armillary", "pool"],
+  robotics: ["d-robotics", "horse"], security: ["caesar", "datacenter"], other: ["d-other", "pool", "horse"],
 };
+const ART_BY_COMPUTE = { none: "c-none", cpu: "c-cpu", "consumer-gpu": "c-consumer", "datacenter-gpu": "c-datacenter", cluster: "c-cluster" };
 const hashOf = (str) => { let h = 0; for (const ch of String(str)) h = (h * 31 + ch.charCodeAt(0)) >>> 0; return h; };
 // Covers for competitions with no repo image: the domain's themed plate first, then track scenes; always the least-used one, so neighbours differ
 const TRACK_SET = ["finish", "blocks", "bend", "hurdles", "relay", "marathon", "indoor", "dawn"];
@@ -394,7 +436,7 @@ function renderAppHome() {
 
   app.innerHTML = `
     <section class="band"><div class="wrap">
-      ${state.domain && ART_BY_DOMAIN[state.domain] ? `<div class="ah-art">${artBg(ART_BY_DOMAIN[state.domain][0])}</div>` : state.open ? `<div class="ah-art">${artBg("datacenter")}</div>` : ""}
+      ${(() => { const k = state.domain && ART_BY_DOMAIN[state.domain] ? ART_BY_DOMAIN[state.domain][0] : state.compute && ART_BY_COMPUTE[state.compute] ? ART_BY_COMPUTE[state.compute] : state.open ? "datacenter" : null; if (!k) return ""; const label = state.domain ? DOMAIN[state.domain] || state.domain : state.compute ? COMPUTE[state.compute] : "Open problems"; return `<div class="ah-art">${artBg(k)}<div class="ah-art-cap"><span class="eyebrow">${state.domain ? "Domain" : state.compute ? "Compute" : "Unclaimed"}</span><div class="t">${esc(label)}</div><div class="q">${ART[k].caption}</div></div></div>`; })()}
       <div class="ah-head">
         <div><h1>${state.open ? "Open problems" : state.domain ? esc(DOMAIN[state.domain] || state.domain) : "Competitions"}</h1><p>Open benchmark competitions on GitHub with public leaderboards. Pick one, point your agent at the repository, get on the board.</p></div>
         <div class="dim small mono" id="grid-count"></div>
@@ -603,7 +645,7 @@ function card(c) {
   const top = (c.agentStats || []).filter((a) => a.family !== "human" && a.family !== "unknown").slice(0, 2);
   return `
     <article class="card" data-id="${esc(c.id)}">
-      <div class="card-img">${img ? `<img src="${esc(img)}" loading="lazy" alt="" onerror="this.outerHTML=cardArtById('${esc(c.id)}')">` : cardArt(c)}</div>
+      <div class="card-img">${img ? `<img src="${esc(img)}" loading="lazy" alt="" onerror="this.outerHTML=placeholderArt('${esc(c.id)}')">` : placeholderArt(c.id)}</div>
       <div class="card-body">
         <div class="card-top"><h3>${esc(c.name)}</h3><span class="badge ${c.status}">${c.status}</span></div>
         <div class="tagline">${esc(c.tagline)}</div>
@@ -964,6 +1006,8 @@ document.addEventListener("click", (e) => {
 
 fetch("/api/summary").then((r) => r.json()).then((d) => {
   D = d;
+  // shareable filters: /?domain=formal-methods, /?compute=cpu, /?open=1, /?q=lean
+  { const qp = new URLSearchParams(location.search); for (const k of ["domain", "compute", "status", "tag", "q", "sort"]) if (qp.get(k)) state[k] = qp.get(k); if (qp.get("open")) state.open = true; }
   // legacy query params → clean paths
   const q = new URLSearchParams(location.search);
   if (q.has("landing")) history.replaceState({}, "", "/landing");

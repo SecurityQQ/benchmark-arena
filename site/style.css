@@ -812,3 +812,18 @@ body.app .art-band { padding: 36px 0 44px; }
 .btn-ico { filter: invert(1); opacity: .95; }
 .fam-stats { border-top: 0 !important; padding-top: 0 !important; }
 .fam-stats .kpis { margin-top: 0; }
+
+/* ── Repo images sit whole on a cream mat: no brutal crops, white backgrounds melt into the mat ── */
+.card-img { background: var(--canvas-2); }
+.card-img > img:not(.card-art) { object-fit: contain; padding: 16px 20px; mix-blend-mode: multiply; filter: none; background: transparent; }
+.gallery img { object-fit: contain; background: var(--canvas-2); padding: 10px; mix-blend-mode: normal; }
+
+/* ── Category banner over the catalog ── */
+.ah-art { height: 190px; }
+.ah-art .art-bg::after { background: linear-gradient(90deg, rgba(250, 249, 245, .94) 0%, rgba(250, 249, 245, .8) 30%, rgba(250, 249, 245, .25) 55%, rgba(250, 249, 245, 0) 75%); }
+.ah-art-cap { position: absolute; left: 28px; top: 50%; transform: translateY(-50%); z-index: 2; max-width: 46%; }
+.ah-art-cap .eyebrow { margin-bottom: 6px; }
+.ah-art-cap .t { font-family: var(--font-serif); font-size: 30px; line-height: 1.1; letter-spacing: -.01em; }
+.ah-art-cap .q { font-family: var(--font-serif); font-style: italic; color: var(--ink-soft); margin-top: 8px; font-size: 16px; }
+@media (max-width: 720px) { .ah-art { height: 170px; } .ah-art-cap { left: 18px; max-width: 70%; } .ah-art-cap .t { font-size: 24px; } .ah-art-cap .q { font-size: 14px; } .ah-art .art-bg::after { background: linear-gradient(90deg, rgba(250, 249, 245, .95) 0%, rgba(250, 249, 245, .82) 50%, rgba(250, 249, 245, .1) 100%); } }
+.ah-art + .ah-head h1 { display: none; }
