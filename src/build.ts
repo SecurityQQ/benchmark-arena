@@ -49,7 +49,7 @@ w("llms.txt", llmsTxt(data));
 w("standard/templates.json", j({ "PROBLEM.md": readFileSync(join(ROOT, "site", "standard", "PROBLEM.md"), "utf-8"), "SUBMISSION.md": readFileSync(join(ROOT, "site", "standard", "SUBMISSION.md"), "utf-8") }));
 
 // sitemap: static routes, every competition, every model family with records
-const ORIGIN = process.env.SITE_ORIGIN ?? "https://problem.md";
+const ORIGIN = process.env.SITE_ORIGIN ?? "https://openchallengelist.com";
 const day = (data.crawledAt ?? new Date().toISOString()).slice(0, 10);
 const families = [...new Set(data.competitions.flatMap((c) => c.problems.flatMap((p) => p.records.map((r) => r.agent?.family).filter((f): f is NonNullable<typeof f> => !!f && f !== "unknown"))))];
 const urls: [string, string, string][] = [["/", "daily", "1.0"], ["/standard", "weekly", "0.9"], ["/submit", "monthly", "0.6"], ["/agents", "daily", "0.8"], ["/people", "daily", "0.7"],

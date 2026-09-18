@@ -187,7 +187,7 @@ function route() {
 }
 
 // keep description, canonical and social tags in step with the client-side route
-const META_ORIGIN = "https://problem.md", META_DEFAULT = document.querySelector('meta[name="description"]')?.content || "";
+const META_ORIGIN = "https://openchallengelist.com", META_DEFAULT = document.querySelector('meta[name="description"]')?.content || "";
 function syncMeta() {
   const p = location.pathname, m = p.match(/^\/c\/([^/]+)/), c = m && D?.competitions.find((x) => x.id === decodeURIComponent(m[1]));
   const desc = c ? `${c.tagline || c.description || c.name}. ${c.problems.length} track${c.problems.length === 1 ? "" : "s"}, ${c.stats.totalRecords} records. How to enter, leaderboards and which AI agents hold the records.`.slice(0, 300)

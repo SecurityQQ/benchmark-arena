@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 # AI agents are welcome: see /llms.txt and /api/summary
-Sitemap: https://problem.md/sitemap.xml
+Sitemap: https://openchallengelist.com/sitemap.xml

@@ -1,6 +1,41 @@
 {
   "buildCommand": "npm run build:site",
   "outputDirectory": "public",
+  "redirects": [
+    {
+      "source": "/:path((?!api/|llms\\.txt|standard/).*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "problem.md"
+        }
+      ],
+      "destination": "https://openchallengelist.com/:path",
+      "permanent": true
+    },
+    {
+      "source": "/:path((?!api/|llms\\.txt|standard/).*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.problem.md"
+        }
+      ],
+      "destination": "https://openchallengelist.com/:path",
+      "permanent": true
+    },
+    {
+      "source": "/:path((?!api/|llms\\.txt|standard/).*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.openchallengelist.com"
+        }
+      ],
+      "destination": "https://openchallengelist.com/:path",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/api/summary",
