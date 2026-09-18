@@ -34,6 +34,8 @@ for (const c of data.competitions) {
   w(`api/competitions/${c.id}.md`, competitionToMarkdown(c));
 }
 w("llms.txt", llmsTxt(data));
+// both standard templates in one neutral JSON: the page loads this first (some blockers stall requests for *SUBMISSION*.md)
+w("standard/templates.json", j({ "PROBLEM.md": readFileSync(join(ROOT, "site", "standard", "PROBLEM.md"), "utf-8"), "SUBMISSION.md": readFileSync(join(ROOT, "site", "standard", "SUBMISSION.md"), "utf-8") }));
 
 // sitemap: static routes, every competition, every model family with records
 const ORIGIN = process.env.SITE_ORIGIN ?? "https://problem.md";

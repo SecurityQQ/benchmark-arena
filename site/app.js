@@ -798,7 +798,11 @@ function renderStandard() {
         </ul></div></aside>
     </div></div></section>`;
 
-  for (const f of ["PROBLEM.md", "SUBMISSION.md"]) fetch(`/standard/${f}`).then((r) => r.text()).then((t) => { const el = document.querySelector(`#tpl-${CSS.escape(f)} code`); if (el) { el.dataset.raw = t; el.innerHTML = hiTemplate(t); } });
+  // one JSON first, per-file fetch as a fallback, a visible error instead of an endless "Loading…"
+  const paint = (f, t) => { const el = document.querySelector(`#tpl-${CSS.escape(f)} code`); if (el && t) { el.dataset.raw = t; el.innerHTML = hiTemplate(t); } };
+  const timed = (url) => { const c = new AbortController(); const id = setTimeout(() => c.abort(), 7000); return fetch(url, { signal: c.signal }).then((r) => { if (!r.ok) throw new Error(r.status); return r; }).finally(() => clearTimeout(id)); };
+  timed("/standard/templates.json").then((r) => r.json()).catch(() => ({})).then((all) => Promise.all(["PROBLEM.md", "SUBMISSION.md"].map((f) =>
+    all[f] ? paint(f, all[f]) : timed(`/standard/${f}`).then((r) => r.text()).then((t) => paint(f, t)).catch(() => { const el = document.querySelector(`#tpl-${CSS.escape(f)} code`); if (el) el.innerHTML = `Could not load the template (a content blocker may be stopping it). <a href="https://github.com/${SITE_REPO}/blob/master/site/standard/${f}" target="_blank" rel="noopener" style="text-decoration:underline">Open ${f} on GitHub</a>.`; }))));
   app.querySelectorAll("[data-copy]").forEach((b) => (b.onclick = () => { const t = document.querySelector(`#tpl-${CSS.escape(b.dataset.copy)} code`)?.dataset.raw || ""; navigator.clipboard.writeText(t).then(() => { b.textContent = "Copied"; setTimeout(() => (b.textContent = "Copy"), 1400); }); }));
   const input = document.getElementById("std-repo"), st = document.getElementById("std-state");
   const run = async () => {
