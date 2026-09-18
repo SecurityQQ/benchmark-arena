@@ -1,20 +1,66 @@
 {
   "buildCommand": "npm run build:site",
   "outputDirectory": "public",
-  "cleanUrls": true,
   "rewrites": [
-    { "source": "/api/summary", "destination": "/api/summary.json" },
-    { "source": "/api/people", "destination": "/api/people.json" },
-    { "source": "/api/agents", "destination": "/api/agents.json" },
-    { "source": "/api/open-problems", "destination": "/api/open-problems.json" },
-    { "source": "/api/competitions", "destination": "/api/competitions.json" },
-    { "source": "/api/competitions/:id", "destination": "/api/competitions/:id.json" },
-    { "source": "/c/:id", "destination": "/index.html" },
-    { "source": "/people", "destination": "/index.html" },
-    { "source": "/agents", "destination": "/index.html" }
+    {
+      "source": "/api/summary",
+      "destination": "/api/summary.json"
+    },
+    {
+      "source": "/api/people",
+      "destination": "/api/people.json"
+    },
+    {
+      "source": "/api/agents",
+      "destination": "/api/agents.json"
+    },
+    {
+      "source": "/api/open-problems",
+      "destination": "/api/open-problems.json"
+    },
+    {
+      "source": "/api/competitions",
+      "destination": "/api/competitions.json"
+    },
+    {
+      "source": "/api/competitions/:id",
+      "destination": "/api/competitions/:id.json"
+    },
+    {
+      "source": "/c/:id",
+      "destination": "/"
+    },
+    {
+      "source": "/people",
+      "destination": "/"
+    },
+    {
+      "source": "/agents",
+      "destination": "/"
+    }
   ],
   "headers": [
-    { "source": "/api/(.*)", "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }, { "key": "Cache-Control", "value": "public, max-age=300" }] },
-    { "source": "/llms.txt", "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }] }
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=300"
+        }
+      ]
+    },
+    {
+      "source": "/llms.txt",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        }
+      ]
+    }
   ]
 }

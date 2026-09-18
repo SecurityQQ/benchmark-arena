@@ -2,7 +2,7 @@ node_modules/
 dist/
 cache/
 public/
+.vercel/
 .env
 .env.*
 !.env.example
-.vercel/

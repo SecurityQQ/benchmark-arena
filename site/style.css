@@ -550,3 +550,19 @@ html { scroll-behavior: smooth; }
 .lm { overflow: visible; }
 .lm-body { position: absolute; inset: 0; border-radius: 999px; overflow: hidden; clip-path: inset(0 round 999px); z-index: 0; }
 .lm-ring { filter: blur(3px) saturate(.9); will-change: transform; }
+
+/* primary liquid button: clay instead of ink */
+.lm-ink { color: #FFF8F2; }
+.lm-ink .lm-face {
+  background: linear-gradient(180deg, #E48D6C 0%, #D97757 55%, #C9653F 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 244, 235, .45), inset 0 -1px 0 rgba(120, 50, 25, .25);
+}
+.lm-ink:active .lm-face { box-shadow: inset 0 2px 5px rgba(120, 50, 25, .45), inset 0 1px 2px rgba(120, 50, 25, .3); }
+.lm-ink .lm-label { text-shadow: 0 1px 1px rgba(120, 50, 25, .35); }
+.lm-ink .lm-ring {
+  background: conic-gradient(from 0deg,
+    #C9653F 0%, #EBDBBC 14%, #FAF9F5 22%, #D4A27F 34%, #B0AEA5 46%,
+    #F0A585 56%, #EBDBBC 68%, #FAF9F5 76%, #D4A27F 88%, #C9653F 100%);
+}
+.lm-ink { box-shadow: 0 1px 2px rgba(120, 50, 25, .2), 0 6px 14px -6px rgba(217, 119, 87, .45); }
+.lm-ink:hover { box-shadow: 0 1px 2px rgba(120, 50, 25, .25), 0 10px 24px -8px rgba(217, 119, 87, .6); }
