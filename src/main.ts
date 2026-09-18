@@ -31,7 +31,7 @@ const RESULT_PATH = join(DATA_DIR, "competitions.json");
 async function main() {
   const mode = process.argv[2] ?? "full"; // "discover" | "process" | "full" | "priority" | "repost"
 
-  console.log("=== Benchmark Arena Crawler ===");
+  console.log("=== Open Challenge List Crawler ===");
   console.log(`Mode: ${mode}\n`);
 
   let repos: DiscoveredRepo[] = [];

@@ -32,7 +32,7 @@ jobs:
         run: npx tsx src/main.ts priority
       - name: Commit data
         run: |
-          git config user.name "benchmark-arena-bot"
+          git config user.name "openchallengelist-bot"
           git config user.email "bot@users.noreply.github.com"
           git add data/
           if git diff --cached --quiet; then echo "no changes"; exit 0; fi

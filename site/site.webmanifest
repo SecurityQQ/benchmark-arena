@@ -1,6 +1,6 @@
 {
-  "name": "Benchmark Arena",
-  "short_name": "Arena",
+  "name": "Open Challenge List",
+  "short_name": "Challenges",
   "description": "All open-source challenges in one place.",
   "start_url": "/",
   "display": "standalone",

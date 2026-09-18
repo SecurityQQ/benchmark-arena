@@ -121,7 +121,7 @@ export async function processRepoWithLLM(repoPages: RepoPages, model?: string, k
       Authorization: `Bearer ${apiKey}`,
       "Content-Type": "application/json",
       "HTTP-Referer": "https://github.com/github-competitions",
-      "X-Title": "Benchmark Arena Crawler",
+      "X-Title": "Open Challenge List Crawler",
     },
     body: JSON.stringify({
       model: model || DEFAULT_MODEL,
@@ -200,7 +200,7 @@ export async function attributeRecordsWithLLM(
 
   const res = await fetch(OPENROUTER_URL, {
     method: "POST",
-    headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json", "HTTP-Referer": "https://github.com/github-competitions", "X-Title": "Benchmark Arena Attribution" },
+    headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json", "HTTP-Referer": "https://github.com/github-competitions", "X-Title": "Open Challenge List Attribution" },
     body: JSON.stringify({ model: model || DEFAULT_MODEL, messages: [{ role: "system", content: ATTR_PROMPT }, { role: "user", content: user }], temperature: 0, max_tokens: 16000 }),
   });
   if (!res.ok) throw new Error(`OpenRouter attribution error ${res.status}: ${(await res.text()).slice(0, 200)}`);

@@ -1,4 +1,4 @@
-// Benchmark Arena — home / competition / people / agents
+// Open Challenge List — home / competition / people / agents
 let D = null; // { competitions, people, agents, openProblems, crawledAt }
 const state = { q: "", status: "", compute: "", domain: "", tag: "", open: false, sort: "active" };
 
@@ -283,7 +283,7 @@ function buildPrompt(c, pr) {
     return `Tracks (${list.length}):\n${list.slice(0, n).map(trackLine).join("\n")}${list.length > n ? `\n(+${list.length - n} more, see the digest)` : ""}`;
   };
   const links = (n) => (n && c.links.length ? `Links:\n${c.links.slice(0, n).map((l) => `- ${l.label}: ${l.url}`).join("\n")}` : "");
-  const note = `Shortcuts (crawled by Benchmark Arena${D?.crawledAt ? ` on ${D.crawledAt.slice(0, 10)}` : ""}; the repo is the source of truth):`;
+  const note = `Shortcuts (crawled by Open Challenge List${D?.crawledAt ? ` on ${D.crawledAt.slice(0, 10)}` : ""}; the repo is the source of truth):`;
   // degrade in order: links → track list → quickstart; the digest URL always survives
   for (const [l, t, q] of [[6, 12, true], [0, 12, true], [0, 5, true], [0, 5, false], [0, 0, false]]) {
     const out = [head, note + "\n" + fields(q), tracks(t), links(l), tail].filter(Boolean).join("\n\n");
@@ -370,7 +370,7 @@ function renderSidebar() {
   const filterClick = (k, v) => `return goApp({ ${k}: state.${k} === '${v}' ? '' : '${v}' })`;
   el.innerHTML = `
     <div class="sb-brand">
-      <a href="/" onclick="return goApp({ q: '', status: '', compute: '', domain: '', tag: '', open: false })"><span class="sb-mark">B</span>Benchmark Arena</a>
+      <a href="/" onclick="return goApp({ q: '', status: '', compute: '', domain: '', tag: '', open: false })"><span class="sb-mark">O</span>Open Challenge List</a>
       <button class="sb-collapse" title="Close" onclick="toggleNav(false)">${I.panel}</button>
     </div>
     <div class="sb-group">
@@ -442,7 +442,7 @@ function goApp(patch) {
 }
 
 function renderAppHome() {
-  document.title = "Competitions — Benchmark Arena";
+  document.title = "Competitions — Open Challenge List";
   const app = document.getElementById("app");
   const comps = D.competitions;
   const domains = [...new Set(comps.map((c) => c.domain).filter(Boolean))].sort();
@@ -509,7 +509,7 @@ function goSection(id) {
 }
 
 function renderHome() {
-  document.title = "Benchmark Arena — all open-source challenges in one place";
+  document.title = "Open Challenge List — all open-source challenges in one place";
   const app = document.getElementById("app");
   const comps = D.competitions;
   const records = comps.reduce((s, c) => s + c.stats.totalRecords, 0);
@@ -824,7 +824,7 @@ function parseRepo(v) {
   return m ? { owner: m[1], name: m[2] } : null;
 }
 function renderSubmit() {
-  document.title = "Submit a competition — Benchmark Arena";
+  document.title = "Submit a competition — Open Challenge List";
   const app = document.getElementById("app");
   app.innerHTML = `
     <section class="band art-band">${artBg("blocks")}<div class="wrap">
@@ -906,7 +906,7 @@ const BRAND_GH = '<img class="btn-ico" src="/icons/github.svg" width="16" height
 
 // ── People ──
 function renderPeople() {
-  document.title = "Contributors — Benchmark Arena";
+  document.title = "Contributors — Open Challenge List";
   const app = document.getElementById("app");
   const list = D.people;
   app.innerHTML = `
@@ -933,7 +933,7 @@ function renderPeople() {
 
 // ── Agents ──
 function renderAgents() {
-  document.title = "Agents — Benchmark Arena";
+  document.title = "Agents — Open Challenge List";
   const app = document.getElementById("app");
   const view = new URLSearchParams(location.search).get("view") === "subject" ? "subject" : "author";
   const list = view === "author" ? D.agents : (D.evaluated || []);
@@ -973,7 +973,7 @@ function renderFamily(f) {
   const app = document.getElementById("app");
   const fam = FAM[f];
   if (!fam) return (app.innerHTML = `<section class="band"><div class="wrap"><a class="back" href="/agents" onclick="return nav('/agents')">← Agents</a>${emptyArt("horse", "No such stable.", "This model family has not entered any race here.")}</div></section>`);
-  document.title = `${fam[0]} — where it is used — Benchmark Arena`;
+  document.title = `${fam[0]} — where it is used — Open Challenge List`;
 
   // collect every record attributed to this family, with its rank inside the track
   const authored = new Map(), subject = new Map(); // competitionId -> { c, rows[] }
@@ -1065,7 +1065,7 @@ function renderDetail(id) {
   const app = document.getElementById("app");
   if (!c) return (app.innerHTML = `<section class="band"><div class="wrap"><a class="back" href="/" onclick="return nav('/')">← Home</a>${emptyArt("caesar", "Veni, vidi… non inveni.", "There is no competition at this address. The arena is back that way.")}</div></section>`);
   const p = c.participation;
-  document.title = `${c.name} — Benchmark Arena`;
+  document.title = `${c.name} — Open Challenge List`;
   const openCount = c.problems.filter((x) => x.isOpen).length;
 
   const fact = (k, v, na) => `<dt>${k}</dt><dd class="${v ? "" : "na"}">${v ? v : na || "not specified"}</dd>`;

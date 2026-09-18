@@ -72,7 +72,7 @@ export function competitionToMarkdown(c: Competition): string {
 
 export function llmsTxt(data: CrawlResult): string {
   return [
-        `# Benchmark Arena`,
+        `# Open Challenge List`,
         ``,
         `> Directory of open benchmark competitions with public leaderboards. ${data.competitions.length} competitions, crawled ${data.crawledAt}.`,
         ``,
