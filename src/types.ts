@@ -68,7 +68,7 @@ export interface Competition {
   participants: Participant[];   // derived
   stats: Stats;                  // derived
   agentStats: AgentStat[];       // derived: which model families produced records here
-  standard?: { problem: boolean; submission: boolean; version: number; warnings: string[] };  // repo ships PROBLEM.md / SUBMISSION.md
+  standard?: { problem: boolean; submission: boolean; submissions: number; version: number; warnings: string[] };  // repo ships PROBLEM.md; entries carry SUBMISSION.md
   agentPolicy?: { agents?: string; attribution?: string };  // from SUBMISSION.md: are AI agents welcome, how to disclose them
   lastUpdated: string;
 }

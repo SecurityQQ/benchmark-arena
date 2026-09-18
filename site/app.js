@@ -446,6 +446,7 @@ function renderAppHome() {
   app.innerHTML = `
     <section class="band"><div class="wrap">
       ${(() => { const k = state.domain && ART_BY_DOMAIN[state.domain] ? ART_BY_DOMAIN[state.domain][0] : state.compute && ART_BY_COMPUTE[state.compute] ? ART_BY_COMPUTE[state.compute] : state.open ? "datacenter" : null; if (!k) return ""; const label = state.domain ? DOMAIN[state.domain] || state.domain : state.compute ? COMPUTE[state.compute] : "Open problems"; return `<div class="ah-art">${artBg(k)}<div class="ah-art-cap"><span class="eyebrow">${state.domain ? "Domain" : state.compute ? "Compute" : "Unclaimed"}</span><div class="t">${esc(label)}</div><div class="q">${ART[k].caption}</div></div></div>`; })()}
+      <div class="ah-intro">${introPill()}</div>
       <div class="ah-head">
         <div><h1>${state.open ? "Open problems" : state.domain ? esc(DOMAIN[state.domain] || state.domain) : "Competitions"}</h1><p>Open benchmark competitions on GitHub with public leaderboards. Pick one, point your agent at the repository, get on the board.</p></div>
         <div class="dim small mono" id="grid-count"></div>
@@ -507,6 +508,7 @@ function renderHome() {
       <div class="hero-bg" aria-hidden="true"><img src="/hero.jpg" alt="" fetchpriority="high"></div>
       <div class="wrap">
       <div class="hero">
+        ${introPill()}
         <span class="eyebrow">Open benchmark competitions on GitHub</span>
         <h1>Problems no model has solved yet.</h1>
         <p class="lede">Open baseline, public rank. Point your agent at a repository, open a pull request, get on the board.</p>
@@ -551,7 +553,7 @@ function renderHome() {
 
     <section class="band art-band std-promo">${artBg("d-coding")}<div class="wrap">
       <div class="hero"><span class="eyebrow">For organizers</span><h2 style="font-size:36px;line-height:1.1">Ship <span class="mono-title">PROBLEM.md</span> and <span class="mono-title">SUBMISSION.md</span>. Get crawled first.</h2>
-      <p class="lede" style="margin-top:16px">Two files at the root of your repository: what the problem is, and how to enter. Our bot finds them on its own, reads them daily and takes your numbers over its own guesses.</p>
+      <p class="lede" style="margin-top:16px">PROBLEM.md at the root: the task, the rules, where entries go. SUBMISSION.md in every entry: the solution and its score. Our bot finds them on its own, reads them daily and builds the leaderboard from the files.</p>
       <div class="cta"><a class="btn primary" href="/standard" onclick="return nav('/standard')">Read the standard →</a><a class="btn" href="/submit" onclick="return nav('/submit')">Or just submit a repository</a></div></div>
     </div></section>
 
@@ -683,17 +685,55 @@ function card(c) {
     </article>`;
 }
 
+const introPill = () => `<a class="intro-pill" href="/standard" onclick="return nav('/standard')"><span class="ip-tag">New</span><span class="ip-text">Introducing <b>Problem.MD</b> &amp; <b>Submission.MD</b></span><span class="ip-arrow" aria-hidden="true">→</span></a>`;
 // ── The standard: PROBLEM.md + SUBMISSION.md (problem.md · submission.md) ──
-const stdBadge = (c) => c.standard?.problem || c.standard?.submission ? `<a class="std-badge" href="/standard" title="This repository ships ${[c.standard.problem && "PROBLEM.md", c.standard.submission && "SUBMISSION.md"].filter(Boolean).join(" and ")}: crawled daily, facts taken from the organizers" onclick="event.stopPropagation();return nav('/standard')">${I.doc}<span>${c.standard.problem ? "PROBLEM.md" : "SUBMISSION.md"}</span></a>` : "";
+const stdBadge = (c) => c.standard?.problem || c.standard?.submission ? `<a class="std-badge" href="/standard" title="Follows the standard: PROBLEM.md${c.standard.submissions ? ` and ${c.standard.submissions} SUBMISSION.md entr${c.standard.submissions === 1 ? "y" : "ies"}` : ""}. Crawled daily, facts taken from the files" onclick="event.stopPropagation();return nav('/standard')">${I.doc}<span>${c.standard.problem ? "PROBLEM.md" : "SUBMISSION.md"}</span></a>` : "";
 // does a repo ship the two files? raw.githubusercontent serves with CORS, so the browser can look
 async function checkStandard(owner, name, branch) {
-  const tryFile = async (file) => { for (const b of [branch, "main", "master"].filter(Boolean)) for (const p of [file, file.toLowerCase(), `.github/${file}`, `docs/${file}`]) { try { const r = await fetch(`https://raw.githubusercontent.com/${owner}/${name}/${b}/${p}`); if (r.ok) { const t = await r.text(); return { path: p, frontMatter: /^\uFEFF?---\r?\n[\s\S]*?\r?\n---/.test(t), text: t }; } } catch {} } return null; };
-  const [problem, submission] = await Promise.all([tryFile("PROBLEM.md"), tryFile("SUBMISSION.md")]);
-  return { problem, submission };
+  const marked = (t, k) => new RegExp(`^spec\\s*:\\s*${k}\\.md/v\\d+`, "mi").test(t || "");
+  const front = (t) => (/^\uFEFF?---\r?\n([\s\S]*?)\r?\n---/.exec(t || "") || [])[1] || "";
+  let problem = null, ref = null;
+  outer: for (const b of [branch, "main", "master"].filter(Boolean)) for (const p of ["PROBLEM.md", "problem.md", ".github/PROBLEM.md", "docs/PROBLEM.md"]) {
+    try { const r = await fetch(`https://raw.githubusercontent.com/${owner}/${name}/${b}/${p}`); if (r.ok) { const text = await r.text(); problem = { path: p, text, fm: front(text), marked: marked(front(text), "problem") }; ref = b; break outer; } } catch {}
+  }
+  const res = { problem, dir: null, entries: null, withFile: 0, sampled: 0, problemOk: false, submission: false };
+  if (!problem || !problem.marked) return res;
+  res.missing = ["name", "tracks", "submit"].filter((k) => !new RegExp(`^${k}\\s*:`, "m").test(problem.fm));
+  res.problemOk = !res.missing.length;
+  const m = /^\s+path\s*:\s*["']?([^\s"'#<]+)/m.exec(problem.fm);
+  res.dir = m ? m[1].replace(/^\.?\//, "").replace(/\/+$/, "") : null;
+  if (!res.dir || !/^[\w.-]+(\/[\w.-]+){0,3}$/.test(res.dir)) return res;
+  try {
+    const r = await fetch(`https://api.github.com/repos/${owner}/${name}/contents/${res.dir}?ref=${ref}`, { headers: { Accept: "application/vnd.github+json" } });
+    if (r.ok) { const list = (await r.json()).filter((e) => e.type === "dir"); res.entries = list.length; const sample = list.slice(0, 6); res.sampled = sample.length;
+      const hits = await Promise.all(sample.map((e) => fetch(`https://raw.githubusercontent.com/${owner}/${name}/${ref}/${e.path}/SUBMISSION.md`).then((x) => (x.ok ? x.text() : "")).then((t) => marked(front(t), "submission")).catch(() => false)));
+      res.withFile = hits.filter(Boolean).length; res.submission = res.withFile > 0; }
+  } catch {}
+  return res;
 }
 function stdReport(res) {
-  const line = (label, f, keys) => { if (!f) return `<li class="miss"><b>${label}</b> not found at the repository root.</li>`; const missing = f.frontMatter ? keys.filter((k) => !new RegExp(`^${k}\\s*:`, "m").test(f.text)) : []; return `<li class="${f.frontMatter && !missing.length ? "ok" : "warn"}"><b>${label}</b> found at <code>${esc(f.path)}</code>${!f.frontMatter ? ", but it has no YAML front matter, so only the prose is used." : missing.length ? `, front matter is missing: ${missing.map((k) => `<code>${k}</code>`).join(", ")}.` : ", front matter looks complete."}</li>`; };
-  return `<ul class="std-report">${line("PROBLEM.md", res.problem, ["spec", "name", "tracks"])}${line("SUBMISSION.md", res.submission, ["spec", "how"])}</ul>`;
+  const li = (cls, html) => `<li class="${cls}">${html}</li>`;
+  const out = [];
+  if (!res.problem) out.push(li("miss", "<b>PROBLEM.md</b> not found at the repository root."));
+  else if (!res.problem.marked) out.push(li("warn", `<b>PROBLEM.md</b> found at <code>${esc(res.problem.path)}</code>, but its front matter has no <code>spec: problem.md/v1</code> marker, so it is just prose to us.`));
+  else out.push(li(res.problemOk ? "ok" : "warn", `<b>PROBLEM.md</b> found at <code>${esc(res.problem.path)}</code>${res.problemOk ? ", front matter looks complete." : `, front matter is missing: ${res.missing.map((k) => `<code>${k}</code>`).join(", ")}.`}`));
+  if (res.problem?.marked) {
+    if (!res.dir) out.push(li("miss", "No <code>submit.path</code> in PROBLEM.md, so we do not know where entries live."));
+    else if (res.entries == null) out.push(li("warn", `Entries folder <code>${esc(res.dir)}/</code> could not be listed (missing, or GitHub rate limit).`));
+    else if (!res.entries) out.push(li("miss", `<code>${esc(res.dir)}/</code> has no entry folders yet. The first SUBMISSION.md opens the leaderboard.`));
+    else out.push(li(res.withFile ? "ok" : "warn", `<code>${esc(res.dir)}/</code> has ${res.entries} entr${res.entries === 1 ? "y" : "ies"}; ${res.withFile} of the first ${res.sampled} carry a valid <b>SUBMISSION.md</b>.`));
+  }
+  return `<ul class="std-report">${out.join("")}</ul>`;
+}
+// cream code blocks with a touch of YAML/Markdown colour
+function hiTemplate(t) {
+  return esc(t).split("\n").map((l) => {
+    if (/^---\s*$/.test(l)) return `<span class="y-sep">${l}</span>`;
+    if (/^#{1,3} /.test(l)) return `<span class="y-h">${l}</span>`;
+    const m = /^(\s*-?\s*)([A-Za-z_][\w-]*)(:)(.*)$/.exec(l);
+    let body = m ? `${m[1]}<span class="y-k">${m[2]}</span>${m[3]}${m[4]}` : l;
+    return body.replace(/(^|\s)(#\s.*)$/, (x, a, c) => `${a}<span class="y-c">${c}</span>`);
+  }).join("\n");
 }
 function renderStandard() {
   document.title = "PROBLEM.md and SUBMISSION.md — the standard";
@@ -703,7 +743,7 @@ function renderStandard() {
     <section class="band art-band">${artBg("d-formal")}<div class="wrap">
       <a class="back" href="/" onclick="return nav('/')">← Home</a>
       <div class="hero"><span class="eyebrow">The standard · v1</span><h1><span class="mono-title">PROBLEM.md</span> and <span class="mono-title">SUBMISSION.md</span></h1>
-      <p class="lede">Two Markdown files at the root of your repository. One states the problem, the other says how to enter. People read them; agents and our crawler parse them. Repositories that ship both go to the front of the queue.</p>
+      <p class="lede"><b>PROBLEM.md</b> sits at the root of your repository: the task, the rules, the tracks and the folder entries go into. <b>SUBMISSION.md</b> sits inside each entry: the solution and the score it achieved. People read them; agents and our crawler parse them.</p>
       <div class="cta"><a class="btn primary" href="#templates" onclick="return goSection('templates')">Get the templates ↓</a><a class="btn" href="#check" onclick="return goSection('check')">Check my repository</a></div></div>
     </div></section>
 
@@ -712,15 +752,15 @@ function renderStandard() {
       <div class="std-grid">
         <div class="panel"><h2>Found without asking</h2><p>The bot searches all of GitHub for these file names every day. No form, no approval queue, no star threshold: if the files are there, the repository is crawled.</p></div>
         <div class="panel"><h2>First in line, daily</h2><p>Standard repositories are processed before everything else and re-crawled every day. The rest of the catalog is refreshed every three days.</p></div>
-        <div class="panel"><h2>Your facts, not our guess</h2><p>Name, tracks, metric direction, baseline, deadline, compute and how to submit are taken from your front matter. They override whatever a language model inferred from the README.</p></div>
-        <div class="panel"><h2>Ready for agents</h2><p>An agent pointed at your repository reads the same two files and knows what to optimize, what is allowed and how to disclose itself. Listed entries get a <span class="std-badge static">${I.doc}<span>PROBLEM.md</span></span> mark.</p></div>
+        <div class="panel"><h2>A leaderboard that builds itself</h2><p>Every <code>SUBMISSION.md</code> is a row: author, date, the value per track, the approach. No table to maintain by hand, no language model guessing numbers out of a README.</p></div>
+        <div class="panel"><h2>Honest agent attribution</h2><p>Entries declare the model and harness that produced them. An agent pointed at your repository reads <code>PROBLEM.md</code>, knows what to optimize and where to put its answer. Listed competitions get a <span class="std-badge static">${I.doc}<span>PROBLEM.md</span></span> mark.</p></div>
       </div>
     </div></section>
 
     <section class="band soft" id="templates"><div class="wrap">
-      <div class="band-head"><div><span class="eyebrow">Templates</span><h2>Copy, fill in, commit</h2><p>YAML front matter carries the facts, the Markdown body carries the prose. Every field is optional except the ones marked in the checker below; unknown fields are ignored.</p></div></div>
+      <div class="band-head"><div><span class="eyebrow">Templates</span><h2>One for the organizer, one for every entry</h2><p>YAML front matter carries the facts, the Markdown body carries the prose. <code>PROBLEM.md</code> goes to the repository root. <code>SUBMISSION.md</code> goes into each entry folder named by <code>submit.path</code>. Unknown fields are ignored.</p></div></div>
       <div class="std-files">
-        ${["PROBLEM.md", "SUBMISSION.md"].map((f) => `<div class="std-file"><div class="std-file-head"><span class="mono">${f}</span><span><button class="btn small" data-copy="${f}">Copy</button> <a class="btn small" href="/standard/${f}" download="${f}">Download</a></span></div><pre class="std-pre" id="tpl-${f}"><code>Loading…</code></pre></div>`).join("")}
+        ${["PROBLEM.md", "SUBMISSION.md"].map((f) => `<div class="std-file"><div class="std-file-head"><span class="mono">${f}</span><span class="std-where">${f === "PROBLEM.md" ? "repository root · by the organizer" : "submissions/&lt;handle&gt;/ · by each participant"}</span><span><button class="btn small" data-copy="${f}">Copy</button> <a class="btn small" href="/standard/${f}" download="${f}">Download</a></span></div><pre class="std-pre" id="tpl-${f}"><code>Loading…</code></pre></div>`).join("")}
       </div>
       <div class="hint">From a terminal: <code>curl -O https://problem.md/standard/PROBLEM.md -O https://submission.md/standard/SUBMISSION.md</code></div>
     </div></section>
@@ -735,26 +775,23 @@ function renderStandard() {
       </form>
       <aside class="submit-side"><div class="panel fill"><h2>The rules of the lane</h2>
         <ul class="ticks">
-          <li>Files live at the root (or in <code>.github/</code> or <code>docs/</code>), named exactly <code>PROBLEM.md</code> and <code>SUBMISSION.md</code>.</li>
-          <li>Each file starts with YAML front matter carrying the marker: <code>spec: problem.md/v1</code> and <code>spec: submission.md/v1</code>. Without it the file is just prose to us.</li>
-          <li><code>PROBLEM.md</code> needs <code>name</code> and at least one track with <code>metric</code> and <code>direction</code>.</li>
-          <li>Records still come from your leaderboard table or results files. The files describe the contest, not the scores.</li>
+          <li><code>PROBLEM.md</code> lives at the repository root (or in <code>.github/</code> or <code>docs/</code>) and starts with <code>spec: problem.md/v1</code>.</li>
+          <li>It needs <code>name</code>, at least one track with <code>metric</code> and <code>direction</code>, and <code>submit.path</code>: the folder entries go into.</li>
+          <li>Each entry is a folder under that path with a <code>SUBMISSION.md</code>: <code>spec: submission.md/v1</code>, <code>author</code>, and <code>results</code> with a <code>track</code> id and a numeric <code>value</code>.</li>
+          <li>Scores are taken as declared. Verification stays with the organizers: say how in <code>submit.verification</code>.</li>
           <li>The repository must be public. Forks are ignored.</li>
         </ul></div></aside>
     </div></div></section>`;
 
-  for (const f of ["PROBLEM.md", "SUBMISSION.md"]) fetch(`/standard/${f}`).then((r) => r.text()).then((t) => { const el = document.querySelector(`#tpl-${CSS.escape(f)} code`); if (el) el.textContent = t; });
-  app.querySelectorAll("[data-copy]").forEach((b) => (b.onclick = () => { const t = document.querySelector(`#tpl-${CSS.escape(b.dataset.copy)} code`)?.textContent || ""; navigator.clipboard.writeText(t).then(() => { b.textContent = "Copied"; setTimeout(() => (b.textContent = "Copy"), 1400); }); }));
+  for (const f of ["PROBLEM.md", "SUBMISSION.md"]) fetch(`/standard/${f}`).then((r) => r.text()).then((t) => { const el = document.querySelector(`#tpl-${CSS.escape(f)} code`); if (el) { el.dataset.raw = t; el.innerHTML = hiTemplate(t); } });
+  app.querySelectorAll("[data-copy]").forEach((b) => (b.onclick = () => { const t = document.querySelector(`#tpl-${CSS.escape(b.dataset.copy)} code`)?.dataset.raw || ""; navigator.clipboard.writeText(t).then(() => { b.textContent = "Copied"; setTimeout(() => (b.textContent = "Copy"), 1400); }); }));
   const input = document.getElementById("std-repo"), st = document.getElementById("std-state");
   const run = async () => {
     const r = parseRepo(input.value); if (!r) { st.className = "field-state bad"; st.innerHTML = "Use <code>owner/repo</code> or a GitHub URL."; return; }
     st.className = "field-state wait"; st.innerHTML = `Looking into <code>${esc(r.owner)}/${esc(r.name)}</code>…`;
     const res = await checkStandard(r.owner, r.name);
-    const marked = (f, k) => !!f && f.frontMatter && new RegExp(`^spec\\s*:\\s*${k}\\.md/v\\d+`, "mi").test(f.text);
-    if (res.problem && !marked(res.problem, "problem")) res.problem.frontMatter = false;
-    if (res.submission && !marked(res.submission, "submission")) res.submission.frontMatter = false;
-    const both = marked(res.problem, "problem") && marked(res.submission, "submission"), listed = D.competitions.find((c) => c.repo && `${c.repo.owner}/${c.repo.name}`.toLowerCase() === `${r.owner}/${r.name}`.toLowerCase());
-    st.className = "field-state"; st.innerHTML = stdReport(res) + `<div class="std-verdict ${both ? "ok" : ""}">${both ? "Priority lane: this repository will be picked up by the daily crawl." : res.problem || res.submission ? "Halfway there. Add the other file to enter the priority lane." : "Not in the priority lane yet. Add the two files, or submit the repository the ordinary way."}${listed ? ` It is already listed as <a href="/c/${esc(listed.id)}" onclick="return nav('/c/${esc(listed.id)}')">${esc(listed.name)}</a>.` : !both ? ` <a href="/submit?repo=${encodeURIComponent(r.owner + "/" + r.name)}" onclick="state.prefillRepo='${esc(r.owner)}/${esc(r.name)}';return nav('/submit')">Submit it →</a>` : ""}</div>`;
+    const both = res.problemOk && res.submission, listed = D.competitions.find((c) => c.repo && `${c.repo.owner}/${c.repo.name}`.toLowerCase() === `${r.owner}/${r.name}`.toLowerCase());
+    st.className = "field-state"; st.innerHTML = stdReport(res) + `<div class="std-verdict ${both ? "ok" : ""}">${both ? "Priority lane: crawled daily, and the leaderboard is built from the SUBMISSION.md files." : res.problemOk ? "Priority lane: this repository will be picked up by the daily crawl. Entries appear as soon as they carry a SUBMISSION.md." : res.problem ? "Almost. Fix PROBLEM.md as noted above to enter the priority lane." : "Not in the priority lane yet. Add PROBLEM.md, or submit the repository the ordinary way."}${listed ? ` It is already listed as <a href="/c/${esc(listed.id)}" onclick="return nav('/c/${esc(listed.id)}')">${esc(listed.name)}</a>.` : !res.problemOk ? ` <a href="/submit?repo=${encodeURIComponent(r.owner + "/" + r.name)}" onclick="state.prefillRepo='${esc(r.owner)}/${esc(r.name)}';return nav('/submit')">Submit it →</a>` : ""}</div>`;
   };
   document.getElementById("std-form").onsubmit = (e) => { e.preventDefault(); run(); };
   const pre = state.prefillRepo || new URLSearchParams(location.search).get("repo"); if (pre) { input.value = pre; state.prefillRepo = null; run(); }
@@ -830,7 +867,7 @@ function renderSubmit() {
       if (!res.ok) return set("warn", "Could not verify the repository right now (GitHub rate limit). You can still continue.", true);
       const m = await res.json();
       current = { owner: m.owner.login, name: m.name };
-      checkStandard(m.owner.login, m.name, m.default_branch).then((std) => { if (my !== seq) return; const el = document.getElementById("sf-std"); if (el) el.innerHTML = std.problem && std.submission ? `<div class="std-verdict ok">Ships PROBLEM.md and SUBMISSION.md: it is in the priority lane and will be crawled daily, no approval needed.</div>` : `<div class="std-verdict">Tip: add <a href="/standard" onclick="return nav('/standard')">PROBLEM.md and SUBMISSION.md</a> to the repository and the bot crawls it daily, ahead of the queue.</div>`; });
+      checkStandard(m.owner.login, m.name, m.default_branch).then((std) => { if (my !== seq) return; const el = document.getElementById("sf-std"); if (el) el.innerHTML = std.problemOk ? `<div class="std-verdict ok">Ships a valid PROBLEM.md: it is in the priority lane and will be crawled daily, no approval needed.</div>` : `<div class="std-verdict">Tip: add <a href="/standard" onclick="return nav('/standard')">PROBLEM.md</a> to the repository root and the bot crawls it daily, ahead of the queue.</div>`; });
       set("ok", `<div class="repo-preview"><img src="${esc(m.owner.avatar_url)}&s=64" alt="" width="32" height="32"><div><div class="rp-name">${esc(m.full_name)} <span class="dim">★ ${fmt(m.stargazers_count)}</span></div><div class="rp-desc">${esc(m.description || "No description")}</div></div></div>${m.archived ? `<div class="rp-note">This repository is archived; it will be listed as ended.</div>` : ""}<div id="sf-std"></div>`, true);
     }).catch(() => { if (my === seq) set("warn", "Could not reach GitHub to verify. You can still continue.", true); });
   };
@@ -1176,14 +1213,14 @@ function lightbox(src) { const d = document.createElement("div"); d.className = 
 
 // liquid-metal buttons: click ripple + brief shimmer burst
 document.addEventListener("click", (e) => {
-  const b = e.target.closest(".lm");
-  if (!b) return;
+  const b = e.target.closest(".lm, .btn, .ask");
+  if (!b || b.disabled) return;
   const rect = b.getBoundingClientRect();
   const r = document.createElement("span");
   r.className = "lm-ripple";
   r.style.left = `${e.clientX - rect.left}px`; r.style.top = `${e.clientY - rect.top}px`;
   b.appendChild(r); setTimeout(() => r.remove(), 650);
-  b.classList.add("lm-burst"); setTimeout(() => b.classList.remove("lm-burst"), 400);
+  if (b.classList.contains("lm")) { b.classList.add("lm-burst"); setTimeout(() => b.classList.remove("lm-burst"), 400); }
 });
 
 fetch("/api/summary").then((r) => r.json()).then((d) => {

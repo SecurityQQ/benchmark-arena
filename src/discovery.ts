@@ -82,7 +82,8 @@ const SEED_REPOS = [
 export async function discoverStandardRepos(): Promise<DiscoveredRepo[]> {
   const octokit = getOctokit();
   const found = new Map<string, DiscoveredRepo>();
-  for (const q of [`"${SPEC_MARKERS.problem}" filename:PROBLEM.md`, `"${SPEC_MARKERS.submission}" filename:SUBMISSION.md`]) {
+  // the problem file is the anchor: entries (SUBMISSION.md) are found through its submit.path
+  for (const q of [`"${SPEC_MARKERS.problem}" filename:PROBLEM.md`]) {
     try {
       const { data } = await octokit.rest.search.code({ q, per_page: 100 });
       for (const item of data.items) {

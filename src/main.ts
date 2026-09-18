@@ -138,8 +138,8 @@ async function main() {
 
       // Process with LLM, then overlay the facts declared in PROBLEM.md / SUBMISSION.md
       const extracted = await processRepoWithLLM(pages);
-      const { competition: llmResult, info: standardInfo } = applyStandard(extracted, pages.standardDocs, repo);
-      if (standardInfo) console.log(`    standard: PROBLEM.md ${standardInfo.problem ? "✓" : "—"} SUBMISSION.md ${standardInfo.submission ? "✓" : "—"}${standardInfo.warnings.length ? ` · ${standardInfo.warnings.length} warning(s)` : ""}`);
+      const { competition: llmResult, info: standardInfo } = applyStandard(extracted, pages.standardDocs, { ...repo, branch: repo.defaultBranch });
+      if (standardInfo) console.log(`    standard: PROBLEM.md ${standardInfo.problem ? "✓" : "—"} · ${standardInfo.submissions} SUBMISSION.md row(s)${standardInfo.warnings.length ? ` · ${standardInfo.warnings.length} warning(s)` : ""}`);
       if (llmResult === null) {
         console.log(`    not a competition, skipping`);
         errors.push({ repo: repoKey, error: "not a competition" });

@@ -72,7 +72,8 @@ export function postprocess(llm: LLMCompetition, repo: DiscoveredRepo): Competit
     }
     // Baseline rows: LLM flag, or description says so, or value equals declared baseline
     for (const r of recs) {
-      if (!r.isBaseline && (/\b(baseline|naive|reference)\b/i.test(r.description ?? "") || (p.baseline != null && r.value === p.baseline))) r.isBaseline = true;
+      // an explicit false (rows declared through SUBMISSION.md) is respected; the text heuristic only fills in blanks
+      if (r.isBaseline === undefined && (/\b(baseline|naive|reference)\b/i.test(r.description ?? "") || (p.baseline != null && r.value === p.baseline))) r.isBaseline = true;
     }
     // Agent family sanity: derive from model/contributor name if LLM left unknown
     for (const r of recs) {

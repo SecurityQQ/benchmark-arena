@@ -3,7 +3,7 @@
 import { fetchRaw, listDir, getOctokit } from "./github.js";
 import { writeFileSync, readFileSync, existsSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
-import { STANDARD_FILES, parseStandardDoc, type StandardDoc } from "./standard.js";
+import { PROBLEM_FILES, MAX_SUBMISSIONS, parseStandardDoc, isStandardDoc, submissionsDir, type StandardDoc } from "./standard.js";
 
 const CACHE_DIR = join(process.cwd(), "cache");
 
@@ -32,7 +32,7 @@ export interface RepoPages {
   repo: { owner: string; name: string; branch: string };
   pages: FetchedPage[];
   totalChars: number;
-  standardDocs: StandardDoc[];   // parsed PROBLEM.md / SUBMISSION.md, when the repo ships them
+  standardDocs: StandardDoc[];   // parsed PROBLEM.md and every entry's SUBMISSION.md, when the repo follows the standard
 }
 
 // Files that often contain leaderboards
@@ -78,17 +78,36 @@ export async function fetchRepoPages(
     return true;
   };
 
-  // 0. The standard: PROBLEM.md and SUBMISSION.md are authoritative, so they go first and are never cached
+  // 0. The standard. PROBLEM.md is authoritative, so it goes first and is never cached.
+  //    It names the folder entries live in; every <folder>/<entry>/SUBMISSION.md is a leaderboard row.
   const standardDocs: StandardDoc[] = [];
-  for (const path of STANDARD_FILES) {
-    const kind = /problem\.md$/i.test(path) ? "problem" : "submission";
-    if (standardDocs.some((d) => (/problem\.md$/i.test(d.path) ? "problem" : "submission") === kind)) continue;
+  for (const path of PROBLEM_FILES) {
     try {
       const content = await fetchRaw(owner, name, path, branch);
       if (content.trim().length < 20) continue;
-      standardDocs.push(parseStandardDoc(path, content));
+      const doc = parseStandardDoc(path, content);
+      standardDocs.push(doc);
       addPage(path, content.slice(0, 20000));
+      if (isStandardDoc(doc)) break;
     } catch { /* not there */ }
+  }
+  const problemDoc = standardDocs.find(isStandardDoc);
+  const subDir = submissionsDir(problemDoc);
+  if (subDir) {
+    try {
+      const entries = (await listDir(owner, name, subDir, branch)).slice(0, MAX_SUBMISSIONS);
+      let shown = 0;
+      for (const e of entries) {
+        const p = e.type === "dir" ? `${e.path}/SUBMISSION.md` : /(^|\/)submission\.md$/i.test(e.path) ? e.path : null;
+        if (!p) continue;
+        try {
+          const content = await fetchRaw(owner, name, p, branch);
+          standardDocs.push(parseStandardDoc(p, content));
+          if (shown++ < 12) addPage(p, content.slice(0, 1500)); // a sample is enough context for the LLM; rows are built from the files themselves
+        } catch { /* entry without a SUBMISSION.md */ }
+      }
+      console.log(`    standard: ${standardDocs.length - 1} SUBMISSION.md under ${subDir}/`);
+    } catch { console.log(`    standard: submissions folder "${subDir}" not found`); }
   }
 
   // 1. Fetch known filenames (README, LEADERBOARD.md, etc.)
