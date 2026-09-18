@@ -27,7 +27,10 @@ const FAM = {
   moonshot: ["Moonshot/Kimi", "#C46686"], zhipu: ["Zhipu/GLM", "#9A98BD"],
   bytedance: ["ByteDance/Seed", "#5E9C9A"], harmonic: ["Harmonic", "#B58A4C"], axiom: ["Axiom Math", "#8C6A8E"], "other-ai": ["Other AI", "#B0AEA5"], human: ["Human", "#8FB3A6"], unknown: ["Unknown", "#B0AEA5"],
 };
-const famChip = (f, extra = "") => f && FAM[f] ? `<a class="fam" href="/agents/${f}" style="--c:${FAM[f][1]}" title="Where ${FAM[f][0]} is used" onclick="event.stopPropagation();return nav('/agents/${f}')">${FAM[f][0]}${extra}</a>` : "";
+// brand marks from @lobehub/icons-static-svg, self-hosted under /icons
+const FAM_ICON = { anthropic: "claude-color", openai: "openai", google: "gemini-color", deepseek: "deepseek-color", meta: "meta-color", xai: "xai", mistral: "mistral-color", alibaba: "qwen-color", moonshot: "kimi-color", zhipu: "zhipu-color", bytedance: "bytedance-color" };
+const famIcon = (f, size = 14) => FAM_ICON[f] ? `<img class="fam-ico" src="/icons/${FAM_ICON[f]}.svg" width="${size}" height="${size}" alt="" loading="lazy">` : `<span class="fam-dot-sm" style="--c:${FAM[f]?.[1] || "#B0AEA5"};width:${Math.round(size * .6)}px;height:${Math.round(size * .6)}px"></span>`;
+const famChip = (f, extra = "") => f && FAM[f] ? `<a class="fam has-ico" href="/agents/${f}" style="--c:${FAM[f][1]}" title="Where ${FAM[f][0]} is used" onclick="event.stopPropagation();return nav('/agents/${f}')">${famIcon(f, 14)}${FAM[f][0]}${extra}</a>` : "";
 // flat geometric placeholder for competitions without an image — one accent per card, seeded by id
 const ACCENTS = ["#D97757", "#6A9BCC", "#788C5D", "#C46686", "#D4A27F", "#BCD1CA", "#CBCADB", "#EBDBBC"];
 function placeholderArt(seed) {
@@ -41,6 +44,57 @@ function placeholderArt(seed) {
   ];
   return `<svg class="placeholder" viewBox="0 0 340 160" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${shapes[k]}</svg>`;
 }
+// ── Art: painted arenas. Used as card covers by domain, page headers, empty states and hidden easter eggs ──
+const ART = {
+  caesar:     { caption: "Veni, vidi, vici.",                          note: "Marble Caesar, gilded laurel. The runners never stop.",          pos: "78% 22%" },
+  compass:    { caption: "Let no one ignorant of geometry enter.",     note: "A marble hand, a brass compass. Proofs are measured, not argued.", pos: "76% 40%" },
+  armillary:  { caption: "Measure what is measurable.",                note: "An armillary sphere on marble. Benchmarks are instruments.",       pos: "80% 45%" },
+  horse:      { caption: "Citius, altius, fortius.",                   note: "An antique horse crowned with laurel; the field blurs behind.",    pos: "78% 30%" },
+  velodrome:  { caption: "The clock is the only judge.",               note: "A blurred peloton, one sharp brass stopwatch.",                    pos: "62% 70%", hpos: "80% 82%" },
+  datacenter: { caption: "The laurel is on the floor. Pick it up.",    note: "Racks under an open sky, a bronze wreath waiting.",                pos: "40% 72%", hpos: "30% 88%" },
+  pool:       { caption: "Dive into the sky.",                         note: "Swimmers leave for the clouds; the medal stays on the edge.",      pos: "70% 78%", hpos: "100% 96%" },
+};
+const ART_BY_DOMAIN = {
+  "formal-methods": ["compass", "caesar"], "hardware-efficiency": ["datacenter", "velodrome"], "systems-perf": ["velodrome", "datacenter"],
+  "coding-agents": ["velodrome", "armillary"], "llm-eval": ["armillary", "caesar"], "ml-research": ["armillary", "pool"],
+  robotics: ["horse"], security: ["caesar", "datacenter"], other: ["pool", "horse"],
+};
+const hashOf = (str) => { let h = 0; for (const ch of String(str)) h = (h * 31 + ch.charCodeAt(0)) >>> 0; return h; };
+function artKeyFor(c) { const opts = ART_BY_DOMAIN[c?.domain] || ART_BY_DOMAIN.other; return opts[hashOf(c?.id || "") % opts.length]; }
+function cardArt(c) { const k = artKeyFor(c); return `<img class="card-art" src="/art/${k}-sm.jpg" loading="lazy" alt="" style="object-position:${ART[k].pos}" onerror="this.outerHTML=placeholderArt('${esc(c?.id || k)}')">`; }
+function cardArtById(id) { return cardArt(D.competitions.find((x) => x.id === id) || { id }); }
+const artBg = (k) => `<div class="hero-bg art-bg" aria-hidden="true"><img src="/art/${k}.jpg" alt="" style="object-position:${ART[k].hpos || ART[k].pos}"></div>`;
+const emptyArt = (k, title, text) => `<div class="empty-art"><img src="/art/${k}-sm.jpg" alt="" style="object-position:${ART[k].pos}"><div><div class="ea-title">${title}</div><div class="ea-text">${text}</div></div></div>`;
+
+// hidden: full-screen plate with a caption. Triggers: type "veni", the Konami code, or tap the brand mark five times.
+function showEgg(k) {
+  const keys = Object.keys(ART); if (!ART[k]) k = keys[Math.floor(Math.random() * keys.length)];
+  document.querySelector(".egg")?.remove();
+  const d = document.createElement("div"); d.className = "egg"; d.dataset.k = k;
+  d.innerHTML = `<figure><img src="/art/${k}.jpg" alt=""><figcaption><span class="egg-cap">${ART[k].caption}</span><span class="egg-note">${ART[k].note}</span><span class="egg-nav"><button data-d="-1" aria-label="Previous">←</button><span>${keys.indexOf(k) + 1} / ${keys.length}</span><button data-d="1" aria-label="Next">→</button></span></figcaption></figure>`;
+  d.onclick = (e) => { const b = e.target.closest("button[data-d]"); if (b) { e.stopPropagation(); showEgg(keys[(keys.indexOf(k) + Number(b.dataset.d) + keys.length) % keys.length]); } else if (!e.target.closest("figure")) d.remove(); };
+  document.body.appendChild(d);
+}
+(() => {
+  let buf = ""; const KONAMI = "ArrowUpArrowUpArrowDownArrowDownArrowLeftArrowRightArrowLeftArrowRightba"; let kbuf = "";
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") { document.querySelector(".egg")?.remove(); return; }
+    const egg = document.querySelector(".egg");
+    if (egg && (e.key === "ArrowRight" || e.key === "ArrowLeft")) { const keys = Object.keys(ART); showEgg(keys[(keys.indexOf(egg.dataset.k) + (e.key === "ArrowRight" ? 1 : -1) + keys.length) % keys.length]); return; }
+    kbuf = (kbuf + e.key).slice(-KONAMI.length); if (kbuf === KONAMI) { showEgg(); kbuf = ""; }
+    if (/^(input|textarea|select)$/i.test(e.target.tagName) || e.metaKey || e.ctrlKey || e.key.length !== 1) return;
+    buf = (buf + e.key.toLowerCase()).slice(-8);
+    if (buf.endsWith("veni")) { showEgg("caesar"); buf = ""; }
+    else if (buf.endsWith("vici")) { showEgg("horse"); buf = ""; }
+  });
+  let taps = 0, t0 = 0;
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".sb-mark, .footer-brand")) return;
+    const now = Date.now(); taps = now - t0 < 1600 ? taps + 1 : 1; t0 = now;
+    if (taps >= 5) { taps = 0; e.preventDefault(); e.stopPropagation(); showEgg(); }
+  }, true);
+})();
+
 const avatar = (url) => { const m = url && /github\.com\/([^/]+)$/.exec(url); return m ? `<img class="avatar" src="https://github.com/${m[1]}.png?size=64" alt="" onerror="this.style.visibility='hidden'">` : `<span class="avatar"></span>`; };
 const ghUrl = (n, u) => u || (/^[\w-]+$/.test(n) ? `https://github.com/${n}` : null);
 
@@ -48,6 +102,7 @@ const ghUrl = (n, u) => u || (/^[\w-]+$/.test(n) ? `https://github.com/${n}` : n
 function nav(path) { history.pushState({}, "", path); route(); return false; }
 window.addEventListener("popstate", route);
 function route() {
+  closeAskMenu();
   const p = location.pathname;
   const app = isApp();
   document.body.classList.toggle("app", app);
@@ -94,6 +149,132 @@ const I = {
   ext: '<svg viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>',
 };
 
+// ── Ask an agent: a prompt with competition shortcuts, handed over by deep link (and always copied) ──
+const BRAND = {
+  claude: '<svg class="brand-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m4.7144 15.9555 4.7174-2.6471.079-.2307-.079-.1275h-.2307l-.7893-.0486-2.6956-.0729-2.3375-.0971-2.2646-.1214-.5707-.1215-.5343-.7042.0546-.3522.4797-.3218.686.0608 1.5179.1032 2.2767.1578 1.6514.0972 2.4468.255h.3886l.0546-.1579-.1336-.0971-.1032-.0972L6.973 9.8356l-2.55-1.6879-1.3356-.9714-.7225-.4918-.3643-.4614-.1578-1.0078.6557-.7225.8803.0607.2246.0607.8925.686 1.9064 1.4754 2.4893 1.8336.3643.3035.1457-.1032.0182-.0728-.164-.2733-1.3539-2.4467-1.445-2.4893-.6435-1.032-.17-.6194c-.0607-.255-.1032-.4674-.1032-.7285L6.287.1335 6.6997 0l.9957.1336.419.3642.6192 1.4147 1.0018 2.2282 1.5543 3.0296.4553.8985.2429.8318.091.255h.1579v-.1457l.1275-1.706.2368-2.0947.2307-2.6957.0789-.7589.3764-.9107.7468-.4918.5828.2793.4797.686-.0668.4433-.2853 1.8517-.5586 2.9021-.3643 1.9429h.2125l.2429-.2429.9835-1.3053 1.6514-2.0643.7286-.8196.85-.9046.5464-.4311h1.0321l.759 1.1293-.34 1.1657-1.0625 1.3478-.8804 1.1414-1.2628 1.7-.7893 1.36.0729.1093.1882-.0183 2.8535-.607 1.5421-.2794 1.8396-.3157.8318.3886.091.3946-.3278.8075-1.967.4857-2.3072.4614-3.4364.8136-.0425.0304.0486.0607 1.5482.1457.6618.0364h1.621l3.0175.2247.7892.522.4736.6376-.079.4857-1.2142.6193-1.6393-.3886-3.825-.9107-1.3113-.3279h-.1822v.1093l1.0929 1.0686 2.0035 1.8092 2.5075 2.3314.1275.5768-.3218.4554-.34-.0486-2.2039-1.6575-.85-.7468-1.9246-1.621h-.1275v.17l.4432.6496 2.3436 3.5214.1214 1.0807-.17.3521-.6071.2125-.6679-.1214-1.3721-1.9246L14.38 17.959l-1.1414-1.9428-.1397.079-.674 7.2552-.3156.3703-.7286.2793-.6071-.4614-.3218-.7468.3218-1.4753.3886-1.9246.3157-1.53.2853-1.9004.17-.6314-.0121-.0425-.1397.0182-1.4328 1.9672-2.1796 2.9446-1.7243 1.8456-.4128.164-.7164-.3704.0667-.6618.4008-.5889 2.386-3.0357 1.4389-1.882.929-1.0868-.0062-.1579h-.0546l-6.3385 4.1164-1.1293.1457-.4857-.4554.0608-.7467.2307-.2429 1.9064-1.3114Z"/></svg>',
+  openai: '<svg class="brand-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z"/></svg>',
+  cursor: '<svg class="brand-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.503.131 1.891 5.678a.84.84 0 0 0-.42.726v11.188c0 .3.162.575.42.724l9.609 5.55a1 1 0 0 0 .998 0l9.61-5.55a.84.84 0 0 0 .42-.724V6.404a.84.84 0 0 0-.42-.726L12.497.131a1.01 1.01 0 0 0-.996 0M2.657 6.338h18.55c.263 0 .43.287.297.515L12.23 22.918c-.062.107-.229.064-.229-.06V12.335a.59.59 0 0 0-.295-.51l-9.11-5.257c-.109-.063-.064-.23.061-.23"/></svg>',
+  devin: '<svg class="brand-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3h7.5a9 9 0 0 1 0 18H4zm3.2 3.2v11.6h4.3a5.8 5.8 0 0 0 0-11.6z"/></svg>',
+  copy: '<svg class="line-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>',
+};
+const enc = encodeURIComponent;
+// paste: no documented prompt-prefill URL — open the app, the prompt is on the clipboard
+const AGENTS = [
+  { id: "claude-code", name: "Claude Code", icon: "claude", url: (p) => `claude-cli://open?q=${enc(p)}`, hint: "Nothing opened? Run claude and paste." },
+  { id: "claude", name: "Claude.ai", icon: "claude", url: (p) => `https://claude.ai/new?q=${enc(p)}` },
+  { id: "chatgpt", name: "ChatGPT", icon: "openai", url: (p) => `https://chatgpt.com/?q=${enc(p)}` },
+  { id: "codex", name: "Codex", icon: "openai", url: () => "https://chatgpt.com/codex", paste: true },
+  { id: "devin", name: "Devin", icon: "devin", url: () => "https://app.devin.ai/", paste: true },
+  { id: "cursor", name: "Cursor", icon: "cursor", url: (p) => `https://cursor.com/link/prompt?text=${enc(p)}` },
+];
+const AGENT_KEY = "ba_agent";
+function currentAgent() { let id; try { id = localStorage.getItem(AGENT_KEY); } catch {} return AGENTS.find((a) => a.id === id) || AGENTS[0]; }
+
+const PROMPT_MAX = 4500; // claude-cli:// caps q at 5,000 characters
+const clip = (s, n) => { s = String(s ?? "").replace(/\s+/g, " ").trim(); return s.length > n ? s.slice(0, n - 1) + "…" : s; };
+function trackLine(pr) {
+  const b = pr.records.find((r) => r.isCurrentBest && !r.isBaseline);
+  return `- ${pr.name}: ${pr.metricDirection} ${pr.metricName}${pr.metricUnit ? ` (${pr.metricUnit})` : ""}${pr.baseline != null ? `, baseline ${fmt(pr.baseline)}` : ""}${pr.isOpen ? ", OPEN: nobody has beaten the baseline" : b ? `, best ${fmt(b.value)}${b.contributor ? ` by ${b.contributor}` : ""}` : ""}, ${pr.records.length} records`;
+}
+function buildPrompt(c, pr) {
+  const p = c.participation, slug = c.repo ? `${c.repo.owner}/${c.repo.name}` : null;
+  const api = `${location.origin}/api/competitions/${enc(c.id)}`;
+  const head = [
+    `I want to enter the "${c.name}" competition${pr ? `, track "${pr.name}"` : ""}. Help me get started:`,
+    slug ? `1. Fork and clone the repo: gh repo fork ${slug} --clone${c.repo.branch ? ` (default branch: ${c.repo.branch})` : ""}` : `1. Open ${c.url} and find the competition repository.`,
+    `2. Read the README, rules and submission docs, then tell me briefly: what is measured, how entries are scored and verified, what a submission looks like, deadlines and prizes, and what compute I need.`,
+    pr ? `3. Focus on the "${pr.name}" track: study the current leaderboard and the best existing entries, and find the number I have to beat.` : `3. Study the leaderboard and the best existing entries, and tell me which track is the easiest way in.`,
+    `4. Propose a concrete plan for a first valid submission. Do not push, submit or open a PR without asking me.`,
+  ].join("\n");
+  const tail = `Full digest (fetch it first, it has every track and record):\n${api}.md\n${api}.json`;
+  const fields = (quick) => [
+    ["Competition", c.name], ["About", clip(c.tagline || c.description, 240)], ["URL", c.url], ["Repo", slug && `https://github.com/${slug}`], ["Status", c.status],
+    ["Organizer", c.organizer?.name], ["Deadline", clip(p.deadline, 160)], ["Prizes", clip(p.prizes, 200)],
+    ["Compute", [p.compute !== "unknown" ? COMPUTE[p.compute] : "", clip(p.computeDetails, 200)].filter(Boolean).join(" — ")],
+    ["Requirements", p.requirements?.join(", ")], ["How to submit", clip(p.howToSubmit, 400)], ["Submission format", clip(p.submissionFormat, 240)],
+    ["Verified by", clip(p.verification, 200)], ["Cost", clip(p.cost, 120)], ["Eligibility", clip(p.eligibility, 160)],
+  ].filter(([, v]) => v).map(([k, v]) => `${k}: ${v}`).join("\n") + (quick && c.quickstart ? `\nQuickstart:\n${String(c.quickstart).trim().slice(0, 700)}` : "");
+  const tracks = (n) => {
+    if (pr) return `Track:\n${trackLine(pr)}${pr.description ? `\n  ${clip(pr.description, 300)}` : ""}${c.problems.length > 1 ? `\n(${c.problems.length - 1} other tracks, see the digest)` : ""}`;
+    if (!c.problems.length || !n) return "";
+    const list = [...c.problems].sort((a, b) => (b.isOpen ? 1 : 0) - (a.isOpen ? 1 : 0));
+    return `Tracks (${list.length}):\n${list.slice(0, n).map(trackLine).join("\n")}${list.length > n ? `\n(+${list.length - n} more, see the digest)` : ""}`;
+  };
+  const links = (n) => (n && c.links.length ? `Links:\n${c.links.slice(0, n).map((l) => `- ${l.label}: ${l.url}`).join("\n")}` : "");
+  const note = `Shortcuts (crawled by Benchmark Arena${D?.crawledAt ? ` on ${D.crawledAt.slice(0, 10)}` : ""}; the repo is the source of truth):`;
+  // degrade in order: links → track list → quickstart; the digest URL always survives
+  for (const [l, t, q] of [[6, 12, true], [0, 12, true], [0, 5, true], [0, 5, false], [0, 0, false]]) {
+    const out = [head, note + "\n" + fields(q), tracks(t), links(l), tail].filter(Boolean).join("\n\n");
+    if (out.length <= PROMPT_MAX) return out;
+  }
+  const room = PROMPT_MAX - head.length - tail.length - note.length - 8;
+  return [head, note + "\n" + fields(false).slice(0, Math.max(0, room)) + "…", tail].join("\n\n");
+}
+// where "Open" goes: the competition page, or for a track the leaderboard / submission page when the crawl found one
+function openUrl(c, pr) {
+  if (pr) { const l = c.links.find((x) => /leaderboard/i.test(x.label)) || c.links.find((x) => /submi/i.test(x.label)); if (l) return l.url; }
+  return c.url;
+}
+function ctaButtons(c, pr, o = {}) {
+  const a = currentAgent(), sm = o.small ? " small" : "", url = esc(openUrl(c, pr));
+  const data = `data-comp="${esc(c.id)}"${pr ? ` data-problem="${esc(pr.id ?? pr.name)}"` : ""}`;
+  // nested: the host element is already a link, so "Open" has to be a button
+  const open = o.nested
+    ? `<button type="button" class="btn${sm}" data-open="${url}">${o.openLabel || "Open"} ${I.ext}</button>`
+    : `<a class="btn${o.small ? " small" : " primary"}" href="${url}" target="_blank" rel="noopener">${o.openLabel || "Open"} ${I.ext}</a>`;
+  return `${open}<span class="ask${sm}" ${data}><button type="button" class="ask-main" data-ask="${a.id}" title="Hand this ${pr ? "track" : "competition"} to ${a.name} with a ready prompt">${BRAND[a.icon]}<span>Ask ${a.name}</span></button><button type="button" class="ask-caret" data-ask-menu aria-haspopup="menu" aria-label="Choose an agent">${I.chev}</button></span>`;
+}
+function askTarget(el) {
+  const host = el.closest("[data-comp]"); if (!host) return null;
+  const c = D.competitions.find((x) => x.id === host.dataset.comp); if (!c) return null;
+  const k = host.dataset.problem;
+  return { c, pr: k ? c.problems.find((x) => (x.id ?? x.name) === k) : undefined };
+}
+function copyPrompt(text) { try { return navigator.clipboard.writeText(text).then(() => true, () => false); } catch { return Promise.resolve(false); } }
+function askAgent(id, c, pr) {
+  const prompt = buildPrompt(c, pr);
+  const copied = copyPrompt(prompt); // always: custom schemes fail silently, and paste-only agents need it
+  if (id === "copy") return copied.then((ok) => toast(ok ? "Prompt copied" : "Could not copy: clipboard is blocked"));
+  const a = AGENTS.find((x) => x.id === id) || AGENTS[0], url = a.url(prompt);
+  try { localStorage.setItem(AGENT_KEY, a.id); } catch {}
+  document.querySelectorAll(".ask-main").forEach((b) => { b.dataset.ask = a.id; b.innerHTML = `${BRAND[a.icon]}<span>Ask ${a.name}</span>`; });
+  if (/^https?:/.test(url)) window.open(url, "_blank", "noopener"); else location.href = url;
+  copied.then((ok) => toast(a.paste ? (ok ? `Prompt copied. Paste it into ${a.name}` : `Opening ${a.name}. Clipboard is blocked, use “Copy prompt”`) : `${ok ? "Prompt copied. " : ""}Opening ${a.name}…${a.hint ? ` ${a.hint}` : ""}`));
+}
+function closeAskMenu() { document.querySelector(".ask-menu")?.remove(); document.querySelector(".ask-caret[aria-expanded]")?.removeAttribute("aria-expanded"); }
+function openAskMenu(caret) {
+  const was = caret.hasAttribute("aria-expanded"); closeAskMenu(); if (was) return;
+  const host = caret.closest("[data-comp]"), cur = currentAgent().id;
+  const m = document.createElement("div"); m.className = "ask-menu"; m.setAttribute("role", "menu");
+  m.dataset.comp = host.dataset.comp; if (host.dataset.problem) m.dataset.problem = host.dataset.problem;
+  m.innerHTML = AGENTS.map((a) => `<button type="button" role="menuitem" data-ask="${a.id}" class="${a.id === cur ? "on" : ""}">${BRAND[a.icon]}<span>${a.name}</span>${a.paste ? `<small>paste</small>` : ""}</button>`).join("") + `<hr><button type="button" role="menuitem" data-ask="copy">${BRAND.copy}<span>Copy prompt</span></button>`;
+  document.body.appendChild(m); caret.setAttribute("aria-expanded", "true");
+  const r = host.getBoundingClientRect(), w = m.offsetWidth, h = m.offsetHeight;
+  m.style.left = `${Math.max(8, Math.min(r.right - w, innerWidth - w - 8))}px`;
+  m.style.top = `${r.bottom + 6 + h > innerHeight - 8 && r.top - h - 6 > 8 ? r.top - h - 6 : r.bottom + 6}px`;
+  m.querySelector("button")?.focus();
+}
+// capture phase: these controls sit inside clickable cards and links, which must not fire
+document.addEventListener("click", (e) => {
+  const el = e.target.closest("[data-ask],[data-ask-menu],[data-open]");
+  if (!el) { if (!e.target.closest(".ask-menu")) closeAskMenu(); return; }
+  e.preventDefault(); e.stopPropagation();
+  if (el.dataset.open) { closeAskMenu(); return void window.open(el.dataset.open, "_blank", "noopener"); }
+  if (el.hasAttribute("data-ask-menu")) return openAskMenu(el);
+  const t = askTarget(el); closeAskMenu();
+  if (t) askAgent(el.dataset.ask, t.c, t.pr);
+}, true);
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeAskMenu(); });
+window.addEventListener("scroll", closeAskMenu, { passive: true });
+window.addEventListener("resize", closeAskMenu);
+let toastTimer;
+function toast(msg) {
+  let t = document.querySelector(".toast");
+  if (!t) { t = document.createElement("div"); t.className = "toast"; t.setAttribute("role", "status"); document.body.appendChild(t); }
+  t.textContent = msg; requestAnimationFrame(() => t.classList.add("on"));
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove("on"), 3200);
+}
+
 function renderSidebar() {
   const el = document.getElementById("sidebar");
   const p = location.pathname, onHome = p === "/";
@@ -128,7 +309,7 @@ function renderSidebar() {
     </div>
     <div class="sb-group open">
       <div class="sb-heading">Model families</div>
-      ${fams.map((a) => item({ href: `/agents/${a.family}`, icon: `<span class="dot" style="--c:${FAM[a.family][1]}"></span>`, label: FAM[a.family][0], n: a.records, on: p === `/agents/${a.family}`, click: `return nav('/agents/${a.family}')` })).join("")}
+      ${fams.map((a) => item({ href: `/agents/${a.family}`, icon: `<span class="sb-ico">${famIcon(a.family, 16)}</span>`, label: FAM[a.family][0], n: a.records, on: p === `/agents/${a.family}`, click: `return nav('/agents/${a.family}')` })).join("")}
     </div>
     <div class="sb-bottom">
       ${item({ href: "/llms.txt", icon: I.file, label: "llms.txt", cls: "mono", click: "" })}
@@ -192,6 +373,7 @@ function renderAppHome() {
 
   app.innerHTML = `
     <section class="band"><div class="wrap">
+      ${state.domain && ART_BY_DOMAIN[state.domain] ? `<div class="ah-art">${artBg(ART_BY_DOMAIN[state.domain][0])}</div>` : state.open ? `<div class="ah-art">${artBg("datacenter")}</div>` : ""}
       <div class="ah-head">
         <div><h1>${state.open ? "Open problems" : state.domain ? esc(DOMAIN[state.domain] || state.domain) : "Competitions"}</h1><p>Open benchmark competitions on GitHub with public leaderboards. Pick one, point your agent at the repository, get on the board.</p></div>
         <div class="dim small mono" id="grid-count"></div>
@@ -199,7 +381,7 @@ function renderAppHome() {
 
       <div class="ah-strip">
         <div class="ah-strip-head"><div><span class="t">Which agents ship the records</span> <span class="s">· records authored by an AI agent, by model family</span></div><a href="/agents" onclick="return nav('/agents')">All agents →</a></div>
-        <div class="ah-bars">${fams.map((a) => `<a class="ah-bar" style="--c:${FAM[a.family][1]}" href="/agents/${a.family}" onclick="return nav('/agents/${a.family}')" title="${FAM[a.family][0]}: ${a.records} records, ${a.currentBests} current bests"><span class="v">${a.records}</span><span class="b" style="height:${Math.max(4, Math.round((a.records / max) * 64))}px"></span><span class="f"><i></i>${FAM[a.family][0]}</span></a>`).join("")}</div>
+        <div class="ah-bars">${fams.map((a) => `<a class="ah-bar" style="--c:${FAM[a.family][1]}" href="/agents/${a.family}" onclick="return nav('/agents/${a.family}')" title="${FAM[a.family][0]}: ${a.records} records, ${a.currentBests} current bests"><span class="v">${a.records}</span><span class="b" style="height:${Math.max(4, Math.round((a.records / max) * 64))}px"></span><span class="f">${famIcon(a.family, 14)}${FAM[a.family][0]}</span></a>`).join("")}</div>
       </div>
 
       <div class="toolbar ah-toolbar">
@@ -353,12 +535,15 @@ function personRow(p, showComps = true) {
 }
 
 function openCard(o) {
+  const oc = D.competitions.find((x) => x.id === o.competitionId), opr = oc?.problems.find((x) => (o.problemId != null && x.id === o.problemId) || x.name === o.problemName);
+  const octa = oc ? `<div class="mini-cta">${ctaButtons(oc, opr, { small: true, nested: true })}</div>` : "";
   return `<a class="open-card" href="/c/${o.competitionId}" onclick="return nav('/c/${o.competitionId}')">
     <div class="oc-top"><span class="badge open">open</span>${o.compute && o.compute !== "unknown" ? `<span class="tag compute">${COMPUTE[o.compute] || o.compute}</span>` : ""}</div>
     <div class="oc-name">${esc(o.problemName)}</div>
     <div class="oc-comp">${esc(o.competitionName)}</div>
     ${o.description ? `<div class="oc-desc">${esc(o.description)}</div>` : ""}
     <div class="oc-foot">${o.metricDirection} ${esc(o.metricName)}${o.baseline != null ? ` · baseline <b class="mono">${fmt(o.baseline)}</b>` : " · no baseline yet"}</div>
+    ${octa}
   </a>`;
 }
 
@@ -386,9 +571,9 @@ function renderGrid() {
   const grid = document.getElementById("grid");
   const count = document.getElementById("grid-count");
   if (count) count.textContent = `${list.length} of ${D.competitions.length}`;
-  if (!list.length) return (grid.innerHTML = `<div class="empty" style="grid-column:1/-1">Nothing matches. Clear a filter.</div>`);
+  if (!list.length) return (grid.innerHTML = `<div style="grid-column:1/-1">${emptyArt("compass", "Nothing matches.", "The measure is too strict. Clear a filter and try again.")}</div>`);
   grid.innerHTML = list.map(card).join("");
-  grid.querySelectorAll(".card").forEach((el) => (el.onclick = () => nav(`/c/${el.dataset.id}`)));
+  grid.querySelectorAll(".card").forEach((el) => (el.onclick = (e) => { if (!e.target.closest(".btn, .ask")) nav(`/c/${el.dataset.id}`); }));
 }
 
 function card(c) {
@@ -397,7 +582,7 @@ function card(c) {
   const top = (c.agentStats || []).filter((a) => a.family !== "human" && a.family !== "unknown").slice(0, 2);
   return `
     <article class="card" data-id="${esc(c.id)}">
-      <div class="card-img">${img ? `<img src="${esc(img)}" loading="lazy" alt="" onerror="this.parentElement.innerHTML=placeholderArt('${esc(c.id)}')">` : placeholderArt(c.id)}</div>
+      <div class="card-img">${img ? `<img src="${esc(img)}" loading="lazy" alt="" onerror="this.outerHTML=cardArtById('${esc(c.id)}')">` : cardArt(c)}</div>
       <div class="card-body">
         <div class="card-top"><h3>${esc(c.name)}</h3><span class="badge ${c.status}">${c.status}</span></div>
         <div class="tagline">${esc(c.tagline)}</div>
@@ -415,6 +600,7 @@ function card(c) {
         ${p.prizes && !/recognition|none/i.test(p.prizes) ? `<span class="tag prize">$ prizes</span>` : ""}
         ${c.tags.slice(0, 2).map((t) => `<span class="tag">${esc(t)}</span>`).join("")}
       </div>
+      <div class="card-cta">${ctaButtons(c, undefined, { small: true })}</div>
     </article>`;
 }
 
@@ -424,7 +610,7 @@ function renderPeople() {
   const app = document.getElementById("app");
   const list = D.people;
   app.innerHTML = `
-    <section class="band"><div class="wrap">
+    <section class="band art-band">${artBg("pool")}<div class="wrap">
     <a class="back" href="/" onclick="return nav('/')">← Home</a>
     <div class="hero"><span class="eyebrow">People</span><h1>Contributors</h1><p class="lede">${list.length} people with records across ${D.competitions.length} competitions. ★ marks a current best in a contested track. Chips show which model families they ship with.</p></div>
     </div></section>
@@ -453,7 +639,7 @@ function renderAgents() {
   const list = view === "author" ? D.agents : (D.evaluated || []);
   const total = list.reduce((s, a) => s + a.records, 0);
   app.innerHTML = `
-    <section class="band"><div class="wrap">
+    <section class="band art-band">${artBg("horse")}<div class="wrap">
     <a class="back" href="/" onclick="return nav('/')">← Home</a>
     <div class="hero">
       <span class="eyebrow">Agents</span>
@@ -486,7 +672,7 @@ function renderAgents() {
 function renderFamily(f) {
   const app = document.getElementById("app");
   const fam = FAM[f];
-  if (!fam) return (app.innerHTML = `<section class="band"><div class="wrap"><a class="back" href="/agents" onclick="return nav('/agents')">← Agents</a><div class="empty">Unknown model family.</div></div></section>`);
+  if (!fam) return (app.innerHTML = `<section class="band"><div class="wrap"><a class="back" href="/agents" onclick="return nav('/agents')">← Agents</a>${emptyArt("horse", "No such stable.", "This model family has not entered any race here.")}</div></section>`);
   document.title = `${fam[0]} — where it is used — Benchmark Arena`;
 
   // collect every record attributed to this family, with its rank inside the track
@@ -540,13 +726,15 @@ function renderFamily(f) {
   };
 
   app.innerHTML = `
-    <section class="band"><div class="wrap">
+    <section class="band art-band">${artBg("armillary")}<div class="wrap">
       <a class="back" href="/agents" onclick="return nav('/agents')">← All agents</a>
       <div class="hero">
         <span class="eyebrow">Model family</span>
-        <h1 class="fam-title"><span class="fam-dot" style="--c:${fam[1]}"></span>${esc(fam[0])}</h1>
+        <h1 class="fam-title">${FAM_ICON[f] ? `<span class="fam-logo">${famIcon(f, 40)}</span>` : `<span class="fam-dot" style="--c:${fam[1]}"></span>`}${esc(fam[0])}</h1>
         <p class="lede">${aRows.length ? `${aRows.length} leaderboard record${aRows.length === 1 ? "" : "s"} authored with ${esc(fam[0])} models across ${tracks.size} track${tracks.size === 1 ? "" : "s"} in ${authored.size} competition${authored.size === 1 ? "" : "s"}.` : `No records authored by ${esc(fam[0])} agents yet.`}${sRows.length ? ` Separately, ${sRows.length} row${sRows.length === 1 ? " evaluates" : "s evaluate"} ${esc(fam[0])} models as the benchmark subject.` : ""}</p>
       </div>
+    </div></section>
+    <section class="band tight fam-stats"><div class="wrap">
       <div class="kpis">
         <div class="kpi"><b>${bests}</b>current bests</div>
         <div class="kpi"><b>${aRows.length}</b>records</div>
@@ -575,7 +763,7 @@ function renderFamily(f) {
 function renderDetail(id) {
   const c = D.competitions.find((x) => x.id === id);
   const app = document.getElementById("app");
-  if (!c) return (app.innerHTML = `<section class="band"><div class="wrap"><a class="back" href="/" onclick="return nav('/')">← Home</a><div class="empty">Competition not found.</div></div></section>`);
+  if (!c) return (app.innerHTML = `<section class="band"><div class="wrap"><a class="back" href="/" onclick="return nav('/')">← Home</a>${emptyArt("caesar", "Veni, vidi… non inveni.", "There is no competition at this address. The arena is back that way.")}</div></section>`);
   const p = c.participation;
   document.title = `${c.name} — Benchmark Arena`;
   const openCount = c.problems.filter((x) => x.isOpen).length;
@@ -614,11 +802,11 @@ function renderDetail(id) {
         <div class="desc">${esc(c.description)}</div>
         ${c.organizer ? `<div class="org">Run by ${c.organizer.url ? `<a href="${esc(c.organizer.url)}" target="_blank">${esc(c.organizer.name)}</a>` : esc(c.organizer.name)}${c.organizer.type ? ` · ${c.organizer.type}` : ""}</div>` : ""}
         <div class="cta">
-          <a class="btn primary" href="${esc(c.url)}" target="_blank">Open repository ↗</a>
-          ${c.links.slice(0, 3).map((l) => `<a class="btn" href="${esc(l.url)}" target="_blank">${esc(l.label)} ↗</a>`).join("")}
+          ${ctaButtons(c, undefined, { openLabel: c.host === "github" ? "Open repository" : "Open competition" })}
+          ${c.links.slice(0, 3).map((l) => `<a class="btn" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)} ${I.ext}</a>`).join("")}
         </div>
       </div>
-      <div>${c.images.length ? `<div class="gallery ${c.images.length > 1 ? "multi" : ""}">${c.images.map((u) => `<img src="${esc(u)}" alt="" loading="lazy" onclick="lightbox(this.src)" onerror="this.remove()">`).join("")}</div>` : `<div class="panel"><h2>Activity</h2>${activityPanel(c)}</div>`}</div>
+      <div>${c.images.length ? `<div class="gallery ${c.images.length > 1 ? "multi" : ""}">${c.images.map((u) => `<img src="${esc(u)}" alt="" loading="lazy" onclick="lightbox(this.src)" onerror="this.remove()">`).join("")}</div>` : `<div class="detail-art">${cardArt(c).replace("-sm.jpg", ".jpg")}</div><div class="panel" style="margin-top:16px"><h2>Activity</h2>${activityPanel(c)}</div>`}</div>
     </div>
     </div></section>
 
@@ -629,7 +817,7 @@ function renderDetail(id) {
         ${submit || c.quickstart ? `<div class="section"><h2>How to submit</h2><div class="panel">${submit}${c.quickstart ? `<pre class="quick"><button class="copy" onclick="copyText(this)">copy</button><code>${esc(c.quickstart)}</code></pre>` : ""}</div></div>` : ""}
         <div class="section">
           <h2>Leaderboards <small>${c.problems.length} track${c.problems.length === 1 ? "" : "s"} · ${c.stats.totalRecords} records${openCount ? ` · <span class="openpill">${openCount} open</span>` : ""}</small></h2>
-          ${c.problems.length ? [...c.problems].sort((a, b) => (b.isOpen ? 1 : 0) - (a.isOpen ? 1 : 0)).map((pr, i) => problemBlock(pr, i === 0)).join("") : `<div class="empty">No leaderboard tracks parsed yet.</div>`}
+          ${c.problems.length ? [...c.problems].sort((a, b) => (b.isOpen ? 1 : 0) - (a.isOpen ? 1 : 0)).map((pr, i) => problemBlock(pr, i === 0, c)).join("") : `<div class="empty">No leaderboard tracks parsed yet.</div>`}
         </div>
       </div>
       <aside>
@@ -653,7 +841,7 @@ function renderDetail(id) {
     </div>
     </div></section>`;
 
-  app.querySelectorAll(".problem-head").forEach((h) => (h.onclick = () => h.parentElement.classList.toggle("open")));
+  app.querySelectorAll(".problem-head").forEach((h) => (h.onclick = (e) => { if (!e.target.closest(".btn, .ask")) h.parentElement.classList.toggle("open"); }));
   app.querySelectorAll("canvas.spark").forEach(drawSpark);
 }
 
@@ -683,7 +871,7 @@ function agentCell(r) {
   return `<span title="${esc(title)}" class="conf-${a.confidence}">${famChip(a.family)}${a.tool || a.model ? `<span class="dim small"> ${esc(a.model || a.tool)}</span>` : ""}</span>`;
 }
 
-function problemBlock(pr, open) {
+function problemBlock(pr, open, c) {
   const best = pr.records.find((r) => r.isCurrentBest);
   const sorted = [...pr.records].sort((a, b) => (a.date || "").localeCompare(b.date || ""));
   const first = sorted.find((r) => r.date) ?? sorted[0];
@@ -702,6 +890,7 @@ function problemBlock(pr, open) {
         <div>
           <h3>${pr.isOpen ? `<span class="badge open">open</span> ` : ""}${esc(pr.name)}</h3>
           <div class="sub">${pr.metricDirection === "minimize" ? "lower" : "higher"} ${esc(pr.metricName)} is better · ${pr.records.length} record${pr.records.length === 1 ? "" : "s"}${pr.description ? ` · ${esc(pr.description)}` : ""}</div>
+          ${c ? `<div class="mini-cta">${ctaButtons(c, pr, { small: true })}</div>` : ""}
         </div>
         ${pr.isOpen
           ? `<div class="best"><div class="v open">${pr.baseline != null ? fmt(pr.baseline) + unit : "no baseline"}</div><div class="by">${pr.baseline != null ? "baseline to beat" : "be the first"}</div></div>`
@@ -757,10 +946,13 @@ fetch("/api/summary").then((r) => r.json()).then((d) => {
   // legacy query params → clean paths
   const q = new URLSearchParams(location.search);
   if (q.has("landing")) history.replaceState({}, "", "/landing");
-  else if (q.has("app")) { try { localStorage.setItem(VISITED, "1"); } catch {} history.replaceState({}, "", "/"); }
+  else if (q.has("app")) { try { localStorage.setItem(VISITED, "1"); } catch {} history.replaceState({}, "", location.pathname + location.hash); }
   const firstVisit = (() => { try { return localStorage.getItem(VISITED) !== "1"; } catch { return true; } })();
   if (firstVisit && location.pathname === "/") history.replaceState({}, "", "/landing");
   if (location.pathname !== "/landing") { try { localStorage.setItem(VISITED, "1"); } catch {} }
+  // shareable easter egg: /#veni, /#vici, or /#plate-<name>
+  const openHashEgg = () => { const h = location.hash.slice(1).toLowerCase(); if (h === "veni") showEgg("caesar"); else if (h === "vici") showEgg("horse"); else if (h.startsWith("plate-") && ART[h.slice(6)]) showEgg(h.slice(6)); };
+  window.addEventListener("hashchange", openHashEgg); setTimeout(openHashEgg, 0);
   const records = d.competitions.reduce((s, c) => s + c.stats.totalRecords, 0);
   document.getElementById("footer-meta").innerHTML = `<span>${d.competitions.length} competitions</span><span>${records} records</span><span>crawled ${new Date(d.crawledAt).toISOString().slice(0, 10)}</span>`;
   route();
