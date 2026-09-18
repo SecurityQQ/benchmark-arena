@@ -37,6 +37,18 @@
     {
       "source": "/agents",
       "destination": "/"
+    },
+    {
+      "source": "/agents/:family",
+      "destination": "/"
+    },
+    {
+      "source": "/landing",
+      "destination": "/"
+    },
+    {
+      "source": "/submit",
+      "destination": "/"
     }
   ],
   "headers": [

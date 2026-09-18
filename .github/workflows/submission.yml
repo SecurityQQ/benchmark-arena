@@ -1,0 +1,59 @@
+name: Ingest competition submission
+
+# A maintainer approves a submission by adding the "approved" label to an "Add competition: …" issue.
+# Only people with triage rights can label, so nothing reaches the crawler (and its LLM budget) unreviewed.
+on:
+  issues:
+    types: [labeled]
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: seeds
+  cancel-in-progress: false
+
+jobs:
+  ingest:
+    if: github.event.label.name == 'approved' && startsWith(github.event.issue.title, 'Add competition:')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Ingest
+        id: ingest
+        env:
+          # untrusted text: passed as data, never interpolated into a command
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_USER: ${{ github.event.issue.user.login }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/ingest-submission.mjs
+
+      - name: Commit seeds
+        if: steps.ingest.outputs.status == 'queued'
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          git config user.name "benchmark-arena-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data/seeds.json
+          git commit -m "seeds: queue submission #${ISSUE_NUMBER}"
+          git push
+
+      - name: Reply on the issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          STATUS: ${{ steps.ingest.outputs.status }}
+          MESSAGE: ${{ steps.ingest.outputs.message }}
+        run: |
+          case "$STATUS" in
+            queued)    gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body "Thanks! $MESSAGE It will appear on the site after the next crawl (every 3 days) if the extractor finds a leaderboard people can submit to." ;;
+            duplicate) gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body "$MESSAGE" ;;
+            *)         gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body "Could not ingest this submission: $MESSAGE" ;;
+          esac

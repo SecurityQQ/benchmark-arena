@@ -2,6 +2,15 @@
 
 import { getOctokit } from "./github.js";
 import type { DiscoveredRepo } from "./types.js";
+import { readFileSync, existsSync } from "node:fs";
+import { join } from "node:path";
+
+// Community submissions approved by a maintainer (see .github/workflows/submission.yml)
+function communitySeeds(): { owner: string; name: string }[] {
+  const p = join(process.cwd(), "data", "seeds.json");
+  if (!existsSync(p)) return [];
+  try { return (JSON.parse(readFileSync(p, "utf-8")) as { owner: string; name: string }[]).filter((s) => s?.owner && s?.name); } catch { return []; }
+}
 
 // ─── GitHub Search queries ──────────────────────────────────────────────
 // Must be specific — "leaderboard" alone matches awesome-lists
@@ -73,7 +82,7 @@ export async function discoverRepos(maxResults = 80): Promise<DiscoveredRepo[]> 
 
   // 1. Add seed repos
   console.log("  [seeds]");
-  for (const { owner, name } of SEED_REPOS) {
+  for (const { owner, name } of [...SEED_REPOS, ...communitySeeds()]) {
     try {
       const { data } = await octokit.rest.repos.get({ owner, repo: name });
       const key = `${owner}/${name}`;

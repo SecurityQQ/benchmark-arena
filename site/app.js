@@ -175,6 +175,7 @@ function route() {
   const fm = p.match(/^\/agents\/([^/]+)/);
   if (m) renderDetail(decodeURIComponent(m[1]));
   else if (fm) renderFamily(decodeURIComponent(fm[1]));
+  else if (p === "/submit") renderSubmit();
   else if (p === "/people") renderPeople();
   else if (p === "/agents") renderAgents();
   else if (p === "/landing" || !app) renderHome();
@@ -209,6 +210,7 @@ const I = {
   panel: '<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16M15 10l-2 2 2 2"/></svg>',
   menu: '<svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>',
   search: '<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>',
+  plus: '<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>',
   ext: '<svg viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>',
 };
 
@@ -375,6 +377,7 @@ function renderSidebar() {
       ${fams.map((a) => item({ href: `/agents/${a.family}`, icon: `<span class="sb-ico">${famIcon(a.family, 16)}</span>`, label: FAM[a.family][0], n: a.records, on: p === `/agents/${a.family}`, click: `return nav('/agents/${a.family}')` })).join("")}
     </div>
     <div class="sb-bottom">
+      ${item({ href: "/submit", icon: I.plus, label: "Submit a competition", on: p === "/submit", click: "return nav('/submit')" })}
       ${item({ href: "/llms.txt", icon: I.file, label: "llms.txt", cls: "mono", click: "" })}
       ${item({ href: "/api/summary", icon: I.code, label: "/api/summary", cls: "mono", click: "" })}
       ${item({ href: "/landing", icon: I.home, label: "Show landing page", click: "return showLanding()" })}
@@ -386,6 +389,7 @@ function crumbFor() {
   const m = p.match(/^\/c\/([^/]+)/), fm = p.match(/^\/agents\/([^/]+)/);
   if (m) { const c = D.competitions.find((x) => x.id === decodeURIComponent(m[1])); return [["Competitions", "/"], [c ? c.name : "Not found"]]; }
   if (fm) { const f = FAM[decodeURIComponent(fm[1])]; return [["Agents", "/agents"], [f ? f[0] : "Unknown"]]; }
+  if (p === "/submit") return [["Submit a competition"]];
   if (p === "/people") return [["People"]];
   if (p === "/agents") return [["Agents"]];
   return [[state.open ? "Open problems" : state.domain ? DOMAIN[state.domain] || state.domain : "Competitions"]];
@@ -400,6 +404,7 @@ function renderTopbar() {
     </div>
     <div class="tb-right">
       <label class="tb-search">${I.search}<input id="tb-q" placeholder="Search competitions…" value="${esc(state.q)}"><kbd>⌘K</kbd></label>
+      <a class="btn small tb-add" href="/submit" onclick="return nav('/submit')">${I.plus}<span>Submit</span></a>
       <a class="tb-link" href="/landing" onclick="return showLanding()">Landing</a>
     </div>`;
   const q = document.getElementById("tb-q");
@@ -634,7 +639,7 @@ function renderGrid() {
   const grid = document.getElementById("grid");
   const count = document.getElementById("grid-count");
   if (count) count.textContent = `${list.length} of ${D.competitions.length}`;
-  if (!list.length) return (grid.innerHTML = `<div style="grid-column:1/-1">${emptyArt("compass", "Nothing matches.", "The measure is too strict. Clear a filter and try again.")}</div>`);
+  if (!list.length) return (grid.innerHTML = `<div style="grid-column:1/-1">${emptyArt("compass", "Nothing matches.", "The measure is too strict. Clear a filter and try again, or <a href='/submit' onclick=\"return nav('/submit')\">submit the competition you were looking for</a>.")}</div>`);
   grid.innerHTML = list.map(card).join("");
   grid.querySelectorAll(".card").forEach((el) => (el.onclick = (e) => { if (!e.target.closest(".btn, .ask")) nav(`/c/${el.dataset.id}`); }));
 }
@@ -666,6 +671,93 @@ function card(c) {
       <div class="card-cta">${ctaButtons(c, undefined, { small: true })}</div>
     </article>`;
 }
+
+// ── Submit a competition: no backend; the form opens a prefilled GitHub issue that a maintainer approves ──
+const SITE_REPO = "SecurityQQ/benchmark-arena";
+function parseRepo(v) {
+  const t = String(v || "").trim();
+  const m = t.match(/^(?:https?:\/\/)?(?:www\.)?github\.com\/([A-Za-z0-9](?:[A-Za-z0-9-]{0,38}))\/([A-Za-z0-9._-]{1,100}?)(?:\.git)?(?:[\/#?].*)?$/i) || t.match(/^([A-Za-z0-9](?:[A-Za-z0-9-]{0,38}))\/([A-Za-z0-9._-]{1,100})$/);
+  return m ? { owner: m[1], name: m[2] } : null;
+}
+function renderSubmit() {
+  document.title = "Submit a competition — Benchmark Arena";
+  const app = document.getElementById("app");
+  app.innerHTML = `
+    <section class="band art-band">${artBg("blocks")}<div class="wrap">
+      <a class="back" href="/" onclick="return nav('/')">← Home</a>
+      <div class="hero"><span class="eyebrow">Submit</span><h1>Add a competition</h1>
+      <p class="lede">Know a benchmark with a public leaderboard that people or agents can submit to? Point us at the repository. We check it, a maintainer approves it, and the crawler picks it up.</p></div>
+    </div></section>
+    <section class="band"><div class="wrap"><div class="submit-grid">
+      <form class="panel submit-form" id="submit-form" novalidate>
+        <label class="field"><span class="eyebrow">GitHub repository <b>required</b></span>
+          <input id="sf-repo" name="repo" autocomplete="off" spellcheck="false" placeholder="https://github.com/owner/repo" required>
+          <div class="field-state" id="sf-state" aria-live="polite"></div>
+        </label>
+        <label class="field"><span class="eyebrow">Leaderboard or website</span>
+          <input id="sf-lb" name="leaderboard" type="url" autocomplete="off" spellcheck="false" placeholder="https://… (if the leaderboard lives outside the README)">
+        </label>
+        <label class="field"><span class="eyebrow">Why it belongs here</span>
+          <textarea id="sf-notes" name="notes" rows="4" maxlength="1200" placeholder="What is measured, how to submit, anything the README does not make obvious."></textarea>
+        </label>
+        <div class="submit-actions">
+          <button type="submit" class="btn primary" id="sf-go" disabled>${BRAND_GH}<span>Continue on GitHub</span> ${I.ext}</button>
+          <span class="hint" style="margin:0">Opens a prefilled issue in <a href="https://github.com/${SITE_REPO}" target="_blank" rel="noopener">${SITE_REPO}</a>. You need a GitHub account.</span>
+        </div>
+      </form>
+      <aside class="submit-side">
+        <div class="panel fill"><h2>What qualifies</h2>
+          <ul class="ticks">
+            <li>A public repository with a leaderboard: a table, a results file or a linked site.</li>
+            <li>A documented way to submit: a PR, an issue, a form.</li>
+            <li>Entries compete on the same metric, so a best result exists.</li>
+          </ul>
+          <div class="hint">Libraries, paper lists and static result tables with no submission path are skipped by the extractor.</div>
+        </div>
+        <div class="panel"><h2>What happens next</h2>
+          <ol class="steps">
+            <li><b>You open the issue.</b> The form fills it in; you press “Submit new issue”.</li>
+            <li><b>A maintainer approves.</b> Nothing is crawled before a human looks at it.</li>
+            <li><b>The crawler runs.</b> Every three days it reads the repository, extracts tracks, records and agent attribution.</li>
+            <li><b>It appears here.</b> With an API digest for agents at <code>/api/competitions/{id}.md</code>.</li>
+          </ol>
+        </div>
+      </aside>
+    </div></div></section>`;
+
+  const repoEl = document.getElementById("sf-repo"), stateEl = document.getElementById("sf-state"), go = document.getElementById("sf-go");
+  let current = null, timer = null, seq = 0;
+  const set = (cls, html, ok) => { stateEl.className = "field-state " + cls; stateEl.innerHTML = html; go.disabled = !ok; };
+  const check = () => {
+    const r = parseRepo(repoEl.value); current = null;
+    if (!repoEl.value.trim()) return set("", "", false);
+    if (!r) return set("bad", "That does not look like a GitHub repository. Use <code>https://github.com/owner/repo</code>.", false);
+    const dup = D.competitions.find((c) => c.repo && `${c.repo.owner}/${c.repo.name}`.toLowerCase() === `${r.owner}/${r.name}`.toLowerCase());
+    if (dup) return set("dup", `Already listed: <a href="/c/${esc(dup.id)}" onclick="return nav('/c/${esc(dup.id)}')">${esc(dup.name)}</a>. If the data looks wrong, open an issue instead.`, false);
+    current = r; set("wait", `Checking <code>${esc(r.owner)}/${esc(r.name)}</code>…`, true);
+    const my = ++seq;
+    fetch(`https://api.github.com/repos/${r.owner}/${r.name}`, { headers: { Accept: "application/vnd.github+json" } }).then(async (res) => {
+      if (my !== seq) return;
+      if (res.status === 404) { current = null; return set("bad", "GitHub has no public repository at that address.", false); }
+      if (!res.ok) return set("warn", "Could not verify the repository right now (GitHub rate limit). You can still continue.", true);
+      const m = await res.json();
+      current = { owner: m.owner.login, name: m.name };
+      set("ok", `<div class="repo-preview"><img src="${esc(m.owner.avatar_url)}&s=64" alt="" width="32" height="32"><div><div class="rp-name">${esc(m.full_name)} <span class="dim">★ ${fmt(m.stargazers_count)}</span></div><div class="rp-desc">${esc(m.description || "No description")}</div></div></div>${m.archived ? `<div class="rp-note">This repository is archived; it will be listed as ended.</div>` : ""}`, true);
+    }).catch(() => { if (my === seq) set("warn", "Could not reach GitHub to verify. You can still continue.", true); });
+  };
+  repoEl.oninput = () => { clearTimeout(timer); timer = setTimeout(check, 450); const r = parseRepo(repoEl.value); go.disabled = !r; };
+  document.getElementById("submit-form").onsubmit = (e) => {
+    e.preventDefault();
+    const r = current || parseRepo(repoEl.value); if (!r) { repoEl.focus(); return; }
+    const lb = document.getElementById("sf-lb").value.trim(), notes = document.getElementById("sf-notes").value.trim();
+    const body = [`### Repository`, `https://github.com/${r.owner}/${r.name}`, ``, `### Leaderboard or website`, /^https?:\/\//.test(lb) ? lb : "_none_", ``, `### Why it belongs here`, notes || "_no notes_", ``, `---`, `Submitted from ${location.origin}/submit. A maintainer adds the \`approved\` label to queue it for the crawler.`].join("\n");
+    window.open(`https://github.com/${SITE_REPO}/issues/new?title=${encodeURIComponent(`Add competition: ${r.owner}/${r.name}`)}&labels=submission&body=${encodeURIComponent(body)}`, "_blank", "noopener");
+    toast?.("Issue opened in a new tab. Press “Submit new issue” there.");
+  };
+  const pre = new URLSearchParams(location.search).get("repo") || state.prefillRepo; state.prefillRepo = null; if (pre) { repoEl.value = pre; check(); }
+  repoEl.focus();
+}
+const BRAND_GH = '<img class="btn-ico" src="/icons/github.svg" width="16" height="16" alt="">';
 
 // ── People ──
 function renderPeople() {
@@ -1007,7 +1099,7 @@ document.addEventListener("click", (e) => {
 fetch("/api/summary").then((r) => r.json()).then((d) => {
   D = d;
   // shareable filters: /?domain=formal-methods, /?compute=cpu, /?open=1, /?q=lean
-  { const qp = new URLSearchParams(location.search); for (const k of ["domain", "compute", "status", "tag", "q", "sort"]) if (qp.get(k)) state[k] = qp.get(k); if (qp.get("open")) state.open = true; }
+  { const qp = new URLSearchParams(location.search); for (const k of ["domain", "compute", "status", "tag", "q", "sort"]) if (qp.get(k)) state[k] = qp.get(k); if (qp.get("open")) state.open = true; if (qp.get("repo")) state.prefillRepo = qp.get("repo"); }
   // legacy query params → clean paths
   const q = new URLSearchParams(location.search);
   if (q.has("landing")) history.replaceState({}, "", "/landing");
