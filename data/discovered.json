@@ -1,0 +1,548 @@
+[
+  {
+    "owner": "Kodezi",
+    "name": "Chronos",
+    "url": "https://github.com/Kodezi/Chronos",
+    "description": "Kodezi Chronos is a debugging-first language model that achieves state-of-the-art results on SWE-bench Lite (80.33%) and 67% real-world fix accuracy, over six times better than GPT-4. Built with Adaptive Graph-Guided Retrieval and Persistent Debug Memory. Model available Q1 2026 via Kodezi OS.",
+    "stars": 4945,
+    "topics": [
+      "artificial-intelligence",
+      "autonomous-debugging",
+      "benchmark",
+      "benchmark-report",
+      "bug-fixing",
+      "chronos",
+      "code",
+      "code-analysis",
+      "code-analysis-tool",
+      "code-debugger",
+      "code-understanding",
+      "debugging",
+      "developer-tools",
+      "kodezi",
+      "language-model",
+      "machine-learning",
+      "program-repair",
+      "software-engineering"
+    ],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "EvoScientist",
+    "name": "EvoScientist",
+    "url": "https://github.com/EvoScientist/EvoScientist",
+    "description": "🔬 Harness Vibe Research with Self-evolving AI Scientists",
+    "stars": 4905,
+    "topics": [
+      "ai-agent",
+      "ai4science",
+      "multi-agent-system",
+      "vibe-research"
+    ],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "Cloud-CV",
+    "name": "EvalAI",
+    "url": "https://github.com/Cloud-CV/EvalAI",
+    "description": ":cloud: :rocket: :bar_chart: :chart_with_upwards_trend: Evaluating state of the art in AI",
+    "stars": 2041,
+    "topics": [
+      "ai",
+      "ai-challenges",
+      "angularjs",
+      "artificial-intelligence",
+      "challenge",
+      "codecov",
+      "coveralls",
+      "django",
+      "docker",
+      "evalai",
+      "evaluation",
+      "evaluation-framework",
+      "github-actions",
+      "leaderboard",
+      "machine-learning",
+      "python",
+      "reproducibility",
+      "reproducible-research"
+    ],
+    "defaultBranch": "master"
+  },
+  {
+    "owner": "tatsu-lab",
+    "name": "alpaca_eval",
+    "url": "https://github.com/tatsu-lab/alpaca_eval",
+    "description": "An automatic evaluator for instruction-following language models. Human-validated, high-quality, cheap, and fast.",
+    "stars": 2015,
+    "topics": [
+      "deep-learning",
+      "evaluation",
+      "foundation-models",
+      "instruction-following",
+      "large-language-models",
+      "leaderboard",
+      "nlp",
+      "rlhf"
+    ],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "THUDM",
+    "name": "CogDL",
+    "url": "https://github.com/THUDM/CogDL",
+    "description": "CogDL: A Comprehensive Library for Graph Deep Learning (WWW 2023)",
+    "stars": 1821,
+    "topics": [
+      "gnn-model",
+      "graph-classification",
+      "graph-embedding",
+      "graph-neural-networks",
+      "leaderboard",
+      "link-prediction",
+      "node-classification",
+      "pytorch"
+    ],
+    "defaultBranch": "master"
+  },
+  {
+    "owner": "suyoumo",
+    "name": "ClawProBench",
+    "url": "https://github.com/suyoumo/ClawProBench",
+    "description": "ClawProBench is a live-first benchmark harness for evaluating LLM agents   in the OpenClaw runtime with deterministic grading and repeated-trial   reliability.",
+    "stars": 823,
+    "topics": [
+      "agent",
+      "benchmark",
+      "evaluation",
+      "harness",
+      "leaderboard",
+      "llm",
+      "openclaw"
+    ],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "cjmellor",
+    "name": "level-up",
+    "url": "https://github.com/cjmellor/level-up",
+    "description": "Level-Up is a Laravel package introducing gamification into your applications. Users earn experience points (XP) and levels through interactions, while also unlocking achievements. It promotes engagement, competition, and fun through its dynamic leaderboard feature. Customisable to fit your specific needs",
+    "stars": 673,
+    "topics": [
+      "achievements",
+      "engagment",
+      "experience",
+      "gamification",
+      "laravel",
+      "leaderboard",
+      "levelling"
+    ],
+    "defaultBranch": "3.x"
+  },
+  {
+    "owner": "rajpurkar",
+    "name": "SQuAD-explorer",
+    "url": "https://github.com/rajpurkar/SQuAD-explorer",
+    "description": "Visually Explore the Stanford Question Answering Dataset",
+    "stars": 569,
+    "topics": [
+      "dataset",
+      "leaderboard",
+      "visual-analysis"
+    ],
+    "defaultBranch": "master"
+  },
+  {
+    "owner": "waico",
+    "name": "SKAB",
+    "url": "https://github.com/waico/SKAB",
+    "description": "SKAB - Skoltech Anomaly Benchmark. Time-series data for evaluating Anomaly Detection algorithms.",
+    "stars": 408,
+    "topics": [
+      "algorithms-evaluation",
+      "anomaly-detection",
+      "benchmark",
+      "changepoint-detection",
+      "collective-anomalies",
+      "dataset",
+      "datasets",
+      "leaderboard",
+      "outlier-detection",
+      "skab",
+      "skoltech"
+    ],
+    "defaultBranch": "master"
+  },
+  {
+    "owner": "xcpcio",
+    "name": "xcpcio",
+    "url": "https://github.com/xcpcio/xcpcio",
+    "description": "The ICPC Series Competition Leaderboard Visualization Engine",
+    "stars": 312,
+    "topics": [
+      "board",
+      "icpc",
+      "leaderboard",
+      "rank",
+      "resolver",
+      "standings",
+      "visualization"
+    ],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "gpu-mode",
+    "name": "reference-kernels",
+    "url": "https://github.com/gpu-mode/reference-kernels",
+    "description": "Official Problem Sets / Reference Kernels for the GPU MODE Leaderboard!",
+    "stars": 308,
+    "topics": [
+      "cuda",
+      "gpu",
+      "leaderboard",
+      "triton"
+    ],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "LudwigStumpp",
+    "name": "llm-leaderboard",
+    "url": "https://github.com/LudwigStumpp/llm-leaderboard",
+    "description": "A joint community effort to create one central leaderboard for LLMs.",
+    "stars": 306,
+    "topics": [
+      "leaderboard",
+      "llm",
+      "machine-learning",
+      "nlp"
+    ],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "medmcqa",
+    "name": "medmcqa",
+    "url": "https://github.com/medmcqa/medmcqa",
+    "description": "A large-scale (194k), Multiple-Choice Question Answering (MCQA) dataset designed to address realworld medical entrance exam questions.",
+    "stars": 299,
+    "topics": [
+      "bionlp",
+      "dataset",
+      "leaderboard",
+      "medical-dataset",
+      "medical-datasets",
+      "medical-informatics",
+      "medical-qa",
+      "medical-qa-datasets",
+      "medical-question-answering",
+      "multiple-choice-question-answering",
+      "nlp",
+      "qa",
+      "question-answering"
+    ],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "AI4LIFE-GROUP",
+    "name": "OpenXAI",
+    "url": "https://github.com/AI4LIFE-GROUP/OpenXAI",
+    "description": "OpenXAI : Towards a Transparent Evaluation of Model Explanations",
+    "stars": 259,
+    "topics": [
+      "benchmark",
+      "explainability",
+      "explainable-ai",
+      "interpretability",
+      "leaderboard",
+      "reproducibility"
+    ],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "lechmazur",
+    "name": "confabulations",
+    "url": "https://github.com/lechmazur/confabulations",
+    "description": "Hallucinations (Confabulations) Document-Based Benchmark for RAG. Includes human-verified questions and answers.",
+    "stars": 250,
+    "topics": [
+      "ai-evaluation",
+      "benchmark",
+      "claude",
+      "confabulations",
+      "deepseek-r1",
+      "gemini",
+      "gemini-pro",
+      "hallucinations",
+      "language-model",
+      "leaderboard",
+      "llama",
+      "llm",
+      "llm-benchmarking",
+      "o1",
+      "o3-mini",
+      "rag"
+    ],
+    "defaultBranch": "master"
+  },
+  {
+    "owner": "leanprover",
+    "name": "lean-eval-leaderboard",
+    "url": "https://github.com/leanprover/lean-eval-leaderboard",
+    "description": "Results for the lean-eval benchmark (https://github.com/leanprover/lean-eval)",
+    "stars": 25,
+    "topics": [],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "SAIRcompetition",
+    "name": "equational-theories-lean-stage2",
+    "url": "https://github.com/SAIRcompetition/equational-theories-lean-stage2",
+    "description": "This repository hosts the SAIR Mathematics Distillation Challenge: Equational Theories Stage 2, providing Lean 4 problem sets, judging tools, and submission harnesses for generating machine-checkable proof certificates.",
+    "stars": 25,
+    "topics": [],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "cybertronai",
+    "name": "sutro-problems",
+    "url": "https://github.com/cybertronai/sutro-problems",
+    "description": "Small reproducible problems for Sutro Group's energy-efficient learning research",
+    "stars": 9,
+    "topics": [],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "jozzdart",
+    "name": "track",
+    "url": "https://github.com/jozzdart/track",
+    "description": "Easily track streaks, counters, history, and records. Effortless persistent trackers with no manual timers or storage, just define and go.",
+    "stars": 9,
+    "topics": [
+      "achivements",
+      "dart",
+      "easy",
+      "flutter",
+      "flutter-games",
+      "game-flutter",
+      "streaks"
+    ],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "leanprover",
+    "name": "lean-eval-submissions",
+    "url": "https://github.com/leanprover/lean-eval-submissions",
+    "description": "Submission pipeline and results store for the lean-eval benchmark (https://github.com/leanprover/lean-eval)",
+    "stars": 6,
+    "topics": [],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "agent-axiom",
+    "name": "agent-anvil-leaderboard",
+    "url": "https://github.com/agent-axiom/agent-anvil-leaderboard",
+    "description": "Public Agent Anvil leaderboard submissions and generated index",
+    "stars": 5,
+    "topics": [
+      "agent-evals",
+      "ai-agents",
+      "leaderboard",
+      "openai"
+    ],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "VeritasActa",
+    "name": "verify",
+    "url": "https://github.com/VeritasActa/verify",
+    "description": "Offline verification of signed receipts and artifacts. Ed25519 + JCS canonicalization. No server, no account, no trust required. Apache-2.0.",
+    "stars": 5,
+    "topics": [
+      "agent-swarms",
+      "agents",
+      "anonymous-credentials",
+      "cryptography",
+      "privacy",
+      "rate-limiting",
+      "rfc9497",
+      "verification",
+      "voprf",
+      "zero-knowledge",
+      "zero-trust"
+    ],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "actava-ai",
+    "name": "leaderboard",
+    "url": "https://github.com/actava-ai/leaderboard",
+    "description": "Open execution logs, trajectories, and results from evaluation runs on the Χ-Bench task.",
+    "stars": 4,
+    "topics": [
+      "ai-agents",
+      "healthcare",
+      "leaderboard"
+    ],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "The-AI-Alliance",
+    "name": "GEO-Bench-2-Leaderboard",
+    "url": "https://github.com/The-AI-Alliance/GEO-Bench-2-Leaderboard",
+    "description": "leaderboard for the GEO-bench V2 datasets",
+    "stars": 4,
+    "topics": [],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "programbench",
+    "name": "submissions",
+    "url": "https://github.com/ProgramBench/submissions",
+    "description": "Submissions to ProgramBench (programbench.com)",
+    "stars": 4,
+    "topics": [],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "tony-montemuro",
+    "name": "smb-website",
+    "url": "https://github.com/tony-montemuro/smb-website",
+    "description": "A leaderboard website for games in SEGA's Super Monkey Ball series.",
+    "stars": 4,
+    "topics": [],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "kings-crown",
+    "name": "s2n-bignum-bench",
+    "url": "https://github.com/kings-crown/s2n-bignum-bench",
+    "description": "The is the official implementation of \"s2n-bignum-bench: A practical benchmark for evaluating low-level code reasoning of LLMs\"",
+    "stars": 2,
+    "topics": [],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "IdentityNulll",
+    "name": "Ascension",
+    "url": "https://github.com/IdentityNulll/Ascension",
+    "description": "Ascension - An RPG system where anyone can change their life to something that builds discipline.",
+    "stars": 2,
+    "topics": [
+      "discipline",
+      "react",
+      "redux-toolkit",
+      "rpg-system",
+      "tailwindcss",
+      "vite"
+    ],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "ArcElewyn",
+    "name": "Discord",
+    "url": "https://github.com/ArcElewyn/Discord",
+    "description": "Repos for my discord bots test",
+    "stars": 2,
+    "topics": [],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "hschindele",
+    "name": "gmaapp",
+    "url": "https://github.com/hschindele/gmaapp",
+    "stars": 1,
+    "topics": [],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "macrocosm-os",
+    "name": "apex-competition-humanoid-parkour",
+    "url": "https://github.com/macrocosm-os/apex-competition-humanoid-parkour",
+    "description": "Humanoid Parkour — Apex competition (Bittensor Subnet 1). ONNX locomotion policies over procedural MuJoCo courses.",
+    "stars": 1,
+    "topics": [
+      "apex",
+      "apex-competition",
+      "bittensor",
+      "reinforcement",
+      "rl",
+      "robotics",
+      "subnet-1"
+    ],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "Allowexe",
+    "name": "MQTT-Voting",
+    "url": "https://github.com/Allowexe/MQTT-Voting",
+    "description": "MQTT Project to learn the protocol. Tries to mimic Wii's vote channel",
+    "stars": 1,
+    "topics": [
+      "isen-toulon",
+      "mqtt",
+      "student-project"
+    ],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "KTibow",
+    "name": "deepswe-across-providers",
+    "url": "https://github.com/KTibow/deepswe-across-providers",
+    "description": "Measure and debug LLM inference providers on DeepSWE in GitHub Actions: runs matched to a published config's agent settings, resumable from any step of a published trajectory",
+    "stars": 1,
+    "topics": [
+      "vibe-coded"
+    ],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "zhaoyiyidan",
+    "name": "modded-nanogpt-npu",
+    "url": "https://github.com/zhaoyiyidan/modded-nanogpt-npu",
+    "stars": 1,
+    "topics": [],
+    "defaultBranch": "master"
+  },
+  {
+    "owner": "Mabdel-03",
+    "name": "Engaging-NanoGPT",
+    "url": "https://github.com/Mabdel-03/Engaging-NanoGPT",
+    "description": "Hacker's guide to training Modded NanoGPT on MIT's Engaging cluster!",
+    "stars": 1,
+    "topics": [],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "jacopersonal1-sys",
+    "name": "1st-line-training-portal",
+    "url": "https://github.com/jacopersonal1-sys/1st-line-training-portal",
+    "stars": 1,
+    "topics": [],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "RDI-Foundation",
+    "name": "swe-bench-leaderboard",
+    "url": "https://github.com/RDI-Foundation/swe-bench-leaderboard",
+    "stars": 0,
+    "topics": [],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "RDI-Foundation",
+    "name": "terminal-bench-leaderboard",
+    "url": "https://github.com/RDI-Foundation/terminal-bench-leaderboard",
+    "description": "Leaderboard for Terminal Bench 2.0",
+    "stars": 0,
+    "topics": [],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "coopertweak",
+    "name": "modded-nanogpt-lab",
+    "url": "https://github.com/coopertweak/modded-nanogpt-lab",
+    "description": "Lab notes: GPT-2 FineWeb speedrun experiments on KellerJordan/modded-nanogpt (negative results included)",
+    "stars": 0,
+    "topics": [],
+    "defaultBranch": "main"
+  }
+]

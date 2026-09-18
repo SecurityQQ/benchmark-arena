@@ -1,0 +1,24 @@
+{
+  "name": "github-competitions",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Aggregator/parser for GitHub-hosted benchmark competitions",
+  "scripts": {
+    "crawl": "tsx src/main.ts full",
+    "process": "tsx src/main.ts process",
+    "repost": "tsx src/main.ts repost",
+    "site": "tsx src/serve.ts",
+    "build:site": "tsx src/build.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@octokit/rest": "^22.0.0",
+    "@octokit/plugin-throttling": "^10.0.0",
+    "marked": "^14.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}
