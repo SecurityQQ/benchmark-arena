@@ -182,7 +182,22 @@ function route() {
   else if (p === "/landing" || !app) renderHome();
   else renderAppHome();
   if (app) { renderSidebar(); renderTopbar(); }
+  syncMeta();
   window.scrollTo(0, 0);
+}
+
+// keep description, canonical and social tags in step with the client-side route
+const META_ORIGIN = "https://problem.md", META_DEFAULT = document.querySelector('meta[name="description"]')?.content || "";
+function syncMeta() {
+  const p = location.pathname, m = p.match(/^\/c\/([^/]+)/), c = m && D?.competitions.find((x) => x.id === decodeURIComponent(m[1]));
+  const desc = c ? `${c.tagline || c.description || c.name}. ${c.problems.length} track${c.problems.length === 1 ? "" : "s"}, ${c.stats.totalRecords} records. How to enter, leaderboards and which AI agents hold the records.`.slice(0, 300)
+    : p === "/standard" ? "PROBLEM.md and SUBMISSION.md: two Markdown files that describe a competition and its entries. Repositories that ship them are crawled first, and the leaderboard is built from the files."
+    : p === "/submit" ? "Add an open benchmark competition to the directory: point us at the GitHub repository." : META_DEFAULT;
+  const url = META_ORIGIN + (p === "/landing" ? "/" : p);
+  const set = (sel, attr, v) => document.querySelector(sel)?.setAttribute(attr, v);
+  set('meta[name="description"]', "content", desc); set('meta[property="og:description"]', "content", desc); set('meta[name="twitter:description"]', "content", desc);
+  set('link[rel="canonical"]', "href", url); set('meta[property="og:url"]', "content", url);
+  set('meta[property="og:title"]', "content", document.title); set('meta[name="twitter:title"]', "content", document.title);
 }
 
 // ── App mode: landing for first-time visitors, sidebar app for everyone who has been here ──
