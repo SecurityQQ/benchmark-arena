@@ -4,7 +4,7 @@
     "name": "Chronos",
     "url": "https://github.com/Kodezi/Chronos",
     "description": "Kodezi Chronos is a debugging-first language model that achieves state-of-the-art results on SWE-bench Lite (80.33%) and 67% real-world fix accuracy, over six times better than GPT-4. Built with Adaptive Graph-Guided Retrieval and Persistent Debug Memory. Model available Q1 2026 via Kodezi OS.",
-    "stars": 4945,
+    "stars": 4946,
     "topics": [
       "artificial-intelligence",
       "autonomous-debugging",
@@ -32,7 +32,7 @@
     "name": "EvoScientist",
     "url": "https://github.com/EvoScientist/EvoScientist",
     "description": "🔬 Harness Vibe Research with Self-evolving AI Scientists",
-    "stars": 4912,
+    "stars": 4921,
     "topics": [
       "ai-agent",
       "ai4science",
@@ -46,7 +46,7 @@
     "name": "scraping-apis-for-devs",
     "url": "https://github.com/cporter202/scraping-apis-for-devs",
     "description": "This GitHub repo is a powerhouse collection of scraping APIs for developers that you can start using immediately to build everything from simple automations to full-scale applications. ",
-    "stars": 3894,
+    "stars": 3899,
     "topics": [
       "api-library",
       "api-list",
@@ -60,7 +60,7 @@
     "name": "starVLA",
     "url": "https://github.com/starVLA/starVLA",
     "description": "StarVLA: A Lego-like Codebase for Vision-Language-Action Model Developing",
-    "stars": 3685,
+    "stars": 3692,
     "topics": [
       "robotic-foundation-model",
       "robotics",
@@ -88,7 +88,7 @@
     "name": "AssetOpsBench",
     "url": "https://github.com/IBM/AssetOpsBench",
     "description": "AssetOpsBench - Industry 4.0: A unified benchmark and framework for building, orchestrating, and evaluating domain-specific AI agents for Industry 4.0 asset operations and maintenance, with 460+ scenarios, 5 specialist agents (IoT, FMSR, TSFM, Work Order,...), and multi-agent orchestration blueprints (MetaAgent, AgentHive) over MCP.",
-    "stars": 2302,
+    "stars": 2305,
     "topics": [
       "ai-for-physical-assets",
       "condition-based-maintenance",
@@ -152,7 +152,7 @@
     "name": "LiveSplit",
     "url": "https://github.com/LiveSplit/LiveSplit",
     "description": "A sleek, highly customizable timer for speedrunners.",
-    "stars": 1850,
+    "stars": 1851,
     "topics": [],
     "defaultBranch": "master"
   },
@@ -179,7 +179,7 @@
     "name": "VBench",
     "url": "https://github.com/Vchitect/VBench",
     "description": "[CVPR2024 Highlight] VBench - We Evaluate Video Generation",
-    "stars": 1781,
+    "stars": 1782,
     "topics": [
       "aigc",
       "benchmark",
@@ -206,7 +206,7 @@
     "name": "mle-bench",
     "url": "https://github.com/openai/mle-bench",
     "description": "MLE-bench is a benchmark for measuring how well AI agents perform at machine learning engineering",
-    "stars": 1748,
+    "stars": 1747,
     "topics": [],
     "defaultBranch": "main"
   },
@@ -275,7 +275,7 @@
     "name": "dev-resources",
     "url": "https://github.com/marcelscruz/dev-resources",
     "description": "A collaborative list of resources for developers",
-    "stars": 1336,
+    "stars": 1337,
     "topics": [
       "assets",
       "awesome",
@@ -300,7 +300,7 @@
     "name": "best-of-Agent-Harnesses",
     "url": "https://github.com/RyanAlberts/best-of-Agent-Harnesses",
     "description": "🏆 Curated, ranked list of AI agent harnesses (100+) — plus an MCP server, llms.txt & JSON so agents can recommend them too. Rescored weekly.",
-    "stars": 897,
+    "stars": 902,
     "topics": [
       "agent-framework",
       "agent-harness",
@@ -424,7 +424,7 @@
     "name": "SKAB",
     "url": "https://github.com/waico/SKAB",
     "description": "SKAB - Skoltech Anomaly Benchmark. Time-series data for evaluating Anomaly Detection algorithms.",
-    "stars": 408,
+    "stars": 405,
     "topics": [
       "algorithms-evaluation",
       "anomaly-detection",
@@ -509,7 +509,7 @@
     "name": "Argus",
     "url": "https://github.com/lbx154/Argus",
     "description": "A self-evolving multi-agent system for autonomous research, operating 24/7 to explore, learn, and improve.",
-    "stars": 301,
+    "stars": 303,
     "topics": [],
     "defaultBranch": "main"
   },
@@ -554,7 +554,7 @@
     "name": "PutnamBench",
     "url": "https://github.com/trishullab/PutnamBench",
     "description": "An evaluation benchmark for undergraduate competition math in Lean4, Isabelle, Coq, and natural language. ",
-    "stars": 262,
+    "stars": 263,
     "topics": [],
     "defaultBranch": "main"
   },
@@ -639,7 +639,7 @@
     "name": "first-steps-toward-automated-ai-research",
     "url": "https://github.com/recursive-org/first-steps-toward-automated-ai-research",
     "description": "Research artifacts from Recursive's automated AI research system",
-    "stars": 242,
+    "stars": 243,
     "topics": [],
     "defaultBranch": "main"
   },
@@ -648,7 +648,7 @@
     "name": "Hyra-results",
     "url": "https://github.com/Tencent-Hunyuan/Hyra-results",
     "description": "Research artifacts from Hyra (/ˈhaɪ.rɑː/)",
-    "stars": 155,
+    "stars": 156,
     "topics": [
       "agent",
       "ai-for-science",
