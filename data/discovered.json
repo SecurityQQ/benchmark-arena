@@ -1,24 +1,10 @@
 [
   {
-    "owner": "EvoScientist",
-    "name": "EvoScientist",
-    "url": "https://github.com/EvoScientist/EvoScientist",
-    "description": "🔬 Harness Vibe Research with Self-evolving AI Scientists",
-    "stars": 4966,
-    "topics": [
-      "ai-agent",
-      "ai4science",
-      "multi-agent-system",
-      "vibe-research"
-    ],
-    "defaultBranch": "main"
-  },
-  {
     "owner": "cporter202",
     "name": "scraping-apis-for-devs",
     "url": "https://github.com/cporter202/scraping-apis-for-devs",
     "description": "This GitHub repo is a powerhouse collection of scraping APIs for developers that you can start using immediately to build everything from simple automations to full-scale applications. ",
-    "stars": 3906,
+    "stars": 3913,
     "topics": [
       "api-library",
       "api-list",
@@ -32,7 +18,7 @@
     "name": "starVLA",
     "url": "https://github.com/starVLA/starVLA",
     "description": "StarVLA: A Lego-like Codebase for Vision-Language-Action Model Developing",
-    "stars": 3712,
+    "stars": 3726,
     "topics": [
       "robotic-foundation-model",
       "robotics",
@@ -46,7 +32,7 @@
     "name": "LLM-Agents-Papers",
     "url": "https://github.com/AGI-Edgerunners/LLM-Agents-Papers",
     "description": "A repo lists papers related to LLM based agent",
-    "stars": 2344,
+    "stars": 2346,
     "topics": [
       "agents",
       "large-language-models",
@@ -60,7 +46,7 @@
     "name": "AssetOpsBench",
     "url": "https://github.com/IBM/AssetOpsBench",
     "description": "AssetOpsBench - Industry 4.0: A unified benchmark and framework for building, orchestrating, and evaluating domain-specific AI agents for Industry 4.0 asset operations and maintenance, with 460+ scenarios, 5 specialist agents (IoT, FMSR, TSFM, Work Order,...), and multi-agent orchestration blueprints (MetaAgent, AgentHive) over MCP.",
-    "stars": 2308,
+    "stars": 2310,
     "topics": [
       "ai-for-physical-assets",
       "condition-based-maintenance",
@@ -78,7 +64,7 @@
     "name": "EvalAI",
     "url": "https://github.com/Cloud-CV/EvalAI",
     "description": ":cloud: :rocket: :bar_chart: :chart_with_upwards_trend: Evaluating state of the art in AI",
-    "stars": 2041,
+    "stars": 2044,
     "topics": [
       "ai",
       "ai-challenges",
@@ -106,7 +92,7 @@
     "name": "alpaca_eval",
     "url": "https://github.com/tatsu-lab/alpaca_eval",
     "description": "An automatic evaluator for instruction-following language models. Human-validated, high-quality, cheap, and fast.",
-    "stars": 2015,
+    "stars": 2018,
     "topics": [
       "deep-learning",
       "evaluation",
@@ -124,7 +110,7 @@
     "name": "LiveSplit",
     "url": "https://github.com/LiveSplit/LiveSplit",
     "description": "A sleek, highly customizable timer for speedrunners.",
-    "stars": 1850,
+    "stars": 1851,
     "topics": [],
     "defaultBranch": "master"
   },
@@ -151,7 +137,7 @@
     "name": "VBench",
     "url": "https://github.com/Vchitect/VBench",
     "description": "[CVPR2024 Highlight] VBench - We Evaluate Video Generation",
-    "stars": 1788,
+    "stars": 1794,
     "topics": [
       "aigc",
       "benchmark",
@@ -178,7 +164,7 @@
     "name": "mle-bench",
     "url": "https://github.com/openai/mle-bench",
     "description": "MLE-bench is a benchmark for measuring how well AI agents perform at machine learning engineering",
-    "stars": 1750,
+    "stars": 1753,
     "topics": [],
     "defaultBranch": "main"
   },
@@ -203,7 +189,7 @@
     "name": "llm-colosseum",
     "url": "https://github.com/OpenGenerativeAI/llm-colosseum",
     "description": "Benchmark LLMs by fighting in Street Fighter 3! The new way to evaluate the quality of an LLM",
-    "stars": 1483,
+    "stars": 1482,
     "topics": [
       "benchmark",
       "genai",
@@ -217,7 +203,7 @@
     "name": "Autonomous-Agents",
     "url": "https://github.com/tmgthb/Autonomous-Agents",
     "description": "Autonomous Agents (LLMs) research papers. Updated Daily.",
-    "stars": 1381,
+    "stars": 1379,
     "topics": [
       "agent",
       "agent-context",
@@ -247,7 +233,7 @@
     "name": "dev-resources",
     "url": "https://github.com/marcelscruz/dev-resources",
     "description": "A collaborative list of resources for developers",
-    "stars": 1338,
+    "stars": 1341,
     "topics": [
       "assets",
       "awesome",
@@ -271,8 +257,8 @@
     "owner": "RyanAlberts",
     "name": "best-of-Agent-Harnesses",
     "url": "https://github.com/RyanAlberts/best-of-Agent-Harnesses",
-    "description": "🏆 Curated, ranked list of AI agent harnesses (100+) — plus an MCP server, llms.txt & JSON so agents can recommend them too. Rescored weekly.",
-    "stars": 932,
+    "description": "🏆 Ranked list of 167 AI agent harnesses, plus copy-paste templates (AGENTS.md, safe Claude Code settings, a minimal harness) and step-by-step playbooks. MCP server, llms.txt & JSON. Rescored weekly.",
+    "stars": 965,
     "topics": [
       "agent-framework",
       "agent-harness",
@@ -302,7 +288,7 @@
     "name": "ClawProBench",
     "url": "https://github.com/suyoumo/ClawProBench",
     "description": "ClawProBench is a live-first benchmark harness for evaluating LLM agents   in the OpenClaw runtime with deterministic grading and repeated-trial   reliability.",
-    "stars": 823,
+    "stars": 824,
     "topics": [
       "agent",
       "benchmark",
@@ -354,7 +340,7 @@
     "name": "ICLR2025-Papers-with-Code",
     "url": "https://github.com/yinizhilian/ICLR2025-Papers-with-Code",
     "description": "历年ICLR论文和开源项目合集，包含ICLR2021、ICLR2022、ICLR2023、ICLR2024、ICLR2025.",
-    "stars": 589,
+    "stars": 590,
     "topics": [
       "deep-learning-paper",
       "gemmini",
@@ -396,7 +382,7 @@
     "name": "SKAB",
     "url": "https://github.com/waico/SKAB",
     "description": "SKAB - Skoltech Anomaly Benchmark. Time-series data for evaluating Anomaly Detection algorithms.",
-    "stars": 406,
+    "stars": 407,
     "topics": [
       "algorithms-evaluation",
       "anomaly-detection",
@@ -417,7 +403,7 @@
     "name": "llms-tools",
     "url": "https://github.com/PetroIvaniuk/llms-tools",
     "description": "A list of LLMs Tools & Projects",
-    "stars": 327,
+    "stars": 328,
     "topics": [
       "ai",
       "chat-bot",
@@ -449,6 +435,15 @@
     "defaultBranch": "main"
   },
   {
+    "owner": "lbx154",
+    "name": "Argus",
+    "url": "https://github.com/lbx154/Argus",
+    "description": "A self-evolving multi-agent system for autonomous research, operating 24/7 to explore, learn, and improve.",
+    "stars": 310,
+    "topics": [],
+    "defaultBranch": "main"
+  },
+  {
     "owner": "gpu-mode",
     "name": "reference-kernels",
     "url": "https://github.com/gpu-mode/reference-kernels",
@@ -474,15 +469,6 @@
       "machine-learning",
       "nlp"
     ],
-    "defaultBranch": "main"
-  },
-  {
-    "owner": "lbx154",
-    "name": "Argus",
-    "url": "https://github.com/lbx154/Argus",
-    "description": "A self-evolving multi-agent system for autonomous research, operating 24/7 to explore, learn, and improve.",
-    "stars": 304,
-    "topics": [],
     "defaultBranch": "main"
   },
   {
@@ -560,7 +546,7 @@
     "name": "billiards",
     "url": "https://github.com/tailuge/billiards",
     "description": "billiards physics in the browser",
-    "stars": 252,
+    "stars": 253,
     "topics": [
       "3-cushion",
       "3d",
@@ -611,7 +597,7 @@
     "name": "first-steps-toward-automated-ai-research",
     "url": "https://github.com/recursive-org/first-steps-toward-automated-ai-research",
     "description": "Research artifacts from Recursive's automated AI research system",
-    "stars": 244,
+    "stars": 245,
     "topics": [],
     "defaultBranch": "main"
   },
@@ -620,7 +606,7 @@
     "name": "Hyra-results",
     "url": "https://github.com/Tencent-Hunyuan/Hyra-results",
     "description": "Research artifacts from Hyra (/ˈhaɪ.rɑː/)",
-    "stars": 156,
+    "stars": 157,
     "topics": [
       "agent",
       "ai-for-science",
@@ -655,7 +641,7 @@
     "name": "ArgusAgent",
     "url": "https://github.com/microsoft/ArgusAgent",
     "description": "A persistent, reviewed multi-agent runtime for long-horizon research and engineering.",
-    "stars": 133,
+    "stars": 135,
     "topics": [
       "agentic-ai",
       "ai-agents",
@@ -719,7 +705,7 @@
     "name": "lean-eval-leaderboard",
     "url": "https://github.com/leanprover/lean-eval-leaderboard",
     "description": "Results for the lean-eval benchmark (https://github.com/leanprover/lean-eval)",
-    "stars": 25,
+    "stars": 26,
     "topics": [],
     "defaultBranch": "main"
   },
@@ -728,7 +714,7 @@
     "name": "equational-theories-lean-stage2",
     "url": "https://github.com/SAIRcompetition/equational-theories-lean-stage2",
     "description": "This repository hosts the SAIR Mathematics Distillation Challenge: Equational Theories Stage 2, providing Lean 4 problem sets, judging tools, and submission harnesses for generating machine-checkable proof certificates.",
-    "stars": 25,
+    "stars": 26,
     "topics": [],
     "defaultBranch": "main"
   },
@@ -737,7 +723,7 @@
     "name": "sutro-problems",
     "url": "https://github.com/cybertronai/sutro-problems",
     "description": "Small reproducible problems for Sutro Group's energy-efficient learning research",
-    "stars": 9,
+    "stars": 10,
     "topics": [],
     "defaultBranch": "main"
   },
