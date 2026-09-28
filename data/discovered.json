@@ -4,7 +4,7 @@
     "name": "scraping-apis-for-devs",
     "url": "https://github.com/cporter202/scraping-apis-for-devs",
     "description": "This GitHub repo is a powerhouse collection of scraping APIs for developers that you can start using immediately to build everything from simple automations to full-scale applications. ",
-    "stars": 3913,
+    "stars": 3919,
     "topics": [
       "api-library",
       "api-list",
@@ -18,7 +18,7 @@
     "name": "starVLA",
     "url": "https://github.com/starVLA/starVLA",
     "description": "StarVLA: A Lego-like Codebase for Vision-Language-Action Model Developing",
-    "stars": 3726,
+    "stars": 3737,
     "topics": [
       "robotic-foundation-model",
       "robotics",
@@ -46,7 +46,7 @@
     "name": "AssetOpsBench",
     "url": "https://github.com/IBM/AssetOpsBench",
     "description": "AssetOpsBench - Industry 4.0: A unified benchmark and framework for building, orchestrating, and evaluating domain-specific AI agents for Industry 4.0 asset operations and maintenance, with 460+ scenarios, 5 specialist agents (IoT, FMSR, TSFM, Work Order,...), and multi-agent orchestration blueprints (MetaAgent, AgentHive) over MCP.",
-    "stars": 2310,
+    "stars": 2313,
     "topics": [
       "ai-for-physical-assets",
       "condition-based-maintenance",
@@ -110,7 +110,7 @@
     "name": "LiveSplit",
     "url": "https://github.com/LiveSplit/LiveSplit",
     "description": "A sleek, highly customizable timer for speedrunners.",
-    "stars": 1851,
+    "stars": 1852,
     "topics": [],
     "defaultBranch": "master"
   },
@@ -119,7 +119,7 @@
     "name": "CogDL",
     "url": "https://github.com/THUDM/CogDL",
     "description": "CogDL: A Comprehensive Library for Graph Deep Learning (WWW 2023)",
-    "stars": 1821,
+    "stars": 1820,
     "topics": [
       "gnn-model",
       "graph-classification",
@@ -137,7 +137,7 @@
     "name": "VBench",
     "url": "https://github.com/Vchitect/VBench",
     "description": "[CVPR2024 Highlight] VBench - We Evaluate Video Generation",
-    "stars": 1794,
+    "stars": 1797,
     "topics": [
       "aigc",
       "benchmark",
@@ -164,7 +164,7 @@
     "name": "mle-bench",
     "url": "https://github.com/openai/mle-bench",
     "description": "MLE-bench is a benchmark for measuring how well AI agents perform at machine learning engineering",
-    "stars": 1753,
+    "stars": 1756,
     "topics": [],
     "defaultBranch": "main"
   },
@@ -173,7 +173,7 @@
     "name": "LLM-eval-survey",
     "url": "https://github.com/MLGroupJLU/LLM-eval-survey",
     "description": "The official GitHub page for the survey paper \"A Survey on Evaluation of Large Language Models\".",
-    "stars": 1611,
+    "stars": 1610,
     "topics": [
       "benchmark",
       "evaluation",
@@ -189,7 +189,7 @@
     "name": "llm-colosseum",
     "url": "https://github.com/OpenGenerativeAI/llm-colosseum",
     "description": "Benchmark LLMs by fighting in Street Fighter 3! The new way to evaluate the quality of an LLM",
-    "stars": 1482,
+    "stars": 1484,
     "topics": [
       "benchmark",
       "genai",
@@ -233,7 +233,7 @@
     "name": "dev-resources",
     "url": "https://github.com/marcelscruz/dev-resources",
     "description": "A collaborative list of resources for developers",
-    "stars": 1341,
+    "stars": 1345,
     "topics": [
       "assets",
       "awesome",
@@ -258,7 +258,7 @@
     "name": "best-of-Agent-Harnesses",
     "url": "https://github.com/RyanAlberts/best-of-Agent-Harnesses",
     "description": "🏆 Ranked list of 167 AI agent harnesses, plus copy-paste templates (AGENTS.md, safe Claude Code settings, a minimal harness) and step-by-step playbooks. MCP server, llms.txt & JSON. Rescored weekly.",
-    "stars": 965,
+    "stars": 990,
     "topics": [
       "agent-framework",
       "agent-harness",
@@ -340,7 +340,7 @@
     "name": "ICLR2025-Papers-with-Code",
     "url": "https://github.com/yinizhilian/ICLR2025-Papers-with-Code",
     "description": "历年ICLR论文和开源项目合集，包含ICLR2021、ICLR2022、ICLR2023、ICLR2024、ICLR2025.",
-    "stars": 590,
+    "stars": 589,
     "topics": [
       "deep-learning-paper",
       "gemmini",
@@ -439,7 +439,7 @@
     "name": "Argus",
     "url": "https://github.com/lbx154/Argus",
     "description": "A self-evolving multi-agent system for autonomous research, operating 24/7 to explore, learn, and improve.",
-    "stars": 310,
+    "stars": 309,
     "topics": [],
     "defaultBranch": "main"
   },
@@ -448,7 +448,7 @@
     "name": "reference-kernels",
     "url": "https://github.com/gpu-mode/reference-kernels",
     "description": "Official Problem Sets / Reference Kernels for the GPU MODE Leaderboard!",
-    "stars": 310,
+    "stars": 309,
     "topics": [
       "cuda",
       "gpu",
@@ -476,7 +476,7 @@
     "name": "medmcqa",
     "url": "https://github.com/medmcqa/medmcqa",
     "description": "A large-scale (194k), Multiple-Choice Question Answering (MCQA) dataset designed to address realworld medical entrance exam questions.",
-    "stars": 301,
+    "stars": 302,
     "topics": [
       "bionlp",
       "dataset",
@@ -499,7 +499,7 @@
     "name": "AATool",
     "url": "https://github.com/DarwinBaker/AATool",
     "description": "A tool to track Minecraft Advancement progress.",
-    "stars": 271,
+    "stars": 272,
     "topics": [
       "minecraft",
       "speedrun",
@@ -512,7 +512,7 @@
     "name": "PutnamBench",
     "url": "https://github.com/trishullab/PutnamBench",
     "description": "An evaluation benchmark for undergraduate competition math in Lean4, Isabelle, Coq, and natural language. ",
-    "stars": 264,
+    "stars": 265,
     "topics": [],
     "defaultBranch": "main"
   },
@@ -521,7 +521,7 @@
     "name": "OpenXAI",
     "url": "https://github.com/AI4LIFE-GROUP/OpenXAI",
     "description": "OpenXAI : Towards a Transparent Evaluation of Model Explanations",
-    "stars": 259,
+    "stars": 260,
     "topics": [
       "benchmark",
       "explainability",
@@ -597,7 +597,7 @@
     "name": "first-steps-toward-automated-ai-research",
     "url": "https://github.com/recursive-org/first-steps-toward-automated-ai-research",
     "description": "Research artifacts from Recursive's automated AI research system",
-    "stars": 245,
+    "stars": 247,
     "topics": [],
     "defaultBranch": "main"
   },
@@ -623,7 +623,7 @@
     "name": "lora-speedrun",
     "url": "https://github.com/Saivineeth147/lora-speedrun",
     "description": "Speedrunning LoRA fine-tuning: frozen task, frozen hardware, public wall-clock leaderboard. modded-nanogpt for fine-tuning.",
-    "stars": 148,
+    "stars": 149,
     "topics": [
       "benchmark",
       "fine-tuning",
@@ -641,7 +641,7 @@
     "name": "ArgusAgent",
     "url": "https://github.com/microsoft/ArgusAgent",
     "description": "A persistent, reviewed multi-agent runtime for long-horizon research and engineering.",
-    "stars": 135,
+    "stars": 136,
     "topics": [
       "agentic-ai",
       "ai-agents",
@@ -745,19 +745,19 @@
     "defaultBranch": "main"
   },
   {
-    "owner": "leanprover",
-    "name": "lean-eval-submissions",
-    "url": "https://github.com/leanprover/lean-eval-submissions",
-    "description": "Submission pipeline and results store for the lean-eval benchmark (https://github.com/leanprover/lean-eval)",
-    "stars": 6,
-    "topics": [],
-    "defaultBranch": "main"
-  },
-  {
     "owner": "david-courtis",
     "name": "opine-world",
     "url": "https://github.com/david-courtis/opine-world",
     "description": "A system of cooperating LLM agents in a loop of hypothesis and test, one acting in the environment and one synthesizing the model in code, with exact-replay verification and model-based planning, and it steers exploration with a Bayesian measure of object-type adequacy.",
+    "stars": 7,
+    "topics": [],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "leanprover",
+    "name": "lean-eval-submissions",
+    "url": "https://github.com/leanprover/lean-eval-submissions",
+    "description": "Submission pipeline and results store for the lean-eval benchmark (https://github.com/leanprover/lean-eval)",
     "stars": 6,
     "topics": [],
     "defaultBranch": "main"
