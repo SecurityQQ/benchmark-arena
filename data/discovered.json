@@ -4,7 +4,7 @@
     "name": "scraping-apis-for-devs",
     "url": "https://github.com/cporter202/scraping-apis-for-devs",
     "description": "This GitHub repo is a powerhouse collection of scraping APIs for developers that you can start using immediately to build everything from simple automations to full-scale applications. ",
-    "stars": 3919,
+    "stars": 3924,
     "topics": [
       "api-library",
       "api-list",
@@ -18,7 +18,7 @@
     "name": "starVLA",
     "url": "https://github.com/starVLA/starVLA",
     "description": "StarVLA: A Lego-like Codebase for Vision-Language-Action Model Developing",
-    "stars": 3737,
+    "stars": 3751,
     "topics": [
       "robotic-foundation-model",
       "robotics",
@@ -32,7 +32,7 @@
     "name": "LLM-Agents-Papers",
     "url": "https://github.com/AGI-Edgerunners/LLM-Agents-Papers",
     "description": "A repo lists papers related to LLM based agent",
-    "stars": 2346,
+    "stars": 2349,
     "topics": [
       "agents",
       "large-language-models",
@@ -46,7 +46,7 @@
     "name": "AssetOpsBench",
     "url": "https://github.com/IBM/AssetOpsBench",
     "description": "AssetOpsBench - Industry 4.0: A unified benchmark and framework for building, orchestrating, and evaluating domain-specific AI agents for Industry 4.0 asset operations and maintenance, with 460+ scenarios, 5 specialist agents (IoT, FMSR, TSFM, Work Order,...), and multi-agent orchestration blueprints (MetaAgent, AgentHive) over MCP.",
-    "stars": 2313,
+    "stars": 2323,
     "topics": [
       "ai-for-physical-assets",
       "condition-based-maintenance",
@@ -64,7 +64,7 @@
     "name": "EvalAI",
     "url": "https://github.com/Cloud-CV/EvalAI",
     "description": ":cloud: :rocket: :bar_chart: :chart_with_upwards_trend: Evaluating state of the art in AI",
-    "stars": 2044,
+    "stars": 2045,
     "topics": [
       "ai",
       "ai-challenges",
@@ -110,7 +110,7 @@
     "name": "LiveSplit",
     "url": "https://github.com/LiveSplit/LiveSplit",
     "description": "A sleek, highly customizable timer for speedrunners.",
-    "stars": 1852,
+    "stars": 1853,
     "topics": [],
     "defaultBranch": "master"
   },
@@ -137,7 +137,7 @@
     "name": "VBench",
     "url": "https://github.com/Vchitect/VBench",
     "description": "[CVPR2024 Highlight] VBench - We Evaluate Video Generation",
-    "stars": 1797,
+    "stars": 1801,
     "topics": [
       "aigc",
       "benchmark",
@@ -164,7 +164,7 @@
     "name": "mle-bench",
     "url": "https://github.com/openai/mle-bench",
     "description": "MLE-bench is a benchmark for measuring how well AI agents perform at machine learning engineering",
-    "stars": 1756,
+    "stars": 1763,
     "topics": [],
     "defaultBranch": "main"
   },
@@ -173,7 +173,7 @@
     "name": "LLM-eval-survey",
     "url": "https://github.com/MLGroupJLU/LLM-eval-survey",
     "description": "The official GitHub page for the survey paper \"A Survey on Evaluation of Large Language Models\".",
-    "stars": 1610,
+    "stars": 1611,
     "topics": [
       "benchmark",
       "evaluation",
@@ -189,7 +189,7 @@
     "name": "llm-colosseum",
     "url": "https://github.com/OpenGenerativeAI/llm-colosseum",
     "description": "Benchmark LLMs by fighting in Street Fighter 3! The new way to evaluate the quality of an LLM",
-    "stars": 1484,
+    "stars": 1485,
     "topics": [
       "benchmark",
       "genai",
@@ -203,7 +203,7 @@
     "name": "Autonomous-Agents",
     "url": "https://github.com/tmgthb/Autonomous-Agents",
     "description": "Autonomous Agents (LLMs) research papers. Updated Daily.",
-    "stars": 1379,
+    "stars": 1380,
     "topics": [
       "agent",
       "agent-context",
@@ -233,7 +233,7 @@
     "name": "dev-resources",
     "url": "https://github.com/marcelscruz/dev-resources",
     "description": "A collaborative list of resources for developers",
-    "stars": 1345,
+    "stars": 1346,
     "topics": [
       "assets",
       "awesome",
@@ -250,36 +250,6 @@
       "public-apis",
       "resources",
       "tools"
-    ],
-    "defaultBranch": "main"
-  },
-  {
-    "owner": "RyanAlberts",
-    "name": "best-of-Agent-Harnesses",
-    "url": "https://github.com/RyanAlberts/best-of-Agent-Harnesses",
-    "description": "🏆 Ranked list of 167 AI agent harnesses, plus copy-paste templates (AGENTS.md, safe Claude Code settings, a minimal harness) and step-by-step playbooks. MCP server, llms.txt & JSON. Rescored weekly.",
-    "stars": 990,
-    "topics": [
-      "agent-framework",
-      "agent-harness",
-      "agentic-ai",
-      "agents",
-      "ai-agent",
-      "ai-agent-framework",
-      "ai-agents",
-      "ai-tools",
-      "awesome-list",
-      "best-of-list",
-      "claude-code",
-      "coding-agents",
-      "harness",
-      "harness-engineering",
-      "llm",
-      "llm-agents",
-      "llm-framework",
-      "llm-tools",
-      "mcp",
-      "model-context-protocol"
     ],
     "defaultBranch": "main"
   },
@@ -305,7 +275,7 @@
     "name": "level-up",
     "url": "https://github.com/cjmellor/level-up",
     "description": "Level-Up is a Laravel package introducing gamification into your applications. Users earn experience points (XP) and levels through interactions, while also unlocking achievements. It promotes engagement, competition, and fun through its dynamic leaderboard feature. Customisable to fit your specific needs",
-    "stars": 674,
+    "stars": 675,
     "topics": [
       "achievements",
       "engagment",
@@ -399,6 +369,34 @@
     "defaultBranch": "master"
   },
   {
+    "owner": "agent-next",
+    "name": "polymarket-paper-trader",
+    "url": "https://github.com/agent-next/polymarket-paper-trader",
+    "description": "Paper trading simulator for Polymarket",
+    "stars": 406,
+    "topics": [
+      "ai-agent",
+      "algorithmic-trading",
+      "backtesting",
+      "benchmark",
+      "clawhub",
+      "forecasting",
+      "leaderboard",
+      "llm",
+      "mcp",
+      "mcp-server",
+      "model-context-protocol",
+      "openclaw",
+      "paper-trading",
+      "polymarket",
+      "prediction-markets",
+      "python",
+      "sqlite",
+      "trading-bot"
+    ],
+    "defaultBranch": "main"
+  },
+  {
     "owner": "PetroIvaniuk",
     "name": "llms-tools",
     "url": "https://github.com/PetroIvaniuk/llms-tools",
@@ -435,26 +433,26 @@
     "defaultBranch": "main"
   },
   {
-    "owner": "lbx154",
-    "name": "Argus",
-    "url": "https://github.com/lbx154/Argus",
-    "description": "A self-evolving multi-agent system for autonomous research, operating 24/7 to explore, learn, and improve.",
-    "stars": 309,
-    "topics": [],
-    "defaultBranch": "main"
-  },
-  {
     "owner": "gpu-mode",
     "name": "reference-kernels",
     "url": "https://github.com/gpu-mode/reference-kernels",
     "description": "Official Problem Sets / Reference Kernels for the GPU MODE Leaderboard!",
-    "stars": 309,
+    "stars": 310,
     "topics": [
       "cuda",
       "gpu",
       "leaderboard",
       "triton"
     ],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "lbx154",
+    "name": "Argus",
+    "url": "https://github.com/lbx154/Argus",
+    "description": "A self-evolving multi-agent system for autonomous research, operating 24/7 to explore, learn, and improve.",
+    "stars": 309,
+    "topics": [],
     "defaultBranch": "main"
   },
   {
@@ -499,7 +497,7 @@
     "name": "AATool",
     "url": "https://github.com/DarwinBaker/AATool",
     "description": "A tool to track Minecraft Advancement progress.",
-    "stars": 272,
+    "stars": 273,
     "topics": [
       "minecraft",
       "speedrun",
@@ -512,7 +510,7 @@
     "name": "PutnamBench",
     "url": "https://github.com/trishullab/PutnamBench",
     "description": "An evaluation benchmark for undergraduate competition math in Lean4, Isabelle, Coq, and natural language. ",
-    "stars": 265,
+    "stars": 266,
     "topics": [],
     "defaultBranch": "main"
   },
@@ -546,7 +544,7 @@
     "name": "billiards",
     "url": "https://github.com/tailuge/billiards",
     "description": "billiards physics in the browser",
-    "stars": 253,
+    "stars": 254,
     "topics": [
       "3-cushion",
       "3d",
@@ -567,37 +565,11 @@
     "defaultBranch": "master"
   },
   {
-    "owner": "lechmazur",
-    "name": "confabulations",
-    "url": "https://github.com/lechmazur/confabulations",
-    "description": "Hallucinations (Confabulations) Document-Based Benchmark for RAG. Includes human-verified questions and answers.",
-    "stars": 250,
-    "topics": [
-      "ai-evaluation",
-      "benchmark",
-      "claude",
-      "confabulations",
-      "deepseek-r1",
-      "gemini",
-      "gemini-pro",
-      "hallucinations",
-      "language-model",
-      "leaderboard",
-      "llama",
-      "llm",
-      "llm-benchmarking",
-      "o1",
-      "o3-mini",
-      "rag"
-    ],
-    "defaultBranch": "master"
-  },
-  {
     "owner": "recursive-org",
     "name": "first-steps-toward-automated-ai-research",
     "url": "https://github.com/recursive-org/first-steps-toward-automated-ai-research",
     "description": "Research artifacts from Recursive's automated AI research system",
-    "stars": 247,
+    "stars": 249,
     "topics": [],
     "defaultBranch": "main"
   },
@@ -719,11 +691,20 @@
     "defaultBranch": "main"
   },
   {
+    "owner": "jyyang621",
+    "name": "DailyArXiv",
+    "url": "https://github.com/jyyang621/DailyArXiv",
+    "description": "Thanks to https://github.com/zezhishao/DailyArXiv.git",
+    "stars": 12,
+    "topics": [],
+    "defaultBranch": "master"
+  },
+  {
     "owner": "cybertronai",
     "name": "sutro-problems",
     "url": "https://github.com/cybertronai/sutro-problems",
     "description": "Small reproducible problems for Sutro Group's energy-efficient learning research",
-    "stars": 10,
+    "stars": 11,
     "topics": [],
     "defaultBranch": "main"
   },
@@ -745,20 +726,20 @@
     "defaultBranch": "main"
   },
   {
-    "owner": "david-courtis",
-    "name": "opine-world",
-    "url": "https://github.com/david-courtis/opine-world",
-    "description": "A system of cooperating LLM agents in a loop of hypothesis and test, one acting in the environment and one synthesizing the model in code, with exact-replay verification and model-based planning, and it steers exploration with a Bayesian measure of object-type adequacy.",
+    "owner": "leanprover",
+    "name": "lean-eval-submissions",
+    "url": "https://github.com/leanprover/lean-eval-submissions",
+    "description": "Submission pipeline and results store for the lean-eval benchmark (https://github.com/leanprover/lean-eval)",
     "stars": 7,
     "topics": [],
     "defaultBranch": "main"
   },
   {
-    "owner": "leanprover",
-    "name": "lean-eval-submissions",
-    "url": "https://github.com/leanprover/lean-eval-submissions",
-    "description": "Submission pipeline and results store for the lean-eval benchmark (https://github.com/leanprover/lean-eval)",
-    "stars": 6,
+    "owner": "david-courtis",
+    "name": "opine-world",
+    "url": "https://github.com/david-courtis/opine-world",
+    "description": "A system of cooperating LLM agents in a loop of hypothesis and test, one acting in the environment and one synthesizing the model in code, with exact-replay verification and model-based planning, and it steers exploration with a Bayesian measure of object-type adequacy.",
+    "stars": 7,
     "topics": [],
     "defaultBranch": "main"
   },
@@ -774,6 +755,15 @@
       "leaderboard",
       "openai"
     ],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "programbench",
+    "name": "submissions",
+    "url": "https://github.com/ProgramBench/submissions",
+    "description": "Submissions to ProgramBench (programbench.com)",
+    "stars": 5,
+    "topics": [],
     "defaultBranch": "main"
   },
   {
@@ -815,15 +805,6 @@
     "name": "GEO-Bench-2-Leaderboard",
     "url": "https://github.com/The-AI-Alliance/GEO-Bench-2-Leaderboard",
     "description": "leaderboard for the GEO-bench V2 datasets",
-    "stars": 4,
-    "topics": [],
-    "defaultBranch": "main"
-  },
-  {
-    "owner": "programbench",
-    "name": "submissions",
-    "url": "https://github.com/ProgramBench/submissions",
-    "description": "Submissions to ProgramBench (programbench.com)",
     "stars": 4,
     "topics": [],
     "defaultBranch": "main"
@@ -933,14 +914,6 @@
     "name": "Engaging-NanoGPT",
     "url": "https://github.com/Mabdel-03/Engaging-NanoGPT",
     "description": "Hacker's guide to training Modded NanoGPT on MIT's Engaging cluster!",
-    "stars": 1,
-    "topics": [],
-    "defaultBranch": "main"
-  },
-  {
-    "owner": "jacopersonal1-sys",
-    "name": "1st-line-training-portal",
-    "url": "https://github.com/jacopersonal1-sys/1st-line-training-portal",
     "stars": 1,
     "topics": [],
     "defaultBranch": "main"
