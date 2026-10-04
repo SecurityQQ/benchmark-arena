@@ -4,7 +4,7 @@
     "name": "scraping-apis-for-devs",
     "url": "https://github.com/cporter202/scraping-apis-for-devs",
     "description": "This GitHub repo is a powerhouse collection of scraping APIs for developers that you can start using immediately to build everything from simple automations to full-scale applications. ",
-    "stars": 3924,
+    "stars": 3926,
     "topics": [
       "api-library",
       "api-list",
@@ -18,7 +18,7 @@
     "name": "starVLA",
     "url": "https://github.com/starVLA/starVLA",
     "description": "StarVLA: A Lego-like Codebase for Vision-Language-Action Model Developing",
-    "stars": 3751,
+    "stars": 3759,
     "topics": [
       "robotic-foundation-model",
       "robotics",
@@ -46,7 +46,7 @@
     "name": "AssetOpsBench",
     "url": "https://github.com/IBM/AssetOpsBench",
     "description": "AssetOpsBench - Industry 4.0: A unified benchmark and framework for building, orchestrating, and evaluating domain-specific AI agents for Industry 4.0 asset operations and maintenance, with 460+ scenarios, 5 specialist agents (IoT, FMSR, TSFM, Work Order,...), and multi-agent orchestration blueprints (MetaAgent, AgentHive) over MCP.",
-    "stars": 2323,
+    "stars": 2326,
     "topics": [
       "ai-for-physical-assets",
       "condition-based-maintenance",
@@ -64,7 +64,7 @@
     "name": "EvalAI",
     "url": "https://github.com/Cloud-CV/EvalAI",
     "description": ":cloud: :rocket: :bar_chart: :chart_with_upwards_trend: Evaluating state of the art in AI",
-    "stars": 2045,
+    "stars": 2044,
     "topics": [
       "ai",
       "ai-challenges",
@@ -137,7 +137,7 @@
     "name": "VBench",
     "url": "https://github.com/Vchitect/VBench",
     "description": "[CVPR2024 Highlight] VBench - We Evaluate Video Generation",
-    "stars": 1801,
+    "stars": 1805,
     "topics": [
       "aigc",
       "benchmark",
@@ -164,7 +164,7 @@
     "name": "mle-bench",
     "url": "https://github.com/openai/mle-bench",
     "description": "MLE-bench is a benchmark for measuring how well AI agents perform at machine learning engineering",
-    "stars": 1763,
+    "stars": 1764,
     "topics": [],
     "defaultBranch": "main"
   },
@@ -173,7 +173,7 @@
     "name": "LLM-eval-survey",
     "url": "https://github.com/MLGroupJLU/LLM-eval-survey",
     "description": "The official GitHub page for the survey paper \"A Survey on Evaluation of Large Language Models\".",
-    "stars": 1611,
+    "stars": 1612,
     "topics": [
       "benchmark",
       "evaluation",
@@ -233,7 +233,7 @@
     "name": "dev-resources",
     "url": "https://github.com/marcelscruz/dev-resources",
     "description": "A collaborative list of resources for developers",
-    "stars": 1346,
+    "stars": 1349,
     "topics": [
       "assets",
       "awesome",
@@ -348,32 +348,11 @@
     "defaultBranch": "master"
   },
   {
-    "owner": "waico",
-    "name": "SKAB",
-    "url": "https://github.com/waico/SKAB",
-    "description": "SKAB - Skoltech Anomaly Benchmark. Time-series data for evaluating Anomaly Detection algorithms.",
-    "stars": 407,
-    "topics": [
-      "algorithms-evaluation",
-      "anomaly-detection",
-      "benchmark",
-      "changepoint-detection",
-      "collective-anomalies",
-      "dataset",
-      "datasets",
-      "leaderboard",
-      "outlier-detection",
-      "skab",
-      "skoltech"
-    ],
-    "defaultBranch": "master"
-  },
-  {
     "owner": "agent-next",
     "name": "polymarket-paper-trader",
     "url": "https://github.com/agent-next/polymarket-paper-trader",
     "description": "Paper trading simulator for Polymarket",
-    "stars": 406,
+    "stars": 419,
     "topics": [
       "ai-agent",
       "algorithmic-trading",
@@ -395,6 +374,27 @@
       "trading-bot"
     ],
     "defaultBranch": "main"
+  },
+  {
+    "owner": "waico",
+    "name": "SKAB",
+    "url": "https://github.com/waico/SKAB",
+    "description": "SKAB - Skoltech Anomaly Benchmark. Time-series data for evaluating Anomaly Detection algorithms.",
+    "stars": 408,
+    "topics": [
+      "algorithms-evaluation",
+      "anomaly-detection",
+      "benchmark",
+      "changepoint-detection",
+      "collective-anomalies",
+      "dataset",
+      "datasets",
+      "leaderboard",
+      "outlier-detection",
+      "skab",
+      "skoltech"
+    ],
+    "defaultBranch": "master"
   },
   {
     "owner": "PetroIvaniuk",
@@ -497,7 +497,7 @@
     "name": "AATool",
     "url": "https://github.com/DarwinBaker/AATool",
     "description": "A tool to track Minecraft Advancement progress.",
-    "stars": 273,
+    "stars": 272,
     "topics": [
       "minecraft",
       "speedrun",
@@ -535,7 +535,7 @@
     "name": "A-Comprehensive-Survey-For-Long-Context-Language-Modeling",
     "url": "https://github.com/LCLM-Horizon/A-Comprehensive-Survey-For-Long-Context-Language-Modeling",
     "description": "A Comprehensive Survey on Long Context Language Modeling",
-    "stars": 256,
+    "stars": 257,
     "topics": [],
     "defaultBranch": "main"
   },
@@ -544,7 +544,7 @@
     "name": "billiards",
     "url": "https://github.com/tailuge/billiards",
     "description": "billiards physics in the browser",
-    "stars": 254,
+    "stars": 255,
     "topics": [
       "3-cushion",
       "3d",
@@ -569,7 +569,7 @@
     "name": "first-steps-toward-automated-ai-research",
     "url": "https://github.com/recursive-org/first-steps-toward-automated-ai-research",
     "description": "Research artifacts from Recursive's automated AI research system",
-    "stars": 249,
+    "stars": 250,
     "topics": [],
     "defaultBranch": "main"
   },
@@ -613,7 +613,7 @@
     "name": "ArgusAgent",
     "url": "https://github.com/microsoft/ArgusAgent",
     "description": "A persistent, reviewed multi-agent runtime for long-horizon research and engineering.",
-    "stars": 136,
+    "stars": 135,
     "topics": [
       "agentic-ai",
       "ai-agents",
@@ -664,11 +664,11 @@
     "defaultBranch": "master"
   },
   {
-    "owner": "JeanKaddour",
-    "name": "sokoban_speedrun",
-    "url": "https://github.com/JeanKaddour/sokoban_speedrun",
-    "description": "RL models to play Sokoban. The fastest recipe wins.",
-    "stars": 31,
+    "owner": "Metacor",
+    "name": "Minecraft-Speedrun-Guide",
+    "url": "https://github.com/Metacor/Minecraft-Speedrun-Guide",
+    "description": "Minecraft - Any%, RSG, 1.16.1",
+    "stars": 32,
     "topics": [],
     "defaultBranch": "main"
   },
@@ -689,15 +689,6 @@
     "stars": 26,
     "topics": [],
     "defaultBranch": "main"
-  },
-  {
-    "owner": "jyyang621",
-    "name": "DailyArXiv",
-    "url": "https://github.com/jyyang621/DailyArXiv",
-    "description": "Thanks to https://github.com/zezhishao/DailyArXiv.git",
-    "stars": 12,
-    "topics": [],
-    "defaultBranch": "master"
   },
   {
     "owner": "cybertronai",
@@ -823,7 +814,7 @@
     "name": "s2n-bignum-bench",
     "url": "https://github.com/kings-crown/s2n-bignum-bench",
     "description": "The is the official implementation of \"s2n-bignum-bench: A practical benchmark for evaluating low-level code reasoning of LLMs\"",
-    "stars": 2,
+    "stars": 3,
     "topics": [],
     "defaultBranch": "main"
   },
