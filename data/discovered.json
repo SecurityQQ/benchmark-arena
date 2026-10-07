@@ -4,7 +4,7 @@
     "name": "scraping-apis-for-devs",
     "url": "https://github.com/cporter202/scraping-apis-for-devs",
     "description": "This GitHub repo is a powerhouse collection of scraping APIs for developers that you can start using immediately to build everything from simple automations to full-scale applications. ",
-    "stars": 3926,
+    "stars": 3927,
     "topics": [
       "api-library",
       "api-list",
@@ -18,7 +18,7 @@
     "name": "starVLA",
     "url": "https://github.com/starVLA/starVLA",
     "description": "StarVLA: A Lego-like Codebase for Vision-Language-Action Model Developing",
-    "stars": 3759,
+    "stars": 3770,
     "topics": [
       "robotic-foundation-model",
       "robotics",
@@ -32,7 +32,7 @@
     "name": "LLM-Agents-Papers",
     "url": "https://github.com/AGI-Edgerunners/LLM-Agents-Papers",
     "description": "A repo lists papers related to LLM based agent",
-    "stars": 2349,
+    "stars": 2351,
     "topics": [
       "agents",
       "large-language-models",
@@ -46,7 +46,7 @@
     "name": "AssetOpsBench",
     "url": "https://github.com/IBM/AssetOpsBench",
     "description": "AssetOpsBench - Industry 4.0: A unified benchmark and framework for building, orchestrating, and evaluating domain-specific AI agents for Industry 4.0 asset operations and maintenance, with 460+ scenarios, 5 specialist agents (IoT, FMSR, TSFM, Work Order,...), and multi-agent orchestration blueprints (MetaAgent, AgentHive) over MCP.",
-    "stars": 2326,
+    "stars": 2330,
     "topics": [
       "ai-for-physical-assets",
       "condition-based-maintenance",
@@ -64,7 +64,7 @@
     "name": "EvalAI",
     "url": "https://github.com/Cloud-CV/EvalAI",
     "description": ":cloud: :rocket: :bar_chart: :chart_with_upwards_trend: Evaluating state of the art in AI",
-    "stars": 2044,
+    "stars": 2045,
     "topics": [
       "ai",
       "ai-challenges",
@@ -92,7 +92,7 @@
     "name": "alpaca_eval",
     "url": "https://github.com/tatsu-lab/alpaca_eval",
     "description": "An automatic evaluator for instruction-following language models. Human-validated, high-quality, cheap, and fast.",
-    "stars": 2018,
+    "stars": 2020,
     "topics": [
       "deep-learning",
       "evaluation",
@@ -110,7 +110,7 @@
     "name": "LiveSplit",
     "url": "https://github.com/LiveSplit/LiveSplit",
     "description": "A sleek, highly customizable timer for speedrunners.",
-    "stars": 1853,
+    "stars": 1852,
     "topics": [],
     "defaultBranch": "master"
   },
@@ -137,7 +137,7 @@
     "name": "VBench",
     "url": "https://github.com/Vchitect/VBench",
     "description": "[CVPR2024 Highlight] VBench - We Evaluate Video Generation",
-    "stars": 1805,
+    "stars": 1806,
     "topics": [
       "aigc",
       "benchmark",
@@ -164,7 +164,7 @@
     "name": "mle-bench",
     "url": "https://github.com/openai/mle-bench",
     "description": "MLE-bench is a benchmark for measuring how well AI agents perform at machine learning engineering",
-    "stars": 1764,
+    "stars": 1766,
     "topics": [],
     "defaultBranch": "main"
   },
@@ -189,7 +189,7 @@
     "name": "llm-colosseum",
     "url": "https://github.com/OpenGenerativeAI/llm-colosseum",
     "description": "Benchmark LLMs by fighting in Street Fighter 3! The new way to evaluate the quality of an LLM",
-    "stars": 1485,
+    "stars": 1483,
     "topics": [
       "benchmark",
       "genai",
@@ -203,7 +203,7 @@
     "name": "Autonomous-Agents",
     "url": "https://github.com/tmgthb/Autonomous-Agents",
     "description": "Autonomous Agents (LLMs) research papers. Updated Daily.",
-    "stars": 1380,
+    "stars": 1381,
     "topics": [
       "agent",
       "agent-context",
@@ -233,7 +233,7 @@
     "name": "dev-resources",
     "url": "https://github.com/marcelscruz/dev-resources",
     "description": "A collaborative list of resources for developers",
-    "stars": 1349,
+    "stars": 1350,
     "topics": [
       "assets",
       "awesome",
@@ -251,6 +251,15 @@
       "resources",
       "tools"
     ],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "OSU-NLP-Group",
+    "name": "GUI-Agents-Paper-List",
+    "url": "https://github.com/OSU-NLP-Group/GUI-Agents-Paper-List",
+    "description": "Awesome GUI Agent Paper List",
+    "stars": 906,
+    "topics": [],
     "defaultBranch": "main"
   },
   {
@@ -275,7 +284,7 @@
     "name": "level-up",
     "url": "https://github.com/cjmellor/level-up",
     "description": "Level-Up is a Laravel package introducing gamification into your applications. Users earn experience points (XP) and levels through interactions, while also unlocking achievements. It promotes engagement, competition, and fun through its dynamic leaderboard feature. Customisable to fit your specific needs",
-    "stars": 675,
+    "stars": 676,
     "topics": [
       "achievements",
       "engagment",
@@ -352,7 +361,7 @@
     "name": "polymarket-paper-trader",
     "url": "https://github.com/agent-next/polymarket-paper-trader",
     "description": "Paper trading simulator for Polymarket",
-    "stars": 419,
+    "stars": 456,
     "topics": [
       "ai-agent",
       "algorithmic-trading",
@@ -380,7 +389,7 @@
     "name": "SKAB",
     "url": "https://github.com/waico/SKAB",
     "description": "SKAB - Skoltech Anomaly Benchmark. Time-series data for evaluating Anomaly Detection algorithms.",
-    "stars": 408,
+    "stars": 409,
     "topics": [
       "algorithms-evaluation",
       "anomaly-detection",
@@ -416,6 +425,15 @@
     "defaultBranch": "main"
   },
   {
+    "owner": "lbx154",
+    "name": "Argus",
+    "url": "https://github.com/lbx154/Argus",
+    "description": "A self-evolving multi-agent system for autonomous research, operating 24/7 to explore, learn, and improve.",
+    "stars": 312,
+    "topics": [],
+    "defaultBranch": "main"
+  },
+  {
     "owner": "xcpcio",
     "name": "xcpcio",
     "url": "https://github.com/xcpcio/xcpcio",
@@ -437,22 +455,13 @@
     "name": "reference-kernels",
     "url": "https://github.com/gpu-mode/reference-kernels",
     "description": "Official Problem Sets / Reference Kernels for the GPU MODE Leaderboard!",
-    "stars": 310,
+    "stars": 312,
     "topics": [
       "cuda",
       "gpu",
       "leaderboard",
       "triton"
     ],
-    "defaultBranch": "main"
-  },
-  {
-    "owner": "lbx154",
-    "name": "Argus",
-    "url": "https://github.com/lbx154/Argus",
-    "description": "A self-evolving multi-agent system for autonomous research, operating 24/7 to explore, learn, and improve.",
-    "stars": 309,
-    "topics": [],
     "defaultBranch": "main"
   },
   {
@@ -474,7 +483,7 @@
     "name": "medmcqa",
     "url": "https://github.com/medmcqa/medmcqa",
     "description": "A large-scale (194k), Multiple-Choice Question Answering (MCQA) dataset designed to address realworld medical entrance exam questions.",
-    "stars": 302,
+    "stars": 303,
     "topics": [
       "bionlp",
       "dataset",
@@ -510,7 +519,7 @@
     "name": "PutnamBench",
     "url": "https://github.com/trishullab/PutnamBench",
     "description": "An evaluation benchmark for undergraduate competition math in Lean4, Isabelle, Coq, and natural language. ",
-    "stars": 266,
+    "stars": 267,
     "topics": [],
     "defaultBranch": "main"
   },
@@ -540,6 +549,15 @@
     "defaultBranch": "main"
   },
   {
+    "owner": "recursive-org",
+    "name": "first-steps-toward-automated-ai-research",
+    "url": "https://github.com/recursive-org/first-steps-toward-automated-ai-research",
+    "description": "Research artifacts from Recursive's automated AI research system",
+    "stars": 255,
+    "topics": [],
+    "defaultBranch": "main"
+  },
+  {
     "owner": "tailuge",
     "name": "billiards",
     "url": "https://github.com/tailuge/billiards",
@@ -563,15 +581,6 @@
       "webgl-game"
     ],
     "defaultBranch": "master"
-  },
-  {
-    "owner": "recursive-org",
-    "name": "first-steps-toward-automated-ai-research",
-    "url": "https://github.com/recursive-org/first-steps-toward-automated-ai-research",
-    "description": "Research artifacts from Recursive's automated AI research system",
-    "stars": 250,
-    "topics": [],
-    "defaultBranch": "main"
   },
   {
     "owner": "Tencent-Hunyuan",
@@ -655,19 +664,10 @@
     "defaultBranch": "master"
   },
   {
-    "owner": "LiveSplit",
-    "name": "SpeedrunComSharp",
-    "url": "https://github.com/LiveSplit/SpeedrunComSharp",
-    "description": "A .NET Library that can be used to interact with the Speedrun.com API",
-    "stars": 32,
-    "topics": [],
-    "defaultBranch": "master"
-  },
-  {
-    "owner": "Metacor",
-    "name": "Minecraft-Speedrun-Guide",
-    "url": "https://github.com/Metacor/Minecraft-Speedrun-Guide",
-    "description": "Minecraft - Any%, RSG, 1.16.1",
+    "owner": "JeanKaddour",
+    "name": "sokoban_speedrun",
+    "url": "https://github.com/JeanKaddour/sokoban_speedrun",
+    "description": "RL models to play Sokoban. The fastest recipe wins.",
     "stars": 32,
     "topics": [],
     "defaultBranch": "main"
@@ -687,6 +687,15 @@
     "url": "https://github.com/SAIRcompetition/equational-theories-lean-stage2",
     "description": "This repository hosts the SAIR Mathematics Distillation Challenge: Equational Theories Stage 2, providing Lean 4 problem sets, judging tools, and submission harnesses for generating machine-checkable proof certificates.",
     "stars": 26,
+    "topics": [],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "NY1024",
+    "name": "AgentSafety-Papers",
+    "url": "https://github.com/NY1024/AgentSafety-Papers",
+    "description": "Daily Tracking of LLM Agent Security Papers on arXiv",
+    "stars": 12,
     "topics": [],
     "defaultBranch": "main"
   },
@@ -717,6 +726,15 @@
     "defaultBranch": "main"
   },
   {
+    "owner": "david-courtis",
+    "name": "opine-world",
+    "url": "https://github.com/david-courtis/opine-world",
+    "description": "A system of cooperating LLM agents in a loop of hypothesis and test, one acting in the environment and one synthesizing the model in code, with exact-replay verification and model-based planning, and it steers exploration with a Bayesian measure of object-type adequacy.",
+    "stars": 8,
+    "topics": [],
+    "defaultBranch": "main"
+  },
+  {
     "owner": "leanprover",
     "name": "lean-eval-submissions",
     "url": "https://github.com/leanprover/lean-eval-submissions",
@@ -726,11 +744,11 @@
     "defaultBranch": "main"
   },
   {
-    "owner": "david-courtis",
-    "name": "opine-world",
-    "url": "https://github.com/david-courtis/opine-world",
-    "description": "A system of cooperating LLM agents in a loop of hypothesis and test, one acting in the environment and one synthesizing the model in code, with exact-replay verification and model-based planning, and it steers exploration with a Bayesian measure of object-type adequacy.",
-    "stars": 7,
+    "owner": "kings-crown",
+    "name": "s2n-bignum-bench",
+    "url": "https://github.com/kings-crown/s2n-bignum-bench",
+    "description": "The is the official implementation of \"s2n-bignum-bench: A practical benchmark for evaluating low-level code reasoning of LLMs\"",
+    "stars": 5,
     "topics": [],
     "defaultBranch": "main"
   },
@@ -806,15 +824,6 @@
     "url": "https://github.com/tony-montemuro/smb-website",
     "description": "A leaderboard website for games in SEGA's Super Monkey Ball series.",
     "stars": 4,
-    "topics": [],
-    "defaultBranch": "main"
-  },
-  {
-    "owner": "kings-crown",
-    "name": "s2n-bignum-bench",
-    "url": "https://github.com/kings-crown/s2n-bignum-bench",
-    "description": "The is the official implementation of \"s2n-bignum-bench: A practical benchmark for evaluating low-level code reasoning of LLMs\"",
-    "stars": 3,
     "topics": [],
     "defaultBranch": "main"
   },
@@ -899,15 +908,6 @@
     "stars": 1,
     "topics": [],
     "defaultBranch": "master"
-  },
-  {
-    "owner": "Mabdel-03",
-    "name": "Engaging-NanoGPT",
-    "url": "https://github.com/Mabdel-03/Engaging-NanoGPT",
-    "description": "Hacker's guide to training Modded NanoGPT on MIT's Engaging cluster!",
-    "stars": 1,
-    "topics": [],
-    "defaultBranch": "main"
   },
   {
     "owner": "RDI-Foundation",
