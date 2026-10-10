@@ -4,7 +4,7 @@
     "name": "scraping-apis-for-devs",
     "url": "https://github.com/cporter202/scraping-apis-for-devs",
     "description": "This GitHub repo is a powerhouse collection of scraping APIs for developers that you can start using immediately to build everything from simple automations to full-scale applications. ",
-    "stars": 3927,
+    "stars": 3931,
     "topics": [
       "api-library",
       "api-list",
@@ -18,7 +18,7 @@
     "name": "starVLA",
     "url": "https://github.com/starVLA/starVLA",
     "description": "StarVLA: A Lego-like Codebase for Vision-Language-Action Model Developing",
-    "stars": 3770,
+    "stars": 3786,
     "topics": [
       "robotic-foundation-model",
       "robotics",
@@ -32,7 +32,7 @@
     "name": "LLM-Agents-Papers",
     "url": "https://github.com/AGI-Edgerunners/LLM-Agents-Papers",
     "description": "A repo lists papers related to LLM based agent",
-    "stars": 2351,
+    "stars": 2353,
     "topics": [
       "agents",
       "large-language-models",
@@ -46,7 +46,7 @@
     "name": "AssetOpsBench",
     "url": "https://github.com/IBM/AssetOpsBench",
     "description": "AssetOpsBench - Industry 4.0: A unified benchmark and framework for building, orchestrating, and evaluating domain-specific AI agents for Industry 4.0 asset operations and maintenance, with 460+ scenarios, 5 specialist agents (IoT, FMSR, TSFM, Work Order,...), and multi-agent orchestration blueprints (MetaAgent, AgentHive) over MCP.",
-    "stars": 2330,
+    "stars": 2340,
     "topics": [
       "ai-for-physical-assets",
       "condition-based-maintenance",
@@ -92,7 +92,7 @@
     "name": "alpaca_eval",
     "url": "https://github.com/tatsu-lab/alpaca_eval",
     "description": "An automatic evaluator for instruction-following language models. Human-validated, high-quality, cheap, and fast.",
-    "stars": 2020,
+    "stars": 2019,
     "topics": [
       "deep-learning",
       "evaluation",
@@ -119,7 +119,7 @@
     "name": "CogDL",
     "url": "https://github.com/THUDM/CogDL",
     "description": "CogDL: A Comprehensive Library for Graph Deep Learning (WWW 2023)",
-    "stars": 1820,
+    "stars": 1819,
     "topics": [
       "gnn-model",
       "graph-classification",
@@ -137,7 +137,7 @@
     "name": "VBench",
     "url": "https://github.com/Vchitect/VBench",
     "description": "[CVPR2024 Highlight] VBench - We Evaluate Video Generation",
-    "stars": 1806,
+    "stars": 1812,
     "topics": [
       "aigc",
       "benchmark",
@@ -164,7 +164,7 @@
     "name": "mle-bench",
     "url": "https://github.com/openai/mle-bench",
     "description": "MLE-bench is a benchmark for measuring how well AI agents perform at machine learning engineering",
-    "stars": 1766,
+    "stars": 1769,
     "topics": [],
     "defaultBranch": "main"
   },
@@ -173,7 +173,7 @@
     "name": "LLM-eval-survey",
     "url": "https://github.com/MLGroupJLU/LLM-eval-survey",
     "description": "The official GitHub page for the survey paper \"A Survey on Evaluation of Large Language Models\".",
-    "stars": 1612,
+    "stars": 1611,
     "topics": [
       "benchmark",
       "evaluation",
@@ -203,7 +203,7 @@
     "name": "Autonomous-Agents",
     "url": "https://github.com/tmgthb/Autonomous-Agents",
     "description": "Autonomous Agents (LLMs) research papers. Updated Daily.",
-    "stars": 1381,
+    "stars": 1384,
     "topics": [
       "agent",
       "agent-context",
@@ -233,7 +233,7 @@
     "name": "dev-resources",
     "url": "https://github.com/marcelscruz/dev-resources",
     "description": "A collaborative list of resources for developers",
-    "stars": 1350,
+    "stars": 1352,
     "topics": [
       "assets",
       "awesome",
@@ -258,7 +258,7 @@
     "name": "GUI-Agents-Paper-List",
     "url": "https://github.com/OSU-NLP-Group/GUI-Agents-Paper-List",
     "description": "Awesome GUI Agent Paper List",
-    "stars": 906,
+    "stars": 908,
     "topics": [],
     "defaultBranch": "main"
   },
@@ -301,7 +301,7 @@
     "name": "nlp-paper",
     "url": "https://github.com/changwookjun/nlp-paper",
     "description": "NLP Paper",
-    "stars": 592,
+    "stars": 591,
     "topics": [
       "bert",
       "deeplearning",
@@ -361,7 +361,7 @@
     "name": "polymarket-paper-trader",
     "url": "https://github.com/agent-next/polymarket-paper-trader",
     "description": "Paper trading simulator for Polymarket",
-    "stars": 456,
+    "stars": 485,
     "topics": [
       "ai-agent",
       "algorithmic-trading",
@@ -389,7 +389,7 @@
     "name": "SKAB",
     "url": "https://github.com/waico/SKAB",
     "description": "SKAB - Skoltech Anomaly Benchmark. Time-series data for evaluating Anomaly Detection algorithms.",
-    "stars": 409,
+    "stars": 408,
     "topics": [
       "algorithms-evaluation",
       "anomaly-detection",
@@ -429,8 +429,22 @@
     "name": "Argus",
     "url": "https://github.com/lbx154/Argus",
     "description": "A self-evolving multi-agent system for autonomous research, operating 24/7 to explore, learn, and improve.",
-    "stars": 312,
+    "stars": 317,
     "topics": [],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "gpu-mode",
+    "name": "reference-kernels",
+    "url": "https://github.com/gpu-mode/reference-kernels",
+    "description": "Official Problem Sets / Reference Kernels for the GPU MODE Leaderboard!",
+    "stars": 315,
+    "topics": [
+      "cuda",
+      "gpu",
+      "leaderboard",
+      "triton"
+    ],
     "defaultBranch": "main"
   },
   {
@@ -447,20 +461,6 @@
       "resolver",
       "standings",
       "visualization"
-    ],
-    "defaultBranch": "main"
-  },
-  {
-    "owner": "gpu-mode",
-    "name": "reference-kernels",
-    "url": "https://github.com/gpu-mode/reference-kernels",
-    "description": "Official Problem Sets / Reference Kernels for the GPU MODE Leaderboard!",
-    "stars": 312,
-    "topics": [
-      "cuda",
-      "gpu",
-      "leaderboard",
-      "triton"
     ],
     "defaultBranch": "main"
   },
@@ -506,7 +506,7 @@
     "name": "AATool",
     "url": "https://github.com/DarwinBaker/AATool",
     "description": "A tool to track Minecraft Advancement progress.",
-    "stars": 272,
+    "stars": 273,
     "topics": [
       "minecraft",
       "speedrun",
@@ -519,7 +519,7 @@
     "name": "PutnamBench",
     "url": "https://github.com/trishullab/PutnamBench",
     "description": "An evaluation benchmark for undergraduate competition math in Lean4, Isabelle, Coq, and natural language. ",
-    "stars": 267,
+    "stars": 268,
     "topics": [],
     "defaultBranch": "main"
   },
@@ -587,7 +587,7 @@
     "name": "Hyra-results",
     "url": "https://github.com/Tencent-Hunyuan/Hyra-results",
     "description": "Research artifacts from Hyra (/ˈhaɪ.rɑː/)",
-    "stars": 157,
+    "stars": 159,
     "topics": [
       "agent",
       "ai-for-science",
@@ -622,7 +622,7 @@
     "name": "ArgusAgent",
     "url": "https://github.com/microsoft/ArgusAgent",
     "description": "A persistent, reviewed multi-agent runtime for long-horizon research and engineering.",
-    "stars": 135,
+    "stars": 137,
     "topics": [
       "agentic-ai",
       "ai-agents",
@@ -636,6 +636,24 @@
       "python",
       "research",
       "software-engineering"
+    ],
+    "defaultBranch": "main"
+  },
+  {
+    "owner": "SynoPiia",
+    "name": "PSXS5",
+    "url": "https://github.com/SynoPiia/PSXS5",
+    "description": "PSXS5 (PlayStation X Super 5): a PlayStation 1 emulator running natively on jailbroken PS5, based on PCSX-ReARMed. Cover-flow shelf, xBR upscaling, RetroAchievements, cheats.",
+    "stars": 60,
+    "topics": [
+      "emulator",
+      "etahen",
+      "homebrew",
+      "pcsx-rearmed",
+      "playstation",
+      "ps1",
+      "ps5",
+      "retroachievements"
     ],
     "defaultBranch": "main"
   },
@@ -664,15 +682,6 @@
     "defaultBranch": "master"
   },
   {
-    "owner": "JeanKaddour",
-    "name": "sokoban_speedrun",
-    "url": "https://github.com/JeanKaddour/sokoban_speedrun",
-    "description": "RL models to play Sokoban. The fastest recipe wins.",
-    "stars": 32,
-    "topics": [],
-    "defaultBranch": "main"
-  },
-  {
     "owner": "leanprover",
     "name": "lean-eval-leaderboard",
     "url": "https://github.com/leanprover/lean-eval-leaderboard",
@@ -691,11 +700,11 @@
     "defaultBranch": "main"
   },
   {
-    "owner": "NY1024",
-    "name": "AgentSafety-Papers",
-    "url": "https://github.com/NY1024/AgentSafety-Papers",
-    "description": "Daily Tracking of LLM Agent Security Papers on arXiv",
-    "stars": 12,
+    "owner": "metacognitionai",
+    "name": "NavGPT-3",
+    "url": "https://github.com/metacognitionai/NavGPT-3",
+    "description": "Official implementation of NavGPT-3: Harnessing Context in a Hierarchical Navigation Runtime",
+    "stars": 25,
     "topics": [],
     "defaultBranch": "main"
   },
@@ -853,6 +862,14 @@
     "defaultBranch": "main"
   },
   {
+    "owner": "zhaoyiyidan",
+    "name": "modded-nanogpt-npu",
+    "url": "https://github.com/zhaoyiyidan/modded-nanogpt-npu",
+    "stars": 2,
+    "topics": [],
+    "defaultBranch": "master"
+  },
+  {
     "owner": "hschindele",
     "name": "gmaapp",
     "url": "https://github.com/hschindele/gmaapp",
@@ -900,14 +917,6 @@
       "vibe-coded"
     ],
     "defaultBranch": "main"
-  },
-  {
-    "owner": "zhaoyiyidan",
-    "name": "modded-nanogpt-npu",
-    "url": "https://github.com/zhaoyiyidan/modded-nanogpt-npu",
-    "stars": 1,
-    "topics": [],
-    "defaultBranch": "master"
   },
   {
     "owner": "RDI-Foundation",
