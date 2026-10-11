@@ -1,9 +1,10 @@
 // Discover competition repos via multiple sources
 
-import { getOctokit } from "./github.js";
+import { getOctokit, isPublicRepo } from "./github.js";
 import type { DiscoveredRepo } from "./types.js";
 import { fetchRaw } from "./github.js";
-import { parseStandardDoc, isStandardDoc, SPEC_MARKERS } from "./standard.js";
+import { isStandardDoc, SPEC_MARKERS } from "./standard.js";
+import { parseIngestedDoc } from "./fetcher.js";
 import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 
@@ -76,6 +77,8 @@ const SEED_REPOS = [
   { owner: "The-AI-Alliance", name: "GEO-Bench-2-Leaderboard" },
   { owner: "programbench", name: "submissions" },          // ProgramBench
   { owner: "tatsu-lab", name: "alpaca_eval" },             // AlpacaEval
+  { owner: "gpu-mode", name: "reference-kernels" },        // GPU MODE (leaderboards on gpumode.com)
+  { owner: "1stproof", name: "batch-2" },                  // First Proof (1stproof.org), referee-graded research math
 ];
 
 /** Repos anywhere on GitHub that ship PROBLEM.md / SUBMISSION.md with our front matter. Needs an authenticated token (code search). */
@@ -88,17 +91,18 @@ export async function discoverStandardRepos(): Promise<DiscoveredRepo[]> {
       const { data } = await octokit.rest.search.code({ q, per_page: 100 });
       for (const item of data.items) {
         const r = item.repository; const key = r.full_name;
-        if (found.has(key) || r.fork || r.private) continue;
+        if (found.has(key) || r.fork || !isPublicRepo(r)) continue;
         try {
           const { data: full } = await octokit.rest.repos.get({ owner: r.owner.login, repo: r.name });
+          if (!isPublicRepo(full)) continue;
           // verify before it costs anything: the file must parse and carry our marker
-          const doc = parseStandardDoc(item.path, await fetchRaw(full.owner.login, full.name, item.path, full.default_branch));
+          const doc = parseIngestedDoc(item.path, await fetchRaw(full.owner.login, full.name, item.path, full.default_branch));
           if (!isStandardDoc(doc)) continue;
           found.set(key, { owner: full.owner.login, name: full.name, url: full.html_url, description: full.description ?? undefined, stars: full.stargazers_count, topics: full.topics ?? [], defaultBranch: full.default_branch, priority: true });
         } catch { /* gone */ }
       }
       console.log(`    standard search "${q.slice(0, 40)}…": ${data.items.length} files`);
-    } catch (e) { console.log(`    standard search failed: ${(e as Error).message.slice(0, 120)}`); }
+    } catch { console.log("    standard search failed"); }
   }
   return [...found.values()];
 }
@@ -117,6 +121,7 @@ export async function discoverRepos(maxResults = 80): Promise<DiscoveredRepo[]> 
   for (const { owner, name } of [...SEED_REPOS, ...communitySeeds()]) {
     try {
       const { data } = await octokit.rest.repos.get({ owner, repo: name });
+      if (!isPublicRepo(data)) continue;
       const key = `${owner}/${name}`;
       found.set(key, {
         owner, name, url: data.html_url,
@@ -126,8 +131,8 @@ export async function discoverRepos(maxResults = 80): Promise<DiscoveredRepo[]> 
         defaultBranch: data.default_branch,
       });
       console.log(`    ✓ ${key} ★${data.stargazers_count}`);
-    } catch (e) {
-      console.log(`    ✗ ${owner}/${name}: ${(e as Error).message}`);
+    } catch {
+      console.log("    seed repository lookup failed");
     }
   }
 
@@ -144,7 +149,7 @@ export async function discoverRepos(maxResults = 80): Promise<DiscoveredRepo[]> 
       });
       for (const repo of data.items) {
         const key = repo.full_name;
-        if (found.has(key)) continue;
+        if (found.has(key) || !isPublicRepo(repo)) continue;
         found.set(key, {
           owner: repo.owner?.login ?? "",
           name: repo.name,
@@ -156,8 +161,8 @@ export async function discoverRepos(maxResults = 80): Promise<DiscoveredRepo[]> 
         });
       }
       if (found.size >= maxResults) break;
-    } catch (e) {
-      console.log(`    FAILED: ${(e as Error).message}`);
+    } catch {
+      console.log("    repository text search failed");
     }
   }
 
@@ -174,7 +179,7 @@ export async function discoverRepos(maxResults = 80): Promise<DiscoveredRepo[]> 
       });
       for (const repo of data.items) {
         const key = repo.full_name;
-        if (found.has(key)) continue;
+        if (found.has(key) || !isPublicRepo(repo)) continue;
         found.set(key, {
           owner: repo.owner?.login ?? "",
           name: repo.name,
@@ -186,8 +191,8 @@ export async function discoverRepos(maxResults = 80): Promise<DiscoveredRepo[]> 
         });
       }
       if (found.size >= maxResults) break;
-    } catch (e) {
-      console.log(`    FAILED: ${(e as Error).message}`);
+    } catch {
+      console.log("    repository topic search failed");
     }
   }
 

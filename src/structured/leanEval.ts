@@ -8,7 +8,7 @@
 import type { LLMCompetition } from "../llm.js";
 import type { Problem, RecordEntry, AgentFamily } from "../types.js";
 import { familyFromName } from "../postprocess.js";
-import { listDir, fetchRaw } from "../github.js";
+import { listDir, fetchRaw, boundedFetch } from "../github.js";
 
 const SITE = "https://lean-lang.org/eval";
 const RESULTS_REPO = { owner: "leanprover", name: "lean-eval-submissions", branch: "main" };
@@ -18,9 +18,13 @@ interface BoardEntry { rank: number; model_id: string; model_name: string; score
 interface RawRow { user: string; model: string; problem: string; at?: string; repo?: string }
 
 async function getJson<T>(url: string): Promise<T> {
-  const r = await fetch(url);
-  if (!r.ok) throw new Error(`${url}: HTTP ${r.status}`);
-  return r.json() as Promise<T>;
+  const r = await boundedFetch(url, undefined, 8 * 1024 * 1024, 30_000)
+    .catch(() => { throw new Error("LeanEval download failed"); });
+  if (!r.ok) {
+    await r.body?.cancel().catch(() => {});
+    throw new Error("LeanEval request rejected");
+  }
+  return r.json().catch(() => { throw new Error("Invalid LeanEval JSON"); }) as Promise<T>;
 }
 
 // results/<login>.json → flat rows. Accepts schema v1 ({solved: {model: {problem: {solved_at}}}}) and v2 ({results: [...]})
@@ -56,11 +60,11 @@ export async function buildLeanEval(): Promise<LLMCompetition> {
   // 1. Per-user audit log (best effort: the leaderboard alone is enough for the model track)
   const rows: RawRow[] = [];
   let files: { name: string; path: string; type: string }[] = [];
-  try { files = await listDir(RESULTS_REPO.owner, RESULTS_REPO.name, "results", RESULTS_REPO.branch); } catch (e) { console.log(`    lean-eval: could not list results/: ${(e as Error).message}`); }
+  try { files = await listDir(RESULTS_REPO.owner, RESULTS_REPO.name, "results", RESULTS_REPO.branch); } catch { console.log("    lean-eval: could not list results directory"); }
   for (const f of files) {
     if (f.type !== "file" || !f.name.endsWith(".json")) continue;
     try { rows.push(...parseResultsFile(JSON.parse(await fetchRaw(RESULTS_REPO.owner, RESULTS_REPO.name, f.path, RESULTS_REPO.branch)), f.name.replace(/\.json$/, ""))); }
-    catch (e) { console.log(`    lean-eval: skip ${f.name}: ${(e as Error).message}`); }
+    catch { console.log("    lean-eval: result file unavailable or invalid, skipping"); }
   }
   const validRows = rows.filter((r) => visibleIds.has(r.problem));
   console.log(`    lean-eval: ${entries.length} models on board, ${files.length} result files, ${validRows.length} accepted (user, model, problem) rows over ${visible.length} visible problems`);
@@ -83,13 +87,13 @@ export async function buildLeanEval(): Promise<LLMCompetition> {
   // 3. Track: submitters ranked by distinct problems solved, attributed to the model they use most
   const byUser = new Map<string, { problems: Set<string>; models: Map<string, number>; last?: string; repos: Set<string> }>();
   for (const r of validRows) {
-    const u = byUser.get(r.user) ?? { problems: new Set(), models: new Map(), repos: new Set() };
+    const u: { problems: Set<string>; models: Map<string, number>; last?: string; repos: Set<string> } = byUser.get(r.user) ?? { problems: new Set(), models: new Map(), repos: new Set() };
     u.problems.add(r.problem); u.models.set(r.model, (u.models.get(r.model) ?? 0) + 1);
     if (r.at && (!u.last || r.at > u.last)) u.last = r.at;
     if (r.repo) u.repos.add(r.repo);
     byUser.set(r.user, u);
   }
-  let submitterRecords: RecordEntry[] = [...byUser.entries()].map(([user, u]) => {
+  let submitterRecords: RecordEntry[] = [...byUser.entries()].map<RecordEntry>(([user, u]) => {
     const models = [...u.models.entries()].sort((a, b) => b[1] - a[1]);
     const [topLabel, topN] = models[0];
     const { model, tool } = splitModelLabel(topLabel);
@@ -108,7 +112,7 @@ export async function buildLeanEval(): Promise<LLMCompetition> {
     // fallback when results/ is unreachable: derive from the board's per-model submitter counts (sums may double count across models)
     const agg = new Map<string, { n: number; models: Map<string, number> }>();
     for (const e of entries) for (const s of e.submitters) { const a = agg.get(s.user) ?? { n: 0, models: new Map() }; a.n += s.solved_total; a.models.set(e.model_name, s.solved_total); agg.set(s.user, a); }
-    submitterRecords = [...agg.entries()].map(([user, a]) => { const top = [...a.models.entries()].sort((x, y) => y[1] - x[1])[0][0]; const { model, tool } = splitModelLabel(top); return { value: a.n, contributor: user, contributorKind: "person", contributorUrl: `https://github.com/${user}`, description: `models: ${[...a.models.keys()].join(", ")} (sum over models)`, agent: { family: famOf(top), model, tool, evidence: `leaderboard.json submitters: ${top}`, confidence: "medium", role: "author" } }; }).sort((a, b) => b.value - a.value);
+    submitterRecords = [...agg.entries()].map<RecordEntry>(([user, a]) => { const top = [...a.models.entries()].sort((x, y) => y[1] - x[1])[0][0]; const { model, tool } = splitModelLabel(top); return { value: a.n, contributor: user, contributorKind: "person", contributorUrl: `https://github.com/${user}`, description: `models: ${[...a.models.keys()].join(", ")} (sum over models)`, agent: { family: famOf(top), model, tool, evidence: `leaderboard.json submitters: ${top}`, confidence: "medium", role: "author" } }; }).sort((a, b) => b.value - a.value);
   }
   if (submitterRecords.length) submitterRecords[0].isCurrentBest = true;
 

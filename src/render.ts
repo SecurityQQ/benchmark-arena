@@ -45,7 +45,7 @@ export function competitionToMarkdown(c: Competition): string {
     if (pr.description) lines.push(pr.description);
     if (pr.baseline !== undefined) lines.push(`- Baseline: ${pr.baseline}`);
     if (best) lines.push(`- Current best: ${best.value} by ${best.contributor ?? "?"}${best.date ? ` on ${best.date}` : ""}${best.agent ? ` · agent: ${best.agent.model ?? best.agent.family}${best.agent.tool ? ` via ${best.agent.tool}` : ""} (${best.agent.confidence})` : ""}`);
-    if (pr.isOpen) lines.push(`- OPEN: no one has beaten the baseline yet`);
+    if (pr.isOpen) lines.push(pr.passMark != null ? `- OPEN: no entry has reached the pass mark (${pr.passMark}) yet` : `- OPEN: no one has beaten the baseline yet`);
     lines.push(`- Records: ${pr.records.length}`, ``);
   }
   if (c.agentStats?.length) {

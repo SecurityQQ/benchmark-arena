@@ -9,10 +9,11 @@
     "repost": "tsx src/main.ts repost",
     "site": "tsx src/serve.ts",
     "build:site": "tsx src/build.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "node --import tsx --test tests/*.test.ts tests/*.test.mjs"
   },
   "dependencies": {
-    "@octokit/plugin-throttling": "^10.0.0",
+    "@octokit/plugin-throttling": "^11.0.5",
     "@octokit/rest": "^22.0.0",
     "marked": "^14.0.0",
     "yaml": "^2.9.1"

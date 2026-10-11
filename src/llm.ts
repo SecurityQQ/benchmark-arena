@@ -2,12 +2,25 @@
 
 import type { Competition } from "./types.js";
 import type { RepoPages } from "./fetcher.js";
+import { validateAttributions, validateCompetition } from "./validation.js";
+import { boundedFetch } from "./github.js";
 
 const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
 const DEFAULT_MODEL = process.env.LLM_MODEL ?? "google/gemini-3.5-flash";
+const MAX_RESPONSE_BYTES = 4 * 1024 * 1024;
+const REQUEST_TIMEOUT_MS = 120_000;
 
-interface OpenRouterResponse {
-  choices: Array<{ message: { content: string }; finish_reason?: string }>;
+function responseContent(value: unknown): string {
+  if (!value || typeof value !== "object" || !("choices" in value) || !Array.isArray(value.choices)) throw new Error("Invalid LLM response");
+  const choice = value.choices[0];
+  if (!choice || choice.finish_reason === "length" || typeof choice.message?.content !== "string") throw new Error("Invalid or truncated LLM response");
+  return choice.message.content.trim();
+}
+
+function parseContent(content: string): unknown {
+  const fence = content.match(/```(?:json)?\s*([\s\S]*?)```/);
+  try { return JSON.parse(fence ? fence[1].trim() : content); }
+  catch { throw new Error("Invalid LLM JSON"); }
 }
 
 // LLM returns this shape; participants/stats are derived afterwards in postprocess.ts
@@ -115,7 +128,7 @@ export async function processRepoWithLLM(repoPages: RepoPages, model?: string, k
 
   console.log(`    LLM input: ${repoPages.pages.length} pages, ${repoPages.totalChars} chars`);
 
-  const res = await fetch(OPENROUTER_URL, {
+  const res = await boundedFetch(OPENROUTER_URL, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${apiKey}`,
@@ -132,34 +145,16 @@ export async function processRepoWithLLM(repoPages: RepoPages, model?: string, k
       temperature: 0,
       max_tokens: 48000,
     }),
-  });
+  }, MAX_RESPONSE_BYTES, REQUEST_TIMEOUT_MS).catch(() => { throw new Error("LLM request failed"); });
 
   if (!res.ok) {
-    const text = await res.text();
-    throw new Error(`OpenRouter API error ${res.status}: ${text.slice(0, 200)}`);
+    await res.body?.cancel().catch(() => {});
+    throw new Error("LLM request rejected");
   }
 
-  const data: OpenRouterResponse = await res.json();
-  const choice = data.choices[0];
-  const content = choice?.message?.content?.trim() ?? "";
-  if (choice?.finish_reason === "length") {
-    throw new Error(`LLM output truncated at max_tokens (${content.length} chars) — leaderboard too large for one pass`);
-  }
-
-  let jsonStr = content;
-  const fenceMatch = content.match(/```(?:json)?\s*([\s\S]*?)```/);
-  if (fenceMatch) jsonStr = fenceMatch[1].trim();
-  if (jsonStr === "null") return null;
-
-  try {
-    return JSON.parse(jsonStr) as LLMCompetition;
-  } catch {
-    const match = content.match(/\{[\s\S]*\}/);
-    if (match) {
-      try { return JSON.parse(match[0]) as LLMCompetition; } catch { /* fall through */ }
-    }
-    throw new Error(`Failed to parse LLM response as JSON: ${content.slice(0, 200)}`);
-  }
+  const content = responseContent(await res.json().catch(() => { throw new Error("Invalid LLM response"); }));
+  const parsed = parseContent(content);
+  return parsed === null ? null : validateCompetition(parsed, { owner, name, defaultBranch: branch, url: `https://github.com/${owner}/${name}`, stars: 0, topics: [] });
 }
 
 // ── Second pass: focused agent attribution ──────────────────────────────
@@ -198,23 +193,15 @@ export async function attributeRecordsWithLLM(
   const recs = records.map((r) => `${r.key} | ${r.problem} | ${r.contributor ?? "?"} | ${r.date ?? "?"} | ${r.value} | ${(r.description ?? "").slice(0, 100)} | ${(r.files ?? []).map((f) => f.split("/").pop()).join(",")}`).join("\n");
   const user = `Competition: ${competitionId}\n\n(A) RECORDS (key | problem | contributor | date | value | description | files)\n${recs}\n\n(B) EVIDENCE\n${evidence.slice(0, 60000)}`;
 
-  const res = await fetch(OPENROUTER_URL, {
+  const res = await boundedFetch(OPENROUTER_URL, {
     method: "POST",
     headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json", "HTTP-Referer": "https://github.com/github-competitions", "X-Title": "Open Challenge List Attribution" },
     body: JSON.stringify({ model: model || DEFAULT_MODEL, messages: [{ role: "system", content: ATTR_PROMPT }, { role: "user", content: user }], temperature: 0, max_tokens: 16000 }),
-  });
-  if (!res.ok) throw new Error(`OpenRouter attribution error ${res.status}: ${(await res.text()).slice(0, 200)}`);
-  const data: OpenRouterResponse = await res.json();
-  let content = data.choices[0]?.message?.content?.trim() ?? "";
-  const fence = content.match(/```(?:json)?\s*([\s\S]*?)```/);
-  if (fence) content = fence[1].trim();
-  try {
-    const parsed = JSON.parse(content);
-    return typeof parsed === "object" && parsed ? parsed : {};
-  } catch {
-    const m = content.match(/\{[\s\S]*\}/);
-    if (m) { try { return JSON.parse(m[0]); } catch { /* ignore */ } }
-    console.log(`    attribution: unparseable response (${content.length} chars)`);
-    return {};
+  }, MAX_RESPONSE_BYTES, REQUEST_TIMEOUT_MS).catch(() => { throw new Error("LLM attribution request failed"); });
+  if (!res.ok) {
+    await res.body?.cancel().catch(() => {});
+    throw new Error("LLM attribution request rejected");
   }
+  const content = responseContent(await res.json().catch(() => { throw new Error("Invalid LLM response"); }));
+  return validateAttributions(parseContent(content), new Set(records.map((r) => r.key)));
 }

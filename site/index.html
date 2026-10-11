@@ -47,22 +47,22 @@
 <body>
 <header class="site-header">
   <div class="wrap header-row">
-    <a href="/" class="brand" onclick="return nav('/')">Open Challenge List</a>
+    <a href="/" class="brand" data-action="nav">Open Challenge List</a>
     <nav class="header-links">
-      <a href="/" data-r="/" onclick="return nav('/')">Competitions</a>
-      <a href="/agents" data-r="/agents" onclick="return nav('/agents')">Agents</a>
-      <a href="/people" data-r="/people" onclick="return nav('/people')">People</a>
+      <a href="/" data-r="/" data-action="nav">Competitions</a>
+      <a href="/agents" data-r="/agents" data-action="nav">Agents</a>
+      <a href="/people" data-r="/people" data-action="nav">People</a>
       <span class="header-sep" aria-hidden="true"></span>
       <a href="/llms.txt" class="mono-link" title="Index for LLM agents">llms.txt</a>
       <a href="/api/summary" class="mono-link" title="JSON API">API</a>
-      <a href="/" class="btn small open-app" onclick="return enterApp()">Open the app →</a>
+      <a href="/" class="btn small open-app" data-action="enter">Open the app →</a>
     </nav>
   </div>
 </header>
 
 <div class="shell" id="shell">
   <aside class="sidebar" id="sidebar" aria-label="Navigation"></aside>
-  <div class="sidebar-scrim" id="sidebar-scrim" onclick="toggleNav(false)"></div>
+  <div class="sidebar-scrim" id="sidebar-scrim" data-action="close-nav"></div>
   <div class="shell-main">
     <div class="topbar" id="topbar"></div>
     <main id="app"></main>
@@ -76,20 +76,20 @@
         <span class="eyebrow">Get on the board</span>
         <p class="footer-claim">Every leaderboard here is a public repository. Pick a track, open a pull request, and the record is yours to lose.</p>
         <div class="cta">
-          <a class="btn primary" href="/" onclick="return enterApp()">Browse competitions →</a>
+          <a class="btn primary" href="/" data-action="enter">Browse competitions →</a>
           <a class="btn" href="/llms.txt">Read llms.txt</a>
         </div>
       </div>
       <nav class="footer-cols" aria-label="Footer">
         <div class="footer-col">
           <span class="eyebrow">Explore</span>
-          <a href="/" onclick="return nav('/')">Competitions</a>
-          <a href="/#open" onclick="return nav('/') || goSection('open')">Open problems</a>
-          <a href="/agents" onclick="return nav('/agents')">Agents</a>
-          <a href="/agents?view=subject" onclick="return nav('/agents?view=subject')">Models as subjects</a>
-          <a href="/people" onclick="return nav('/people')">Contributors</a>
-          <a href="/standard" onclick="return nav('/standard')">PROBLEM.md standard</a>
-          <a href="/submit" onclick="return nav('/submit')">Submit a competition</a>
+          <a href="/" data-action="nav">Competitions</a>
+          <a href="/#open" data-action="home-section" data-section="open">Open problems</a>
+          <a href="/agents" data-action="nav">Agents</a>
+          <a href="/agents?view=subject" data-action="nav">Models as subjects</a>
+          <a href="/people" data-action="nav">Contributors</a>
+          <a href="/standard" data-action="nav">PROBLEM.md standard</a>
+          <a href="/submit" data-action="nav">Submit a competition</a>
         </div>
         <div class="footer-col">
           <span class="eyebrow">For agents</span>

@@ -11,17 +11,54 @@ import { fetchRepoPages } from "./fetcher.js";
 import { processRepoWithLLM, attributeRecordsWithLLM } from "./llm.js";
 import { postprocess } from "./postprocess.js";
 import { buildLeanEval } from "./structured/leanEval.js";
+import { buildGpuMode } from "./structured/gpuMode.js";
+import { buildFirstProof } from "./structured/firstProof.js";
 import { applyStandard } from "./standard.js";
 import type { LLMCompetition } from "./llm.js";
+import { assertPublicRepo } from "./github.js";
+import { assertUniqueCompetitions, repoKey, savedEntries, validateCompetition } from "./validation.js";
+import { pathToFileURL } from "node:url";
+
+function loadPrevious(): Competition[] {
+  if (!existsSync(RESULT_PATH)) return [];
+  const entries = savedEntries(JSON.parse(readFileSync(RESULT_PATH, "utf-8"))).map(({ value, repo, id }) => {
+    const c = postprocess(value, repo);
+    c.id = id;
+    return c;
+  });
+  assertUniqueCompetitions(entries);
+  return entries;
+}
+
+export async function publicCompetitions(entries: Competition[], blocked = new Set<string>(), assertPublic = assertPublicRepo): Promise<Competition[]> {
+  const publicEntries: Competition[] = [];
+  for (const c of entries) {
+    if (!c.repo || blocked.has(repoKey(c.repo))) continue;
+    try { await assertPublic(c.repo.owner, c.repo.name); publicEntries.push(c); }
+    catch { blocked.add(repoKey(c.repo)); }
+  }
+  return publicEntries;
+}
+
+export function mergeCompetitions(previous: Competition[], current: Competition[], blocked = new Set<string>()): Competition[] {
+  const produced = new Set(current.map((c) => repoKey(c.repo!)));
+  const result = [...previous.filter((c) => !produced.has(repoKey(c.repo!)) && !blocked.has(repoKey(c.repo!)) && !MERGED_INTO[repoKey(c.repo!)]), ...current.filter((c) => !blocked.has(repoKey(c.repo!)))];
+  assertUniqueCompetitions(result);
+  return result;
+}
 
 // Repos with an official machine-readable results store: build deterministically, never via LLM
 const STRUCTURED: Record<string, () => Promise<LLMCompetition>> = {
   "leanprover/lean-eval-submissions": buildLeanEval,
+  "gpu-mode/reference-kernels": buildGpuMode,             // leaderboards live on gpumode.com
+  "1stproof/batch-2": buildFirstProof,                    // every graded batch, read from the arXiv reports (1stproof.org)
 };
 // Repos that are facets of a competition handled elsewhere (site generator, benchmark source) — skip to avoid duplicates
 const MERGED_INTO: Record<string, string> = {
   "leanprover/lean-eval-leaderboard": "leanprover/lean-eval-submissions",
   "leanprover/lean-eval": "leanprover/lean-eval-submissions",
+  "1stproof/batch-1": "1stproof/batch-2",
+  "1stproof/batch-3": "1stproof/batch-2",
 };
 
 const DATA_DIR = join(process.cwd(), "data");
@@ -30,6 +67,7 @@ const RESULT_PATH = join(DATA_DIR, "competitions.json");
 
 async function main() {
   const mode = process.argv[2] ?? "full"; // "discover" | "process" | "full" | "priority" | "repost"
+  if (!["full", "discover", "process", "priority", "repost"].includes(mode)) throw new Error("Invalid mode");
 
   console.log("=== Open Challenge List Crawler ===");
   console.log(`Mode: ${mode}\n`);
@@ -38,13 +76,16 @@ async function main() {
 
   // repost: recompute derived fields (participants, stats, agentStats, roles) from saved data, no LLM calls
   if (mode === "repost") {
-    const prev: CrawlResult = JSON.parse(readFileSync(RESULT_PATH, "utf-8"));
-    const comps = prev.competitions.map((c) => {
-      const repo: DiscoveredRepo = { owner: c.repo!.owner, name: c.repo!.name, url: c.url, stars: 0, topics: [], defaultBranch: c.repo!.branch ?? "main" };
-      for (const p of c.problems) for (const r of p.records) if (r.agent) delete (r.agent as any).role;
-      return postprocess(c as any, repo);
-    });
-    writeFileSync(RESULT_PATH, JSON.stringify({ ...prev, competitions: comps }, null, 2));
+    const entries = savedEntries(JSON.parse(readFileSync(RESULT_PATH, "utf-8")));
+    const comps = await publicCompetitions(entries.map(({ value, repo, id }) => {
+      const validated = validateCompetition(value, repo);
+      for (const p of validated.problems) for (const r of p.records) if (r.agent) Reflect.deleteProperty(r.agent, "role");
+      const c = postprocess(validated, repo);
+      c.id = id;
+      return c;
+    }));
+    assertUniqueCompetitions(comps);
+    writeFileSync(RESULT_PATH, JSON.stringify({ crawledAt: new Date().toISOString(), competitions: comps, errors: [] }, null, 2));
     console.log(`Recomputed ${comps.length} competitions`);
     return;
   }
@@ -55,8 +96,7 @@ async function main() {
     console.log("[1] Priority lane: discovering repos that follow the standard...\n");
     const { discoverStandardRepos } = await import("./discovery.js");
     const known: DiscoveredRepo[] = existsSync(DISCOVERED_PATH) ? JSON.parse(readFileSync(DISCOVERED_PATH, "utf-8")) : [];
-    const prevData: CrawlResult | null = existsSync(RESULT_PATH) ? JSON.parse(readFileSync(RESULT_PATH, "utf-8")) : null;
-    const already = new Set((prevData?.competitions ?? []).filter((c) => c.standard).map((c) => `${c.repo?.owner}/${c.repo?.name}`.toLowerCase()));
+    const already = new Set(loadPrevious().filter((c) => c.standard).map((c) => repoKey(c.repo!)));
     const found = await discoverStandardRepos();
     const byKey = new Map(found.map((r) => [`${r.owner}/${r.name}`.toLowerCase(), r]));
     for (const k of known) if (already.has(`${k.owner}/${k.name}`.toLowerCase()) && !byKey.has(`${k.owner}/${k.name}`.toLowerCase())) byKey.set(`${k.owner}/${k.name}`.toLowerCase(), { ...k, priority: true });
@@ -67,7 +107,6 @@ async function main() {
     mkdirSync(DATA_DIR, { recursive: true });
     writeFileSync(DISCOVERED_PATH, JSON.stringify([...merged.values()], null, 2));
     console.log(`  ${repos.length} repos in the priority lane\n`);
-    if (!repos.length) { console.log("Nothing to do."); return; }
   } else if (mode === "discover" || mode === "full") {
     console.log("[1] Discovering repos...\n");
     repos = await discoverRepos(Number(process.env.MAX_REPOS ?? 120));
@@ -101,28 +140,37 @@ async function main() {
   const onlyList = only ? only.split(",").map((x) => x.trim()).filter(Boolean) : [];
   if (only) repos = repos.filter((r) => onlyList.some((o) => `${r.owner}/${r.name}`.toLowerCase().includes(o)));
   // Previous crawl: the safety net. An LLM pass is noisy, so a known competition is never dropped or gutted by a single bad answer.
-  const prevComps: Competition[] = existsSync(RESULT_PATH) ? (JSON.parse(readFileSync(RESULT_PATH, "utf-8")) as CrawlResult).competitions : [];
+  const prevComps = loadPrevious();
+  const blocked = new Set<string>();
   const prevByRepo = new Map(prevComps.map((c) => [`${c.repo?.owner}/${c.repo?.name}`.toLowerCase(), c]));
   for (let i = 0; i < repos.length; i++) {
     const repo = repos[i];
-    const repoKey = `${repo.owner}/${repo.name}`;
-    console.log(`  [${i + 1}/${repos.length}] ${repoKey} ★${repo.stars}`);
+    const key = repoKey(repo);
+    const repoName = `${repo.owner}/${repo.name}`;
+    console.log(`  [${i + 1}/${repos.length}] ${repoName}`);
 
-    if (MERGED_INTO[repoKey]) {
-      console.log(`    merged into ${MERGED_INTO[repoKey]}, skipping`);
-      errors.push({ repo: repoKey, error: `merged into ${MERGED_INTO[repoKey]}` });
+    if (MERGED_INTO[key]) {
+      console.log("    merged into another competition, skipping");
+      errors.push({ repo: key, error: "merged into another competition" });
       continue;
     }
-    if (STRUCTURED[repoKey]) {
+    try { await assertPublicRepo(repo.owner, repo.name); }
+    catch {
+      blocked.add(key);
+      errors.push({ repo: key, error: "Public repository verification failed" });
+      console.log("    public repository verification failed, excluding entry");
+      continue;
+    }
+    if (STRUCTURED[key]) {
       try {
-        const built = await STRUCTURED[repoKey]();
-        const competition = postprocess(built, repo);
+        const built = await STRUCTURED[key]();
+        const competition = postprocess(built, repo, prevByRepo.get(key));
         const fams = competition.agentStats.map((a) => `${a.family}:${a.records}`).join(" ");
         console.log(`    ✓ ${competition.name} [structured] ${competition.problems.length} tracks, ${competition.stats.totalRecords} records, ${competition.stats.uniqueParticipants} participants${fams ? ` · agents ${fams}` : ""}`);
         competitions.push(competition);
-      } catch (e) {
-        console.log(`    ✗ structured build FAILED: ${(e as Error).message}`);
-        errors.push({ repo: repoKey, error: (e as Error).message });
+      } catch {
+        console.log("    structured build failed");
+        errors.push({ repo: key, error: "Structured build failed" });
       }
       continue;
     }
@@ -131,19 +179,20 @@ async function main() {
       const pages = await fetchRepoPages(repo.owner, repo.name, repo.defaultBranch);
       if (pages.pages.length === 0) {
         console.log(`    no pages found, skipping`);
-        errors.push({ repo: repoKey, error: "no pages found" });
+        errors.push({ repo: key, error: "no pages found" });
         continue;
       }
       console.log(`    fetched ${pages.pages.length} pages, ${pages.totalChars} chars`);
 
       // Process with LLM, then overlay the facts declared in PROBLEM.md / SUBMISSION.md
-      const prevEntry = prevByRepo.get(repoKey.toLowerCase());
+      const prevEntry = prevByRepo.get(key);
       const extracted = await processRepoWithLLM(pages, undefined, (prevEntry?.problems ?? []).map((p) => ({ id: p.id, name: p.name })));
-      const { competition: llmResult, info: standardInfo } = applyStandard(extracted, pages.standardDocs, { ...repo, branch: repo.defaultBranch });
+      const { competition: overlaid, info: standardInfo } = applyStandard(extracted, pages.standardDocs, { ...repo, branch: repo.defaultBranch });
+      const llmResult = overlaid === null ? null : validateCompetition({ ...overlaid, ...(standardInfo ? { standard: standardInfo } : {}) }, repo);
       if (standardInfo) console.log(`    standard: PROBLEM.md ${standardInfo.problem ? "✓" : "—"} · ${standardInfo.submissions} SUBMISSION.md row(s)${standardInfo.warnings.length ? ` · ${standardInfo.warnings.length} warning(s)` : ""}`);
       if (llmResult === null) {
         console.log(`    not a competition, skipping`);
-        errors.push({ repo: repoKey, error: "not a competition" });
+        errors.push({ repo: key, error: "not a competition" });
         continue;
       }
 
@@ -156,7 +205,7 @@ async function main() {
       }));
       if (flat.length && evidence.length > 200) {
         try {
-          const attrs = await attributeRecordsWithLLM(llmResult.id ?? repoKey, flat, evidence);
+          const attrs = await attributeRecordsWithLLM(llmResult.id, flat, evidence);
           let n = 0;
           for (const [key, a] of Object.entries(attrs)) {
             const [pi, ri] = key.split(".").map(Number);
@@ -164,7 +213,7 @@ async function main() {
             if (rec && a && a.family) { rec.agent = a; n++; }
           }
           console.log(`    attribution pass: ${n}/${flat.length} records attributed (${evidencePages.length} evidence pages)`);
-        } catch (e) { console.log(`    attribution pass failed: ${(e as Error).message}`); }
+        } catch { console.log("    attribution pass failed"); }
       }
 
       // Safety net for attribution: an evidenced agent found by an earlier crawl is not lost because this pass missed it
@@ -178,16 +227,14 @@ async function main() {
         if (kept) console.log(`    attribution carried over from the previous crawl: ${kept}`);
       }
 
-      const competition = postprocess(llmResult, repo);
-      if (standardInfo) competition.standard = standardInfo;
+      const competition = postprocess(llmResult, repo, prevEntry);
       const { totalRecords, uniqueParticipants } = competition.stats;
       const fams = competition.agentStats.map((a) => `${a.family}:${a.records}`).join(" ");
       console.log(`    ✓ ${competition.name} [${competition.status}] ${competition.problems.length} problems, ${totalRecords} records, ${uniqueParticipants} participants, compute=${competition.participation.compute}${fams ? ` · agents ${fams}` : ""}`);
       competitions.push(competition);
-    } catch (e) {
-      const msg = (e as Error).message;
-      console.log(`    ✗ FAILED: ${msg}`);
-      errors.push({ repo: repoKey, error: msg });
+    } catch {
+      console.log("    repository processing failed");
+      errors.push({ repo: key, error: "Repository processing failed" });
     }
   }
 
@@ -203,17 +250,21 @@ async function main() {
   const produced = new Set(competitions.map((c) => `${c.repo?.owner}/${c.repo?.name}`.toLowerCase()));
   for (const e of errors) {
     const k = e.repo.toLowerCase(), prev = prevByRepo.get(k);
-    if (prev && !produced.has(k) && !MERGED_INTO[e.repo]) { console.log(`  ! ${e.repo}: "${e.error}" this run, carrying over the previous entry`); competitions.push(prev); produced.add(k); e.error += " (previous entry kept)"; }
+    if (prev && !blocked.has(k) && !produced.has(k) && !MERGED_INTO[k]) { console.log(`  ! ${e.repo}: carrying over the previous entry`); competitions.push(prev); produced.add(k); e.error += " (previous entry kept)"; }
   }
 
   // Step 3: Save results
   console.log(`\n[3] Saving results...`);
   let finalComps = competitions;
   if ((only || mode === "priority") && existsSync(RESULT_PATH)) {
-    const prev: CrawlResult = JSON.parse(readFileSync(RESULT_PATH, "utf-8"));
-    const ids = new Set(competitions.map((c) => c.repo?.owner + "/" + c.repo?.name));
-    const newIds = new Set(competitions.map((c) => c.id));
-    finalComps = [...prev.competitions.filter((c) => { const k = c.repo?.owner + "/" + c.repo?.name; return !ids.has(k) && !MERGED_INTO[k] && !newIds.has(c.id); }), ...competitions];
+    finalComps = mergeCompetitions(prevComps, competitions, blocked);
+  }
+  finalComps = await publicCompetitions(finalComps, blocked);
+  assertUniqueCompetitions(finalComps);
+  for (const key of blocked) {
+    const error = errors.find((e) => e.repo.toLowerCase() === key);
+    if (error) error.error = "Public repository verification failed";
+    else errors.push({ repo: key, error: "Public repository verification failed" });
   }
   const result: CrawlResult = {
     crawledAt: new Date().toISOString(),
@@ -223,12 +274,12 @@ async function main() {
   mkdirSync(DATA_DIR, { recursive: true });
   writeFileSync(RESULT_PATH, JSON.stringify(result, null, 2));
 
-  console.log(`  ${competitions.length} competitions found`);
+  console.log(`  ${finalComps.length} competitions saved`);
   console.log(`  ${errors.length} repos skipped/failed`);
   console.log(`  Saved to ${RESULT_PATH}`);
 }
 
-main().catch((e) => {
-  console.error("Fatal error:", e);
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) main().catch(() => {
+  console.error("Crawler failed; no results were saved.");
   process.exit(1);
 });

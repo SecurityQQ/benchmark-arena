@@ -105,7 +105,8 @@ export interface Problem {
   metricUnit?: string;
   metricDirection: "minimize" | "maximize";
   baseline?: number;             // naive/reference value, if known
-  isOpen: boolean;               // derived: nobody beat the baseline yet (0 records, or only baseline rows)
+  passMark?: number;             // graded tracks: a record closes the track only at or past this value (a rejected proof is not a solution)
+  isOpen: boolean;               // derived: nobody beat the baseline yet (0 records, or only baseline rows), or nobody reached passMark
   contested?: boolean;           // derived: ≥2 distinct non-baseline contributors — only then does "current best" mean anything
   records: RecordEntry[];
 }

@@ -1,0 +1,16 @@
+.git/
+.github/
+.vercel/
+node_modules/
+public/
+cache/
+tests/
+style-ref-aestetics/
+**/.env
+**/.env.*
+**/.npmrc
+**/*.pem
+**/*.key
+**/*.log
+**/.DS_Store
+seo.png

@@ -6,3 +6,7 @@ public/
 .env
 .env.*
 !.env.example
+*.log
+*.pem
+*.key
+.npmrc

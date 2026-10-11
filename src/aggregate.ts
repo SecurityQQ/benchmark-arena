@@ -27,7 +27,7 @@ export interface AgentAgg {
 export interface OpenProblem {
   competitionId: string; competitionName: string; compute: string;
   problemId: string; problemName: string; description?: string;
-  metricName: string; metricDirection: string; baseline?: number;
+  metricName: string; metricDirection: string; baseline?: number; passMark?: number;
 }
 
 const isContested = (p: Competition["problems"][number]) =>
@@ -88,7 +88,7 @@ export function openProblems(comps: Competition[]): OpenProblem[] {
   for (const c of comps) for (const p of c.problems) {
     if (!p.isOpen) continue;
     out.push({ competitionId: c.id, competitionName: c.name, compute: c.participation.compute, problemId: p.id, problemName: p.name,
-      description: p.description, metricName: p.metricName, metricDirection: p.metricDirection, baseline: p.baseline });
+      description: p.description, metricName: p.metricName, metricDirection: p.metricDirection, baseline: p.baseline, passMark: p.passMark });
   }
   return out;
 }

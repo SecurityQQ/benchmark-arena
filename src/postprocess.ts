@@ -1,7 +1,7 @@
 // Derive participants/stats and normalize URLs after LLM extraction
 
 import type { Competition, Problem, Participant, Stats, DiscoveredRepo, AgentFamily, AgentStat } from "./types.js";
-import type { LLMCompetition } from "./llm.js";
+import { competitionId, validateCompetition } from "./validation.js";
 
 const DAY = 86_400_000;
 
@@ -41,7 +41,8 @@ export function familyFromName(s?: string): AgentFamily | undefined {
   return undefined;
 }
 
-export function postprocess(llm: LLMCompetition, repo: DiscoveredRepo): Competition {
+export function postprocess(input: unknown, repo: DiscoveredRepo, previous?: Competition): Competition {
+  const llm = validateCompetition(input, repo);
   const now = Date.now();
 
   // Normalize image + submission + link URLs
@@ -93,9 +94,10 @@ export function postprocess(llm: LLMCompetition, repo: DiscoveredRepo): Competit
         r.agent.role = contributorIsModel && !authorEvidence ? "subject" : "author";
       }
     }
-    // Open problem: nobody has beaten the baseline yet
+    // Open problem: nobody has beaten the baseline yet (graded tracks: nobody has reached the pass mark)
     const nonBaseline = recs.filter((r) => !r.isBaseline);
-    p.isOpen = nonBaseline.length === 0;
+    const passes = (v: number) => p.passMark == null || (p.metricDirection === "minimize" ? v <= p.passMark : v >= p.passMark);
+    p.isOpen = !nonBaseline.some((r) => passes(r.value));
     // Contested: a "current best" only means something when at least two distinct contributors compete
     p.contested = new Set(nonBaseline.map((r) => (r.contributor ?? "").trim().toLowerCase()).filter(Boolean)).size >= 2;
   }
@@ -160,7 +162,7 @@ export function postprocess(llm: LLMCompetition, repo: DiscoveredRepo): Competit
 
   return {
     ...llm,
-    id: llm.id || `${repo.owner}-${repo.name}`.toLowerCase(),
+    id: competitionId(repo, previous),
     url: llm.url || repo.url,
     status,
     images,

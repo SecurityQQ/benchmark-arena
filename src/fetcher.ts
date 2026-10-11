@@ -1,9 +1,18 @@
 // Fetch relevant pages from a GitHub repo: README + leaderboard-ish files
 
-import { fetchRaw, listDir, getOctokit } from "./github.js";
-import { writeFileSync, readFileSync, existsSync, mkdirSync } from "node:fs";
+import { fetchRaw, listDir, getOctokit, assertPublicRepo, MAX_FILE_BYTES } from "./github.js";
+import { writeFileSync, readFileSync, existsSync, mkdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { PROBLEM_FILES, MAX_SUBMISSIONS, parseStandardDoc, isStandardDoc, submissionsDir, type StandardDoc } from "./standard.js";
+
+export function parseIngestedDoc(path: string, content: string): StandardDoc {
+  if (Buffer.byteLength(content) > 65536) throw new Error("Standard document exceeds byte limit");
+  const frontMatter = content.match(/^\uFEFF?---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/)?.[1];
+  if (frontMatter && (Buffer.byteLength(frontMatter) > 16384 || frontMatter.split("\n").length > 500)) {
+    throw new Error("Front matter exceeds parser limits");
+  }
+  return parseStandardDoc(path, content);
+}
 
 const CACHE_DIR = join(process.cwd(), "cache");
 
@@ -13,7 +22,7 @@ function cacheKey(owner: string, name: string, path: string): string {
 
 function cacheGet(key: string): string | null {
   const p = join(CACHE_DIR, `${key}.txt`);
-  if (existsSync(p)) return readFileSync(p, "utf-8");
+  if (existsSync(p) && statSync(p).size <= MAX_FILE_BYTES) return readFileSync(p, "utf-8");
   return null;
 }
 
@@ -63,6 +72,7 @@ export async function fetchRepoPages(
   maxPages = 45,
   maxChars = 160000,
 ): Promise<RepoPages> {
+  await assertPublicRepo(owner, name);
   const pages: FetchedPage[] = [];
   let totalChars = 0;
 
@@ -85,7 +95,7 @@ export async function fetchRepoPages(
     try {
       const content = await fetchRaw(owner, name, path, branch);
       if (content.trim().length < 20) continue;
-      const doc = parseStandardDoc(path, content);
+      const doc = parseIngestedDoc(path, content);
       standardDocs.push(doc);
       addPage(path, content.slice(0, 20000));
       if (isStandardDoc(doc)) break;
@@ -102,12 +112,12 @@ export async function fetchRepoPages(
         if (!p) continue;
         try {
           const content = await fetchRaw(owner, name, p, branch);
-          standardDocs.push(parseStandardDoc(p, content));
+          standardDocs.push(parseIngestedDoc(p, content));
           if (shown++ < 12) addPage(p, content.slice(0, 1500)); // a sample is enough context for the LLM; rows are built from the files themselves
         } catch { /* entry without a SUBMISSION.md */ }
       }
       console.log(`    standard: ${standardDocs.length - 1} SUBMISSION.md under ${subDir}/`);
-    } catch { console.log(`    standard: submissions folder "${subDir}" not found`); }
+    } catch { console.log("    standard: submissions folder unavailable"); }
   }
 
   // 1. Fetch known filenames (README, LEADERBOARD.md, etc.)
@@ -247,6 +257,7 @@ export async function fetchRepoPages(
 const AGENT_RX = /co-authored-by|generated with|claude|codex|devin|copilot|cursor|gpt|gemini|openai|anthropic|deepseek|qwen|llama|grok|mistral|kimi|glm|agent/i;
 
 async function fetchAttributionEvidence(owner: string, name: string): Promise<string | null> {
+  await assertPublicRepo(owner, name);
   const key = cacheKey(owner, name, "__attribution__");
   const cached = cacheGet(key);
   if (cached !== null) return cached || null;
