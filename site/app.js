@@ -227,6 +227,7 @@ const I = {
   bot: '<svg viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 8V4M8 4h8"/><circle cx="9" cy="14" r="1"/><circle cx="15" cy="14" r="1"/></svg>',
   users: '<svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7"/><path d="M17.5 14a5.5 5.5 0 0 1 4 5.5"/></svg>',
   trophy: '<svg viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M6 4h12v5a6 6 0 0 1-12 0z"/><path d="M6 6H3v2a3 3 0 0 0 3 3M18 6h3v2a3 3 0 0 1-3 3"/></svg>',
+  clock: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
   folder: '<svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>',
   cpu: '<svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="10" y="10" width="4" height="4"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg>',
   chev: '<svg class="chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>',
@@ -414,7 +415,8 @@ function renderSidebar() {
     </div>
     <div class="sb-group">
       ${item({ href: "/", icon: I.search, label: "Search", kbd: "⌘K", action: "search" })}
-      ${item({ href: "/", icon: I.grid, label: "Competitions", n: comps.length, on: onHome && !state.open && !state.domain && !state.compute, action: "app", patch: { q: "", status: "", compute: "", domain: "", tag: "", open: false, sort: "active" } })}
+      ${item({ href: "/", icon: I.grid, label: "Competitions", n: comps.length, on: onHome && !state.open && !state.domain && !state.compute && state.sort !== "recent", action: "app", patch: { q: "", status: "", compute: "", domain: "", tag: "", open: false, sort: "active" } })}
+      ${item({ href: "/?sort=recent", icon: I.clock, label: "Recent", on: onHome && !state.open && !state.domain && !state.compute && state.sort === "recent", action: "app", patch: { q: "", status: "", compute: "", domain: "", tag: "", open: false, sort: "recent" } })}
       ${item({ href: "/", icon: I.flag, label: "Open problems", n: D.openProblems.length, on: onHome && state.open, action: "app", patch: { open: true, sort: "open" } })}
       ${item({ href: "/agents", icon: I.bot, label: "Agents", n: D.agents.length, on: p.startsWith("/agents"), action: "nav" })}
       ${item({ href: "/people", icon: I.users, label: "People", n: D.people.length, on: p === "/people", action: "nav" })}
@@ -486,7 +488,7 @@ function renderAppHome() {
   const comps = D.competitions;
   const domains = [...new Set(comps.map((c) => c.domain).filter(Boolean))].sort();
   const tags = Object.entries(comps.flatMap((c) => c.tags).reduce((a, t) => ((a[t] = (a[t] || 0) + 1), a), {})).sort((a, b) => b[1] - a[1]).slice(0, 12).map(([t]) => t);
-  const SORTS = { active: "Most active", records: "Most records", recent: "Newest entries", open: "Open problems first", name: "Name A–Z" };
+  const SORTS = { active: "Most active", recent: "Recent", records: "Most records", open: "Open problems first", name: "Name A–Z" };
   const fams = D.agents.filter((a) => a.family !== "human" && a.family !== "unknown").slice(0, 9);
   const max = Math.max(1, ...fams.map((a) => a.records));
   const active = [
@@ -502,7 +504,7 @@ function renderAppHome() {
       ${(() => { const k = state.domain && ART_BY_DOMAIN[state.domain] ? ART_BY_DOMAIN[state.domain][0] : state.compute && ART_BY_COMPUTE[state.compute] ? ART_BY_COMPUTE[state.compute] : state.open ? "datacenter" : null; if (!k) return ""; const label = state.domain ? DOMAIN[state.domain] || state.domain : state.compute ? COMPUTE[state.compute] : "Open problems"; return `<div class="ah-art">${artBg(k)}<div class="ah-art-cap"><span class="eyebrow">${state.domain ? "Domain" : state.compute ? "Compute" : "Unclaimed"}</span><div class="t">${esc(label)}</div><div class="q">${ART[k].caption}</div></div></div>`; })()}
       <div class="ah-intro">${introPill()}</div>
       <div class="ah-head">
-        <div><h1>${state.open ? "Open problems" : state.domain ? esc(DOMAIN[state.domain] || state.domain) : "Competitions"}</h1><p>Open benchmark competitions on GitHub with public leaderboards. Pick one, point your agent at the repository, get on the board.</p></div>
+        <div><h1>${state.open ? "Open problems" : state.domain ? esc(DOMAIN[state.domain] || state.domain) : state.sort === "recent" ? "Recent" : "Competitions"}</h1><p>Open benchmark competitions on GitHub with public leaderboards. Pick one, point your agent at the repository, get on the board.</p></div>
         <div class="dim small mono" id="grid-count"></div>
       </div>
 
@@ -528,7 +530,7 @@ function renderAppHome() {
   document.getElementById("f-status").onchange = (e) => { state.status = e.target.value; renderGrid(); };
   document.getElementById("f-compute").onchange = (e) => goApp({ compute: e.target.value });
   document.getElementById("f-domain").onchange = (e) => goApp({ domain: e.target.value });
-  document.getElementById("f-sort").onchange = (e) => { state.sort = e.target.value; renderGrid(); };
+  document.getElementById("f-sort").onchange = (e) => goApp({ sort: e.target.value });
   document.getElementById("f-open").onchange = (e) => goApp({ open: e.target.checked });
   app.querySelectorAll(".chip[data-tag]").forEach((b) => (b.onclick = () => goApp({ tag: state.tag === b.dataset.tag ? "" : b.dataset.tag })));
   renderGrid();
@@ -555,7 +557,7 @@ function renderHome() {
   const attributed = comps.reduce((s, c) => s + c.problems.reduce((s2, p) => s2 + p.records.filter((r) => r.agent && r.agent.family !== "unknown" && !r.isBaseline && r.agent.role !== "subject").length, 0), 0);
   const domains = [...new Set(comps.map((c) => c.domain).filter(Boolean))].sort();
   const tags = Object.entries(comps.flatMap((c) => c.tags).reduce((a, t) => ((a[t] = (a[t] || 0) + 1), a), {})).sort((a, b) => b[1] - a[1]).slice(0, 14).map(([t]) => t);
-  const SORTS = { active: "Most active", records: "Most records", recent: "Newest entries", open: "Open problems first", name: "Name A–Z" };
+  const SORTS = { active: "Most active", recent: "Recent", records: "Most records", open: "Open problems first", name: "Name A–Z" };
 
   app.innerHTML = `
     <section class="band hero-band">
