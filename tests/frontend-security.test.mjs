@@ -229,7 +229,7 @@ test("browser smoke: desktop and mobile interactions under the actual strict CSP
   const { chromium } = await import(process.env.FRONTEND_PLAYWRIGHT);
   const config = JSON.parse(readFileSync(new URL("../vercel.json", import.meta.url), "utf8"));
   const csp = config.headers.flatMap((h) => h.headers).find((h) => h.key === "Content-Security-Policy").value;
-  assert.match(csp, /script-src 'self';/);
+  assert.match(csp, /script-src 'self' https:\/\/www\.googletagmanager\.com;/);
   const data = fixture(), c = data.competitions[0];
   data.crawledAt = "2026-09-18T00:00:00Z";
   Object.assign(c, { id: "demo", name: "Demo", status: "active", domain: "security", url: "https://example.test/repo", images: ["/demo.svg"], repo: { owner: "owner", name: "repo" }, quickstart: "echo safe", agentStats: [{ family: "openai", records: 3, currentBests: 1, models: ["model"] }] });

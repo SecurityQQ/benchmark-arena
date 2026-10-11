@@ -187,7 +187,7 @@ test("dev server enforces publication, safe paths, methods, and security headers
     assert.equal(response.status, 200, path);
     assert.equal(response.headers["x-frame-options"], "DENY");
     assert.equal(response.headers["x-content-type-options"], "nosniff");
-    assert.match(response.headers["content-security-policy"], /script-src 'self';/);
+    assert.match(response.headers["content-security-policy"], /script-src 'self' https:\/\/www\.googletagmanager\.com;/);
     assert.ok(!response.body.includes("SECRET"));
   }
 });

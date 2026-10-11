@@ -9,7 +9,7 @@ import { competitionToMarkdown, llmsTxt } from "./render.js";
 
 // Inventory, not a recursive copy: new assets must be deliberately published.
 export const SITE_ASSETS = new Set([
-  "index.html", "app.js", "style.css", "favicon.svg", "favicon-32.png",
+  "index.html", "app.js", "analytics.js", "style.css", "favicon.svg", "favicon-32.png",
   "icon-192.png", "icon-512.png", "apple-touch-icon.png", "hero.jpg", "og.jpg",
   "robots.txt", "site.webmanifest", "standard/PROBLEM.md", "standard/SUBMISSION.md",
   "standard/templates.json",
@@ -78,7 +78,7 @@ export function build(root = process.cwd()) {
     .replace('href="/style.css"', `href="/style.css?v=${ver("style.css")}"`)
     .replace('src="/app.js"', `src="/app.js?v=${ver("app.js")}"`);
   if (stamped === html || !stamped.includes("/app.js?v=") || !stamped.includes("/style.css?v=")) throw new Error("build: could not version app.js / style.css in index.html");
-  files.set("index.html", stamped);
+  files.set("index.html", files.has("analytics.js") ? stamped.replace('src="/analytics.js"', `src="/analytics.js?v=${ver("analytics.js")}"`) : stamped);
 
   const j = (v: unknown) => JSON.stringify(v);
   w("api/competitions.json", j(data));

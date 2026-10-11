@@ -17897,7 +17897,7 @@
       "id": "first-proof",
       "name": "First Proof",
       "tagline": "Unpublished research-level math problems; AI systems get one shot each and expert referees grade the proofs blind.",
-      "description": "First Proof is an independent benchmark run by research mathematicians to measure whether AI systems can autonomously prove research-level results. Each batch collects ten problems that arose in the contributors' own work and whose proofs are unpublished; the editorial board runs every system itself, one shot per problem with no human input, and expert referees grade the proofs double blind. Batch 2 (June 2026): 4 systems, 39 graded solutions, 7 of 10 problems got at least one passing proof; P4, P8, P10 remain open. Batch 3 (ten new problems) is being graded; results are due October 14, 2026.",
+      "description": "First Proof is an independent benchmark run by research mathematicians to measure whether AI systems can autonomously prove research-level results. Each batch collects problems that arose in the contributors' own work and whose proofs are unpublished; the editorial board runs every system itself, one shot per problem with no human input, and expert referees grade the proofs double blind. Batch 2 (2026-06-10): 4 systems, 39 graded solutions, 7 of 10 problems got at least one passing proof; P4, P8, P10 remain open. Batch 3 is under way; results are due 2026-10-14.",
       "url": "https://1stproof.org/",
       "host": "website",
       "status": "active",
@@ -17912,15 +17912,15 @@
       ],
       "images": [],
       "participation": {
-        "howToSubmit": "Systems enter per batch through the call for submissions on 1stproof.org (Batch 3 applications closed September 10, 2026). A system is an open-source harness calling publicly available models, or a public product; First Proof clones the submitter's repository, builds its Docker image on an approved EC2 instance and runs it once on the problem file, following the protocol in 1stproof/batch-2/batch-2-design.",
+        "howToSubmit": "Systems enter per batch through the call for submissions on 1stproof.org (Batch 3 applications closed 2026-09-10). A system is an open-source harness calling publicly available models, or a public product; First Proof clones the submitter's repository, builds its Docker image on an approved EC2 instance and runs it once on the problem file, following the protocol published with each batch (e.g. 1stproof/batch-2).",
         "submissionFormat": "A repository with Dockerfile, hardware.json, README.md and src/; the container reads the LaTeX problems from /data/input/input.json and writes LaTeX proofs to /data/output.",
-        "computeDetails": "Runs on First Proof's AWS instances; model API usage goes on the submitter's keys. Batch 2 systems spent $117–$4,799 in API fees for ten problems.",
-        "deadline": "Batch 3: applications closed 2026-09-10; testing early October 2026; results 2026-10-14.",
-        "rounds": "Batches of ten unpublished problems (February, June, October 2026), plus community experiments where problems are posted publicly and solutions follow a week later.",
+        "computeDetails": "Runs on First Proof's AWS instances; model API usage goes on the submitter's keys. Batch 2 systems spent $117–$4,799 in API fees for 10 problems.",
+        "deadline": "Batch 3: applications until 2026-09-10; results 2026-10-14.",
+        "rounds": "Batches of unpublished research problems, each graded and published with every solution and referee report, plus community experiments where problems are posted publicly and solutions follow a week later.",
         "prizes": "recognition only",
         "eligibility": "AI companies and academic teams; only publicly available models, or harnesses that will be released.",
         "cost": "free to enter; API usage is paid by the submitter",
-        "verification": "Each proof is refereed double blind by at least two experts in the field (about 30 referees per batch); the editorial board decides essentially flawless, minor revisions, major revisions or reject. Problems, human solutions, AI solutions, referee reports and logs are all published.",
+        "verification": "Each proof is refereed double blind by at least two experts in the field; the editorial board decides essentially flawless, minor revisions, major revisions or reject. Problems, human solutions, AI solutions, referee reports and logs are all published.",
         "requirements": [
           "Open-source harness or public AI product",
           "Publicly available models",
@@ -17935,7 +17935,7 @@
           "url": "https://1stproof.org/"
         },
         {
-          "label": "Third batch (results 2026-10-14)",
+          "label": "Batch 3 (results 2026-10-14)",
           "url": "https://1stproof.org/third-batch.html"
         },
         {
@@ -17968,11 +17968,11 @@
         "location": "1stproof.org / GitHub",
         "type": "online"
       },
-      "quickstart": "git clone https://github.com/1stproof/batch-2 && cd batch-2/batch-2-design\nless first-proof-benchmarking-protocol.md\n# reference submission: submissions/test-dummy (Dockerfile, hardware.json, src/run.py)\n# problems: input/input.json; human and AI solutions: ../batch-2-human-solution, ../batch-2-AI-solutions",
+      "quickstart": "git clone https://github.com/1stproof/batch-2 && cd batch-2\nls   # protocol and reference submission (batch-2-design), problems, human and AI solutions, referee reports",
       "problems": [
         {
           "group": "batch-2",
-          "description": "Problem by Larry Guth. No passing proof yet.",
+          "description": "Batch 2 problem by Larry Guth. No passing proof yet.",
           "metricUnit": "of 3",
           "id": "b2-p04",
           "name": "P4 · Metric geometry",
@@ -17996,7 +17996,7 @@
               "agent": {
                 "model": "gpt-5.5 pro",
                 "tool": "IMProofBench ProofCouncil",
-                "evidence": "First Proof Batch 2 report, Problem 4, Submission A: \"Reject\"",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119), Problem 4, Submission A: \"Reject\"",
                 "family": "openai",
                 "confidence": "high",
                 "role": "subject"
@@ -18017,7 +18017,7 @@
               "agent": {
                 "model": "gpt-5.5 pro",
                 "tool": "UCLA Moonshot Harness",
-                "evidence": "First Proof Batch 2 report, Problem 4, Submission B: \"Reject\"",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119), Problem 4, Submission B: \"Reject\"",
                 "family": "openai",
                 "confidence": "high",
                 "role": "subject"
@@ -18029,16 +18029,16 @@
               "date": "2026-06-10",
               "value": 0,
               "contributorKind": "team",
-              "contributorUrl": "https://1stproof.org/assets/docs/openai-system-c-prompt.txt",
+              "contributorUrl": "https://arxiv.org/abs/2606.18119",
               "submissionUrls": [
                 "https://github.com/1stproof/batch-2/blob/main/batch-2-AI-solutions/problem-04/submission-C.pdf",
                 "https://github.com/1stproof/batch-2/blob/main/batch-2-reviews/problem-04/submission-C/submission-4C-reviews.pdf"
               ],
               "isCurrentBest": true,
               "agent": {
-                "model": "ChatGPT 5.5 Pro",
-                "tool": "ChatGPT",
-                "evidence": "First Proof Batch 2 report, Problem 4, Submission C: \"Reject\"",
+                "model": "OpenAI ChatGPT 5.5 Pro",
+                "tool": "OpenAI ChatGPT 5.5 Pro",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119), Problem 4, Submission C: \"Reject\"",
                 "family": "openai",
                 "confidence": "high",
                 "role": "subject"
@@ -18059,7 +18059,7 @@
               "agent": {
                 "model": "gemini-3.1-pro-preview",
                 "tool": "Princeton Momus",
-                "evidence": "First Proof Batch 2 report, Problem 4, Submission D: \"Reject\"",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119), Problem 4, Submission D: \"Reject\"",
                 "family": "google",
                 "confidence": "high",
                 "role": "subject"
@@ -18070,7 +18070,7 @@
         },
         {
           "group": "batch-2",
-          "description": "Problem by Sam Payne, Jidong (Jayden) Wang. No passing proof yet.",
+          "description": "Batch 2 problem by Sam Payne, Jidong (Jayden) Wang. No passing proof yet.",
           "metricUnit": "of 3",
           "id": "b2-p08",
           "name": "P8 · Matroids and tropical geometry",
@@ -18093,7 +18093,7 @@
               "agent": {
                 "model": "gpt-5.5 pro",
                 "tool": "IMProofBench ProofCouncil",
-                "evidence": "First Proof Batch 2 report, Problem 8, Submission A: \"Reject\"",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119), Problem 8, Submission A: \"Reject\"",
                 "family": "openai",
                 "confidence": "high",
                 "role": "subject"
@@ -18114,7 +18114,7 @@
               "agent": {
                 "model": "gpt-5.5 pro",
                 "tool": "UCLA Moonshot Harness",
-                "evidence": "First Proof Batch 2 report, Problem 8, Submission B: \"Major revisions\"",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119), Problem 8, Submission B: \"Major revisions\"",
                 "family": "openai",
                 "confidence": "high",
                 "role": "subject"
@@ -18126,15 +18126,15 @@
               "date": "2026-06-10",
               "value": 0,
               "contributorKind": "team",
-              "contributorUrl": "https://1stproof.org/assets/docs/openai-system-c-prompt.txt",
+              "contributorUrl": "https://arxiv.org/abs/2606.18119",
               "submissionUrls": [
                 "https://github.com/1stproof/batch-2/blob/main/batch-2-AI-solutions/problem-08/submission-C.pdf",
                 "https://github.com/1stproof/batch-2/blob/main/batch-2-reviews/problem-08/submission-C/submission-8C-reviews.pdf"
               ],
               "agent": {
-                "model": "ChatGPT 5.5 Pro",
-                "tool": "ChatGPT",
-                "evidence": "First Proof Batch 2 report, Problem 8, Submission C: \"Reject\"",
+                "model": "OpenAI ChatGPT 5.5 Pro",
+                "tool": "OpenAI ChatGPT 5.5 Pro",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119), Problem 8, Submission C: \"Reject\"",
                 "family": "openai",
                 "confidence": "high",
                 "role": "subject"
@@ -18154,7 +18154,7 @@
               "agent": {
                 "model": "gemini-3.1-pro-preview",
                 "tool": "Princeton Momus",
-                "evidence": "First Proof Batch 2 report, Problem 8, Submission D: \"Reject\"",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119), Problem 8, Submission D: \"Reject\"",
                 "family": "google",
                 "confidence": "high",
                 "role": "subject"
@@ -18165,7 +18165,7 @@
         },
         {
           "group": "batch-2",
-          "description": "Problem by Srivatsav Kunnawalkam Elayavalli. No passing proof yet.",
+          "description": "Batch 2 problem by Srivatsav Kunnawalkam Elayavalli. No passing proof yet.",
           "metricUnit": "of 3",
           "id": "b2-p10",
           "name": "P10 · Von Neumann algebras",
@@ -18189,7 +18189,7 @@
               "agent": {
                 "model": "gpt-5.5 pro",
                 "tool": "IMProofBench ProofCouncil",
-                "evidence": "First Proof Batch 2 report, Problem 10, Submission A: \"Major revisions\"",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119), Problem 10, Submission A: \"Major revisions\"",
                 "family": "openai",
                 "confidence": "high",
                 "role": "subject"
@@ -18209,7 +18209,7 @@
               "agent": {
                 "model": "gpt-5.5 pro",
                 "tool": "UCLA Moonshot Harness",
-                "evidence": "First Proof Batch 2 report, Problem 10, Submission B: \"Reject\"",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119), Problem 10, Submission B: \"Reject\"",
                 "family": "openai",
                 "confidence": "high",
                 "role": "subject"
@@ -18221,16 +18221,16 @@
               "date": "2026-06-10",
               "value": 1,
               "contributorKind": "team",
-              "contributorUrl": "https://1stproof.org/assets/docs/openai-system-c-prompt.txt",
+              "contributorUrl": "https://arxiv.org/abs/2606.18119",
               "submissionUrls": [
                 "https://github.com/1stproof/batch-2/blob/main/batch-2-AI-solutions/problem-10/submission-C.pdf",
                 "https://github.com/1stproof/batch-2/blob/main/batch-2-reviews/problem-10/submission-C/submission-10C-reviews.pdf"
               ],
               "isCurrentBest": true,
               "agent": {
-                "model": "ChatGPT 5.5 Pro",
-                "tool": "ChatGPT",
-                "evidence": "First Proof Batch 2 report, Problem 10, Submission C: \"Major revisions\"",
+                "model": "OpenAI ChatGPT 5.5 Pro",
+                "tool": "OpenAI ChatGPT 5.5 Pro",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119), Problem 10, Submission C: \"Major revisions\"",
                 "family": "openai",
                 "confidence": "high",
                 "role": "subject"
@@ -18250,7 +18250,7 @@
               "agent": {
                 "model": "gemini-3.1-pro-preview",
                 "tool": "Princeton Momus",
-                "evidence": "First Proof Batch 2 report, Problem 10, Submission D: \"Reject\"",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119), Problem 10, Submission D: \"Reject\"",
                 "family": "google",
                 "confidence": "high",
                 "role": "subject"
@@ -18261,17 +18261,17 @@
         },
         {
           "group": "batch-2",
-          "description": "Sum of referee grades over the ten Batch 2 problems: 3 essentially flawless, 2 minor revisions (passing), 1 major revisions, 0 reject or missing. One shot per problem, run by the editorial board.",
+          "description": "Sum of editorial grades over the Batch 2 problems: 3 essentially flawless, 2 minor revisions (passing), 1 major revisions, 0 reject or missing. One shot per problem, run by the editorial board.",
           "metricUnit": "of 30",
           "id": "b2-systems",
-          "name": "Batch 2 · all ten problems",
+          "name": "Batch 2 · all 10 problems",
           "metricName": "total referee grade",
           "metricDirection": "maximize",
           "isOpen": false,
           "records": [
             {
               "contributor": "IMProofBench ProofCouncil",
-              "description": "System A · 6/10 passed (2 flawless, 4 minor, 1 major, 2 reject, 1 missing) · $3,186 API, 22.9 h · gpt-5.5 pro, with gpt-5.5, gemini-3.1-pro-preview, claude-opus-4-7",
+              "description": "System A · 6/10 passed (2 flawless, 4 minor, 1 major, 2 reject, 1 missing) · $3,186 API, 22.9 h · gpt-5.5 pro, gpt-5.5, gemini-3.1-pro-preview, claude-opus-4-7",
               "date": "2026-06-10",
               "value": 15,
               "contributorKind": "team",
@@ -18284,7 +18284,7 @@
               "agent": {
                 "model": "gpt-5.5 pro",
                 "tool": "IMProofBench ProofCouncil",
-                "evidence": "First Proof Batch 2 report: System A total over 9 graded solutions",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119): System A, 9 graded solutions",
                 "family": "openai",
                 "confidence": "high",
                 "role": "subject"
@@ -18304,7 +18304,7 @@
               "agent": {
                 "model": "gpt-5.5 pro",
                 "tool": "UCLA Moonshot Harness",
-                "evidence": "First Proof Batch 2 report: System B total over 10 graded solutions",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119): System B, 10 graded solutions",
                 "family": "openai",
                 "confidence": "high",
                 "role": "subject"
@@ -18312,19 +18312,19 @@
             },
             {
               "contributor": "OpenAI ChatGPT 5.5 Pro",
-              "description": "System C · 5/10 passed (2 flawless, 3 minor, 1 major, 4 reject) · $117 API, 5.8 h · gpt-5.5 pro",
+              "description": "System C · 5/10 passed (2 flawless, 3 minor, 1 major, 4 reject) · $117 API, 5.8 h",
               "date": "2026-06-10",
               "value": 13,
               "contributorKind": "team",
-              "contributorUrl": "https://1stproof.org/assets/docs/openai-system-c-prompt.txt",
+              "contributorUrl": "https://arxiv.org/abs/2606.18119",
               "submissionUrls": [
                 "https://github.com/1stproof/batch-2/tree/main/batch-2-AI-solutions",
                 "https://github.com/1stproof/batch-2/tree/main/batch-2-reviews"
               ],
               "agent": {
-                "model": "ChatGPT 5.5 Pro",
-                "tool": "ChatGPT",
-                "evidence": "First Proof Batch 2 report: System C total over 10 graded solutions",
+                "model": "OpenAI ChatGPT 5.5 Pro",
+                "tool": "OpenAI ChatGPT 5.5 Pro",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119): System C, 10 graded solutions",
                 "family": "openai",
                 "confidence": "high",
                 "role": "subject"
@@ -18344,7 +18344,7 @@
               "agent": {
                 "model": "gemini-3.1-pro-preview",
                 "tool": "Princeton Momus",
-                "evidence": "First Proof Batch 2 report: System D total over 10 graded solutions",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119): System D, 10 graded solutions",
                 "family": "google",
                 "confidence": "high",
                 "role": "subject"
@@ -18355,7 +18355,7 @@
         },
         {
           "group": "batch-2",
-          "description": "Problem by Ted Slaman, Dariusz Kalociński. Passed by systems A, B, C.",
+          "description": "Batch 2 problem by Ted Slaman, Dariusz Kalociński. Passed by systems A, B, C.",
           "metricUnit": "of 3",
           "id": "b2-p01",
           "name": "P1 · Computability theory",
@@ -18379,7 +18379,7 @@
               "agent": {
                 "model": "gpt-5.5 pro",
                 "tool": "IMProofBench ProofCouncil",
-                "evidence": "First Proof Batch 2 report, Problem 1, Submission A: \"Minor revisions\"",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119), Problem 1, Submission A: \"Minor revisions\"",
                 "family": "openai",
                 "confidence": "high",
                 "role": "subject"
@@ -18400,7 +18400,7 @@
               "agent": {
                 "model": "gpt-5.5 pro",
                 "tool": "UCLA Moonshot Harness",
-                "evidence": "First Proof Batch 2 report, Problem 1, Submission B: \"Minor revisions\"",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119), Problem 1, Submission B: \"Minor revisions\"",
                 "family": "openai",
                 "confidence": "high",
                 "role": "subject"
@@ -18412,16 +18412,16 @@
               "date": "2026-06-10",
               "value": 2,
               "contributorKind": "team",
-              "contributorUrl": "https://1stproof.org/assets/docs/openai-system-c-prompt.txt",
+              "contributorUrl": "https://arxiv.org/abs/2606.18119",
               "submissionUrls": [
                 "https://github.com/1stproof/batch-2/blob/main/batch-2-AI-solutions/problem-01/submission-C.pdf",
                 "https://github.com/1stproof/batch-2/blob/main/batch-2-reviews/problem-01/submission-C/submission-1C-reviews.pdf"
               ],
               "isCurrentBest": true,
               "agent": {
-                "model": "ChatGPT 5.5 Pro",
-                "tool": "ChatGPT",
-                "evidence": "First Proof Batch 2 report, Problem 1, Submission C: \"Minor revisions\"",
+                "model": "OpenAI ChatGPT 5.5 Pro",
+                "tool": "OpenAI ChatGPT 5.5 Pro",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119), Problem 1, Submission C: \"Minor revisions\"",
                 "family": "openai",
                 "confidence": "high",
                 "role": "subject"
@@ -18441,7 +18441,7 @@
               "agent": {
                 "model": "gemini-3.1-pro-preview",
                 "tool": "Princeton Momus",
-                "evidence": "First Proof Batch 2 report, Problem 1, Submission D: \"Reject\"",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119), Problem 1, Submission D: \"Reject\"",
                 "family": "google",
                 "confidence": "high",
                 "role": "subject"
@@ -18452,7 +18452,7 @@
         },
         {
           "group": "batch-2",
-          "description": "Problem by Richard Schwartz. Passed by systems A, B, C.",
+          "description": "Batch 2 problem by Richard Schwartz. Passed by systems A, B, C.",
           "metricUnit": "of 3",
           "id": "b2-p02",
           "name": "P2 · Discrete geometry",
@@ -18476,7 +18476,7 @@
               "agent": {
                 "model": "gpt-5.5 pro",
                 "tool": "IMProofBench ProofCouncil",
-                "evidence": "First Proof Batch 2 report, Problem 2, Submission A: \"Minor revisions\"",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119), Problem 2, Submission A: \"Minor revisions\"",
                 "family": "openai",
                 "confidence": "high",
                 "role": "subject"
@@ -18497,7 +18497,7 @@
               "agent": {
                 "model": "gpt-5.5 pro",
                 "tool": "UCLA Moonshot Harness",
-                "evidence": "First Proof Batch 2 report, Problem 2, Submission B: \"Minor revisions\"",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119), Problem 2, Submission B: \"Minor revisions\"",
                 "family": "openai",
                 "confidence": "high",
                 "role": "subject"
@@ -18509,16 +18509,16 @@
               "date": "2026-06-10",
               "value": 2,
               "contributorKind": "team",
-              "contributorUrl": "https://1stproof.org/assets/docs/openai-system-c-prompt.txt",
+              "contributorUrl": "https://arxiv.org/abs/2606.18119",
               "submissionUrls": [
                 "https://github.com/1stproof/batch-2/blob/main/batch-2-AI-solutions/problem-02/submission-C.pdf",
                 "https://github.com/1stproof/batch-2/blob/main/batch-2-reviews/problem-02/submission-C/submission-2C-reviews.pdf"
               ],
               "isCurrentBest": true,
               "agent": {
-                "model": "ChatGPT 5.5 Pro",
-                "tool": "ChatGPT",
-                "evidence": "First Proof Batch 2 report, Problem 2, Submission C: \"Minor revisions\"",
+                "model": "OpenAI ChatGPT 5.5 Pro",
+                "tool": "OpenAI ChatGPT 5.5 Pro",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119), Problem 2, Submission C: \"Minor revisions\"",
                 "family": "openai",
                 "confidence": "high",
                 "role": "subject"
@@ -18538,7 +18538,7 @@
               "agent": {
                 "model": "gemini-3.1-pro-preview",
                 "tool": "Princeton Momus",
-                "evidence": "First Proof Batch 2 report, Problem 2, Submission D: \"Reject\"",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119), Problem 2, Submission D: \"Reject\"",
                 "family": "google",
                 "confidence": "high",
                 "role": "subject"
@@ -18549,7 +18549,7 @@
         },
         {
           "group": "batch-2",
-          "description": "Problem by Aleksa Milojević, Benny Sudakov. Passed by system A.",
+          "description": "Batch 2 problem by Aleksa Milojević, Benny Sudakov. Passed by system A.",
           "metricUnit": "of 3",
           "id": "b2-p03",
           "name": "P3 · Discrete probability",
@@ -18573,7 +18573,7 @@
               "agent": {
                 "model": "gpt-5.5 pro",
                 "tool": "IMProofBench ProofCouncil",
-                "evidence": "First Proof Batch 2 report, Problem 3, Submission A: \"Minor revisions\"",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119), Problem 3, Submission A: \"Minor revisions\"",
                 "family": "openai",
                 "confidence": "high",
                 "role": "subject"
@@ -18593,7 +18593,7 @@
               "agent": {
                 "model": "gpt-5.5 pro",
                 "tool": "UCLA Moonshot Harness",
-                "evidence": "First Proof Batch 2 report, Problem 3, Submission B: \"Reject\"",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119), Problem 3, Submission B: \"Reject\"",
                 "family": "openai",
                 "confidence": "high",
                 "role": "subject"
@@ -18605,15 +18605,15 @@
               "date": "2026-06-10",
               "value": 0,
               "contributorKind": "team",
-              "contributorUrl": "https://1stproof.org/assets/docs/openai-system-c-prompt.txt",
+              "contributorUrl": "https://arxiv.org/abs/2606.18119",
               "submissionUrls": [
                 "https://github.com/1stproof/batch-2/blob/main/batch-2-AI-solutions/problem-03/submission-C.pdf",
                 "https://github.com/1stproof/batch-2/blob/main/batch-2-reviews/problem-03/submission-C/submission-3C-reviews.pdf"
               ],
               "agent": {
-                "model": "ChatGPT 5.5 Pro",
-                "tool": "ChatGPT",
-                "evidence": "First Proof Batch 2 report, Problem 3, Submission C: \"Reject\"",
+                "model": "OpenAI ChatGPT 5.5 Pro",
+                "tool": "OpenAI ChatGPT 5.5 Pro",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119), Problem 3, Submission C: \"Reject\"",
                 "family": "openai",
                 "confidence": "high",
                 "role": "subject"
@@ -18633,7 +18633,7 @@
               "agent": {
                 "model": "gemini-3.1-pro-preview",
                 "tool": "Princeton Momus",
-                "evidence": "First Proof Batch 2 report, Problem 3, Submission D: \"Reject\"",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119), Problem 3, Submission D: \"Reject\"",
                 "family": "google",
                 "confidence": "high",
                 "role": "subject"
@@ -18644,7 +18644,7 @@
         },
         {
           "group": "batch-2",
-          "description": "Problem by Oleg Butkovsky, Jonathan C. Mattingly, Lorenzo Zambotti. Passed by system A.",
+          "description": "Batch 2 problem by Oleg Butkovsky, Jonathan C. Mattingly, Lorenzo Zambotti. Passed by system A.",
           "metricUnit": "of 3",
           "id": "b2-p05",
           "name": "P5 · Stochastic PDE",
@@ -18668,7 +18668,7 @@
               "agent": {
                 "model": "gpt-5.5 pro",
                 "tool": "IMProofBench ProofCouncil",
-                "evidence": "First Proof Batch 2 report, Problem 5, Submission A: \"Essentially flawless\"",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119), Problem 5, Submission A: \"Essentially flawless\"",
                 "family": "openai",
                 "confidence": "high",
                 "role": "subject"
@@ -18688,7 +18688,7 @@
               "agent": {
                 "model": "gpt-5.5 pro",
                 "tool": "UCLA Moonshot Harness",
-                "evidence": "First Proof Batch 2 report, Problem 5, Submission B: \"Reject\"",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119), Problem 5, Submission B: \"Reject\"",
                 "family": "openai",
                 "confidence": "high",
                 "role": "subject"
@@ -18700,15 +18700,15 @@
               "date": "2026-06-10",
               "value": 0,
               "contributorKind": "team",
-              "contributorUrl": "https://1stproof.org/assets/docs/openai-system-c-prompt.txt",
+              "contributorUrl": "https://arxiv.org/abs/2606.18119",
               "submissionUrls": [
                 "https://github.com/1stproof/batch-2/blob/main/batch-2-AI-solutions/problem-05/submission-C.pdf",
                 "https://github.com/1stproof/batch-2/blob/main/batch-2-reviews/problem-05/submission-C/submission-5C-reviews.pdf"
               ],
               "agent": {
-                "model": "ChatGPT 5.5 Pro",
-                "tool": "ChatGPT",
-                "evidence": "First Proof Batch 2 report, Problem 5, Submission C: \"Reject\"",
+                "model": "OpenAI ChatGPT 5.5 Pro",
+                "tool": "OpenAI ChatGPT 5.5 Pro",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119), Problem 5, Submission C: \"Reject\"",
                 "family": "openai",
                 "confidence": "high",
                 "role": "subject"
@@ -18728,7 +18728,7 @@
               "agent": {
                 "model": "gemini-3.1-pro-preview",
                 "tool": "Princeton Momus",
-                "evidence": "First Proof Batch 2 report, Problem 5, Submission D: \"Reject\"",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119), Problem 5, Submission D: \"Reject\"",
                 "family": "google",
                 "confidence": "high",
                 "role": "subject"
@@ -18739,7 +18739,7 @@
         },
         {
           "group": "batch-2",
-          "description": "Problem by Joshua Greene, Duncan McCoy. Passed by systems B, C. System A: no solution (technical failure).",
+          "description": "Batch 2 problem by Joshua Greene, Duncan McCoy. Passed by systems B, C. System A: no solution.",
           "metricUnit": "of 3",
           "id": "b2-p06",
           "name": "P6 · Lattice theory",
@@ -18763,7 +18763,7 @@
               "agent": {
                 "model": "gpt-5.5 pro",
                 "tool": "UCLA Moonshot Harness",
-                "evidence": "First Proof Batch 2 report, Problem 6, Submission B: \"Essentially flawless\"",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119), Problem 6, Submission B: \"Essentially flawless\"",
                 "family": "openai",
                 "confidence": "high",
                 "role": "subject"
@@ -18775,16 +18775,16 @@
               "date": "2026-06-10",
               "value": 3,
               "contributorKind": "team",
-              "contributorUrl": "https://1stproof.org/assets/docs/openai-system-c-prompt.txt",
+              "contributorUrl": "https://arxiv.org/abs/2606.18119",
               "submissionUrls": [
                 "https://github.com/1stproof/batch-2/blob/main/batch-2-AI-solutions/problem-06/submission-C.pdf",
                 "https://github.com/1stproof/batch-2/blob/main/batch-2-reviews/problem-06/submission-C/submission-6C-reviews.pdf"
               ],
               "isCurrentBest": true,
               "agent": {
-                "model": "ChatGPT 5.5 Pro",
-                "tool": "ChatGPT",
-                "evidence": "First Proof Batch 2 report, Problem 6, Submission C: \"Essentially flawless\"",
+                "model": "OpenAI ChatGPT 5.5 Pro",
+                "tool": "OpenAI ChatGPT 5.5 Pro",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119), Problem 6, Submission C: \"Essentially flawless\"",
                 "family": "openai",
                 "confidence": "high",
                 "role": "subject"
@@ -18804,7 +18804,7 @@
               "agent": {
                 "model": "gemini-3.1-pro-preview",
                 "tool": "Princeton Momus",
-                "evidence": "First Proof Batch 2 report, Problem 6, Submission D: \"Reject\"",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119), Problem 6, Submission D: \"Reject\"",
                 "family": "google",
                 "confidence": "high",
                 "role": "subject"
@@ -18815,7 +18815,7 @@
         },
         {
           "group": "batch-2",
-          "description": "Problem by Sucharit Sarkar. Passed by systems A, B, C, D.",
+          "description": "Batch 2 problem by Sucharit Sarkar. Passed by systems A, B, C, D.",
           "metricUnit": "of 3",
           "id": "b2-p07",
           "name": "P7 · Combinatorial topology",
@@ -18839,7 +18839,7 @@
               "agent": {
                 "model": "gpt-5.5 pro",
                 "tool": "IMProofBench ProofCouncil",
-                "evidence": "First Proof Batch 2 report, Problem 7, Submission A: \"Essentially flawless\"",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119), Problem 7, Submission A: \"Essentially flawless\"",
                 "family": "openai",
                 "confidence": "high",
                 "role": "subject"
@@ -18859,7 +18859,7 @@
               "agent": {
                 "model": "gpt-5.5 pro",
                 "tool": "UCLA Moonshot Harness",
-                "evidence": "First Proof Batch 2 report, Problem 7, Submission B: \"Minor revisions\"",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119), Problem 7, Submission B: \"Minor revisions\"",
                 "family": "openai",
                 "confidence": "high",
                 "role": "subject"
@@ -18871,16 +18871,16 @@
               "date": "2026-06-10",
               "value": 3,
               "contributorKind": "team",
-              "contributorUrl": "https://1stproof.org/assets/docs/openai-system-c-prompt.txt",
+              "contributorUrl": "https://arxiv.org/abs/2606.18119",
               "submissionUrls": [
                 "https://github.com/1stproof/batch-2/blob/main/batch-2-AI-solutions/problem-07/submission-C.pdf",
                 "https://github.com/1stproof/batch-2/blob/main/batch-2-reviews/problem-07/submission-C/submission-7C-reviews.pdf"
               ],
               "isCurrentBest": true,
               "agent": {
-                "model": "ChatGPT 5.5 Pro",
-                "tool": "ChatGPT",
-                "evidence": "First Proof Batch 2 report, Problem 7, Submission C: \"Essentially flawless\"",
+                "model": "OpenAI ChatGPT 5.5 Pro",
+                "tool": "OpenAI ChatGPT 5.5 Pro",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119), Problem 7, Submission C: \"Essentially flawless\"",
                 "family": "openai",
                 "confidence": "high",
                 "role": "subject"
@@ -18900,7 +18900,7 @@
               "agent": {
                 "model": "gemini-3.1-pro-preview",
                 "tool": "Princeton Momus",
-                "evidence": "First Proof Batch 2 report, Problem 7, Submission D: \"Minor revisions\"",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119), Problem 7, Submission D: \"Minor revisions\"",
                 "family": "google",
                 "confidence": "high",
                 "role": "subject"
@@ -18911,7 +18911,7 @@
         },
         {
           "group": "batch-2",
-          "description": "Problem by Sylvie Corteel, John Lentfer. Passed by systems A, B, C.",
+          "description": "Batch 2 problem by Sylvie Corteel, John Lentfer. Passed by systems A, B, C.",
           "metricUnit": "of 3",
           "id": "b2-p09",
           "name": "P9 · Algebraic combinatorics",
@@ -18935,7 +18935,7 @@
               "agent": {
                 "model": "gpt-5.5 pro",
                 "tool": "IMProofBench ProofCouncil",
-                "evidence": "First Proof Batch 2 report, Problem 9, Submission A: \"Minor revisions\"",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119), Problem 9, Submission A: \"Minor revisions\"",
                 "family": "openai",
                 "confidence": "high",
                 "role": "subject"
@@ -18956,7 +18956,7 @@
               "agent": {
                 "model": "gpt-5.5 pro",
                 "tool": "UCLA Moonshot Harness",
-                "evidence": "First Proof Batch 2 report, Problem 9, Submission B: \"Minor revisions\"",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119), Problem 9, Submission B: \"Minor revisions\"",
                 "family": "openai",
                 "confidence": "high",
                 "role": "subject"
@@ -18968,16 +18968,16 @@
               "date": "2026-06-10",
               "value": 2,
               "contributorKind": "team",
-              "contributorUrl": "https://1stproof.org/assets/docs/openai-system-c-prompt.txt",
+              "contributorUrl": "https://arxiv.org/abs/2606.18119",
               "submissionUrls": [
                 "https://github.com/1stproof/batch-2/blob/main/batch-2-AI-solutions/problem-09/submission-C.pdf",
                 "https://github.com/1stproof/batch-2/blob/main/batch-2-reviews/problem-09/submission-C/submission-9C-reviews.pdf"
               ],
               "isCurrentBest": true,
               "agent": {
-                "model": "ChatGPT 5.5 Pro",
-                "tool": "ChatGPT",
-                "evidence": "First Proof Batch 2 report, Problem 9, Submission C: \"Minor revisions\"",
+                "model": "OpenAI ChatGPT 5.5 Pro",
+                "tool": "OpenAI ChatGPT 5.5 Pro",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119), Problem 9, Submission C: \"Minor revisions\"",
                 "family": "openai",
                 "confidence": "high",
                 "role": "subject"
@@ -18997,7 +18997,7 @@
               "agent": {
                 "model": "gemini-3.1-pro-preview",
                 "tool": "Princeton Momus",
-                "evidence": "First Proof Batch 2 report, Problem 9, Submission D: \"Reject\"",
+                "evidence": "First Proof Second Batch (arXiv:2606.18119), Problem 9, Submission D: \"Reject\"",
                 "family": "google",
                 "confidence": "high",
                 "role": "subject"
@@ -19036,7 +19036,7 @@
         },
         {
           "name": "OpenAI ChatGPT 5.5 Pro",
-          "url": "https://1stproof.org/assets/docs/openai-system-c-prompt.txt",
+          "url": "https://arxiv.org/abs/2606.18119",
           "submissions": 11,
           "problems": [
             "b2-systems",
@@ -19102,7 +19102,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-10-11T05:40:45.331Z"
+      "lastUpdated": "2026-10-11T17:46:33.454Z"
     }
   ],
   "errors": [

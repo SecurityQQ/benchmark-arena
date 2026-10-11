@@ -314,8 +314,8 @@ function ctaButtons(c, pr, o = {}) {
   const data = `data-comp="${esc(c.id)}"${pr ? ` data-problem="${esc(pr.id ?? pr.name)}"` : ""}`;
   // nested: the host element is already a link, so "Open" has to be a button
   const open = o.nested
-    ? `<button type="button" class="btn${sm}" data-open="${url}">${o.openLabel || "Open"} ${I.ext}</button>`
-    : `<a class="btn${o.small ? " small" : " primary"}" href="${url}" target="_blank" rel="noopener">${o.openLabel || "Open"} ${I.ext}</a>`;
+    ? `<button type="button" class="btn${sm}" data-open="${url}" data-track-open="${esc(c.id)}">${o.openLabel || "Open"} ${I.ext}</button>`
+    : `<a class="btn${o.small ? " small" : " primary"}" href="${url}" target="_blank" rel="noopener" data-track-open="${esc(c.id)}">${o.openLabel || "Open"} ${I.ext}</a>`;
   return `${open}<span class="ask${sm}" ${data}><button type="button" class="ask-main" data-ask="${a.id}" title="Hand this ${pr ? "track" : "competition"} to ${a.name} with a ready prompt">${BRAND[a.icon]}<span>Ask ${a.name}</span></button><button type="button" class="ask-caret" data-ask-menu aria-haspopup="menu" aria-label="Choose an agent">${I.chev}</button></span>`;
 }
 function askTarget(el) {
@@ -324,9 +324,16 @@ function askTarget(el) {
   const k = host.dataset.problem;
   return { c, pr: k ? c.problems.find((x) => (x.id ?? x.name) === k) : undefined };
 }
+// GA4 named events (site/analytics.js defines gtag only when a measurement ID is set)
+const track = (name, params) => { try { window.gtag?.("event", name, params); } catch {} };
+document.addEventListener("click", (e) => {
+  const o = e.target.closest?.("[data-track-open]");
+  if (o) track("open_competition", { competition: o.dataset.trackOpen, link_url: o.getAttribute("href") || o.dataset.open });
+}, true);
 function copyPrompt(text) { try { return navigator.clipboard.writeText(text).then(() => true, () => false); } catch { return Promise.resolve(false); } }
 function askAgent(id, c, pr) {
   const prompt = buildPrompt(c, pr);
+  track("ask_agent", { agent: id, competition: c.id, ...(pr ? { track: pr.id ?? pr.name } : {}) });
   const copied = copyPrompt(prompt); // always: custom schemes fail silently, and paste-only agents need it
   if (id === "copy") return copied.then((ok) => toast(ok ? "Prompt copied" : "Could not copy: clipboard is blocked"));
   const a = AGENTS.find((x) => x.id === id) || AGENTS[0], url = a.url(prompt);
@@ -938,6 +945,7 @@ function renderSubmit() {
     const lb = document.getElementById("sf-lb").value.trim(), notes = document.getElementById("sf-notes").value.trim();
     const body = [`### Repository`, `https://github.com/${r.owner}/${r.name}`, ``, `### Leaderboard or website`, /^https?:\/\//.test(lb) ? lb : "_none_", ``, `### Why it belongs here`, notes || "_no notes_", ``, `---`, `Submitted from ${location.origin}/submit. A maintainer adds the \`approved\` label to queue it for the crawler.`].join("\n");
     window.open(`https://github.com/${SITE_REPO}/issues/new?title=${encodeURIComponent(`Add competition: ${r.owner}/${r.name}`)}&labels=submission&body=${encodeURIComponent(body)}`, "_blank", "noopener");
+    track("submit_competition", { repo: `${r.owner}/${r.name}` });
     toast?.("Issue opened in a new tab. Press “Submit new issue” there.");
   };
   const pre = new URLSearchParams(location.search).get("repo") || state.prefillRepo; state.prefillRepo = null; if (pre) { repoEl.value = pre; check(); }
