@@ -353,3 +353,16 @@ test("browser smoke: desktop and mobile interactions under the actual strict CSP
   assert.equal(new URL(page.url()).pathname, "/");
   await check();
 });
+
+// <img src="*.svg"> renders nothing for malformed XML, even though the file is served fine
+test("every published SVG is a complete document", () => {
+  const build = readFileSync(new URL("../src/build.ts", import.meta.url), "utf8");
+  const names = ["favicon.svg", ...[...build.matchAll(/"([^"]+)"\.split\(" "\)\.map\(\(n\) => `icons\/\$\{n\}\.svg`\)/g)].flatMap((m) => m[1].split(" ").map((n) => `icons/${n}.svg`))];
+  assert.ok(names.length > 10);
+  for (const name of names) {
+    const svg = readFileSync(new URL(`../site/${name}`, import.meta.url), "utf8").trim();
+    assert.match(svg, /^(<\?xml[^>]*\?>\s*)?<svg[\s>]/, name);
+    assert.match(svg, /<\/svg>$/, name);
+    assert.equal((svg.match(/<svg[\s>]/g) || []).length, (svg.match(/<\/svg>/g) || []).length, name);
+  }
+});
