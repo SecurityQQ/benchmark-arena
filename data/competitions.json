@@ -1,5 +1,5 @@
 {
-  "crawledAt": "2026-10-13T11:05:49.858Z",
+  "crawledAt": "2026-10-13T12:55:11.870Z",
   "competitions": [
     {
       "id": "assetopsbench",
@@ -89,7 +89,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-10-13T10:33:29.880Z"
+      "lastUpdated": "2026-10-13T12:55:04.132Z"
     },
     {
       "id": "alpaca-eval",
@@ -453,7 +453,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-10-13T10:35:04.985Z"
+      "lastUpdated": "2026-10-13T12:55:04.132Z"
     },
     {
       "id": "cogdl",
@@ -2191,7 +2191,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-10-13T10:37:36.458Z"
+      "lastUpdated": "2026-10-13T12:55:04.133Z"
     },
     {
       "id": "vbench",
@@ -2318,7 +2318,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-10-13T10:38:04.046Z"
+      "lastUpdated": "2026-10-13T12:55:04.133Z"
     },
     {
       "id": "chess-challenge",
@@ -2400,7 +2400,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-10-13T10:38:22.255Z"
+      "lastUpdated": "2026-10-13T12:55:04.133Z"
     },
     {
       "id": "llm-colosseum",
@@ -2628,7 +2628,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-10-13T10:41:09.582Z"
+      "lastUpdated": "2026-10-13T12:55:04.133Z"
     },
     {
       "id": "clawprobench",
@@ -2749,7 +2749,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-10-13T10:42:35.043Z"
+      "lastUpdated": "2026-10-13T12:55:04.134Z"
     },
     {
       "id": "squad-explorer",
@@ -2827,7 +2827,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-10-13T10:44:09.704Z"
+      "lastUpdated": "2026-10-13T12:55:04.134Z"
     },
     {
       "id": "polymarket-paper-trader",
@@ -2914,7 +2914,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-10-13T10:44:33.513Z"
+      "lastUpdated": "2026-10-13T12:55:04.134Z"
     },
     {
       "id": "skab",
@@ -3128,7 +3128,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-10-13T10:45:07.549Z"
+      "lastUpdated": "2026-10-13T12:55:04.134Z"
     },
     {
       "id": "putnambench",
@@ -3255,7 +3255,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-10-13T10:50:57.979Z"
+      "lastUpdated": "2026-10-13T12:55:04.134Z"
     },
     {
       "id": "fstandhartinger-jevbench-2acd10345790c8d1",
@@ -4152,7 +4152,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-10-13T10:52:32.115Z"
+      "lastUpdated": "2026-10-13T12:55:04.134Z"
     },
     {
       "id": "lora-speedrun",
@@ -4441,7 +4441,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 8
       },
-      "lastUpdated": "2026-10-13T10:54:11.170Z"
+      "lastUpdated": "2026-10-13T12:55:04.134Z"
     },
     {
       "id": "equational-theories-lean-stage2",
@@ -4529,7 +4529,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-10-13T10:55:08.137Z"
+      "lastUpdated": "2026-10-13T12:55:04.134Z"
     },
     {
       "id": "first-proof",
@@ -5657,76 +5657,76 @@
           "url": "https://github.com/1stproof/batch-2/tree/main/batch-2-submissions/ucla",
           "submissions": 11,
           "problems": [
+            "b2-p04",
+            "b2-p08",
+            "b2-p10",
             "b2-systems",
             "b2-p01",
             "b2-p02",
             "b2-p03",
-            "b2-p04",
             "b2-p05",
             "b2-p06",
             "b2-p07",
-            "b2-p08",
-            "b2-p09",
-            "b2-p10"
+            "b2-p09"
           ],
-          "lastActive": "2026-06-10",
-          "bestRank": 1
+          "bestRank": 1,
+          "lastActive": "2026-06-10"
         },
         {
           "name": "OpenAI ChatGPT 5.5 Pro",
           "url": "https://arxiv.org/abs/2606.18119",
           "submissions": 11,
           "problems": [
+            "b2-p04",
+            "b2-p08",
+            "b2-p10",
             "b2-systems",
             "b2-p01",
             "b2-p02",
             "b2-p03",
-            "b2-p04",
             "b2-p05",
             "b2-p06",
             "b2-p07",
-            "b2-p08",
-            "b2-p09",
-            "b2-p10"
+            "b2-p09"
           ],
-          "lastActive": "2026-06-10",
-          "bestRank": 1
+          "bestRank": 1,
+          "lastActive": "2026-06-10"
         },
         {
           "name": "Princeton Momus",
           "url": "https://github.com/1stproof/batch-2/tree/main/batch-2-submissions/princeton",
           "submissions": 11,
           "problems": [
+            "b2-p04",
+            "b2-p08",
+            "b2-p10",
             "b2-systems",
             "b2-p01",
             "b2-p02",
             "b2-p03",
-            "b2-p04",
             "b2-p05",
             "b2-p06",
             "b2-p07",
-            "b2-p08",
-            "b2-p09",
-            "b2-p10"
+            "b2-p09"
           ],
-          "lastActive": "2026-06-10",
-          "bestRank": 1
+          "bestRank": 1,
+          "lastActive": "2026-06-10"
         },
         {
           "name": "IMProofBench ProofCouncil",
           "url": "https://github.com/1stproof/batch-2/tree/main/batch-2-submissions/improofbench",
           "submissions": 10,
           "problems": [
+            "b2-p04",
+            "b2-p08",
+            "b2-p10",
             "b2-systems",
             "b2-p01",
             "b2-p02",
             "b2-p03",
-            "b2-p04",
             "b2-p05",
             "b2-p07",
-            "b2-p08",
-            "b2-p09",
-            "b2-p10"
+            "b2-p09"
           ],
           "bestRank": 1,
           "lastActive": "2026-06-10"
@@ -5740,7 +5740,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-10-13T10:55:12.483Z"
+      "lastUpdated": "2026-10-13T12:55:04.136Z"
     },
     {
       "id": "sutro-problems",
@@ -5849,8 +5849,8 @@
               "date": "2026-09-25",
               "value": 700.1,
               "contributorKind": "person",
-              "isBaseline": true,
-              "contributorUrl": "https://github.com/yaroslavvb"
+              "contributorUrl": "https://github.com/yaroslavvb",
+              "isBaseline": true
             },
             {
               "contributor": "yaroslavvb",
@@ -5866,6 +5866,7 @@
               "date": "2026-09-26",
               "value": 61.7,
               "contributorKind": "person",
+              "contributorUrl": "https://github.com/yaroslavvb",
               "isCurrentBest": true,
               "agent": {
                 "model": "Claude Opus 5.5",
@@ -5873,8 +5874,7 @@
                 "family": "anthropic",
                 "confidence": "high",
                 "role": "author"
-              },
-              "contributorUrl": "https://github.com/yaroslavvb"
+              }
             }
           ],
           "contested": false
@@ -5896,8 +5896,8 @@
               "date": "2026-09-26",
               "value": 927.3,
               "contributorKind": "person",
-              "isBaseline": true,
-              "contributorUrl": "https://github.com/yaroslavvb"
+              "contributorUrl": "https://github.com/yaroslavvb",
+              "isBaseline": true
             },
             {
               "contributor": "yaroslavvb",
@@ -5905,6 +5905,7 @@
               "date": "2026-09-26",
               "value": 252.1,
               "contributorKind": "person",
+              "contributorUrl": "https://github.com/yaroslavvb",
               "isCurrentBest": true,
               "agent": {
                 "model": "Claude Opus 5.5",
@@ -5912,8 +5913,7 @@
                 "family": "anthropic",
                 "confidence": "high",
                 "role": "author"
-              },
-              "contributorUrl": "https://github.com/yaroslavvb"
+              }
             }
           ],
           "contested": false
@@ -6193,8 +6193,8 @@
               "date": "2026-09-02",
               "value": 86753,
               "contributorKind": "person",
-              "isCurrentBest": true,
-              "contributorUrl": "https://github.com/b0nce"
+              "contributorUrl": "https://github.com/b0nce",
+              "isCurrentBest": true
             },
             {
               "contributor": "jurajselep",
@@ -6254,8 +6254,8 @@
               "date": "2026-09-01",
               "value": 141218,
               "contributorKind": "person",
-              "isCurrentBest": true,
-              "contributorUrl": "https://github.com/npow"
+              "contributorUrl": "https://github.com/npow",
+              "isCurrentBest": true
             },
             {
               "contributor": "b0nce",
@@ -6331,8 +6331,8 @@
               "date": "2026-09-01",
               "value": 149665,
               "contributorKind": "person",
-              "isCurrentBest": true,
-              "contributorUrl": "https://github.com/npow"
+              "contributorUrl": "https://github.com/npow",
+              "isCurrentBest": true
             },
             {
               "contributor": "b0nce",
@@ -6408,8 +6408,8 @@
               "date": "2026-09-01",
               "value": 182744,
               "contributorKind": "person",
-              "isCurrentBest": true,
-              "contributorUrl": "https://github.com/npow"
+              "contributorUrl": "https://github.com/npow",
+              "isCurrentBest": true
             },
             {
               "contributor": "b0nce",
@@ -6477,8 +6477,8 @@
               "date": "2026-09-02",
               "value": 392666,
               "contributorKind": "person",
-              "isCurrentBest": true,
-              "contributorUrl": "https://github.com/jurajselep"
+              "contributorUrl": "https://github.com/jurajselep",
+              "isCurrentBest": true
             },
             {
               "contributor": "npow",
@@ -6567,8 +6567,8 @@
               "date": "2026-04-29",
               "value": 1316,
               "contributorKind": "person",
-              "isBaseline": true,
-              "contributorUrl": "https://github.com/yaroslavvb"
+              "contributorUrl": "https://github.com/yaroslavvb",
+              "isBaseline": true
             },
             {
               "contributor": "sjbaebae",
@@ -6608,8 +6608,8 @@
               "date": "2026-09-04",
               "value": 675,
               "contributorKind": "person",
-              "isCurrentBest": true,
-              "contributorUrl": "https://github.com/jurajselep"
+              "contributorUrl": "https://github.com/jurajselep",
+              "isCurrentBest": true
             }
           ],
           "contested": true
@@ -6630,8 +6630,8 @@
               "date": "2026-04-29",
               "value": 340704,
               "contributorKind": "person",
-              "isBaseline": true,
-              "contributorUrl": "https://github.com/yaroslavvb"
+              "contributorUrl": "https://github.com/yaroslavvb",
+              "isBaseline": true
             },
             {
               "contributor": "yaroslavvb",
@@ -6655,14 +6655,14 @@
               "date": "2026-04-30",
               "value": 110743,
               "contributorKind": "person",
+              "contributorUrl": "https://github.com/SethTS",
               "agent": {
                 "model": "Claude Sonnet 4.6",
                 "evidence": "Co-authored-by: Claude Sonnet 4.6 <noreply@anthropic.com>",
                 "family": "anthropic",
                 "confidence": "high",
                 "role": "author"
-              },
-              "contributorUrl": "https://github.com/SethTS"
+              }
             },
             {
               "contributor": "sjbaebae",
@@ -6726,14 +6726,14 @@
               "date": "2026-05-13",
               "value": 68390,
               "contributorKind": "person",
+              "contributorUrl": "https://github.com/cosminscn",
               "agent": {
                 "tool": "Codex",
                 "evidence": "Author: Codex and Cosmin",
                 "family": "openai",
                 "confidence": "medium",
                 "role": "author"
-              },
-              "contributorUrl": "https://github.com/cosminscn"
+              }
             },
             {
               "contributor": "cosminscn",
@@ -6741,14 +6741,14 @@
               "date": "2026-05-13",
               "value": 67834,
               "contributorKind": "person",
+              "contributorUrl": "https://github.com/cosminscn",
               "agent": {
                 "model": "Codex",
                 "evidence": "Author: Codex and Cosmin",
                 "family": "openai",
                 "confidence": "high",
                 "role": "author"
-              },
-              "contributorUrl": "https://github.com/cosminscn"
+              }
             },
             {
               "contributor": "cosminscn",
@@ -6756,14 +6756,14 @@
               "date": "2026-05-14",
               "value": 67821,
               "contributorKind": "person",
+              "contributorUrl": "https://github.com/cosminscn",
               "agent": {
                 "model": "Codex",
                 "evidence": "Author: Codex and Cosmin",
                 "family": "openai",
                 "confidence": "high",
                 "role": "author"
-              },
-              "contributorUrl": "https://github.com/cosminscn"
+              }
             },
             {
               "contributor": "sjbaebae",
@@ -6771,14 +6771,14 @@
               "date": "2026-05-08",
               "value": 66707,
               "contributorKind": "person",
+              "contributorUrl": "https://github.com/sjbaebae",
               "agent": {
                 "tool": "Codex",
                 "evidence": "[codex] add weighted lifetime matmul submission",
                 "family": "openai",
                 "confidence": "medium",
                 "role": "author"
-              },
-              "contributorUrl": "https://github.com/sjbaebae"
+              }
             },
             {
               "contributor": "cosminscn",
@@ -6786,14 +6786,14 @@
               "date": "2026-05-25",
               "value": 66633,
               "contributorKind": "person",
+              "contributorUrl": "https://github.com/cosminscn",
               "agent": {
                 "model": "Codex",
                 "evidence": "Author: Codex and Cosmin",
                 "family": "openai",
                 "confidence": "high",
                 "role": "author"
-              },
-              "contributorUrl": "https://github.com/cosminscn"
+              }
             },
             {
               "contributor": "cosminscn",
@@ -6801,14 +6801,14 @@
               "date": "2026-05-25",
               "value": 66524,
               "contributorKind": "person",
+              "contributorUrl": "https://github.com/cosminscn",
               "agent": {
                 "model": "Codex",
                 "evidence": "Author: Codex and Cosmin",
                 "family": "openai",
                 "confidence": "high",
                 "role": "author"
-              },
-              "contributorUrl": "https://github.com/cosminscn"
+              }
             },
             {
               "contributor": "cosminscn",
@@ -6816,14 +6816,14 @@
               "date": "2026-05-26",
               "value": 66400,
               "contributorKind": "person",
+              "contributorUrl": "https://github.com/cosminscn",
               "agent": {
                 "model": "Codex",
                 "evidence": "Author: Codex and Cosmin",
                 "family": "openai",
                 "confidence": "high",
                 "role": "author"
-              },
-              "contributorUrl": "https://github.com/cosminscn"
+              }
             },
             {
               "contributor": "cosminscn",
@@ -6831,14 +6831,14 @@
               "date": "2026-05-28",
               "value": 66300,
               "contributorKind": "person",
+              "contributorUrl": "https://github.com/cosminscn",
               "agent": {
                 "model": "Claude",
                 "evidence": "Claude-assisted simulated annealing over a leaderboard physical-address IR",
                 "family": "anthropic",
                 "confidence": "medium",
                 "role": "author"
-              },
-              "contributorUrl": "https://github.com/cosminscn"
+              }
             },
             {
               "contributor": "sigkillme0",
@@ -6870,14 +6870,14 @@
               "date": "2026-09-04",
               "value": 64431,
               "contributorKind": "person",
+              "contributorUrl": "https://github.com/cosminscn",
               "agent": {
                 "tool": "Codex",
                 "evidence": "Merge pull request #59 from cosminscn/codex/matmul-record-64431-clean",
                 "family": "openai",
                 "confidence": "medium",
                 "role": "author"
-              },
-              "contributorUrl": "https://github.com/cosminscn"
+              }
             },
             {
               "contributor": "SecurityQQ",
@@ -6917,8 +6917,8 @@
               "date": "2026-09-18",
               "value": 63350,
               "contributorKind": "person",
-              "isCurrentBest": true,
-              "contributorUrl": "https://github.com/jurajselep"
+              "contributorUrl": "https://github.com/jurajselep",
+              "isCurrentBest": true
             }
           ],
           "contested": true
@@ -6933,13 +6933,13 @@
             "Codex"
           ],
           "contributors": [
-            "cosminscn",
-            "sjbaebae",
             "512-unit MLP",
             "PCA-QDA",
             "Reversible MLP",
             "1NN",
-            "Ordered ConvNets"
+            "Ordered ConvNets",
+            "cosminscn",
+            "sjbaebae"
           ],
           "uncontestedBests": 1
         },
@@ -6948,16 +6948,16 @@
           "records": 5,
           "currentBests": 1,
           "models": [
-            "Claude Sonnet 4.6",
-            "Claude",
             "Claude Opus 5.5",
-            "Claude Fable 5.1"
+            "Claude Fable 5.1",
+            "Claude Sonnet 4.6",
+            "Claude"
           ],
           "contributors": [
-            "SethTS",
-            "cosminscn",
             "yaroslavvb",
-            "QDA"
+            "QDA",
+            "SethTS",
+            "cosminscn"
           ],
           "uncontestedBests": 2
         }
@@ -6973,13 +6973,13 @@
           "url": "https://github.com/jurajselep",
           "submissions": 12,
           "problems": [
-            "matmul-4x4",
-            "matmul-16x16",
             "sparse-parity-20",
             "sparse-parity-40",
             "sparse-parity-60",
             "sparse-parity-80",
-            "sparse-parity-100"
+            "sparse-parity-100",
+            "matmul-4x4",
+            "matmul-16x16"
           ],
           "lastActive": "2026-09-18",
           "bestRank": 1
@@ -6989,12 +6989,12 @@
           "url": "https://github.com/npow",
           "submissions": 9,
           "problems": [
-            "matmul-4x4",
             "sparse-parity-20",
             "sparse-parity-40",
             "sparse-parity-60",
             "sparse-parity-80",
-            "sparse-parity-100"
+            "sparse-parity-100",
+            "matmul-4x4"
           ],
           "lastActive": "2026-09-01",
           "bestRank": 1
@@ -7017,15 +7017,15 @@
           "url": "https://github.com/yaroslavvb",
           "submissions": 19,
           "problems": [
-            "matmul-4x4",
-            "matmul-16x16",
             "mnist-a100-diff1",
             "mnist-a100-diff2",
             "sparse-parity-20",
             "sparse-parity-40",
             "sparse-parity-60",
             "sparse-parity-80",
-            "sparse-parity-100"
+            "sparse-parity-100",
+            "matmul-4x4",
+            "matmul-16x16"
           ],
           "lastActive": "2026-09-26"
         },
@@ -7034,12 +7034,12 @@
           "url": "https://github.com/zh4ngx",
           "submissions": 8,
           "problems": [
-            "matmul-16x16",
             "sparse-parity-20",
             "sparse-parity-40",
             "sparse-parity-60",
             "sparse-parity-80",
-            "sparse-parity-100"
+            "sparse-parity-100",
+            "matmul-16x16"
           ],
           "lastActive": "2026-08-30"
         },
@@ -7107,7 +7107,7 @@
         "recordsLast30d": 14,
         "recordsLast90d": 65
       },
-      "lastUpdated": "2026-10-13T10:58:13.144Z"
+      "lastUpdated": "2026-10-13T12:55:04.138Z"
     },
     {
       "id": "lean-eval",
@@ -10896,7 +10896,7 @@
         "recordsLast30d": 21,
         "recordsLast90d": 88
       },
-      "lastUpdated": "2026-10-13T10:58:18.731Z"
+      "lastUpdated": "2026-10-13T12:55:04.142Z"
     },
     {
       "id": "s2n-bignum-bench",
@@ -10980,7 +10980,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-10-13T10:58:48.862Z"
+      "lastUpdated": "2026-10-13T12:55:04.142Z"
     },
     {
       "id": "agent-anvil-leaderboard",
@@ -11083,7 +11083,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-10-13T10:59:44.639Z"
+      "lastUpdated": "2026-10-13T12:55:04.142Z"
     },
     {
       "id": "programbench",
@@ -11372,7 +11372,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-10-13T10:32:33.097Z"
+      "lastUpdated": "2026-10-13T12:55:04.143Z"
     },
     {
       "id": "chi-bench",
@@ -12337,7 +12337,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 36
       },
-      "lastUpdated": "2026-10-13T10:32:33.098Z"
+      "lastUpdated": "2026-10-13T12:55:04.143Z"
     },
     {
       "id": "geo-bench-2-leaderboard",
@@ -12439,7 +12439,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-10-13T11:00:59.598Z"
+      "lastUpdated": "2026-10-13T12:55:04.144Z"
     },
     {
       "id": "modded-nanogpt-npu",
@@ -13092,8 +13092,8 @@
               "date": "2025-12-14",
               "value": 2.146,
               "contributorKind": "person",
-              "isCurrentBest": true,
-              "contributorUrl": "https://github.com/classiclarryd"
+              "contributorUrl": "https://github.com/classiclarryd",
+              "isCurrentBest": true
             }
           ],
           "contested": true
@@ -13186,8 +13186,8 @@
               "date": "2025-09-11",
               "value": 24.07,
               "contributorKind": "person",
-              "isCurrentBest": true,
-              "contributorUrl": "https://github.com/snimu"
+              "contributorUrl": "https://github.com/snimu",
+              "isCurrentBest": true
             }
           ],
           "contested": true
@@ -13482,7 +13482,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-10-13T11:02:54.968Z"
+      "lastUpdated": "2026-10-13T12:55:04.144Z"
     },
     {
       "id": "apex-humanoid-parkour",
@@ -13576,7 +13576,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-10-13T11:03:27.344Z"
+      "lastUpdated": "2026-10-13T12:55:04.145Z"
     },
     {
       "id": "swe-bench-pro-leaderboard",
@@ -13805,7 +13805,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-10-13T11:04:52.979Z"
+      "lastUpdated": "2026-10-13T12:55:04.145Z"
     },
     {
       "id": "mle-bench",
@@ -15801,7 +15801,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-10-13T10:32:33.090Z"
+      "lastUpdated": "2026-10-13T12:55:04.146Z"
     },
     {
       "id": "reference-kernels",
@@ -15924,7 +15924,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-10-13T10:32:33.091Z"
+      "lastUpdated": "2026-10-13T12:55:04.146Z"
     },
     {
       "id": "llm-leaderboard",
@@ -18436,7 +18436,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-10-13T10:32:33.093Z"
+      "lastUpdated": "2026-10-13T12:55:04.148Z"
     },
     {
       "id": "medmcqa",
@@ -18514,7 +18514,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-10-13T10:32:33.093Z"
+      "lastUpdated": "2026-10-13T12:55:04.148Z"
     },
     {
       "id": "gmaapp",
@@ -19691,7 +19691,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-10-13T10:32:33.100Z"
+      "lastUpdated": "2026-10-13T12:55:04.149Z"
     },
     {
       "id": "terminal-bench-leaderboard",
@@ -19887,169 +19887,8 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-10-13T10:32:33.099Z"
+      "lastUpdated": "2026-10-13T12:55:04.149Z"
     }
   ],
-  "errors": [
-    {
-      "repo": "cporter202/scraping-apis-for-devs",
-      "error": "not a competition"
-    },
-    {
-      "repo": "starvla/starvla",
-      "error": "not a competition"
-    },
-    {
-      "repo": "agi-edgerunners/llm-agents-papers",
-      "error": "not a competition"
-    },
-    {
-      "repo": "cloud-cv/evalai",
-      "error": "not a competition"
-    },
-    {
-      "repo": "livesplit/livesplit",
-      "error": "not a competition"
-    },
-    {
-      "repo": "openai/mle-bench",
-      "error": "Repository processing failed (previous entry kept)"
-    },
-    {
-      "repo": "mlgroupjlu/llm-eval-survey",
-      "error": "not a competition"
-    },
-    {
-      "repo": "tmgthb/autonomous-agents",
-      "error": "not a competition"
-    },
-    {
-      "repo": "marcelscruz/dev-resources",
-      "error": "not a competition"
-    },
-    {
-      "repo": "osu-nlp-group/gui-agents-paper-list",
-      "error": "not a competition"
-    },
-    {
-      "repo": "cjmellor/level-up",
-      "error": "not a competition"
-    },
-    {
-      "repo": "changwookjun/nlp-paper",
-      "error": "not a competition"
-    },
-    {
-      "repo": "yinizhilian/iclr2025-papers-with-code",
-      "error": "not a competition"
-    },
-    {
-      "repo": "petroivaniuk/llms-tools",
-      "error": "not a competition"
-    },
-    {
-      "repo": "lbx154/argus",
-      "error": "not a competition"
-    },
-    {
-      "repo": "gpu-mode/reference-kernels",
-      "error": "Structured build failed (previous entry kept)"
-    },
-    {
-      "repo": "xcpcio/xcpcio",
-      "error": "not a competition"
-    },
-    {
-      "repo": "ludwigstumpp/llm-leaderboard",
-      "error": "Repository processing failed (previous entry kept)"
-    },
-    {
-      "repo": "medmcqa/medmcqa",
-      "error": "Repository processing failed (previous entry kept)"
-    },
-    {
-      "repo": "darwinbaker/aatool",
-      "error": "not a competition"
-    },
-    {
-      "repo": "lclm-horizon/a-comprehensive-survey-for-long-context-language-modeling",
-      "error": "not a competition"
-    },
-    {
-      "repo": "tailuge/billiards",
-      "error": "not a competition"
-    },
-    {
-      "repo": "recursive-org/first-steps-toward-automated-ai-research",
-      "error": "not a competition"
-    },
-    {
-      "repo": "tencent-hunyuan/hyra-results",
-      "error": "not a competition"
-    },
-    {
-      "repo": "microsoft/argusagent",
-      "error": "not a competition"
-    },
-    {
-      "repo": "synopiia/psxs5",
-      "error": "not a competition"
-    },
-    {
-      "repo": "wonguo199-stack/one-does-not-simply-speedrun",
-      "error": "not a competition"
-    },
-    {
-      "repo": "metacognitionai/navgpt-3",
-      "error": "not a competition"
-    },
-    {
-      "repo": "blha303/srcomapi",
-      "error": "not a competition"
-    },
-    {
-      "repo": "leanprover/lean-eval-leaderboard",
-      "error": "merged into another competition"
-    },
-    {
-      "repo": "jozzdart/track",
-      "error": "not a competition"
-    },
-    {
-      "repo": "david-courtis/opine-world",
-      "error": "not a competition"
-    },
-    {
-      "repo": "veritasacta/verify",
-      "error": "not a competition"
-    },
-    {
-      "repo": "tony-montemuro/smb-website",
-      "error": "not a competition"
-    },
-    {
-      "repo": "identitynulll/ascension",
-      "error": "not a competition"
-    },
-    {
-      "repo": "arcelewyn/discord",
-      "error": "not a competition"
-    },
-    {
-      "repo": "hschindele/gmaapp",
-      "error": "not a competition (previous entry kept)"
-    },
-    {
-      "repo": "allowexe/mqtt-voting",
-      "error": "not a competition"
-    },
-    {
-      "repo": "ktibow/deepswe-across-providers",
-      "error": "not a competition"
-    },
-    {
-      "repo": "rdi-foundation/terminal-bench-leaderboard",
-      "error": "Repository processing failed (previous entry kept)"
-    }
-  ]
+  "errors": []
 }
