@@ -616,7 +616,7 @@ function renderHome() {
 
     <section class="band art-band std-promo">${artBg("d-coding")}<div class="wrap">
       <div class="hero"><span class="eyebrow">For organizers</span><h2 style="font-size:36px;line-height:1.1">Ship <span class="mono-title">PROBLEM.md</span> and <span class="mono-title">SUBMISSION.md</span>. Get crawled first.</h2>
-      <p class="lede" style="margin-top:16px">PROBLEM.md at the root: the task, the rules, where entries go. SUBMISSION.md in every entry: the solution and its score. Our bot finds them on its own, reads them daily and builds the leaderboard from the files.</p>
+      <p class="lede" style="margin-top:16px">PROBLEM.md at the root: the task, the rules, where entries go. SUBMISSION.md in every entry: the solution and its score. Our bot finds them on its own, reads them every week and builds the leaderboard from the files.</p>
       <div class="cta"><a class="btn primary" href="/standard" data-action="nav">Read the standard →</a><a class="btn" href="/submit" data-action="nav">Or just submit a repository</a></div></div>
     </div></section>
 
@@ -750,7 +750,7 @@ function card(c) {
 
 const introPill = () => `<a class="intro-pill" href="/standard" data-action="nav"><span class="ip-tag">New</span><span class="ip-text">Introducing <b>Problem.MD</b> &amp; <b>Submission.MD</b></span><span class="ip-arrow" aria-hidden="true">→</span></a>`;
 // ── The standard: PROBLEM.md + SUBMISSION.md (problem.md · submission.md) ──
-const stdBadge = (c) => c.standard?.problem || c.standard?.submission ? `<a class="std-badge" href="/standard" title="Follows the standard: PROBLEM.md${c.standard.submissions ? ` and ${esc(c.standard.submissions)} SUBMISSION.md entr${c.standard.submissions === 1 ? "y" : "ies"}` : ""}. Crawled daily, facts taken from the files" data-action="nav" data-stop>${I.doc}<span>${c.standard.problem ? "PROBLEM.md" : "SUBMISSION.md"}</span></a>` : "";
+const stdBadge = (c) => c.standard?.problem || c.standard?.submission ? `<a class="std-badge" href="/standard" title="Follows the standard: PROBLEM.md${c.standard.submissions ? ` and ${esc(c.standard.submissions)} SUBMISSION.md entr${c.standard.submissions === 1 ? "y" : "ies"}` : ""}. Crawled weekly, facts taken from the files" data-action="nav" data-stop>${I.doc}<span>${c.standard.problem ? "PROBLEM.md" : "SUBMISSION.md"}</span></a>` : "";
 // does a repo ship the two files? raw.githubusercontent serves with CORS, so the browser can look
 async function checkStandard(owner, name, branch) {
   const marked = (t, k) => new RegExp(`^spec\\s*:\\s*${k}\\.md/v\\d+`, "mi").test(t || "");
@@ -813,8 +813,8 @@ function renderStandard() {
     <section class="band"><div class="wrap">
       <div class="band-head"><div><span class="eyebrow">Why bother</span><h2>What the two files buy you</h2></div>${n ? `<div class="dim small mono">${n} listed competition${n === 1 ? "" : "s"} ship${n === 1 ? "s" : ""} them</div>` : ""}</div>
       <div class="std-grid">
-        <div class="panel"><h2>Found without asking</h2><p>The bot searches all of GitHub for these file names every day. No form, no approval queue, no star threshold: if the files are there, the repository is crawled.</p></div>
-        <div class="panel"><h2>First in line, daily</h2><p>Standard repositories are processed before everything else and re-crawled every day. The rest of the catalog is refreshed every three days.</p></div>
+        <div class="panel"><h2>Found without asking</h2><p>The bot searches all of GitHub for these file names every week. No form, no approval queue, no star threshold: if the files are there, the repository is crawled.</p></div>
+        <div class="panel"><h2>First in line</h2><p>Standard repositories are processed before everything else in the weekly crawl, and their leaderboard is built straight from the files.</p></div>
         <div class="panel"><h2>A leaderboard that builds itself</h2><p>Every <code>SUBMISSION.md</code> is a row: author, date, the value per track, the approach. No table to maintain by hand, no language model guessing numbers out of a README.</p></div>
         <div class="panel"><h2>Honest agent attribution</h2><p>Entries declare the model and harness that produced them. An agent pointed at your repository reads <code>PROBLEM.md</code>, knows what to optimize and where to put its answer. Listed competitions get a <span class="std-badge static">${I.doc}<span>PROBLEM.md</span></span> mark.</p></div>
       </div>
@@ -858,7 +858,7 @@ function renderStandard() {
     st.className = "field-state wait"; st.innerHTML = `Looking into <code>${esc(r.owner)}/${esc(r.name)}</code>…`;
     const res = await checkStandard(r.owner, r.name);
     const both = res.problemOk && res.submission, listed = D.competitions.find((c) => c.repo && `${c.repo.owner}/${c.repo.name}`.toLowerCase() === `${r.owner}/${r.name}`.toLowerCase());
-    st.className = "field-state"; st.innerHTML = stdReport(res) + `<div class="std-verdict ${both ? "ok" : ""}">${both ? "Priority lane: crawled daily, and the leaderboard is built from the SUBMISSION.md files." : res.problemOk ? "Priority lane: this repository will be picked up by the daily crawl. Entries appear as soon as they carry a SUBMISSION.md." : res.problem ? "Almost. Fix PROBLEM.md as noted above to enter the priority lane." : "Not in the priority lane yet. Add PROBLEM.md, or submit the repository the ordinary way."}${listed ? ` It is already listed as <a href="/c/${pathPart(listed.id)}" data-action="nav">${esc(listed.name)}</a>.` : !res.problemOk ? ` <a href="/submit?repo=${encodeURIComponent(r.owner + "/" + r.name)}" data-action="nav">Submit it →</a>` : ""}</div>`;
+    st.className = "field-state"; st.innerHTML = stdReport(res) + `<div class="std-verdict ${both ? "ok" : ""}">${both ? "Priority lane: crawled weekly, first in the queue, and the leaderboard is built from the SUBMISSION.md files." : res.problemOk ? "Priority lane: this repository will be picked up by the weekly crawl. Entries appear as soon as they carry a SUBMISSION.md." : res.problem ? "Almost. Fix PROBLEM.md as noted above to enter the priority lane." : "Not in the priority lane yet. Add PROBLEM.md, or submit the repository the ordinary way."}${listed ? ` It is already listed as <a href="/c/${pathPart(listed.id)}" data-action="nav">${esc(listed.name)}</a>.` : !res.problemOk ? ` <a href="/submit?repo=${encodeURIComponent(r.owner + "/" + r.name)}" data-action="nav">Submit it →</a>` : ""}</div>`;
   };
   document.getElementById("std-form").onsubmit = (e) => { e.preventDefault(); run(); };
   const pre = state.prefillRepo || new URLSearchParams(location.search).get("repo"); if (pre) { input.value = pre; state.prefillRepo = null; run(); }
@@ -910,7 +910,7 @@ function renderSubmit() {
           <ol class="steps">
             <li><b>You open the issue.</b> The form fills it in; you press “Submit new issue”.</li>
             <li><b>A maintainer approves.</b> Nothing is crawled before a human looks at it.</li>
-            <li><b>The crawler runs.</b> Every three days it reads the repository, extracts tracks, records and agent attribution.</li>
+            <li><b>The crawler runs.</b> Once a week it reads the repository, extracts tracks, records and agent attribution.</li>
             <li><b>It appears here.</b> With an API digest for agents at <code>/api/competitions/{id}.md</code>.</li>
           </ol>
         </div>
@@ -934,7 +934,7 @@ function renderSubmit() {
       if (!res.ok) return set("warn", "Could not verify the repository right now (GitHub rate limit). You can still continue.", true);
       const m = await res.json();
       current = { owner: m.owner.login, name: m.name };
-      checkStandard(m.owner.login, m.name, m.default_branch).then((std) => { if (my !== seq) return; const el = document.getElementById("sf-std"); if (el) el.innerHTML = std.problemOk ? `<div class="std-verdict ok">Ships a valid PROBLEM.md: it is in the priority lane and will be crawled daily, no approval needed.</div>` : `<div class="std-verdict">Tip: add <a href="/standard" data-action="nav">PROBLEM.md</a> to the repository root and the bot crawls it daily, ahead of the queue.</div>`; });
+      checkStandard(m.owner.login, m.name, m.default_branch).then((std) => { if (my !== seq) return; const el = document.getElementById("sf-std"); if (el) el.innerHTML = std.problemOk ? `<div class="std-verdict ok">Ships a valid PROBLEM.md: it is in the priority lane and will be crawled weekly, no approval needed.</div>` : `<div class="std-verdict">Tip: add <a href="/standard" data-action="nav">PROBLEM.md</a> to the repository root and the bot crawls it first, ahead of the queue.</div>`; });
       set("ok", `<div class="repo-preview"><img src="${esc(safeUrl(m.owner.avatar_url))}&s=64" alt="" width="32" height="32"><div><div class="rp-name">${esc(m.full_name)} <span class="dim">★ ${fmt(m.stargazers_count)}</span></div><div class="rp-desc">${esc(m.description || "No description")}</div></div></div>${m.archived ? `<div class="rp-note">This repository is archived; it will be listed as ended.</div>` : ""}<div id="sf-std"></div>`, true);
     }).catch(() => { if (my === seq) set("warn", "Could not reach GitHub to verify. You can still continue.", true); });
   };

@@ -98,7 +98,7 @@ export async function discoverStandardRepos(): Promise<DiscoveredRepo[]> {
           // verify before it costs anything: the file must parse and carry our marker
           const doc = parseIngestedDoc(item.path, await fetchRaw(full.owner.login, full.name, item.path, full.default_branch));
           if (!isStandardDoc(doc)) continue;
-          found.set(key, { owner: full.owner.login, name: full.name, url: full.html_url, description: full.description ?? undefined, stars: full.stargazers_count, topics: full.topics ?? [], defaultBranch: full.default_branch, priority: true });
+          found.set(key, { owner: full.owner.login, name: full.name, url: full.html_url, description: full.description ?? undefined, stars: full.stargazers_count, topics: full.topics ?? [], defaultBranch: full.default_branch, pushedAt: full.pushed_at ?? undefined, priority: true });
         } catch { /* gone */ }
       }
       console.log(`    standard search "${q.slice(0, 40)}…": ${data.items.length} files`);
@@ -129,6 +129,7 @@ export async function discoverRepos(maxResults = 80): Promise<DiscoveredRepo[]> 
         stars: data.stargazers_count,
         topics: data.topics ?? [],
         defaultBranch: data.default_branch,
+        pushedAt: data.pushed_at ?? undefined,
       });
       console.log(`    ✓ ${key} ★${data.stargazers_count}`);
     } catch {
@@ -158,6 +159,7 @@ export async function discoverRepos(maxResults = 80): Promise<DiscoveredRepo[]> 
           stars: repo.stargazers_count,
           topics: repo.topics ?? [],
           defaultBranch: repo.default_branch,
+          pushedAt: repo.pushed_at ?? undefined,
         });
       }
       if (found.size >= maxResults) break;
@@ -188,6 +190,7 @@ export async function discoverRepos(maxResults = 80): Promise<DiscoveredRepo[]> 
           stars: repo.stargazers_count,
           topics: repo.topics ?? [],
           defaultBranch: repo.default_branch,
+          pushedAt: repo.pushed_at ?? undefined,
         });
       }
       if (found.size >= maxResults) break;

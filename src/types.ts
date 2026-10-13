@@ -132,7 +132,8 @@ export interface DiscoveredRepo {
   stars: number;
   topics: string[];
   defaultBranch: string;
-  priority?: boolean;            // ships PROBLEM.md / SUBMISSION.md: crawled first and daily
+  pushedAt?: string;             // last push, from the GitHub API: unchanged repos are not re-sent to the LLM
+  priority?: boolean;            // ships PROBLEM.md / SUBMISSION.md: crawled first in the weekly run
 }
 
 export interface CrawlResult {

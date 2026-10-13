@@ -1,7 +1,7 @@
 // Fetch relevant pages from a GitHub repo: README + leaderboard-ish files
 
 import { fetchRaw, listDir, getOctokit, assertPublicRepo, MAX_FILE_BYTES } from "./github.js";
-import { writeFileSync, readFileSync, existsSync, mkdirSync, statSync } from "node:fs";
+import { writeFileSync, readFileSync, existsSync, mkdirSync, statSync, readdirSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import { PROBLEM_FILES, MAX_SUBMISSIONS, parseStandardDoc, isStandardDoc, submissionsDir, type StandardDoc } from "./standard.js";
 
@@ -24,6 +24,15 @@ function cacheGet(key: string): string | null {
   const p = join(CACHE_DIR, `${key}.txt`);
   if (existsSync(p) && statSync(p).size <= MAX_FILE_BYTES) return readFileSync(p, "utf-8");
   return null;
+}
+
+/** Drop every cached file of a repo (called when the repo got a new push, so leaderboards are re-read). */
+export function clearRepoCache(owner: string, name: string): number {
+  if (!existsSync(CACHE_DIR)) return 0;
+  const prefix = cacheKey(owner, name, "");
+  let n = 0;
+  for (const f of readdirSync(CACHE_DIR)) if (f.startsWith(prefix) && f.endsWith(".txt")) { rmSync(join(CACHE_DIR, f), { force: true }); n++; }
+  return n;
 }
 
 function cacheSet(key: string, content: string): void {

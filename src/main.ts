@@ -7,8 +7,8 @@ loadEnv();
 
 import type { CrawlResult, Competition, DiscoveredRepo } from "./types.js";
 import { discoverRepos } from "./discovery.js";
-import { fetchRepoPages } from "./fetcher.js";
-import { processRepoWithLLM, attributeRecordsWithLLM } from "./llm.js";
+import { clearRepoCache, fetchRepoPages } from "./fetcher.js";
+import { processRepoWithLLM, attributeRecordsWithLLM, EXTRACTION_FINGERPRINT, llmUsage } from "./llm.js";
 import { postprocess } from "./postprocess.js";
 import { buildLeanEval } from "./structured/leanEval.js";
 import { buildGpuMode } from "./structured/gpuMode.js";
@@ -64,6 +64,23 @@ const MERGED_INTO: Record<string, string> = {
 const DATA_DIR = join(process.cwd(), "data");
 const DISCOVERED_PATH = join(DATA_DIR, "discovered.json");
 const RESULT_PATH = join(DATA_DIR, "competitions.json");
+const STATE_PATH = join(DATA_DIR, "crawl-state.json");
+
+// What the last LLM pass saw per repo. A repo with the same last push and the same prompts/model is not re-sent
+// to the LLM: its previous entry is reused, or, if it was "not a competition", it stays rejected.
+export interface RepoState { pushedAt: string; fingerprint: string; verdict: "competition" | "none"; checkedAt: string }
+const DAY = 86_400_000;
+const MAX_AGE_DAYS = { competition: 28, none: 56 }; // re-check now and then anyway: deadlines pass, statuses change
+
+function loadState(): Record<string, RepoState> {
+  try { return existsSync(STATE_PATH) ? JSON.parse(readFileSync(STATE_PATH, "utf-8")) : {}; } catch { return {}; }
+}
+
+export function canSkip(st: RepoState | undefined, repo: DiscoveredRepo, now = Date.now(), force = process.env.FORCE === "1"): RepoState["verdict"] | null {
+  if (force || !st || !repo.pushedAt || st.pushedAt !== repo.pushedAt || st.fingerprint !== EXTRACTION_FINGERPRINT) return null;
+  const age = now - Date.parse(st.checkedAt);
+  return Number.isFinite(age) && age < MAX_AGE_DAYS[st.verdict] * DAY ? st.verdict : null;
+}
 
 async function main() {
   const mode = process.argv[2] ?? "full"; // "discover" | "process" | "full" | "priority" | "repost"
@@ -92,7 +109,7 @@ async function main() {
 
   // Step 1: Discovery
   if (mode === "priority") {
-    // Fast lane: only repos that ship PROBLEM.md / SUBMISSION.md. Runs daily; results are merged into the existing data.
+    // Fast lane: only repos that ship PROBLEM.md / SUBMISSION.md. Manual only (the weekly full crawl covers these repos); results are merged into the existing data.
     console.log("[1] Priority lane: discovering repos that follow the standard...\n");
     const { discoverStandardRepos } = await import("./discovery.js");
     const known: DiscoveredRepo[] = existsSync(DISCOVERED_PATH) ? JSON.parse(readFileSync(DISCOVERED_PATH, "utf-8")) : [];
@@ -143,6 +160,9 @@ async function main() {
   const prevComps = loadPrevious();
   const blocked = new Set<string>();
   const prevByRepo = new Map(prevComps.map((c) => [`${c.repo?.owner}/${c.repo?.name}`.toLowerCase(), c]));
+  const state = loadState();
+  const stateUpdates = new Map<string, RepoState>();
+  let skipped = 0;
   for (let i = 0; i < repos.length; i++) {
     const repo = repos[i];
     const key = repoKey(repo);
@@ -174,6 +194,28 @@ async function main() {
       }
       continue;
     }
+    const prevEntry = prevByRepo.get(key);
+    const skip = canSkip(state[key], repo);
+    if (skip === "competition" && prevEntry) {
+      console.log(`    unchanged since ${repo.pushedAt}, reusing the previous entry (no LLM call)`);
+      competitions.push(prevEntry);
+      skipped++;
+      continue;
+    }
+    if (skip === "none" && !prevEntry) {
+      console.log(`    unchanged since ${repo.pushedAt}, still not a competition (no LLM call)`);
+      errors.push({ repo: key, error: "not a competition" });
+      skipped++;
+      continue;
+    }
+    // new push (or first time): the cached README/leaderboard text is stale
+    if (repo.pushedAt && state[key]?.pushedAt !== repo.pushedAt) {
+      const n = clearRepoCache(repo.owner, repo.name);
+      if (n) console.log(`    new push, dropped ${n} cached file(s)`);
+    }
+    const remember = (verdict: RepoState["verdict"]) => {
+      if (repo.pushedAt) stateUpdates.set(key, { pushedAt: repo.pushedAt, fingerprint: EXTRACTION_FINGERPRINT, verdict, checkedAt: new Date().toISOString() });
+    };
     try {
       // Fetch pages
       const pages = await fetchRepoPages(repo.owner, repo.name, repo.defaultBranch);
@@ -185,7 +227,6 @@ async function main() {
       console.log(`    fetched ${pages.pages.length} pages, ${pages.totalChars} chars`);
 
       // Process with LLM, then overlay the facts declared in PROBLEM.md / SUBMISSION.md
-      const prevEntry = prevByRepo.get(key);
       const extracted = await processRepoWithLLM(pages, undefined, (prevEntry?.problems ?? []).map((p) => ({ id: p.id, name: p.name })));
       const { competition: overlaid, info: standardInfo } = applyStandard(extracted, pages.standardDocs, { ...repo, branch: repo.defaultBranch });
       const llmResult = overlaid === null ? null : validateCompetition({ ...overlaid, ...(standardInfo ? { standard: standardInfo } : {}) }, repo);
@@ -193,6 +234,7 @@ async function main() {
       if (llmResult === null) {
         console.log(`    not a competition, skipping`);
         errors.push({ repo: key, error: "not a competition" });
+        if (!prevEntry) remember("none"); // a known competition that came back empty is retried next time
         continue;
       }
 
@@ -232,6 +274,7 @@ async function main() {
       const fams = competition.agentStats.map((a) => `${a.family}:${a.records}`).join(" ");
       console.log(`    ✓ ${competition.name} [${competition.status}] ${competition.problems.length} problems, ${totalRecords} records, ${uniqueParticipants} participants, compute=${competition.participation.compute}${fams ? ` · agents ${fams}` : ""}`);
       competitions.push(competition);
+      remember("competition");
     } catch {
       console.log("    repository processing failed");
       errors.push({ repo: key, error: "Repository processing failed" });
@@ -244,6 +287,7 @@ async function main() {
     if (prev && prev.stats.totalRecords >= 10 && c.stats.totalRecords < prev.stats.totalRecords * 0.6) {
       console.log(`  ! ${c.name}: records ${prev.stats.totalRecords} → ${c.stats.totalRecords}, keeping the previous version`);
       competitions[i] = prev;
+      stateUpdates.delete(`${c.repo?.owner}/${c.repo?.name}`.toLowerCase()); // retry next crawl
     }
   }
   // Safety net, part 2: a known competition that came back "not a competition" or failed this time is carried over, not deleted
@@ -273,10 +317,16 @@ async function main() {
   };
   mkdirSync(DATA_DIR, { recursive: true });
   writeFileSync(RESULT_PATH, JSON.stringify(result, null, 2));
+  const nextState = { ...state };
+  for (const [k, v] of stateUpdates) nextState[k] = v;
+  for (const k of blocked) delete nextState[k];
+  writeFileSync(STATE_PATH, JSON.stringify(Object.fromEntries(Object.entries(nextState).sort(([a], [b]) => a.localeCompare(b))), null, 2) + "\n");
 
   console.log(`  ${finalComps.length} competitions saved`);
   console.log(`  ${errors.length} repos skipped/failed`);
   console.log(`  Saved to ${RESULT_PATH}`);
+  console.log(`  ${skipped} repo(s) unchanged, skipped without an LLM call`);
+  console.log(`  LLM: ${llmUsage.calls} calls, ${llmUsage.promptTokens} in / ${llmUsage.completionTokens} out tokens, $${llmUsage.cost.toFixed(4)}`);
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) main().catch(() => {

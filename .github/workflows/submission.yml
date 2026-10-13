@@ -53,7 +53,7 @@ jobs:
           MESSAGE: ${{ steps.ingest.outputs.message }}
         run: |
           case "$STATUS" in
-            queued)    gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body "Thanks! $MESSAGE It will appear on the site after the next crawl (every 3 days) if the extractor finds a leaderboard people can submit to." ;;
+            queued)    gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body "Thanks! $MESSAGE It will appear on the site after the next crawl (weekly, on Mondays) if the extractor finds a leaderboard people can submit to." ;;
             duplicate) gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body "$MESSAGE" ;;
             *)         gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body "Could not ingest this submission: $MESSAGE" ;;
           esac

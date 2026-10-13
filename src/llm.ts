@@ -4,11 +4,64 @@ import type { Competition } from "./types.js";
 import type { RepoPages } from "./fetcher.js";
 import { validateAttributions, validateCompetition } from "./validation.js";
 import { boundedFetch } from "./github.js";
+import { createHash } from "node:crypto";
 
 const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
-const DEFAULT_MODEL = process.env.LLM_MODEL ?? "google/gemini-3.5-flash";
+// Chosen by scripts/compare-models.ts: DeepSeek V4.1 Flash matched every record of the previous Gemini 3.5 Flash
+// crawl on the large leaderboards at ~1/20 of the price. Qwen 3.8 Flash was runner-up and is tried when the primary fails.
+export const DEFAULT_MODEL = process.env.LLM_MODEL ?? "deepseek/deepseek-v4.1-flash";
+export const FALLBACK_MODEL = process.env.LLM_FALLBACK_MODEL ?? "qwen/qwen3.8-flash";
+const REASONING = process.env.LLM_REASONING ?? "off";
 const MAX_RESPONSE_BYTES = 4 * 1024 * 1024;
-const REQUEST_TIMEOUT_MS = 120_000;
+// long leaderboards produce 30k+ output tokens; slower providers need minutes
+const REQUEST_TIMEOUT_MS = Number(process.env.LLM_TIMEOUT_MS ?? 600_000);
+
+// Running totals for the crawl, printed at the end of a run
+export const llmUsage = { calls: 0, promptTokens: 0, completionTokens: 0, cost: 0, byModel: {} as Record<string, number> };
+
+interface LLMCall { system: string; user: string; maxTokens: number; model?: string; title: string; label?: string }
+
+async function callLLM({ system, user, maxTokens, model, title, label = "LLM" }: LLMCall): Promise<string> {
+  const apiKey = process.env.OPENROUTER_API_KEY;
+  if (!apiKey) throw new Error("OPENROUTER_API_KEY not set");
+  const primary = model || DEFAULT_MODEL;
+  const models = [primary, ...(FALLBACK_MODEL && FALLBACK_MODEL !== primary && !model ? [FALLBACK_MODEL] : [])];
+  const res = await boundedFetch(OPENROUTER_URL, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+      "HTTP-Referer": "https://github.com/github-competitions",
+      "X-Title": title,
+    },
+    body: JSON.stringify({
+      ...(models.length > 1 ? { models } : { model: primary }),
+      messages: [{ role: "system", content: system }, { role: "user", content: user }],
+      temperature: 0,
+      max_tokens: maxTokens,
+      // Plain extraction: thinking costs ~3x and ~10x latency without better records (scripts/compare-models.ts).
+      // Even effort "low" produced 14k reasoning tokens per repo, so it is off unless LLM_REASONING=low|medium|high.
+      reasoning: REASONING === "off" ? { enabled: false } : { effort: REASONING, exclude: true },
+      usage: { include: true },
+    }),
+  }, MAX_RESPONSE_BYTES, REQUEST_TIMEOUT_MS).catch(() => { throw new Error(`${label} request failed`); });
+  if (!res.ok) {
+    await res.body?.cancel().catch(() => {});
+    throw new Error(`${label} request rejected`);
+  }
+  const json: unknown = await res.json().catch(() => { throw new Error("Invalid LLM response"); });
+  const u = (json as { usage?: { prompt_tokens?: number; completion_tokens?: number; cost?: number } })?.usage;
+  const used = (json as { model?: string })?.model ?? primary;
+  if (u) {
+    llmUsage.calls++;
+    llmUsage.promptTokens += u.prompt_tokens ?? 0;
+    llmUsage.completionTokens += u.completion_tokens ?? 0;
+    llmUsage.cost += u.cost ?? 0;
+    llmUsage.byModel[primary] = (llmUsage.byModel[primary] ?? 0) + (u.cost ?? 0);
+    console.log(`    LLM ${used}: ${u.prompt_tokens ?? 0} in / ${u.completion_tokens ?? 0} out tokens, $${(u.cost ?? 0).toFixed(4)}`);
+  }
+  return responseContent(json);
+}
 
 function responseContent(value: unknown): string {
   if (!value || typeof value !== "object" || !("choices" in value) || !Array.isArray(value.choices)) throw new Error("Invalid LLM response");
@@ -117,8 +170,7 @@ Rules:
 - Return ONLY the JSON or null. No prose, no code fences.`;
 
 export async function processRepoWithLLM(repoPages: RepoPages, model?: string, knownTracks: { id: string; name: string }[] = []): Promise<LLMCompetition | null> {
-  const apiKey = process.env.OPENROUTER_API_KEY;
-  if (!apiKey) throw new Error("OPENROUTER_API_KEY not set");
+  if (!process.env.OPENROUTER_API_KEY) throw new Error("OPENROUTER_API_KEY not set");
 
   const { owner, name, branch } = repoPages.repo;
   const repoMeta = `Repository: ${owner}/${name} (branch: ${branch})\nURL: https://github.com/${owner}/${name}\nToday: ${new Date().toISOString().slice(0, 10)}\n${knownTracks.length ? `Track ids from the previous crawl — this list is only for id stability, NOT the list of tracks: reuse an id when that track still exists, and add every other track the docs have now (including empty, open ones) under a new id: ${knownTracks.map((t) => `${t.id} (${t.name})`).join("; ")}\n` : ""}`;
@@ -128,31 +180,7 @@ export async function processRepoWithLLM(repoPages: RepoPages, model?: string, k
 
   console.log(`    LLM input: ${repoPages.pages.length} pages, ${repoPages.totalChars} chars`);
 
-  const res = await boundedFetch(OPENROUTER_URL, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
-      "HTTP-Referer": "https://github.com/github-competitions",
-      "X-Title": "Open Challenge List Crawler",
-    },
-    body: JSON.stringify({
-      model: model || DEFAULT_MODEL,
-      messages: [
-        { role: "system", content: SYSTEM_PROMPT },
-        { role: "user", content: `${repoMeta}\n${pagesText}` },
-      ],
-      temperature: 0,
-      max_tokens: 48000,
-    }),
-  }, MAX_RESPONSE_BYTES, REQUEST_TIMEOUT_MS).catch(() => { throw new Error("LLM request failed"); });
-
-  if (!res.ok) {
-    await res.body?.cancel().catch(() => {});
-    throw new Error("LLM request rejected");
-  }
-
-  const content = responseContent(await res.json().catch(() => { throw new Error("Invalid LLM response"); }));
+  const content = await callLLM({ system: SYSTEM_PROMPT, user: `${repoMeta}\n${pagesText}`, maxTokens: 48000, model, title: "Open Challenge List Crawler" });
   const parsed = parseContent(content);
   return parsed === null ? null : validateCompetition(parsed, { owner, name, defaultBranch: branch, url: `https://github.com/${owner}/${name}`, stars: 0, topics: [] });
 }
@@ -186,22 +214,15 @@ export async function attributeRecordsWithLLM(
   evidence: string,
   model?: string,
 ): Promise<Record<string, AgentAttribution>> {
-  const apiKey = process.env.OPENROUTER_API_KEY;
-  if (!apiKey) throw new Error("OPENROUTER_API_KEY not set");
+  if (!process.env.OPENROUTER_API_KEY) throw new Error("OPENROUTER_API_KEY not set");
   if (!records.length || !evidence.trim()) return {};
 
   const recs = records.map((r) => `${r.key} | ${r.problem} | ${r.contributor ?? "?"} | ${r.date ?? "?"} | ${r.value} | ${(r.description ?? "").slice(0, 100)} | ${(r.files ?? []).map((f) => f.split("/").pop()).join(",")}`).join("\n");
   const user = `Competition: ${competitionId}\n\n(A) RECORDS (key | problem | contributor | date | value | description | files)\n${recs}\n\n(B) EVIDENCE\n${evidence.slice(0, 60000)}`;
 
-  const res = await boundedFetch(OPENROUTER_URL, {
-    method: "POST",
-    headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json", "HTTP-Referer": "https://github.com/github-competitions", "X-Title": "Open Challenge List Attribution" },
-    body: JSON.stringify({ model: model || DEFAULT_MODEL, messages: [{ role: "system", content: ATTR_PROMPT }, { role: "user", content: user }], temperature: 0, max_tokens: 16000 }),
-  }, MAX_RESPONSE_BYTES, REQUEST_TIMEOUT_MS).catch(() => { throw new Error("LLM attribution request failed"); });
-  if (!res.ok) {
-    await res.body?.cancel().catch(() => {});
-    throw new Error("LLM attribution request rejected");
-  }
-  const content = responseContent(await res.json().catch(() => { throw new Error("Invalid LLM response"); }));
+  const content = await callLLM({ system: ATTR_PROMPT, user, maxTokens: 16000, model, title: "Open Challenge List Attribution", label: "LLM attribution" });
   return validateAttributions(parseContent(content), new Set(records.map((r) => r.key)));
 }
+
+// Changes whenever the prompts or the model change: a stored result made under a different fingerprint is redone
+export const EXTRACTION_FINGERPRINT = createHash("sha256").update([DEFAULT_MODEL, SYSTEM_PROMPT, ATTR_PROMPT].join("\0")).digest("hex").slice(0, 16);
