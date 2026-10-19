@@ -1,4 +1,10 @@
 {
+  "actava-ai/leaderboard": {
+    "pushedAt": "2026-10-07T16:42:53Z",
+    "fingerprint": "81e7e9bf9471aa91",
+    "verdict": "competition",
+    "checkedAt": "2026-10-19T09:13:40.944Z"
+  },
   "agent-axiom/agent-anvil-leaderboard": {
     "pushedAt": "2026-06-08T19:34:24Z",
     "fingerprint": "81e7e9bf9471aa91",
@@ -6,10 +12,10 @@
     "checkedAt": "2026-10-13T23:14:53.902Z"
   },
   "agent-next/polymarket-paper-trader": {
-    "pushedAt": "2026-10-13T17:47:34Z",
+    "pushedAt": "2026-10-19T03:22:20Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-10-13T23:06:08.782Z"
+    "checkedAt": "2026-10-19T09:04:33.245Z"
   },
   "agi-edgerunners/llm-agents-papers": {
     "pushedAt": "2025-07-12T07:39:24Z",
@@ -36,34 +42,34 @@
     "checkedAt": "2026-10-13T23:05:41.768Z"
   },
   "cjmellor/level-up": {
-    "pushedAt": "2026-10-13T19:34:47Z",
+    "pushedAt": "2026-10-14T11:08:06Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-10-13T23:05:36.728Z"
+    "checkedAt": "2026-10-19T09:04:10.490Z"
   },
   "cloud-cv/evalai": {
-    "pushedAt": "2026-10-08T16:09:42Z",
+    "pushedAt": "2026-10-18T16:19:39Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-10-13T23:01:22.390Z"
+    "checkedAt": "2026-10-19T09:03:04.068Z"
   },
   "cporter202/scraping-apis-for-devs": {
-    "pushedAt": "2026-10-12T13:31:55Z",
+    "pushedAt": "2026-10-17T16:09:47Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-10-13T23:00:22.588Z"
+    "checkedAt": "2026-10-19T09:02:25.974Z"
   },
   "cybertronai/sutro-problems": {
-    "pushedAt": "2026-10-13T03:28:04Z",
+    "pushedAt": "2026-10-19T06:09:32Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-10-13T23:14:11.123Z"
+    "checkedAt": "2026-10-19T09:11:02.508Z"
   },
   "darkxex/swanstationps5": {
-    "pushedAt": "2026-10-13T21:52:23Z",
+    "pushedAt": "2026-10-19T03:51:26Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-10-13T23:12:58.013Z"
+    "checkedAt": "2026-10-19T09:09:07.958Z"
   },
   "darwinbaker/aatool": {
     "pushedAt": "2025-06-17T07:39:31Z",
@@ -78,10 +84,10 @@
     "checkedAt": "2026-10-13T23:14:34.425Z"
   },
   "fstandhartinger/jevbench": {
-    "pushedAt": "2026-10-10T13:50:17Z",
+    "pushedAt": "2026-10-15T04:07:55Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-10-13T23:11:20.311Z"
+    "checkedAt": "2026-10-19T09:08:28.024Z"
   },
   "hschindele/gmaapp": {
     "pushedAt": "2023-01-13T01:29:46Z",
@@ -90,10 +96,10 @@
     "checkedAt": "2026-10-13T23:17:25.948Z"
   },
   "ibm/assetopsbench": {
-    "pushedAt": "2026-10-13T12:38:54Z",
+    "pushedAt": "2026-10-19T04:01:50Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-10-13T23:01:00.796Z"
+    "checkedAt": "2026-10-19T09:02:41.686Z"
   },
   "identitynulll/ascension": {
     "pushedAt": "2026-05-26T09:27:32Z",
@@ -107,11 +113,17 @@
     "verdict": "none",
     "checkedAt": "2026-10-13T23:14:29.087Z"
   },
+  "kings-crown/s2n-bignum-bench": {
+    "pushedAt": "2026-09-21T08:42:32Z",
+    "fingerprint": "81e7e9bf9471aa91",
+    "verdict": "competition",
+    "checkedAt": "2026-10-19T09:11:20.116Z"
+  },
   "lbx154/argus": {
-    "pushedAt": "2026-10-13T18:44:28Z",
+    "pushedAt": "2026-10-19T07:59:48Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-10-13T23:06:43.546Z"
+    "checkedAt": "2026-10-19T09:05:13.670Z"
   },
   "lclm-horizon/a-comprehensive-survey-for-long-context-language-modeling": {
     "pushedAt": "2026-08-17T08:28:14Z",
@@ -126,10 +138,10 @@
     "checkedAt": "2026-10-13T23:18:18.592Z"
   },
   "livesplit/livesplit": {
-    "pushedAt": "2026-10-11T20:24:59Z",
+    "pushedAt": "2026-10-17T03:11:14Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-10-13T23:02:07.587Z"
+    "checkedAt": "2026-10-19T09:03:28.189Z"
   },
   "ludwigstumpp/llm-leaderboard": {
     "pushedAt": "2024-08-23T20:09:41Z",
@@ -156,16 +168,16 @@
     "checkedAt": "2026-10-13T23:10:04.399Z"
   },
   "metacognitionai/navgpt-3": {
-    "pushedAt": "2026-10-12T08:27:21Z",
+    "pushedAt": "2026-10-14T05:05:20Z",
     "fingerprint": "81e7e9bf9471aa91",
-    "verdict": "none",
-    "checkedAt": "2026-10-13T23:12:44.165Z"
+    "verdict": "competition",
+    "checkedAt": "2026-10-19T09:09:01.036Z"
   },
   "microsoft/argusagent": {
-    "pushedAt": "2026-10-13T16:45:52Z",
+    "pushedAt": "2026-10-16T05:59:33Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-10-13T23:12:32.735Z"
+    "checkedAt": "2026-10-19T09:08:53.784Z"
   },
   "mlgroupjlu/llm-eval-survey": {
     "pushedAt": "2026-09-13T02:09:22Z",
@@ -186,22 +198,22 @@
     "checkedAt": "2026-10-13T23:04:28.220Z"
   },
   "osu-nlp-group/gui-agents-paper-list": {
-    "pushedAt": "2026-10-07T20:59:00Z",
+    "pushedAt": "2026-10-14T21:14:33Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-10-13T23:05:19.061Z"
+    "checkedAt": "2026-10-19T09:03:49.804Z"
   },
   "petroivaniuk/llms-tools": {
-    "pushedAt": "2026-09-05T13:18:21Z",
+    "pushedAt": "2026-10-19T08:30:46Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-10-13T23:06:28.229Z"
+    "checkedAt": "2026-10-19T09:04:41.868Z"
   },
   "programbench/submissions": {
-    "pushedAt": "2026-09-30T15:41:00Z",
+    "pushedAt": "2026-10-14T22:39:47Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-10-13T23:15:28.307Z"
+    "checkedAt": "2026-10-19T09:13:00.604Z"
   },
   "rdi-foundation/swe-bench-leaderboard": {
     "pushedAt": "2026-06-03T06:52:54Z",
@@ -214,6 +226,18 @@
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
     "checkedAt": "2026-10-13T23:11:49.306Z"
+  },
+  "rodrigosiqueiradev/speedrunledger": {
+    "pushedAt": "2026-10-15T13:48:35Z",
+    "fingerprint": "81e7e9bf9471aa91",
+    "verdict": "none",
+    "checkedAt": "2026-10-19T09:13:56.124Z"
+  },
+  "ryanalberts/best-of-agent-harnesses": {
+    "pushedAt": "2026-10-18T17:06:28Z",
+    "fingerprint": "81e7e9bf9471aa91",
+    "verdict": "none",
+    "checkedAt": "2026-10-19T09:03:39.738Z"
   },
   "saircompetition/equational-theories-lean-stage2": {
     "pushedAt": "2026-08-27T18:30:50Z",
@@ -246,10 +270,10 @@
     "checkedAt": "2026-10-13T23:12:39.095Z"
   },
   "tailuge/billiards": {
-    "pushedAt": "2026-10-13T16:49:04Z",
+    "pushedAt": "2026-10-19T07:23:00Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-10-13T23:11:39.474Z"
+    "checkedAt": "2026-10-19T09:08:42.011Z"
   },
   "tatsu-lab/alpaca_eval": {
     "pushedAt": "2025-08-09T07:23:36Z",
@@ -262,6 +286,12 @@
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
     "checkedAt": "2026-10-13T23:11:56.648Z"
+  },
+  "the-ai-alliance/geo-bench-2-leaderboard": {
+    "pushedAt": "2026-01-19T11:41:51Z",
+    "fingerprint": "81e7e9bf9471aa91",
+    "verdict": "competition",
+    "checkedAt": "2026-10-19T09:13:49.590Z"
   },
   "thudm/cogdl": {
     "pushedAt": "2024-02-01T21:24:47Z",
@@ -306,16 +336,16 @@
     "checkedAt": "2026-10-13T23:06:21.289Z"
   },
   "wonguo199-stack/one-does-not-simply-speedrun": {
-    "pushedAt": "2026-10-13T22:07:45Z",
+    "pushedAt": "2026-10-19T06:13:24Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-10-13T23:12:50.412Z"
+    "checkedAt": "2026-10-19T09:09:14.454Z"
   },
   "xcpcio/xcpcio": {
-    "pushedAt": "2026-09-13T02:51:01Z",
+    "pushedAt": "2026-10-14T12:01:39Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-10-13T23:08:47.110Z"
+    "checkedAt": "2026-10-19T09:07:24.298Z"
   },
   "yinizhilian/iclr2025-papers-with-code": {
     "pushedAt": "2025-03-14T08:57:10Z",
