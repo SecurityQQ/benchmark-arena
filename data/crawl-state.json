@@ -18,10 +18,10 @@
     "checkedAt": "2026-10-13T23:14:53.902Z"
   },
   "agent-next/polymarket-paper-trader": {
-    "pushedAt": "2026-10-20T11:49:03Z",
+    "pushedAt": "2026-11-01T17:16:52Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-10-26T09:07:34.537Z"
+    "checkedAt": "2026-11-02T11:23:58.382Z"
   },
   "agi-edgerunners/llm-agents-papers": {
     "pushedAt": "2025-07-12T07:39:24Z",
@@ -30,10 +30,10 @@
     "checkedAt": "2026-10-13T23:00:38.520Z"
   },
   "alankaspersky/kaspersky-inventions-for-tanki-online": {
-    "pushedAt": "2026-10-25T20:45:46Z",
+    "pushedAt": "2026-11-01T16:17:10Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-10-26T09:10:49.141Z"
+    "checkedAt": "2026-11-02T11:27:32.375Z"
   },
   "allowexe/mqtt-voting": {
     "pushedAt": "2026-05-04T10:00:54Z",
@@ -47,6 +47,12 @@
     "verdict": "none",
     "checkedAt": "2026-10-13T23:16:14.896Z"
   },
+  "bichengwang/rl-pricing": {
+    "pushedAt": "2026-11-02T07:43:41Z",
+    "fingerprint": "81e7e9bf9471aa91",
+    "verdict": "competition",
+    "checkedAt": "2026-11-02T11:24:33.658Z"
+  },
   "changwookjun/nlp-paper": {
     "pushedAt": "2026-08-25T21:35:44Z",
     "fingerprint": "81e7e9bf9471aa91",
@@ -54,16 +60,16 @@
     "checkedAt": "2026-10-13T23:05:41.768Z"
   },
   "cjmellor/level-up": {
-    "pushedAt": "2026-10-14T11:08:06Z",
+    "pushedAt": "2026-10-31T12:54:42Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-10-19T09:04:10.490Z"
+    "checkedAt": "2026-11-02T11:23:39.648Z"
   },
   "cloud-cv/evalai": {
-    "pushedAt": "2026-10-25T10:13:11Z",
+    "pushedAt": "2026-10-29T16:38:03Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-10-26T09:06:05.042Z"
+    "checkedAt": "2026-11-02T11:23:14.271Z"
   },
   "cporter202/scraping-apis-for-devs": {
     "pushedAt": "2026-10-20T04:13:01Z",
@@ -72,16 +78,16 @@
     "checkedAt": "2026-10-26T09:05:17.054Z"
   },
   "cybertronai/sutro-problems": {
-    "pushedAt": "2026-10-25T20:00:34Z",
+    "pushedAt": "2026-11-02T04:46:40Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-10-26T09:10:03.181Z"
+    "checkedAt": "2026-11-02T11:27:06.655Z"
   },
   "darkxex/swanstationps5": {
-    "pushedAt": "2026-10-26T02:40:15Z",
+    "pushedAt": "2026-10-31T06:24:24Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-10-26T09:08:55.794Z"
+    "checkedAt": "2026-11-02T11:25:34.086Z"
   },
   "darwinbaker/aatool": {
     "pushedAt": "2025-06-17T07:39:31Z",
@@ -108,10 +114,10 @@
     "checkedAt": "2026-10-13T23:17:25.948Z"
   },
   "ibm/assetopsbench": {
-    "pushedAt": "2026-10-25T02:15:42Z",
+    "pushedAt": "2026-11-02T00:30:40Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-10-26T09:05:39.473Z"
+    "checkedAt": "2026-11-02T11:22:55.187Z"
   },
   "identitynulll/ascension": {
     "pushedAt": "2026-05-26T09:27:32Z",
@@ -126,16 +132,16 @@
     "checkedAt": "2026-10-13T23:14:29.087Z"
   },
   "kings-crown/s2n-bignum-bench": {
-    "pushedAt": "2026-09-21T08:42:32Z",
+    "pushedAt": "2026-10-29T15:43:11Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-10-19T09:11:20.116Z"
+    "checkedAt": "2026-11-02T11:27:27.750Z"
   },
   "lbx154/argus": {
-    "pushedAt": "2026-10-26T09:04:34Z",
+    "pushedAt": "2026-11-02T10:20:10Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-10-26T09:08:03.010Z"
+    "checkedAt": "2026-11-02T11:24:49.028Z"
   },
   "lclm-horizon/a-comprehensive-survey-for-long-context-language-modeling": {
     "pushedAt": "2026-08-17T08:28:14Z",
@@ -186,10 +192,10 @@
     "checkedAt": "2026-10-19T09:09:01.036Z"
   },
   "microsoft/argusagent": {
-    "pushedAt": "2026-10-24T06:05:39Z",
+    "pushedAt": "2026-10-31T08:33:19Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-10-26T09:08:47.934Z"
+    "checkedAt": "2026-11-02T11:25:28.075Z"
   },
   "mlgroupjlu/llm-eval-survey": {
     "pushedAt": "2026-09-13T02:09:22Z",
@@ -210,10 +216,10 @@
     "checkedAt": "2026-10-13T23:04:28.220Z"
   },
   "osu-nlp-group/gui-agents-paper-list": {
-    "pushedAt": "2026-10-20T23:22:27Z",
+    "pushedAt": "2026-10-30T03:28:04Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-10-26T09:06:58.127Z"
+    "checkedAt": "2026-11-02T11:23:32.021Z"
   },
   "petroivaniuk/llms-tools": {
     "pushedAt": "2026-10-25T15:38:58Z",
@@ -246,10 +252,10 @@
     "checkedAt": "2026-10-19T09:13:56.124Z"
   },
   "ryanalberts/best-of-agent-harnesses": {
-    "pushedAt": "2026-10-25T17:26:04Z",
+    "pushedAt": "2026-11-01T18:46:19Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-10-26T09:06:46.478Z"
+    "checkedAt": "2026-11-02T11:23:22.289Z"
   },
   "saircompetition/equational-theories-lean-stage2": {
     "pushedAt": "2026-08-27T18:30:50Z",
@@ -270,10 +276,10 @@
     "checkedAt": "2026-10-13T23:03:22.619Z"
   },
   "starvla/starvla": {
-    "pushedAt": "2026-10-08T03:35:04Z",
+    "pushedAt": "2026-10-31T07:05:02Z",
     "fingerprint": "81e7e9bf9471aa91",
-    "verdict": "none",
-    "checkedAt": "2026-10-13T23:00:32.882Z"
+    "verdict": "competition",
+    "checkedAt": "2026-11-02T11:22:39.993Z"
   },
   "suyoumo/clawprobench": {
     "pushedAt": "2026-08-25T11:47:44Z",
@@ -288,10 +294,10 @@
     "checkedAt": "2026-10-13T23:12:39.095Z"
   },
   "tailuge/billiards": {
-    "pushedAt": "2026-10-26T08:22:15Z",
+    "pushedAt": "2026-11-02T11:20:13Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-10-26T09:08:37.298Z"
+    "checkedAt": "2026-11-02T11:25:03.218Z"
   },
   "tatsu-lab/alpaca_eval": {
     "pushedAt": "2025-08-09T07:23:36Z",
@@ -300,10 +306,10 @@
     "checkedAt": "2026-10-13T23:01:47.767Z"
   },
   "tencent-hunyuan/hyra-results": {
-    "pushedAt": "2026-08-19T06:17:13Z",
+    "pushedAt": "2026-11-02T09:05:10Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-10-13T23:11:56.648Z"
+    "checkedAt": "2026-11-02T11:25:06.953Z"
   },
   "the-ai-alliance/geo-bench-2-leaderboard": {
     "pushedAt": "2026-01-19T11:41:51Z",
