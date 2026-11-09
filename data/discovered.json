@@ -1,10 +1,41 @@
 [
   {
+    "owner": "0xShug0",
+    "name": "audio.cpp",
+    "url": "https://github.com/0xShug0/audio.cpp",
+    "description": "An all-in-one, pure C++ inference engine for audio models, powered by ggml. Supports TTS, STT, VAD, voice conversion, music generation, and more, with highly optimized performance. No Python dependency.",
+    "stars": 4133,
+    "topics": [
+      "ai",
+      "amd-gpu",
+      "apple-silicon",
+      "asr",
+      "audio",
+      "cpp",
+      "edge-ai",
+      "ggml",
+      "minimax-music3",
+      "music-generation",
+      "speech-analysis",
+      "speech-to-speech",
+      "speech-to-text",
+      "text-to-speech",
+      "tts",
+      "voice-ai",
+      "voice-cloning",
+      "voice-conversion",
+      "vulkan",
+      "yue2"
+    ],
+    "defaultBranch": "main",
+    "pushedAt": "2026-11-09T05:26:11Z"
+  },
+  {
     "owner": "cporter202",
     "name": "scraping-apis-for-devs",
     "url": "https://github.com/cporter202/scraping-apis-for-devs",
     "description": "This GitHub repo is a powerhouse collection of scraping APIs for developers that you can start using immediately to build everything from simple automations to full-scale applications. ",
-    "stars": 4006,
+    "stars": 4020,
     "topics": [
       "api-library",
       "api-list",
@@ -19,7 +50,7 @@
     "name": "starVLA",
     "url": "https://github.com/starVLA/starVLA",
     "description": "StarVLA: A Lego-like Codebase for Vision-Language-Action Model Developing",
-    "stars": 3898,
+    "stars": 3925,
     "topics": [
       "robotic-foundation-model",
       "robotics",
@@ -34,7 +65,7 @@
     "name": "AssetOpsBench",
     "url": "https://github.com/IBM/AssetOpsBench",
     "description": "AssetOpsBench - Industry 4.0: A unified benchmark and framework for building, orchestrating, and evaluating domain-specific AI agents for Industry 4.0 asset operations and maintenance, with 460+ scenarios, 5 specialist agents (IoT, FMSR, TSFM, Work Order,...), and multi-agent orchestration blueprints (MetaAgent, AgentHive) over MCP.",
-    "stars": 2410,
+    "stars": 2415,
     "topics": [
       "ai-for-physical-assets",
       "condition-based-maintenance",
@@ -46,7 +77,7 @@
       "time-series-forecasting"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-02T00:30:40Z"
+    "pushedAt": "2026-11-09T00:56:56Z"
   },
   {
     "owner": "AGI-Edgerunners",
@@ -68,7 +99,7 @@
     "name": "EvalAI",
     "url": "https://github.com/Cloud-CV/EvalAI",
     "description": ":cloud: :rocket: :bar_chart: :chart_with_upwards_trend: Evaluating state of the art in AI",
-    "stars": 2049,
+    "stars": 2050,
     "topics": [
       "ai",
       "ai-challenges",
@@ -97,7 +128,7 @@
     "name": "alpaca_eval",
     "url": "https://github.com/tatsu-lab/alpaca_eval",
     "description": "An automatic evaluator for instruction-following language models. Human-validated, high-quality, cheap, and fast.",
-    "stars": 2023,
+    "stars": 2025,
     "topics": [
       "deep-learning",
       "evaluation",
@@ -119,26 +150,7 @@
     "stars": 1858,
     "topics": [],
     "defaultBranch": "master",
-    "pushedAt": "2026-10-21T02:03:09Z"
-  },
-  {
-    "owner": "Vchitect",
-    "name": "VBench",
-    "url": "https://github.com/Vchitect/VBench",
-    "description": "[CVPR2024 Highlight] VBench - We Evaluate Video Generation",
-    "stars": 1836,
-    "topics": [
-      "aigc",
-      "benchmark",
-      "dataset",
-      "evaluation-kit",
-      "gen-ai",
-      "stable-diffusion",
-      "text-to-video",
-      "video-generation"
-    ],
-    "defaultBranch": "master",
-    "pushedAt": "2026-08-21T15:28:08Z"
+    "pushedAt": "2026-11-07T19:05:01Z"
   },
   {
     "owner": "THUDM",
@@ -164,7 +176,7 @@
     "name": "mle-bench",
     "url": "https://github.com/openai/mle-bench",
     "description": "MLE-bench is a benchmark for measuring how well AI agents perform at machine learning engineering",
-    "stars": 1788,
+    "stars": 1793,
     "topics": [],
     "defaultBranch": "main",
     "pushedAt": "2026-04-24T17:33:44Z"
@@ -184,7 +196,7 @@
     "name": "best-of-Agent-Harnesses",
     "url": "https://github.com/RyanAlberts/best-of-Agent-Harnesses",
     "description": "🏆 Ranked list of 187 AI agent harnesses, plus templates, playbooks, MCP, and learning resources. Rescored weekly.",
-    "stars": 1433,
+    "stars": 1483,
     "topics": [
       "agent-framework",
       "agent-harness",
@@ -208,24 +220,24 @@
       "model-context-protocol"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-01T18:46:19Z"
+    "pushedAt": "2026-11-08T18:40:59Z"
   },
   {
     "owner": "OSU-NLP-Group",
     "name": "GUI-Agents-Paper-List",
     "url": "https://github.com/OSU-NLP-Group/GUI-Agents-Paper-List",
     "description": "Awesome GUI Agent Paper List",
-    "stars": 922,
+    "stars": 927,
     "topics": [],
     "defaultBranch": "main",
-    "pushedAt": "2026-10-30T03:28:04Z"
+    "pushedAt": "2026-11-05T06:20:18Z"
   },
   {
     "owner": "suyoumo",
     "name": "ClawProBench",
     "url": "https://github.com/suyoumo/ClawProBench",
     "description": "ClawProBench is a live-first benchmark harness for evaluating LLM agents   in the OpenClaw runtime with deterministic grading and repeated-trial   reliability.",
-    "stars": 828,
+    "stars": 829,
     "topics": [
       "agent",
       "benchmark",
@@ -261,7 +273,7 @@
     "name": "nlp-paper",
     "url": "https://github.com/changwookjun/nlp-paper",
     "description": "NLP Paper",
-    "stars": 592,
+    "stars": 593,
     "topics": [
       "bert",
       "deeplearning",
@@ -273,7 +285,7 @@
       "transformer"
     ],
     "defaultBranch": "master",
-    "pushedAt": "2026-08-25T21:35:44Z"
+    "pushedAt": "2026-11-05T07:12:21Z"
   },
   {
     "owner": "yinizhilian",
@@ -324,7 +336,7 @@
     "name": "polymarket-paper-trader",
     "url": "https://github.com/agent-next/polymarket-paper-trader",
     "description": "Paper trading simulator for Polymarket",
-    "stars": 494,
+    "stars": 502,
     "topics": [
       "ai-agent",
       "algorithmic-trading",
@@ -375,7 +387,7 @@
     "name": "RL-pricing",
     "url": "https://github.com/BichengWang/RL-pricing",
     "description": "A reproducibility lab for trading AI: published RL and LLM trading claims re-tested under a pre-registered protocol, with a causal benchmark and a live track.",
-    "stars": 345,
+    "stars": 339,
     "topics": [
       "algorithmic-trading",
       "backtesting",
@@ -389,7 +401,40 @@
       "reproducibility"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-02T07:43:41Z"
+    "pushedAt": "2026-11-08T21:12:00Z"
+  },
+  {
+    "owner": "fstandhartinger",
+    "name": "jevbench",
+    "url": "https://github.com/fstandhartinger/jevbench",
+    "description": "JevBench by Benchmark Heaven: benchmark and leaderboard for AI decision models, measuring typed decision accuracy, calibration, latency and cost.",
+    "stars": 338,
+    "topics": [
+      "ai-benchmark",
+      "benchmark-heaven",
+      "calibration",
+      "decision-models",
+      "decisionmodels",
+      "jev",
+      "jev-compatible",
+      "jevbench",
+      "leaderboard",
+      "machine-learning",
+      "model-evaluation",
+      "systemone"
+    ],
+    "defaultBranch": "main",
+    "pushedAt": "2026-10-15T04:07:55Z"
+  },
+  {
+    "owner": "lbx154",
+    "name": "Argus",
+    "url": "https://github.com/lbx154/Argus",
+    "description": "A self-evolving multi-agent system for autonomous research, operating 24/7 to explore, learn, and improve.",
+    "stars": 332,
+    "topics": [],
+    "defaultBranch": "main",
+    "pushedAt": "2026-11-09T11:29:03Z"
   },
   {
     "owner": "PetroIvaniuk",
@@ -409,47 +454,14 @@
       "open-source-llm"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-10-25T15:38:58Z"
-  },
-  {
-    "owner": "lbx154",
-    "name": "Argus",
-    "url": "https://github.com/lbx154/Argus",
-    "description": "A self-evolving multi-agent system for autonomous research, operating 24/7 to explore, learn, and improve.",
-    "stars": 330,
-    "topics": [],
-    "defaultBranch": "main",
-    "pushedAt": "2026-11-02T10:20:10Z"
-  },
-  {
-    "owner": "fstandhartinger",
-    "name": "jevbench",
-    "url": "https://github.com/fstandhartinger/jevbench",
-    "description": "JevBench by Benchmark Heaven: benchmark and leaderboard for AI decision models, measuring typed decision accuracy, calibration, latency and cost.",
-    "stars": 327,
-    "topics": [
-      "ai-benchmark",
-      "benchmark-heaven",
-      "calibration",
-      "decision-models",
-      "decisionmodels",
-      "jev",
-      "jev-compatible",
-      "jevbench",
-      "leaderboard",
-      "machine-learning",
-      "model-evaluation",
-      "systemone"
-    ],
-    "defaultBranch": "main",
-    "pushedAt": "2026-10-15T04:07:55Z"
+    "pushedAt": "2026-11-08T20:24:07Z"
   },
   {
     "owner": "gpu-mode",
     "name": "reference-kernels",
     "url": "https://github.com/gpu-mode/reference-kernels",
     "description": "Official Problem Sets / Reference Kernels for the GPU MODE Leaderboard!",
-    "stars": 322,
+    "stars": 326,
     "topics": [
       "cuda",
       "gpu",
@@ -457,14 +469,14 @@
       "triton"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-09-18T01:42:04Z"
+    "pushedAt": "2026-11-05T10:10:59Z"
   },
   {
     "owner": "xcpcio",
     "name": "xcpcio",
     "url": "https://github.com/xcpcio/xcpcio",
     "description": "The ICPC Series Competition Leaderboard Visualization Engine",
-    "stars": 316,
+    "stars": 317,
     "topics": [
       "board",
       "icpc",
@@ -475,14 +487,14 @@
       "visualization"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-10-14T12:01:39Z"
+    "pushedAt": "2026-11-09T01:03:38Z"
   },
   {
     "owner": "LudwigStumpp",
     "name": "llm-leaderboard",
     "url": "https://github.com/LudwigStumpp/llm-leaderboard",
     "description": "A joint community effort to create one central leaderboard for LLMs.",
-    "stars": 307,
+    "stars": 308,
     "topics": [
       "leaderboard",
       "llm",
@@ -497,7 +509,7 @@
     "name": "resimind",
     "url": "https://github.com/1105216375-alt/resimind",
     "description": "Neuro-symbolic agents with verified memory. MCP math tools, an algebra repair Skill, and an open challenge. Verify solutions, learn checked rules, and reuse.",
-    "stars": 294,
+    "stars": 292,
     "topics": [
       "agent-memory",
       "agent-skills",
@@ -528,7 +540,7 @@
     "name": "AATool",
     "url": "https://github.com/DarwinBaker/AATool",
     "description": "A tool to track Minecraft Advancement progress.",
-    "stars": 277,
+    "stars": 278,
     "topics": [
       "minecraft",
       "speedrun",
@@ -542,7 +554,7 @@
     "name": "billiards",
     "url": "https://github.com/tailuge/billiards",
     "description": "billiards physics in the browser",
-    "stars": 273,
+    "stars": 275,
     "topics": [
       "3-cushion",
       "3d",
@@ -561,14 +573,14 @@
       "webgl-game"
     ],
     "defaultBranch": "master",
-    "pushedAt": "2026-11-02T11:20:13Z"
+    "pushedAt": "2026-11-09T10:57:05Z"
   },
   {
     "owner": "recursive-org",
     "name": "first-steps-toward-automated-ai-research",
     "url": "https://github.com/recursive-org/first-steps-toward-automated-ai-research",
     "description": "Research artifacts from Recursive's automated AI research system",
-    "stars": 267,
+    "stars": 268,
     "topics": [],
     "defaultBranch": "main",
     "pushedAt": "2026-06-11T07:57:36Z"
@@ -578,7 +590,7 @@
     "name": "Hyra-results",
     "url": "https://github.com/Tencent-Hunyuan/Hyra-results",
     "description": "Research artifacts from Hyra (/ˈhaɪ.rɑː/)",
-    "stars": 168,
+    "stars": 232,
     "topics": [
       "agent",
       "ai-for-science",
@@ -589,14 +601,14 @@
       "recursive-self-improvement"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-02T09:05:10Z"
+    "pushedAt": "2026-11-07T12:58:13Z"
   },
   {
     "owner": "Saivineeth147",
     "name": "lora-speedrun",
     "url": "https://github.com/Saivineeth147/lora-speedrun",
     "description": "Speedrunning LoRA fine-tuning: frozen task, frozen hardware, public wall-clock leaderboard. modded-nanogpt for fine-tuning.",
-    "stars": 150,
+    "stars": 151,
     "topics": [
       "benchmark",
       "fine-tuning",
@@ -615,7 +627,7 @@
     "name": "ArgusAgent",
     "url": "https://github.com/microsoft/ArgusAgent",
     "description": "A persistent, reviewed multi-agent runtime for long-horizon research and engineering.",
-    "stars": 145,
+    "stars": 144,
     "topics": [
       "agentic-ai",
       "ai-agents",
@@ -634,11 +646,42 @@
     "pushedAt": "2026-10-31T08:33:19Z"
   },
   {
+    "owner": "LLCOOLT",
+    "name": "paper-cut",
+    "url": "https://github.com/LLCOOLT/paper-cut",
+    "description": "Paper Cut: A native port of Paper Mario: The Thousand-Year Door to Windows, macOS, Linux, iOS and Android",
+    "stars": 124,
+    "topics": [
+      "android",
+      "aurora",
+      "c",
+      "dawn",
+      "decompilation",
+      "gamecube",
+      "ios",
+      "linux",
+      "macos",
+      "modding",
+      "native-port",
+      "nintendo",
+      "paper-mario",
+      "pc-port",
+      "sdl3",
+      "speedrun",
+      "thousand-year-door",
+      "ttyd",
+      "webgpu",
+      "windows"
+    ],
+    "defaultBranch": "main",
+    "pushedAt": "2026-11-07T01:03:14Z"
+  },
+  {
     "owner": "metacognitionai",
     "name": "NavGPT-3",
     "url": "https://github.com/metacognitionai/NavGPT-3",
     "description": "Official implementation of NavGPT-3: Harnessing Context in a Hierarchical Navigation Runtime",
-    "stars": 101,
+    "stars": 114,
     "topics": [],
     "defaultBranch": "main",
     "pushedAt": "2026-10-14T05:05:20Z"
@@ -667,7 +710,7 @@
     "name": "SwanStationPS5",
     "url": "https://github.com/darkxex/SwanStationPS5",
     "description": "SwanStationPS5: a PlayStation 1 emulator running natively on jailbroken PS5, based on SwanStation.  https://discord.gg/Drx8tsqq3B",
-    "stars": 93,
+    "stars": 95,
     "topics": [
       "homebrew",
       "libretro",
@@ -676,7 +719,7 @@
       "swanstation"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-10-31T06:24:24Z"
+    "pushedAt": "2026-11-04T22:24:14Z"
   },
   {
     "owner": "leanprover",
@@ -740,7 +783,7 @@
     "stars": 9,
     "topics": [],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-02T02:59:54Z"
+    "pushedAt": "2026-11-09T05:36:14Z"
   },
   {
     "owner": "david-courtis",
@@ -817,7 +860,7 @@
       "leaderboard"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-10-07T16:42:53Z"
+    "pushedAt": "2026-11-06T21:20:07Z"
   },
   {
     "owner": "The-AI-Alliance",
@@ -838,35 +881,6 @@
     "topics": [],
     "defaultBranch": "main",
     "pushedAt": "2026-08-19T23:24:41Z"
-  },
-  {
-    "owner": "AlanKaspersky",
-    "name": "Kaspersky-Inventions-for-Tanki-Online",
-    "url": "https://github.com/AlanKaspersky/Kaspersky-Inventions-for-Tanki-Online",
-    "description": "Extension for a more advanced and functional interface for Tanki Online",
-    "stars": 3,
-    "topics": [
-      "chatgpt",
-      "claude",
-      "deepseek",
-      "extension",
-      "extension-chrome",
-      "extension-firefox",
-      "extensions",
-      "extensions-chrome",
-      "gemini",
-      "grok",
-      "tanki",
-      "tanki-online",
-      "tankionline",
-      "vibe-coded",
-      "vibe-coding",
-      "vibecode",
-      "vibecoded",
-      "vibecoding"
-    ],
-    "defaultBranch": "main",
-    "pushedAt": "2026-11-01T16:17:10Z"
   },
   {
     "owner": "IdentityNulll",
@@ -930,6 +944,29 @@
     ],
     "defaultBranch": "main",
     "pushedAt": "2026-08-18T13:42:00Z"
+  },
+  {
+    "owner": "Allowexe",
+    "name": "MQTT-Voting",
+    "url": "https://github.com/Allowexe/MQTT-Voting",
+    "description": "MQTT Project to learn the protocol. Tries to mimic Wii's vote channel",
+    "stars": 1,
+    "topics": [
+      "isen-toulon",
+      "mqtt",
+      "student-project"
+    ],
+    "defaultBranch": "main",
+    "pushedAt": "2026-05-04T10:00:54Z"
+  },
+  {
+    "owner": "rodrigosiqueiradev",
+    "name": "speedrunledger",
+    "url": "https://github.com/rodrigosiqueiradev/speedrunledger",
+    "stars": 1,
+    "topics": [],
+    "defaultBranch": "main",
+    "pushedAt": "2026-10-15T13:48:35Z"
   },
   {
     "owner": "RDI-Foundation",
