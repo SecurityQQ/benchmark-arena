@@ -1,9 +1,9 @@
 {
   "0xshug0/audio.cpp": {
-    "pushedAt": "2026-11-09T05:26:11Z",
+    "pushedAt": "2026-11-16T06:37:53Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-11-09T11:45:13.329Z"
+    "checkedAt": "2026-11-16T11:37:42.734Z"
   },
   "1105216375-alt/resimind": {
     "pushedAt": "2026-10-15T15:00:55Z",
@@ -21,7 +21,7 @@
     "pushedAt": "2026-06-08T19:34:24Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-10-13T23:14:53.902Z"
+    "checkedAt": "2026-11-16T11:48:15.701Z"
   },
   "agent-next/polymarket-paper-trader": {
     "pushedAt": "2026-11-01T17:16:52Z",
@@ -54,16 +54,16 @@
     "checkedAt": "2026-10-13T23:16:14.896Z"
   },
   "bichengwang/rl-pricing": {
-    "pushedAt": "2026-11-08T21:12:00Z",
+    "pushedAt": "2026-11-13T12:20:47Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-09T11:46:51.257Z"
+    "checkedAt": "2026-11-16T11:44:16.608Z"
   },
   "changwookjun/nlp-paper": {
-    "pushedAt": "2026-11-05T07:12:21Z",
+    "pushedAt": "2026-11-12T05:06:57Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-11-09T11:46:12.314Z"
+    "checkedAt": "2026-11-16T11:42:00.917Z"
   },
   "cjmellor/level-up": {
     "pushedAt": "2026-10-31T12:54:42Z",
@@ -72,10 +72,10 @@
     "checkedAt": "2026-11-02T11:23:39.648Z"
   },
   "cloud-cv/evalai": {
-    "pushedAt": "2026-10-29T16:38:03Z",
+    "pushedAt": "2026-11-14T03:31:50Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-11-02T11:23:14.271Z"
+    "checkedAt": "2026-11-16T11:38:35.802Z"
   },
   "cporter202/scraping-apis-for-devs": {
     "pushedAt": "2026-10-20T04:13:01Z",
@@ -90,10 +90,10 @@
     "checkedAt": "2026-11-02T11:27:06.655Z"
   },
   "darkxex/swanstationps5": {
-    "pushedAt": "2026-11-04T22:24:14Z",
+    "pushedAt": "2026-11-16T03:17:25Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-11-09T11:48:01.933Z"
+    "checkedAt": "2026-11-16T11:47:20.037Z"
   },
   "darwinbaker/aatool": {
     "pushedAt": "2025-06-17T07:39:31Z",
@@ -111,7 +111,7 @@
     "pushedAt": "2026-10-15T04:07:55Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-10-19T09:08:28.024Z"
+    "checkedAt": "2026-11-16T11:43:22.161Z"
   },
   "hschindele/gmaapp": {
     "pushedAt": "2023-01-13T01:29:46Z",
@@ -120,10 +120,10 @@
     "checkedAt": "2026-10-13T23:17:25.948Z"
   },
   "ibm/assetopsbench": {
-    "pushedAt": "2026-11-02T00:30:40Z",
+    "pushedAt": "2026-11-16T03:54:20Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-02T11:22:55.187Z"
+    "checkedAt": "2026-11-16T11:38:07.592Z"
   },
   "identitynulll/ascension": {
     "pushedAt": "2026-05-26T09:27:32Z",
@@ -144,10 +144,10 @@
     "checkedAt": "2026-11-02T11:27:27.750Z"
   },
   "lbx154/argus": {
-    "pushedAt": "2026-11-09T11:29:03Z",
+    "pushedAt": "2026-11-16T11:12:21Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-11-09T11:47:07.261Z"
+    "checkedAt": "2026-11-16T11:44:37.196Z"
   },
   "lclm-horizon/a-comprehensive-survey-for-long-context-language-modeling": {
     "pushedAt": "2026-08-17T08:28:14Z",
@@ -168,22 +168,22 @@
     "checkedAt": "2026-11-09T11:45:51.074Z"
   },
   "llcoolt/paper-cut": {
-    "pushedAt": "2026-11-07T01:03:14Z",
+    "pushedAt": "2026-11-15T13:46:13Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-11-09T11:47:55.157Z"
+    "checkedAt": "2026-11-16T11:46:49.960Z"
   },
   "ludwigstumpp/llm-leaderboard": {
     "pushedAt": "2024-08-23T20:09:41Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-10-13T23:09:56.084Z"
+    "checkedAt": "2026-11-16T11:45:53.818Z"
   },
   "macrocosm-os/apex-competition-humanoid-parkour": {
     "pushedAt": "2026-08-18T13:42:00Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-10-13T23:17:42.620Z"
+    "checkedAt": "2026-11-16T11:48:31.912Z"
   },
   "marcelscruz/dev-resources": {
     "pushedAt": "2026-10-13T19:36:54Z",
@@ -196,6 +196,12 @@
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
     "checkedAt": "2026-10-13T23:10:04.399Z"
+  },
+  "memerson12/mcsr-ranked-matches-today": {
+    "pushedAt": "2026-11-11T23:21:46Z",
+    "fingerprint": "81e7e9bf9471aa91",
+    "verdict": "none",
+    "checkedAt": "2026-11-16T11:49:30.452Z"
   },
   "metacognitionai/navgpt-3": {
     "pushedAt": "2026-10-14T05:05:20Z",
@@ -219,7 +225,7 @@
     "pushedAt": "2026-04-24T17:33:44Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-10-13T23:04:02.160Z"
+    "checkedAt": "2026-11-16T11:41:32.855Z"
   },
   "opengenerativeai/llm-colosseum": {
     "pushedAt": "2025-03-21T10:35:26Z",
@@ -228,16 +234,16 @@
     "checkedAt": "2026-10-13T23:04:28.220Z"
   },
   "osu-nlp-group/gui-agents-paper-list": {
-    "pushedAt": "2026-11-05T06:20:18Z",
+    "pushedAt": "2026-11-10T14:42:06Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-11-09T11:46:07.348Z"
+    "checkedAt": "2026-11-16T11:41:54.958Z"
   },
   "petroivaniuk/llms-tools": {
-    "pushedAt": "2026-11-08T20:24:07Z",
+    "pushedAt": "2026-11-10T10:22:16Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-11-09T11:47:12.708Z"
+    "checkedAt": "2026-11-16T11:44:43.986Z"
   },
   "programbench/submissions": {
     "pushedAt": "2026-10-14T22:39:47Z",
@@ -249,13 +255,13 @@
     "pushedAt": "2026-06-03T06:52:54Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-10-13T23:18:58.547Z"
+    "checkedAt": "2026-11-16T11:49:53.366Z"
   },
   "recursive-org/first-steps-toward-automated-ai-research": {
     "pushedAt": "2026-06-11T07:57:36Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-10-13T23:11:49.306Z"
+    "checkedAt": "2026-11-16T11:46:24.751Z"
   },
   "rodrigosiqueiradev/speedrunledger": {
     "pushedAt": "2026-10-15T13:48:35Z",
@@ -273,19 +279,19 @@
     "pushedAt": "2026-08-27T18:30:50Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-10-13T23:13:08.196Z"
+    "checkedAt": "2026-11-16T11:47:34.651Z"
   },
   "saivineeth147/lora-speedrun": {
     "pushedAt": "2026-09-12T04:50:56Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-10-13T23:12:21.728Z"
+    "checkedAt": "2026-11-16T11:47:06.234Z"
   },
   "seblague/chess-challenge": {
     "pushedAt": "2024-05-23T05:47:00Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-10-13T23:03:22.619Z"
+    "checkedAt": "2026-11-16T11:41:42.833Z"
   },
   "starvla/starvla": {
     "pushedAt": "2026-10-31T07:05:02Z",
@@ -306,22 +312,22 @@
     "checkedAt": "2026-10-13T23:12:39.095Z"
   },
   "tailuge/billiards": {
-    "pushedAt": "2026-11-09T10:57:05Z",
+    "pushedAt": "2026-11-16T09:42:17Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-11-09T11:47:44.788Z"
+    "checkedAt": "2026-11-16T11:46:08.483Z"
   },
   "tatsu-lab/alpaca_eval": {
     "pushedAt": "2025-08-09T07:23:36Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-10-13T23:01:47.767Z"
+    "checkedAt": "2026-11-16T11:39:00.851Z"
   },
   "tencent-hunyuan/hyra-results": {
-    "pushedAt": "2026-11-07T12:58:13Z",
+    "pushedAt": "2026-11-14T16:30:00Z",
     "fingerprint": "81e7e9bf9471aa91",
-    "verdict": "none",
-    "checkedAt": "2026-11-09T11:47:48.746Z"
+    "verdict": "competition",
+    "checkedAt": "2026-11-16T11:46:38.349Z"
   },
   "the-ai-alliance/geo-bench-2-leaderboard": {
     "pushedAt": "2026-01-19T11:41:51Z",
@@ -333,7 +339,7 @@
     "pushedAt": "2024-02-01T21:24:47Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-10-13T23:03:13.427Z"
+    "checkedAt": "2026-11-16T11:40:42.167Z"
   },
   "tmgthb/autonomous-agents": {
     "pushedAt": "2026-06-24T17:03:27Z",
@@ -369,7 +375,7 @@
     "pushedAt": "2024-08-11T20:53:38Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-10-13T23:06:21.289Z"
+    "checkedAt": "2026-11-16T11:42:26.145Z"
   },
   "wonguo199-stack/one-does-not-simply-speedrun": {
     "pushedAt": "2026-10-26T06:25:36Z",
@@ -378,10 +384,10 @@
     "checkedAt": "2026-10-26T09:09:02.445Z"
   },
   "xcpcio/xcpcio": {
-    "pushedAt": "2026-11-09T01:03:38Z",
+    "pushedAt": "2026-11-15T06:25:21Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-11-09T11:47:32.014Z"
+    "checkedAt": "2026-11-16T11:45:09.535Z"
   },
   "yinizhilian/iclr2025-papers-with-code": {
     "pushedAt": "2025-03-14T08:57:10Z",
@@ -393,6 +399,6 @@
     "pushedAt": "2026-10-12T04:57:42Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-10-13T23:17:04.715Z"
+    "checkedAt": "2026-11-16T11:49:24.256Z"
   }
 }
