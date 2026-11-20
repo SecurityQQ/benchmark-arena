@@ -13,16 +13,17 @@ import { postprocess } from "./postprocess.js";
 import { buildLeanEval } from "./structured/leanEval.js";
 import { buildGpuMode } from "./structured/gpuMode.js";
 import { buildFirstProof } from "./structured/firstProof.js";
+import { buildDuckBench } from "./structured/duckBench.js";
 import { applyStandard } from "./standard.js";
 import type { LLMCompetition } from "./llm.js";
 import { assertPublicRepo } from "./github.js";
-import { assertUniqueCompetitions, repoKey, savedEntries, validateCompetition } from "./validation.js";
+import { assertUniqueCompetitions, entryKey, repoKey, savedEntries, validateCompetition, type SiteSource } from "./validation.js";
 import { pathToFileURL } from "node:url";
 
 function loadPrevious(): Competition[] {
   if (!existsSync(RESULT_PATH)) return [];
-  const entries = savedEntries(JSON.parse(readFileSync(RESULT_PATH, "utf-8"))).map(({ value, repo, id }) => {
-    const c = postprocess(value, repo);
+  const entries = savedEntries(JSON.parse(readFileSync(RESULT_PATH, "utf-8"))).map(({ value, source, id }) => {
+    const c = postprocess(value, source);
     c.id = id;
     return c;
   });
@@ -33,7 +34,9 @@ function loadPrevious(): Competition[] {
 export async function publicCompetitions(entries: Competition[], blocked = new Set<string>(), assertPublic = assertPublicRepo): Promise<Competition[]> {
   const publicEntries: Competition[] = [];
   for (const c of entries) {
-    if (!c.repo || blocked.has(repoKey(c.repo))) continue;
+    // no repository to check: only a registered site is published (its builder reads the site's public API)
+    if (!c.repo) { if (Object.hasOwn(SITES, c.id)) publicEntries.push(c); continue; }
+    if (blocked.has(repoKey(c.repo))) continue;
     try { await assertPublic(c.repo.owner, c.repo.name); publicEntries.push(c); }
     catch { blocked.add(repoKey(c.repo)); }
   }
@@ -41,8 +44,8 @@ export async function publicCompetitions(entries: Competition[], blocked = new S
 }
 
 export function mergeCompetitions(previous: Competition[], current: Competition[], blocked = new Set<string>()): Competition[] {
-  const produced = new Set(current.map((c) => repoKey(c.repo!)));
-  const result = [...previous.filter((c) => !produced.has(repoKey(c.repo!)) && !blocked.has(repoKey(c.repo!)) && !MERGED_INTO[repoKey(c.repo!)]), ...current.filter((c) => !blocked.has(repoKey(c.repo!)))];
+  const produced = new Set(current.map(entryKey));
+  const result = [...previous.filter((c) => !produced.has(entryKey(c)) && !blocked.has(entryKey(c)) && !MERGED_INTO[entryKey(c)]), ...current.filter((c) => !blocked.has(entryKey(c)))];
   assertUniqueCompetitions(result);
   return result;
 }
@@ -59,6 +62,11 @@ const MERGED_INTO: Record<string, string> = {
   "leanprover/lean-eval": "leanprover/lean-eval-submissions",
   "1stproof/batch-1": "1stproof/batch-2",
   "1stproof/batch-3": "1stproof/batch-2",
+};
+// Competitions hosted on their own site with no GitHub repository: no discovery, push check or LLM; the official public API is read on every crawl.
+// Keyed by competition id, which is also the published id (/c/<id>).
+const SITES: Record<string, { url: string; build: () => Promise<LLMCompetition> }> = {
+  duckbench: { url: "https://duckbench.app/", build: buildDuckBench },  // DuckBench: robot-duck challenges for coding agents
 };
 
 const DATA_DIR = join(process.cwd(), "data");
@@ -94,10 +102,10 @@ async function main() {
   // repost: recompute derived fields (participants, stats, agentStats, roles) from saved data, no LLM calls
   if (mode === "repost") {
     const entries = savedEntries(JSON.parse(readFileSync(RESULT_PATH, "utf-8")));
-    const comps = await publicCompetitions(entries.map(({ value, repo, id }) => {
-      const validated = validateCompetition(value, repo);
+    const comps = await publicCompetitions(entries.map(({ value, source, id }) => {
+      const validated = validateCompetition(value, source);
       for (const p of validated.problems) for (const r of p.records) if (r.agent) Reflect.deleteProperty(r.agent, "role");
-      const c = postprocess(validated, repo);
+      const c = postprocess(validated, source);
       c.id = id;
       return c;
     }));
@@ -159,7 +167,7 @@ async function main() {
   // Previous crawl: the safety net. An LLM pass is noisy, so a known competition is never dropped or gutted by a single bad answer.
   const prevComps = loadPrevious();
   const blocked = new Set<string>();
-  const prevByRepo = new Map(prevComps.map((c) => [`${c.repo?.owner}/${c.repo?.name}`.toLowerCase(), c]));
+  const prevByRepo = new Map(prevComps.map((c) => [entryKey(c), c]));
   const state = loadState();
   const stateUpdates = new Map<string, RepoState>();
   let skipped = 0;
@@ -281,17 +289,33 @@ async function main() {
     }
   }
 
+  // Sites: built from their public APIs on every crawl (not in the priority lane, which is about PROBLEM.md repos); ONLY matches their id
+  const sites = mode === "priority" ? [] : Object.keys(SITES).filter((id) => !only || onlyList.some((o) => id.includes(o)));
+  for (const id of sites) {
+    const source: SiteSource = { site: id, url: SITES[id].url }, key = `site:${id}`;
+    console.log(`  [site] ${id}`);
+    try {
+      const competition = postprocess(await SITES[id].build(), source, prevByRepo.get(key));
+      const fams = competition.agentStats.map((a) => `${a.family}:${a.records}`).join(" ");
+      console.log(`    ✓ ${competition.name} [site] ${competition.problems.length} tracks, ${competition.stats.totalRecords} records, ${competition.stats.uniqueParticipants} participants${fams ? ` · agents ${fams}` : ""}`);
+      competitions.push(competition);
+    } catch {
+      console.log("    site build failed");
+      errors.push({ repo: key, error: "Site build failed" }); // the safety net below carries the previous entry over
+    }
+  }
+
   // Safety net, part 1: a suspicious shrink (LLM truncation) keeps the previous, richer version
   for (let i = 0; i < competitions.length; i++) {
-    const c = competitions[i], prev = prevByRepo.get(`${c.repo?.owner}/${c.repo?.name}`.toLowerCase());
+    const c = competitions[i], prev = prevByRepo.get(entryKey(c));
     if (prev && prev.stats.totalRecords >= 10 && c.stats.totalRecords < prev.stats.totalRecords * 0.6) {
       console.log(`  ! ${c.name}: records ${prev.stats.totalRecords} → ${c.stats.totalRecords}, keeping the previous version`);
       competitions[i] = prev;
-      stateUpdates.delete(`${c.repo?.owner}/${c.repo?.name}`.toLowerCase()); // retry next crawl
+      stateUpdates.delete(entryKey(c)); // retry next crawl
     }
   }
   // Safety net, part 2: a known competition that came back "not a competition" or failed this time is carried over, not deleted
-  const produced = new Set(competitions.map((c) => `${c.repo?.owner}/${c.repo?.name}`.toLowerCase()));
+  const produced = new Set(competitions.map(entryKey));
   for (const e of errors) {
     const k = e.repo.toLowerCase(), prev = prevByRepo.get(k);
     if (prev && !blocked.has(k) && !produced.has(k) && !MERGED_INTO[k]) { console.log(`  ! ${e.repo}: carrying over the previous entry`); competitions.push(prev); produced.add(k); e.error += " (previous entry kept)"; }

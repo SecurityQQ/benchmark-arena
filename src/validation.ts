@@ -27,12 +27,22 @@ export function repoKey(repo: { owner: string; name: string }): string {
   if (!/^[a-zA-Z0-9][a-zA-Z0-9-]{0,38}$/.test(text(repo.owner)) || !/^[a-zA-Z0-9_.-]{1,100}$/.test(text(repo.name)) || [".", ".."].includes(repo.name)) fail();
   return `${repo.owner}/${repo.name}`.toLowerCase();
 }
-export function competitionId(repo: DiscoveredRepo, previous?: Competition): string {
-  const key = repoKey(repo);
-  if (previous) {
-    if (!previous.repo || repoKey(previous.repo) !== key) fail();
-    return safeId(previous.id);
-  }
+// A competition hosted on its own site with no GitHub repository (main.ts SITES): the competition id is its identity.
+export interface SiteSource { site: string; url: string }
+export type Source = DiscoveredRepo | SiteSource;
+export const isSite = (s: Source): s is SiteSource => "site" in s;
+export function sourceKey(s: Source): string {
+  return isSite(s) ? `site:${safeId(s.site).toLowerCase()}` : repoKey(s);
+}
+// The key an entry is merged and de-duplicated by: its repository, or for a site its id
+export function entryKey(c: { id: string; repo?: { owner: string; name: string } }): string {
+  return c.repo ? repoKey(c.repo) : `site:${safeId(c.id).toLowerCase()}`;
+}
+export function competitionId(source: Source, previous?: Competition): string {
+  const key = sourceKey(source);
+  if (previous && entryKey(previous) !== key) fail();
+  if (isSite(source)) return safeId(source.site);
+  if (previous) return safeId(previous.id);
   return `${key.replace(/[^a-z0-9-]/g, "-")}-${createHash("sha256").update(key).digest("hex").slice(0, 16)}`;
 }
 function url(v: unknown, relative = false): string {
@@ -63,8 +73,9 @@ export function validateAttributions(value: unknown, keys: Set<string>): Record<
   }
   return out;
 }
-export function validateCompetition(value: unknown, repo: DiscoveredRepo): LLMCompetition {
-  repoKey(repo);
+export function validateCompetition(value: unknown, source: Source): LLMCompetition {
+  sourceKey(source);
+  const relative = !isSite(source); // repo-relative paths resolve against the repository; a site has none
   const c = object(value), part = c.participation == null ? {} : object(c.participation);
   if (c.id !== undefined) safeId(c.id);
   const problems = list(c.problems).map((value) => {
@@ -83,7 +94,7 @@ export function validateCompetition(value: unknown, repo: DiscoveredRepo): LLMCo
           ...strings(r, ["contributor", "description"]), date, value: number(r.value),
           ...(r.contributorKind == null ? {} : { contributorKind: choice(r.contributorKind, ["person", "team", "model", "method", "unknown"]) }),
           ...(r.contributorUrl == null ? {} : { contributorUrl: url(r.contributorUrl) }),
-          ...(r.submissionUrls == null ? {} : { submissionUrls: list(r.submissionUrls).map((u) => url(u, true)) }),
+          ...(r.submissionUrls == null ? {} : { submissionUrls: list(r.submissionUrls).map((u) => url(u, relative)) }),
           ...(r.isBaseline == null ? {} : { isBaseline: boolean(r.isBaseline) }),
           ...(r.isCurrentBest == null ? {} : { isCurrentBest: boolean(r.isCurrentBest) }),
           ...(r.agent == null ? {} : { agent: validateAgent(r.agent) }),
@@ -97,12 +108,12 @@ export function validateCompetition(value: unknown, repo: DiscoveredRepo): LLMCo
   const standard = c.standard == null ? undefined : object(c.standard);
   if (standard && (!Number.isSafeInteger(number(standard.submissions)) || number(standard.submissions) < 0 || !Number.isSafeInteger(number(standard.version)) || number(standard.version) < 1)) fail();
   return {
-    id: c.id === undefined ? competitionId(repo) : safeId(c.id), name: text(c.name),
+    id: c.id === undefined ? competitionId(source) : safeId(c.id), name: text(c.name),
     tagline: c.tagline == null ? "" : text(c.tagline), description: c.description == null ? "" : text(c.description),
-    url: url(c.url == null || c.url === "" ? repo.url : c.url), host: choice(c.host, ["github", "website", "kaggle", "huggingface", "other"], "github"),
+    url: url(c.url == null || c.url === "" ? source.url : c.url), host: choice(c.host, ["github", "website", "kaggle", "huggingface", "other"], "github"),
     status: choice(c.status, ["active", "upcoming", "ended", "unknown"], "unknown"),
     domain: choice(c.domain, ["formal-methods", "hardware-efficiency", "llm-eval", "coding-agents", "ml-research", "systems-perf", "robotics", "security", "other"], "other"),
-    tags: list(c.tags).map(text), images: list(c.images).map((u) => url(u, true)),
+    tags: list(c.tags).map(text), images: list(c.images).map((u) => url(u, relative)),
     participation: { ...strings(part, ["howToSubmit", "submissionFormat", "computeDetails", "deadline", "rounds", "prizes", "eligibility", "cost", "verification"]), requirements: list(part.requirements).map(text), compute: choice(part.compute, ["none", "cpu", "consumer-gpu", "datacenter-gpu", "cluster", "unknown"], "unknown") },
     links: list(c.links).map((value) => { const l = object(value); return { label: text(l.label), url: url(l.url) }; }),
     ...(organizer ? { organizer: { name: text(organizer.name), ...(organizer.url == null ? {} : { url: url(organizer.url) }), ...(organizer.type == null ? {} : { type: choice(organizer.type, ["company", "academic", "individual", "community", "foundation"]) }) } } : {}),
@@ -116,19 +127,22 @@ export function validateCompetition(value: unknown, repo: DiscoveredRepo): LLMCo
 export function assertUniqueCompetitions(competitions: Competition[]): void {
   const ids = new Set<string>(), repos = new Set<string>();
   for (const c of competitions) {
-    const id = safeId(c.id).toLowerCase(), key = c.repo ? repoKey(c.repo) : fail();
+    const id = safeId(c.id).toLowerCase(), key = entryKey(c);
     if (ids.has(id) || repos.has(key)) fail();
     ids.add(id); repos.add(key);
   }
 }
-export function savedEntries(value: unknown): { value: unknown; repo: DiscoveredRepo; id: string }[] {
+// An entry without a repository comes back as a site source; whether that site is still registered is main.ts's call (publicCompetitions)
+export function savedEntries(value: unknown): { value: unknown; source: Source; id: string }[] {
   const competitions = object(value).competitions;
   if (!Array.isArray(competitions)) fail();
   return list(competitions).map((value) => {
-    const c = object(value), r = object(c.repo);
+    const c = object(value), id = safeId(c.id);
+    if (c.repo == null) return { value, source: { site: id, url: url(c.url) }, id };
+    const r = object(c.repo);
     const owner = text(r.owner), name = text(r.name);
     const repo = { owner, name, url: `https://github.com/${owner}/${name}`, defaultBranch: r.branch == null ? "main" : text(r.branch), stars: 0, topics: [] };
     repoKey(repo);
-    return { value, repo, id: safeId(c.id) };
+    return { value, source: repo, id };
   });
 }

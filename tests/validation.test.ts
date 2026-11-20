@@ -6,7 +6,7 @@ import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
 import { postprocess } from "../src/postprocess.js";
-import { competitionId, validateCompetition, validateAttributions, safeId, savedEntries, assertUniqueCompetitions } from "../src/validation.js";
+import { competitionId, validateCompetition, validateAttributions, safeId, savedEntries, assertUniqueCompetitions, entryKey } from "../src/validation.js";
 import { mergeCompetitions, publicCompetitions } from "../src/main.js";
 import { processRepoWithLLM, attributeRecordsWithLLM } from "../src/llm.js";
 import { applyStandard } from "../src/standard.js";
@@ -97,11 +97,45 @@ test("public failures exclude carried entries, priority merges and structured re
 
 test("persisted dataset validates for repost without migrating published IDs", () => {
   const entries = savedEntries(JSON.parse(readFileSync(new URL("../data/competitions.json", import.meta.url), "utf8")));
-  const comps = entries.map(({ value, repo, id }) => { const c = postprocess(value, repo); c.id = id; return c; });
+  const comps = entries.map(({ value, source, id }) => { const c = postprocess(value, source); c.id = id; return c; });
   assertUniqueCompetitions(comps);
   assert.equal(comps.length, entries.length);
   assert.throws(() => savedEntries({ competitions: [{ id: "../bad", repo }] }));
   assert.throws(() => savedEntries({}));
+});
+
+test("a site source has no repository: its id is its key, it never gets GitHub URLs, and only registered sites are published", async () => {
+  const site = { site: "duckbench", url: "https://duckbench.app/" };
+  const rows = () => ({ ...input(), problems: [{ id: "sprint", name: "Sprint", metricName: "finish time", metricDirection: "minimize", records: [{ value: 2.2, contributor: "bonuck", contributorKind: "person" }, { value: 2.3, contributor: "alice-1, bob-2", contributorKind: "person" }] }] });
+  const c = postprocess(rows(), site);
+  assert.equal(c.id, "duckbench");
+  assert.equal(c.url, "https://duckbench.app/");
+  assert.equal("repo" in c, false);
+  assert.equal(entryKey(c), "site:duckbench");
+  assert.equal(competitionId(site), "duckbench");
+  assert.ok(c.problems[0].records.every((r) => !r.contributorUrl), "a site handle is not a GitHub login");
+  assert.ok(c.participants.every((p) => !p.url?.includes("github.com")));
+  // relative URLs resolve against a repository; a site has none
+  assert.throws(() => postprocess({ ...rows(), images: ["./docs/task.png"] }, site));
+  // bound to its id: a repo entry cannot become the site's previous version, nor the other way round
+  assert.throws(() => postprocess(rows(), site, postprocess(input(), repo)));
+  assert.throws(() => postprocess(input(), repo, c));
+  assert.equal(postprocess(rows(), site, c).id, "duckbench");
+  // persisted without a repo, it comes back as a site source
+  const [saved] = savedEntries({ competitions: [JSON.parse(JSON.stringify(c))] });
+  assert.deepEqual(saved.source, site);
+  assert.equal(postprocess(saved.value, saved.source).id, "duckbench");
+  assert.throws(() => savedEntries({ competitions: [{ id: "x", url: "javascript:alert(1)" }] }));
+  // published without a GitHub check, but only when the site is registered; merged by its id
+  let calls = 0;
+  const unknown = { ...c, id: "not-a-site" };
+  assert.deepEqual(await publicCompetitions([c, unknown], new Set(), async () => { calls++; }), [c]);
+  assert.equal(calls, 0);
+  assertUniqueCompetitions([c, postprocess(input(), repo)]);
+  assert.throws(() => assertUniqueCompetitions([c, c]));
+  const fresh = postprocess(rows(), site);
+  assert.deepEqual(mergeCompetitions([c], [fresh]), [fresh]);
+  assert.deepEqual(mergeCompetitions([c], []), [c]);
 });
 
 test("LLM HTTP, JSON, transport, truncation and schema failures expose no upstream text", async (t) => {
@@ -136,7 +170,7 @@ test("CLI repost and structured processing exclude private previous entries with
       const previous = postprocess(input(), structuredRepo);
       writeFileSync(join(cwd, "data/competitions.json"), JSON.stringify({ competitions: [previous], errors: [{ repo: "old", error: "SECRET persisted error" }] }));
       writeFileSync(join(cwd, "data/discovered.json"), JSON.stringify([structuredRepo]));
-      const script = `import { getOctokit } from ${JSON.stringify(github)}; getOctokit().rest.repos.get = async () => { throw new Error("SECRET private response"); }; process.argv = [process.execPath, ${JSON.stringify(main)}, ${JSON.stringify(mode)}]; await import(${JSON.stringify(new URL("../src/main.ts", import.meta.url).href)});`;
+      const script = `import { getOctokit } from ${JSON.stringify(github)}; getOctokit().rest.repos.get = async () => { throw new Error("SECRET private response"); }; globalThis.fetch = async () => { throw new Error("SECRET site response"); }; process.argv = [process.execPath, ${JSON.stringify(main)}, ${JSON.stringify(mode)}]; await import(${JSON.stringify(new URL("../src/main.ts", import.meta.url).href)});`;
       const result = spawnSync(process.execPath, ["--import", tsx, "--input-type=module", "-e", script], { cwd, encoding: "utf8", timeout: 15000 });
       assert.equal(result.status, 0, result.stderr);
       assert.equal((result.stdout + result.stderr).includes("SECRET"), false);
@@ -145,6 +179,26 @@ test("CLI repost and structured processing exclude private previous entries with
       assert.equal(saved.includes("SECRET"), false);
     } finally { rmSync(cwd, { recursive: true, force: true }); }
   }
+});
+
+test("CLI process keeps a site's previous entry when its API is down, without leaking the failure", () => {
+  const tsx = import.meta.resolve("tsx");
+  const cwd = mkdtempSync(join(tmpdir(), "competition-site-"));
+  try {
+    mkdirSync(join(cwd, "data"));
+    const previous = postprocess(input(), { site: "duckbench", url: "https://duckbench.app/" });
+    writeFileSync(join(cwd, "data/competitions.json"), JSON.stringify({ competitions: [previous], errors: [] }));
+    writeFileSync(join(cwd, "data/discovered.json"), "[]");
+    const main = fileURLToPath(new URL("../src/main.ts", import.meta.url));
+    const script = `globalThis.fetch = async () => { throw new Error("SECRET site response"); }; process.argv = [process.execPath, ${JSON.stringify(main)}, "process"]; await import(${JSON.stringify(new URL("../src/main.ts", import.meta.url).href)});`;
+    const result = spawnSync(process.execPath, ["--import", tsx, "--input-type=module", "-e", script], { cwd, encoding: "utf8", timeout: 15000 });
+    assert.equal(result.status, 0, result.stderr);
+    assert.match(result.stdout, /site build failed/);
+    assert.equal((result.stdout + result.stderr).includes("SECRET"), false);
+    const saved = JSON.parse(readFileSync(join(cwd, "data/competitions.json"), "utf8"));
+    assert.deepEqual(saved.competitions.map((c: { id: string }) => c.id), ["duckbench"]);
+    assert.deepEqual(saved.errors, [{ repo: "site:duckbench", error: "Site build failed (previous entry kept)" }]);
+  } finally { rmSync(cwd, { recursive: true, force: true }); }
 });
 
 test("both LLM passes enforce advertised and streamed 4 MiB response limits", async (t) => {

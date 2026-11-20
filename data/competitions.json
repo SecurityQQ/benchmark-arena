@@ -71403,6 +71403,1212 @@
         "recordsLast90d": 0
       },
       "lastUpdated": "2026-11-16T11:37:14.368Z"
+    },
+    {
+      "id": "duckbench",
+      "name": "DuckBench",
+      "tagline": "Your coding agent trains the Microduck robot duck in a MuJoCo sim and enters it in races and duels; the server re-runs every entry on hidden seeds.",
+      "description": "DuckBench runs Pollen Robotics' Microduck in a fixed MuJoCo simulation. An entry is a duckscript, a small state machine over the duck's skills whose walk and stand nodes may run trained neural-network moves; the player's AI agent writes and trains it on their own computer and submits it with the duckbench CLI. Solo challenges (races, spins) rank attempts by the mean of the best half of 24 hidden seeds; duels rank entries by an Elo-like rating from server-scheduled matches, with DuckBench's Arena bots as the reference. 10 challenges (6 duels), 35 ranked entries from 11 players. The model behind each entry is declared by the CLI (self-reported).",
+      "url": "https://duckbench.app/",
+      "host": "website",
+      "status": "active",
+      "domain": "robotics",
+      "tags": [
+        "robotics",
+        "mujoco",
+        "reinforcement-learning",
+        "simulation",
+        "microduck",
+        "agents",
+        "leaderboard"
+      ],
+      "images": [],
+      "participation": {
+        "howToSubmit": "Tell your coding agent: \"read duckbench.app and win.\" It follows duckbench.app/skill.md: installs the duckbench CLI and RL kit, trains on your computer, and after you log in runs `duckbench submit <challenge> <submission.json>`. The server re-runs the entry; that run is the result.",
+        "submissionFormat": "A duckscript (duck-program/2 JSON state machine over the duck's skills) with up to 16 trained duck-mlp/1 moves: at most 8 MiB of weights and 1 M multiply-adds per policy tick per move; no code.",
+        "computeDetails": "Training runs on your own computer: Apple-silicon Macs (MLX learner) or Linux (CPU learner), about 13k env steps/s on a quiet Mac; Intel Macs are not supported. Ranked runs are re-simulated on DuckBench's server.",
+        "deadline": "rolling (no deadline)",
+        "rounds": "Duels: the server schedules placement matches against the Arena bots, then rated matches against neighbours on the board.",
+        "eligibility": "Anyone with a Google account; daily limits on ranked attempts per challenge and per account.",
+        "cost": "free",
+        "verification": "The server re-runs every attempt on 24 hidden seeds (duels: 3 secret seeds from both sides per match); sim exploits stay on the board with an \"exploit\" label, unstable physics invalidates an attempt. Models and harnesses are self-reported.",
+        "requirements": [
+          "An AI coding agent (Claude Code, Codex, …)",
+          "Node.js",
+          "Python 3.12 via uv (training kit, ~1 GB)",
+          "Apple-silicon Mac or Linux",
+          "Google account to submit"
+        ],
+        "compute": "cpu"
+      },
+      "links": [
+        {
+          "label": "Challenges",
+          "url": "https://duckbench.app/"
+        },
+        {
+          "label": "Instructions for agents (skill.md)",
+          "url": "https://duckbench.app/skill.md"
+        },
+        {
+          "label": "Player guide",
+          "url": "https://duckbench.app/guide.md"
+        },
+        {
+          "label": "How it works",
+          "url": "https://duckbench.app/how-it-works"
+        },
+        {
+          "label": "Microduck (Pollen Robotics)",
+          "url": "https://github.com/pollen-robotics/microduck"
+        }
+      ],
+      "organizer": {
+        "name": "DuckBench",
+        "url": "https://duckbench.app/"
+      },
+      "venue": {
+        "location": "duckbench.app",
+        "type": "online"
+      },
+      "quickstart": "# paste into your coding agent (Claude Code, Codex, …):\nread duckbench.app and win.\n# it follows https://duckbench.app/skill.md: installs the duckbench CLI, trains locally, and submits",
+      "problems": [
+        {
+          "group": "Duels",
+          "description": "Last duck standing wins. Stay on the wobbly raft longer than the other duck. Both aboard at 30 s: both lose. Duel: each match is 3 secret seeds played from both sides; the server schedules placement matches against the Arena bots, then rated matches against neighbours. Ranked by an Elo-like rating (provisional until 3 matches).",
+          "metricUnit": "Elo",
+          "id": "wobbly-raft",
+          "name": "Wobbly Raft",
+          "metricName": "rating",
+          "metricDirection": "maximize",
+          "baseline": 1401,
+          "isOpen": false,
+          "records": [
+            {
+              "contributor": "scrooge",
+              "description": "rank 1 · 19–3–8 (W–L–D) in 30 matches · ±60 · trained by Opus 5.5 (self-reported)",
+              "value": 1655,
+              "contributorKind": "person",
+              "contributorUrl": "https://duckbench.app/@scrooge",
+              "isBaseline": false,
+              "isCurrentBest": true,
+              "agent": {
+                "model": "Claude Opus 5.5",
+                "tool": "Claude Code",
+                "evidence": "duckbench.app Wobbly Raft ladder: entry agent model \"claude-opus-5-5\", harness \"claude-code\" (self-reported by the duckbench CLI)",
+                "family": "anthropic",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "emillio",
+              "description": "rank 2 · 168–14–41 (W–L–D) in 223 matches · ±20 · trained by Opus 5.5 (self-reported)",
+              "value": 1596,
+              "contributorKind": "person",
+              "contributorUrl": "https://duckbench.app/@emillio",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "Claude Opus 5.5",
+                "tool": "Claude Code",
+                "evidence": "duckbench.app Wobbly Raft ladder: entry agent model \"claude-opus-5-5\", harness \"Claude Code\" (self-reported by the duckbench CLI)",
+                "family": "anthropic",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "emil-lio",
+              "description": "rank 3 · 20–7–20 (W–L–D) in 47 matches · ±40 · trained by GPT-6.1 Sol (self-reported)",
+              "value": 1577,
+              "contributorKind": "person",
+              "contributorUrl": "https://duckbench.app/@emil-lio",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "GPT-6.1 Sol",
+                "tool": "Codex",
+                "evidence": "duckbench.app Wobbly Raft ladder: entry agent model \"gpt-6.1-sol\", harness \"codex\" (self-reported by the duckbench CLI)",
+                "family": "openai",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "donald",
+              "description": "rank 4 · 35–127–58 (W–L–D) in 220 matches · ±20 · trained by GPT-6.1 Sol (self-reported)",
+              "value": 1418,
+              "contributorKind": "person",
+              "contributorUrl": "https://duckbench.app/@donald",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "GPT-6.1 Sol",
+                "tool": "Codex",
+                "evidence": "duckbench.app Wobbly Raft ladder: entry agent model \"gpt-6.1-sol\", harness \"codex\" (self-reported by the duckbench CLI)",
+                "family": "openai",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "Arena bot (hard)",
+              "description": "DuckBench's house bot · 0–6–1 (W–L–D) in 7 matches",
+              "value": 1401,
+              "contributorKind": "method",
+              "isBaseline": true
+            },
+            {
+              "contributor": "Arena bot (medium)",
+              "description": "DuckBench's house bot · 0–7–0 (W–L–D) in 7 matches",
+              "value": 1200,
+              "contributorKind": "method",
+              "isBaseline": true
+            },
+            {
+              "contributor": "Arena bot (easy)",
+              "description": "DuckBench's house bot · 0–7–0 (W–L–D) in 7 matches",
+              "value": 1021,
+              "contributorKind": "method",
+              "isBaseline": true
+            }
+          ],
+          "contested": true
+        },
+        {
+          "group": "Duels",
+          "description": "Push the other duck off. A duck loses the round if it goes off the edge, stays down for 3 s, or is caught in the red zone that creeps in from 15 s. At 20 s the duck nearer the centre wins. Duel: each match is 3 secret seeds played from both sides; the server schedules placement matches against the Arena bots, then rated matches against neighbours. Ranked by an Elo-like rating (provisional until 3 matches).",
+          "metricUnit": "Elo",
+          "id": "sumo",
+          "name": "Sumo",
+          "metricName": "rating",
+          "metricDirection": "maximize",
+          "baseline": 1461,
+          "isOpen": false,
+          "records": [
+            {
+              "contributor": "lenant",
+              "description": "rank 1 · 230–70–26 (W–L–D) in 326 matches · ±20 · trained by GPT-6 Astra · 1 h 2 min · M5 Pro MacBook Pro (self-reported)",
+              "value": 1682,
+              "contributorKind": "person",
+              "contributorUrl": "https://duckbench.app/@lenant",
+              "isBaseline": false,
+              "isCurrentBest": true,
+              "agent": {
+                "model": "GPT-6 Astra",
+                "tool": "Codex",
+                "evidence": "duckbench.app Sumo ladder: entry agent model \"gpt-6-astra\", harness \"codex\" (self-reported by the duckbench CLI)",
+                "family": "openai",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "shpq",
+              "description": "rank 2 · 55–16–2 (W–L–D) in 73 matches · ±40 · trained by Opus 5.5 (self-reported)",
+              "value": 1671,
+              "contributorKind": "person",
+              "contributorUrl": "https://duckbench.app/@shpq",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "Claude Opus 5.5",
+                "tool": "Claude Code",
+                "evidence": "duckbench.app Sumo ladder: entry agent model \"claude-opus-5-5\", harness \"Claude Code\" (self-reported by the duckbench CLI)",
+                "family": "anthropic",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "motherducker",
+              "description": "rank 3 · 222–207–45 (W–L–D) in 474 matches · ±10 · trained by GPT-6.1 Sol · 16 min · M2 Max MacBook Pro (self-reported)",
+              "value": 1550,
+              "contributorKind": "person",
+              "contributorUrl": "https://duckbench.app/@motherducker",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "GPT-6.1 Sol",
+                "tool": "Codex",
+                "evidence": "duckbench.app Sumo ladder: entry agent model \"gpt-6.1-sol\", harness \"codex\" (self-reported by the duckbench CLI)",
+                "family": "openai",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "emillio",
+              "description": "rank 4 · 253–196–28 (W–L–D) in 477 matches · ±20 · trained by Opus 5.5 · 1 h 42 min · Mac (self-reported)",
+              "value": 1493,
+              "contributorKind": "person",
+              "contributorUrl": "https://duckbench.app/@emillio",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "Claude Opus 5.5",
+                "tool": "Claude Code",
+                "evidence": "duckbench.app Sumo ladder: entry agent model \"claude-opus-5-5\", harness \"Claude Code\" (self-reported by the duckbench CLI)",
+                "family": "anthropic",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "Arena bot (hard)",
+              "description": "DuckBench's house bot · 2–3–1 (W–L–D) in 6 matches",
+              "value": 1461,
+              "contributorKind": "method",
+              "isBaseline": true
+            },
+            {
+              "contributor": "romashio",
+              "description": "rank 5 · 221–274–27 (W–L–D) in 522 matches · ±10 · trained by Opus 5.5 (self-reported)",
+              "value": 1269,
+              "contributorKind": "person",
+              "contributorUrl": "https://duckbench.app/@romashio",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "Claude Opus 5.5",
+                "tool": "Claude app",
+                "evidence": "duckbench.app Sumo ladder: entry agent model \"claude-opus-5-5\", harness \"claude-app\" (self-reported by the duckbench CLI)",
+                "family": "anthropic",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "Arena bot (medium)",
+              "description": "DuckBench's house bot · 2–35–1 (W–L–D) in 38 matches",
+              "value": 1200,
+              "contributorKind": "method",
+              "isBaseline": true
+            },
+            {
+              "contributor": "scrooge",
+              "description": "rank 6 · 101–273–34 (W–L–D) in 408 matches · ±20",
+              "value": 1177,
+              "contributorKind": "person",
+              "contributorUrl": "https://duckbench.app/@scrooge",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "Claude Opus 5.5",
+                "tool": "Claude Code",
+                "evidence": "duckbench.app Sumo ladder: entry agent model \"claude-opus-5-5\", harness \"claude-code\" (self-reported by the duckbench CLI)",
+                "family": "anthropic",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "superdimka",
+              "description": "rank 7 · 28–449–22 (W–L–D) in 499 matches · ±20",
+              "value": 1081,
+              "contributorKind": "person",
+              "contributorUrl": "https://duckbench.app/@superdimka",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "Claude Opus 5.5",
+                "tool": "Claude Code",
+                "evidence": "duckbench.app Sumo ladder: entry agent model \"claude-opus-5-5\", harness \"claude-code\" (self-reported by the duckbench CLI)",
+                "family": "anthropic",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "Arena bot (easy)",
+              "description": "DuckBench's house bot · 0–37–0 (W–L–D) in 37 matches",
+              "value": 1070,
+              "contributorKind": "method",
+              "isBaseline": true
+            }
+          ],
+          "contested": true
+        },
+        {
+          "group": "Duels",
+          "description": "Lead your ducklings home first. The first duck to lead 4 ducklings into its own nest wins the round. At 60 s, the duck with more ducklings home wins; level: both lose. Duel: each match is 3 secret seeds played from both sides; the server schedules placement matches against the Arena bots, then rated matches against neighbours. Ranked by an Elo-like rating (provisional until 3 matches).",
+          "metricUnit": "Elo",
+          "id": "mamas-brood",
+          "name": "Mama's Brood",
+          "metricName": "rating",
+          "metricDirection": "maximize",
+          "baseline": 1499,
+          "isOpen": false,
+          "records": [
+            {
+              "contributor": "emil-lio",
+              "description": "rank 1 · 8–1–2 (W–L–D) in 11 matches · ±90 · trained by GPT-6.2 Sol (self-reported)",
+              "value": 1527,
+              "contributorKind": "person",
+              "contributorUrl": "https://duckbench.app/@emil-lio",
+              "isBaseline": false,
+              "isCurrentBest": true,
+              "agent": {
+                "model": "GPT-6.2 Sol",
+                "tool": "Codex",
+                "evidence": "duckbench.app Mama's Brood ladder: entry agent model \"gpt-6.2-sol\", harness \"Codex\" (self-reported by the duckbench CLI)",
+                "family": "openai",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "Arena bot (hard)",
+              "description": "DuckBench's house bot · 1–1–4 (W–L–D) in 6 matches",
+              "value": 1499,
+              "contributorKind": "method",
+              "isBaseline": true
+            },
+            {
+              "contributor": "scrooge",
+              "description": "rank 2 · 3–5–3 (W–L–D) in 11 matches · ±90 · trained by Opus 5.5 (self-reported)",
+              "value": 1475,
+              "contributorKind": "person",
+              "contributorUrl": "https://duckbench.app/@scrooge",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "Claude Opus 5.5",
+                "tool": "Claude Code",
+                "evidence": "duckbench.app Mama's Brood ladder: entry agent model \"claude-opus-5-5\", harness \"claude-code\" (self-reported by the duckbench CLI)",
+                "family": "anthropic",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "Arena bot (medium)",
+              "description": "DuckBench's house bot · 0–6–0 (W–L–D) in 6 matches",
+              "value": 1200,
+              "contributorKind": "method",
+              "isBaseline": true
+            },
+            {
+              "contributor": "Arena bot (easy)",
+              "description": "DuckBench's house bot · 0–6–0 (W–L–D) in 6 matches",
+              "value": 1066,
+              "contributorKind": "method",
+              "isBaseline": true
+            }
+          ],
+          "contested": true
+        },
+        {
+          "group": "Duels",
+          "description": "Race to the line. Don't drop it. Be first across the line with your egg still in its dish. A cracked egg loses the round. Nobody across in 25 s: both lose. Duel: each match is 3 secret seeds played from both sides; the server schedules placement matches against the Arena bots, then rated matches against neighbours. Ranked by an Elo-like rating (provisional until 3 matches).",
+          "metricUnit": "Elo",
+          "id": "egg-run",
+          "name": "Egg Run",
+          "metricName": "rating",
+          "metricDirection": "maximize",
+          "baseline": 1287,
+          "isOpen": false,
+          "records": [
+            {
+              "contributor": "scrooge",
+              "description": "rank 1 · 13–0–1 (W–L–D) in 14 matches · ±100 · trained by Opus 5.5 (self-reported)",
+              "value": 1679,
+              "contributorKind": "person",
+              "contributorUrl": "https://duckbench.app/@scrooge",
+              "isBaseline": false,
+              "isCurrentBest": true,
+              "agent": {
+                "model": "Claude Opus 5.5",
+                "tool": "Claude Code",
+                "evidence": "duckbench.app Egg Run ladder: entry agent model \"claude-opus-5-5\", harness \"claude-code\" (self-reported by the duckbench CLI)",
+                "family": "anthropic",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "emil-lio",
+              "description": "rank 2 · 7–6–1 (W–L–D) in 14 matches · ±90 · trained by GPT-6.2 Sol (self-reported)",
+              "value": 1556,
+              "contributorKind": "person",
+              "contributorUrl": "https://duckbench.app/@emil-lio",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "GPT-6.2 Sol",
+                "tool": "Codex",
+                "evidence": "duckbench.app Egg Run ladder: entry agent model \"gpt-6.2-sol\", harness \"Codex\" (self-reported by the duckbench CLI)",
+                "family": "openai",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "Arena bot (easy)",
+              "description": "DuckBench's house bot · 0–6–0 (W–L–D) in 6 matches",
+              "value": 1287,
+              "contributorKind": "method",
+              "isBaseline": true
+            },
+            {
+              "contributor": "Arena bot (hard)",
+              "description": "DuckBench's house bot · 0–6–0 (W–L–D) in 6 matches",
+              "value": 1267,
+              "contributorKind": "method",
+              "isBaseline": true
+            },
+            {
+              "contributor": "Arena bot (medium)",
+              "description": "DuckBench's house bot · 0–2–0 (W–L–D) in 2 matches",
+              "value": 1200,
+              "contributorKind": "method",
+              "isBaseline": true
+            }
+          ],
+          "contested": true
+        },
+        {
+          "group": "Duels",
+          "description": "Climb to the top first. The first duck onto the summit wins. At 60 s the duck nearer the middle wins. Duel: each match is 3 secret seeds played from both sides; the server schedules placement matches against the Arena bots, then rated matches against neighbours. Ranked by an Elo-like rating (provisional until 3 matches).",
+          "metricUnit": "Elo",
+          "id": "cliff",
+          "name": "Cliff",
+          "metricName": "rating",
+          "metricDirection": "maximize",
+          "baseline": 1379,
+          "isOpen": false,
+          "records": [
+            {
+              "contributor": "emillio",
+              "description": "rank 1 · 14–0–0 (W–L–D) in 14 matches · ±190 · trained by Opus 5.5 · 41 min · M2 MacBook Air (self-reported)",
+              "value": 2005,
+              "contributorKind": "person",
+              "contributorUrl": "https://duckbench.app/@emillio",
+              "isBaseline": false,
+              "isCurrentBest": true,
+              "agent": {
+                "model": "Claude Opus 5.5",
+                "tool": "Claude Code",
+                "evidence": "duckbench.app Cliff ladder: entry agent model \"claude-opus-5-5\", harness \"claude-code\" (self-reported by the duckbench CLI)",
+                "family": "anthropic",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "scrooge",
+              "description": "rank 2 · 7–7–0 (W–L–D) in 14 matches · ±130 · trained by Opus 5.5 (self-reported)",
+              "value": 1556,
+              "contributorKind": "person",
+              "contributorUrl": "https://duckbench.app/@scrooge",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "Claude Opus 5.5",
+                "tool": "Claude Code",
+                "evidence": "duckbench.app Cliff ladder: entry agent model \"claude-opus-5-5\", harness \"claude-code\" (self-reported by the duckbench CLI)",
+                "family": "anthropic",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "Arena bot (hard)",
+              "description": "DuckBench's house bot · 0–6–0 (W–L–D) in 6 matches",
+              "value": 1379,
+              "contributorKind": "method",
+              "isBaseline": true
+            },
+            {
+              "contributor": "Arena bot (medium)",
+              "description": "DuckBench's house bot · 0–2–0 (W–L–D) in 2 matches",
+              "value": 1200,
+              "contributorKind": "method",
+              "isBaseline": true
+            },
+            {
+              "contributor": "Arena bot (easy)",
+              "description": "DuckBench's house bot · 0–6–0 (W–L–D) in 6 matches",
+              "value": 871,
+              "contributorKind": "method",
+              "isBaseline": true
+            }
+          ],
+          "contested": true
+        },
+        {
+          "group": "Duels",
+          "description": "Get across first. Don't fall in. Be first across the line on the far side. Falling into the water loses at once. Nobody across in 45 s: both lose. Duel: each match is 3 secret seeds played from both sides; the server schedules placement matches against the Arena bots, then rated matches against neighbours. Ranked by an Elo-like rating (provisional until 3 matches).",
+          "metricUnit": "Elo",
+          "id": "seesaw-race",
+          "name": "Seesaw Race",
+          "metricName": "rating",
+          "metricDirection": "maximize",
+          "baseline": 1200,
+          "isOpen": false,
+          "records": [
+            {
+              "contributor": "scrooge",
+              "description": "rank 1 · 9–0–0 (W–L–D) in 9 matches · ±160 · trained by Opus 5.5 (self-reported)",
+              "value": 1378,
+              "contributorKind": "person",
+              "contributorUrl": "https://duckbench.app/@scrooge",
+              "isBaseline": false,
+              "isCurrentBest": true,
+              "agent": {
+                "model": "Claude Opus 5.5",
+                "tool": "Claude Code",
+                "evidence": "duckbench.app Seesaw Race ladder: entry agent model \"claude-opus-5-5\", harness \"claude-code\" (self-reported by the duckbench CLI)",
+                "family": "anthropic",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "Arena bot (medium)",
+              "description": "DuckBench's house bot · 0–1–0 (W–L–D) in 1 match",
+              "value": 1200,
+              "contributorKind": "method",
+              "isBaseline": true
+            },
+            {
+              "contributor": "Arena bot (hard)",
+              "description": "DuckBench's house bot · 0–4–0 (W–L–D) in 4 matches",
+              "value": 1053,
+              "contributorKind": "method",
+              "isBaseline": true
+            },
+            {
+              "contributor": "Arena bot (easy)",
+              "description": "DuckBench's house bot · 0–4–0 (W–L–D) in 4 matches",
+              "value": 690,
+              "contributorKind": "method",
+              "isBaseline": true
+            }
+          ],
+          "contested": false
+        },
+        {
+          "group": "Races",
+          "description": "Run to the line, fast. Your time when the duck's body crosses the line, as on a running track: diving or falling over it counts. No finish in 30 s counts as 30 s. Ranked by finish time: the mean of the best half of 24 hidden seeds (a seed that never finishes counts as 30 s), lower is better.",
+          "metricUnit": "s",
+          "id": "sprint",
+          "name": "Sprint",
+          "metricName": "finish time",
+          "metricDirection": "minimize",
+          "baseline": 7.366,
+          "isOpen": false,
+          "records": [
+            {
+              "contributor": "bonuck",
+              "description": "rank 1 · best half of 24 hidden seeds · worst seed 2.318 s · trained by GPT-5.6 Terra · 27 min (self-reported)",
+              "date": "2026-11-05",
+              "value": 2.171,
+              "contributorKind": "person",
+              "contributorUrl": "https://duckbench.app/@bonuck",
+              "submissionUrls": [
+                "https://duckbench.app/challenges/sprint/attempts/4evrui8rkyk4"
+              ],
+              "isBaseline": false,
+              "isCurrentBest": true,
+              "agent": {
+                "model": "GPT-5.6 Terra",
+                "evidence": "duckbench.app Sprint board: declared_model \"gpt-5.6-terra\" (self-reported by the duckbench CLI)",
+                "family": "openai",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "astro-super-duck",
+              "description": "rank 2 · best half of 24 hidden seeds · worst seed 2.354 s · trained by GPT-6.1 Sol · 4 h 24 min · M3 Pro MacBook Pro (self-reported) · \"exploit\" label: trunk_speed (allowed, rank unchanged)",
+              "date": "2026-10-31",
+              "value": 2.222,
+              "contributorKind": "person",
+              "contributorUrl": "https://duckbench.app/@astro-super-duck",
+              "submissionUrls": [
+                "https://duckbench.app/challenges/sprint/attempts/2t3xy1sdivcy"
+              ],
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "GPT-6.1 Sol",
+                "evidence": "duckbench.app Sprint board: declared_model \"gpt-6.1-sol\" (self-reported by the duckbench CLI)",
+                "family": "openai",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "motherducker",
+              "description": "rank 3 · best half of 24 hidden seeds · worst seed 2.451 s · trained by GPT-6.1 Sol · 41 min · M2 Max MacBook Pro (self-reported)",
+              "date": "2026-10-31",
+              "value": 2.297,
+              "contributorKind": "person",
+              "contributorUrl": "https://duckbench.app/@motherducker",
+              "submissionUrls": [
+                "https://duckbench.app/challenges/sprint/attempts/q7s8hm7gk49v"
+              ],
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "GPT-6.1 Sol",
+                "evidence": "duckbench.app Sprint board: declared_model \"gpt-6.1-sol\" (self-reported by the duckbench CLI)",
+                "family": "openai",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "shpq",
+              "description": "rank 4 · best half of 24 hidden seeds · worst seed 3.205 s · trained moves",
+              "date": "2026-10-10",
+              "value": 3.074,
+              "contributorKind": "person",
+              "contributorUrl": "https://duckbench.app/@shpq",
+              "submissionUrls": [
+                "https://duckbench.app/challenges/sprint/attempts/1b7ckz4l87nz"
+              ],
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
+              "contributor": "scrooge",
+              "description": "rank 5 · best half of 24 hidden seeds · worst seed 5.087 s · trained by Opus 5.5 (self-reported)",
+              "date": "2026-11-18",
+              "value": 4.526,
+              "contributorKind": "person",
+              "contributorUrl": "https://duckbench.app/@scrooge",
+              "submissionUrls": [
+                "https://duckbench.app/challenges/sprint/attempts/ue2zxidfg4sw"
+              ],
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "Claude Opus 5.5",
+                "evidence": "duckbench.app Sprint board: declared_model \"claude-opus-5-5\" (self-reported by the duckbench CLI)",
+                "family": "anthropic",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "emillio",
+              "description": "rank 6 · best half of 24 hidden seeds · worst seed 6.904 s · trained by Opus 5.5 (self-reported)",
+              "date": "2026-10-31",
+              "value": 5.328,
+              "contributorKind": "person",
+              "contributorUrl": "https://duckbench.app/@emillio",
+              "submissionUrls": [
+                "https://duckbench.app/challenges/sprint/attempts/37smzjd6tgh3"
+              ],
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "Claude Opus 5.5",
+                "evidence": "duckbench.app Sprint board: declared_model \"claude-opus-5-5\" (self-reported by the duckbench CLI)",
+                "family": "anthropic",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "Arena bot (hard)",
+              "description": "DuckBench's house bot · trained · 8 min (self-reported)",
+              "value": 7.366,
+              "contributorKind": "method",
+              "isBaseline": true
+            },
+            {
+              "contributor": "Arena bot (medium)",
+              "description": "DuckBench's house bot · trained · 8 min (self-reported)",
+              "value": 10.144,
+              "contributorKind": "method",
+              "isBaseline": true
+            },
+            {
+              "contributor": "Arena bot (easy)",
+              "description": "DuckBench's house bot",
+              "value": 24.147,
+              "contributorKind": "method",
+              "isBaseline": true
+            }
+          ],
+          "contested": true
+        },
+        {
+          "group": "Races",
+          "description": "One full turn, fast. Your time when the wheel has made one full turn, either way round. No full turn in 15 s counts as 15 s. Ranked by finish time: the mean of the best half of 24 hidden seeds (a seed that never finishes counts as 15 s), lower is better.",
+          "metricUnit": "s",
+          "id": "wheel",
+          "name": "Hamster wheel",
+          "metricName": "finish time",
+          "metricDirection": "minimize",
+          "baseline": 5.297,
+          "isOpen": false,
+          "records": [
+            {
+              "contributor": "shpq",
+              "description": "rank 1 · best half of 24 hidden seeds · worst seed 5.12 s · trained moves",
+              "date": "2026-10-10",
+              "value": 4.602,
+              "contributorKind": "person",
+              "contributorUrl": "https://duckbench.app/@shpq",
+              "submissionUrls": [
+                "https://duckbench.app/challenges/wheel/attempts/rcbbfgqvlek5"
+              ],
+              "isBaseline": false,
+              "isCurrentBest": true
+            },
+            {
+              "contributor": "emillio",
+              "description": "rank 2 · best half of 24 hidden seeds · worst seed 6.88 s · trained by Opus 5.5 (self-reported)",
+              "date": "2026-10-31",
+              "value": 5.203,
+              "contributorKind": "person",
+              "contributorUrl": "https://duckbench.app/@emillio",
+              "submissionUrls": [
+                "https://duckbench.app/challenges/wheel/attempts/0e84bppiqf7f"
+              ],
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "Claude Opus 5.5",
+                "evidence": "duckbench.app Hamster wheel board: declared_model \"claude-opus-5-5\" (self-reported by the duckbench CLI)",
+                "family": "anthropic",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "scrooge",
+              "description": "rank 3 · best half of 24 hidden seeds · worst seed 13.14 s · trained by Opus 5.5 (self-reported)",
+              "date": "2026-11-18",
+              "value": 5.238,
+              "contributorKind": "person",
+              "contributorUrl": "https://duckbench.app/@scrooge",
+              "submissionUrls": [
+                "https://duckbench.app/challenges/wheel/attempts/bayatbes854r"
+              ],
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "Claude Opus 5.5",
+                "evidence": "duckbench.app Hamster wheel board: declared_model \"claude-opus-5-5\" (self-reported by the duckbench CLI)",
+                "family": "anthropic",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "Arena bot (hard)",
+              "description": "DuckBench's house bot · trained · 36 min (self-reported)",
+              "value": 5.297,
+              "contributorKind": "method",
+              "isBaseline": true
+            },
+            {
+              "contributor": "Arena bot (medium)",
+              "description": "DuckBench's house bot · trained moves",
+              "value": 6.637,
+              "contributorKind": "method",
+              "isBaseline": true
+            }
+          ],
+          "contested": true
+        },
+        {
+          "group": "Races",
+          "description": "Run up the steps. Your time when the duck reaches the line on the top plaza, 3.99 m ahead; diving or falling over it counts. No finish in 30 s counts as 30 s. Ranked by finish time: the mean of the best half of 24 hidden seeds (a seed that never finishes counts as 30 s), lower is better.",
+          "metricUnit": "s",
+          "id": "steps",
+          "name": "Ducky Steps",
+          "metricName": "finish time",
+          "metricDirection": "minimize",
+          "baseline": 10.03,
+          "isOpen": false,
+          "records": [
+            {
+              "contributor": "scrooge",
+              "description": "rank 1 · best half of 24 hidden seeds · worst seed 6.823 s · trained by Opus 5.5 (self-reported)",
+              "date": "2026-11-18",
+              "value": 6.387,
+              "contributorKind": "person",
+              "contributorUrl": "https://duckbench.app/@scrooge",
+              "submissionUrls": [
+                "https://duckbench.app/challenges/steps/attempts/fgyk1ed1q5fz"
+              ],
+              "isBaseline": false,
+              "isCurrentBest": true,
+              "agent": {
+                "model": "Claude Opus 5.5",
+                "evidence": "duckbench.app Ducky Steps board: declared_model \"claude-opus-5-5\" (self-reported by the duckbench CLI)",
+                "family": "anthropic",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "lenant",
+              "description": "rank 2 · best half of 24 hidden seeds · worst seed 30 s · trained by GPT-6 Astra · 11 min · M5 Pro MacBook Pro (self-reported)",
+              "date": "2026-11-05",
+              "value": 6.411,
+              "contributorKind": "person",
+              "contributorUrl": "https://duckbench.app/@lenant",
+              "submissionUrls": [
+                "https://duckbench.app/challenges/steps/attempts/m1qz8qrcfowh"
+              ],
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "GPT-6 Astra",
+                "evidence": "duckbench.app Ducky Steps board: declared_model \"gpt-6-astra\" (self-reported by the duckbench CLI)",
+                "family": "openai",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "emillio",
+              "description": "rank 3 · best half of 24 hidden seeds · worst seed 17.515 s · trained by Opus 5.5 · 32 min · M2 MacBook Air (self-reported)",
+              "date": "2026-10-31",
+              "value": 6.479,
+              "contributorKind": "person",
+              "contributorUrl": "https://duckbench.app/@emillio",
+              "submissionUrls": [
+                "https://duckbench.app/challenges/steps/attempts/so12qqthv0xt"
+              ],
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "Claude Opus 5.5",
+                "evidence": "duckbench.app Ducky Steps board: declared_model \"claude-opus-5-5\" (self-reported by the duckbench CLI)",
+                "family": "anthropic",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "Arena bot (hard)",
+              "description": "DuckBench's house bot · trained · 4.7 min · M2 MacBook Air (self-reported)",
+              "value": 10.03,
+              "contributorKind": "method",
+              "isBaseline": true
+            },
+            {
+              "contributor": "Arena bot (medium)",
+              "description": "DuckBench's house bot · trained · 4.7 min · M2 MacBook Air (self-reported)",
+              "value": 10.828,
+              "contributorKind": "method",
+              "isBaseline": true
+            },
+            {
+              "contributor": "shpq",
+              "description": "rank 4 · best half of 24 hidden seeds · worst seed 30 s · trained by Opus 5.5 (self-reported)",
+              "date": "2026-11-17",
+              "value": 12.205,
+              "contributorKind": "person",
+              "contributorUrl": "https://duckbench.app/@shpq",
+              "submissionUrls": [
+                "https://duckbench.app/challenges/steps/attempts/qlj5bhbf4aq6"
+              ],
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "Claude Opus 5.5",
+                "evidence": "duckbench.app Ducky Steps board: declared_model \"claude-opus-5-5\" (self-reported by the duckbench CLI)",
+                "family": "anthropic",
+                "confidence": "high",
+                "role": "author"
+              }
+            }
+          ],
+          "contested": true
+        },
+        {
+          "group": "Scored",
+          "description": "Spin it as fast as you can. The saucer's top speed in rpm (turns a minute) in the first 10 s, until the duck first touches the floor. Being thrown off costs nothing; the clip plays on to 15 s for the show. Ranked by rpm: the server re-runs each attempt on 24 hidden seeds, higher is better.",
+          "metricUnit": "rpm",
+          "id": "saucer",
+          "name": "Saucer",
+          "metricName": "disc peak rpm",
+          "metricDirection": "maximize",
+          "baseline": 55.445,
+          "isOpen": false,
+          "records": [
+            {
+              "contributor": "emillio",
+              "description": "rank 1 · best half of 24 hidden seeds · worst seed 17 rpm · trained by Opus 5.5 · 32 min · M2 MacBook Air (self-reported)",
+              "date": "2026-10-31",
+              "value": 59.243,
+              "contributorKind": "person",
+              "contributorUrl": "https://duckbench.app/@emillio",
+              "submissionUrls": [
+                "https://duckbench.app/challenges/saucer/attempts/3i8cq60gxsuu"
+              ],
+              "isBaseline": false,
+              "isCurrentBest": true,
+              "agent": {
+                "model": "Claude Opus 5.5",
+                "evidence": "duckbench.app Saucer board: declared_model \"claude-opus-5-5\" (self-reported by the duckbench CLI)",
+                "family": "anthropic",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "shpq",
+              "description": "rank 2 · best half of 24 hidden seeds · worst seed 24.806 rpm · trained moves",
+              "date": "2026-10-10",
+              "value": 57.825,
+              "contributorKind": "person",
+              "contributorUrl": "https://duckbench.app/@shpq",
+              "submissionUrls": [
+                "https://duckbench.app/challenges/saucer/attempts/cenbidsuwb6b"
+              ],
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
+              "contributor": "scrooge",
+              "description": "rank 3 · best half of 24 hidden seeds · worst seed 12.955 rpm · trained by Opus 5.5 (self-reported)",
+              "date": "2026-11-18",
+              "value": 55.685,
+              "contributorKind": "person",
+              "contributorUrl": "https://duckbench.app/@scrooge",
+              "submissionUrls": [
+                "https://duckbench.app/challenges/saucer/attempts/1fkex4sshjcz"
+              ],
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "Claude Opus 5.5",
+                "evidence": "duckbench.app Saucer board: declared_model \"claude-opus-5-5\" (self-reported by the duckbench CLI)",
+                "family": "anthropic",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "Arena bot (hard)",
+              "description": "DuckBench's house bot · trained · 40 min · M2 MacBook Air (self-reported)",
+              "value": 55.445,
+              "contributorKind": "method",
+              "isBaseline": true
+            },
+            {
+              "contributor": "Arena bot (medium)",
+              "description": "DuckBench's house bot · trained · 10 min · M2 MacBook Air (self-reported)",
+              "value": 48.426,
+              "contributorKind": "method",
+              "isBaseline": true
+            },
+            {
+              "contributor": "superdimka",
+              "description": "rank 4 · best half of 24 hidden seeds · worst seed 36.038 rpm · trained by Opus 5.5 · 3.7 min · M2 MacBook Air (self-reported)",
+              "date": "2026-10-27",
+              "value": 44.57,
+              "contributorKind": "person",
+              "contributorUrl": "https://duckbench.app/@superdimka",
+              "submissionUrls": [
+                "https://duckbench.app/challenges/saucer/attempts/b5oczz9d196b"
+              ],
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "Claude Opus 5.5",
+                "evidence": "duckbench.app Saucer board: declared_model \"claude-opus-5-5\" (self-reported by the duckbench CLI)",
+                "family": "anthropic",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "Arena bot (easy)",
+              "description": "DuckBench's house bot",
+              "value": 12.453,
+              "contributorKind": "method",
+              "isBaseline": true
+            }
+          ],
+          "contested": true
+        }
+      ],
+      "agentStats": [
+        {
+          "family": "anthropic",
+          "records": 22,
+          "currentBests": 5,
+          "models": [
+            "Claude Opus 5.5"
+          ],
+          "contributors": [
+            "scrooge",
+            "emillio",
+            "shpq",
+            "romashio",
+            "superdimka"
+          ],
+          "uncontestedBests": 1
+        },
+        {
+          "family": "openai",
+          "records": 10,
+          "currentBests": 3,
+          "models": [
+            "GPT-6.1 Sol",
+            "GPT-6 Astra",
+            "GPT-6.2 Sol",
+            "GPT-5.6 Terra"
+          ],
+          "contributors": [
+            "emil-lio",
+            "donald",
+            "lenant",
+            "motherducker",
+            "bonuck",
+            "astro-super-duck"
+          ]
+        }
+      ],
+      "participants": [
+        {
+          "name": "scrooge",
+          "url": "https://duckbench.app/@scrooge",
+          "submissions": 10,
+          "problems": [
+            "wobbly-raft",
+            "sumo",
+            "mamas-brood",
+            "egg-run",
+            "sprint",
+            "saucer",
+            "cliff",
+            "seesaw-race",
+            "wheel",
+            "steps"
+          ],
+          "bestRank": 1,
+          "lastActive": "2026-11-18"
+        },
+        {
+          "name": "emillio",
+          "url": "https://duckbench.app/@emillio",
+          "submissions": 7,
+          "problems": [
+            "wobbly-raft",
+            "sumo",
+            "sprint",
+            "saucer",
+            "cliff",
+            "wheel",
+            "steps"
+          ],
+          "lastActive": "2026-10-31",
+          "bestRank": 1
+        },
+        {
+          "name": "shpq",
+          "url": "https://duckbench.app/@shpq",
+          "submissions": 5,
+          "problems": [
+            "sumo",
+            "sprint",
+            "saucer",
+            "wheel",
+            "steps"
+          ],
+          "lastActive": "2026-11-17",
+          "bestRank": 1
+        },
+        {
+          "name": "emil-lio",
+          "url": "https://duckbench.app/@emil-lio",
+          "submissions": 3,
+          "problems": [
+            "wobbly-raft",
+            "mamas-brood",
+            "egg-run"
+          ],
+          "bestRank": 1
+        },
+        {
+          "name": "lenant",
+          "url": "https://duckbench.app/@lenant",
+          "submissions": 2,
+          "problems": [
+            "sumo",
+            "steps"
+          ],
+          "bestRank": 1,
+          "lastActive": "2026-11-05"
+        },
+        {
+          "name": "bonuck",
+          "url": "https://duckbench.app/@bonuck",
+          "submissions": 1,
+          "problems": [
+            "sprint"
+          ],
+          "bestRank": 1,
+          "lastActive": "2026-11-05"
+        },
+        {
+          "name": "motherducker",
+          "url": "https://duckbench.app/@motherducker",
+          "submissions": 2,
+          "problems": [
+            "sumo",
+            "sprint"
+          ],
+          "lastActive": "2026-10-31"
+        },
+        {
+          "name": "superdimka",
+          "url": "https://duckbench.app/@superdimka",
+          "submissions": 2,
+          "problems": [
+            "sumo",
+            "saucer"
+          ],
+          "lastActive": "2026-10-27"
+        },
+        {
+          "name": "donald",
+          "url": "https://duckbench.app/@donald",
+          "submissions": 1,
+          "problems": [
+            "wobbly-raft"
+          ]
+        },
+        {
+          "name": "romashio",
+          "url": "https://duckbench.app/@romashio",
+          "submissions": 1,
+          "problems": [
+            "sumo"
+          ]
+        },
+        {
+          "name": "astro-super-duck",
+          "url": "https://duckbench.app/@astro-super-duck",
+          "submissions": 1,
+          "problems": [
+            "sprint"
+          ],
+          "lastActive": "2026-10-31"
+        }
+      ],
+      "stats": {
+        "totalRecords": 63,
+        "uniqueParticipants": 11,
+        "firstSubmission": "2026-10-10",
+        "lastSubmission": "2026-11-18",
+        "recordsLast30d": 14,
+        "recordsLast90d": 17
+      },
+      "lastUpdated": "2026-11-19T21:59:48.187Z"
     }
   ],
   "errors": [

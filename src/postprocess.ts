@@ -1,12 +1,12 @@
 // Derive participants/stats and normalize URLs after LLM extraction
 
 import type { Competition, Problem, Participant, Stats, DiscoveredRepo, AgentFamily, AgentStat } from "./types.js";
-import { competitionId, validateCompetition } from "./validation.js";
+import { competitionId, isSite, validateCompetition, type Source } from "./validation.js";
 
 const DAY = 86_400_000;
 
-function resolveUrl(u: string, repo: DiscoveredRepo, raw: boolean): string {
-  if (!u) return u;
+function resolveUrl(u: string, repo: DiscoveredRepo | undefined, raw: boolean): string {
+  if (!u || !repo) return u; // a site source has only absolute URLs (validation)
   if (/^https?:\/\//.test(u)) return u;
   const path = u.replace(/^\.?\//, "");
   const base = raw
@@ -41,8 +41,9 @@ export function familyFromName(s?: string): AgentFamily | undefined {
   return undefined;
 }
 
-export function postprocess(input: unknown, repo: DiscoveredRepo, previous?: Competition): Competition {
-  const llm = validateCompetition(input, repo);
+export function postprocess(input: unknown, source: Source, previous?: Competition): Competition {
+  const llm = validateCompetition(input, source);
+  const repo = isSite(source) ? undefined : source;
   const now = Date.now();
 
   // Normalize image + submission + link URLs
@@ -60,7 +61,8 @@ export function postprocess(input: unknown, repo: DiscoveredRepo, previous?: Com
         else if (r.contributor && /^[a-z][\w-]{2,38}$/.test(r.contributor) && /\d|-|[a-z][A-Z]/.test(r.contributor)) r.contributorKind = "person";
         else if (r.contributor && /\s|\(|[A-Z]{3,}/.test(r.contributor)) r.contributorKind = "method";
       }
-      if (r.contributor && !r.contributorUrl && r.contributorKind === "person" && /^[\w-]+$/.test(r.contributor)) {
+      // a handle is a GitHub login only where the competition lives on GitHub; a site's handles are its own
+      if (repo && r.contributor && !r.contributorUrl && r.contributorKind === "person" && /^[\w-]+$/.test(r.contributor)) {
         r.contributorUrl = `https://github.com/${r.contributor}`;
       }
     }
@@ -131,7 +133,7 @@ export function postprocess(input: unknown, repo: DiscoveredRepo, previous?: Com
       const handles = key.split(/\s*[,&]\s*/).filter(Boolean);
       const names = handles.length > 1 && handles.every((h) => /^[\w-]+$/.test(h)) ? handles : [key];
       for (const name of names) {
-        const cur = pmap.get(name) ?? { name, url: names.length > 1 ? `https://github.com/${name}` : r.contributorUrl, submissions: 0, problems: [] };
+        const cur = pmap.get(name) ?? { name, url: names.length > 1 && repo ? `https://github.com/${name}` : r.contributorUrl, submissions: 0, problems: [] };
         cur.submissions++;
         if (!cur.problems.includes(p.id)) cur.problems.push(p.id);
         if (r.isCurrentBest && p.contested) cur.bestRank = 1;
@@ -162,8 +164,8 @@ export function postprocess(input: unknown, repo: DiscoveredRepo, previous?: Com
 
   return {
     ...llm,
-    id: competitionId(repo, previous),
-    url: llm.url || repo.url,
+    id: competitionId(source, previous),
+    url: llm.url || source.url,
     status,
     images,
     tags: llm.tags ?? [],
@@ -174,7 +176,7 @@ export function postprocess(input: unknown, repo: DiscoveredRepo, previous?: Com
       compute: llm.participation?.compute ?? "unknown",
     },
     problems: orderProblems((llm.problems ?? []) as Problem[]),
-    repo: { owner: repo.owner, name: repo.name, branch: repo.defaultBranch },
+    ...(repo ? { repo: { owner: repo.owner, name: repo.name, branch: repo.defaultBranch } } : {}),
     participants,
     stats,
     agentStats,
