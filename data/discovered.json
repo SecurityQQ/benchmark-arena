@@ -4,7 +4,7 @@
     "name": "audio.cpp",
     "url": "https://github.com/0xShug0/audio.cpp",
     "description": "An all-in-one, pure C++ inference engine for audio models, powered by ggml. Supports TTS, STT, VAD, voice conversion, music generation, and more, with highly optimized performance. No Python dependency.",
-    "stars": 4287,
+    "stars": 4418,
     "topics": [
       "ai",
       "amd-gpu",
@@ -28,14 +28,14 @@
       "yue2"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-16T06:37:53Z"
+    "pushedAt": "2026-11-23T07:30:33Z"
   },
   {
     "owner": "cporter202",
     "name": "scraping-apis-for-devs",
     "url": "https://github.com/cporter202/scraping-apis-for-devs",
     "description": "This GitHub repo is a powerhouse collection of scraping APIs for developers that you can start using immediately to build everything from simple automations to full-scale applications. ",
-    "stars": 4030,
+    "stars": 4037,
     "topics": [
       "api-library",
       "api-list",
@@ -50,7 +50,7 @@
     "name": "starVLA",
     "url": "https://github.com/starVLA/starVLA",
     "description": "StarVLA: A Lego-like Codebase for Vision-Language-Action Model Developing",
-    "stars": 3949,
+    "stars": 3973,
     "topics": [
       "robotic-foundation-model",
       "robotics",
@@ -58,14 +58,14 @@
       "world-action-model"
     ],
     "defaultBranch": "starVLA_dev",
-    "pushedAt": "2026-10-31T07:05:02Z"
+    "pushedAt": "2026-11-18T04:24:21Z"
   },
   {
     "owner": "IBM",
     "name": "AssetOpsBench",
     "url": "https://github.com/IBM/AssetOpsBench",
     "description": "AssetOpsBench - Industry 4.0: A unified benchmark and framework for building, orchestrating, and evaluating domain-specific AI agents for Industry 4.0 asset operations and maintenance, with 460+ scenarios, 5 specialist agents (IoT, FMSR, TSFM, Work Order,...), and multi-agent orchestration blueprints (MetaAgent, AgentHive) over MCP.",
-    "stars": 2425,
+    "stars": 2481,
     "topics": [
       "ai-for-physical-assets",
       "condition-based-maintenance",
@@ -77,14 +77,14 @@
       "time-series-forecasting"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-16T03:54:20Z"
+    "pushedAt": "2026-11-21T00:03:57Z"
   },
   {
     "owner": "AGI-Edgerunners",
     "name": "LLM-Agents-Papers",
     "url": "https://github.com/AGI-Edgerunners/LLM-Agents-Papers",
     "description": "A repo lists papers related to LLM based agent",
-    "stars": 2357,
+    "stars": 2356,
     "topics": [
       "agents",
       "large-language-models",
@@ -99,7 +99,7 @@
     "name": "EvalAI",
     "url": "https://github.com/Cloud-CV/EvalAI",
     "description": ":cloud: :rocket: :bar_chart: :chart_with_upwards_trend: Evaluating state of the art in AI",
-    "stars": 2050,
+    "stars": 2048,
     "topics": [
       "ai",
       "ai-challenges",
@@ -150,14 +150,14 @@
     "stars": 1858,
     "topics": [],
     "defaultBranch": "master",
-    "pushedAt": "2026-11-07T19:05:01Z"
+    "pushedAt": "2026-11-17T20:03:27Z"
   },
   {
     "owner": "THUDM",
     "name": "CogDL",
     "url": "https://github.com/THUDM/CogDL",
     "description": "CogDL: A Comprehensive Library for Graph Deep Learning (WWW 2023)",
-    "stars": 1819,
+    "stars": 1818,
     "topics": [
       "gnn-model",
       "graph-classification",
@@ -176,37 +176,27 @@
     "name": "mle-bench",
     "url": "https://github.com/openai/mle-bench",
     "description": "MLE-bench is a benchmark for measuring how well AI agents perform at machine learning engineering",
-    "stars": 1799,
+    "stars": 1803,
     "topics": [],
     "defaultBranch": "main",
     "pushedAt": "2026-04-24T17:33:44Z"
-  },
-  {
-    "owner": "SebLague",
-    "name": "Chess-Challenge",
-    "url": "https://github.com/SebLague/Chess-Challenge",
-    "description": "Create your own tiny chess bot!",
-    "stars": 1779,
-    "topics": [],
-    "defaultBranch": "main",
-    "pushedAt": "2024-05-23T05:47:00Z"
   },
   {
     "owner": "OSU-NLP-Group",
     "name": "GUI-Agents-Paper-List",
     "url": "https://github.com/OSU-NLP-Group/GUI-Agents-Paper-List",
     "description": "Awesome GUI Agent Paper List",
-    "stars": 932,
+    "stars": 934,
     "topics": [],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-10T14:42:06Z"
+    "pushedAt": "2026-11-17T06:42:26Z"
   },
   {
     "owner": "suyoumo",
     "name": "ClawProBench",
     "url": "https://github.com/suyoumo/ClawProBench",
     "description": "ClawProBench is a live-first benchmark harness for evaluating LLM agents   in the OpenClaw runtime with deterministic grading and repeated-trial   reliability.",
-    "stars": 830,
+    "stars": 829,
     "topics": [
       "agent",
       "benchmark",
@@ -224,7 +214,7 @@
     "name": "level-up",
     "url": "https://github.com/cjmellor/level-up",
     "description": "Level-Up is a Laravel package introducing gamification into your applications. Users earn experience points (XP) and levels through interactions, while also unlocking achievements. It promotes engagement, competition, and fun through its dynamic leaderboard feature. Customisable to fit your specific needs",
-    "stars": 676,
+    "stars": 677,
     "topics": [
       "achievements",
       "engagment",
@@ -301,6 +291,36 @@
     "pushedAt": "2023-10-13T20:58:11Z"
   },
   {
+    "owner": "molly554",
+    "name": "whiteboard-ai-tutor",
+    "url": "https://github.com/molly554/whiteboard-ai-tutor",
+    "description": "Open-source whiteboard AI tutor with animated lessons and interactive playback. Compare Claude, Gemini & DeepSeek across 288 generation runs and 64 blind-reviewed boards.",
+    "stars": 553,
+    "topics": [
+      "ai-teacher",
+      "ai-teaching",
+      "ai-tutor",
+      "ai-tutoring",
+      "ai-whiteboard",
+      "claude",
+      "deepseek",
+      "edtech",
+      "education",
+      "educational-ai",
+      "gemini",
+      "intelligent-tutoring-systems",
+      "llm",
+      "llm-benchmark",
+      "math-tutor",
+      "teaching-tools",
+      "visual-learning",
+      "whiteboard",
+      "whiteboard-animation"
+    ],
+    "defaultBranch": "main",
+    "pushedAt": "2026-11-23T03:09:11Z"
+  },
+  {
     "owner": "agent-next",
     "name": "polymarket-paper-trader",
     "url": "https://github.com/agent-next/polymarket-paper-trader",
@@ -356,7 +376,7 @@
     "name": "jevbench",
     "url": "https://github.com/fstandhartinger/jevbench",
     "description": "JevBench by Benchmark Heaven: benchmark and leaderboard for AI decision models, measuring typed decision accuracy, calibration, latency and cost.",
-    "stars": 343,
+    "stars": 354,
     "topics": [
       "ai-benchmark",
       "benchmark-heaven",
@@ -393,44 +413,24 @@
       "reproducibility"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-13T12:20:47Z"
+    "pushedAt": "2026-11-22T23:23:42Z"
   },
   {
     "owner": "lbx154",
     "name": "Argus",
     "url": "https://github.com/lbx154/Argus",
     "description": "A self-evolving multi-agent system for autonomous research, operating 24/7 to explore, learn, and improve.",
-    "stars": 336,
+    "stars": 337,
     "topics": [],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-16T11:12:21Z"
-  },
-  {
-    "owner": "PetroIvaniuk",
-    "name": "llms-tools",
-    "url": "https://github.com/PetroIvaniuk/llms-tools",
-    "description": "A list of LLMs Tools & Projects",
-    "stars": 331,
-    "topics": [
-      "ai",
-      "chat-bot",
-      "chatbots",
-      "chatgpt",
-      "data-science",
-      "llm",
-      "llm-evaluation",
-      "machine-learning",
-      "open-source-llm"
-    ],
-    "defaultBranch": "main",
-    "pushedAt": "2026-11-10T10:22:16Z"
+    "pushedAt": "2026-11-23T11:42:56Z"
   },
   {
     "owner": "gpu-mode",
     "name": "reference-kernels",
     "url": "https://github.com/gpu-mode/reference-kernels",
     "description": "Official Problem Sets / Reference Kernels for the GPU MODE Leaderboard!",
-    "stars": 326,
+    "stars": 334,
     "topics": [
       "cuda",
       "gpu",
@@ -438,7 +438,7 @@
       "triton"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-16T07:15:22Z"
+    "pushedAt": "2026-11-23T09:25:54Z"
   },
   {
     "owner": "xcpcio",
@@ -456,7 +456,7 @@
       "visualization"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-15T06:25:21Z"
+    "pushedAt": "2026-11-23T01:10:17Z"
   },
   {
     "owner": "LudwigStumpp",
@@ -474,56 +474,11 @@
     "pushedAt": "2024-08-23T20:09:41Z"
   },
   {
-    "owner": "1105216375-alt",
-    "name": "resimind",
-    "url": "https://github.com/1105216375-alt/resimind",
-    "description": "Neuro-symbolic agents with verified memory. MCP math tools, an algebra repair Skill, and an open challenge. Verify solutions, learn checked rules, and reuse.",
-    "stars": 293,
-    "topics": [
-      "agent-memory",
-      "agent-skills",
-      "ai-agents",
-      "customer-support",
-      "knowledge-growth",
-      "knowledge-reuse",
-      "lean4",
-      "llm-agents",
-      "mathematics",
-      "mcp",
-      "mcp-server",
-      "model-context-protocol",
-      "neuro-symbolic",
-      "planning",
-      "reasoning",
-      "residual-reasoning",
-      "self-correction",
-      "structural-engineering",
-      "symbolic-reasoning",
-      "verification"
-    ],
-    "defaultBranch": "main",
-    "pushedAt": "2026-10-15T15:00:55Z"
-  },
-  {
-    "owner": "DarwinBaker",
-    "name": "AATool",
-    "url": "https://github.com/DarwinBaker/AATool",
-    "description": "A tool to track Minecraft Advancement progress.",
-    "stars": 278,
-    "topics": [
-      "minecraft",
-      "speedrun",
-      "streaming"
-    ],
-    "defaultBranch": "main",
-    "pushedAt": "2025-06-17T07:39:31Z"
-  },
-  {
     "owner": "tailuge",
     "name": "billiards",
     "url": "https://github.com/tailuge/billiards",
     "description": "billiards physics in the browser",
-    "stars": 278,
+    "stars": 283,
     "topics": [
       "3-cushion",
       "3d",
@@ -542,14 +497,28 @@
       "webgl-game"
     ],
     "defaultBranch": "master",
-    "pushedAt": "2026-11-16T09:42:17Z"
+    "pushedAt": "2026-11-23T11:03:17Z"
+  },
+  {
+    "owner": "DarwinBaker",
+    "name": "AATool",
+    "url": "https://github.com/DarwinBaker/AATool",
+    "description": "A tool to track Minecraft Advancement progress.",
+    "stars": 277,
+    "topics": [
+      "minecraft",
+      "speedrun",
+      "streaming"
+    ],
+    "defaultBranch": "main",
+    "pushedAt": "2025-06-17T07:39:31Z"
   },
   {
     "owner": "recursive-org",
     "name": "first-steps-toward-automated-ai-research",
     "url": "https://github.com/recursive-org/first-steps-toward-automated-ai-research",
     "description": "Research artifacts from Recursive's automated AI research system",
-    "stars": 268,
+    "stars": 270,
     "topics": [],
     "defaultBranch": "main",
     "pushedAt": "2026-06-11T07:57:36Z"
@@ -559,7 +528,7 @@
     "name": "Hyra-results",
     "url": "https://github.com/Tencent-Hunyuan/Hyra-results",
     "description": "Research artifacts from Hyra (/ˈhaɪ.rɑː/)",
-    "stars": 254,
+    "stars": 261,
     "topics": [
       "agent",
       "ai-for-science",
@@ -571,37 +540,6 @@
     ],
     "defaultBranch": "main",
     "pushedAt": "2026-11-14T16:30:00Z"
-  },
-  {
-    "owner": "LLCOOLT",
-    "name": "paper-cut",
-    "url": "https://github.com/LLCOOLT/paper-cut",
-    "description": "Paper Cut: A native port of Paper Mario: The Thousand-Year Door to Windows, macOS, Linux, iOS and Android (AI-assisted)",
-    "stars": 160,
-    "topics": [
-      "android",
-      "aurora",
-      "c",
-      "dawn",
-      "decompilation",
-      "gamecube",
-      "ios",
-      "linux",
-      "macos",
-      "modding",
-      "native-port",
-      "nintendo",
-      "paper-mario",
-      "pc-port",
-      "sdl3",
-      "speedrun",
-      "thousand-year-door",
-      "ttyd",
-      "webgpu",
-      "windows"
-    ],
-    "defaultBranch": "main",
-    "pushedAt": "2026-11-15T13:46:13Z"
   },
   {
     "owner": "Saivineeth147",
@@ -627,7 +565,7 @@
     "name": "ArgusAgent",
     "url": "https://github.com/microsoft/ArgusAgent",
     "description": "A persistent, reviewed multi-agent runtime for long-horizon research and engineering.",
-    "stars": 148,
+    "stars": 151,
     "topics": [
       "agentic-ai",
       "ai-agents",
@@ -643,14 +581,14 @@
       "software-engineering"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-10-31T08:33:19Z"
+    "pushedAt": "2026-11-17T02:36:55Z"
   },
   {
     "owner": "metacognitionai",
     "name": "NavGPT-3",
     "url": "https://github.com/metacognitionai/NavGPT-3",
     "description": "Official implementation of NavGPT-3: Harnessing Context in a Hierarchical Navigation Runtime",
-    "stars": 116,
+    "stars": 124,
     "topics": [],
     "defaultBranch": "main",
     "pushedAt": "2026-10-14T05:05:20Z"
@@ -660,7 +598,7 @@
     "name": "SwanStationPS5",
     "url": "https://github.com/darkxex/SwanStationPS5",
     "description": "SwanStationPS5: a PlayStation 1 emulator running natively on jailbroken PS5, based on SwanStation.  https://discord.gg/Drx8tsqq3B",
-    "stars": 102,
+    "stars": 114,
     "topics": [
       "homebrew",
       "libretro",
@@ -669,7 +607,17 @@
       "swanstation"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-16T03:17:25Z"
+    "pushedAt": "2026-11-20T18:46:56Z"
+  },
+  {
+    "owner": "aws-samples",
+    "name": "sample-agent-cost-bench",
+    "url": "https://github.com/aws-samples/sample-agent-cost-bench",
+    "description": "Benchmark framework that measures cost, quality, and duration of coding agents across any AI Coding Assistant CLI, any model, and any use case — with pluggable verification and real-repo support.",
+    "stars": 110,
+    "topics": [],
+    "defaultBranch": "main",
+    "pushedAt": "2026-11-18T02:54:56Z"
   },
   {
     "owner": "SynoPiia",
@@ -695,17 +643,17 @@
     "name": "lean-eval-leaderboard",
     "url": "https://github.com/leanprover/lean-eval-leaderboard",
     "description": "Results for the lean-eval benchmark (https://github.com/leanprover/lean-eval)",
-    "stars": 29,
+    "stars": 32,
     "topics": [],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-16T00:11:27Z"
+    "pushedAt": "2026-11-21T11:53:44Z"
   },
   {
     "owner": "SAIRcompetition",
     "name": "equational-theories-lean-stage2",
     "url": "https://github.com/SAIRcompetition/equational-theories-lean-stage2",
     "description": "This repository hosts the SAIR Mathematics Distillation Challenge: Equational Theories Stage 2, providing Lean 4 problem sets, judging tools, and submission harnesses for generating machine-checkable proof certificates.",
-    "stars": 28,
+    "stars": 29,
     "topics": [],
     "defaultBranch": "main",
     "pushedAt": "2026-08-27T18:30:50Z"
@@ -737,7 +685,7 @@
     "stars": 10,
     "topics": [],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-16T07:00:44Z"
+    "pushedAt": "2026-11-23T10:39:44Z"
   },
   {
     "owner": "leansolving",
@@ -759,7 +707,7 @@
     "name": "opine-world",
     "url": "https://github.com/david-courtis/opine-world",
     "description": "We maintain an abstracted representation in which provisional explanations can exist in a Bayesian, exploration-centric hypothesis space.  Exploration and program revision share this evolving abstraction, allowing new evidence to revise both the hypothesized mechanics and their implementation in tandem at test time. ",
-    "stars": 9,
+    "stars": 10,
     "topics": [],
     "defaultBranch": "main",
     "pushedAt": "2026-10-22T19:29:08Z"
@@ -800,7 +748,7 @@
     "stars": 5,
     "topics": [],
     "defaultBranch": "main",
-    "pushedAt": "2026-10-29T15:43:11Z"
+    "pushedAt": "2026-11-22T15:44:31Z"
   },
   {
     "owner": "agent-axiom",
@@ -816,20 +764,6 @@
     ],
     "defaultBranch": "main",
     "pushedAt": "2026-06-08T19:34:24Z"
-  },
-  {
-    "owner": "actava-ai",
-    "name": "leaderboard",
-    "url": "https://github.com/actava-ai/leaderboard",
-    "description": "Open execution logs, trajectories, and results from evaluation runs on the Χ-Bench task.",
-    "stars": 4,
-    "topics": [
-      "ai-agents",
-      "healthcare",
-      "leaderboard"
-    ],
-    "defaultBranch": "main",
-    "pushedAt": "2026-11-06T21:20:07Z"
   },
   {
     "owner": "The-AI-Alliance",
@@ -852,6 +786,29 @@
     "pushedAt": "2026-08-19T23:24:41Z"
   },
   {
+    "owner": "zhaoyiyidan",
+    "name": "modded-nanogpt-npu",
+    "url": "https://github.com/zhaoyiyidan/modded-nanogpt-npu",
+    "stars": 4,
+    "topics": [],
+    "defaultBranch": "master",
+    "pushedAt": "2026-10-12T04:57:42Z"
+  },
+  {
+    "owner": "actava-ai",
+    "name": "leaderboard",
+    "url": "https://github.com/actava-ai/leaderboard",
+    "description": "Open execution logs, trajectories, and results from evaluation runs on the Χ-Bench task.",
+    "stars": 3,
+    "topics": [
+      "ai-agents",
+      "healthcare",
+      "leaderboard"
+    ],
+    "defaultBranch": "main",
+    "pushedAt": "2026-11-06T21:20:07Z"
+  },
+  {
     "owner": "macrocosm-os",
     "name": "apex-competition-humanoid-parkour",
     "url": "https://github.com/macrocosm-os/apex-competition-humanoid-parkour",
@@ -870,13 +827,14 @@
     "pushedAt": "2026-08-18T13:42:00Z"
   },
   {
-    "owner": "zhaoyiyidan",
-    "name": "modded-nanogpt-npu",
-    "url": "https://github.com/zhaoyiyidan/modded-nanogpt-npu",
+    "owner": "Eeshan-Vaghjiani",
+    "name": "Spendly",
+    "url": "https://github.com/Eeshan-Vaghjiani/Spendly",
+    "description": "Spendly is a personal finance management app for Kenyan young adults, featuring expense tracking, budgeting, spending forecasts, anomaly detection, and personalized financial recommendations.",
     "stars": 3,
     "topics": [],
-    "defaultBranch": "master",
-    "pushedAt": "2026-10-12T04:57:42Z"
+    "defaultBranch": "main",
+    "pushedAt": "2026-11-17T13:56:02Z"
   },
   {
     "owner": "IdentityNulll",
@@ -894,6 +852,16 @@
     ],
     "defaultBranch": "main",
     "pushedAt": "2026-05-26T09:27:32Z"
+  },
+  {
+    "owner": "peva3",
+    "name": "Crowd-v1.5",
+    "url": "https://github.com/peva3/Crowd-v1.5",
+    "description": "Crowd-v1.5: DUST (activation-perturbation) pretraining client + coordinator, separate dust/backprop routes",
+    "stars": 2,
+    "topics": [],
+    "defaultBranch": "main",
+    "pushedAt": "2026-11-17T17:43:14Z"
   },
   {
     "owner": "ArcElewyn",
@@ -915,36 +883,13 @@
     "pushedAt": "2026-11-11T23:21:46Z"
   },
   {
-    "owner": "hschindele",
-    "name": "gmaapp",
-    "url": "https://github.com/hschindele/gmaapp",
-    "stars": 1,
-    "topics": [],
-    "defaultBranch": "main",
-    "pushedAt": "2023-01-13T01:29:46Z"
-  },
-  {
-    "owner": "Allowexe",
-    "name": "MQTT-Voting",
-    "url": "https://github.com/Allowexe/MQTT-Voting",
-    "description": "MQTT Project to learn the protocol. Tries to mimic Wii's vote channel",
-    "stars": 1,
-    "topics": [
-      "isen-toulon",
-      "mqtt",
-      "student-project"
-    ],
-    "defaultBranch": "main",
-    "pushedAt": "2026-05-04T10:00:54Z"
-  },
-  {
     "owner": "RDI-Foundation",
     "name": "swe-bench-leaderboard",
     "url": "https://github.com/RDI-Foundation/swe-bench-leaderboard",
     "stars": 0,
     "topics": [],
     "defaultBranch": "main",
-    "pushedAt": "2026-06-03T06:52:54Z"
+    "pushedAt": "2026-11-21T06:42:46Z"
   },
   {
     "owner": "RDI-Foundation",

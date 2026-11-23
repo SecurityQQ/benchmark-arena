@@ -1,9 +1,9 @@
 {
   "0xshug0/audio.cpp": {
-    "pushedAt": "2026-11-16T06:37:53Z",
+    "pushedAt": "2026-11-23T07:30:33Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-11-16T11:37:42.734Z"
+    "checkedAt": "2026-11-23T13:04:31.955Z"
   },
   "1105216375-alt/resimind": {
     "pushedAt": "2026-10-15T15:00:55Z",
@@ -53,11 +53,17 @@
     "verdict": "none",
     "checkedAt": "2026-10-13T23:16:14.896Z"
   },
+  "aws-samples/sample-agent-cost-bench": {
+    "pushedAt": "2026-11-18T02:54:56Z",
+    "fingerprint": "81e7e9bf9471aa91",
+    "verdict": "none",
+    "checkedAt": "2026-11-23T13:08:52.106Z"
+  },
   "bichengwang/rl-pricing": {
-    "pushedAt": "2026-11-13T12:20:47Z",
+    "pushedAt": "2026-11-22T23:23:42Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-16T11:44:16.608Z"
+    "checkedAt": "2026-11-23T13:07:11.506Z"
   },
   "changwookjun/nlp-paper": {
     "pushedAt": "2026-11-12T05:06:57Z",
@@ -90,10 +96,10 @@
     "checkedAt": "2026-11-02T11:27:06.655Z"
   },
   "darkxex/swanstationps5": {
-    "pushedAt": "2026-11-16T03:17:25Z",
+    "pushedAt": "2026-11-20T18:46:56Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-11-16T11:47:20.037Z"
+    "checkedAt": "2026-11-23T13:08:44.378Z"
   },
   "darwinbaker/aatool": {
     "pushedAt": "2025-06-17T07:39:31Z",
@@ -106,6 +112,12 @@
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
     "checkedAt": "2026-10-26T09:10:33.525Z"
+  },
+  "eeshan-vaghjiani/spendly": {
+    "pushedAt": "2026-11-17T13:56:02Z",
+    "fingerprint": "81e7e9bf9471aa91",
+    "verdict": "none",
+    "checkedAt": "2026-11-23T13:10:26.954Z"
   },
   "fstandhartinger/jevbench": {
     "pushedAt": "2026-10-15T04:07:55Z",
@@ -120,10 +132,10 @@
     "checkedAt": "2026-10-13T23:17:25.948Z"
   },
   "ibm/assetopsbench": {
-    "pushedAt": "2026-11-16T03:54:20Z",
+    "pushedAt": "2026-11-21T00:03:57Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-16T11:38:07.592Z"
+    "checkedAt": "2026-11-23T13:05:04.400Z"
   },
   "identitynulll/ascension": {
     "pushedAt": "2026-05-26T09:27:32Z",
@@ -138,16 +150,16 @@
     "checkedAt": "2026-10-13T23:14:29.087Z"
   },
   "kings-crown/s2n-bignum-bench": {
-    "pushedAt": "2026-10-29T15:43:11Z",
+    "pushedAt": "2026-11-22T15:44:31Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-02T11:27:27.750Z"
+    "checkedAt": "2026-11-23T13:10:10.594Z"
   },
   "lbx154/argus": {
-    "pushedAt": "2026-11-16T11:12:21Z",
+    "pushedAt": "2026-11-23T11:42:56Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-11-16T11:44:37.196Z"
+    "checkedAt": "2026-11-23T13:07:27.969Z"
   },
   "lclm-horizon/a-comprehensive-survey-for-long-context-language-modeling": {
     "pushedAt": "2026-08-17T08:28:14Z",
@@ -159,13 +171,13 @@
     "pushedAt": "2026-10-22T15:18:02Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-10-26T09:10:18.651Z"
+    "checkedAt": "2026-11-23T13:09:38.531Z"
   },
   "livesplit/livesplit": {
-    "pushedAt": "2026-11-07T19:05:01Z",
+    "pushedAt": "2026-11-17T20:03:27Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-11-09T11:45:51.074Z"
+    "checkedAt": "2026-11-23T13:05:32.804Z"
   },
   "llcoolt/paper-cut": {
     "pushedAt": "2026-11-15T13:46:13Z",
@@ -207,19 +219,25 @@
     "pushedAt": "2026-10-14T05:05:20Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-10-19T09:09:01.036Z"
+    "checkedAt": "2026-11-23T13:08:34.545Z"
   },
   "microsoft/argusagent": {
-    "pushedAt": "2026-10-31T08:33:19Z",
+    "pushedAt": "2026-11-17T02:36:55Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-11-02T11:25:28.075Z"
+    "checkedAt": "2026-11-23T13:08:17.374Z"
   },
   "mlgroupjlu/llm-eval-survey": {
     "pushedAt": "2026-09-13T02:09:22Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
     "checkedAt": "2026-10-13T23:04:09.588Z"
+  },
+  "molly554/whiteboard-ai-tutor": {
+    "pushedAt": "2026-11-23T03:09:11Z",
+    "fingerprint": "81e7e9bf9471aa91",
+    "verdict": "competition",
+    "checkedAt": "2026-11-23T13:06:23.531Z"
   },
   "openai/mle-bench": {
     "pushedAt": "2026-04-24T17:33:44Z",
@@ -234,16 +252,22 @@
     "checkedAt": "2026-10-13T23:04:28.220Z"
   },
   "osu-nlp-group/gui-agents-paper-list": {
-    "pushedAt": "2026-11-10T14:42:06Z",
+    "pushedAt": "2026-11-17T06:42:26Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-11-16T11:41:54.958Z"
+    "checkedAt": "2026-11-23T13:05:44.985Z"
   },
   "petroivaniuk/llms-tools": {
     "pushedAt": "2026-11-10T10:22:16Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
     "checkedAt": "2026-11-16T11:44:43.986Z"
+  },
+  "peva3/crowd-v1.5": {
+    "pushedAt": "2026-11-17T17:43:14Z",
+    "fingerprint": "81e7e9bf9471aa91",
+    "verdict": "none",
+    "checkedAt": "2026-11-23T13:10:32.234Z"
   },
   "programbench/submissions": {
     "pushedAt": "2026-10-14T22:39:47Z",
@@ -252,10 +276,10 @@
     "checkedAt": "2026-10-19T09:13:00.604Z"
   },
   "rdi-foundation/swe-bench-leaderboard": {
-    "pushedAt": "2026-06-03T06:52:54Z",
+    "pushedAt": "2026-11-21T06:42:46Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-16T11:49:53.366Z"
+    "checkedAt": "2026-11-23T13:11:48.860Z"
   },
   "recursive-org/first-steps-toward-automated-ai-research": {
     "pushedAt": "2026-06-11T07:57:36Z",
@@ -303,7 +327,7 @@
     "pushedAt": "2026-08-25T11:47:44Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-10-26T09:07:11.839Z"
+    "checkedAt": "2026-11-23T13:05:53.735Z"
   },
   "synopiia/psxs5": {
     "pushedAt": "2026-10-12T03:31:26Z",
@@ -312,10 +336,10 @@
     "checkedAt": "2026-10-13T23:12:39.095Z"
   },
   "tailuge/billiards": {
-    "pushedAt": "2026-11-16T09:42:17Z",
+    "pushedAt": "2026-11-23T11:03:17Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-11-16T11:46:08.483Z"
+    "checkedAt": "2026-11-23T13:08:06.020Z"
   },
   "tatsu-lab/alpaca_eval": {
     "pushedAt": "2025-08-09T07:23:36Z",
@@ -384,10 +408,10 @@
     "checkedAt": "2026-10-26T09:09:02.445Z"
   },
   "xcpcio/xcpcio": {
-    "pushedAt": "2026-11-15T06:25:21Z",
+    "pushedAt": "2026-11-23T01:10:17Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-11-16T11:45:09.535Z"
+    "checkedAt": "2026-11-23T13:07:51.780Z"
   },
   "yinizhilian/iclr2025-papers-with-code": {
     "pushedAt": "2025-03-14T08:57:10Z",
