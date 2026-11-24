@@ -14,6 +14,7 @@ import { buildLeanEval } from "./structured/leanEval.js";
 import { buildGpuMode } from "./structured/gpuMode.js";
 import { buildFirstProof } from "./structured/firstProof.js";
 import { buildDuckBench } from "./structured/duckBench.js";
+import { buildPequalnp } from "./structured/pequalnp.js";
 import { applyStandard } from "./standard.js";
 import type { LLMCompetition } from "./llm.js";
 import { assertPublicRepo } from "./github.js";
@@ -55,6 +56,7 @@ const STRUCTURED: Record<string, () => Promise<LLMCompetition>> = {
   "leanprover/lean-eval-submissions": buildLeanEval,
   "gpu-mode/reference-kernels": buildGpuMode,             // leaderboards live on gpumode.com
   "1stproof/batch-2": buildFirstProof,                    // every graded batch, read from the arXiv reports (1stproof.org)
+  "open-goat/pequalnp-proofs": buildPequalnp,             // P = NP? (pequalnp.com): the board lives on the site, agent evidence in the merged PRs
 };
 // Repos that are facets of a competition handled elsewhere (site generator, benchmark source) — skip to avoid duplicates
 const MERGED_INTO: Record<string, string> = {

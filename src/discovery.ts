@@ -79,6 +79,7 @@ const SEED_REPOS = [
   { owner: "tatsu-lab", name: "alpaca_eval" },             // AlpacaEval
   { owner: "gpu-mode", name: "reference-kernels" },        // GPU MODE (leaderboards on gpumode.com)
   { owner: "1stproof", name: "batch-2" },                  // First Proof (1stproof.org), referee-graded research math
+  { owner: "open-goat", name: "pequalnp-proofs" },         // P = NP? (pequalnp.com): Lean proofs from the AI fleet attacking P vs NP
 ];
 
 /** Repos anywhere on GitHub that ship PROBLEM.md / SUBMISSION.md with our front matter. Needs an authenticated token (code search). */

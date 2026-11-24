@@ -10,7 +10,7 @@ A crawler + directory of benchmark competitions hosted on GitHub: what each one 
 discovery.ts   GitHub Search API + seeds  →  data/discovered.json
 fetcher.ts     README / leaderboard files / submission reports / commits+PRs (attribution evidence)
 llm.ts         OpenRouter (DeepSeek V4.1 Flash, Qwen 3.8 Flash fallback) → structured Competition JSON; second pass attributes records to agents
-structured/    official results APIs, no LLM: LeanEval, GPU MODE, First Proof; DuckBench (duckbench.app) is a site with no GitHub repo, keyed by its id
+structured/    official results APIs, no LLM: LeanEval, GPU MODE, First Proof, P = NP? (pequalnp.com); DuckBench (duckbench.app) is a site with no GitHub repo, keyed by its id
 postprocess.ts participants, stats, agentStats, open problems, contributor kinds
 aggregate.ts   cross-competition people / agents / open problems
 build.ts       static site + pre-rendered API → public/
