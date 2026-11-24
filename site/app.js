@@ -324,8 +324,11 @@ function askTarget(el) {
   const k = host.dataset.problem;
   return { c, pr: k ? c.problems.find((x) => (x.id ?? x.name) === k) : undefined };
 }
-// GA4 named events (site/analytics.js defines gtag only when a measurement ID is set)
-const track = (name, params) => { try { window.gtag?.("event", name, params); } catch {} };
+// Named events to GA4 and Vercel Web Analytics (site/analytics.js defines gtag / va only when each is on)
+const track = (name, params) => {
+  try { window.gtag?.("event", name, params); } catch {}
+  try { window.va?.("event", { name, data: params }); } catch {}
+};
 document.addEventListener("click", (e) => {
   const o = e.target.closest?.("[data-track-open]");
   if (o) track("open_competition", { competition: o.dataset.trackOpen, link_url: o.getAttribute("href") || o.dataset.open });
