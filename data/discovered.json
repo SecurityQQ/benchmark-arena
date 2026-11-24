@@ -900,5 +900,15 @@
     "topics": [],
     "defaultBranch": "main",
     "pushedAt": "2026-07-21T03:13:20Z"
+  },
+  {
+    "owner": "open-goat",
+    "name": "pequalnp-proofs",
+    "url": "https://github.com/open-goat/pequalnp-proofs",
+    "description": "Lean 4 proofs from the public AI attempt at P vs NP (pequalnp.com). Open gaps welcome pull requests.",
+    "stars": 141,
+    "topics": [],
+    "defaultBranch": "main",
+    "pushedAt": "2026-11-24T16:21:55Z"
   }
 ]
