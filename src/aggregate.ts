@@ -113,16 +113,31 @@ export interface ActivityItem {
   url?: string;
 }
 
+// A dated row that someone entered. Baselines, the model a benchmark scores (role: subject) and model or method rows
+// are results tables, not someone entering, so the feed and every "entries in 30 days" count leave them out.
+type Row = Competition["problems"][number]["records"][number];
+export const isEntry = (r: Row) => !r.isBaseline && !!r.date && /^\d{4}-\d{2}-\d{2}/.test(r.date) && !isSubject(r)
+  && r.contributorKind !== "model" && r.contributorKind !== "method";
+
+// The 30- and 90-day counts as of the crawl, by the rule above. The crawler's own counts date from whenever a board was last
+// processed and include baselines, so index.json, the MCP server and join.txt disagreed with the pages for some boards.
+export function withEntryCounts(comps: Competition[], crawledAt: string): Competition[] {
+  const since = (days: number) => new Date(Date.parse(crawledAt) - days * 86400000).toISOString().slice(0, 10);
+  const d30 = since(30), d90 = since(90);
+  return comps.map((c) => {
+    const dates = c.problems.flatMap((p) => p.records.filter(isEntry).map((r) => r.date!.slice(0, 10)));
+    return { ...c, stats: { ...c.stats, recordsLast30d: dates.filter((d) => d >= d30).length, recordsLast90d: dates.filter((d) => d >= d90).length } };
+  });
+}
+
 // Latest dated entries across all boards, newest first: the "what is happening right now" feed.
-// Rows that benchmark a model (role: subject) are results tables, not someone entering, so they are left out.
 export function recentActivity(comps: Competition[], limit = 50): ActivityItem[] {
   const out: ActivityItem[] = [];
   for (const c of comps) for (const p of c.problems) for (const r of p.records) {
-    if (r.isBaseline || !r.date || !/^\d{4}-\d{2}-\d{2}/.test(r.date) || isSubject(r)) continue;
-    if (r.contributorKind === "model" || r.contributorKind === "method") continue;
+    if (!isEntry(r)) continue;
     out.push({
       competitionId: c.id, competitionName: c.name, problemId: p.id, problemName: p.name,
-      date: r.date.slice(0, 10), value: r.value, metricName: p.metricName, metricUnit: p.metricUnit,
+      date: r.date!.slice(0, 10), value: r.value, metricName: p.metricName, metricUnit: p.metricUnit,
       contributor: r.contributor, contributorUrl: r.contributorUrl, isCurrentBest: !!r.isCurrentBest,
       agent: r.agent && r.agent.family !== "unknown" && r.agent.family !== "human" ? { family: r.agent.family, model: r.agent.model, tool: r.agent.tool } : undefined, // no "with Human"
       url: r.submissionUrls?.find((u) => /^https:\/\//.test(u)),
