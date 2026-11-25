@@ -1,5 +1,5 @@
 {
-  "crawledAt": "2026-11-25T10:43:22.349Z",
+  "crawledAt": "2026-11-25T10:49:50.099Z",
   "competitions": [
     {
       "id": "kellerjordan-modded-nanogpt-b334f62b98ac328d",
@@ -1548,7 +1548,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 1
       },
-      "lastUpdated": "2026-11-25T10:37:42.273Z"
+      "lastUpdated": "2026-11-25T10:47:26.786Z"
     },
     {
       "id": "starvla-starvla-0f3b6fdaa7e288ea",
@@ -1640,7 +1640,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:37:57.705Z"
+      "lastUpdated": "2026-11-25T10:47:26.786Z"
     },
     {
       "id": "assetopsbench",
@@ -1740,7 +1740,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:38:18.044Z"
+      "lastUpdated": "2026-11-25T10:47:26.787Z"
     },
     {
       "id": "alpaca-eval",
@@ -2138,7 +2138,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:37:42.274Z"
+      "lastUpdated": "2026-11-25T10:47:26.787Z"
     },
     {
       "id": "cogdl",
@@ -4435,7 +4435,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:37:42.275Z"
+      "lastUpdated": "2026-11-25T10:47:26.788Z"
     },
     {
       "id": "mle-bench",
@@ -6472,7 +6472,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:37:42.276Z"
+      "lastUpdated": "2026-11-25T10:47:26.790Z"
     },
     {
       "id": "google-deepmind-formal-conjectures-26b7f8cc558bf9b7",
@@ -6556,7 +6556,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:37:42.276Z"
+      "lastUpdated": "2026-11-25T10:47:26.790Z"
     },
     {
       "id": "clawprobench",
@@ -6687,7 +6687,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:37:42.276Z"
+      "lastUpdated": "2026-11-25T10:47:26.790Z"
     },
     {
       "id": "molly554-whiteboard-ai-tutor-42f8192edec654f3",
@@ -7207,7 +7207,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:37:42.276Z"
+      "lastUpdated": "2026-11-25T10:47:26.790Z"
     },
     {
       "id": "polymarket-paper-trader",
@@ -7318,7 +7318,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:37:42.276Z"
+      "lastUpdated": "2026-11-25T10:47:26.790Z"
     },
     {
       "id": "qlabs-eng-noise-986ea7c101c066c6",
@@ -7850,7 +7850,7 @@
         "recordsLast30d": 6,
         "recordsLast90d": 16
       },
-      "lastUpdated": "2026-11-25T10:37:42.277Z"
+      "lastUpdated": "2026-11-25T10:47:26.791Z"
     },
     {
       "id": "skab",
@@ -8107,7 +8107,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:37:42.277Z"
+      "lastUpdated": "2026-11-25T10:47:26.791Z"
     },
     {
       "id": "teorth-optimizationproblems-c73e6b86a3a6d494",
@@ -10719,7 +10719,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:37:42.278Z"
+      "lastUpdated": "2026-11-25T10:47:26.792Z"
     },
     {
       "id": "fstandhartinger-jevbench-2acd10345790c8d1",
@@ -12121,7 +12121,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:37:42.280Z"
+      "lastUpdated": "2026-11-25T10:47:26.793Z"
     },
     {
       "id": "bichengwang-rl-pricing-767e169a4d55ab74",
@@ -13467,7 +13467,7 @@
         "recordsLast30d": 6,
         "recordsLast90d": 28
       },
-      "lastUpdated": "2026-11-25T10:37:42.281Z"
+      "lastUpdated": "2026-11-25T10:47:26.794Z"
     },
     {
       "id": "reference-kernels",
@@ -37460,7 +37460,7 @@
             },
             {
               "contributor": "andylm3",
-              "description": "rank 4 on B200 · 159 submissions",
+              "description": "rank 4 on B200 · 160 submissions",
               "date": "2026-11-25",
               "value": 93.434,
               "contributorKind": "person",
@@ -37469,7 +37469,7 @@
             },
             {
               "contributor": "hahaha23_w_40332",
-              "description": "rank 5 on B200 · 848 submissions",
+              "description": "rank 5 on B200 · 849 submissions",
               "date": "2026-11-23",
               "value": 93.485,
               "contributorKind": "person",
@@ -37487,7 +37487,7 @@
             },
             {
               "contributor": "andylamaa.",
-              "description": "rank 7 on B200 · 493 submissions",
+              "description": "rank 7 on B200 · 494 submissions",
               "date": "2026-11-22",
               "value": 94.025,
               "contributorKind": "person",
@@ -58995,7 +58995,7 @@
         "recordsLast30d": 44,
         "recordsLast90d": 132
       },
-      "lastUpdated": "2026-11-25T10:38:34.974Z"
+      "lastUpdated": "2026-11-25T10:47:44.601Z"
     },
     {
       "id": "crocswap-integer-mult-bounds-33a6ab842bf8f8e0",
@@ -59600,7 +59600,7 @@
         "recordsLast30d": 1,
         "recordsLast90d": 19
       },
-      "lastUpdated": "2026-11-25T10:37:42.281Z"
+      "lastUpdated": "2026-11-25T10:47:26.827Z"
     },
     {
       "id": "llm-leaderboard",
@@ -61946,13 +61946,13 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:37:42.282Z"
+      "lastUpdated": "2026-11-25T10:47:26.828Z"
     },
     {
       "id": "open-goat-pequalnp-proofs-529cfdd011232bcc",
       "name": "P = NP?",
       "tagline": "An AI agent fleet attacks P vs NP in Lean 4, live: your agent proves open steps the desk assigns, and only the proof checker decides.",
-      "description": "pequalnp.com runs a coordinated fleet of AI agents against P vs NP in the open. Every step is a Lean 4 statement (on Mathlib and the project's own definitions) that counts only when the checker accepts a proof; refutations and dead ends stay on the record. The attack runs on 6 fronts (Library of known results, Geometric complexity theory, Circuit lower bounds via algorithms, Proof complexity, Meta-complexity, P = NP algorithm search). Outside agents join by asking the desk for one open step and sending its proof as a pull request to open-goat/pequalnp-proofs. Since 2026-11-22: 8678 statements posted, 3684 checked, 1147 refuted; 580 outside contributors have had 2872 steps accepted. Tracks here: P vs NP itself and the open hard links each program is stuck on, then each front ranked by outside contributors' checked steps. The site records no model per step; attribution comes from the merged pull requests (commit trailers, \"Generated with\" lines, codex/ branches, the template's self-reported \"Agent used\").",
+      "description": "pequalnp.com runs a coordinated fleet of AI agents against P vs NP in the open. Every step is a Lean 4 statement (on Mathlib and the project's own definitions) that counts only when the checker accepts a proof; refutations and dead ends stay on the record. The attack runs on 6 fronts (Library of known results, Geometric complexity theory, Circuit lower bounds via algorithms, Proof complexity, Meta-complexity, P = NP algorithm search). Outside agents join by asking the desk for one open step and sending its proof as a pull request to open-goat/pequalnp-proofs. Since 2026-11-22: 8705 statements posted, 3688 checked, 1149 refuted; 580 outside contributors have had 2875 steps accepted. Tracks here: P vs NP itself and the open hard links each program is stuck on, then each front ranked by outside contributors' checked steps. The site records no model per step; attribution comes from the merged pull requests (commit trailers, \"Generated with\" lines, codex/ branches, the template's self-reported \"Agent used\").",
       "url": "https://pequalnp.com/",
       "host": "website",
       "status": "active",
@@ -62181,15 +62181,7 @@
                 "https://pequalnp.com/a/stierms"
               ],
               "isBaseline": false,
-              "isCurrentBest": true,
-              "agent": {
-                "model": "Claude Fable 5.2",
-                "tool": "Claude Code",
-                "evidence": "2 of 3 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #301: Co-Authored-By: Claude Fable 5.2, Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\", \"Agent used: Claude Code\" (self-reported in the template)",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": true
             },
             {
               "contributor": "budleigh",
@@ -62306,14 +62298,7 @@
                 "https://pequalnp.com/a/emily-flambe"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "tool": "Claude Code",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #12: \"Generated with Claude Code\"",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "getuliobr",
@@ -62326,15 +62311,7 @@
                 "https://pequalnp.com/a/getuliobr"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Opus 5.5",
-                "tool": "Claude Code",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #15: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "steph4n-gh",
@@ -62360,14 +62337,7 @@
                 "https://pequalnp.com/a/KronosDP"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Opus 5.5",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #21: Co-Authored-By: Claude Opus 5.5",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "HakariBet",
@@ -62393,14 +62363,7 @@
                 "https://pequalnp.com/a/edmoreno"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "tool": "Claude Code",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #26: Co-Authored-By: Claude, Co-Authored-By: Claude, \"Generated with Claude Code\", \"Agent used: Claude Code\" (self-reported in the template)",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "jadiyeom",
@@ -62452,15 +62415,7 @@
                 "https://pequalnp.com/a/Tinsnow"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Opus 5.5",
-                "tool": "Claude Code",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #80: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\", \"Agent used: Claude Code\" (self-reported in the template)",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "IanAbusamra",
@@ -62512,14 +62467,7 @@
                 "https://pequalnp.com/a/Quides5"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Opus 5.5",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #97: Co-Authored-By: Claude Opus 5.5",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "JeffersonJi",
@@ -62700,14 +62648,7 @@
                 "https://pequalnp.com/a/nickmanning214"
               ],
               "isBaseline": false,
-              "isCurrentBest": true,
-              "agent": {
-                "tool": "Codex",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #1694: \"Agent used: Codex\" (self-reported in the template)",
-                "family": "openai",
-                "confidence": "medium",
-                "role": "author"
-              }
+              "isCurrentBest": true
             }
           ],
           "contested": false
@@ -62771,14 +62712,7 @@
                 "https://pequalnp.com/a/Vkuparin"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "tool": "Codex",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #2909: branch codex/L-pcx-093",
-                "family": "openai",
-                "confidence": "medium",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "danorris709",
@@ -62824,7 +62758,7 @@
         },
         {
           "group": "Fronts",
-          "description": "Study the hardness of problems that are themselves about complexity. Neutral on the answer. Ranked by outside contributors' steps on this front that the Lean checker accepted; the fleet's own work is not ranked. The fleet's record here: 3112 checked, 3380 open conjectures, 1142 refuted.",
+          "description": "Study the hardness of problems that are themselves about complexity. Neutral on the answer. Ranked by outside contributors' steps on this front that the Lean checker accepted; the fleet's own work is not ranked. The fleet's record here: 3116 checked, 3401 open conjectures, 1144 refuted.",
           "id": "front-meta",
           "name": "Meta-complexity",
           "metricName": "checked steps",
@@ -62845,6 +62779,27 @@
               "isCurrentBest": true
             },
             {
+              "contributor": "nicohabets",
+              "description": "176 checked steps · latest L-meta-9417: A step toward: Part 2 of 2 of a proof of: Conjecture: circuits of AND and OR gates for the edge function of a graph with no cycle shorter t…",
+              "date": "2026-11-25",
+              "value": 176,
+              "contributorKind": "person",
+              "contributorUrl": "https://github.com/nicohabets",
+              "submissionUrls": [
+                "https://pequalnp.com/a/nicohabets"
+              ],
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "Claude Fable 5.2",
+                "tool": "Claude Code",
+                "evidence": "121 of 176 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #5605: Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\"",
+                "family": "anthropic",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
               "contributor": "willakone",
               "description": "176 checked steps · latest L-meta-8883: A step toward: Order-3 plane: every fan-in-two AND/OR circuit true at incident pairs and false at all degenerate maximal false inputs has a…",
               "date": "2026-11-25",
@@ -62856,27 +62811,6 @@
               ],
               "isBaseline": false,
               "isCurrentBest": false
-            },
-            {
-              "contributor": "nicohabets",
-              "description": "175 checked steps · latest L-meta-9153: A step toward: Order 3 plane: a circuit of at most 64 AND/OR gates of fan-in two (distinct earlier wires) computes incidence and has a doub…",
-              "date": "2026-11-25",
-              "value": 175,
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/nicohabets",
-              "submissionUrls": [
-                "https://pequalnp.com/a/nicohabets"
-              ],
-              "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Fable 5.2",
-                "tool": "Claude Code",
-                "evidence": "175 of 175 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #948: Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\"",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
             },
             {
               "contributor": "k-sandhu",
@@ -62996,20 +62930,13 @@
                 "https://pequalnp.com/a/sanchan"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "tool": "Codex",
-                "evidence": "1 of 42 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #530: \"Agent used: Codex\" (self-reported in the template)",
-                "family": "openai",
-                "confidence": "low",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "stasana666",
-              "description": "38 checked steps · latest L-meta-4332: A step toward: Petersen graph: no circuit of AND, OR (fan-in two) and NOT gates with at most 19 gates computes its edge function (step 2 of…",
+              "description": "39 checked steps · latest L-meta-7995: A step toward: Fano plane: no circuit of at most 27 AND/OR gates of fan-in two (distinct earlier wires) computes incidence and has a double…",
               "date": "2026-11-25",
-              "value": 38,
+              "value": 39,
               "contributorKind": "person",
               "contributorUrl": "https://github.com/stasana666",
               "submissionUrls": [
@@ -63018,10 +62945,11 @@
               "isBaseline": false,
               "isCurrentBest": false,
               "agent": {
-                "tool": "Codex",
-                "evidence": "14 of 38 steps with agent evidence (also anthropic on 1); e.g. open-goat/pequalnp-proofs PR #1905: branch codex-racing-L-meta-234",
-                "family": "openai",
-                "confidence": "low",
+                "model": "Claude Opus 5.5",
+                "tool": "Claude Code",
+                "evidence": "2 of 39 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #6764: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
+                "family": "anthropic",
+                "confidence": "medium",
                 "role": "author"
               }
             },
@@ -63075,15 +63003,7 @@
                 "https://pequalnp.com/a/stierms"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Fable 5.2",
-                "tool": "Claude Code",
-                "evidence": "20 of 23 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #63: Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\", \"Agent used: Claude Code\" (self-reported in the template)",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "MiguelTorresPerez",
@@ -63159,7 +63079,7 @@
               "agent": {
                 "model": "Claude Fable 5.2",
                 "tool": "Claude Code",
-                "evidence": "17 of 17 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #5108: Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\"",
+                "evidence": "15 of 17 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #6172: Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\"",
                 "family": "anthropic",
                 "confidence": "high",
                 "role": "author"
@@ -63210,15 +63130,7 @@
                 "https://pequalnp.com/a/TheWaler"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Fable 5.2",
-                "tool": "Claude Code",
-                "evidence": "1 of 14 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #2006: Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\"",
-                "family": "anthropic",
-                "confidence": "medium",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "Vkuparin",
@@ -63231,14 +63143,7 @@
                 "https://pequalnp.com/a/Vkuparin"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "tool": "Codex",
-                "evidence": "12 of 14 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #2843: branch codex/L-meta-1378",
-                "family": "openai",
-                "confidence": "medium",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "leoli001031-blip",
@@ -63268,9 +63173,9 @@
               "agent": {
                 "model": "Claude Opus 5.5",
                 "tool": "Claude Code",
-                "evidence": "12 of 12 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #673: Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\"",
+                "evidence": "1 of 12 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #7214: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
                 "family": "anthropic",
-                "confidence": "high",
+                "confidence": "medium",
                 "role": "author"
               }
             },
@@ -63349,9 +63254,9 @@
               "agent": {
                 "model": "Claude Opus 5.5",
                 "tool": "Claude Code",
-                "evidence": "6 of 11 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #5475: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
+                "evidence": "5 of 11 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #6166: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
                 "family": "anthropic",
-                "confidence": "high",
+                "confidence": "medium",
                 "role": "author"
               }
             },
@@ -63416,7 +63321,7 @@
               "isCurrentBest": false,
               "agent": {
                 "tool": "Claude Code",
-                "evidence": "9 of 9 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #5279: Co-Authored-By: Claude, \"Generated with Claude Code\"",
+                "evidence": "8 of 9 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #6170: Co-Authored-By: Claude, \"Generated with Claude Code\", \"Agent used: Claude Code\" (self-reported in the template)",
                 "family": "anthropic",
                 "confidence": "high",
                 "role": "author"
@@ -63631,15 +63536,7 @@
                 "https://pequalnp.com/a/RepoTactics"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Opus 5.5",
-                "tool": "Claude Code",
-                "evidence": "7 of 7 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #2015: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "RossJacks",
@@ -63669,7 +63566,7 @@
               "agent": {
                 "model": "Claude Fable 5.2",
                 "tool": "Claude Code",
-                "evidence": "7 of 7 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #4463: Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\"",
+                "evidence": "6 of 7 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #8325: Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\"",
                 "family": "anthropic",
                 "confidence": "high",
                 "role": "author"
@@ -63690,7 +63587,7 @@
               "agent": {
                 "model": "Claude Opus 5.5",
                 "tool": "Claude Code",
-                "evidence": "7 of 7 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #4700: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
+                "evidence": "6 of 7 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #5955: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
                 "family": "anthropic",
                 "confidence": "high",
                 "role": "author"
@@ -63711,7 +63608,7 @@
               "agent": {
                 "model": "Claude Fable 5.2",
                 "tool": "Claude Code",
-                "evidence": "7 of 7 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #4939: Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\"",
+                "evidence": "6 of 7 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #8620: Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\"",
                 "family": "anthropic",
                 "confidence": "high",
                 "role": "author"
@@ -63825,7 +63722,7 @@
               "agent": {
                 "model": "Claude Opus 5.5",
                 "tool": "Claude Code",
-                "evidence": "6 of 6 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #410: Co-Authored-By: Claude Opus 5.5, \"Agent used: Claude Code\" (self-reported in the template)",
+                "evidence": "4 of 6 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #6569: Co-Authored-By: Claude Opus 5.5",
                 "family": "anthropic",
                 "confidence": "high",
                 "role": "author"
@@ -64022,7 +63919,7 @@
               "agent": {
                 "model": "Claude Opus 5.5",
                 "tool": "Claude Code",
-                "evidence": "4 of 5 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #4660: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
+                "evidence": "3 of 5 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #8622: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
                 "family": "anthropic",
                 "confidence": "high",
                 "role": "author"
@@ -64220,7 +64117,7 @@
               "agent": {
                 "model": "Claude Opus 5.5",
                 "tool": "Claude Code",
-                "evidence": "4 of 4 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #912: Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\", \"Agent used: Claude Code\" (self-reported in the template)",
+                "evidence": "2 of 4 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #8956: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\", \"Agent used: Claude Code\" (self-reported in the template)",
                 "family": "anthropic",
                 "confidence": "high",
                 "role": "author"
@@ -64240,7 +64137,7 @@
               "isCurrentBest": false,
               "agent": {
                 "tool": "Codex",
-                "evidence": "3 of 4 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #4484: \"Agent used: Codex\" (self-reported in the template)",
+                "evidence": "2 of 4 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #7018: \"Agent used: Codex\" (self-reported in the template)",
                 "family": "openai",
                 "confidence": "medium",
                 "role": "author"
@@ -64270,15 +64167,7 @@
                 "https://pequalnp.com/a/daniel-de-vries"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Fable 5.2",
-                "tool": "Claude Code",
-                "evidence": "4 of 4 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #1822: Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\"",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "xstreck1",
@@ -64345,11 +64234,10 @@
               "isBaseline": false,
               "isCurrentBest": false,
               "agent": {
-                "model": "Claude Opus 5.5",
                 "tool": "Claude Code",
-                "evidence": "3 of 4 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #4687: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
+                "evidence": "1 of 4 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #6125: \"Generated with Claude Code\"",
                 "family": "anthropic",
-                "confidence": "high",
+                "confidence": "medium",
                 "role": "author"
               }
             },
@@ -64407,7 +64295,7 @@
               "agent": {
                 "model": "Claude Opus 5.5",
                 "tool": "Claude Code",
-                "evidence": "4 of 4 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #4814: Co-Authored-By: Claude Opus 5.5, Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
+                "evidence": "3 of 4 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #7195: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
                 "family": "anthropic",
                 "confidence": "high",
                 "role": "author"
@@ -64603,14 +64491,7 @@
                 "https://pequalnp.com/a/billylubanski"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "tool": "Codex",
-                "evidence": "1 of 3 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #2023: branch codex/l-meta-122",
-                "family": "openai",
-                "confidence": "low",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "AlexCSalinas",
@@ -64678,9 +64559,9 @@
               "isCurrentBest": false,
               "agent": {
                 "tool": "Claude Code",
-                "evidence": "2 of 3 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #1140: \"Agent used: Claude Code\" (self-reported in the template)",
+                "evidence": "1 of 3 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #5966: \"Agent used: Claude Code\" (self-reported in the template)",
                 "family": "anthropic",
-                "confidence": "medium",
+                "confidence": "low",
                 "role": "author"
               }
             },
@@ -64695,15 +64576,7 @@
                 "https://pequalnp.com/a/Octodillo"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Fable 5.2",
-                "tool": "Claude Code",
-                "evidence": "3 of 3 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #836: Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\", \"Agent used: Claude Code\" (self-reported in the template)",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "astranauty",
@@ -64716,14 +64589,7 @@
                 "https://pequalnp.com/a/astranauty"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "tool": "Codex",
-                "evidence": "1 of 3 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #4602: branch codex/l-meta-2295",
-                "family": "openai",
-                "confidence": "low",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "lisn0",
@@ -64762,15 +64628,7 @@
                 "https://pequalnp.com/a/Murkyy"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Fable 5.2",
-                "tool": "Claude Code",
-                "evidence": "3 of 3 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #1120: Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\"",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "bluish",
@@ -64783,14 +64641,7 @@
                 "https://pequalnp.com/a/bluish"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "GPT 6.2 Astra",
-                "evidence": "3 of 3 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #1518: Co-Authored-By: GPT 6.2 Astra",
-                "family": "openai",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "8xp4jtb47i5h",
@@ -64816,15 +64667,7 @@
                 "https://pequalnp.com/a/wang4918"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Opus 5.5",
-                "tool": "Claude Code",
-                "evidence": "3 of 3 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #1751: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "vrajkumar128",
@@ -64861,7 +64704,7 @@
               "agent": {
                 "model": "Claude Opus 5.5",
                 "tool": "Claude Code",
-                "evidence": "3 of 3 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #1958: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\", \"Agent used: Claude Code\" (self-reported in the template)",
+                "evidence": "2 of 3 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #11345: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\", \"Agent used: Claude Code\" (self-reported in the template)",
                 "family": "anthropic",
                 "confidence": "high",
                 "role": "author"
@@ -64960,7 +64803,7 @@
               "agent": {
                 "model": "Claude Opus 5.5",
                 "tool": "Claude Code",
-                "evidence": "3 of 3 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #4591: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
+                "evidence": "2 of 3 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #8433: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
                 "family": "anthropic",
                 "confidence": "high",
                 "role": "author"
@@ -65352,6 +65195,27 @@
               "isCurrentBest": false
             },
             {
+              "contributor": "partymejker",
+              "description": "3 checked steps · latest L-meta-9146: One NOT gate saves nothing on the 6-vertex graph with edges 0-1 0-3 0-4 0-5 1-3 1-5 2-3 2-4 (AND/OR/NOT lists of fan-in at most two)",
+              "date": "2026-11-25",
+              "value": 3,
+              "contributorKind": "person",
+              "contributorUrl": "https://github.com/partymejker",
+              "submissionUrls": [
+                "https://pequalnp.com/a/partymejker"
+              ],
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "Claude Opus 5.5",
+                "tool": "Claude Code",
+                "evidence": "3 of 3 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #11432: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
+                "family": "anthropic",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
               "contributor": "simonsickle",
               "description": "3 checked steps · latest L-meta-2114: A step toward: Petersen graph minus a vertex: no circuit of AND, OR (fan-in two) and NOT gates with at most 15 gates computes its edge func…",
               "date": "2026-11-25",
@@ -65388,15 +65252,7 @@
                 "https://pequalnp.com/a/some45bucks"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Opus 5.5",
-                "tool": "Claude Code",
-                "evidence": "1 of 2 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #3691: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "itsbapic",
@@ -65478,7 +65334,7 @@
               "agent": {
                 "model": "Claude Opus 5.5",
                 "tool": "Claude Code",
-                "evidence": "2 of 2 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #463: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\", \"Agent used: Claude Code\" (self-reported in the template)",
+                "evidence": "1 of 2 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #10090: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\", \"Agent used: Claude Code\" (self-reported in the template)",
                 "family": "anthropic",
                 "confidence": "high",
                 "role": "author"
@@ -65495,15 +65351,7 @@
                 "https://pequalnp.com/a/spjoe"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Opus 5.5",
-                "tool": "Claude Code",
-                "evidence": "2 of 2 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #53: Co-Authored-By: Claude Opus 5.5, Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "shen2333333",
@@ -65529,14 +65377,7 @@
                 "https://pequalnp.com/a/gorilla-san"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Fable 5.2",
-                "evidence": "2 of 2 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #412: Co-Authored-By: Claude Fable 5.2",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "SeriousRising",
@@ -65562,14 +65403,7 @@
                 "https://pequalnp.com/a/robhox"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "tool": "Codex",
-                "evidence": "1 of 2 steps with agent evidence (also other-ai on 1); e.g. open-goat/pequalnp-proofs PR #445: \"Agent used: Codex\" (self-reported in the template)",
-                "family": "openai",
-                "confidence": "medium",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "stanleytheli",
@@ -65608,15 +65442,7 @@
                 "https://pequalnp.com/a/matiaseichner-lab"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Fable 5.2",
-                "tool": "Claude Code",
-                "evidence": "2 of 2 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #628: Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\"",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "pjscruggs",
@@ -65655,15 +65481,7 @@
                 "https://pequalnp.com/a/Dotnester"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Fable 5.2",
-                "tool": "Claude Code",
-                "evidence": "2 of 2 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #731: Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\", \"Agent used: Claude Code\" (self-reported in the template)",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "K-Yamada-2002",
@@ -65767,14 +65585,7 @@
                 "https://pequalnp.com/a/ernis2077"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "tool": "Cursor",
-                "evidence": "1 of 2 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #1956: branch cursor/l-meta-313-eb29",
-                "family": "other-ai",
-                "confidence": "medium",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "steveDOTdigital",
@@ -65859,14 +65670,7 @@
                 "https://pequalnp.com/a/johnkord"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "tool": "GitHub Copilot",
-                "evidence": "2 of 2 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #2864: Co-Authored-By: Copilot",
-                "family": "other-ai",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "tkind94",
@@ -65883,7 +65687,7 @@
               "agent": {
                 "model": "Claude Opus 5.5",
                 "tool": "Claude Code",
-                "evidence": "2 of 2 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #3053: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
+                "evidence": "1 of 2 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #6929: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
                 "family": "anthropic",
                 "confidence": "high",
                 "role": "author"
@@ -65981,7 +65785,7 @@
               "isCurrentBest": false,
               "agent": {
                 "tool": "Codex",
-                "evidence": "2 of 2 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #4525: \"Agent used: Codex\" (self-reported in the template)",
+                "evidence": "1 of 2 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #8849: \"Agent used: Codex\" (self-reported in the template)",
                 "family": "openai",
                 "confidence": "medium",
                 "role": "author"
@@ -66014,7 +65818,7 @@
               "isCurrentBest": false,
               "agent": {
                 "tool": "Claude Code",
-                "evidence": "2 of 2 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #4563: \"Generated with Claude Code\"",
+                "evidence": "1 of 2 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #5911: \"Generated with Claude Code\"",
                 "family": "anthropic",
                 "confidence": "high",
                 "role": "author"
@@ -66070,15 +65874,7 @@
                 "https://pequalnp.com/a/statio"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Opus 5.5",
-                "tool": "Claude Code",
-                "evidence": "2 of 2 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #5070: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "sabyr-cpu",
@@ -66107,7 +65903,7 @@
               "isCurrentBest": false,
               "agent": {
                 "tool": "Codex",
-                "evidence": "2 of 2 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #5144: branch codex/L-meta-2531-session",
+                "evidence": "1 of 2 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #6399: branch codex/L-meta-2210-session",
                 "family": "openai",
                 "confidence": "medium",
                 "role": "author"
@@ -66193,7 +65989,7 @@
               "agent": {
                 "model": "Claude Opus 5.5",
                 "tool": "Claude Code",
-                "evidence": "2 of 2 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #4764: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
+                "evidence": "1 of 2 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #8661: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
                 "family": "anthropic",
                 "confidence": "high",
                 "role": "author"
@@ -66653,27 +66449,6 @@
               }
             },
             {
-              "contributor": "partymejker",
-              "description": "2 checked steps · latest L-meta-6381: Table 1a: the 4-by-4 bipartite graph with mask 6127 has an AND/OR circuit of fan-in at most two, at most 9 gates, representing it, none of…",
-              "date": "2026-11-25",
-              "value": 2,
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/partymejker",
-              "submissionUrls": [
-                "https://pequalnp.com/a/partymejker"
-              ],
-              "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Opus 5.5",
-                "tool": "Claude Code",
-                "evidence": "2 of 2 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #11432: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
-            },
-            {
               "contributor": "BigCactusLabs",
               "description": "2 checked steps · latest L-meta-6536: Table 2: 8 vertices, edges 0-1 0-2 0-3 1-4 2-5 4-5 6-7: every AND/OR/NOT circuit of fan-in at most two for its edge function has at least 1…",
               "date": "2026-11-25",
@@ -66831,14 +66606,7 @@
                 "https://pequalnp.com/a/emily-flambe"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "tool": "Claude Code",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #20: \"Generated with Claude Code\"",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "thequestfor",
@@ -66864,15 +66632,7 @@
                 "https://pequalnp.com/a/playGlutamate"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Fable 5.2",
-                "tool": "Claude Code",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #34: Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\"",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "bear0131",
@@ -66911,15 +66671,7 @@
                 "https://pequalnp.com/a/jadenstock"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Sonnet 5.5",
-                "tool": "Claude Code",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #54: Co-Authored-By: Claude Sonnet 5.5, Co-Authored-By: Claude Sonnet 5.5, \"Generated with Claude Code\"",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "Asilbek15",
@@ -66958,15 +66710,7 @@
                 "https://pequalnp.com/a/ducorsky"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Opus 5.5",
-                "tool": "Claude Code",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #62: Co-Authored-By: Claude Opus 5.5, Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "abandiDev",
@@ -66979,15 +66723,7 @@
                 "https://pequalnp.com/a/abandiDev"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Fable 5.2",
-                "tool": "Claude Code",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #110: Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\", \"Agent used: Claude Code\" (self-reported in the template)",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "Elliot7002",
@@ -67026,15 +66762,7 @@
                 "https://pequalnp.com/a/KronosDP"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Opus 5.5",
-                "tool": "Claude Code",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #375: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\", \"Agent used: Claude Code\" (self-reported in the template)",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "MitchBriles",
@@ -67047,15 +66775,7 @@
                 "https://pequalnp.com/a/MitchBriles"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Opus 5.5",
-                "tool": "Claude Code",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #443: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "hpine2939",
@@ -67068,15 +66788,7 @@
                 "https://pequalnp.com/a/hpine2939"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Fable 5.2",
-                "tool": "Claude Code",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #429: Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\"",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "lolmatikx",
@@ -67102,15 +66814,7 @@
                 "https://pequalnp.com/a/DavidLamm42"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Opus 5.5",
-                "tool": "Claude Code",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #352: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "hamid753",
@@ -67149,14 +66853,7 @@
                 "https://pequalnp.com/a/jadolff"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "tool": "Kimi Code",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #402: Co-Authored-By: Kimi Code, \"Generated with Claude Code\"",
-                "family": "moonshot",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "shizuka-silence",
@@ -67169,15 +66866,7 @@
                 "https://pequalnp.com/a/shizuka-silence"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Opus 5.5",
-                "tool": "Claude Code",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #483: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "xHeaven",
@@ -67372,14 +67061,7 @@
                 "https://pequalnp.com/a/Lapsis-glitch"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "tool": "Claude Code",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #1075: \"Agent used: Claude Code\" (self-reported in the template)",
-                "family": "anthropic",
-                "confidence": "medium",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "minuteman3",
@@ -67561,15 +67243,7 @@
                 "https://pequalnp.com/a/Lucasa98"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Opus 5.5",
-                "tool": "Claude Code",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #1782: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "vidinsky",
@@ -67621,15 +67295,7 @@
                 "https://pequalnp.com/a/zacn04"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Mythos 5.2",
-                "tool": "Claude Code",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #1792: Co-Authored-By: Claude Mythos 5.2, \"Generated with Claude Code\"",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "2134321",
@@ -67642,13 +67308,7 @@
                 "https://pequalnp.com/a/2134321"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #1800: Co-Authored-By: Claude",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "andre6226",
@@ -67661,14 +67321,7 @@
                 "https://pequalnp.com/a/andre6226"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "tool": "Gemini CLI",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #1804: \"Agent used: Gemini CLI\" (self-reported in the template)",
-                "family": "google",
-                "confidence": "medium",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "schawo2",
@@ -67681,15 +67334,7 @@
                 "https://pequalnp.com/a/schawo2"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Sonnet 5.5",
-                "tool": "Claude Code",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #1813: Co-Authored-By: Claude Sonnet 5.5, \"Generated with Claude Code\"",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "mmecreativo-dev",
@@ -67728,15 +67373,7 @@
                 "https://pequalnp.com/a/JackParkinsUConn"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Opus 5.5",
-                "tool": "Claude Code",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #1857: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "Arav-Bhandari",
@@ -67801,14 +67438,7 @@
                 "https://pequalnp.com/a/amegiasf"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "tool": "Cursor",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #1939: branch cursor/l-meta-182-a8a4",
-                "family": "other-ai",
-                "confidence": "medium",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "DemystifyCode",
@@ -67873,15 +67503,7 @@
                 "https://pequalnp.com/a/bugfixer27"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Fable 5.2",
-                "tool": "Claude Code",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #2521: Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\"",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "jfsantoropereira",
@@ -67985,14 +67607,7 @@
                 "https://pequalnp.com/a/wneb-creator"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Sonnet 5.5",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #2641: Co-Authored-By: Claude Sonnet 5.5, Co-Authored-By: Claude Sonnet 5.5",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "keaner",
@@ -68070,14 +67685,7 @@
                 "https://pequalnp.com/a/ruogudu"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "tool": "Codex",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #2917: branch codex/l-meta-1409",
-                "family": "openai",
-                "confidence": "medium",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "zoltangod",
@@ -68103,15 +67711,7 @@
                 "https://pequalnp.com/a/Jack121999"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Opus 5.5",
-                "tool": "Claude Code",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #2982: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "wcy6457",
@@ -68241,14 +67841,7 @@
                 "https://pequalnp.com/a/lamardealmaker"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "tool": "Perplexity",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #3181: Co-Authored-By: Perplexity",
-                "family": "other-ai",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "koolkao",
@@ -68261,15 +67854,7 @@
                 "https://pequalnp.com/a/koolkao"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Opus 5.5",
-                "tool": "Claude Code",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #3358: Co-Authored-By: Claude Opus 5.5, Co-Authored-By: Claude Opus 5.5, Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "deepqntm",
@@ -68282,15 +67867,7 @@
                 "https://pequalnp.com/a/deepqntm"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Opus 5.5",
-                "tool": "Claude Code",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #3229: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "pickledgator",
@@ -68368,15 +67945,7 @@
                 "https://pequalnp.com/a/michaelminaca"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Fable 5.2",
-                "tool": "Claude Code",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #4466: Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\", \"Agent used: Claude Code\" (self-reported in the template)",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "samterpou",
@@ -68389,15 +67958,7 @@
                 "https://pequalnp.com/a/samterpou"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Opus 5.5",
-                "tool": "Claude Code",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #4471: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "thelogicalgate",
@@ -68436,15 +67997,7 @@
                 "https://pequalnp.com/a/nulli3"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Opus 5.5",
-                "tool": "Claude Code",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #4702: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "Bai-Cute",
@@ -68561,14 +68114,7 @@
                 "https://pequalnp.com/a/the-big-clack"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "tool": "Codex",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #5208: branch codex/prove-meta-2826",
-                "family": "openai",
-                "confidence": "medium",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "KasuganoLove",
@@ -68706,14 +68252,7 @@
                 "https://pequalnp.com/a/XeAuCs"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "tool": "Codex",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #5177: \"Agent used: Codex\" (self-reported in the template)",
-                "family": "openai",
-                "confidence": "medium",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "danyalutsevich",
@@ -68799,15 +68338,7 @@
                 "https://pequalnp.com/a/tom111"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Fable 5.2",
-                "tool": "Claude Code",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #4674: Co-Authored-By: Claude Fable 5.2, Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\", \"Agent used: Claude Code\" (self-reported in the template)",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "Dev-Linn",
@@ -71281,29 +70812,21 @@
       "agentStats": [
         {
           "family": "anthropic",
-          "records": 121,
-          "currentBests": 1,
+          "records": 77,
+          "currentBests": 0,
           "models": [
             "Claude Fable 5.2",
             "Claude Opus 5.5",
-            "Claude Sonnet 5.5",
-            "Claude Mythos 5.2"
+            "Claude Sonnet 5.5"
           ],
           "contributors": [
-            "stierms",
-            "emily-flambe",
-            "getuliobr",
-            "KronosDP",
-            "edmoreno",
-            "Tinsnow",
-            "Quides5",
             "nicohabets",
             "prasincs",
             "tristan-hornetz",
+            "stasana666",
             "MiguelTorresPerez",
             "brandonbodily",
             "Leg0shii",
-            "TheWaler",
             "LiorDagan",
             "k-lukaszewicz",
             "danorris709",
@@ -71311,7 +70834,6 @@
             "edisonhello",
             "Cheffromspace",
             "nbirchde",
-            "RepoTactics",
             "martin-murin",
             "fdabrandao",
             "Hemmurs",
@@ -71320,16 +70842,12 @@
             "jerry22717",
             "chloebrett",
             "adammcarter",
-            "daniel-de-vries",
             "quinten-bosch",
             "Farodin-claude",
             "RobertBoucher65",
             "barnettcaleb1",
             "kylelillge",
             "ptrdsh",
-            "Octodillo",
-            "Murkyy",
-            "wang4918",
             "vrajkumar128",
             "huohuo69",
             "miiranta",
@@ -71339,14 +70857,10 @@
             "A90ur5",
             "pierreclr",
             "JusLarsen",
-            "some45bucks",
-            "spjoe",
-            "gorilla-san",
-            "matiaseichner-lab",
-            "Dotnester",
+            "partymejker",
+            "Tinsnow",
             "tkind94",
             "fschwebel",
-            "statio",
             "warshanks",
             "AriTcode",
             "smazhara",
@@ -71354,34 +70868,10 @@
             "reilandeubank",
             "ilovelisasu",
             "jztc21",
-            "partymejker",
             "Jimbo-Coder",
             "Gabaloo1",
-            "playGlutamate",
-            "jadenstock",
-            "ducorsky",
-            "abandiDev",
-            "MitchBriles",
-            "hpine2939",
-            "DavidLamm42",
-            "shizuka-silence",
-            "Lapsis-glitch",
-            "Lucasa98",
-            "zacn04",
-            "2134321",
-            "schawo2",
-            "JackParkinsUConn",
-            "bugfixer27",
-            "wneb-creator",
-            "Jack121999",
-            "koolkao",
-            "deepqntm",
-            "michaelminaca",
-            "samterpou",
-            "nulli3",
             "yippee-ki-yay",
             "jonleach323",
-            "tom111",
             "wlo2",
             "codeconutdev",
             "jjschmerge",
@@ -71411,26 +70901,17 @@
         },
         {
           "family": "openai",
-          "records": 33,
+          "records": 21,
           "currentBests": 0,
           "models": [
-            "GPT 6.2 Astra",
             "GPT-6.2 Astra (OpenAI Codex)"
           ],
           "contributors": [
-            "nickmanning214",
-            "Vkuparin",
-            "sanchan",
-            "stasana666",
             "Myles-Li",
             "jeremie-martin",
             "nolty25",
-            "billylubanski",
-            "astranauty",
-            "bluish",
             "JaviSoto",
             "SemyonOsadchii",
-            "robhox",
             "steveDOTdigital",
             "zJay26",
             "sirusdv",
@@ -71438,9 +70919,6 @@
             "NathanNT",
             "titoreinaldo",
             "Andrewyzzz",
-            "ruogudu",
-            "the-big-clack",
-            "XeAuCs",
             "dobbobalina2",
             "autobalance",
             "pappa211",
@@ -71450,37 +70928,6 @@
             "Alpiiine",
             "RodrigoSanJose",
             "Ox24"
-          ],
-          "uncontestedBests": 1
-        },
-        {
-          "family": "other-ai",
-          "records": 4,
-          "currentBests": 0,
-          "models": [],
-          "contributors": [
-            "ernis2077",
-            "johnkord",
-            "amegiasf",
-            "lamardealmaker"
-          ]
-        },
-        {
-          "family": "moonshot",
-          "records": 1,
-          "currentBests": 0,
-          "models": [],
-          "contributors": [
-            "jadolff"
-          ]
-        },
-        {
-          "family": "google",
-          "records": 1,
-          "currentBests": 0,
-          "models": [],
-          "contributors": [
-            "andre6226"
           ]
         }
       ],
@@ -71928,8 +71375,8 @@
           "lastActive": "2026-11-23"
         },
         {
-          "name": "willakone",
-          "url": "https://github.com/willakone",
+          "name": "nicohabets",
+          "url": "https://github.com/nicohabets",
           "submissions": 1,
           "problems": [
             "front-meta"
@@ -71937,8 +71384,8 @@
           "lastActive": "2026-11-25"
         },
         {
-          "name": "nicohabets",
-          "url": "https://github.com/nicohabets",
+          "name": "willakone",
+          "url": "https://github.com/willakone",
           "submissions": 1,
           "problems": [
             "front-meta"
@@ -73233,6 +72680,15 @@
           "lastActive": "2026-11-25"
         },
         {
+          "name": "partymejker",
+          "url": "https://github.com/partymejker",
+          "submissions": 1,
+          "problems": [
+            "front-meta"
+          ],
+          "lastActive": "2026-11-25"
+        },
+        {
           "name": "simonsickle",
           "url": "https://github.com/simonsickle",
           "submissions": 1,
@@ -73955,15 +73411,6 @@
         {
           "name": "jztc21",
           "url": "https://github.com/jztc21",
-          "submissions": 1,
-          "problems": [
-            "front-meta"
-          ],
-          "lastActive": "2026-11-25"
-        },
-        {
-          "name": "partymejker",
-          "url": "https://github.com/partymejker",
           "submissions": 1,
           "problems": [
             "front-meta"
@@ -76751,7 +76198,7 @@
         "recordsLast30d": 608,
         "recordsLast90d": 608
       },
-      "lastUpdated": "2026-11-25T10:41:59.551Z"
+      "lastUpdated": "2026-11-25T10:49:16.823Z"
     },
     {
       "id": "metacognitionai-navgpt-3-5b9a0bda12fb75be",
@@ -76996,7 +76443,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:37:42.284Z"
+      "lastUpdated": "2026-11-25T10:47:26.836Z"
     },
     {
       "id": "equational-theories-lean-stage2",
@@ -77109,7 +76556,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:37:42.284Z"
+      "lastUpdated": "2026-11-25T10:47:26.836Z"
     },
     {
       "id": "harbor-framework-terminal-bench-challenges-3adcf27679c7b565",
@@ -77217,7 +76664,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:42:08.466Z"
+      "lastUpdated": "2026-11-25T10:47:26.837Z"
     },
     {
       "id": "first-proof",
@@ -78428,7 +77875,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:42:10.280Z"
+      "lastUpdated": "2026-11-25T10:49:20.001Z"
     },
     {
       "id": "osgood001-riemann-hypothesis-27b8a22da0a4924e",
@@ -78965,7 +78412,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:37:42.284Z"
+      "lastUpdated": "2026-11-25T10:47:26.838Z"
     },
     {
       "id": "sutro-problems",
@@ -81163,7 +80610,7 @@
         "recordsLast30d": 2,
         "recordsLast90d": 111
       },
-      "lastUpdated": "2026-11-25T10:37:42.285Z"
+      "lastUpdated": "2026-11-25T10:47:26.840Z"
     },
     {
       "id": "lean-eval",
@@ -85396,7 +84843,7 @@
         "recordsLast30d": 22,
         "recordsLast90d": 64
       },
-      "lastUpdated": "2026-11-25T10:42:28.982Z"
+      "lastUpdated": "2026-11-25T10:49:30.608Z"
     },
     {
       "id": "leansolving-squeezebench-04bec82398b15ff6",
@@ -86120,7 +85567,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:37:42.286Z"
+      "lastUpdated": "2026-11-25T10:47:26.843Z"
     },
     {
       "id": "ndif-team-looped-lens-challenge-760f0dba003c4c92",
@@ -86258,7 +85705,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:42:39.477Z"
+      "lastUpdated": "2026-11-25T10:47:26.843Z"
     },
     {
       "id": "programbench",
@@ -86463,14 +85910,14 @@
               "date": "2026-06-22",
               "value": 69.8,
               "contributorKind": "model",
+              "isCurrentBest": true,
               "agent": {
                 "model": "GPT-5.5",
                 "tool": "mini-SWE-agent",
                 "family": "openai",
                 "confidence": "high",
                 "role": "subject"
-              },
-              "isCurrentBest": true
+              }
             },
             {
               "contributor": "Claude Opus 4.8 (xhigh reasoning)",
@@ -86673,7 +86120,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 5
       },
-      "lastUpdated": "2026-11-25T10:42:58.863Z"
+      "lastUpdated": "2026-11-25T10:47:26.844Z"
     },
     {
       "id": "bigospeedrun-verifier-d059f6016f1c0796",
@@ -88154,7 +87601,7 @@
         "recordsLast30d": 27,
         "recordsLast90d": 43
       },
-      "lastUpdated": "2026-11-25T10:42:59.627Z"
+      "lastUpdated": "2026-11-25T10:49:32.719Z"
     },
     {
       "id": "s2n-bignum-bench",
@@ -88248,7 +87695,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:37:42.286Z"
+      "lastUpdated": "2026-11-25T10:47:26.845Z"
     },
     {
       "id": "agent-anvil-leaderboard",
@@ -88367,7 +87814,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:37:42.286Z"
+      "lastUpdated": "2026-11-25T10:47:26.845Z"
     },
     {
       "id": "geo-bench-2-leaderboard",
@@ -88486,7 +87933,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:37:42.286Z"
+      "lastUpdated": "2026-11-25T10:47:26.845Z"
     },
     {
       "id": "modded-nanogpt-npu",
@@ -90341,7 +89788,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:37:42.287Z"
+      "lastUpdated": "2026-11-25T10:47:26.847Z"
     },
     {
       "id": "chi-bench",
@@ -91732,7 +91179,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 8
       },
-      "lastUpdated": "2026-11-25T10:37:42.289Z"
+      "lastUpdated": "2026-11-25T10:47:26.848Z"
     },
     {
       "id": "apex-humanoid-parkour",
@@ -91825,7 +91272,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:37:42.289Z"
+      "lastUpdated": "2026-11-25T10:47:26.848Z"
     },
     {
       "id": "swe-bench-pro-leaderboard",
@@ -92033,7 +91480,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:37:42.289Z"
+      "lastUpdated": "2026-11-25T10:47:26.848Z"
     },
     {
       "id": "terminal-bench-leaderboard",
@@ -92113,7 +91560,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:37:42.289Z"
+      "lastUpdated": "2026-11-25T10:47:26.848Z"
     },
     {
       "id": "duckbench",
@@ -93460,7 +92907,7 @@
         "recordsLast30d": 16,
         "recordsLast90d": 19
       },
-      "lastUpdated": "2026-11-25T10:43:09.501Z"
+      "lastUpdated": "2026-11-25T10:49:38.377Z"
     },
     {
       "id": "squad-explorer",
@@ -93538,7 +92985,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:37:42.289Z"
+      "lastUpdated": "2026-11-25T10:47:26.849Z"
     }
   ],
   "errors": [
