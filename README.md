@@ -56,6 +56,8 @@ The crawl runs weekly (Monday 03:17 UTC, `.github/workflows/crawl.yml`). A repos
 
 Data is extracted automatically from public repositories — verify before citing.
 
+After every production deploy, `.github/workflows/indexnow.yml` submits the pages whose sitemap `lastmod` changed to IndexNow (Bing, which also feeds ChatGPT search and Copilot; Yandex; Seznam). The key is `INDEXNOW_KEY` in `src/build.ts`, published at `/{key}.txt`.
+
 ## Measuring agent traffic
 
 `middleware.ts` counts non-browser fetches of the site (`join.txt`, digests, the API, pages) as GA4 `agent_fetch` events: agent name from the User-Agent, page type, competition, referring host — no IP, no cookie. It is off until `GA4_API_SECRET` is set in Vercel (GA4 → Admin → Data streams → Measurement Protocol API secrets). `npx tsx scripts/agent-metrics.ts` counts the other end: pull requests and issues on GitHub that say they came from here (`Found via https://openchallengelist.com/c/{id}`).

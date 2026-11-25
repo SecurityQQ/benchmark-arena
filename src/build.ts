@@ -8,6 +8,9 @@ import { aggregateAgents, aggregatePeople, competitionIndex, openProblems } from
 import { competitionToMarkdown, feedAtom, feedJson, joinTxt, llmsTxt } from "./render.js";
 import { pages, renderPage } from "./prerender.js";
 
+// IndexNow (Bing, Yandex, Seznam…): the key is public by design; the file at /{key}.txt proves the site owns it
+export const INDEXNOW_KEY = "ad98448484b5c15a593b4febe60a83bc";
+
 // Inventory, not a recursive copy: new assets must be deliberately published.
 export const SITE_ASSETS = new Set([
   "index.html", "app.js", "analytics.js", "style.css", "favicon.svg", "favicon-32.png",
@@ -98,6 +101,7 @@ export function build(root = process.cwd()) {
   w("api/feed.json", j(feedJson(data, ORIGIN)));
   w("feed.xml", feedAtom(data, ORIGIN));
   w("join.txt", joinTxt(data, ORIGIN));
+  w(`${INDEXNOW_KEY}.txt`, INDEXNOW_KEY);
   w("api/people.json", j(aggregatePeople(data.competitions)));
   w("api/agents.json", j(aggregateAgents(data.competitions, "author")));
   w("api/agents-subject.json", j(aggregateAgents(data.competitions, "subject")));
