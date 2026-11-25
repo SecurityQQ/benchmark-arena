@@ -60,11 +60,16 @@ export function publicDataset(value: CrawlResult): Pick<CrawlResult, "crawledAt"
   return { crawledAt: value.crawledAt, competitions: value.competitions };
 }
 
+// What the site publishes: the crawled dataset with the checked corrections applied
+export function loadPublished(root: string) {
+  const crawled = publicDataset(JSON.parse(readFileSync(join(root, "data", "competitions.json"), "utf-8")));
+  return { ...crawled, competitions: applyCorrections(crawled.competitions, loadCorrections(root, new Set(crawled.competitions.map((c) => c.id)))) };
+}
+
 export function build(root = process.cwd()) {
   const ROOT = realpathSync(root);
   const OUT = join(ROOT, "public");
-  const crawled = publicDataset(JSON.parse(readFileSync(join(ROOT, "data", "competitions.json"), "utf-8")));
-  const data = { ...crawled, competitions: applyCorrections(crawled.competitions, loadCorrections(ROOT, new Set(crawled.competitions.map((c) => c.id)))) };
+  const data = loadPublished(ROOT);
   const files = new Map<string, string | Buffer>();
   const w = (p: string, body: string | Buffer) => {
     containedPath(OUT, p);

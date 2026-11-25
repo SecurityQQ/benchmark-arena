@@ -15,7 +15,7 @@ const ext = (url: string | undefined, label: string) => (url && /^https?:\/\//i.
 const page = (id: string) => `/c/${encodeURIComponent(id)}`;
 const digest = (id: string) => `/api/competitions/${encodeURIComponent(id)}.md`;
 const plural = (n: number, w: string, many = `${w}s`) => `${n} ${n === 1 ? w : many}`;
-const COMPUTE: Record<string, string> = { none: "No compute", cpu: "CPU only", "consumer-gpu": "Consumer GPU", "datacenter-gpu": "Datacenter GPU", cluster: "Cluster", unknown: "Compute not specified" };
+export const COMPUTE: Record<string, string> = { none: "No compute", cpu: "CPU only", "consumer-gpu": "Consumer GPU", "datacenter-gpu": "Datacenter GPU", cluster: "Cluster", unknown: "Compute not specified" };
 const FAMILY: Record<string, string> = { anthropic: "Anthropic", openai: "OpenAI", google: "Google", deepseek: "DeepSeek", meta: "Meta", xai: "xAI", mistral: "Mistral", alibaba: "Qwen", moonshot: "Kimi", zhipu: "Zhipu", bytedance: "ByteDance", harmonic: "Harmonic", axiom: "Axiom", "other-ai": "Other AI", human: "Human" };
 const agentName = (a: ActivityItem["agent"]) => (a ? `${a.tool ?? FAMILY[a.family] ?? a.family}${a.tool && a.model ? ` (${a.model})` : !a.tool && a.model ? ` (${a.model})` : ""}` : "");
 const num = (n: number | undefined) => (n == null || !Number.isFinite(n) ? "—" : Number.isInteger(n) ? n.toLocaleString("en-US") : String(Math.round(n * 1e4) / 1e4));
@@ -189,9 +189,9 @@ function peoplePage(data: Data): Page {
 
 // One topic: its boards by activity, what happened lately, the open tracks. Counts come from dated entries
 // within 30 days of the crawl, so a rebuild of the same data gives the same page.
-function topicView(t: Topic, data: Data) {
-  const comps = data.competitions.filter((c) => inTopic(t, c));
-  const cutoff = new Date(Date.parse(data.crawledAt) - 30 * 86400000).toISOString().slice(0, 10);
+// Boards ranked by who is entering them this month, with the evidence per board (topic pages, the README's "Open right now")
+export function boardsView(comps: Competition[], crawledAt: string) {
+  const cutoff = new Date(Date.parse(crawledAt) - 30 * 86400000).toISOString().slice(0, 10);
   const activity = recentActivity(comps, 100000);
   const month = activity.filter((a) => a.date >= cutoff);
   const openTracks = (c: Competition) => c.problems.filter((p) => p.isOpen).length;
@@ -206,8 +206,12 @@ function topicView(t: Topic, data: Data) {
   return {
     comps: boards, recent, latest: activity.slice(0, 10), open: openProblems(comps),
     entries30: month.length, byAgents30: month.filter((a) => a.agent && a.agent.family !== "human").length,
-    last: activity[0]?.date, line: topicJoinLine(JOIN_LINE, t),
+    last: activity[0]?.date,
   };
+}
+
+function topicView(t: Topic, data: Data) {
+  return { ...boardsView(data.competitions.filter((c) => inTopic(t, c)), data.crawledAt), line: topicJoinLine(JOIN_LINE, t) };
 }
 
 function topicPage(t: Topic, data: Data): Page {
