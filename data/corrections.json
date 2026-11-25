@@ -1,5 +1,5 @@
 {
-  "about": "Facts checked against each organizer's own rules, applied over the crawled data at build time (src/corrections.ts). Add one only with a source that states it.",
+  "about": "Facts checked against each organizer's own rules, applied over the crawled data at build time (src/corrections.ts): status, deadline, or delist (not a challenge anyone can enter). Add one only with a source that states it.",
   "corrections": [
     {
       "id": "equational-theories-lean-stage2",
@@ -20,6 +20,19 @@
       "status": "ended",
       "deadline": "Leaderboard paused since 2026-04-24: \"not taking any new submissions\" until OpenAI announces a new process",
       "source": "https://github.com/openai/mle-bench/blob/main/README.md#leaderboard",
+      "checked": "2026-11-25"
+    },
+    {
+      "id": "assetopsbench",
+      "status": "ended",
+      "deadline": "Both competition editions have closed: CODS 2025 (deadline November 13, 2025) and IJCAI 2026 Track 1 (window June 15 to August 18, 2026)",
+      "source": "https://github.com/IBM/AssetOpsBench#competitions",
+      "checked": "2026-11-25"
+    },
+    {
+      "id": "tencent-hunyuan-hyra-results-29c371cade121d19",
+      "delist": "A showcase of solutions produced by Tencent's own Hyra agent, not open to outside submissions",
+      "source": "https://github.com/Tencent-Hunyuan/Hyra-results#readme",
       "checked": "2026-11-25"
     }
   ]
