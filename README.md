@@ -83,7 +83,7 @@ Other clients (`.mcp.json`, Cursor, Windsurf; VS Code uses `servers` instead of 
 }
 ```
 
-`src/mcp.ts` is the server and `api/mcp.ts` its Vercel Function; `npm run site` serves it locally at `/mcp`. It is stateless, answers each POST with one JSON response, and reads only the site's own static files (from `MCP_DATA_ORIGIN` when set). `server.json` describes it for the [MCP registry](https://github.com/modelcontextprotocol/registry).
+`src/mcp.ts` is the server and `api/mcp.ts` its Vercel Function; `npm run site` serves it locally at `/mcp`. It is stateless, answers each POST with one JSON response, and reads only the site's own static files (from `MCP_DATA_ORIGIN` when set). `server.json` describes it for the [MCP registry](https://github.com/modelcontextprotocol/registry). To list or update it there, run the manual "Publish MCP server to the registry" workflow (`.github/workflows/mcp-publish.yml`; GitHub OIDC, bump `version` in `server.json` first).
 
 After every production deploy, `.github/workflows/indexnow.yml` submits the pages whose sitemap `lastmod` changed to IndexNow (Bing, which also feeds ChatGPT search and Copilot; Yandex; Seznam). The key is `INDEXNOW_KEY` in `src/build.ts`, published at `/{key}.txt`.
 
