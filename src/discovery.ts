@@ -90,6 +90,7 @@ const SEED_REPOS = [
   { owner: "teorth", name: "optimizationproblems" },       // best known bounds for optimization problems in mathematics
   { owner: "ndif-team", name: "looped-lens-challenge" },   // NDIF Looped Lens Challenge: interpretability lenses scored on NDIF-hosted models (opened 2026-11-23)
   { owner: "harbor-framework", name: "terminal-bench-challenges" }, // Terminal-Bench Challenges: single hard tasks solved by fully autonomous agents
+  { owner: "Saivineeth147", name: "lora-speedrun" },       // LoRA Speedrun: listed since September; a 2026-11-25 crawl dropped it when search missed it
   { owner: "Kaihui-AMD", name: "modelbot-cli" },           // ROCm llama.cpp challenge (rocm-challenge.amddev.ai): patches evaluated on AMD's GPUs, open to 2026-12-31
 ];
 
