@@ -34,6 +34,12 @@
       "delist": "A showcase of solutions produced by Tencent's own Hyra agent, not open to outside submissions",
       "source": "https://github.com/Tencent-Hunyuan/Hyra-results#readme",
       "checked": "2026-11-25"
+    },
+    {
+      "id": "ndif-team-looped-lens-challenge-760f0dba003c4c92",
+      "deadline": "Phase one open since 2026-11-23; closing date to be announced by NDIF",
+      "source": "https://ndif.us/looped-lens-challenge/",
+      "checked": "2026-11-25"
     }
   ]
 }
