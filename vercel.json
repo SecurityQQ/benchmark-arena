@@ -39,6 +39,21 @@
       ],
       "destination": "https://openchallengelist.com/:path",
       "permanent": true
+    },
+    {
+      "source": "/c/lora-speedrun",
+      "destination": "/c/saivineeth147-lora-speedrun-a7a730c9d43bbbbc",
+      "permanent": true
+    },
+    {
+      "source": "/api/competitions/lora-speedrun.md",
+      "destination": "/api/competitions/saivineeth147-lora-speedrun-a7a730c9d43bbbbc.md",
+      "permanent": true
+    },
+    {
+      "source": "/api/competitions/lora-speedrun.json",
+      "destination": "/api/competitions/saivineeth147-lora-speedrun-a7a730c9d43bbbbc.json",
+      "permanent": true
     }
   ],
   "rewrites": [
