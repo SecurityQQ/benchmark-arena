@@ -119,7 +119,24 @@ export async function discoverStandardRepos(): Promise<DiscoveredRepo[]> {
   return [...found.values()];
 }
 
-export async function discoverRepos(maxResults = 80): Promise<DiscoveredRepo[]> {
+// One known repository by name (seeds, repos already on the list): metadata from the API, public repos only
+async function lookupRepo(owner: string, name: string): Promise<DiscoveredRepo | null> {
+  const { data } = await getOctokit().rest.repos.get({ owner, repo: name });
+  if (!isPublicRepo(data)) return null;
+  return {
+    owner, name, url: data.html_url,
+    description: data.description ?? undefined,
+    stars: data.stargazers_count,
+    topics: data.topics ?? [],
+    defaultBranch: data.default_branch,
+    pushedAt: data.pushed_at ?? undefined,
+  };
+}
+
+/** `listed`: repos of competitions already on the list. They are always looked up and kept past the pre-filter, so a
+ *  listed competition leaves the list only through a check (not a competition any more, ended, delisted), never because
+ *  this run's searches happened not to return it. */
+export async function discoverRepos(maxResults = 80, listed: { owner: string; name: string }[] = []): Promise<DiscoveredRepo[]> {
   const octokit = getOctokit();
   const found = new Map<string, DiscoveredRepo>();
 
@@ -132,18 +149,10 @@ export async function discoverRepos(maxResults = 80): Promise<DiscoveredRepo[]> 
   console.log("  [seeds]");
   for (const { owner, name } of [...SEED_REPOS, ...communitySeeds()]) {
     try {
-      const { data } = await octokit.rest.repos.get({ owner, repo: name });
-      if (!isPublicRepo(data)) continue;
-      const key = `${owner}/${name}`;
-      found.set(key, {
-        owner, name, url: data.html_url,
-        description: data.description ?? undefined,
-        stars: data.stargazers_count,
-        topics: data.topics ?? [],
-        defaultBranch: data.default_branch,
-        pushedAt: data.pushed_at ?? undefined,
-      });
-      console.log(`    ✓ ${key} ★${data.stargazers_count}`);
+      const repo = await lookupRepo(owner, name);
+      if (!repo) continue;
+      found.set(`${owner}/${name}`, repo);
+      console.log(`    ✓ ${owner}/${name} ★${repo.stars}`);
     } catch {
       console.log("    seed repository lookup failed");
     }
@@ -215,8 +224,21 @@ export async function discoverRepos(maxResults = 80): Promise<DiscoveredRepo[]> 
   //    (GitHub API: list repos that starred the same people who starred seeds)
   //    Skip for now — expensive, add later
 
+  // 5. Repos already on the list that the searches above did not return this time
+  const seen = new Set([...found.keys()].map((k) => k.toLowerCase()));
+  const missing = listed.filter((r) => !seen.has(`${r.owner}/${r.name}`.toLowerCase()));
+  if (missing.length) console.log(`  [listed] ${missing.length} not returned by search this run`);
+  for (const { owner, name } of missing) {
+    try {
+      const repo = await lookupRepo(owner, name);
+      if (repo) found.set(`${owner}/${name}`, repo);
+    } catch {
+      console.log("    listed repository lookup failed");
+    }
+  }
+
   const results = [...found.values()];
-  const filtered = preFilter(results, new Set([...SEED_REPOS, ...communitySeeds()].map((s) => `${s.owner}/${s.name}`.toLowerCase())));
+  const filtered = preFilter(results, new Set([...SEED_REPOS, ...communitySeeds(), ...listed].map((s) => `${s.owner}/${s.name}`.toLowerCase())));
   filtered.sort((a, b) => Number(!!b.priority) - Number(!!a.priority) || b.stars - a.stars);
   console.log(`  ${results.length} found, ${filtered.length} after filtering`);
   return filtered;
