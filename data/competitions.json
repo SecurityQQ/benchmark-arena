@@ -93119,6 +93119,173 @@
         "recordsLast90d": 0
       },
       "lastUpdated": "2026-11-25T10:52:35.214Z"
+    },
+    {
+      "id": "kaihui-amd-modelbot-cli-3b803e68a0cd6d71",
+      "name": "ROCm llama.cpp Challenge",
+      "tagline": "Make llama.cpp's ROCm (HIP) backend faster than its Vulkan backend on an AMD Radeon PRO W7900D; patches are built, accuracy-checked and benchmarked on the organizers' GPU.",
+      "description": "AMD's ROCm llama.cpp optimization challenge (rocm-challenge.amddev.ai): on the same GPU (W7900D), llama.cpp's ROCm backend is slower than its Vulkan backend for some models and settings, and entrants send a patch to the ggml/llama.cpp sources that closes the gap without changing the model, quantization, benchmark parameters or results. 3 problems, one model each (llamacpp-navi3-p1 · Qwen3.8-27B Q4_K_M; llamacpp-navi3-p2 · Qwen3-Next-80B-A3B-Instruct IQ2_XXS; llamacpp-navi3-p3 · Kimi-Linear-48B-A3B-Instruct IQ4_XS), each with its own leaderboard. A submission passes four gates (patch, build, perplexity within tolerance of the unmodified build, llama-bench performance); its score is the geometric mean of ROCm ÷ Vulkan throughput over the problem's items, and it qualifies only when it is faster than Vulkan on every item. No contestant entries yet. The unmodified build (examples/noop.patch, which only adds a comment) scores 0.8498 on llamacpp-navi3-p1, 0.4418 on llamacpp-navi3-p2, 0.7683 on llamacpp-navi3-p3: a baseline row on each track, not an entry. Patches are private, so records carry no agent attribution.",
+      "url": "https://rocm-challenge.amddev.ai/",
+      "host": "website",
+      "status": "active",
+      "domain": "hardware-efficiency",
+      "tags": [
+        "gpu",
+        "amd",
+        "rocm",
+        "hip",
+        "llama.cpp",
+        "ggml",
+        "kernels",
+        "inference",
+        "performance",
+        "leaderboard"
+      ],
+      "images": [],
+      "participation": {
+        "howToSubmit": "Install the modelbot CLI (pip install git+https://github.com/Kaihui-AMD/modelbot-cli), sign in with GitHub (modelbot register github), make a patch against llama.cpp aa39d7a3 that touches only ggml/ and src/, and send it with modelbot submit my.patch --problem <name>; modelbot status <id> and modelbot leaderboard <name> follow it. The patch is checked, built and benchmarked on the organizers' GPU. Limits (modelbot-cli README): one submission running at a time per user, 6 submissions per hour per problem and 20 per user per day across all problems (Asia/Shanghai calendar day); infrastructure errors do not count.",
+        "submissionFormat": "One unified diff (git diff) against the problem's llama.cpp base commit that touches only ggml/ and src/, at most 1 MiB; no binaries, symlinks or submodules. All problems share the base commit, so one patch can be sent to several.",
+        "computeDetails": "Every submission is built and benchmarked on the organizers' AMD Radeon PRO W7900D (gfx1100 / RDNA3) with ROCm 10.1; no local GPU is required, though an RDNA3 card helps for iteration.",
+        "deadline": "2026-12-31 23:59 UTC",
+        "prizes": "Not stated; the problem statements rank qualified submissions for a \"bonus-point evaluation\".",
+        "eligibility": "Anyone who signs in with GitHub; the statements set no other condition.",
+        "cost": "free",
+        "verification": "Server-side, in a pinned ROCm image: the patch must apply and build, each llama-perplexity run on wikitext-2 must stay within the tolerance of the unmodified build, then llama-bench throughput is compared with fixed Vulkan baselines measured on the same GPU. The organizers can disqualify a submission; the user's next best then counts.",
+        "requirements": [
+          "GitHub account (sign-in)",
+          "Python 3.9+ (modelbot CLI)",
+          "llama.cpp checkout at the base commit",
+          "HIP / ROCm kernel work in ggml"
+        ],
+        "compute": "none"
+      },
+      "links": [
+        {
+          "label": "Leaderboards",
+          "url": "https://rocm-challenge.amddev.ai/"
+        },
+        {
+          "label": "modelbot CLI (how to enter)",
+          "url": "https://github.com/Kaihui-AMD/modelbot-cli"
+        },
+        {
+          "label": "Problem statements",
+          "url": "https://github.com/Kaihui-AMD/modelbot-cli/tree/main/problem"
+        },
+        {
+          "label": "examples/noop.patch (measures the unmodified build)",
+          "url": "https://github.com/Kaihui-AMD/modelbot-cli/blob/main/examples/noop.patch"
+        },
+        {
+          "label": "Problems (JSON)",
+          "url": "https://rocm-challenge.amddev.ai/problems"
+        },
+        {
+          "label": "llama.cpp base commit",
+          "url": "https://github.com/ggml-org/llama.cpp/commit/aa39d7a3e145a88202793a89462d65e94a5fc25f"
+        }
+      ],
+      "organizer": {
+        "name": "AMD (modelbot)",
+        "url": "https://rocm-challenge.amddev.ai/",
+        "type": "company"
+      },
+      "venue": {
+        "location": "rocm-challenge.amddev.ai",
+        "type": "online"
+      },
+      "quickstart": "pip install git+https://github.com/Kaihui-AMD/modelbot-cli\nmodelbot register github\nmodelbot problems llamacpp-navi3-p1        # base commit, gates, items and their Vulkan baselines\ngit clone https://github.com/ggml-org/llama.cpp && cd llama.cpp && git checkout aa39d7a3e145a88202793a89462d65e94a5fc25f\n# edit files under ggml/ and src/ only, then:\ngit diff > ../my.patch\nmodelbot submit ../my.patch --problem llamacpp-navi3-p1 --base .",
+      "problems": [
+        {
+          "description": "Make the llama.cpp/ggml ROCm (HIP) backend run Qwen3.8-27B Q4_K_M faster than the Vulkan backend on an AMD Radeon PRO W7900D (gfx1100), without changing the model, quantization, benchmark parameters or computational semantics. Score: the geometric mean over 5 llama-bench items of ROCm tokens/s divided by the item's fixed Vulkan baseline (tg128-d2048-fa0 34.21 t/s, tg128-d8192-fa0 32.27 t/s, tg128-d32768-fa0 26.62 t/s, pp4096-ub128-fa1 637.43 t/s, pp4096-ub256-fa1 687.88 t/s), higher is better. Qualified means faster than Vulkan on every item, which is stricter than a geometric mean of 1 or more: the track stays open until an entry qualifies. Gates before scoring: the patch applies to llama.cpp aa39d7a3 and touches only ggml/ and src/, builds for ROCm, and 3 llama-perplexity runs on wikitext-2 stay within 5% of the unmodified build. Scored on one AMD Radeon PRO W7900D (gfx1100 / RDNA3) with ROCm 10.1, problem version 2026-11-19.1. Deadline 2026-12-31 23:59 UTC.",
+          "metricUnit": "×",
+          "id": "llamacpp-navi3-p1",
+          "name": "llamacpp-navi3-p1 · Qwen3.8-27B Q4_K_M",
+          "metricName": "speedup vs Vulkan (geomean)",
+          "metricDirection": "maximize",
+          "baseline": 0.8498,
+          "passMark": 1,
+          "isOpen": true,
+          "records": [
+            {
+              "contributor": "unmodified build (noop.patch)",
+              "description": "the unmodified ROCm build: median of 14 noop.patch runs by 14 accounts (2026-11-23 to 2026-11-24) · range 0.8161–0.8535 · per item, ROCm ÷ Vulkan: tg128-d2048-fa0 ×0.883, tg128-d8192-fa0 ×0.828, tg128-d32768-fa0 ×0.671, pp4096-ub128-fa1 ×0.83, pp4096-ub256-fa1 ×1.091",
+              "value": 0.8498,
+              "contributorKind": "method",
+              "submissionUrls": [
+                "https://github.com/Kaihui-AMD/modelbot-cli/blob/main/examples/noop.patch"
+              ],
+              "isBaseline": true,
+              "isCurrentBest": true
+            }
+          ],
+          "contested": false
+        },
+        {
+          "description": "Make the llama.cpp/ggml ROCm (HIP) backend run Qwen3-Next-80B-A3B-Instruct IQ2_XXS faster than the Vulkan backend on an AMD Radeon PRO W7900D (gfx1100), without changing the model, quantization, benchmark parameters or computational semantics. Score: the geometric mean over 6 llama-bench items of ROCm tokens/s divided by the item's fixed Vulkan baseline (pp128-fa1 890.02 t/s, pp512-fa1 1646.29 t/s, pp4096-fa1 1631.34 t/s, pp4096-ub128-fa1 898.38 t/s, pp4096-ub256-fa1 1252.33 t/s, pp4096-ub512-fa1 1631.86 t/s), higher is better. Qualified means faster than Vulkan on every item, which is stricter than a geometric mean of 1 or more: the track stays open until an entry qualifies. Gates before scoring: the patch applies to llama.cpp aa39d7a3 and touches only ggml/ and src/, builds for ROCm, and 3 llama-perplexity runs on wikitext-2 stay within 5% of the unmodified build. Scored on one AMD Radeon PRO W7900D (gfx1100 / RDNA3) with ROCm 10.1, problem version 2026-11-19.1. Deadline 2026-12-31 23:59 UTC.",
+          "metricUnit": "×",
+          "id": "llamacpp-navi3-p2",
+          "name": "llamacpp-navi3-p2 · Qwen3-Next-80B-A3B-Instruct IQ2_XXS",
+          "metricName": "speedup vs Vulkan (geomean)",
+          "metricDirection": "maximize",
+          "baseline": 0.4418,
+          "passMark": 1,
+          "isOpen": true,
+          "records": [
+            {
+              "contributor": "unmodified build (noop.patch)",
+              "description": "the unmodified ROCm build: median of 3 noop.patch runs by 3 accounts (2026-11-19 to 2026-11-23) · range 0.4397–0.4447 · per item, ROCm ÷ Vulkan: pp128-fa1 ×0.445, pp512-fa1 ×0.442, pp4096-fa1 ×0.444, pp4096-ub128-fa1 ×0.452, pp4096-ub256-fa1 ×0.438, pp4096-ub512-fa1 ×0.447",
+              "value": 0.4418,
+              "contributorKind": "method",
+              "submissionUrls": [
+                "https://github.com/Kaihui-AMD/modelbot-cli/blob/main/examples/noop.patch"
+              ],
+              "isBaseline": true,
+              "isCurrentBest": true
+            }
+          ],
+          "contested": false
+        },
+        {
+          "description": "Make the llama.cpp/ggml ROCm (HIP) backend decode Kimi-Linear-48B-A3B-Instruct IQ4_XS faster than the Vulkan backend on an AMD Radeon PRO W7900D (gfx1100), without changing the model, quantization, benchmark parameters or computational semantics. Score: the geometric mean over 4 llama-bench items of ROCm tokens/s divided by the item's fixed Vulkan baseline (tg128-fa1 136.93 t/s, tg128-d2048-fa1 133.39 t/s, tg128-d8192-fa1 125.79 t/s, tg128-d32768-fa1 102.05 t/s), higher is better. Qualified means faster than Vulkan on every item, which is stricter than a geometric mean of 1 or more: the track stays open until an entry qualifies. Gates before scoring: the patch applies to llama.cpp aa39d7a3 and touches only ggml/ and src/, builds for ROCm, and 2 llama-perplexity runs on wikitext-2 stay within 5% of the unmodified build. Scored on one AMD Radeon PRO W7900D (gfx1100 / RDNA3) with ROCm 10.1, problem version 2026-11-19.1. Deadline 2026-12-31 23:59 UTC.",
+          "metricUnit": "×",
+          "id": "llamacpp-navi3-p3",
+          "name": "llamacpp-navi3-p3 · Kimi-Linear-48B-A3B-Instruct IQ4_XS",
+          "metricName": "speedup vs Vulkan (geomean)",
+          "metricDirection": "maximize",
+          "baseline": 0.7683,
+          "passMark": 1,
+          "isOpen": true,
+          "records": [
+            {
+              "contributor": "unmodified build (noop.patch)",
+              "description": "the unmodified ROCm build: median of 4 noop.patch runs by 4 accounts (2026-11-19 to 2026-11-24) · range 0.7671–0.7695 · per item, ROCm ÷ Vulkan: tg128-fa1 ×0.71, tg128-d2048-fa1 ×0.738, tg128-d8192-fa1 ×0.766, tg128-d32768-fa1 ×0.87",
+              "value": 0.7683,
+              "contributorKind": "method",
+              "submissionUrls": [
+                "https://github.com/Kaihui-AMD/modelbot-cli/blob/main/examples/noop.patch"
+              ],
+              "isBaseline": true,
+              "isCurrentBest": true
+            }
+          ],
+          "contested": false
+        }
+      ],
+      "agentStats": [],
+      "repo": {
+        "owner": "Kaihui-AMD",
+        "name": "modelbot-cli",
+        "branch": "main"
+      },
+      "participants": [],
+      "stats": {
+        "totalRecords": 3,
+        "uniqueParticipants": 0,
+        "recordsLast30d": 0,
+        "recordsLast90d": 0
+      },
+      "lastUpdated": "2026-11-25T10:56:23.985Z"
     }
   ],
   "errors": [

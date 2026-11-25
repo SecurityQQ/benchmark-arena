@@ -99,10 +99,10 @@ export function postprocess(input: unknown, source: Source, previous?: Competiti
       // "subject" is the AI model being benchmarked; a person (family human) never is, whatever the extraction said
       if (r.agent?.family === "human" && r.agent.role === "subject") r.agent.role = "author";
     }
-    // Open problem: nobody has beaten the baseline yet (graded tracks: nobody has reached the pass mark)
+    // Open problem: nobody has beaten the baseline yet (graded tracks: nobody has reached the pass mark, and the source did not fail the row)
     const nonBaseline = recs.filter((r) => !r.isBaseline);
     const passes = (v: number) => p.passMark == null || (p.metricDirection === "minimize" ? v <= p.passMark : v >= p.passMark);
-    p.isOpen = !nonBaseline.some((r) => passes(r.value));
+    p.isOpen = !nonBaseline.some((r) => r.passed !== false && passes(r.value));
     // Contested: a "current best" only means something when at least two distinct contributors compete
     p.contested = new Set(nonBaseline.map((r) => (r.contributor ?? "").trim().toLowerCase()).filter(Boolean)).size >= 2;
   }
