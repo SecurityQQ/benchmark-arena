@@ -80,6 +80,14 @@ const SEED_REPOS = [
   { owner: "gpu-mode", name: "reference-kernels" },        // GPU MODE (leaderboards on gpumode.com)
   { owner: "1stproof", name: "batch-2" },                  // First Proof (1stproof.org), referee-graded research math
   { owner: "open-goat", name: "pequalnp-proofs" },         // P = NP? (pequalnp.com): Lean proofs from the AI fleet attacking P vs NP
+  // Trending, November 2026: agent-driven races with public records
+  { owner: "bigospeedrun", name: "verifier" },             // Big O Speedrun (bigospeedrun.com): Lean-verified complexity records
+  { owner: "CrocSwap", name: "integer-mult-bounds" },      // Big O Speedrun's integer-multiplication race: community proofs and certificates
+  { owner: "Osgood001", name: "riemann-hypothesis" },      // compressing the Lean proof of the Riemann Hypothesis (riemann.verifytask.cn)
+  { owner: "qlabs-eng", name: "noise" },                   // pretraining speedrun without backpropagation
+  { owner: "KellerJordan", name: "modded-nanogpt" },       // the original NanoGPT speedrun
+  { owner: "google-deepmind", name: "formal-conjectures" }, // formalized open conjectures in Lean (Erdős problems)
+  { owner: "teorth", name: "optimizationproblems" },       // best known bounds for optimization problems in mathematics
 ];
 
 /** Repos anywhere on GitHub that ship PROBLEM.md / SUBMISSION.md with our front matter. Needs an authenticated token (code search). */
