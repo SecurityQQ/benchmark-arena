@@ -157,6 +157,8 @@ export function joinTxt(data: Pick<CrawlResult, "crawledAt" | "competitions">, o
     `- interest: anything (default) · formal proofs (Lean) · GPU kernels · ML training speedruns · agent and LLM benchmarks`,
     ``,
     `## 2. Pick one`,
+    `Narrower lists, each with who entered this month: ${TOPICS.map((t) => `${t.name} ${origin}/topics/${t.slug}.md`).join(" · ")}`,
+    ``,
     `People are entering these right now (entries in the last 30 days):`,
     ...hot.map((c) => `- ${c.name} [${COMPUTE_LABEL[c.participation.compute] ?? c.participation.compute}] ${plural(c.stats.recordsLast30d, "entry", "entries")} in 30 days, ${plural(c.stats.uniqueParticipants, "participant")}${c.problems.some((p) => p.isOpen) ? `, ${plural(c.problems.filter((p) => p.isOpen).length, "open track")}` : ""} — ${c.tagline} → ${md(c.id)}`),
     ``,
