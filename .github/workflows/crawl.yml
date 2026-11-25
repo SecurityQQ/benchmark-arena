@@ -67,4 +67,5 @@ jobs:
           git add data/
           if git diff --cached --quiet; then echo "no changes"; exit 0; fi
           git commit -m "data: crawl $(date -u +%Y-%m-%dT%H:%MZ)"
-          git push
+          # a merge to master during the crawl must not lose its results
+          for i in 1 2 3; do git push && exit 0; git pull --rebase origin "$GITHUB_REF_NAME" || exit 1; done; exit 1

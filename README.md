@@ -34,6 +34,7 @@ export GITHUB_TOKEN=$(gh auth token)
 npm run crawl                    # discover + fetch + LLM → data/competitions.json
 ONLY=sutro npm run process       # re-process one repo, merged into the dataset
 npm run repost                   # recompute derived fields without LLM calls
+npm run live                     # re-read the boards with an official results API, no LLM
 FORCE=1 npm run crawl            # ignore data/crawl-state.json and re-send every repo to the LLM
 npx tsx scripts/compare-models.ts  # compare extraction models on a fixed sample (MODELS=a/b,c/d)
 npm run site                     # dev server on :3000
@@ -42,7 +43,7 @@ npm run build:site               # static build → public/ (what Vercel serves)
 
 ## Schedule and cost
 
-The crawl runs weekly (Monday 03:17 UTC, `.github/workflows/crawl.yml`). A repository whose last push and prompts/model match `data/crawl-state.json` is not re-sent to the LLM: its previous entry is reused (re-checked after 28 days anyway), and a repo rejected as "not a competition" stays rejected until it gets a new push (or 56 days pass). A new push also drops that repo's cached files, so updated leaderboards are re-read. Every LLM call logs its tokens and cost, and the run prints a total.
+Boards with an official results API (P = NP?, GPU MODE, LeanEval, First Proof, DuckBench) are re-read every three hours with no discovery and no LLM (`npm run live`, `.github/workflows/live.yml`); the data is committed, and so redeployed, only when an entry changed. The full crawl runs weekly (Monday 03:17 UTC, `.github/workflows/crawl.yml`). A repository whose last push and prompts/model match `data/crawl-state.json` is not re-sent to the LLM: its previous entry is reused (re-checked after 28 days anyway), and a repo rejected as "not a competition" stays rejected until it gets a new push (or 56 days pass). A new push also drops that repo's cached files, so updated leaderboards are re-read. Every LLM call logs its tokens and cost, and the run prints a total.
 
 ## API (static, CORS-open)
 
