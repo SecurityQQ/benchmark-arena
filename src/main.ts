@@ -87,7 +87,26 @@ const MERGED_INTO: Record<string, string> = {
 };
 // Competitions hosted on their own site with no GitHub repository: no discovery, push check or LLM; the official public API is read on every crawl.
 // Keyed by competition id, which is also the published id (/c/<id>).
+function kaggleSnapshot(id: string): string | undefined {
+  if (!process.env.RUNNER_TEMP) return;
+  const slug = id.slice("kaggle-".length);
+  const file = join(process.env.RUNNER_TEMP, "open-challenge-kaggle", slug + ".json");
+  if (existsSync(file)) return file;
+}
+
+function kaggleSite(slug: string) {
+  const id = "kaggle-" + slug;
+  const url = "https://www.kaggle.com/competitions/" + slug;
+  return { url, async build() {
+    const file = kaggleSnapshot(id);
+    if (!file) throw new Error("No Kaggle snapshot for this run");
+    return validateCompetition(JSON.parse(readFileSync(file, "utf-8")), { site: id, url });
+  } };
+}
+
 const SITES: Record<string, { url: string; build: () => Promise<LLMCompetition> }> = {
+  "kaggle-squares-in-squares": kaggleSite("squares-in-squares"),
+  "kaggle-google-verifiable-quantum-circuit-compilation": kaggleSite("google-verifiable-quantum-circuit-compilation"),
   duckbench: { url: "https://duckbench.app/", build: buildDuckBench },  // DuckBench: robot-duck challenges for coding agents
   "open-discovery-challenge": { url: "https://huggingface.co/spaces/FINAL-Bench/open-discovery-challenge", build: buildOpenDiscovery },  // Open Discovery Challenge (FINAL-Bench): AI-designed drug candidates, scored on the organizers' GPUs
 };
@@ -298,13 +317,13 @@ async function main() {
         await assertPublicRepo(r.owner, r.name).catch((e) => { if (isNotPublic(e)) blocked.add(repoKey(r)); throw e; });
         return buildStructured(r, prevByKey.get(repoKey(r)));
       }]),
-      ...Object.keys(SITES).filter((id) => prevByKey.has(`site:${id}`)).map((id): [string, () => Promise<Competition>] => [`site:${id}`, () => buildSite(id, prevByKey.get(`site:${id}`))]),
+      ...Object.keys(SITES).filter((id) => id.startsWith("kaggle-") ? kaggleSnapshot(id) : prevByKey.has(`site:${id}`)).map((id): [string, () => Promise<Competition>] => [`site:${id}`, () => buildSite(id, prevByKey.get(`site:${id}`))]),
     ];
     for (const [key, build] of sources) {
       try {
-        const c = await build(), prev = prevByKey.get(key)!;
-        if (shrunk(c, prev)) { console.log(`  ! ${c.name}: records ${prev.stats.totalRecords} → ${c.stats.totalRecords}, keeping the previous version`); continue; }
-        console.log(`  ✓ ${c.name}: ${c.stats.totalRecords} records (${c.stats.totalRecords - prev.stats.totalRecords >= 0 ? "+" : ""}${c.stats.totalRecords - prev.stats.totalRecords})${agentSummary(c) ? ` · agents ${agentSummary(c)}` : ""}`);
+        const c = await build(), prev = prevByKey.get(key);
+        if (prev && shrunk(c, prev)) { console.log(`  ! ${c.name}: records ${prev.stats.totalRecords} → ${c.stats.totalRecords}, keeping the previous version`); continue; }
+        console.log(`  ✓ ${c.name}: ${c.stats.totalRecords} records (${prev ? c.stats.totalRecords - prev.stats.totalRecords : "new"})${agentSummary(c) ? ` · agents ${agentSummary(c)}` : ""}`);
         fresh.push(c);
       } catch { console.log(`  ${key}: refresh failed, keeping the previous entry`); }
     }
@@ -472,7 +491,9 @@ async function main() {
   if (mode === "priority" && !competitions.length && !stateUpdates.size && !blocked.size) { console.log("  nothing new from the priority lane, nothing written"); return; }
 
   // Sites: built from their public APIs on every crawl (not in the priority lane, which is about PROBLEM.md repos); ONLY matches their id
-  const sites = mode === "priority" ? [] : Object.keys(SITES).filter((id) => !only || onlyList.some((o) => id.includes(o)));
+  const sites = mode === "priority" ? [] : Object.keys(SITES).filter((id) =>
+    (!only || onlyList.some((o) => id.includes(o))) &&
+    (!id.startsWith("kaggle-") || kaggleSnapshot(id) || prevByRepo.has(`site:${id}`)));
   for (const id of sites) {
     const key = `site:${id}`;
     console.log(`  [site] ${id}`);

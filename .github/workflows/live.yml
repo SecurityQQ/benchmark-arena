@@ -79,6 +79,14 @@ jobs:
           cache: npm
       - run: npm ci
 
+      - name: Fetch public Kaggle leaderboards
+        uses: ./.github/actions/read-kaggle
+        continue-on-error: true
+        with:
+          token: ${{ secrets.KAGGLE_API_TOKEN }}
+          username: ${{ secrets.KAGGLE_USERNAME }}
+          key: ${{ secrets.KAGGLE_KEY }}
+
       - name: Refresh
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

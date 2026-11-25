@@ -1,0 +1,29 @@
+name: Read public Kaggle boards
+description: Fetch leaderboard snapshots into the temporary directory of this job.
+inputs:
+  token:
+    description: Kaggle API token
+    required: false
+  username:
+    description: Legacy Kaggle username
+    required: false
+  key:
+    description: Legacy Kaggle key
+    required: false
+runs:
+  using: composite
+  steps:
+    - if: inputs.token != '' || (inputs.username != '' && inputs.key != '')
+      shell: bash
+      run: |
+        python3 -m venv "$RUNNER_TEMP/ocl-kaggle-venv"
+        "$RUNNER_TEMP/ocl-kaggle-venv/bin/pip" install --disable-pip-version-check kaggle==2.2.5
+    - if: inputs.token != '' || (inputs.username != '' && inputs.key != '')
+      shell: bash
+      env:
+        KAGGLE_API_TOKEN: ${{ inputs.token }}
+        KAGGLE_USERNAME: ${{ inputs.username }}
+        KAGGLE_KEY: ${{ inputs.key }}
+      run: |
+        if [[ -n "$KAGGLE_API_TOKEN" ]]; then unset KAGGLE_USERNAME KAGGLE_KEY; else unset KAGGLE_API_TOKEN; fi
+        "$RUNNER_TEMP/ocl-kaggle-venv/bin/python" scripts/kaggle-boards.py
