@@ -3,6 +3,7 @@
 import type { Competition, CrawlResult, Problem } from "./types.js";
 import { aggregateAgents, aggregatePeople, openProblems, recentActivity, hotCompetitions, type ActivityItem } from "./aggregate.js";
 import { JOIN_LINE, SITE, viaLine } from "./render.js";
+import type { SocialPost } from "./social.js";
 
 type Data = Pick<CrawlResult, "crawledAt" | "competitions">;
 export interface Page { file: string; path: string; title: string; description: string; body: string; markdown: string; jsonld?: unknown; noindex?: boolean }
@@ -35,7 +36,12 @@ function trackRow(pr: Problem): string {
   return `<tr><td><b>${esc(pr.name)}</b>${pr.group ? `<br><span class="dim small">${esc(pr.group)}</span>` : ""}</td><td>${esc(pr.metricDirection === "minimize" ? "↓" : "↑")} ${esc(pr.metricName)}${pr.metricUnit ? ` (${esc(pr.metricUnit)})` : ""}</td><td class="mono">${esc(num(pr.baseline))}</td><td class="mono">${best ? esc(num(best.value)) : "—"}</td><td>${best ? `${esc(best.contributor ?? "?")}${best.agent && best.agent.family !== "unknown" && best.agent.role !== "subject" ? `<br><span class="dim small">${esc(agentName(best.agent))}</span>` : ""}${best.date ? `<br><span class="dim small">${esc(best.date)}</span>` : ""}` : "—"}</td><td class="mono">${pr.records.length}</td><td>${pr.isOpen ? `<span class="openpill">${esc(status)}</span>` : esc(status)}</td></tr>`;
 }
 
-function homePage(data: Data): Page {
+function socialList(posts: SocialPost[], data: Data): string {
+  const names = new Map(data.competitions.map((c) => [c.id, c.name]));
+  return `<ul class="pre-list">${posts.map((p) => `<li><a href="${esc(p.url)}" rel="noopener" target="_blank"><b>@${esc(p.author)}</b></a> <span class="mono dim">${esc(p.date)}</span> on <a href="${page(p.competition)}">${esc(names.get(p.competition))}</a><br>“${esc(p.text)}”</li>`).join("")}</ul>`;
+}
+
+function homePage(data: Data, social: SocialPost[]): Page {
   const comps = data.competitions;
   const open = openProblems(comps);
   const records = comps.reduce((s, c) => s + c.stats.totalRecords, 0);
@@ -54,6 +60,10 @@ function homePage(data: Data): Page {
   ${activityList(latest)}
   <p class="dim small">Subscribe: <a href="/feed.xml">/feed.xml</a> · <a href="/api/feed.json">/api/feed.json</a></p>
 </div></section>
+${social.length ? `<section class="band pre"><div class="wrap">
+  <h2>From the community</h2>
+  ${socialList(social.slice(0, 8), data)}
+</div></section>` : ""}
 <section class="band pre"><div class="wrap">
   <h2>Busiest this month</h2>
   <ul class="pre-list">${hot.map((c) => `<li><a href="${page(c.id)}"><b>${esc(c.name)}</b></a> — ${esc(c.tagline)} <span class="dim small">${esc(COMPUTE[c.participation.compute])} · ${plural(c.stats.recordsLast30d, "entry", "entries")} in 30 days · ${plural(c.stats.uniqueParticipants, "participant")}</span></li>`).join("")}</ul>
@@ -178,10 +188,10 @@ function staticPage(file: string, path: string, title: string, description: stri
   return { file, path, title, description, body: `\n<section class="band pre"><div class="wrap">${html}</div></section>`, markdown: "/llms.txt" };
 }
 
-export function pages(data: Data): Page[] {
+export function pages(data: Data, social: SocialPost[] = []): Page[] {
   const families = [...new Set(aggregateAgents(data.competitions, "author").map((a) => a.family))].filter((f) => /^[a-z0-9-]+$/.test(f));
   return [
-    homePage(data),
+    homePage(data, social),
     ...data.competitions.map((c) => detailPage(c, data)),
     agentsPage(data), ...families.map((f) => familyPage(f, data)), peoplePage(data),
     staticPage("standard.html", "/standard", "PROBLEM.md standard — Open Challenge List",

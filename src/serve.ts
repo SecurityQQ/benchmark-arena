@@ -7,6 +7,7 @@ import { aggregatePeople, aggregateAgents, competitionIndex, openProblems } from
 import { competitionToMarkdown, feedAtom, feedJson, joinTxt, llmsTxt } from "./render.js";
 import { pages, renderPage } from "./prerender.js";
 import { markdownFor } from "./agentTraffic.js";
+import { loadSocial } from "./social.js";
 
 const PORT = Number(process.env.PORT ?? 3000);
 const HOST = process.env.HOST ?? "127.0.0.1";
@@ -108,6 +109,7 @@ const server = createServer(async (req, res) => {
         agents: aggregateAgents(data.competitions, "author"),
         evaluated: aggregateAgents(data.competitions, "subject"),
         openProblems: openProblems(data.competitions),
+        social: loadSocial(process.cwd(), new Set(data.competitions.map((c) => c.id))),
       }), MIME[".json"]);
     }
     const apiMatch = path.match(/^\/api\/competitions\/([^/]+?)(\.json|\.md)?$/);
@@ -130,7 +132,7 @@ const server = createServer(async (req, res) => {
     // ── Pages: every route rendered with its content, as the build does; unknown routes get the 404 page ──
     if (!extname(path)) {
       const data = await loadData();
-      const all = pages(data);
+      const all = pages(data, loadSocial(process.cwd(), new Set(data.competitions.map((c) => c.id))));
       const route = path === "/landing" ? "/" : path;
       const p = all.find((x) => x.path === route) ?? all.find((x) => x.path === "/404")!;
       return send(res, p.path === "/404" ? 404 : 200, renderPage(readSiteAsset(SITE_DIR, "index.html").toString(), p), MIME[".html"]);
