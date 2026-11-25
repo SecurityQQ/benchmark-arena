@@ -348,3 +348,16 @@ test("discovery: llms.txt, join.txt, vercel.json and server.json point at /mcp",
   assert.ok(server.description.length <= 100);
   assert.deepEqual(server.remotes, [{ type: "streamable-http", url: `${SITE}/mcp` }]);
 });
+
+test("mcp: logs one JSON line per initialize and tool call, without free-text queries", async () => {
+  const lines: string[] = [];
+  const { handle } = site({ log: (l) => lines.push(l) });
+  await rpc(handle, "initialize", { protocolVersion: PROTOCOL_VERSIONS[0], capabilities: {}, clientInfo: { name: "claude-code\u0007", version: "2.1.0" } });
+  await call(handle, "find_challenges", { query: "my secret research idea", compute: "none" });
+  await call(handle, "get_challenge", { id: "lean-open" });
+  const parsed = lines.map((l) => JSON.parse(l));
+  assert.deepEqual(parsed[0], { t: "mcp", m: "initialize", client: "claude-code", cv: "2.1.0" });
+  assert.deepEqual(parsed[1], { t: "mcp", m: "tools/call", tool: "find_challenges", compute: "none" });
+  assert.deepEqual(parsed[2], { t: "mcp", m: "tools/call", tool: "get_challenge", id: "lean-open" });
+  assert.ok(!lines.join("\n").includes("secret"));
+});
