@@ -303,8 +303,11 @@ test("discovery and structured failure logs are sanitized while progress remains
   t.mock.method(octokit.rest.repos, "get", fail);
   t.mock.method(octokit.rest.search, "code", fail);
   t.mock.method(octokit.rest.search, "repos", fail);
+  t.mock.method(octokit.rest.issues, "listForRepo", fail);
   await discoverRepos(1);
   assert.ok(logs.includes("    standard search failed"));
+  assert.ok(logs.includes("    standard topic search failed"));
+  assert.ok(logs.includes("    listing issues could not be read"));
   assert.ok(logs.includes("    seed repository lookup failed"));
   assert.ok(logs.includes("    repository text search failed"));
   assert.ok(logs.includes("    repository topic search failed"));

@@ -14,6 +14,7 @@ test("discovery: a listed competition the searches missed is looked up and kept 
   t.mock.method(octokit.rest.repos, "get", async ({ owner, repo }: { owner: string; repo: string }) => { looked.push(`${owner}/${repo}`); return { data: meta(owner, repo) }; });
   t.mock.method(octokit.rest.search, "code", async () => ({ data: { items: [] } }));
   t.mock.method(octokit.rest.search, "repos", async () => ({ data: { items: [] } }));
+  t.mock.method(octokit.rest.issues, "listForRepo", async () => ({ data: [] }));
   t.mock.method(console, "log", () => {});
   const repos = await discoverRepos(5, [{ owner: "someone", name: "quiet-board" }, { owner: "cybertronai", name: "sutro-problems" }]);
   assert.ok(repos.some((r) => r.owner === "someone" && r.name === "quiet-board"), "listed repo kept");

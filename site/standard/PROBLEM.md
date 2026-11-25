@@ -1,5 +1,6 @@
 ---
 spec: problem.md/v1             # required marker: this is how the crawler recognizes the file
+# Get listed within hours: add the GitHub topic open-challenge-list to the repository, or open an issue titled "List owner/repo" at https://github.com/SecurityQQ/benchmark-arena/issues (details: https://openchallengelist.com/standard)
 name: Your competition name
 tagline: One sentence. What is optimized, and why it matters.
 status: active                  # active | upcoming | ended

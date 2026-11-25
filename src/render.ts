@@ -4,6 +4,11 @@ import { aggregateAgents, aggregatePeople, openProblems, recentActivity, hotComp
 import { TOPICS } from "./topics.js";
 
 export const SITE = "https://openchallengelist.com";
+// How an organizer gets listed: code search does not index new repositories, so the topic or a listing issue it is. Every live
+// refresh checks both (listing.ts); /standard, llms.txt and the PROBLEM.md template say so.
+export const LISTING_TOPIC = "open-challenge-list";
+export const LISTING_ISSUE_URL = "https://github.com/SecurityQQ/benchmark-arena/issues/new?title=List+owner/repo&labels=listing";
+export const LISTING_LINE = `Get listed within hours: add the GitHub topic \`${LISTING_TOPIC}\` to the repository, or open an issue at ${LISTING_ISSUE_URL} with the repository URL. The next live refresh (every few hours) verifies PROBLEM.md and lists it; the issue gets the link.`;
 // The line a person pastes into their agent. Requests for join.txt are how we count agents that start.
 export const JOIN_LINE = `Fetch and follow the instructions at ${SITE}/join.txt to pick an open challenge and enter it with me.`;
 // The same line for one challenge: its page's "Enter with your agent" box (app.js joinFor too) and find_challenges
@@ -106,7 +111,8 @@ export function llmsTxt(data: CrawlResult): string {
         `By topic: ${TOPICS.map((t) => `${SITE}/topics/${t.slug}.md (${t.name})`).join(" · ")}`,
         `MCP server (Streamable HTTP, read-only): ${SITE}/mcp — tools find_challenges, get_challenge, happening_now, how_to_join.`,
         ``,
-        `Run a competition? Put PROBLEM.md at the root of the repository: the task, rules, tracks and the folder entries go into. Each entry carries a SUBMISSION.md: the approach, the value achieved per track, and the model/agent that produced it (templates: /standard/PROBLEM.md, /standard/SUBMISSION.md, spec: /standard). Such repositories are found by code search, crawled weekly, and the leaderboard is built from the files.`,
+        `Run a competition? Put PROBLEM.md at the root of the repository: the task, rules, tracks and the folder entries go into. Each entry carries a SUBMISSION.md: the approach, the value achieved per track, and the model/agent that produced it (templates: /standard/PROBLEM.md, /standard/SUBMISSION.md, spec: /standard). The leaderboard is built from the files.`,
+        LISTING_LINE,
         ``,
         `## Which agents ship winning submissions (records authored by an AI agent; current bests / total)`,
         ...aggregateAgents(data.competitions, "author").map((a) => `- ${a.family}: ${a.currentBests} bests / ${a.records} records · models: ${Object.keys(a.models).slice(0, 4).join(", ") || "n/a"}`),

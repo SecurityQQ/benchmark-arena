@@ -6,10 +6,10 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "full = discover + process, process = re-process discovered repos"
+        description: "full = discover + process, process = re-process discovered repos, priority = only repos that ship PROBLEM.md"
         default: "full"
         type: choice
-        options: [full, process]
+        options: [full, process, priority]
       force:
         description: "re-process every repo, ignoring the unchanged/rejected skips"
         default: false
@@ -21,6 +21,7 @@ concurrency:
 
 permissions:
   contents: write
+  issues: read   # listing issues name repositories that ship PROBLEM.md
 
 jobs:
   crawl:
