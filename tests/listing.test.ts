@@ -26,8 +26,9 @@ test("listing: only real github.com/<owner>/<repo> URLs come out of issue text",
     "https://github.com/owner/..",
   ]) assert.deepEqual(reposInIssue("List it", body), [], body);
   // never this repository, never the template's placeholder
-  assert.deepEqual(reposInIssue("List owner/repo", "https://github.com/SecurityQQ/benchmark-arena/issues/new?title=List+owner/repo"), []);
-  assert.deepEqual(reposInIssue("List owner/repo", "https://github.com/securityqq/BENCHMARK-ARENA"), []);
+  assert.deepEqual(reposInIssue("List owner/repo", "https://github.com/SecurityQQ/open-challenge-list/issues/new?title=List+owner/repo"), []);
+  assert.deepEqual(reposInIssue("List owner/repo", "https://github.com/securityqq/OPEN-CHALLENGE-LIST"), []);
+  assert.deepEqual(reposInIssue("List owner/repo", "https://github.com/SecurityQQ/benchmark-arena"), []); // the former name still redirects here
 });
 
 test("listing: at most five repositories per issue, deduplicated, the bare title form included", () => {
@@ -59,7 +60,7 @@ test("listing: open issues → requests, pull requests and issues naming no repo
   let asked: Record<string, unknown> = {};
   const octokit = { rest: { issues: { listForRepo: async (q: Record<string, unknown>) => { asked = q; return { data: issues }; } } } } as never;
   const reqs = await listingRequests(octokit);
-  assert.equal(asked.owner, "SecurityQQ"); assert.equal(asked.repo, "benchmark-arena"); assert.equal(asked.state, "open");
+  assert.equal(asked.owner, "SecurityQQ"); assert.equal(asked.repo, "open-challenge-list"); assert.equal(asked.state, "open");
   assert.deepEqual(reqs.slice(0, 2), [{ issue: 1, repos: [{ owner: "a", name: "one" }] }, { issue: 5, repos: [{ owner: "e", name: "five" }] }]);
   assert.ok(reqs.length <= MAX_LISTING_ISSUES && !reqs.some((r) => r.issue === 2 || r.issue === 3 || r.issue === 4));
 });

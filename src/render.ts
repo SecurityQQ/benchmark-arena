@@ -7,7 +7,7 @@ export const SITE = "https://openchallengelist.com";
 // How an organizer gets listed: code search does not index new repositories, so the topic or a listing issue it is. Every live
 // refresh checks both (listing.ts); /standard, llms.txt and the PROBLEM.md template say so.
 export const LISTING_TOPIC = "open-challenge-list";
-export const LISTING_ISSUE_URL = "https://github.com/SecurityQQ/benchmark-arena/issues/new?title=List+owner/repo&labels=listing";
+export const LISTING_ISSUE_URL = "https://github.com/SecurityQQ/open-challenge-list/issues/new?title=List+owner/repo&labels=listing";
 export const LISTING_LINE = `Get listed within hours: add the GitHub topic \`${LISTING_TOPIC}\` to the repository, or open an issue at ${LISTING_ISSUE_URL} with the repository URL. The next live refresh (every few hours) verifies PROBLEM.md and lists it; the issue gets the link.`;
 // The line a person pastes into their agent. Requests for join.txt are how we count agents that start.
 export const JOIN_LINE = `Fetch and follow the instructions at ${SITE}/join.txt to pick an open challenge and enter it with me.`;

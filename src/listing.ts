@@ -13,7 +13,9 @@ import { LISTING_TOPIC, SITE } from "./render.js";
 
 export { LISTING_TOPIC };
 export const LISTING_LABEL = "listing";
-export const SITE_REPO = { owner: "SecurityQQ", name: "benchmark-arena" };
+export const SITE_REPO = { owner: "SecurityQQ", name: "open-challenge-list" };
+// The repository's name until 2026-11-25; GitHub still redirects it, so a pasted old link is still this repository
+const FORMER_NAMES = new Set(["securityqq/benchmark-arena"]);
 export const MAX_LISTING_ISSUES = 30, MAX_REPOS_PER_ISSUE = 5;
 
 export interface RepoRef { owner: string; name: string }
@@ -36,7 +38,7 @@ export function reposInIssue(title: string, body?: string | null): RepoRef[] {
     const name = raw.replace(/\.git$/i, "").replace(/\.+$/, "");
     const key = `${owner}/${name}`.toLowerCase();
     if (!name || name === "." || name === ".." || RESERVED.has(owner.toLowerCase()) || PLACEHOLDERS.has(key) || seen.has(key)) return;
-    if (key === `${SITE_REPO.owner}/${SITE_REPO.name}`.toLowerCase()) return;
+    if (key === `${SITE_REPO.owner}/${SITE_REPO.name}`.toLowerCase() || FORMER_NAMES.has(key)) return;
     seen.add(key); out.push({ owner, name });
   };
   const t = String(title ?? "").slice(0, 300), b = String(body ?? "").slice(0, 20_000);
