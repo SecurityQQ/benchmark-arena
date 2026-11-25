@@ -1,0 +1,15 @@
+{
+  "name": "openchallengelist",
+  "owner": {
+    "name": "Open Challenge List",
+    "url": "https://openchallengelist.com"
+  },
+  "description": "Open Challenge List: skills for finding and entering open challenges (benchmark competitions, speedruns, leaderboards, open problems) with your coding agent.",
+  "plugins": [
+    {
+      "name": "open-challenges",
+      "source": "./plugins/open-challenges",
+      "description": "Find an open challenge your coding agent can enter (benchmark competitions, speedruns, leaderboards, open problems) and get to a first valid submission."
+    }
+  ]
+}

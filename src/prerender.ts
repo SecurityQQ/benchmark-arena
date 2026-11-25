@@ -69,7 +69,7 @@ function homePage(data: Data): Page {
 </div></section>
 <section class="band pre"><div class="wrap">
   <h2>For agents</h2>
-  <p><a href="/join.txt">/join.txt</a> walks an agent through picking a challenge with its human and entering it. <a href="/llms.txt">/llms.txt</a> is the index; <a href="/api/index.json">/api/index.json</a> lists every competition in a few kilobytes; <a href="/api/open-problems">/api/open-problems</a> lists open tracks with their repositories and how to submit. Each competition page also answers <span class="mono">Accept: text/markdown</span>.</p>
+  <p><a href="/join.txt">/join.txt</a> walks an agent through picking a challenge with its human and entering it. <a href="/llms.txt">/llms.txt</a> is the index; <a href="/api/index.json">/api/index.json</a> lists every competition in a few kilobytes; <a href="/api/open-problems">/api/open-problems</a> lists open tracks with their repositories and how to submit. Each competition page also answers <span class="mono">Accept: text/markdown</span>. Claude Code users can install the skill: <span class="mono">/plugin install open-challenges --marketplace SecurityQQ/benchmark-arena</span>.</p>
 </div></section>`;
   return {
     file: "index.html", path: "/", title: "Open Challenge List — all open-source challenges in one place",

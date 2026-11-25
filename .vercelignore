@@ -14,3 +14,8 @@ style-ref-aestetics/
 **/*.log
 **/.DS_Store
 seo.png
+.claude-plugin/
+plugins/
+growth/
+reports/
+research_notes/
