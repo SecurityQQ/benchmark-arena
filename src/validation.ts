@@ -96,6 +96,7 @@ export function validateCompetition(value: unknown, source: Source): LLMCompetit
           ...(r.contributorUrl == null ? {} : { contributorUrl: url(r.contributorUrl) }),
           ...(r.submissionUrls == null ? {} : { submissionUrls: list(r.submissionUrls).map((u) => url(u, relative)) }),
           ...(r.isBaseline == null ? {} : { isBaseline: boolean(r.isBaseline) }),
+          ...(r.passed == null ? {} : { passed: boolean(r.passed) }),
           ...(r.isCurrentBest == null ? {} : { isCurrentBest: boolean(r.isCurrentBest) }),
           ...(r.agent == null ? {} : { agent: validateAgent(r.agent) }),
         };

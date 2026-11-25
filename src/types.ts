@@ -121,6 +121,7 @@ export interface RecordEntry {
   submissionUrls?: string[];
   isCurrentBest?: boolean;
   isBaseline?: boolean;          // naive/reference row set by organizers
+  passed?: boolean;              // graded tracks: the source's own verdict; false never closes the track, whatever the value (a geomean past 1 that is not faster on every item)
   agent?: AgentAttribution;
 }
 
