@@ -273,6 +273,8 @@ function topicCard(t: Topic, v: ReturnType<typeof topicView>): Card {
 // An ended competition says so plainly: what it had, nothing to join
 function competitionCard(c: Competition, m: BoardMonth, crawledAt: string): Card {
   const p = c.participation, ended = c.status === "ended", open = c.problems.filter((x) => x.isOpen).length;
+  // baseline rows (the organizers' reference runs) are not entries: a board nobody has entered says so
+  const entries = c.problems.reduce((n, pr) => n + pr.records.filter((r) => !r.isBaseline).length, 0);
   const topic = TOPICS.find((t) => !t.computes && inTopic(t, c));
   const last = c.stats.lastSubmission && /^\d{4}-\d{2}-\d{2}/.test(c.stats.lastSubmission) ? `Last entry ${c.stats.lastSubmission.slice(0, 10)}` : "";
   const deadline = /^\d{4}-\d{2}-\d{2}/.exec(p.deadline ?? "")?.[0];
@@ -281,12 +283,12 @@ function competitionCard(c: Competition, m: BoardMonth, crawledAt: string): Card
   return card(`og/c/${c.id}.png`, {
     eyebrow: `${ended ? "Ended" : c.status === "upcoming" ? "Upcoming challenge" : "Open challenge"}${topic ? ` · ${topic.name}` : ""}`,
     title: plain(c.name, 100) || c.id, subtitle: plain(c.tagline, 200),
-    stats: ended ? [stat(c.stats.totalRecords, "entry", "entries"), stat(c.stats.uniqueParticipants, "participant", "participants"), stat(c.problems.length, "track", "tracks")]
+    stats: ended ? [stat(entries, "entry", "entries"), stat(c.stats.uniqueParticipants, "participant", "participants"), stat(c.problems.length, "track", "tracks")]
       : m.entries ? [stat(m.entries, "entry in 30 days", "entries in 30 days"), stat(m.people, "person", "people"), stat(m.withAgents, "with an AI agent", "with AI agents"), stat(open, "open track", "open tracks")]
-      : [stat(open, "open track", "open tracks"), stat(c.stats.totalRecords, "entry so far", "entries so far"), stat(c.problems.length > open ? c.problems.length : 0, "track", "tracks")],
+      : [stat(open, "open track", "open tracks"), stat(entries, "entry so far", "entries so far"), stat(c.problems.length > open ? c.problems.length : 0, "track", "tracks")],
     notes: ended ? ["Closed to new entries", last]
       : [p.compute === "none" || p.compute === "cpu" ? "No GPU needed" : p.compute === "unknown" ? "" : COMPUTE[p.compute] ?? "", until,
-        m.withAgents ? `Agents: ${m.tools.map((x) => plain(x, 30)).join(", ")}` : "", m.entries ? "" : last || (c.stats.totalRecords ? "" : "No entries yet")],
+        m.withAgents ? `Agents: ${m.tools.map((x) => plain(x, 30)).join(", ")}` : "", m.entries ? "" : (entries ? last : "No entries yet")],
     action: ended ? "results and leaderboards" : SHARE,
   });
 }
