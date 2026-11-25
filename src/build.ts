@@ -7,6 +7,7 @@ import type { CrawlResult } from "./types.js";
 import { aggregateAgents, aggregatePeople, competitionIndex, openProblems } from "./aggregate.js";
 import { competitionToMarkdown, feedAtom, feedJson, joinTxt, llmsTxt } from "./render.js";
 import { pages, renderPage } from "./prerender.js";
+import { loadSocial } from "./social.js";
 
 // IndexNow (Bing, Yandex, Seznam…): the key is public by design; the file at /{key}.txt proves the site owns it
 export const INDEXNOW_KEY = "ad98448484b5c15a593b4febe60a83bc";
@@ -88,9 +89,11 @@ export function build(root = process.cwd()) {
   if (!["http:", "https:"].includes(origin.protocol) || origin.username || origin.password || origin.pathname !== "/" || origin.search || origin.hash) throw new Error("SITE_ORIGIN must be an HTTP(S) origin");
   const ORIGIN = origin.origin;
 
+  const social = loadSocial(ROOT, new Set(data.competitions.map((c) => c.id)));
+
   // Every route as a real page (agents and crawlers that do not run JavaScript), index.html included
   const shell = files.get("index.html")!.toString();
-  for (const p of pages(data)) {
+  for (const p of pages(data, social)) {
     const html = renderPage(shell, p, ORIGIN);
     if (p.file === "index.html") files.set("index.html", html); else w(p.file, html);
   }
@@ -98,6 +101,7 @@ export function build(root = process.cwd()) {
   const j = (v: unknown) => JSON.stringify(v);
   w("api/competitions.json", j(data));
   w("api/index.json", j({ crawledAt: data.crawledAt, competitions: competitionIndex(data.competitions) }));
+  w("api/social.json", j(social));
   w("api/feed.json", j(feedJson(data, ORIGIN)));
   w("feed.xml", feedAtom(data, ORIGIN));
   w("join.txt", joinTxt(data, ORIGIN));
@@ -113,6 +117,7 @@ export function build(root = process.cwd()) {
     agents: aggregateAgents(data.competitions, "author"),
     evaluated: aggregateAgents(data.competitions, "subject"),
     openProblems: openProblems(data.competitions),
+    social,
   }));
   for (const c of data.competitions) {
     w(`api/competitions/${c.id}.json`, JSON.stringify(c, null, 2));

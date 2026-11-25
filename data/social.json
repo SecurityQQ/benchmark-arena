@@ -1,0 +1,50 @@
+{
+  "about": "Public posts by people entering listed challenges. Verbatim excerpts (cuts marked …), each linking to the original. Checked against the X API on 2026-11-25.",
+  "posts": [
+    {
+      "url": "https://x.com/amihai/status/2125373188200612061",
+      "author": "amihai",
+      "name": "Amichai Mantinband",
+      "date": "2026-11-24",
+      "text": "10K+ agent sessions (likely 50-100K if we could count contributors' subagents) … 8.6M lines of Lean proofs by 360+ external contributors: 1.8M accepted and merged, 3.1M currently being reviewed in PRs … 2000+ checked lemmas",
+      "competition": "open-goat-pequalnp-proofs-529cfdd011232bcc",
+      "likes": 1458
+    },
+    {
+      "url": "https://x.com/cong_ml/status/2125252787235901885",
+      "author": "cong_ml",
+      "name": "Cong Lu",
+      "date": "2026-11-24",
+      "text": "We had fun pointing the Eureka Machine at it, and we set a new record under 10 seconds: 9.85 s, from >14s",
+      "competition": "qlabs-eng-noise-986ea7c101c066c6",
+      "likes": 152
+    },
+    {
+      "url": "https://x.com/osgood001/status/2125188315808977219",
+      "author": "osgood001",
+      "name": "Osgood",
+      "date": "2026-11-24",
+      "text": "Compression will grow out new structures of math. Left: original RH (math by Claude) Right: mathlib (math by human)",
+      "competition": "osgood001-riemann-hypothesis-27b8a22da0a4924e",
+      "likes": 306
+    },
+    {
+      "url": "https://x.com/bigospeedrun/status/2125159572684038340",
+      "author": "bigospeedrun",
+      "name": "Big O Speedrun",
+      "date": "2026-11-24",
+      "text": "New record! Problem: Fourier Transform · New value: O(n log^(1 - 0.00392693588023) n) · Player: Gigabyte0x1337 · Status: Lean Verified",
+      "competition": "bigospeedrun-verifier-d059f6016f1c0796",
+      "likes": 52
+    },
+    {
+      "url": "https://x.com/dmiranda_/status/2125298251629035897",
+      "author": "dmiranda_",
+      "name": "Daniel Miranda",
+      "date": "2026-11-24",
+      "text": "Nossa contribuição ao projeto colaborativo P vs. NP … foi aceita, verificada formalmente em Lean e incorporada ao repositório oficial. Os guaxinins entraram no jogo. 🦝",
+      "competition": "open-goat-pequalnp-proofs-529cfdd011232bcc",
+      "likes": 10
+    }
+  ]
+}

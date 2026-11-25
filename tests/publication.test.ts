@@ -244,6 +244,12 @@ test("every route is a pre-rendered page with its own metadata, and crawled text
   assert.match(home, /app\.js\?v=[a-f0-9]{10}/);
   assert.ok(home.includes('href="/c/hostile"') && home.includes("join.txt"));
   for (const file of ["agents.html", "agents/anthropic.html", "people.html", "standard.html", "submit.html"]) assert.ok(existsSync(join(root, "public", file)), file);
+  put("data/social.json", JSON.stringify({ posts: [{ url: "https://x.com/eve/status/1", author: "eve", date: "2026-09-17", text: "<script>alert(1)</script> record!", competition: "hostile" }] }));
+  build(root);
+  const withSocial = readFileSync(join(root, "public/index.html"), "utf8");
+  assert.ok(withSocial.includes("From the community") && withSocial.includes("&lt;script&gt;alert(1)&lt;/script&gt; record!") && !withSocial.includes("<script>alert(1)"));
+  assert.equal(JSON.parse(readFileSync(join(root, "public/api/summary.json"), "utf8")).social[0].author, "eve");
+  assert.equal(JSON.parse(readFileSync(join(root, "public/api/social.json"), "utf8")).length, 1);
   const notFound = readFileSync(join(root, "public/404.html"), "utf8");
   assert.match(notFound, /<meta name="robots" content="noindex">/);
   assert.equal((notFound.match(/<meta name="robots"/g) ?? []).length, 1);

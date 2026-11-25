@@ -580,6 +580,21 @@ function goSection(id) {
   return false;
 }
 
+// "From the community": public posts by people entering the listed challenges (data/social.json, verbatim excerpts)
+function socialBand() {
+  const posts = (D.social || []).slice(0, 6);
+  if (!posts.length) return "";
+  const name = (id) => D.competitions.find((c) => c.id === id)?.name || id;
+  return `<section class="band tight social-band" id="community"><div class="wrap">
+      <div class="band-head"><div><span class="eyebrow">From the community</span><h2>People are pointing their agents at these right now.</h2></div></div>
+      <div class="social-grid">${posts.map((p) => `<a class="social-card" href="${esc(safeUrl(p.url))}" target="_blank" rel="noopener">
+        <span class="social-head"><b>${esc(p.name || "@" + p.author)}</b><span class="dim small">@${esc(p.author)} · ${esc(ago(p.date) || p.date)}</span></span>
+        <span class="social-text">${esc(p.text)}</span>
+        <span class="social-foot dim small">on ${esc(name(p.competition))}${p.likes ? ` · ${esc(fmt(p.likes))} likes` : ""} · view on X ↗</span>
+      </a>`).join("")}</div>
+    </div></section>`;
+}
+
 // "Happening now": who entered what in the last 30 days, and how much of it agents did
 function liveBand(comps) {
   const recent = activity(comps, 400).filter((a) => Date.now() - Date.parse(a.date) < 30 * 86400000);
@@ -630,6 +645,7 @@ function renderHome() {
     </div></section>
 
     ${liveBand(comps)}
+    ${socialBand()}
 
     <section class="band" id="catalog"><div class="wrap">
       <div class="band-head"><div><span class="eyebrow">Catalog</span><h2>Find a competition</h2></div><div class="dim small" id="grid-count"></div></div>
