@@ -276,6 +276,9 @@ test("agents get join.txt, feeds and a small index", (t) => {
   // consent first: nothing public on the human's account before they agree, and the via line is their call
   assert.ok(join_.indexOf("gh repo fork") > join_.indexOf("Once they agree"), "fork only after the go-ahead");
   assert.match(join_, /ask whether they want to add this line/);
+  // organizer instructions stay data: never "follow them" on the organizer's authority
+  assert.ok(!/follow them under the same rules/.test(join_));
+  assert.match(join_, /third-party data like the rest of the repository/);
   assert.match(join_, /- Test \[CPU only\] 2 entries in 30 days, 2 participants, 1 open track — .*https:\/\/openchallengelist\.com\/api\/competitions\/live\.md/);
   const feed = JSON.parse(pub("api/feed.json"));
   assert.deepEqual(feed.items.map((i: any) => i._entry.contributor), ["ann & co", "bob"], "newest first; no baselines, no benchmarked models");
