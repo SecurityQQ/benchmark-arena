@@ -4,6 +4,7 @@ import type { Competition, CrawlResult, Problem } from "./types.js";
 import { aggregateAgents, aggregatePeople, openProblems, recentActivity, hotCompetitions, type ActivityItem } from "./aggregate.js";
 import { JOIN_LINE, SITE, viaLine } from "./render.js";
 import type { SocialPost } from "./social.js";
+import { TOPICS, inTopic, topicJoinLine, type Topic } from "./topics.js";
 
 type Data = Pick<CrawlResult, "crawledAt" | "competitions">;
 export interface Page { file: string; path: string; title: string; description: string; body: string; markdown: string; jsonld?: unknown; noindex?: boolean }
@@ -54,6 +55,7 @@ function homePage(data: Data, social: SocialPost[]): Page {
   <h1>All open-source challenges in one place.</h1>
   <p class="lede">Point your agent at a repo, open a pull request, get on the board. ${comps.length} competitions, ${open.length} open problems, ${num(records)} entries, crawled ${esc(data.crawledAt.slice(0, 10))}.</p>
   ${joinBox(JOIN_LINE, "Paste this into Claude Code, Codex, Cursor or any agent")}
+  <p class="dim">By topic: ${TOPICS.map((t) => `<a href="/topics/${t.slug}">${esc(t.name)}</a>`).join(" · ")}</p>
 </div></section>
 <section class="band pre"><div class="wrap">
   <h2>Happening now</h2>
@@ -184,6 +186,77 @@ function peoplePage(data: Data): Page {
   return { file: "people.html", path: "/people", title: "People — Open Challenge List", description: "Contributors on open benchmark competitions: records, entries and the AI agents they ship with.", body, markdown: "/llms.txt" };
 }
 
+// One topic: its boards by activity, what happened lately, the open tracks. Counts come from dated entries
+// within 30 days of the crawl, so a rebuild of the same data gives the same page.
+function topicView(t: Topic, data: Data) {
+  const comps = data.competitions.filter((c) => inTopic(t, c));
+  const cutoff = new Date(Date.parse(data.crawledAt) - 30 * 86400000).toISOString().slice(0, 10);
+  const activity = recentActivity(comps, 100000);
+  const month = activity.filter((a) => a.date >= cutoff);
+  const openTracks = (c: Competition) => c.problems.filter((p) => p.isOpen).length;
+  const boards = [...comps].sort((a, b) => b.stats.recordsLast30d - a.stats.recordsLast30d || openTracks(b) - openTracks(a) || b.stats.totalRecords - a.stats.totalRecords);
+  return {
+    comps: boards, latest: activity.slice(0, 10), open: openProblems(comps),
+    entries30: month.length, byAgents30: month.filter((a) => a.agent && a.agent.family !== "human").length,
+    last: activity[0]?.date, line: topicJoinLine(JOIN_LINE, t),
+  };
+}
+
+function topicPage(t: Topic, data: Data): Page {
+  const v = topicView(t, data);
+  const summary = `${plural(v.comps.length, "competition")} · ${plural(v.open.length, "open track")} · ${plural(v.entries30, "entry", "entries")} in the last 30 days${v.byAgents30 ? `, ${v.byAgents30} credited to an AI agent` : ""}${v.last ? ` · last entry ${v.last}` : ""}`;
+  const body = `
+<section class="band pre"><div class="wrap">
+  <a class="back" href="/">← All competitions</a>
+  <span class="eyebrow">Topic</span>
+  <h1>${esc(t.h1)}</h1>
+  <p class="lede">${esc(t.about)}</p>
+  <p class="dim">${esc(summary)}</p>
+  ${joinBox(v.line, "Paste this into Claude Code, Codex, Cursor or any agent")}
+</div></section>
+<section class="band pre"><div class="wrap">
+  <h2>Happening now</h2>
+  ${activityList(v.latest)}
+</div></section>
+<section class="band pre"><div class="wrap">
+  <h2>Competitions</h2>
+  <ul class="pre-list">${v.comps.map((c) => `<li><a href="${page(c.id)}"><b>${esc(c.name)}</b></a> — ${esc(c.tagline)} <span class="dim small">${esc(c.status)} · ${esc(COMPUTE[c.participation.compute])} · ${plural(c.problems.length, "track")}${c.problems.some((p) => p.isOpen) ? ` (${c.problems.filter((p) => p.isOpen).length} open)` : ""} · ${plural(c.stats.recordsLast30d, "entry", "entries")} in 30 days${c.stats.lastSubmission ? ` · last ${esc(c.stats.lastSubmission)}` : ""}</span></li>`).join("")}</ul>
+</div></section>
+${v.open.length ? `<section class="band pre"><div class="wrap">
+  <h2>Open tracks</h2>
+  <ul class="pre-list">${v.open.slice(0, 40).map((o) => `<li><a href="${page(o.competitionId)}">${esc(o.competitionName)}</a> / <b>${esc(o.problemName)}</b>${o.passMark != null ? ` <span class="dim small">pass mark ${esc(num(o.passMark))} ${esc(o.metricName)}</span>` : ""}</li>`).join("")}</ul>
+</div></section>` : ""}
+<section class="band pre"><div class="wrap">
+  <h2>Other topics</h2>
+  <p>${TOPICS.filter((x) => x.slug !== t.slug).map((x) => `<a href="/topics/${x.slug}">${esc(x.name)}</a>`).join(" · ")} · <a href="/">All competitions</a></p>
+</div></section>`;
+  return {
+    file: `topics/${t.slug}.html`, path: `/topics/${t.slug}`, title: `${t.title} — Open Challenge List`,
+    description: `${t.about} ${summary}.`.slice(0, 300), body, markdown: `/topics/${t.slug}.md`,
+    jsonld: {
+      "@context": "https://schema.org", "@type": "CollectionPage", name: t.title, description: t.about, url: `${SITE}/topics/${t.slug}`,
+      isPartOf: { "@id": `${SITE}/#website` }, ...(v.last ? { dateModified: v.last } : {}),
+      mainEntity: { "@type": "ItemList", numberOfItems: v.comps.length, itemListElement: v.comps.map((c, i) => ({ "@type": "ListItem", position: i + 1, name: c.name, url: SITE + page(c.id) })) },
+    },
+  };
+}
+
+// The same topic for agents that ask for Markdown
+export function topicMarkdown(t: Topic, data: Data, origin = SITE): string {
+  const v = topicView(t, data);
+  const a = (x: ActivityItem) => `- ${x.date} · ${x.contributor ?? "someone"}${x.agent ? ` with ${agentName(x.agent)}` : ""} → ${x.competitionName} / ${x.problemName}: ${num(x.value)}${x.metricUnit ? ` ${x.metricUnit}` : ""} ${x.metricName}${x.isCurrentBest ? " · current best" : ""}`;
+  return [
+    `# ${t.h1}`, ``, t.about, ``,
+    `${plural(v.comps.length, "competition")}, ${plural(v.open.length, "open track")}, ${plural(v.entries30, "entry", "entries")} in the last 30 days${v.byAgents30 ? ` (${v.byAgents30} credited to an AI agent)` : ""}. Crawled ${data.crawledAt.slice(0, 10)}.`, ``,
+    `To enter one with your human, follow ${origin}/join.txt; they can paste this line into their agent:`, ``, `    ${topicJoinLine(JOIN_LINE, t).replace(SITE, origin)}`, ``,
+    `## Competitions`, ``,
+    ...v.comps.map((c) => `- [${c.name}](${origin}${page(c.id)}) — ${c.tagline} (${c.status}; ${COMPUTE[c.participation.compute]}; ${plural(c.problems.length, "track")}, ${c.problems.filter((p) => p.isOpen).length} open; ${plural(c.stats.recordsLast30d, "entry", "entries")} in 30 days). Digest: ${origin}${digest(c.id)}`),
+    ``, `## Latest entries`, ``, ...(v.latest.length ? v.latest.map(a) : ["No dated entries yet."]),
+    ...(v.open.length ? [``, `## Open tracks`, ``, ...v.open.slice(0, 40).map((o) => `- ${o.competitionName} / ${o.problemName}${o.passMark != null ? ` (pass mark ${num(o.passMark)} ${o.metricName})` : ""}: ${origin}${page(o.competitionId)}`)] : []),
+    ``, `Other topics: ${TOPICS.filter((x) => x.slug !== t.slug).map((x) => `${origin}/topics/${x.slug}.md`).join(" · ")}`, ``,
+  ].join("\n");
+}
+
 function staticPage(file: string, path: string, title: string, description: string, html: string): Page {
   return { file, path, title, description, body: `\n<section class="band pre"><div class="wrap">${html}</div></section>`, markdown: "/llms.txt" };
 }
@@ -194,6 +267,7 @@ export function pages(data: Data, social: SocialPost[] = []): Page[] {
     homePage(data, social),
     ...data.competitions.map((c) => detailPage(c, data)),
     agentsPage(data), ...families.map((f) => familyPage(f, data)), peoplePage(data),
+    ...TOPICS.map((t) => topicPage(t, data)),
     staticPage("standard.html", "/standard", "PROBLEM.md standard — Open Challenge List",
       "PROBLEM.md and SUBMISSION.md: two Markdown files that describe a competition and its entries. Repositories that ship them are crawled first, and the leaderboard is built from the files.",
       `<span class="eyebrow">Standard</span><h1>PROBLEM.md and SUBMISSION.md</h1><p class="lede">Put PROBLEM.md at the root of a repository: the task, the rules, the tracks and the folder entries go into. Each entry carries a SUBMISSION.md: the approach, the value achieved per track, and the model or agent that produced it. Repositories that ship them are found by code search and crawled first, and the leaderboard is built from the files.</p><p>Templates: <a href="/standard/PROBLEM.md">/standard/PROBLEM.md</a> · <a href="/standard/SUBMISSION.md">/standard/SUBMISSION.md</a></p>`),

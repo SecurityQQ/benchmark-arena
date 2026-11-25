@@ -183,7 +183,9 @@ function route() {
   document.querySelectorAll(".header-links a[data-r]").forEach((a) => a.classList.toggle("on", a.dataset.r === "/" ? p === "/" || p === "/landing" : p.startsWith(a.dataset.r)));
   const m = p.match(/^\/c\/([^/]+)/);
   const fm = p.match(/^\/agents\/([^/]+)/);
-  if (m) renderDetail(decodeURIComponent(m[1]));
+  const topic = topicFor(p);
+  if (topic) renderTopic(topic);
+  else if (m) renderDetail(decodeURIComponent(m[1]));
   else if (fm) renderFamily(decodeURIComponent(fm[1]));
   else if (p === "/standard") renderStandard();
   else if (p === "/submit") renderSubmit();
@@ -202,7 +204,8 @@ function syncMeta() {
   const p = location.pathname, m = p.match(/^\/c\/([^/]+)/), c = m && D?.competitions.find((x) => x.id === decodeURIComponent(m[1]));
   const desc = c ? `${c.tagline || c.description || c.name}. ${c.problems.length} track${c.problems.length === 1 ? "" : "s"}, ${c.stats.totalRecords} records. How to enter, leaderboards and which AI agents hold the records.`.slice(0, 300)
     : p === "/standard" ? "PROBLEM.md and SUBMISSION.md: two Markdown files that describe a competition and its entries. Repositories that ship them are crawled first, and the leaderboard is built from the files."
-    : p === "/submit" ? "Add an open benchmark competition to the directory: point us at the GitHub repository." : META_DEFAULT;
+    : p === "/submit" ? "Add an open benchmark competition to the directory: point us at the GitHub repository."
+    : topicFor(p) ? topicFor(p).about : META_DEFAULT;
   const url = META_ORIGIN + (p === "/landing" ? "/" : p);
   const set = (sel, attr, v) => document.querySelector(sel)?.setAttribute(attr, v);
   set('meta[name="description"]', "content", desc); set('meta[property="og:description"]', "content", desc); set('meta[name="twitter:description"]', "content", desc);
@@ -247,6 +250,30 @@ const JOIN = "Fetch and follow the instructions at https://openchallengelist.com
 const joinFor = (c) => c ? `Fetch and follow the instructions at https://openchallengelist.com/join.txt — I want to enter "${c.name}": https://openchallengelist.com/c/${pathPart(c.id)}` : JOIN;
 function joinBlock(c, label) {
   return `<div class="join-line"><span class="eyebrow">${esc(label)}</span><pre class="quick join"><button type="button" class="copy" data-action="copy-join" data-comp-id="${esc(c ? c.id : "")}">copy</button><code>${esc(joinFor(c))}</code></pre></div>`;
+}
+// ── Topic hubs (/topics/{slug}): the filters from src/topics.ts, shipped in /api/summary ──
+const topicFor = (path) => { const tm = path.match(/^\/topics\/([^/]+)$/); return tm && D ? (D.topics || []).find((t) => t.slug === decodeURIComponent(tm[1])) : null; };
+const inTopic = (t, c) => (!t.domains || t.domains.includes(c.domain)) && (!t.computes || t.computes.includes(c.participation.compute)) && (!t.tag || c.tags.some((x) => x.includes(t.tag)));
+const topicJoin = (t) => JOIN.replace("an open challenge", t.pick);
+function renderTopic(t) {
+  document.title = `${t.title} — Open Challenge List`;
+  const app = document.getElementById("app");
+  const openN = (c) => c.problems.filter((p) => p.isOpen).length;
+  const comps = D.competitions.filter((c) => inTopic(t, c))
+    .sort((a, b) => b.stats.recordsLast30d - a.stats.recordsLast30d || openN(b) - openN(a) || b.stats.totalRecords - a.stats.totalRecords);
+  const open = comps.reduce((s, c) => s + openN(c), 0);
+  const art = (t.domains && ART_BY_DOMAIN[t.domains[0]]?.[0]) || (t.computes && ART_BY_COMPUTE[t.computes[0]]) || "pool";
+  app.innerHTML = `
+    <section class="band art-band">${artBg(art)}<div class="wrap">
+    <a class="back" href="/" data-action="nav">← All competitions</a>
+    <div class="hero"><span class="eyebrow">Topic</span><h1>${esc(t.h1)}</h1><p class="lede">${esc(t.about)} ${esc(comps.length)} competitions, ${esc(open)} open tracks.</p></div>
+    <div class="join-line"><span class="eyebrow">Paste this into Claude Code, Codex, Cursor or any agent</span><pre class="quick join"><button type="button" class="copy" data-action="copy-join" data-topic="${esc(t.slug)}">copy</button><code>${esc(topicJoin(t))}</code></pre></div>
+    </div></section>
+    ${liveBand(comps)}
+    <section class="band tight"><div class="wrap">
+      <div class="grid">${comps.map(card).join("")}</div>
+      <p class="dim small topic-links">Other topics: ${(D.topics || []).filter((x) => x.slug !== t.slug).map((x) => `<a href="/topics/${esc(x.slug)}" data-action="nav">${esc(x.name)}</a>`).join(" · ")}</p>
+    </div></section>`;
 }
 // Latest dated entries by people (not benchmarked models), newest first; mirrors recentActivity in src/aggregate.ts
 function activity(comps, limit) {
@@ -415,7 +442,7 @@ document.addEventListener("click", (e) => {
     case "home-section": e.preventDefault(); nav("/"); goSection(d.section); break;
     case "track": e.preventDefault(); gotoTrack(d.track); break;
     case "copy": copyText(el); break;
-    case "copy-join": copyText(el); track("copy_join", { competition: d.compId || "any" }); break;
+    case "copy-join": copyText(el); track("copy_join", { competition: d.compId || "any", ...(d.topic ? { topic: d.topic } : {}) }); break;
     case "lightbox": lightbox(el.src); break;
   }
 }, true);
@@ -597,7 +624,7 @@ function socialBand() {
 
 // "Happening now": who entered what in the last 30 days, and how much of it agents did
 function liveBand(comps) {
-  const recent = activity(comps, 400).filter((a) => Date.now() - Date.parse(a.date) < 30 * 86400000);
+  const recent = activity(comps, Infinity).filter((a) => Date.now() - Date.parse(a.date) < 30 * 86400000); // count them all: the headline is a total
   if (!recent.length) return "";
   const byAgents = recent.filter((a) => a.agent && a.agent.family !== "human").length, people = new Set(recent.map((a) => (a.r.contributor || "").toLowerCase())).size;
   const perComp = {}, rows = recent.filter((a) => (perComp[a.c.id] = (perComp[a.c.id] || 0) + 1) <= 3).slice(0, 8); // no single board fills the strip

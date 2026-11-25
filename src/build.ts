@@ -6,7 +6,8 @@ import { createHash } from "node:crypto";
 import type { CrawlResult } from "./types.js";
 import { aggregateAgents, aggregatePeople, competitionIndex, openProblems } from "./aggregate.js";
 import { competitionToMarkdown, feedAtom, feedJson, joinTxt, llmsTxt } from "./render.js";
-import { pages, renderPage } from "./prerender.js";
+import { pages, renderPage, topicMarkdown } from "./prerender.js";
+import { TOPICS } from "./topics.js";
 import { loadSocial } from "./social.js";
 
 // IndexNow (Bing, Yandex, Seznam…): the key is public by design; the file at /{key}.txt proves the site owns it
@@ -118,12 +119,14 @@ export function build(root = process.cwd()) {
     evaluated: aggregateAgents(data.competitions, "subject"),
     openProblems: openProblems(data.competitions),
     social,
+    topics: TOPICS,
   }));
   for (const c of data.competitions) {
     w(`api/competitions/${c.id}.json`, JSON.stringify(c, null, 2));
     w(`api/competitions/${c.id}.md`, competitionToMarkdown(c));
   }
   w("llms.txt", llmsTxt({ ...data, errors: [] }));
+  for (const t of TOPICS) w(`topics/${t.slug}.md`, topicMarkdown(t, data, ORIGIN));
   // Neutral filename avoids blockers that stall requests for *SUBMISSION*.md.
   w("standard/templates.json", j({ "PROBLEM.md": readSiteAsset(join(ROOT, "site"), "standard/PROBLEM.md").toString(), "SUBMISSION.md": readSiteAsset(join(ROOT, "site"), "standard/SUBMISSION.md").toString() }));
 
@@ -134,6 +137,7 @@ export function build(root = process.cwd()) {
   const lastmod = (c: (typeof data.competitions)[number]) => { const d = c.stats.lastSubmission ?? c.lastUpdated; return d && /^\d{4}-\d{2}-\d{2}/.test(d) && d.slice(0, 10) <= day ? d.slice(0, 10) : day; };
   const urls: [string, string, string, string][] = [["/", "daily", "1.0", day], ["/standard", "weekly", "0.9", day], ["/submit", "monthly", "0.6", day], ["/agents", "weekly", "0.8", day], ["/people", "weekly", "0.7", day],
     ...data.competitions.map((c): [string, string, string, string] => [`/c/${encodeURIComponent(c.id)}`, c.stats.recordsLast30d ? "daily" : "weekly", "0.8", lastmod(c)]),
+    ...TOPICS.map((t): [string, string, string, string] => [`/topics/${t.slug}`, "daily", "0.9", day]),
     ...families.map((f): [string, string, string, string] => [`/agents/${encodeURIComponent(f)}`, "weekly", "0.5", day])];
   w("sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(([p, f, pr, m]) => `  <url><loc>${xml(ORIGIN + p)}</loc><lastmod>${xml(m)}</lastmod><changefreq>${f}</changefreq><priority>${pr}</priority></url>`).join("\n")}\n</urlset>\n`);
   w("competitions.json", j(data));
