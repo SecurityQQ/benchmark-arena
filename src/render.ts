@@ -6,9 +6,11 @@ import { TOPICS } from "./topics.js";
 export const SITE = "https://openchallengelist.com";
 // The line a person pastes into their agent. Requests for join.txt are how we count agents that start.
 export const JOIN_LINE = `Fetch and follow the instructions at ${SITE}/join.txt to pick an open challenge and enter it with me.`;
+// The same line for one challenge: its page's "Enter with your agent" box (app.js joinFor too) and find_challenges
+export const challengeJoinLine = (name: string, id: string) => `Fetch and follow the instructions at ${SITE}/join.txt — I want to enter "${name}": ${SITE}/c/${encodeURIComponent(id)}`;
 export const viaLine = (id: string, origin = SITE) => `Found via ${origin}/c/${encodeURIComponent(id)}`;
 const plural = (n: number, w: string, many = `${w}s`) => `${n} ${n === 1 ? w : many}`;
-const COMPUTE_LABEL: Record<string, string> = { none: "no compute", cpu: "CPU only", "consumer-gpu": "consumer GPU", "datacenter-gpu": "datacenter GPU", cluster: "cluster", unknown: "compute not specified" };
+export const COMPUTE_LABEL: Record<string, string> = { none: "no compute", cpu: "CPU only", "consumer-gpu": "consumer GPU", "datacenter-gpu": "datacenter GPU", cluster: "cluster", unknown: "compute not specified" };
 
 // Plain-text digest of one competition, optimized for LLM consumption
 export function competitionToMarkdown(c: Competition): string {
@@ -101,6 +103,7 @@ export function llmsTxt(data: CrawlResult): string {
         `Machine-readable: GET /api/competitions (all) · GET /api/competitions/{id}.json · GET /api/competitions/{id}.md · GET /api/agents · GET /api/people · GET /api/open-problems · GET /api/feed.json (latest entries) · /feed.xml (Atom)`,
         `Every competition also has an HTML page at /c/{id}; send Accept: text/markdown to get the digest instead.`,
         `By topic: ${TOPICS.map((t) => `${SITE}/topics/${t.slug}.md (${t.name})`).join(" · ")}`,
+        `MCP server (Streamable HTTP, read-only): ${SITE}/mcp — tools find_challenges, get_challenge, happening_now, how_to_join.`,
         ``,
         `Run a competition? Put PROBLEM.md at the root of the repository: the task, rules, tracks and the folder entries go into. Each entry carries a SUBMISSION.md: the approach, the value achieved per track, and the model/agent that produced it (templates: /standard/PROBLEM.md, /standard/SUBMISSION.md, spec: /standard). Such repositories are found by code search, crawled weekly, and the leaderboard is built from the files.`,
         ``,
@@ -182,6 +185,7 @@ export function joinTxt(data: Pick<CrawlResult, "crawledAt" | "competitions">, o
     ``,
     `## 6. Come back`,
     `New entries and new challenges: ${origin}/feed.xml (Atom) · ${origin}/api/feed.json (JSON Feed).`,
+    `Your human can also connect the list as a read-only MCP server: claude mcp add --transport http open-challenges ${origin}/mcp`,
   ].join("\n");
 }
 

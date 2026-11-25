@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { agentEvent, classifyAgent, markdownFor, pageType } from "../src/agentTraffic.js";
+import { INTERNAL_UA, agentEvent, classifyAgent, markdownFor, pageType } from "../src/agentTraffic.js";
 
 test("user agents are classified, user-initiated fetchers before their vendor's crawler", () => {
   const cases: [string, string, string][] = [
@@ -29,6 +29,10 @@ test("browsers are not counted as agents; agent events carry no IP and only shor
   assert.equal(pageType("/c/x"), "competition");
   assert.equal(pageType("/topics/math"), "topic");
   assert.equal(pageType("/feed.xml"), "feed");
+  // MCP calls count like any agent fetch; the MCP server's own reads of the static files do not count again
+  assert.equal(pageType("/mcp"), "mcp");
+  assert.equal(agentEvent("/mcp", "claude-code/2.1.0", null)!.events[0].params.page_type, "mcp");
+  assert.equal(agentEvent("/api/index.json", INTERNAL_UA, null), null);
 });
 
 test("Markdown is served only for pages with a Markdown twin, and only when asked for", () => {

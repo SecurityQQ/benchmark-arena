@@ -49,6 +49,7 @@ export function classifyAgent(ua: string | null): { agent: string; kind: AgentKi
 export function pageType(path: string): string {
   if (path === "/join.txt") return "join";
   if (path === "/llms.txt") return "llms";
+  if (path === "/mcp" || path === "/api/mcp") return "mcp";
   if (path === "/feed.xml" || /^\/api\/feed(\.json)?$/.test(path)) return "feed";
   if (/^\/api\/competitions\/[^/]+\.md$/.test(path)) return "digest";
   if (path.startsWith("/api/")) return "api";
@@ -68,9 +69,13 @@ function fnv(s: string): number {
   return h;
 }
 
+// The User-Agent of the MCP server's own reads of the static files (src/mcp.ts): the /mcp call was counted already
+export const INTERNAL_UA = "openchallengelist-mcp";
+
 // GA4 Measurement Protocol body for a non-browser fetch, or null. People in browsers are counted by the page's
 // own analytics, and the app's own /api/summary fetch must not count as an agent.
 export function agentEvent(path: string, ua: string | null, referer: string | null, now = new Date()) {
+  if (ua === INTERNAL_UA) return null;
   const { agent, kind } = classifyAgent(ua);
   if (kind === "browser") return null;
   const day = now.toISOString().slice(0, 10);

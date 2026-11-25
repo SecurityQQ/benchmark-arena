@@ -205,6 +205,12 @@ test("dev server enforces publication, safe paths, methods, and security headers
   assert.match(md.body, /^# Test/);
   assert.match((await get("/c/Valid_ID-1")).body, /<main id="app">[\s\S]*<h1>Test<\/h1>/);
   assert.equal((await get("/c/missing")).status, 404);
+  // /mcp as on Vercel, reading the dev server's own files
+  const mcp = await fetch(`http://127.0.0.1:${port}/mcp`, { method: "POST", headers: { "content-type": "application/json" },
+    body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "tools/call", params: { name: "get_challenge", arguments: { id: "Valid_ID-1" } } }) });
+  assert.equal(mcp.status, 200);
+  assert.match((await mcp.json()).result.content[0].text, /^# Test/);
+  assert.equal((await get("/mcp")).status, 405);
   for (const path of ["/", "/c/Valid_ID-1", "/app.js", "/favicon-32.png", "/api/summary", "/llms.txt", "/join.txt", "/feed.xml", "/api/feed", "/api/index"]) {
     const response = await get(path);
     assert.equal(response.status, 200, path);
@@ -286,8 +292,8 @@ test("agents get join.txt, feeds and a small index", (t) => {
   const atom = pub("feed.xml");
   assert.ok(atom.includes("ann &amp; co") && !atom.includes("ann & co"));
   const index = JSON.parse(pub("api/index.json"));
-  assert.deepEqual(index.competitions[0], { id: "live", name: "Test", tagline: "Test", status: "active", domain: "test", compute: "cpu", tracks: 2, openTracks: 1,
-    entries: 2, entriesLast30d: 2, participants: 2, lastEntry: "2026-09-17", agents: [], url: "https://example.com", page: "/c/live", digest: "/api/competitions/live.md" });
+  assert.deepEqual(index.competitions[0], { id: "live", name: "Test", tagline: "Test", status: "active", domain: "test", tags: [], compute: "cpu", tracks: 2, openTracks: 1,
+    entries: 2, entriesLast30d: 2, entriesLast90d: 2, participants: 2, lastEntry: "2026-09-17", agents: [], url: "https://example.com", page: "/c/live", digest: "/api/competitions/live.md" });
   assert.match(INDEXNOW_KEY, /^[0-9a-f]{32}$/);
   assert.equal(pub(`${INDEXNOW_KEY}.txt`), INDEXNOW_KEY);
   const open = JSON.parse(pub("api/open-problems.json"));

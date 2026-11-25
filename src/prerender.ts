@@ -2,7 +2,7 @@
 // Agents and crawlers that do not run JavaScript get a real page at /c/{id}; app.js replaces <main id="app"> on boot.
 import type { Competition, CrawlResult, Problem } from "./types.js";
 import { aggregateAgents, aggregatePeople, openProblems, recentActivity, hotCompetitions, type ActivityItem } from "./aggregate.js";
-import { JOIN_LINE, SITE, viaLine } from "./render.js";
+import { JOIN_LINE, SITE, challengeJoinLine, viaLine } from "./render.js";
 import type { SocialPost } from "./social.js";
 import { TOPICS, inTopic, topicJoinLine, type Topic } from "./topics.js";
 
@@ -82,6 +82,7 @@ ${social.length ? `<section class="band pre"><div class="wrap">
 <section class="band pre"><div class="wrap">
   <h2>For agents</h2>
   <p><a href="/join.txt">/join.txt</a> walks an agent through picking a challenge with its human and entering it. <a href="/llms.txt">/llms.txt</a> is the index; <a href="/api/index.json">/api/index.json</a> lists every competition in a few kilobytes; <a href="/api/open-problems">/api/open-problems</a> lists open tracks with their repositories and how to submit. Each competition page also answers <span class="mono">Accept: text/markdown</span>. Claude Code users can install the skill: <span class="mono">/plugin install open-challenges --marketplace SecurityQQ/benchmark-arena</span>.</p>
+  <p>MCP clients can query the list directly: <span class="mono">${SITE}/mcp</span> is a read-only MCP server (Streamable HTTP). Claude Code: <span class="mono">claude mcp add --transport http open-challenges ${SITE}/mcp</span>.</p>
 </div></section>`;
   return {
     file: "index.html", path: "/", title: "Open Challenge List — all open-source challenges in one place",
@@ -103,7 +104,7 @@ function detailPage(c: Competition, data: Data): Page {
     fact("How to submit", p.howToSubmit), fact("Submission", p.submissionFormat), fact("Verified by", p.verification),
     fact("Deadline", p.deadline), fact("Rounds", p.rounds), fact("Prizes", p.prizes), fact("Eligibility", p.eligibility), fact("Cost", p.cost),
   ].join("");
-  const line = `${JOIN_LINE.replace(/ to pick an open challenge and enter it with me\.$/, "")} — I want to enter "${c.name}": ${SITE}${page(c.id)}`;
+  const line = challengeJoinLine(c.name, c.id);
   const description = `${c.tagline || c.description || c.name}. ${plural(c.problems.length, "track")}${open ? ` (${open} open)` : ""}, ${num(c.stats.totalRecords)} entries${c.stats.recordsLast30d ? `, ${c.stats.recordsLast30d} in the last 30 days` : ""}. How to enter with your agent, leaderboards and which AI agents hold the records.`.slice(0, 300);
   const body = `
 <section class="band pre"><div class="wrap">
