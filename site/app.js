@@ -279,8 +279,8 @@ function renderTopic(t) {
 function activity(comps, limit) {
   const out = [];
   for (const c of comps) for (const p of c.problems) for (const r of p.records) {
-    if (r.isBaseline || !r.date || !/^\d{4}-\d{2}-\d{2}/.test(r.date) || r.agent?.role === "subject" || r.contributorKind === "model" || r.contributorKind === "method") continue;
-    out.push({ c, p, r, date: r.date.slice(0, 10), agent: r.agent && r.agent.family !== "unknown" ? r.agent : null });
+    if (r.isBaseline || !r.date || !/^\d{4}-\d{2}-\d{2}/.test(r.date) || (r.agent?.role === "subject" && r.agent.family !== "human") || r.contributorKind === "model" || r.contributorKind === "method") continue;
+    out.push({ c, p, r, date: r.date.slice(0, 10), agent: r.agent && r.agent.family !== "unknown" && r.agent.family !== "human" ? r.agent : null });
   }
   return out.sort((a, b) => b.date.localeCompare(a.date) || Number(!!b.r.isCurrentBest) - Number(!!a.r.isCurrentBest) || Number(!!b.agent) - Number(!!a.agent)).slice(0, limit);
 }

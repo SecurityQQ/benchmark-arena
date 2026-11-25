@@ -96,6 +96,8 @@ export function postprocess(input: unknown, source: Source, previous?: Competiti
           || (!!r.contributor && !!r.agent.model && r.contributor.toLowerCase().replace(/[^a-z0-9]/g, "") === r.agent.model.toLowerCase().replace(/[^a-z0-9]/g, ""));
         r.agent.role = contributorIsModel && !authorEvidence ? "subject" : "author";
       }
+      // "subject" is the AI model being benchmarked; a person (family human) never is, whatever the extraction said
+      if (r.agent?.family === "human" && r.agent.role === "subject") r.agent.role = "author";
     }
     // Open problem: nobody has beaten the baseline yet (graded tracks: nobody has reached the pass mark)
     const nonBaseline = recs.filter((r) => !r.isBaseline);

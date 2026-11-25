@@ -38,13 +38,16 @@ export interface OpenProblem {
 const isContested = (p: Competition["problems"][number]) =>
   p.contested ?? new Set(p.records.filter((r) => !r.isBaseline).map((r) => (r.contributor ?? "").trim().toLowerCase()).filter(Boolean)).size >= 2;
 
+// A row whose contributor is the AI model being benchmarked. People are never that, whatever role the extraction gave them.
+export const isSubject = (r: { agent?: { role?: string; family?: string } }) => r.agent?.role === "subject" && r.agent.family !== "human";
+
 export function aggregatePeople(comps: Competition[]): PersonAgg[] {
   const m = new Map<string, PersonAgg>();
   for (const c of comps) {
     for (const p of c.problems) for (const r of p.records) {
       if (!r.contributor || r.isBaseline) continue;
       // skip rows where the "contributor" is itself a model being benchmarked (those belong in /agents as subjects)
-      if (r.agent?.role === "subject") continue;
+      if (isSubject(r)) continue;
       if (r.contributorKind === "model" || r.contributorKind === "method") continue;
       const key = r.contributor.toLowerCase();
       const cur = m.get(key) ?? { name: r.contributor, url: r.contributorUrl, records: 0, currentBests: 0, uncontestedBests: 0, competitions: [], agents: {} };
@@ -115,13 +118,13 @@ export interface ActivityItem {
 export function recentActivity(comps: Competition[], limit = 50): ActivityItem[] {
   const out: ActivityItem[] = [];
   for (const c of comps) for (const p of c.problems) for (const r of p.records) {
-    if (r.isBaseline || !r.date || !/^\d{4}-\d{2}-\d{2}/.test(r.date) || r.agent?.role === "subject") continue;
+    if (r.isBaseline || !r.date || !/^\d{4}-\d{2}-\d{2}/.test(r.date) || isSubject(r)) continue;
     if (r.contributorKind === "model" || r.contributorKind === "method") continue;
     out.push({
       competitionId: c.id, competitionName: c.name, problemId: p.id, problemName: p.name,
       date: r.date.slice(0, 10), value: r.value, metricName: p.metricName, metricUnit: p.metricUnit,
       contributor: r.contributor, contributorUrl: r.contributorUrl, isCurrentBest: !!r.isCurrentBest,
-      agent: r.agent && r.agent.family !== "unknown" ? { family: r.agent.family, model: r.agent.model, tool: r.agent.tool } : undefined,
+      agent: r.agent && r.agent.family !== "unknown" && r.agent.family !== "human" ? { family: r.agent.family, model: r.agent.model, tool: r.agent.tool } : undefined, // no "with Human"
       url: r.submissionUrls?.find((u) => /^https:\/\//.test(u)),
     });
   }
