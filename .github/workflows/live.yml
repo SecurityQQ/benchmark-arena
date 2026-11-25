@@ -4,20 +4,52 @@ name: Live refresh (official results APIs, changed LLM boards)
 # three hours with no discovery and no LLM calls. LLM-extracted boards are re-extracted only when a file the extractor read (README,
 # leaderboard files) changed since their last extraction, at most LIVE_RECRAWL_MAX (default 4) per run; a code-only push never
 # reaches the LLM. So new entries reach the site within hours instead of at the weekly crawl.
+#
+# GitHub starts this repo's scheduled runs hours late or drops them (the weekly crawl fires 8–10 hours after its slot; the first
+# three-hourly slots never fired), so the schedule asks every 30 minutes and a refresh goes ahead only when none succeeded or
+# started in the last 2 h 40 min. Whichever scheduled runs do arrive keep the cadence near three hours.
 on:
   schedule:
-    - cron: "41 */3 * * *"
+    - cron: "11,41 * * * *"
   workflow_dispatch:
-
-concurrency:
-  group: crawl
-  cancel-in-progress: false
 
 permissions:
   contents: write
+  actions: read
 
 jobs:
+  due:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      run: ${{ steps.check.outputs.run }}
+    steps:
+      - id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EVENT: ${{ github.event_name }}
+          SELF: ${{ github.run_id }}
+        run: |
+          if [ "$EVENT" != "schedule" ]; then echo "run=true" >> "$GITHUB_OUTPUT"; exit 0; fi
+          # the newest other run whose refresh job succeeded, or that is still queued or running (a scheduled check that
+          # found nothing due also ends "success", with its refresh job skipped, so it does not count)
+          last=""
+          for id in $(gh run list -R "$GITHUB_REPOSITORY" --workflow live.yml -L 30 --json databaseId,status,conclusion \
+              -q ".[] | select(.databaseId != $SELF and (.status != \"completed\" or .conclusion == \"success\")) | .databaseId"); do
+            last=$(gh run view "$id" -R "$GITHUB_REPOSITORY" --json status,jobs,createdAt \
+              -q 'if .status != "completed" or any(.jobs[]; .name == "live" and .conclusion == "success") then .createdAt else "" end')
+            [ -n "$last" ] && break
+          done
+          age=$(( $(date -u +%s) - $(date -u -d "${last:-1970-01-01T00:00:00Z}" +%s) ))
+          echo "last refresh started ${last:-never} (${age}s ago)"
+          if [ "$age" -ge 9600 ]; then echo "run=true" >> "$GITHUB_OUTPUT"; else echo "run=false" >> "$GITHUB_OUTPUT"; fi
+
   live:
+    needs: due
+    if: needs.due.outputs.run == 'true'
+    concurrency:
+      group: crawl
+      cancel-in-progress: false
     runs-on: ubuntu-latest
     # re-extractions stop starting after 30 minutes; one in flight may take up to 2 × the 10-minute LLM timeout
     timeout-minutes: 60
