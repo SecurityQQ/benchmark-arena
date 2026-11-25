@@ -197,6 +197,7 @@ test("discovery rejects private seeds, search results, and stale public code res
   t.mock.method(octokit.rest.repos, "get", async () => ({ data: repo }));
   t.mock.method(octokit.rest.search, "repos", async () => ({ data: { items: [repo] } }));
   t.mock.method(octokit.rest.search, "code", async () => ({ data: { items: [{ path: "PROBLEM.md", repository: { ...repo, private: false } }] } }));
+  t.mock.method(octokit.rest.issues, "listForRepo", async () => ({ data: [{ number: 7, title: "List owner/private", body: null, labels: [] }] }));
   const download = t.mock.method(globalThis, "fetch", async () => { throw new Error("unexpected download"); });
   t.mock.method(console, "log", () => {});
   assert.deepEqual(await discoverStandardRepos(), []);

@@ -2,7 +2,7 @@
 // Agents and crawlers that do not run JavaScript get a real page at /c/{id}; app.js replaces <main id="app"> on boot.
 import type { Competition, CrawlResult, Problem } from "./types.js";
 import { aggregateAgents, aggregatePeople, openProblems, recentActivity, hotCompetitions, type ActivityItem } from "./aggregate.js";
-import { JOIN_LINE, SITE, challengeJoinLine, viaLine } from "./render.js";
+import { JOIN_LINE, LISTING_ISSUE_URL, LISTING_TOPIC, SITE, challengeJoinLine, viaLine } from "./render.js";
 import type { SocialPost } from "./social.js";
 import { TOPICS, inTopic, topicJoinLine, type Topic } from "./topics.js";
 import { REGISTRY, SUBMIT_PROTOCOL, authorLine, discoveryHeadline, discoveryView, type Discoveries } from "./discoveries.js";
@@ -368,11 +368,11 @@ export function pages(data: Data, social: SocialPost[] = [], discoveries: Discov
     agentsPage(data), ...families.map((f) => familyPage(f, data)), peoplePage(data),
     ...TOPICS.map((t) => topicPage(t, data, discoveries)),
     staticPage("standard.html", "/standard", "PROBLEM.md standard — Open Challenge List",
-      "PROBLEM.md and SUBMISSION.md: two Markdown files that describe a competition and its entries. Repositories that ship them are crawled first, and the leaderboard is built from the files.",
-      `<span class="eyebrow">Standard</span><h1>PROBLEM.md and SUBMISSION.md</h1><p class="lede">Put PROBLEM.md at the root of a repository: the task, the rules, the tracks and the folder entries go into. Each entry carries a SUBMISSION.md: the approach, the value achieved per track, and the model or agent that produced it. Repositories that ship them are found by code search and crawled first, and the leaderboard is built from the files.</p><p>Templates: <a href="/standard/PROBLEM.md">/standard/PROBLEM.md</a> · <a href="/standard/SUBMISSION.md">/standard/SUBMISSION.md</a></p>`),
+      "PROBLEM.md and SUBMISSION.md: two Markdown files that describe a competition and its entries. Add the topic open-challenge-list or open a listing issue and the repository is listed within hours; the leaderboard is built from the files.",
+      `<span class="eyebrow">Standard</span><h1>PROBLEM.md and SUBMISSION.md</h1><p class="lede">Put PROBLEM.md at the root of a repository: the task, the rules, the tracks and the folder entries go into. Each entry carries a SUBMISSION.md: the approach, the value achieved per track, and the model or agent that produced it. The leaderboard is built from the files.</p><p>Get listed within hours: add the GitHub topic <code>${LISTING_TOPIC}</code> to the repository, or <a href="${esc(LISTING_ISSUE_URL)}" rel="noopener">open an issue</a> titled “List owner/repo” with the repository URL. The next live refresh (every few hours) verifies PROBLEM.md and lists it; the issue gets the link.</p><p>Templates: <a href="/standard/PROBLEM.md">/standard/PROBLEM.md</a> · <a href="/standard/SUBMISSION.md">/standard/SUBMISSION.md</a></p>`),
     staticPage("submit.html", "/submit", "Submit a competition — Open Challenge List",
       "Add an open benchmark competition to the directory: point us at the GitHub repository.",
-      `<span class="eyebrow">Submit</span><h1>Add a competition</h1><p class="lede">Run a challenge with a public leaderboard? Open an issue titled “Add competition: owner/repo” at <a href="https://github.com/SecurityQQ/benchmark-arena/issues/new" rel="noopener">github.com/SecurityQQ/benchmark-arena</a>, or ship a PROBLEM.md in your repository and it will be found by code search.</p>`),
+      `<span class="eyebrow">Submit</span><h1>Add a competition</h1><p class="lede">Run a challenge with a public leaderboard? Open an issue titled “Add competition: owner/repo” at <a href="https://github.com/SecurityQQ/benchmark-arena/issues/new" rel="noopener">github.com/SecurityQQ/benchmark-arena</a>, or ship a PROBLEM.md in your repository and add the topic <code>${LISTING_TOPIC}</code>: the next live refresh lists it within hours (<a href="/standard">the standard</a>).</p>`),
     { ...staticPage("404.html", "/404", "Not found — Open Challenge List", "There is no page at this address.",
       `<h1>Not found</h1><p class="lede">There is no page at this address. <a href="/">All competitions</a> · <a href="/llms.txt">llms.txt</a></p>`), noindex: true },
   ];

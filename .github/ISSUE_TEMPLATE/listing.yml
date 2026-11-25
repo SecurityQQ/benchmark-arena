@@ -1,0 +1,19 @@
+name: List my challenge
+description: Your repository ships a PROBLEM.md (spec problem.md/v1). The next live refresh verifies it, lists it and answers here with the link.
+title: "List "
+labels: [listing]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The repository needs a `PROBLEM.md` at the root of its default branch whose front matter starts with `spec: problem.md/v1` ([template and rules](https://openchallengelist.com/standard)). A live refresh runs every few hours: it checks the file, lists the challenge, comments here with the page and closes this issue. If the check fails, the reason is posted here once and the issue stays open until the file passes.
+
+        No issue needed if you prefer: adding the GitHub topic `open-challenge-list` to the repository works the same way.
+  - type: input
+    id: repository
+    attributes:
+      label: Repository URL
+      description: The public GitHub repository that holds PROBLEM.md. One per issue is easiest; up to five URLs are read.
+      placeholder: https://github.com/owner/repo
+    validations:
+      required: true

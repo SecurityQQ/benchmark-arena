@@ -1,10 +1,10 @@
 // Discover competition repos via multiple sources
 
-import { getOctokit, isPublicRepo } from "./github.js";
+import { boundedFetch, getOctokit, isPublicRepo } from "./github.js";
 import type { DiscoveredRepo } from "./types.js";
-import { fetchRaw } from "./github.js";
 import { isStandardDoc, SPEC_MARKERS } from "./standard.js";
 import { parseIngestedDoc } from "./fetcher.js";
+import { LISTING_TOPIC, listingRequests } from "./listing.js";
 import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 
@@ -94,30 +94,78 @@ const SEED_REPOS = [
   { owner: "Kaihui-AMD", name: "modelbot-cli" },
   { owner: "keyu-wang-2002", name: "DepthDash" },          // DepthDash: modded-NanoGPT-style speedrun on residual-connection design at depth (created 2026-11-15)
   { owner: "basicv8vc", name: "modded-supermimic" },       // Unitree G1 motion-tracking speedrun on 1× Colab G4: training wall time to a 40-clip return target, records by PR           // ROCm llama.cpp challenge (rocm-challenge.amddev.ai): patches evaluated on AMD's GPUs, open to 2026-12-31
+  { owner: "rtl-ai", name: "silicon-arena" },              // SiliconArena: agent-driven RTL/ASIC research challenge for AI training/inference chips; adopted problem.md/v1 on 2026-11-25; ranked tracks upcoming
 ];
 
-/** Repos anywhere on GitHub that ship PROBLEM.md / SUBMISSION.md with our front matter. Needs an authenticated token (code search). */
-export async function discoverStandardRepos(): Promise<DiscoveredRepo[]> {
+// A raw file on a branch, or null when GitHub says it is not there. Any other failure throws: it may pass by the next run.
+export async function rawFile(owner: string, name: string, path: string, branch: string): Promise<string | null> {
+  const res = await boundedFetch(`https://raw.githubusercontent.com/${owner}/${name}/${branch}/${path}`);
+  if (res.status === 404) return null;
+  if (!res.ok) throw new Error("GitHub raw file request failed");
+  return res.text();
+}
+
+export type StandardCheck = { ok: true; repo: DiscoveredRepo } | { ok: false; reason: string };
+
+/** Verify before it costs anything: public, not a fork, and the PROBLEM.md on the default branch parses and carries our marker.
+ *  A reason only when GitHub answered (it goes back to the organizer); a 5xx or a dropped connection throws, as in assertPublicRepo. */
+export async function verifyStandardRepo(owner: string, name: string, path = "PROBLEM.md", raw = rawFile): Promise<StandardCheck> {
+  let full;
+  try { ({ data: full } = await getOctokit().rest.repos.get({ owner, repo: name })); }
+  catch (e) { if ([404, 451].includes((e as { status?: number }).status ?? 0)) return { ok: false, reason: `no public repository at github.com/${owner}/${name}` }; throw e; }
+  if (!isPublicRepo(full)) return { ok: false, reason: "the repository is not public" };
+  if (full.fork) return { ok: false, reason: "the repository is a fork; list the original repository" };
+  const branch = /^[\w./-]{1,100}$/.test(full.default_branch) ? `\`${full.default_branch}\`` : "the default branch";
+  // the reasons are posted to the organizer: fixed wording, never text from their file
+  const text = await raw(full.owner.login, full.name, path, full.default_branch);
+  if (text === null) return { ok: false, reason: `no ${path} with \`spec: ${SPEC_MARKERS.problem}\` at the root of ${branch}` };
+  let doc;
+  try { doc = parseIngestedDoc(path, text); } catch { return { ok: false, reason: `${path} is over the parser limits (64 KB, 500 front-matter lines)` }; }
+  if (doc.errors.some((e) => e.startsWith("invalid YAML") || e.includes("not a mapping"))) return { ok: false, reason: `the front matter of ${path} on ${branch} is not valid YAML` };
+  if (!isStandardDoc(doc)) return { ok: false, reason: `${path} on ${branch} does not start with front matter carrying \`spec: ${SPEC_MARKERS.problem}\`` };
+  return { ok: true, repo: { owner: full.owner.login, name: full.name, url: full.html_url, description: full.description ?? undefined, stars: full.stargazers_count, topics: full.topics ?? [], defaultBranch: full.default_branch, pushedAt: full.pushed_at ?? undefined, priority: true } };
+}
+
+/** Repos anywhere on GitHub that ship PROBLEM.md with our front matter, every one verified. Code search alone finds nothing new
+ *  (it does not index new or unstarred repositories), so candidates also come from the open-challenge-list topic, listing issues
+ *  on this repository and, with `seeds`, the seed list (the priority lane; the full crawl looks seeds up on its own).
+ *  `listed`: repos already on the list, not looked at again (NEW_ONLY: the live refresh follows them). */
+export async function discoverStandardRepos(listed: { owner: string; name: string }[] = [], { seeds = false, raw = rawFile } = {}): Promise<DiscoveredRepo[]> {
   const octokit = getOctokit();
+  const skip = new Set(listed.map((r) => `${r.owner}/${r.name}`.toLowerCase()));
+  const candidates = new Map<string, { owner: string; name: string; path?: string; from: string }>();
+  const add = (owner: string, name: string, from: string, path?: string) => {
+    const key = `${owner}/${name}`.toLowerCase();
+    if (!skip.has(key) && !candidates.has(key)) candidates.set(key, { owner, name, from, path });
+  };
+  // 1. code search: established repos (the problem file is the anchor; entries are found through its submit.path)
+  try {
+    const { data } = await octokit.rest.search.code({ q: `"${SPEC_MARKERS.problem}" filename:PROBLEM.md`, per_page: 100 });
+    for (const item of data.items) if (!item.repository.fork && isPublicRepo(item.repository)) add(item.repository.owner.login, item.repository.name, "code search", item.path);
+    console.log(`    standard code search: ${data.items.length} files`);
+  } catch { console.log("    standard search failed"); }
+  // 2. the topic: repository search indexes a new repository's topics within minutes
+  try {
+    const { data } = await octokit.rest.search.repos({ q: `topic:${LISTING_TOPIC}`, sort: "updated", order: "desc", per_page: 50 });
+    for (const r of data.items) if (r.owner && !r.fork && isPublicRepo(r)) add(r.owner.login, r.name, `topic ${LISTING_TOPIC}`);
+    console.log(`    topic ${LISTING_TOPIC}: ${data.items.length} repos`);
+  } catch { console.log("    standard topic search failed"); }
+  // 3. listing issues on this repository (only owner/name pairs come out of the issue text)
+  try {
+    const reqs = await listingRequests();
+    for (const q of reqs) for (const r of q.repos) add(r.owner, r.name, `issue #${q.issue}`);
+    console.log(`    listing issues: ${reqs.length}`);
+  } catch { console.log("    listing issues could not be read"); }
+  // 4. seeds not on the list yet: picked by hand, listed within hours once they adopt the standard
+  if (seeds) for (const s of [...SEED_REPOS, ...communitySeeds()]) add(s.owner, s.name, "seed");
+
   const found = new Map<string, DiscoveredRepo>();
-  // the problem file is the anchor: entries (SUBMISSION.md) are found through its submit.path
-  for (const q of [`"${SPEC_MARKERS.problem}" filename:PROBLEM.md`]) {
+  for (const c of candidates.values()) {
     try {
-      const { data } = await octokit.rest.search.code({ q, per_page: 100 });
-      for (const item of data.items) {
-        const r = item.repository; const key = r.full_name;
-        if (found.has(key) || r.fork || !isPublicRepo(r)) continue;
-        try {
-          const { data: full } = await octokit.rest.repos.get({ owner: r.owner.login, repo: r.name });
-          if (!isPublicRepo(full)) continue;
-          // verify before it costs anything: the file must parse and carry our marker
-          const doc = parseIngestedDoc(item.path, await fetchRaw(full.owner.login, full.name, item.path, full.default_branch));
-          if (!isStandardDoc(doc)) continue;
-          found.set(key, { owner: full.owner.login, name: full.name, url: full.html_url, description: full.description ?? undefined, stars: full.stargazers_count, topics: full.topics ?? [], defaultBranch: full.default_branch, pushedAt: full.pushed_at ?? undefined, priority: true });
-        } catch { /* gone */ }
-      }
-      console.log(`    standard search "${q.slice(0, 40)}…": ${data.items.length} files`);
-    } catch { console.log("    standard search failed"); }
+      const v = await verifyStandardRepo(c.owner, c.name, c.path, raw);
+      if (v.ok) { found.set(`${v.repo.owner}/${v.repo.name}`.toLowerCase(), v.repo); console.log(`    ✓ ${v.repo.owner}/${v.repo.name} (${c.from})`); }
+      else if (c.from !== "seed") console.log(`    ${c.owner}/${c.name} (${c.from}): ${v.reason}`);
+    } catch { console.log(`    ${c.owner}/${c.name} (${c.from}): GitHub did not answer, retried on the next run`); }
   }
   return [...found.values()];
 }

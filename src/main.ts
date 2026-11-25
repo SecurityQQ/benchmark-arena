@@ -62,6 +62,13 @@ export function mergeCompetitions(previous: Competition[], current: Competition[
   return result;
 }
 
+// Priority lane: its own boards merged into the saved data as it is on disk, so every other board stays byte for byte as the
+// last run wrote it. Loading them through postprocess again would reorder the structured boards' participants (GPU MODE alone:
+// ~16K lines of diff) and stamp every lastUpdated; dating and visibility checks are the live refresh's job for those boards.
+export async function mergeLane(saved: Competition[], produced: Competition[], blocked: Set<string>, dates: CommitDates, assertPublic = assertPublicRepo): Promise<Competition[]> {
+  return mergeCompetitions(saved, await publicCompetitions(await datePinned(produced, dates), blocked, assertPublic), blocked);
+}
+
 // Repos with an official machine-readable results store: build deterministically, never via LLM
 const STRUCTURED: Record<string, () => Promise<LLMCompetition>> = {
   "leanprover/lean-eval-submissions": buildLeanEval,
@@ -326,15 +333,23 @@ async function main() {
 
   // Step 1: Discovery
   if (mode === "priority") {
-    // Fast lane: only repos that ship PROBLEM.md / SUBMISSION.md. Manual only (the weekly full crawl covers these repos); results are merged into the existing data.
+    // Fast lane: only repos that ship PROBLEM.md / SUBMISSION.md (code search, the open-challenge-list topic, listing issues,
+    // seeds), merged into the existing data. NEW_ONLY=1 (every live refresh): only repos not on the list yet, at most
+    // PRIORITY_MAX; listed boards are the live re-extraction's job, so no board is re-read here and nothing else is rewritten.
+    // Nothing new: nothing is written at all.
     console.log("[1] Priority lane: discovering repos that follow the standard...\n");
     const { discoverStandardRepos } = await import("./discovery.js");
     const known: DiscoveredRepo[] = existsSync(DISCOVERED_PATH) ? JSON.parse(readFileSync(DISCOVERED_PATH, "utf-8")) : [];
-    const already = new Set(loadPrevious().filter((c) => c.standard).map((c) => repoKey(c.repo!)));
-    const found = await discoverStandardRepos();
+    const listed = loadPrevious();
+    const newOnly = process.env.NEW_ONLY === "1";
+    const already = new Set(listed.filter((c) => c.standard).map((c) => repoKey(c.repo!)));
+    const found = await discoverStandardRepos(newOnly ? listed.flatMap((c) => (c.repo ? [c.repo] : [])) : [], { seeds: true });
     const byKey = new Map(found.map((r) => [`${r.owner}/${r.name}`.toLowerCase(), r]));
-    for (const k of known) if (already.has(`${k.owner}/${k.name}`.toLowerCase()) && !byKey.has(`${k.owner}/${k.name}`.toLowerCase())) byKey.set(`${k.owner}/${k.name}`.toLowerCase(), { ...k, priority: true });
-    repos = [...byKey.values()];
+    if (!newOnly) for (const k of known) if (already.has(`${k.owner}/${k.name}`.toLowerCase()) && !byKey.has(`${k.owner}/${k.name}`.toLowerCase())) byKey.set(`${k.owner}/${k.name}`.toLowerCase(), { ...k, priority: true });
+    // never-read repos first, so one that keeps coming back "not a competition" cannot hold a slot under the cap
+    const cap = Number(process.env.PRIORITY_MAX ?? 3), seen = loadState();
+    repos = [...byKey.values()].sort((a, b) => Number(!!seen[repoKey(a)]) - Number(!!seen[repoKey(b)])).slice(0, newOnly && Number.isInteger(cap) && cap >= 0 ? cap : undefined);
+    if (!repos.length) { console.log("  nothing in the priority lane, nothing written"); return; }
     // remember them for the regular crawl too
     const merged = new Map(known.map((r) => [`${r.owner}/${r.name}`.toLowerCase(), r]));
     for (const r of repos) merged.set(`${r.owner}/${r.name}`.toLowerCase(), { ...(merged.get(`${r.owner}/${r.name}`.toLowerCase()) ?? r), priority: true });
@@ -453,6 +468,8 @@ async function main() {
       errors.push({ repo: key, error: "Repository processing failed" });
     }
   }
+  // the lane read nothing new: the saved data stays byte for byte as it was (no re-merge, no visibility checks)
+  if (mode === "priority" && !competitions.length && !stateUpdates.size && !blocked.size) { console.log("  nothing new from the priority lane, nothing written"); return; }
 
   // Sites: built from their public APIs on every crawl (not in the priority lane, which is about PROBLEM.md repos); ONLY matches their id
   const sites = mode === "priority" ? [] : Object.keys(SITES).filter((id) => !only || onlyList.some((o) => id.includes(o)));
@@ -489,10 +506,11 @@ async function main() {
   // Step 3: Save results
   console.log(`\n[3] Saving results...`);
   let finalComps = competitions;
-  if ((only || mode === "priority") && existsSync(RESULT_PATH)) {
-    finalComps = mergeCompetitions(prevComps, competitions, blocked);
+  if (mode === "priority" && existsSync(RESULT_PATH)) finalComps = await mergeLane((JSON.parse(readFileSync(RESULT_PATH, "utf-8")) as CrawlResult).competitions, competitions, blocked, dates);
+  else {
+    if (only && existsSync(RESULT_PATH)) finalComps = mergeCompetitions(prevComps, competitions, blocked);
+    finalComps = await publicCompetitions(await datePinned(finalComps, dates), blocked);
   }
-  finalComps = await publicCompetitions(await datePinned(finalComps, dates), blocked);
   assertUniqueCompetitions(finalComps);
   for (const key of blocked) {
     const error = errors.find((e) => e.repo.toLowerCase() === key);

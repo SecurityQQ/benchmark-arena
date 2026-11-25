@@ -1,7 +1,8 @@
 name: Crawl priority lane (PROBLEM.md / SUBMISSION.md)
 
-# Repositories that ship PROBLEM.md and SUBMISSION.md are found by code search. The weekly full crawl
-# (crawl.yml) already includes them and processes them first; this workflow is a manual fast lane only.
+# Repositories that ship PROBLEM.md and SUBMISSION.md, found by code search, the open-challenge-list topic, listing issues and the
+# seeds. Every live refresh (live.yml) already runs this lane for repositories not on the list yet, and the weekly full crawl
+# (crawl.yml) processes them first; this manual run also re-reads the listed ones.
 on:
   workflow_dispatch:
 
@@ -11,6 +12,7 @@ concurrency:
 
 permissions:
   contents: write
+  issues: read   # listing issues name repositories that ship PROBLEM.md
 
 jobs:
   priority:

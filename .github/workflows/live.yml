@@ -7,6 +7,10 @@ name: Live refresh (official results APIs, changed LLM boards)
 # weekly crawl. The same run re-reads Palomar's registry for "Fresh discoveries" (data/discoveries.json); that file is rewritten
 # only when what it shows changed, and a failed read leaves it as it was.
 #
+# It also runs the PROBLEM.md priority lane for repositories not on the list yet (the open-challenge-list topic, listing issues,
+# code search, seeds), so an organizer who adopts the standard is listed within hours; after the push, listing issues get the
+# link (or, once, the reason the repository was not listed).
+#
 # GitHub starts this repo's scheduled runs hours late or drops them (the weekly crawl fires 8–10 hours after its slot; the first
 # three-hourly slots never fired), so the schedule asks every 30 minutes and a refresh goes ahead only when none succeeded or
 # started in the last 2 h 40 min. Whichever scheduled runs do arrive keep the cadence near three hours.
@@ -52,9 +56,13 @@ jobs:
     concurrency:
       group: crawl
       cancel-in-progress: false
+    permissions:
+      contents: write
+      issues: write   # reads listing issues, answers and closes them
     runs-on: ubuntu-latest
-    # re-extractions stop starting after 30 minutes; one in flight may take up to 2 × the 10-minute LLM timeout
-    timeout-minutes: 60
+    # re-extractions stop starting after 30 minutes; one in flight may take up to 2 × the 10-minute LLM timeout; then the
+    # priority lane (at most 30 minutes) and the listing answers (waiting at most 8 minutes for the deploy)
+    timeout-minutes: 100
     steps:
       # the branch head when the job starts, not the commit it was queued on: another data writer in the
       # "crawl" concurrency group may have pushed in between, and its data must be the base for ours
@@ -73,6 +81,18 @@ jobs:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: npx tsx src/main.ts live
 
+      # After the refresh, so the refresh never waits on it and cannot be broken by it. Only repositories not on the list yet;
+      # it merges its new boards into the refreshed file and leaves every other board byte for byte as the refresh wrote it
+      # (main.ts mergeLane). Nothing new: nothing written. A failure here only skips the lane this time.
+      - name: Priority lane (new PROBLEM.md repositories)
+        continue-on-error: true
+        timeout-minutes: 30
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          NEW_ONLY: "1"
+        run: npx tsx src/main.ts priority || { echo "::warning::priority lane failed; the live refresh is committed without it"; exit 1; }
+
       - name: README "Open right now"
         run: npx tsx src/readme.ts
 
@@ -82,6 +102,16 @@ jobs:
           if ! node scripts/entries-changed.mjs && git diff --quiet -- data/crawl-state.json data/commit-dates.json data/discoveries.json; then echo "no new entries"; exit 0; fi
           git config user.name "openchallengelist-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add data/competitions.json data/crawl-state.json data/commit-dates.json data/discoveries.json README.md
+          # discovered.json: the priority lane's new repositories, which the next refresh follows for changes
+          git add data/competitions.json data/crawl-state.json data/commit-dates.json data/discoveries.json data/discovered.json README.md
           git commit -m "data: live refresh $(date -u +%Y-%m-%dT%H:%MZ)"
           for i in 1 2 3; do git push && exit 0; git pull --rebase origin "$GITHUB_REF_NAME" || exit 1; done; exit 1
+
+      # After the push: a "listed" answer links a page this push deploys (the script waits for it). The script reads the issues
+      # through the API; no issue text reaches this shell.
+      - name: Answer listing issues
+        continue-on-error: true
+        timeout-minutes: 12
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx tsx scripts/answer-listing-issues.ts
