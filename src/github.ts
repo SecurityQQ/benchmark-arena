@@ -84,9 +84,25 @@ export function isPublicRepo(repo: { private?: boolean; visibility?: string }): 
   return repo.private === false && (repo.visibility === undefined || repo.visibility === "public");
 }
 
-export async function assertPublicRepo(owner: string, repo: string): Promise<void> {
-  const { data } = await getOctokit().rest.repos.get({ owner, repo });
-  if (!isPublicRepo(data)) throw new Error("Repository must be public");
+// Only GitHub's own answer means "not public": 404/451 or a private flag. A 5xx or a dropped connection says nothing about the
+// repository, and treating it as private took four live boards off the site during a GitHub outage (2026-11-25 14:40Z).
+export class NotPublicError extends Error {}
+export const isNotPublic = (e: unknown) => e instanceof NotPublicError;
+
+export async function assertPublicRepo(owner: string, repo: string, wait = (ms: number) => new Promise((r) => setTimeout(r, ms))): Promise<void> {
+  for (let attempt = 0; ; attempt++) {
+    try {
+      const { data } = await getOctokit().rest.repos.get({ owner, repo });
+      if (!isPublicRepo(data)) throw new NotPublicError("Repository must be public");
+      return;
+    } catch (e) {
+      const status = (e as { status?: number }).status;
+      if (isNotPublic(e)) throw e;
+      if (status === 404 || status === 451) throw new NotPublicError("Repository must be public");
+      if (attempt >= 2) throw e;
+      await wait(2000 * (attempt + 1));
+    }
+  }
 }
 
 let _octokit: Octokit | null = null;

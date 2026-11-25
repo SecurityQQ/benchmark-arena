@@ -20,7 +20,7 @@ import { buildBigOSpeedrun } from "./structured/bigOSpeedrun.js";
 import { buildRocmChallenge } from "./structured/rocmChallenge.js";
 import { applyStandard } from "./standard.js";
 import type { LLMCompetition } from "./llm.js";
-import { assertPublicRepo } from "./github.js";
+import { assertPublicRepo, isNotPublic } from "./github.js";
 import { assertUniqueCompetitions, entryKey, repoKey, savedEntries, validateCompetition, type SiteSource } from "./validation.js";
 import { branchHead, detectChanges, githubProbe, type SourceProbe } from "./freshness.js";
 import { datePinnedRecords, loadCommitDates, saveCommitDates, type CommitDates } from "./commitDates.js";
@@ -46,7 +46,11 @@ export async function publicCompetitions(entries: Competition[], blocked = new S
     if (!c.repo) { if (Object.hasOwn(SITES, c.id)) publicEntries.push(c); continue; }
     if (blocked.has(repoKey(c.repo))) continue;
     try { await assertPublic(c.repo.owner, c.repo.name); publicEntries.push(c); }
-    catch { blocked.add(repoKey(c.repo)); }
+    catch (e) {
+      // not public: drop it everywhere. Couldn't ask GitHub: the entry was verified when it was crawled, so it stays
+      if (isNotPublic(e)) blocked.add(repoKey(c.repo));
+      else { console.log(`  ${repoKey(c.repo)}: GitHub did not answer the visibility check, keeping the entry`); publicEntries.push(c); }
+    }
   }
   return publicEntries;
 }
@@ -284,7 +288,7 @@ async function main() {
     const blocked = new Set<string>();
     const sources: [string, () => Promise<Competition>][] = [
       ...known.filter((r) => STRUCTURED[repoKey(r)] && prevByKey.has(repoKey(r))).map((r): [string, () => Promise<Competition>] => [repoKey(r), async () => {
-        await assertPublicRepo(r.owner, r.name).catch((e) => { blocked.add(repoKey(r)); throw e; });
+        await assertPublicRepo(r.owner, r.name).catch((e) => { if (isNotPublic(e)) blocked.add(repoKey(r)); throw e; });
         return buildStructured(r, prevByKey.get(repoKey(r)));
       }]),
       ...Object.keys(SITES).filter((id) => prevByKey.has(`site:${id}`)).map((id): [string, () => Promise<Competition>] => [`site:${id}`, () => buildSite(id, prevByKey.get(`site:${id}`))]),
@@ -389,8 +393,8 @@ async function main() {
       continue;
     }
     try { await assertPublicRepo(repo.owner, repo.name); }
-    catch {
-      blocked.add(key);
+    catch (e) {
+      if (isNotPublic(e)) blocked.add(key); // otherwise the previous entry is carried over below
       errors.push({ repo: key, error: "Public repository verification failed" });
       console.log("    public repository verification failed, excluding entry");
       continue;

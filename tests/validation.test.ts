@@ -8,6 +8,7 @@ import { spawnSync } from "node:child_process";
 import { postprocess } from "../src/postprocess.js";
 import { competitionId, validateCompetition, validateAttributions, safeId, savedEntries, assertUniqueCompetitions, entryKey } from "../src/validation.js";
 import { mergeCompetitions, publicCompetitions } from "../src/main.js";
+import { NotPublicError } from "../src/github.js";
 import { processRepoWithLLM, attributeRecordsWithLLM } from "../src/llm.js";
 import { applyStandard } from "../src/standard.js";
 import { getOctokit } from "../src/github.js";
@@ -87,12 +88,22 @@ test("public failures exclude carried entries, priority merges and structured re
   const old = postprocess(input(), repo);
   const structured = postprocess(input(), { ...repo, owner: "leanprover", name: "lean-eval-submissions" });
   const blocked = new Set<string>();
-  const result = await publicCompetitions([old, structured], blocked, async () => { throw new Error("SECRET private response"); });
+  const result = await publicCompetitions([old, structured], blocked, async () => { throw new NotPublicError("SECRET private response"); });
   assert.deepEqual(result, []);
   assert.deepEqual(mergeCompetitions([old, structured], [], blocked), []);
   let calls = 0;
   assert.deepEqual(await publicCompetitions([old], blocked, async () => { calls++; }), []);
   assert.equal(calls, 0);
+});
+
+test("a GitHub outage during the visibility check keeps the boards; only a definite answer drops them", async () => {
+  const old = postprocess(input(), repo);
+  const structured = postprocess(input(), { ...repo, owner: "leanprover", name: "lean-eval-submissions" });
+  const blocked = new Set<string>();
+  const outage = Object.assign(new Error("Server Error"), { status: 500 });
+  assert.deepEqual(await publicCompetitions([old, structured], blocked, async () => { throw outage; }), [old, structured]);
+  assert.equal(blocked.size, 0);
+  assert.deepEqual(mergeCompetitions([old, structured], [], blocked), [old, structured]);
 });
 
 test("persisted dataset validates for repost without migrating published IDs", () => {
@@ -170,7 +181,7 @@ test("CLI repost and structured processing exclude private previous entries with
       const previous = postprocess(input(), structuredRepo);
       writeFileSync(join(cwd, "data/competitions.json"), JSON.stringify({ competitions: [previous], errors: [{ repo: "old", error: "SECRET persisted error" }] }));
       writeFileSync(join(cwd, "data/discovered.json"), JSON.stringify([structuredRepo]));
-      const script = `import { getOctokit } from ${JSON.stringify(github)}; getOctokit().rest.repos.get = async () => { throw new Error("SECRET private response"); }; globalThis.fetch = async () => { throw new Error("SECRET site response"); }; process.argv = [process.execPath, ${JSON.stringify(main)}, ${JSON.stringify(mode)}]; await import(${JSON.stringify(new URL("../src/main.ts", import.meta.url).href)});`;
+      const script = `import { getOctokit } from ${JSON.stringify(github)}; getOctokit().rest.repos.get = async () => { throw Object.assign(new Error("SECRET private response"), { status: 404 }); }; globalThis.fetch = async () => { throw new Error("SECRET site response"); }; process.argv = [process.execPath, ${JSON.stringify(main)}, ${JSON.stringify(mode)}]; await import(${JSON.stringify(new URL("../src/main.ts", import.meta.url).href)});`;
       const result = spawnSync(process.execPath, ["--import", tsx, "--input-type=module", "-e", script], { cwd, encoding: "utf8", timeout: 15000 });
       assert.equal(result.status, 0, result.stderr);
       assert.equal((result.stdout + result.stderr).includes("SECRET"), false);
