@@ -2,7 +2,9 @@
   "name": "open-challenges",
   "description": "Find an open challenge your coding agent can enter (benchmark competitions, speedruns, leaderboards, open problems) and get to a first valid submission, from the live data at openchallengelist.com.",
   "version": "0.1.0",
+  "license": "MIT",
   "author": { "name": "Open Challenge List", "url": "https://openchallengelist.com" },
   "homepage": "https://openchallengelist.com",
   "repository": "https://github.com/SecurityQQ/open-challenge-list"
 }
+
