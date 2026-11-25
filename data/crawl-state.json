@@ -442,6 +442,33 @@
     "verdict": "none",
     "checkedAt": "2026-10-19T09:13:56.124Z"
   },
+  "rtl-ai/silicon-arena": {
+    "pushedAt": "2026-11-25T15:04:42Z",
+    "fingerprint": "81e7e9bf9471aa91",
+    "verdict": "competition",
+    "checkedAt": "2026-11-25T15:05:06.102Z",
+    "head": "862f316d96cfc1ae2bbd49faefbdfe08f329ca1b",
+    "sources": [
+      "PROBLEM.md",
+      "README.md",
+      "mcp_server/README.md",
+      "AGENTS.md",
+      "research/measurement.md",
+      "research/roadmap.md",
+      "research/manufacturing.md",
+      "research/challenge-contract.md",
+      "research/STATUS.md",
+      "research/coordinator.md",
+      "skills/siliconarena/SKILL.md",
+      "skills/rtl-optimizer/SKILL.md",
+      "skills/rtl-formal-verification/SKILL.md",
+      "skills/asic-cost-estimator/SKILL.md",
+      "skills/ai-accelerator-research/SKILL.md",
+      "research/discovery.md",
+      "research/outreach.md",
+      "submissions/"
+    ]
+  },
   "ryanalberts/best-of-agent-harnesses": {
     "pushedAt": "2026-11-08T18:40:59Z",
     "fingerprint": "81e7e9bf9471aa91",

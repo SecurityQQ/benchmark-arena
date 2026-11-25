@@ -870,5 +870,16 @@
     "topics": [],
     "defaultBranch": "main",
     "pushedAt": "2026-07-21T03:13:20Z"
+  },
+  {
+    "owner": "rtl-ai",
+    "name": "silicon-arena",
+    "url": "https://github.com/rtl-ai/silicon-arena",
+    "description": "Open, agent-driven research to design manufacturable AI training and inference chips with optimized PPBA, cost, and yield.",
+    "stars": 0,
+    "topics": [],
+    "defaultBranch": "main",
+    "pushedAt": "2026-11-25T15:04:42Z",
+    "priority": true
   }
 ]
