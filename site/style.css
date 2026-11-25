@@ -1029,6 +1029,15 @@ body.app .art-band { padding: 36px 0 44px; }
 .start-steps .agent-docs { margin-top: 14px; }
 .topic-links { margin-top: 28px; }
 pre.quick.join { white-space: pre-wrap; word-break: break-word; padding-right: 84px; margin-top: 10px; }
+/* For the organizer: the README badge at the foot of a board (app.js badgeBlock, prerender.ts badgeBox), kept quiet */
+.readme-badge { margin-top: 48px; max-width: 760px; }
+.readme-badge .eyebrow { margin-bottom: 0; }
+.readme-badge .hint { margin-top: 8px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.readme-badge img { display: block; height: 20px; width: auto; }
+pre.quick.badge-md { background: var(--surface-2); color: var(--dim); border: 1px solid var(--border); white-space: pre-wrap; word-break: break-all; padding: 12px 84px 12px 14px; margin-top: 10px; font-size: 12px; line-height: 1.55; }
+pre.quick.badge-md .copy { color: var(--dim); border-color: var(--border); top: 8px; }
+pre.quick.badge-md .copy:hover { background: var(--line); }
+.std-readme-badge code { word-break: break-all; }
 .live-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--clay); margin-right: 8px; vertical-align: 1px; animation: live-pulse 1.8s ease-in-out infinite; }
 @keyframes live-pulse { 50% { opacity: .35; } }
 @media (prefers-reduced-motion: reduce) { .live-dot { animation: none; } }

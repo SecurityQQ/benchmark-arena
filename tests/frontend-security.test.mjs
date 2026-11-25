@@ -143,7 +143,7 @@ test("image fallback uses data, not an inline JavaScript string", () => {
 test("renderers escape metadata, dates, counts, confidence, and option values", () => {
   const h = harness();
   loadFixture(h);
-  for (const expression of ["card(D.competitions[0])", "activityPanel(D.competitions[0])", "problemBlock(D.competitions[0].problems[0], true, D.competitions[0])", "agentsBar(D.agents)", "stdBadge(D.competitions[0])"]) {
+  for (const expression of ["card(D.competitions[0])", "activityPanel(D.competitions[0])", "problemBlock(D.competitions[0].problems[0], true, D.competitions[0])", "agentsBar(D.agents)", "stdBadge(D.competitions[0])", "badgeBlock(D.competitions[0])"]) {
     const html = h.run(expression);
     assert.ok(!html.includes("<x-security-probe"), expression);
     assert.ok(!/href="(?:javascript|data):/.test(html), expression);
@@ -237,6 +237,23 @@ test("delegation preserves cancellation, explicit stopPropagation and action arg
   const count = h.context.calls.length;
   click(h, { dataset: { action: payload } });
   assert.equal(h.context.calls.length, count);
+  assert.equal(h.context.pwned, undefined);
+});
+
+test("board page: the organizer's README badge, its snippet with a copy button, the id kept as data", () => {
+  const h = harness();
+  loadFixture(h);
+  h.run("D.competitions.push({ ...D.competitions[0], id: 'duckbench' }); renderDetail('duckbench')");
+  const html = h.elements.get("app").innerHTML;
+  assert.ok(html.includes("For the organizer"));
+  assert.ok(html.includes('<img src="/badge/c/duckbench.svg" alt="Open Challenge List badge" height="20" loading="lazy" data-error="remove">'));
+  assert.ok(html.includes("<code>[![Open Challenge List](https://openchallengelist.com/badge/c/duckbench.svg)](https://openchallengelist.com/c/duckbench)</code>"));
+  // the id goes into URLs percent-encoded and into the attribute escaped; copying sends one analytics event with it
+  const hostile = h.run("badgeBlock(D.competitions[0])");
+  assert.ok(!hostile.includes(payload) && hostile.includes(`/badge/c/${encodeURIComponent(payload).replace(/'/g, "%27")}.svg`));
+  h.run("globalThis.calls = []; copyText = () => calls.push(['copy']); window.gtag = (...args) => calls.push(args)");
+  click(h, actions(hostile).find((el) => el.dataset.action === "copy-badge"));
+  assert.deepEqual(JSON.parse(JSON.stringify(h.context.calls)), [["copy"], ["event", "copy_badge", { competition: payload }]]);
   assert.equal(h.context.pwned, undefined);
 });
 

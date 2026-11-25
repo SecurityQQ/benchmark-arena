@@ -213,6 +213,13 @@ test("dev server enforces publication, safe paths, methods, and security headers
   assert.match(md.body, /^# Test/);
   assert.match((await get("/c/Valid_ID-1")).body, /<main id="app">[\s\S]*<h1>Test<\/h1>/);
   assert.equal((await get("/c/missing")).status, 404);
+  // README badges, as the build writes them
+  const badge = await get("/badge/c/Valid_ID-1.svg");
+  assert.equal(badge.status, 200);
+  assert.equal(badge.headers["content-type"], "image/svg+xml");
+  assert.match(badge.body, /^<svg [^>]*aria-label="open challenge list: listed"/);
+  assert.match((await get("/badge/listed.svg")).body, /^<svg [^>]*aria-label="open challenge list: listed"/);
+  for (const path of ["/badge/c/missing.svg", "/badge/c/Valid_ID-1.png"]) assert.equal((await get(path)).status, 404, path);
   // /mcp as on Vercel, reading the dev server's own files
   const mcp = await fetch(`http://127.0.0.1:${port}/mcp`, { method: "POST", headers: { "content-type": "application/json" },
     body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "tools/call", params: { name: "get_challenge", arguments: { id: "Valid_ID-1" } } }) });

@@ -10,6 +10,7 @@
 import type { Octokit } from "@octokit/rest";
 import { getOctokit } from "./github.js";
 import { LISTING_TOPIC, SITE } from "./render.js";
+import { badgeMarkdown } from "./badge.js";
 
 export { LISTING_TOPIC };
 export const LISTING_LABEL = "listing";
@@ -80,8 +81,11 @@ export function answerFor(repos: (RepoRef & { verdict: Verdict })[], earlier: st
   const listed = repos.flatMap((r) => (r.verdict.kind === "listed" ? [{ ...r, id: r.verdict.id }] : []));
   const rejected = repos.flatMap((r) => (r.verdict.kind === "rejected" ? [{ ...r, reason: r.verdict.reason }] : []));
   const why = rejected.map((r) => `- ${code(r)}: ${r.reason}.`);
+  // under each link, the README badge for that board (src/badge.ts): its live number, linking back to it
   if (listed.length) return { close: true, body: [MARK.listed,
-    ...listed.map((r) => `Listed: ${listingPage(r.id)} (${code(r)}).`), ``,
+    ...listed.flatMap((r) => [`Listed: ${listingPage(r.id)} (${code(r)}).`, ``,
+      `To show the board's live numbers in the repository's README, add this badge (it links to the board):`, ``,
+      "```markdown", badgeMarkdown(r.id), "```", ``]),
     `The live refresh re-reads PROBLEM.md and the SUBMISSION.md entries every few hours; agents get the digest at ${SITE}/api/competitions/${encodeURIComponent(listed[0].id)}.md.`,
     ...(why.length ? [``, `Not listed:`, ...why] : []), ``, `Closing this issue.`].join("\n") };
   if (said(MARK.unverified)) return null;

@@ -7,6 +7,7 @@ import type { SocialPost } from "./social.js";
 import { TOPICS, inTopic, topicJoinLine, type Topic } from "./topics.js";
 import { REGISTRY, SUBMIT_PROTOCOL, authorLine, discoveryHeadline, discoveryView, type Discoveries } from "./discoveries.js";
 import { OG_HEIGHT, OG_WIDTH, cardAlt, plain, type Card } from "./og.js";
+import { BADGE_NOTE, BADGE_PATTERN, badgeMarkdown } from "./badge.js";
 
 type Data = Pick<CrawlResult, "crawledAt" | "competitions">;
 // card: the page's social preview (src/og.ts); a page without one keeps the shell's /og.jpg
@@ -32,6 +33,12 @@ function activityList(items: ActivityItem[], withCompetition = true): string {
 
 function joinBox(line: string, note: string): string {
   return `<div class="pre-join"><span class="eyebrow">${esc(note)}</span><pre><code>${esc(line)}</code></pre></div>`;
+}
+
+// For the organizer, at the foot of a board: the README badge (drawn by src/badge.ts at build time) and its Markdown.
+// The same block as app.js badgeBlock, without the copy button (it comes with app.js).
+function badgeBox(id: string): string {
+  return `<div class="readme-badge"><span class="eyebrow">For the organizer</span><p class="hint"><img src="/badge/c/${encodeURIComponent(id)}.svg" alt="Open Challenge List badge" height="20" loading="lazy"> ${esc(BADGE_NOTE)}</p><pre class="quick badge-md"><code>${esc(badgeMarkdown(id))}</code></pre></div>`;
 }
 
 function trackRow(pr: Problem): string {
@@ -153,6 +160,7 @@ function detailPage(c: Competition, data: Data, month: BoardMonth): Page {
   ${agents.length ? `<h2>Agents behind the entries</h2><ul class="pre-list">${agents.map((a) => `<li><b>${esc(FAMILY[a.family] ?? a.family)}</b>: ${plural(a.records, "entry", "entries")}${a.currentBests ? `, ${a.currentBests} current best` : ""}${a.models.length ? ` <span class="dim small">${esc(a.models.slice(0, 3).join(", "))}</span>` : ""}</li>`).join("")}</ul>` : ""}
   ${c.participants.length ? `<h2>Who's competing</h2><ul class="pre-list">${c.participants.slice(0, 25).map((u) => `<li>${ext(u.url, u.name)} <span class="dim small">${plural(u.submissions, "entry", "entries")}${u.bestRank === 1 ? " · holds a record" : ""}${u.lastActive ? ` · last ${esc(u.lastActive)}` : ""}</span></li>`).join("")}</ul>` : ""}
   ${c.links.length ? `<h2>Links</h2><ul class="pre-list">${c.links.map((l) => `<li>${ext(l.url, l.label)}</li>`).join("")}</ul>` : ""}
+  ${badgeBox(c.id)}
   <p class="dim small">Crawled ${esc(data.crawledAt.slice(0, 10))} from public sources. The repository is the source of truth; verify before citing.</p>
 </div></section>`;
   return {
@@ -370,7 +378,7 @@ export function pages(data: Data, social: SocialPost[] = [], discoveries: Discov
     ...TOPICS.map((t) => topicPage(t, data, discoveries)),
     staticPage("standard.html", "/standard", "PROBLEM.md standard — Open Challenge List",
       "PROBLEM.md and SUBMISSION.md: two Markdown files that describe a competition and its entries. Add the topic open-challenge-list or open a listing issue and the repository is listed within hours; the leaderboard is built from the files.",
-      `<span class="eyebrow">Standard</span><h1>PROBLEM.md and SUBMISSION.md</h1><p class="lede">Put PROBLEM.md at the root of a repository: the task, the rules, the tracks and the folder entries go into. Each entry carries a SUBMISSION.md: the approach, the value achieved per track, and the model or agent that produced it. The leaderboard is built from the files.</p><p>Get listed within hours: add the GitHub topic <code>${LISTING_TOPIC}</code> to the repository, or <a href="${esc(LISTING_ISSUE_URL)}" rel="noopener">open an issue</a> titled “List owner/repo” with the repository URL. The next live refresh (every few hours) verifies PROBLEM.md and lists it; the issue gets the link.</p><p>Templates: <a href="/standard/PROBLEM.md">/standard/PROBLEM.md</a> · <a href="/standard/SUBMISSION.md">/standard/SUBMISSION.md</a></p>`),
+      `<span class="eyebrow">Standard</span><h1>PROBLEM.md and SUBMISSION.md</h1><p class="lede">Put PROBLEM.md at the root of a repository: the task, the rules, the tracks and the folder entries go into. Each entry carries a SUBMISSION.md: the approach, the value achieved per track, and the model or agent that produced it. The leaderboard is built from the files.</p><p>Get listed within hours: add the GitHub topic <code>${LISTING_TOPIC}</code> to the repository, or <a href="${esc(LISTING_ISSUE_URL)}" rel="noopener">open an issue</a> titled “List owner/repo” with the repository URL. The next live refresh (every few hours) verifies PROBLEM.md and lists it; the issue gets the link.</p><p>Once listed, the repository can show the board's live numbers in its README with a badge that links to the board: <code>${esc(BADGE_PATTERN)}</code>, where {id} is the last part of the board's address. Each board page has its exact snippet.</p><p>Templates: <a href="/standard/PROBLEM.md">/standard/PROBLEM.md</a> · <a href="/standard/SUBMISSION.md">/standard/SUBMISSION.md</a></p>`),
     staticPage("submit.html", "/submit", "Submit a competition — Open Challenge List",
       "Add an open benchmark competition to the directory: point us at the GitHub repository.",
       `<span class="eyebrow">Submit</span><h1>Add a competition</h1><p class="lede">Run a challenge with a public leaderboard? Open an issue titled “Add competition: owner/repo” at <a href="https://github.com/SecurityQQ/open-challenge-list/issues/new" rel="noopener">github.com/SecurityQQ/open-challenge-list</a>, or ship a PROBLEM.md in your repository and add the topic <code>${LISTING_TOPIC}</code>: the next live refresh lists it within hours (<a href="/standard">the standard</a>).</p>`),

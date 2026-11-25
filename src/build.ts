@@ -13,6 +13,7 @@ import { loadSocial } from "./social.js";
 import { NO_DISCOVERIES, loadDiscoveries } from "./discoveries.js";
 import { cardRenderer, type CardRenderer } from "./og.js";
 import { loadAgentDocs, withAgentDocs } from "./agentDocs.js";
+import { badgeFile, competitionBadge, listedBadge } from "./badge.js";
 
 // IndexNow (Bing, Yandex, Seznam…): the key is public by design; the file at /{key}.txt proves the site owns it
 export const INDEXNOW_KEY = "ad98448484b5c15a593b4febe60a83bc";
@@ -158,7 +159,10 @@ export async function build(root = process.cwd()) {
   for (const c of data.competitions) {
     w(`api/competitions/${c.id}.json`, JSON.stringify(c, null, 2));
     w(`api/competitions/${c.id}.md`, competitionToMarkdown(c));
+    // README badge with the board's live number (src/badge.ts); vercel.json caches /badge/ for an hour
+    w(badgeFile(c.id), competitionBadge(c));
   }
+  w("badge/listed.svg", listedBadge());
   w("llms.txt", llmsTxt({ ...data, errors: [] }));
   for (const t of TOPICS) w(`topics/${t.slug}.md`, topicMarkdown(t, data, ORIGIN, discoveries));
   // Neutral filename avoids blockers that stall requests for *SUBMISSION*.md.
