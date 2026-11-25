@@ -1,9 +1,9 @@
 {
   "0xshug0/audio.cpp": {
-    "pushedAt": "2026-11-25T06:06:23Z",
+    "pushedAt": "2026-11-25T06:19:52Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-11-25T06:10:37.558Z"
+    "checkedAt": "2026-11-25T07:09:20.571Z"
   },
   "1105216375-alt/resimind": {
     "pushedAt": "2026-10-15T15:00:55Z",
@@ -66,10 +66,10 @@
     "checkedAt": "2026-11-25T06:13:07.178Z"
   },
   "bigospeedrun/verifier": {
-    "pushedAt": "2026-11-25T05:47:23Z",
+    "pushedAt": "2026-11-25T06:47:22Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-25T06:20:49.546Z"
+    "checkedAt": "2026-11-25T07:16:00.437Z"
   },
   "changwookjun/nlp-paper": {
     "pushedAt": "2026-11-12T05:06:57Z",
@@ -94,6 +94,12 @@
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
     "checkedAt": "2026-10-26T09:05:17.054Z"
+  },
+  "crocswap/integer-mult-bounds": {
+    "pushedAt": "2026-11-10T14:54:58Z",
+    "fingerprint": "81e7e9bf9471aa91",
+    "verdict": "competition",
+    "checkedAt": "2026-11-25T07:12:40.869Z"
   },
   "cybertronai/sutro-problems": {
     "pushedAt": "2026-11-23T23:28:13Z",
@@ -120,10 +126,10 @@
     "checkedAt": "2026-10-26T09:10:33.525Z"
   },
   "dicklesworthstone/rust_scriptbots": {
-    "pushedAt": "2026-11-25T05:47:38Z",
+    "pushedAt": "2026-11-25T07:03:43Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-11-25T06:20:17.158Z"
+    "checkedAt": "2026-11-25T07:15:02.226Z"
   },
   "eeshan-vaghjiani/spendly": {
     "pushedAt": "2026-11-17T13:56:02Z",
@@ -136,6 +142,12 @@
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
     "checkedAt": "2026-11-16T11:43:22.161Z"
+  },
+  "google-deepmind/formal-conjectures": {
+    "pushedAt": "2026-11-24T15:36:54Z",
+    "fingerprint": "81e7e9bf9471aa91",
+    "verdict": "competition",
+    "checkedAt": "2026-11-25T07:09:54.141Z"
   },
   "hschindele/gmaapp": {
     "pushedAt": "2023-01-13T01:29:46Z",
@@ -160,6 +172,12 @@
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
     "checkedAt": "2026-10-13T23:14:29.087Z"
+  },
+  "kellerjordan/modded-nanogpt": {
+    "pushedAt": "2026-09-28T21:46:14Z",
+    "fingerprint": "81e7e9bf9471aa91",
+    "verdict": "competition",
+    "checkedAt": "2026-11-25T07:08:57.157Z"
   },
   "kings-crown/s2n-bignum-bench": {
     "pushedAt": "2026-11-22T15:44:31Z",
@@ -382,6 +400,12 @@
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
     "checkedAt": "2026-11-16T11:46:38.349Z"
+  },
+  "teorth/optimizationproblems": {
+    "pushedAt": "2026-11-23T23:56:26Z",
+    "fingerprint": "81e7e9bf9471aa91",
+    "verdict": "competition",
+    "checkedAt": "2026-11-25T07:11:56.639Z"
   },
   "the-ai-alliance/geo-bench-2-leaderboard": {
     "pushedAt": "2026-01-19T11:41:51Z",

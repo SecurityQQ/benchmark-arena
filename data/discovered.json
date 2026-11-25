@@ -1,10 +1,20 @@
 [
   {
+    "owner": "KellerJordan",
+    "name": "modded-nanogpt",
+    "url": "https://github.com/KellerJordan/modded-nanogpt",
+    "description": "NanoGPT (124M) in 90 seconds",
+    "stars": 6070,
+    "topics": [],
+    "defaultBranch": "master",
+    "pushedAt": "2026-09-28T21:46:14Z"
+  },
+  {
     "owner": "0xShug0",
     "name": "audio.cpp",
     "url": "https://github.com/0xShug0/audio.cpp",
     "description": "An all-in-one, pure C++ inference engine for audio models, powered by ggml. Supports TTS, STT, VAD, voice conversion, music generation, and more, with highly optimized performance. No Python dependency.",
-    "stars": 4448,
+    "stars": 4450,
     "topics": [
       "ai",
       "amd-gpu",
@@ -28,7 +38,7 @@
       "yue2"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-25T06:06:23Z"
+    "pushedAt": "2026-11-25T06:19:52Z"
   },
   {
     "owner": "cporter202",
@@ -50,7 +60,7 @@
     "name": "starVLA",
     "url": "https://github.com/starVLA/starVLA",
     "description": "StarVLA: A Lego-like Codebase for Vision-Language-Action Model Developing",
-    "stars": 3976,
+    "stars": 3977,
     "topics": [
       "robotic-foundation-model",
       "robotics",
@@ -65,7 +75,7 @@
     "name": "AssetOpsBench",
     "url": "https://github.com/IBM/AssetOpsBench",
     "description": "AssetOpsBench - Industry 4.0: A unified benchmark and framework for building, orchestrating, and evaluating domain-specific AI agents for Industry 4.0 asset operations and maintenance, with 460+ scenarios, 5 specialist agents (IoT, FMSR, TSFM, Work Order,...), and multi-agent orchestration blueprints (MetaAgent, AgentHive) over MCP.",
-    "stars": 2493,
+    "stars": 2494,
     "topics": [
       "ai-for-physical-assets",
       "condition-based-maintenance",
@@ -182,6 +192,19 @@
     "pushedAt": "2026-04-24T17:33:44Z"
   },
   {
+    "owner": "google-deepmind",
+    "name": "formal-conjectures",
+    "url": "https://github.com/google-deepmind/formal-conjectures",
+    "description": "A collection of formalized statements of conjectures in Lean.",
+    "stars": 1400,
+    "topics": [
+      "formal-mathematics",
+      "lean4"
+    ],
+    "defaultBranch": "main",
+    "pushedAt": "2026-11-24T15:36:54Z"
+  },
+  {
     "owner": "OSU-NLP-Group",
     "name": "GUI-Agents-Paper-List",
     "url": "https://github.com/OSU-NLP-Group/GUI-Agents-Paper-List",
@@ -295,7 +318,7 @@
     "name": "whiteboard-ai-tutor",
     "url": "https://github.com/molly554/whiteboard-ai-tutor",
     "description": "Open-source whiteboard AI tutor with animated lessons and interactive playback. Compare Claude, Gemini & DeepSeek across 288 generation runs and 64 blind-reviewed boards.",
-    "stars": 566,
+    "stars": 567,
     "topics": [
       "ai-teacher",
       "ai-teaching",
@@ -354,7 +377,7 @@
     "name": "noise",
     "url": "https://github.com/qlabs-eng/noise",
     "description": "Speedrun for pretraining without backpropagation",
-    "stars": 465,
+    "stars": 467,
     "topics": [],
     "defaultBranch": "main",
     "pushedAt": "2026-11-24T00:50:05Z"
@@ -380,6 +403,16 @@
     ],
     "defaultBranch": "master",
     "pushedAt": "2024-08-11T20:53:38Z"
+  },
+  {
+    "owner": "teorth",
+    "name": "optimizationproblems",
+    "url": "https://github.com/teorth/optimizationproblems",
+    "description": "A collection of optimization problems in mathematics",
+    "stars": 393,
+    "topics": [],
+    "defaultBranch": "main",
+    "pushedAt": "2026-11-23T23:56:26Z"
   },
   {
     "owner": "fstandhartinger",
@@ -566,10 +599,10 @@
     "name": "pequalnp-proofs",
     "url": "https://github.com/open-goat/pequalnp-proofs",
     "description": "Lean 4 proofs from the public AI attempt at P vs NP (pequalnp.com). Open gaps welcome pull requests.",
-    "stars": 180,
+    "stars": 181,
     "topics": [],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-25T06:09:45Z"
+    "pushedAt": "2026-11-25T07:06:59Z"
   },
   {
     "owner": "Saivineeth147",
@@ -731,7 +764,7 @@
       "simulation"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-25T05:47:38Z"
+    "pushedAt": "2026-11-25T07:03:43Z"
   },
   {
     "owner": "leanprover",
@@ -741,7 +774,7 @@
     "stars": 10,
     "topics": [],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-25T05:42:37Z"
+    "pushedAt": "2026-11-25T06:34:01Z"
   },
   {
     "owner": "leansolving",
@@ -807,7 +840,7 @@
       "research-software"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-25T05:47:23Z"
+    "pushedAt": "2026-11-25T06:47:22Z"
   },
   {
     "owner": "kings-crown",
