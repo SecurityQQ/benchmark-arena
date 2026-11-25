@@ -1,0 +1,12 @@
+{
+  "about": "Facts checked against each organizer's own rules, applied over the crawled data at build time (src/corrections.ts). Add one only with a source that states it.",
+  "corrections": [
+    {
+      "id": "equational-theories-lean-stage2",
+      "status": "ended",
+      "deadline": "Stage 2 submissions closed on August 31, 2026, 23:59 AoE",
+      "source": "https://github.com/SAIRcompetition/equational-theories-lean-stage2/blob/main/rules/overview.md",
+      "checked": "2026-11-25"
+    }
+  ]
+}

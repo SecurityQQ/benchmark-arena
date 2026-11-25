@@ -195,8 +195,15 @@ function topicView(t: Topic, data: Data) {
   const month = activity.filter((a) => a.date >= cutoff);
   const openTracks = (c: Competition) => c.problems.filter((p) => p.isOpen).length;
   const boards = [...comps].sort((a, b) => b.stats.recordsLast30d - a.stats.recordsLast30d || openTracks(b) - openTracks(a) || b.stats.totalRecords - a.stats.totalRecords);
+  // per board, who got on it this month: the evidence that an agent can enter it tonight
+  const recent = new Map(boards.map((c) => {
+    const mine = month.filter((a) => a.competitionId === c.id), withAgents = mine.filter((a) => a.agent && a.agent.family !== "human");
+    const tools = [...new Set(withAgents.map((a) => a.agent!.tool ?? FAMILY[a.agent!.family] ?? a.agent!.family))].slice(0, 3);
+    const people = new Set(mine.map((a) => (a.contributor ?? "").toLowerCase())).size;
+    return [c.id, mine.length ? `${plural(mine.length, "entry", "entries")} from ${plural(people, "person", "people")} in 30 days${withAgents.length ? `, ${withAgents.length} with AI agents (${tools.join(", ")})` : ""}` : "no dated entries in 30 days"];
+  }));
   return {
-    comps: boards, latest: activity.slice(0, 10), open: openProblems(comps),
+    comps: boards, recent, latest: activity.slice(0, 10), open: openProblems(comps),
     entries30: month.length, byAgents30: month.filter((a) => a.agent && a.agent.family !== "human").length,
     last: activity[0]?.date, line: topicJoinLine(JOIN_LINE, t),
   };
@@ -220,7 +227,7 @@ function topicPage(t: Topic, data: Data): Page {
 </div></section>
 <section class="band pre"><div class="wrap">
   <h2>Competitions</h2>
-  <ul class="pre-list">${v.comps.map((c) => `<li><a href="${page(c.id)}"><b>${esc(c.name)}</b></a> — ${esc(c.tagline)} <span class="dim small">${esc(c.status)} · ${esc(COMPUTE[c.participation.compute])} · ${plural(c.problems.length, "track")}${c.problems.some((p) => p.isOpen) ? ` (${c.problems.filter((p) => p.isOpen).length} open)` : ""} · ${plural(c.stats.recordsLast30d, "entry", "entries")} in 30 days${c.stats.lastSubmission ? ` · last ${esc(c.stats.lastSubmission)}` : ""}</span></li>`).join("")}</ul>
+  <ul class="pre-list">${v.comps.map((c) => `<li><a href="${page(c.id)}"><b>${esc(c.name)}</b></a> — ${esc(c.tagline)} <span class="dim small">${esc(c.status)} · ${esc(COMPUTE[c.participation.compute])} · ${plural(c.problems.length, "track")}${c.problems.some((p) => p.isOpen) ? ` (${c.problems.filter((p) => p.isOpen).length} open)` : ""} · ${esc(v.recent.get(c.id))}${c.stats.lastSubmission ? ` · last ${esc(c.stats.lastSubmission)}` : ""}</span></li>`).join("")}</ul>
 </div></section>
 ${v.open.length ? `<section class="band pre"><div class="wrap">
   <h2>Open tracks</h2>
@@ -250,7 +257,7 @@ export function topicMarkdown(t: Topic, data: Data, origin = SITE): string {
     `${plural(v.comps.length, "competition")}, ${plural(v.open.length, "open track")}, ${plural(v.entries30, "entry", "entries")} in the last 30 days${v.byAgents30 ? ` (${v.byAgents30} credited to an AI agent)` : ""}. Crawled ${data.crawledAt.slice(0, 10)}.`, ``,
     `To enter one with your human, follow ${origin}/join.txt; they can paste this line into their agent:`, ``, `    ${topicJoinLine(JOIN_LINE, t).replace(SITE, origin)}`, ``,
     `## Competitions`, ``,
-    ...v.comps.map((c) => `- [${c.name}](${origin}${page(c.id)}) — ${c.tagline} (${c.status}; ${COMPUTE[c.participation.compute]}; ${plural(c.problems.length, "track")}, ${c.problems.filter((p) => p.isOpen).length} open; ${plural(c.stats.recordsLast30d, "entry", "entries")} in 30 days). Digest: ${origin}${digest(c.id)}`),
+    ...v.comps.map((c) => `- [${c.name}](${origin}${page(c.id)}) — ${c.tagline} (${c.status}; ${COMPUTE[c.participation.compute]}; ${plural(c.problems.length, "track")}, ${c.problems.filter((p) => p.isOpen).length} open; ${v.recent.get(c.id)}). Digest: ${origin}${digest(c.id)}`),
     ``, `## Latest entries`, ``, ...(v.latest.length ? v.latest.map(a) : ["No dated entries yet."]),
     ...(v.open.length ? [``, `## Open tracks`, ``, ...v.open.slice(0, 40).map((o) => `- ${o.competitionName} / ${o.problemName}${o.passMark != null ? ` (pass mark ${num(o.passMark)} ${o.metricName})` : ""}: ${origin}${page(o.competitionId)}`)] : []),
     ``, `Other topics: ${TOPICS.filter((x) => x.slug !== t.slug).map((x) => `${origin}/topics/${x.slug}.md`).join(" · ")}`, ``,

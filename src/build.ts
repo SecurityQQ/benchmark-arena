@@ -8,6 +8,7 @@ import { aggregateAgents, aggregatePeople, competitionIndex, openProblems } from
 import { competitionToMarkdown, feedAtom, feedJson, joinTxt, llmsTxt } from "./render.js";
 import { pages, renderPage, topicMarkdown } from "./prerender.js";
 import { TOPICS } from "./topics.js";
+import { applyCorrections, loadCorrections } from "./corrections.js";
 import { loadSocial } from "./social.js";
 
 // IndexNow (Bing, Yandex, Seznam…): the key is public by design; the file at /{key}.txt proves the site owns it
@@ -62,7 +63,8 @@ export function publicDataset(value: CrawlResult): Pick<CrawlResult, "crawledAt"
 export function build(root = process.cwd()) {
   const ROOT = realpathSync(root);
   const OUT = join(ROOT, "public");
-  const data = publicDataset(JSON.parse(readFileSync(join(ROOT, "data", "competitions.json"), "utf-8")));
+  const crawled = publicDataset(JSON.parse(readFileSync(join(ROOT, "data", "competitions.json"), "utf-8")));
+  const data = { ...crawled, competitions: applyCorrections(crawled.competitions, loadCorrections(ROOT, new Set(crawled.competitions.map((c) => c.id)))) };
   const files = new Map<string, string | Buffer>();
   const w = (p: string, body: string | Buffer) => {
     containedPath(OUT, p);
