@@ -15,19 +15,22 @@
     "pushedAt": "2026-11-06T21:20:07Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-09T11:49:00.578Z"
+    "checkedAt": "2026-11-09T11:49:00.578Z",
+    "head": "86ef971ff809f037dd4c502d099733b7dc23f9b2"
   },
   "agent-axiom/agent-anvil-leaderboard": {
     "pushedAt": "2026-06-08T19:34:24Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-16T11:48:15.701Z"
+    "checkedAt": "2026-11-16T11:48:15.701Z",
+    "head": "9408b67e55455b0393f008b1fc2aca7d0904155b"
   },
   "agent-next/polymarket-paper-trader": {
     "pushedAt": "2026-11-01T17:16:52Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-02T11:23:58.382Z"
+    "checkedAt": "2026-11-02T11:23:58.382Z",
+    "head": "55bb35b7956815c71f5fb58292b2d1e859abff05"
   },
   "agi-edgerunners/llm-agents-papers": {
     "pushedAt": "2025-07-12T07:39:24Z",
@@ -63,7 +66,8 @@
     "pushedAt": "2026-11-24T15:01:55Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-25T06:13:07.178Z"
+    "checkedAt": "2026-11-25T06:13:07.178Z",
+    "head": "a8725a2a6a2d213b0b8935a15bb271505bf21e30"
   },
   "bigospeedrun/verifier": {
     "pushedAt": "2026-11-25T06:47:22Z",
@@ -99,13 +103,15 @@
     "pushedAt": "2026-11-10T14:54:58Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-25T07:12:40.869Z"
+    "checkedAt": "2026-11-25T07:12:40.869Z",
+    "head": "e54523517d0f03e58352e647c403a5af3e525a57"
   },
   "cybertronai/sutro-problems": {
     "pushedAt": "2026-11-23T23:28:13Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-25T06:19:59.147Z"
+    "checkedAt": "2026-11-25T06:19:59.147Z",
+    "head": "2e7514dbf44f3c290f50ca043bc85e8ab117adf8"
   },
   "darkxex/swanstationps5": {
     "pushedAt": "2026-11-20T18:46:56Z",
@@ -141,13 +147,15 @@
     "pushedAt": "2026-10-15T04:07:55Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-16T11:43:22.161Z"
+    "checkedAt": "2026-11-16T11:43:22.161Z",
+    "head": "609a664e81f46e03731600bd7bd9f1b7a61257c5"
   },
   "google-deepmind/formal-conjectures": {
     "pushedAt": "2026-11-24T15:36:54Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-25T07:09:54.141Z"
+    "checkedAt": "2026-11-25T07:09:54.141Z",
+    "head": "9097e2f90e66d2f6244209cb1c07f7120d17ec53"
   },
   "hschindele/gmaapp": {
     "pushedAt": "2023-01-13T01:29:46Z",
@@ -177,13 +185,15 @@
     "pushedAt": "2026-09-28T21:46:14Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-25T07:08:57.157Z"
+    "checkedAt": "2026-11-25T07:08:57.157Z",
+    "head": "4ea6b937337a4889b8cfe3f38a93d120048d8f71"
   },
   "kings-crown/s2n-bignum-bench": {
     "pushedAt": "2026-11-22T15:44:31Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-23T13:10:10.594Z"
+    "checkedAt": "2026-11-23T13:10:10.594Z",
+    "head": "e1c88a2826c860b20d38bd34688ccd312790b6e6"
   },
   "lbx154/argus": {
     "pushedAt": "2026-11-23T11:42:56Z",
@@ -201,7 +211,8 @@
     "pushedAt": "2026-10-22T15:18:02Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-23T13:09:38.531Z"
+    "checkedAt": "2026-11-23T13:09:38.531Z",
+    "head": "a485258435ff389675dfcb186e58d143522a1f8c"
   },
   "livesplit/livesplit": {
     "pushedAt": "2026-11-17T20:03:27Z",
@@ -219,13 +230,15 @@
     "pushedAt": "2024-08-23T20:09:41Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-16T11:45:53.818Z"
+    "checkedAt": "2026-11-16T11:45:53.818Z",
+    "head": "1c71762818d7002ef0e6d6eb09733a4b5e1dbf66"
   },
   "macrocosm-os/apex-competition-humanoid-parkour": {
     "pushedAt": "2026-08-18T13:42:00Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-16T11:48:31.912Z"
+    "checkedAt": "2026-11-16T11:48:31.912Z",
+    "head": "7fc74529926e8d7c71996154323441f719051931"
   },
   "marcelscruz/dev-resources": {
     "pushedAt": "2026-10-13T19:36:54Z",
@@ -249,7 +262,8 @@
     "pushedAt": "2026-10-14T05:05:20Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-23T13:08:34.545Z"
+    "checkedAt": "2026-11-23T13:08:34.545Z",
+    "head": "f71232985b8a2edd2e2b57cc751f679c2f2b51b7"
   },
   "microsoft/argusagent": {
     "pushedAt": "2026-11-23T21:41:08Z",
@@ -267,13 +281,15 @@
     "pushedAt": "2026-11-24T04:01:52Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-25T06:11:41.872Z"
+    "checkedAt": "2026-11-25T06:11:41.872Z",
+    "head": "bd0a6783e9c7df50680db1fda0908f6276f6f800"
   },
   "openai/mle-bench": {
     "pushedAt": "2026-04-24T17:33:44Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-16T11:41:32.855Z"
+    "checkedAt": "2026-11-16T11:41:32.855Z",
+    "head": "507f92e1138bb6e40dac5c6ee7a6758e6424bf97"
   },
   "opengenerativeai/llm-colosseum": {
     "pushedAt": "2025-03-21T10:35:26Z",
@@ -285,7 +301,8 @@
     "pushedAt": "2026-11-23T07:46:03Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-25T06:18:55.680Z"
+    "checkedAt": "2026-11-25T06:18:55.680Z",
+    "head": "535c9103a305e822d2adb1830981ec4dd0916621"
   },
   "osu-nlp-group/gui-agents-paper-list": {
     "pushedAt": "2026-11-17T06:42:26Z",
@@ -315,25 +332,29 @@
     "pushedAt": "2026-11-24T00:50:05Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-25T06:12:02.542Z"
+    "checkedAt": "2026-11-25T06:12:02.542Z",
+    "head": "a027e8cf0aa57122609584b118ca9c0e14f2ae2c"
   },
   "rdi-foundation/swe-bench-leaderboard": {
     "pushedAt": "2026-11-21T06:42:46Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-23T13:11:48.860Z"
+    "checkedAt": "2026-11-23T13:11:48.860Z",
+    "head": "f75201ee7b3ba3779d6266772e3021a4a2b50050"
   },
   "rdi-foundation/terminal-bench-leaderboard": {
     "pushedAt": "2026-07-21T03:13:20Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-25T06:21:21.502Z"
+    "checkedAt": "2026-11-25T06:21:21.502Z",
+    "head": "1fd4b9639a32247382c40b97cb6ae7ef520b3772"
   },
   "recursive-org/first-steps-toward-automated-ai-research": {
     "pushedAt": "2026-06-11T07:57:36Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-16T11:46:24.751Z"
+    "checkedAt": "2026-11-16T11:46:24.751Z",
+    "head": "a962ec43e2e3d7c018e59a2ece623fe6e232fdfb"
   },
   "rodrigosiqueiradev/speedrunledger": {
     "pushedAt": "2026-10-15T13:48:35Z",
@@ -351,13 +372,15 @@
     "pushedAt": "2026-08-27T18:30:50Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-16T11:47:34.651Z"
+    "checkedAt": "2026-11-16T11:47:34.651Z",
+    "head": "817a4653bf762584931d49c6714c9fcfab7df66a"
   },
   "saivineeth147/lora-speedrun": {
     "pushedAt": "2026-09-12T04:50:56Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-16T11:47:06.234Z"
+    "checkedAt": "2026-11-16T11:47:06.234Z",
+    "head": "143665849832d5f2e3e1c8486f49ea4c6f193e70"
   },
   "seblague/chess-challenge": {
     "pushedAt": "2024-05-23T05:47:00Z",
@@ -375,7 +398,8 @@
     "pushedAt": "2026-08-25T11:47:44Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-23T13:05:53.735Z"
+    "checkedAt": "2026-11-23T13:05:53.735Z",
+    "head": "c4b8395854fe0752eef435b44f140366efd44d8e"
   },
   "synopiia/psxs5": {
     "pushedAt": "2026-10-12T03:31:26Z",
@@ -393,31 +417,36 @@
     "pushedAt": "2025-08-09T07:23:36Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-16T11:39:00.851Z"
+    "checkedAt": "2026-11-16T11:39:00.851Z",
+    "head": "cd543a149df89434d8a54582c0151c0b945c3d20"
   },
   "tencent-hunyuan/hyra-results": {
     "pushedAt": "2026-11-14T16:30:00Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-16T11:46:38.349Z"
+    "checkedAt": "2026-11-16T11:46:38.349Z",
+    "head": "b24e7f5543f08069fe190e98c5c05b62ca28a074"
   },
   "teorth/optimizationproblems": {
     "pushedAt": "2026-11-23T23:56:26Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-25T07:11:56.639Z"
+    "checkedAt": "2026-11-25T07:11:56.639Z",
+    "head": "83e93c372e2e4889b12e5ada3a7c3422521e7baf"
   },
   "the-ai-alliance/geo-bench-2-leaderboard": {
     "pushedAt": "2026-01-19T11:41:51Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-25T06:21:05.860Z"
+    "checkedAt": "2026-11-25T06:21:05.860Z",
+    "head": "1659ccf54c89678ac940b26ace873f53b24ca00f"
   },
   "thudm/cogdl": {
     "pushedAt": "2024-02-01T21:24:47Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-16T11:40:42.167Z"
+    "checkedAt": "2026-11-16T11:40:42.167Z",
+    "head": "281f47424d58844b167ccbe41d9829c1f77689f8"
   },
   "tmgthb/autonomous-agents": {
     "pushedAt": "2026-06-24T17:03:27Z",
@@ -453,7 +482,8 @@
     "pushedAt": "2024-08-11T20:53:38Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-16T11:42:26.145Z"
+    "checkedAt": "2026-11-16T11:42:26.145Z",
+    "head": "b2c0d46c2971dcbfe71e26087b6d231998bb91c2"
   },
   "wonguo199-stack/one-does-not-simply-speedrun": {
     "pushedAt": "2026-10-26T06:25:36Z",
@@ -477,6 +507,7 @@
     "pushedAt": "2026-10-12T04:57:42Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-16T11:49:24.256Z"
+    "checkedAt": "2026-11-16T11:49:24.256Z",
+    "head": "2a69b9fa658ebb6fac63470c0693d3b14bf94058"
   }
 }
