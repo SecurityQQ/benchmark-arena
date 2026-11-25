@@ -332,7 +332,7 @@ async function main() {
     console.log(`  ${repos.length} repos in the priority lane\n`);
   } else if (mode === "discover" || mode === "full") {
     console.log("[1] Discovering repos...\n");
-    repos = await discoverRepos(Number(process.env.MAX_REPOS ?? 120));
+    repos = await discoverRepos(Number(process.env.MAX_REPOS ?? 120), loadPrevious().flatMap((c) => (c.repo ? [{ owner: c.repo.owner, name: c.repo.name }] : [])));
     mkdirSync(DATA_DIR, { recursive: true });
     writeFileSync(DISCOVERED_PATH, JSON.stringify(repos, null, 2));
     console.log(`  Saved ${repos.length} repos to ${DISCOVERED_PATH}\n`);
