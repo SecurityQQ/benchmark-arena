@@ -213,10 +213,17 @@ export async function discoverRepos(maxResults = 80): Promise<DiscoveredRepo[]> 
   //    Skip for now — expensive, add later
 
   const results = [...found.values()];
+  const filtered = preFilter(results, new Set([...SEED_REPOS, ...communitySeeds()].map((s) => `${s.owner}/${s.name}`.toLowerCase())));
+  filtered.sort((a, b) => Number(!!b.priority) - Number(!!a.priority) || b.stars - a.stars);
+  console.log(`  ${results.length} found, ${filtered.length} after filtering`);
+  return filtered;
+}
 
-  // Pre-filter: exclude obvious non-competitions
-  const filtered = results.filter((r) => {
-    if (r.priority) return true;
+// Exclude obvious non-competitions among search hits. Seeds were picked by hand and the standard's repos declare
+// themselves, so neither is second-guessed: modded-nanogpt has 6K stars, formal-conjectures is "a collection of…".
+export function preFilter(results: DiscoveredRepo[], seeds: Set<string>): DiscoveredRepo[] {
+  return results.filter((r) => {
+    if (r.priority || seeds.has(`${r.owner}/${r.name}`.toLowerCase())) return true;
     const name = (r.owner + "/" + r.name).toLowerCase();
     const desc = (r.description ?? "").toLowerCase();
     if (name.includes("awesome")) return false;
@@ -227,8 +234,4 @@ export async function discoverRepos(maxResults = 80): Promise<DiscoveredRepo[]> 
     if (desc.includes("awesome list") || desc.includes("tracking the progress")) return false;
     return true;
   });
-
-  filtered.sort((a, b) => Number(!!b.priority) - Number(!!a.priority) || b.stars - a.stars);
-  console.log(`  ${results.length} found, ${filtered.length} after filtering`);
-  return filtered;
 }
