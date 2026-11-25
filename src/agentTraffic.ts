@@ -93,6 +93,18 @@ export function agentEvent(path: string, ua: string | null, referer: string | nu
   };
 }
 
+// One runtime-log line per agent fetch: the GA4 event's fields, plus the raw User-Agent only when it matched no known
+// agent (that is how new agents get names). No IP, no query string, nothing else from the request.
+export function agentLogLine(event: NonNullable<ReturnType<typeof agentEvent>>, ua: string | null): string {
+  const p = event.events[0].params;
+  const clean = (s: string) => s.replace(/[^\x20-\x7e]/g, "").slice(0, 160);
+  return JSON.stringify({
+    t: "agent_fetch", agent: p.agent, kind: p.agent_kind, page: p.page_type, path: p.page_path,
+    ...(p.competition ? { competition: p.competition } : {}), ...(p.referrer_host ? { ref: p.referrer_host } : {}),
+    ...(p.agent === "unknown" || p.agent === "Other bot" ? { ua: clean(ua ?? "") } : {}),
+  });
+}
+
 // Accept: text/markdown on a page that has a Markdown twin → that twin's path
 export function markdownFor(path: string, accept: string | null): string | null {
   if (!accept || !/\btext\/markdown\b/i.test(accept)) return null;

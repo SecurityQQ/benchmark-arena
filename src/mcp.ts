@@ -245,6 +245,7 @@ export interface McpOptions {
   fetch?: (url: string, init?: RequestInit) => Promise<Response>;
   ttlMs?: number;                                                        // in-memory cache; the CDN caches the files for 5 minutes too
   now?: () => number;
+  log?: (line: string) => void;                                          // one JSON line per initialize and tool call (api/mcp.ts: console.log)
 }
 
 export function createMcpHandler(opts: McpOptions = {}): (request: Request) => Promise<Response> {
@@ -252,6 +253,8 @@ export function createMcpHandler(opts: McpOptions = {}): (request: Request) => P
   const fetchImpl = opts.fetch ?? fetch;
   const ttl = opts.ttlMs ?? 5 * 60_000;
   const now = opts.now ?? Date.now;
+  const log = opts.log ?? (() => {});
+  const word = (v: unknown, max: number) => (typeof v === "string" ? v.replace(/[^\x20-\x7e]/g, "").slice(0, max) : undefined);
   // Keys are the four fixed paths and the digests of ids the index lists, so the cache stays bounded
   const cache = new Map<string, { at: number; body: string }>();
 
@@ -274,6 +277,8 @@ export function createMcpHandler(opts: McpOptions = {}): (request: Request) => P
     switch (method) {
       case "initialize": {
         const asked = params.protocolVersion;
+        const client = isObject(params.clientInfo) ? params.clientInfo : {};
+        log(JSON.stringify({ t: "mcp", m: "initialize", client: word(client.name, 60) ?? "unknown", ...(word(client.version, 24) ? { cv: word(client.version, 24) } : {}) }));
         return {
           protocolVersion: typeof asked === "string" && PROTOCOL_VERSIONS.includes(asked) ? asked : PROTOCOL_VERSIONS[0],
           capabilities: { tools: { listChanged: false } },
@@ -289,6 +294,8 @@ export function createMcpHandler(opts: McpOptions = {}): (request: Request) => P
         if (!tool) throw new RpcError(-32602, `Unknown tool: ${String(params.name).slice(0, 100)}. Tools: ${TOOLS.map((t) => t.name).join(", ")}`);
         const args = params.arguments ?? {};
         if (!isObject(args)) throw new RpcError(-32602, "params.arguments must be an object");
+        // which tool, and the enumerated filters only: free-text queries stay out of the logs
+        log(JSON.stringify({ t: "mcp", m: "tools/call", tool: tool.name, ...(word(args.id, 200) ? { id: word(args.id, 200) } : {}), ...(word(args.compute, 20) ? { compute: word(args.compute, 20) } : {}), ...(word(args.domain, 40) ? { domain: word(args.domain, 40) } : {}) }));
         const errors = schemaErrors(tool.inputSchema, args);
         if (errors.length) return { ...text(`Invalid arguments: ${errors.join("; ")}.`), isError: true };
         try {

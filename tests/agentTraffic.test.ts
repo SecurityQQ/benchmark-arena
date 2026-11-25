@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { INTERNAL_UA, agentEvent, classifyAgent, markdownFor, pageType } from "../src/agentTraffic.js";
+import { INTERNAL_UA, agentEvent, agentLogLine, classifyAgent, markdownFor, pageType } from "../src/agentTraffic.js";
 
 test("user agents are classified, user-initiated fetchers before their vendor's crawler", () => {
   const cases: [string, string, string][] = [
@@ -45,4 +45,15 @@ test("Markdown is served only for pages with a Markdown twin, and only when aske
   assert.equal(markdownFor("/topics/../x", "text/markdown"), null);
   assert.equal(markdownFor("/topics/math.md", "text/markdown"), null);
   assert.equal(markdownFor("/c/x", null), null);
+});
+
+test("agent traffic: one log line per agent fetch; the raw User-Agent only when no known agent matched", () => {
+  const known = agentEvent("/api/competitions/lean-eval.md", "Claude-User/1.0", "https://github.com/o/r/pull/1")!;
+  assert.deepEqual(JSON.parse(agentLogLine(known, "Claude-User/1.0")), { t: "agent_fetch", agent: JSON.parse(agentLogLine(known, "Claude-User/1.0")).agent, kind: known.events[0].params.agent_kind, page: "digest", path: "/api/competitions/lean-eval.md", competition: "lean-eval", ref: "github.com" });
+  assert.ok(!("ua" in JSON.parse(agentLogLine(known, "Claude-User/1.0"))));
+  const odd = "SomeNewAgent/0.1 (+https://example.com)\n\u0000x".repeat(10);
+  const line = JSON.parse(agentLogLine(agentEvent("/join.txt", odd, null)!, odd));
+  assert.equal(line.agent, "unknown");
+  assert.equal(line.page, "join");
+  assert.ok(line.ua.length <= 160 && /^[\x20-\x7e]*$/.test(line.ua));
 });
