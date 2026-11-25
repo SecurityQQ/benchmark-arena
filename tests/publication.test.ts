@@ -6,7 +6,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawn, spawnSync } from "node:child_process";
 import { request } from "node:http";
-import { build, containedPath, publicDataset } from "../src/build.js";
+import { build, containedPath, publicDataset, INDEXNOW_KEY } from "../src/build.js";
 import type { Competition } from "../src/types.js";
 
 function competition(id = "Valid_ID-1"): Competition {
@@ -279,6 +279,8 @@ test("agents get join.txt, feeds and a small index", (t) => {
   const index = JSON.parse(pub("api/index.json"));
   assert.deepEqual(index.competitions[0], { id: "live", name: "Test", tagline: "Test", status: "active", domain: "test", compute: "cpu", tracks: 2, openTracks: 1,
     entries: 2, entriesLast30d: 2, participants: 2, lastEntry: "2026-09-17", agents: [], url: "https://example.com", page: "/c/live", digest: "/api/competitions/live.md" });
+  assert.match(INDEXNOW_KEY, /^[0-9a-f]{32}$/);
+  assert.equal(pub(`${INDEXNOW_KEY}.txt`), INDEXNOW_KEY);
   const open = JSON.parse(pub("api/open-problems.json"));
   assert.equal(open[0].kind, "unsolved");
   assert.equal(open[0].digest, "/api/competitions/live.md");

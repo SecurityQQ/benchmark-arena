@@ -1,0 +1,30 @@
+name: IndexNow
+
+# After each successful production deploy (Vercel reports deployments to GitHub), tell IndexNow search engines
+# which pages changed. Bing's index also feeds ChatGPT search, Copilot and DuckDuckGo.
+on:
+  deployment_status:
+  workflow_dispatch:
+    inputs:
+      all:
+        description: "submit every page, not only the ones changed in the last two days"
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  ping:
+    if: github.event_name == 'workflow_dispatch' || (github.event.deployment_status.state == 'success' && github.event.deployment.environment == 'Production')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Submit changed pages
+        env:
+          ALL: ${{ inputs.all && '1' || '' }}
+        run: node scripts/indexnow.mjs
