@@ -7289,6 +7289,7 @@
             {
               "contributor": "Dust w/ Adam",
               "description": "Dust w/ Adam, 24k population, lr cooldown",
+              "date": "2026-10-22",
               "value": 3.767,
               "contributorKind": "method",
               "submissionUrls": [
@@ -7305,6 +7306,7 @@
             {
               "contributor": "JaydenTeoh, spicylemonade, hoo0681, Lazarus-931, CharlesDDDD, NotDesigned",
               "description": "10M record #14: Boost → Cut with own queries, exact values, future-token probes and an end merge",
+              "date": "2026-10-22",
               "value": 3.409,
               "contributorKind": "team",
               "submissionUrls": [
@@ -7322,6 +7324,7 @@
             {
               "contributor": "CharlesDDDD",
               "description": "A forward readout of cross-token credit along each token's path; a fixed Boost, lower ANVIL II weight decay",
+              "date": "2026-10-25",
               "value": 3.338,
               "contributorKind": "person",
               "contributorUrl": "https://github.com/CharlesDDDD",
@@ -7340,6 +7343,7 @@
             {
               "contributor": "CharlesDDDD",
               "description": "#3 with two-hop credit through next-token twins and a transit decode; head transplants, self-distillation, a planted previous-token head, a linear decay",
+              "date": "2026-10-30",
               "value": 3.3,
               "contributorKind": "person",
               "contributorUrl": "https://github.com/CharlesDDDD",
@@ -7371,6 +7375,7 @@
             {
               "contributor": "JaydenTeoh, spicylemonade, hoo0681, Lazarus-931, CharlesDDDD, NotDesigned",
               "description": "10M record #14: Boost → Cut with own queries, exact values, future-token probes and an end merge",
+              "date": "2026-10-22",
               "value": 6180,
               "contributorKind": "team",
               "submissionUrls": [
@@ -7388,6 +7393,7 @@
             {
               "contributor": "RobertTLange",
               "description": "The identity path first, then Cut-lite at 8 rows per update with faster chain reruns",
+              "date": "2026-10-23",
               "value": 500,
               "contributorKind": "person",
               "contributorUrl": "https://github.com/RobertTLange",
@@ -7404,6 +7410,7 @@
             {
               "contributor": "conglu1997",
               "description": "A shorter identity phase, then Cut with paired MLP roots and a difficulty-balanced row order",
+              "date": "2026-10-27",
               "value": 123,
               "contributorKind": "person",
               "contributorUrl": "https://github.com/conglu1997",
@@ -7420,6 +7427,7 @@
             {
               "contributor": "RobertTLange",
               "description": "#3's identity phase, then Cut with two single roots, fused Gluon chain kernels and overlapped bf16 collectives",
+              "date": "2026-10-28",
               "value": 22.9,
               "contributorKind": "person",
               "contributorUrl": "https://github.com/RobertTLange",
@@ -7436,6 +7444,7 @@
             {
               "contributor": "CharlesDDDD",
               "description": "#4 with root 4 on importance-drawn tokens (root 6 as its control), root 6 along its routed span, 16 rows per update in the second half, overhead in CUDA graphs, a fixed end merge, word-mix row pruning, warp-specialized attention kernels",
+              "date": "2026-11-01",
               "value": 15.9,
               "contributorKind": "person",
               "contributorUrl": "https://github.com/CharlesDDDD",
@@ -7454,6 +7463,7 @@
             {
               "contributor": "RobertTLange",
               "description": "#4 with 16-row Cut updates from 10% of Cut, root 4 on every 2nd update early, per-head q/k polar, an in-run per-part end merge on held-out rows, tensor-core and Gluon credit kernels",
+              "date": "2026-11-03",
               "value": 14.2,
               "contributorKind": "person",
               "contributorUrl": "https://github.com/RobertTLange",
@@ -7470,6 +7480,7 @@
             {
               "contributor": "conglu1997",
               "description": "#6 with root 4 on every update on drawn tokens (root 6 as its control), query credits on sampled tokens, 16-row updates throughout, Walsh–Hadamard frame products and fused kernels",
+              "date": "2026-11-19",
               "value": 9.9,
               "contributorKind": "person",
               "contributorUrl": "https://github.com/conglu1997",
@@ -7499,6 +7510,7 @@
             {
               "contributor": "Dust w/ Adam",
               "description": "Dust w/ Adam, 24k population, lr cooldown",
+              "date": "2026-10-22",
               "value": 3.767,
               "contributorKind": "method",
               "submissionUrls": [
@@ -7515,6 +7527,7 @@
             {
               "contributor": "JaydenTeoh, spicylemonade, hoo0681, Lazarus-931, CharlesDDDD, NotDesigned",
               "description": "10M record #14: Boost → Cut with own queries, exact values, future-token probes and an end merge",
+              "date": "2026-10-22",
               "value": 3.409,
               "contributorKind": "team",
               "submissionUrls": [
@@ -7532,6 +7545,7 @@
             {
               "contributor": "dylantirandaz",
               "description": "A quarter-turn previous-token tap in the embedding; exact future-token probes",
+              "date": "2026-10-24",
               "value": 3.378,
               "contributorKind": "person",
               "contributorUrl": "https://github.com/dylantirandaz",
@@ -7548,6 +7562,7 @@
             {
               "contributor": "Euraba",
               "description": "6 blocks with hashed n-gram tables; future and input-key probes by moments",
+              "date": "2026-10-25",
               "value": 3.358,
               "contributorKind": "person",
               "contributorUrl": "https://github.com/Euraba",
@@ -7566,6 +7581,7 @@
             {
               "contributor": "RobertTLange",
               "description": "12 × 1024 GPT with hashed n-gram value embeddings; Cut-lite with input-key probes",
+              "date": "2026-10-25",
               "value": 3.211,
               "contributorKind": "person",
               "contributorUrl": "https://github.com/RobertTLange",
@@ -7615,6 +7631,7 @@
             "track2-speedrun-30m",
             "track3-open-arch-30m"
           ],
+          "lastActive": "2026-11-01",
           "bestRank": 1
         },
         {
@@ -7625,6 +7642,7 @@
             "track2-speedrun-30m",
             "track3-open-arch-30m"
           ],
+          "lastActive": "2026-11-03",
           "bestRank": 1
         },
         {
@@ -7634,6 +7652,7 @@
           "problems": [
             "track2-speedrun-30m"
           ],
+          "lastActive": "2026-11-19",
           "bestRank": 1
         },
         {
@@ -7644,7 +7663,8 @@
             "track1-val-loss-30m",
             "track2-speedrun-30m",
             "track3-open-arch-30m"
-          ]
+          ],
+          "lastActive": "2026-10-22"
         },
         {
           "name": "spicylemonade",
@@ -7654,7 +7674,8 @@
             "track1-val-loss-30m",
             "track2-speedrun-30m",
             "track3-open-arch-30m"
-          ]
+          ],
+          "lastActive": "2026-10-22"
         },
         {
           "name": "hoo0681",
@@ -7664,7 +7685,8 @@
             "track1-val-loss-30m",
             "track2-speedrun-30m",
             "track3-open-arch-30m"
-          ]
+          ],
+          "lastActive": "2026-10-22"
         },
         {
           "name": "Lazarus-931",
@@ -7674,7 +7696,8 @@
             "track1-val-loss-30m",
             "track2-speedrun-30m",
             "track3-open-arch-30m"
-          ]
+          ],
+          "lastActive": "2026-10-22"
         },
         {
           "name": "NotDesigned",
@@ -7684,7 +7707,8 @@
             "track1-val-loss-30m",
             "track2-speedrun-30m",
             "track3-open-arch-30m"
-          ]
+          ],
+          "lastActive": "2026-10-22"
         },
         {
           "name": "dylantirandaz",
@@ -7692,7 +7716,8 @@
           "submissions": 1,
           "problems": [
             "track3-open-arch-30m"
-          ]
+          ],
+          "lastActive": "2026-10-24"
         },
         {
           "name": "Euraba",
@@ -7700,16 +7725,19 @@
           "submissions": 1,
           "problems": [
             "track3-open-arch-30m"
-          ]
+          ],
+          "lastActive": "2026-10-25"
         }
       ],
       "stats": {
         "totalRecords": 16,
         "uniqueParticipants": 10,
-        "recordsLast30d": 0,
-        "recordsLast90d": 0
+        "firstSubmission": "2026-10-22",
+        "lastSubmission": "2026-11-19",
+        "recordsLast30d": 6,
+        "recordsLast90d": 16
       },
-      "lastUpdated": "2026-11-25T07:26:44.538Z"
+      "lastUpdated": "2026-11-25T09:07:44.498Z"
     },
     {
       "id": "skab",

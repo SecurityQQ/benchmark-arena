@@ -136,6 +136,19 @@ export interface DiscoveredRepo {
   priority?: boolean;            // ships PROBLEM.md / SUBMISSION.md: crawled first in the weekly run
 }
 
+// What the last LLM pass saw per repo (data/crawl-state.json). A repo with the same last push and the same prompts/model is not
+// re-sent to the LLM: its previous entry is reused, or, if it was "not a competition", it stays rejected.
+export interface RepoState {
+  pushedAt: string;
+  fingerprint: string;
+  verdict: "competition" | "none";
+  checkedAt: string;
+  head?: string;                 // default-branch commit the files were read at: the live refresh diffs the branch against it
+  sources?: string[];            // files the extractor read ("dir/" = anything under it): only a change to one of them re-extracts live
+  live?: true;                   // written by a live re-extraction: the weekly crawl's fetch cache predates it
+  liveFailedAt?: string;         // a live re-extraction failed or shrank the board: not retried live for a day
+}
+
 export interface CrawlResult {
   crawledAt: string;
   competitions: Competition[];
