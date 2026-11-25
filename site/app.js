@@ -200,9 +200,20 @@ function route() {
 
 // keep description, canonical and social tags in step with the client-side route
 const META_ORIGIN = "https://openchallengelist.com", META_DEFAULT = document.querySelector('meta[name="description"]')?.content || "";
+// The social image: the server page's own (its card with the version and the card in words) while on the route it was
+// rendered for; elsewhere that route's card, which the build draws for home, topics and competitions, or the site's picture
+const metaOf = (k) => document.querySelector(`meta[property="${k}"], meta[name="${k}"]`)?.getAttribute("content") || "";
+const homePath = (p) => (p === "/landing" ? "/" : p);
+const META_IMAGE = { path: homePath(location.pathname), src: metaOf("og:image"), type: metaOf("og:image:type"), alt: metaOf("og:image:alt") };
+function socialImage(p, c, topic) {
+  if (homePath(p) === META_IMAGE.path) return META_IMAGE;
+  const card = c ? `/og/c/${encodeURIComponent(c.id)}.png` : topic ? `/og/topics/${encodeURIComponent(topic.slug)}.png` : homePath(p) === "/" ? "/og/home.png" : "";
+  return card ? { src: META_ORIGIN + card, type: "image/png", alt: document.title } : { src: `${META_ORIGIN}/og.jpg`, type: "image/jpeg", alt: "All open-source challenges in one place." };
+}
+const sentence = (s) => (/[.!?…]$/.test(s.trim()) ? s.trim() : `${s.trim()}.`);
 function syncMeta() {
   const p = location.pathname, m = p.match(/^\/c\/([^/]+)/), c = m && D?.competitions.find((x) => x.id === decodeURIComponent(m[1]));
-  const desc = c ? `${c.tagline || c.description || c.name}. ${c.problems.length} track${c.problems.length === 1 ? "" : "s"}, ${c.stats.totalRecords} records. How to enter, leaderboards and which AI agents hold the records.`.slice(0, 300)
+  const desc = c ? `${sentence(c.tagline || c.description || c.name)} ${c.problems.length} track${c.problems.length === 1 ? "" : "s"}, ${c.stats.totalRecords} records. How to enter, leaderboards and which AI agents hold the records.`.slice(0, 300)
     : p === "/standard" ? "PROBLEM.md and SUBMISSION.md: two Markdown files that describe a competition and its entries. Repositories that ship them are crawled first, and the leaderboard is built from the files."
     : p === "/submit" ? "Add an open benchmark competition to the directory: point us at the GitHub repository."
     : topicFor(p) ? topicFor(p).about : META_DEFAULT;
@@ -211,6 +222,10 @@ function syncMeta() {
   set('meta[name="description"]', "content", desc); set('meta[property="og:description"]', "content", desc); set('meta[name="twitter:description"]', "content", desc);
   set('link[rel="canonical"]', "href", url); set('meta[property="og:url"]', "content", url);
   set('meta[property="og:title"]', "content", document.title); set('meta[name="twitter:title"]', "content", document.title);
+  const img = socialImage(p, c, topicFor(p));
+  for (const sel of ['meta[property="og:image"]', 'meta[property="og:image:secure_url"]', 'meta[name="twitter:image"]']) set(sel, "content", img.src);
+  set('meta[property="og:image:type"]', "content", img.type);
+  set('meta[property="og:image:alt"]', "content", img.alt); set('meta[name="twitter:image:alt"]', "content", img.alt);
 }
 
 // ── App mode: landing for first-time visitors, sidebar app for everyone who has been here ──

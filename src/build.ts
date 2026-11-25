@@ -11,6 +11,7 @@ import { TOPICS } from "./topics.js";
 import { applyCorrections, loadCorrections } from "./corrections.js";
 import { loadSocial } from "./social.js";
 import { NO_DISCOVERIES, loadDiscoveries } from "./discoveries.js";
+import { cardRenderer, type CardRenderer } from "./og.js";
 
 // IndexNow (Bing, Yandex, Seznam…): the key is public by design; the file at /{key}.txt proves the site owns it
 export const INDEXNOW_KEY = "ad98448484b5c15a593b4febe60a83bc";
@@ -67,7 +68,7 @@ export function loadPublished(root: string) {
   return { ...crawled, competitions: applyCorrections(crawled.competitions, loadCorrections(root, new Set(crawled.competitions.map((c) => c.id)))) };
 }
 
-export function build(root = process.cwd()) {
+export async function build(root = process.cwd()) {
   const ROOT = realpathSync(root);
   const OUT = join(ROOT, "public");
   const data = loadPublished(ROOT);
@@ -101,12 +102,31 @@ export function build(root = process.cwd()) {
   const social = loadSocial(ROOT, new Set(data.competitions.map((c) => c.id)));
   const discoveries = loadDiscoveries(ROOT);
 
-  // Every route as a real page (agents and crawlers that do not run JavaScript), index.html included
+  // Every route as a real page (agents and crawlers that do not run JavaScript), index.html included, with its social card
+  // (src/og.ts) when it has one. A card that cannot be drawn leaves that page on /og.jpg rather than block a data deploy.
   const shell = files.get("index.html")!.toString();
-  for (const p of pages(data, social, discoveries)) {
-    const html = renderPage(shell, p, ORIGIN);
+  const all = pages(data, social, discoveries);
+  let draw: CardRenderer | null = null;
+  try { if (all.some((p) => p.card)) draw = await cardRenderer(); }
+  catch (error) { console.warn(`og: cards unavailable, pages keep /og.jpg (${(error as Error).message})`); }
+  const started = Date.now();
+  let cards = 0, bytes = 0;
+  for (const p of all) {
+    let png: Buffer | undefined, image: { path: string; alt: string } | undefined;
+    if (p.card && draw) {
+      try { png = await draw(p.card); }
+      catch (error) { console.warn(`og: no card for ${p.path} (${(error as Error).message})`); }
+    }
+    if (p.card && png) {
+      w(p.card.file, png);
+      // the hash in the URL: X and others cache a card by its image URL, so new numbers get a new URL
+      image = { path: `/${p.card.file}?v=${createHash("sha256").update(png).digest("hex").slice(0, 10)}`, alt: p.card.alt };
+      cards++; bytes += png.length;
+    }
+    const html = renderPage(shell, p, ORIGIN, image);
     if (p.file === "index.html") files.set("index.html", html); else w(p.file, html);
   }
+  if (draw) console.log(`og: ${cards} cards, ${Math.round(bytes / 1024)} KB, ${Date.now() - started} ms`);
 
   const j = (v: unknown) => JSON.stringify(v);
   w("api/competitions.json", j(data));
@@ -169,4 +189,6 @@ export function build(root = process.cwd()) {
   console.log(`built public/ — ${data.competitions.length} competitions`);
 }
 
-if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) build();
+if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
+  build().catch((error) => { console.error(error); process.exit(1); });
+}
