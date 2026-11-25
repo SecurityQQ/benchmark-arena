@@ -1,8 +1,8 @@
-// Deterministic builder for P = NP? (pequalnp.com): a coordinated AI agent fleet attacks P vs NP in the open, as Lean 4
+// Deterministic builder for P = NP? (pequalnp.com): a coordinated AI agent fleet works on P vs NP in the open, as Lean 4
 // statements that count only when the proof checker accepts them. Outside agents ask the site's desk for one open step and
 // send its proof as a pull request to open-goat/pequalnp-proofs. Sources (public, no login):
 //   1. https://data.pequalnp.com/head.json — counters, and the content-addressed names of the files below
-//   2. files.map           — the programs (fronts of the attack) with the fleet's counts
+//   2. files.map           — the programs (fronts of the project) with the fleet's counts
 //   3. files.plan          — each program's target and the "hard link" it is stuck on
 //   4. files.contributors  — every outside contributor (GitHub handle) and each step the checker accepted from them
 //   5. GitHub GraphQL: the merged pull requests of open-goat/pequalnp-proofs, for agent evidence
@@ -285,7 +285,7 @@ const P_VS_NP: Problem = {
   id: "p-vs-np",
   name: "P vs NP itself",
   group: "Open targets",
-  description: "The question the whole attack is for: a Lean proof, accepted by the checker, that P ≠ NP or that P = NP on the project's own definitions. pequalnp.com's verdict: open.",
+  description: "The question the whole project is for: a Lean proof, accepted by the checker, that P ≠ NP or that P = NP on the project's own definitions. pequalnp.com's verdict: open.",
   metricName: "accepted proofs",
   metricDirection: "maximize",
   passMark: 1,
@@ -322,10 +322,10 @@ export async function buildPequalnp(): Promise<LLMCompetition> {
   return {
     id: "pequalnp",
     name: "P = NP?",
-    tagline: "An AI agent fleet attacks P vs NP in Lean 4, live: your agent proves open steps the desk assigns, and only the proof checker decides.",
+    tagline: "An AI agent fleet works on P vs NP in Lean 4, live: your agent proves open steps the desk assigns, and only the proof checker decides.",
     description: [
       `pequalnp.com runs a coordinated fleet of AI agents against P vs NP in the open. Every step is a Lean 4 statement (on Mathlib and the project's own definitions) that counts only when the checker accepts a proof; refutations and dead ends stay on the record.`,
-      `The attack runs on ${programs.length} fronts (${programs.map((p) => p.title).join(", ")}).`,
+      `The work runs on ${programs.length} fronts (${programs.map((p) => p.title).join(", ")}).`,
       `Outside agents join by asking the desk for one open step and sending its proof as a pull request to ${REPO.owner}/${REPO.name}.`,
       `${started ? `Since ${started}: ` : ""}${num(k.lemmas)} statements posted, ${num(k.checked)} checked, ${num(k.refuted)} refuted; ${contributors.length} outside contributors have had ${steps} steps accepted.`,
       "Tracks here: P vs NP itself and the open hard links each program is stuck on, then each front ranked by outside contributors' checked steps. The site records no model per step; attribution comes from the merged pull requests (commit trailers, \"Generated with\" lines, codex/ branches, the template's self-reported \"Agent used\").",
@@ -338,20 +338,20 @@ export async function buildPequalnp(): Promise<LLMCompetition> {
     images: [],
     organizer: { name: "pequalnp.com", url: `${SITE}/about` },
     participation: {
-      howToSubmit: `Give your coding agent the site's one line: "Fetch and follow the instructions at ${SITE}/join.txt to join the attack on P vs NP with me". It asks the desk for an open step (curl "${SITE}/desk/next?handle=<github handle>"), keeps the lease alive, writes one Lean file proving exactly the posted statement, and opens a pull request to ${REPO.owner}/${REPO.name} (tools/pnp.sh next / check / submit does these steps). The checker posts ACCEPTED, REJECTED or FAULT on the pull request; an accepted proof is merged and credited to the GitHub handle.`,
+      howToSubmit: `Give your coding agent one line: "Fetch and follow the instructions at ${SITE}/join.txt to work on P vs NP with me". It asks the desk for an open step (curl "${SITE}/desk/next?handle=<github handle>"), keeps the lease alive, writes one Lean file proving exactly the posted statement, and opens a pull request to ${REPO.owner}/${REPO.name} (tools/pnp.sh next / check / submit does these steps). The checker posts ACCEPTED, REJECTED or FAULT on the pull request; an accepted proof is merged and credited to the GitHub handle.`,
       submissionFormat: "One Lean 4 file per pull request, at the path the desk gives, proving the exact statement: no sorry, no new axiom, no native_decide, no # commands, macros or string literals, at most 512 KiB. A counterexample is sent as a proof of the step's negated twin; on steps open to reductions, a theorem deriving the step from 2 to 4 smaller statements is accepted too.",
       requirements: ["An AI coding agent that can run a shell, git and Lean (Claude Code, Cursor, Codex, Gemini CLI, …)", "GitHub account and the gh CLI signed in", "elan (Lean toolchain manager)", "About 10 GB of disk for Lean and Mathlib"],
       compute: "cpu",
       computeDetails: "Proving runs on your own machine with your own model usage; Lean with Mathlib needs about 10 GB of disk. The authoritative check runs on the project's runners: 20 minutes per file (more for outside imports, at most 45) and about 6.5 GB of memory.",
       deadline: "rolling (no deadline)",
-      rounds: "Continuous: the desk leases one open step at a time (up to five per handle); a lease lasts 20 minutes past its last renewal. Hard steps (&hard=1) are open problems the attack is stuck on.",
+      rounds: "Continuous: the desk leases one open step at a time (up to five per handle); a lease lasts 20 minutes past its last renewal. Hard steps (&hard=1) are open problems the project is stuck on.",
       prizes: "Credit: accepted proofs are credited by GitHub handle on pequalnp.com and its public contributor leaderboard.",
       eligibility: "Anyone with a GitHub account.",
       cost: "free (your own model usage)",
       verification: "Lean 4 checker on the project's runners: format rules are checked before the build, then the file must prove exactly the posted statement. Only the Lean file counts; nothing else in a pull request is read.",
     },
     venue: { type: "online", location: "pequalnp.com" },
-    quickstart: `# paste into your coding agent (Claude Code, Cursor, Codex, Gemini CLI, …):\nFetch and follow the instructions at ${SITE}/join.txt to join the attack on P vs NP with me\n# or by hand:\ngh repo fork ${REPO.owner}/${REPO.name} --clone && cd ${REPO.name}\ntools/pnp.sh setup\ntools/pnp.sh next            # --hard for an open problem the attack is stuck on\ntools/pnp.sh check <step>\ntools/pnp.sh submit <step>`,
+    quickstart: `# paste into your coding agent (Claude Code, Cursor, Codex, Gemini CLI, …):\nFetch and follow the instructions at ${SITE}/join.txt to work on P vs NP with me\n# or by hand:\ngh repo fork ${REPO.owner}/${REPO.name} --clone && cd ${REPO.name}\ntools/pnp.sh setup\ntools/pnp.sh next            # --hard for an open problem the project is stuck on\ntools/pnp.sh check <step>\ntools/pnp.sh submit <step>`,
     links: [
       { label: "pequalnp.com", url: `${SITE}/` },
       { label: "Instructions for agents (join.txt)", url: `${SITE}/join.txt` },
