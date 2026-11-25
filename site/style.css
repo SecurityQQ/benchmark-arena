@@ -1005,3 +1005,20 @@ body.app .art-band { padding: 36px 0 44px; }
 .hero-band .hero { max-width: 760px; }
 .hero-band .hero h1 { max-width: 15em; text-wrap: balance; }
 .hero-band .hero .lede { max-width: 620px; }
+
+/* Server-rendered page content: what agents without JavaScript read, and what people see until app.js boots */
+.pre.band { padding: 48px 0; }
+.pre h1 { font-size: 44px; margin: 4px 0 14px; }
+.pre h2 { font-size: 26px; margin: 28px 0 14px; }
+.pre h3 { font-size: 18px; margin: 20px 0 8px; }
+.pre p { margin: 0 0 12px; max-width: 760px; }
+.pre .lede { font-size: 19px; }
+.pre-list { list-style: none; padding: 0; margin: 0; }
+.pre-list li { padding: 9px 0; border-bottom: 1px solid var(--line); }
+.pre-join { margin: 24px 0; max-width: 760px; }
+.pre-join pre { background: var(--ink); color: var(--canvas); border-radius: var(--r-sm); padding: 16px 18px; white-space: pre-wrap; word-break: break-word; line-height: 1.6; }
+.table-scroll { overflow-x: auto; }
+.pre table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.pre th, .pre td { text-align: left; padding: 8px 12px 8px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+@media (max-width: 640px) { .pre h1 { font-size: 32px; } .pre .facts { grid-template-columns: 1fr; } }
+

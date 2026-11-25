@@ -247,6 +247,7 @@ test("browser smoke: desktop and mobile interactions under the actual strict CSP
   const server = createServer((req, res) => {
     const path = new URL(req.url, "http://localhost").pathname;
     const [type, body] = path === "/app.js" ? ["text/javascript", source]
+      : path === "/analytics.js" ? ["text/javascript", readFileSync(new URL("../site/analytics.js", import.meta.url))]
       : path === "/style.css" ? ["text/css", css]
       : path === "/api/summary" ? ["application/json", JSON.stringify(data)]
       : path === "/standard/templates.json" ? ["application/json", JSON.stringify({ "PROBLEM.md": "spec: problem.md/v1", "SUBMISSION.md": "spec: submission.md/v1" })]

@@ -4,8 +4,9 @@ import { dirname, join, resolve, relative, isAbsolute, sep } from "node:path";
 import { pathToFileURL } from "node:url";
 import { createHash } from "node:crypto";
 import type { CrawlResult } from "./types.js";
-import { aggregateAgents, aggregatePeople, openProblems } from "./aggregate.js";
-import { competitionToMarkdown, llmsTxt } from "./render.js";
+import { aggregateAgents, aggregatePeople, competitionIndex, openProblems } from "./aggregate.js";
+import { competitionToMarkdown, feedAtom, feedJson, joinTxt, llmsTxt } from "./render.js";
+import { pages, renderPage } from "./prerender.js";
 
 // Inventory, not a recursive copy: new assets must be deliberately published.
 export const SITE_ASSETS = new Set([
@@ -80,8 +81,23 @@ export function build(root = process.cwd()) {
   if (stamped === html || !stamped.includes("/app.js?v=") || !stamped.includes("/style.css?v=")) throw new Error("build: could not version app.js / style.css in index.html");
   files.set("index.html", files.has("analytics.js") ? stamped.replace('src="/analytics.js"', `src="/analytics.js?v=${ver("analytics.js")}"`) : stamped);
 
+  const origin = new URL(process.env.SITE_ORIGIN ?? "https://openchallengelist.com");
+  if (!["http:", "https:"].includes(origin.protocol) || origin.username || origin.password || origin.pathname !== "/" || origin.search || origin.hash) throw new Error("SITE_ORIGIN must be an HTTP(S) origin");
+  const ORIGIN = origin.origin;
+
+  // Every route as a real page (agents and crawlers that do not run JavaScript), index.html included
+  const shell = files.get("index.html")!.toString();
+  for (const p of pages(data)) {
+    const html = renderPage(shell, p, ORIGIN);
+    if (p.file === "index.html") files.set("index.html", html); else w(p.file, html);
+  }
+
   const j = (v: unknown) => JSON.stringify(v);
   w("api/competitions.json", j(data));
+  w("api/index.json", j({ crawledAt: data.crawledAt, competitions: competitionIndex(data.competitions) }));
+  w("api/feed.json", j(feedJson(data, ORIGIN)));
+  w("feed.xml", feedAtom(data, ORIGIN));
+  w("join.txt", joinTxt(data, ORIGIN));
   w("api/people.json", j(aggregatePeople(data.competitions)));
   w("api/agents.json", j(aggregateAgents(data.competitions, "author")));
   w("api/agents-subject.json", j(aggregateAgents(data.competitions, "subject")));
@@ -102,17 +118,15 @@ export function build(root = process.cwd()) {
   // Neutral filename avoids blockers that stall requests for *SUBMISSION*.md.
   w("standard/templates.json", j({ "PROBLEM.md": readSiteAsset(join(ROOT, "site"), "standard/PROBLEM.md").toString(), "SUBMISSION.md": readSiteAsset(join(ROOT, "site"), "standard/SUBMISSION.md").toString() }));
 
-  // Sitemap: static routes, every competition, every model family with records.
-  const origin = new URL(process.env.SITE_ORIGIN ?? "https://openchallengelist.com");
-  if (!["http:", "https:"].includes(origin.protocol) || origin.username || origin.password || origin.pathname !== "/" || origin.search || origin.hash) throw new Error("SITE_ORIGIN must be an HTTP(S) origin");
-  const ORIGIN = origin.origin;
+  // Sitemap: static routes, every competition (dated by its latest entry), every model family with records.
   const xml = (s: string) => s.replace(/[<>&"']/g, (c) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;", '"': "&quot;", "'": "&apos;" })[c]!);
   const day = new Date(data.crawledAt).toISOString().slice(0, 10);
   const families = [...new Set(data.competitions.flatMap((c) => c.problems.flatMap((p) => p.records.map((r) => r.agent?.family).filter((f): f is NonNullable<typeof f> => !!f && f !== "unknown"))))];
-  const urls: [string, string, string][] = [["/", "weekly", "1.0"], ["/standard", "weekly", "0.9"], ["/submit", "monthly", "0.6"], ["/agents", "weekly", "0.8"], ["/people", "weekly", "0.7"],
-    ...data.competitions.map((c): [string, string, string] => [`/c/${encodeURIComponent(c.id)}`, "weekly", "0.8"]),
-    ...families.map((f): [string, string, string] => [`/agents/${encodeURIComponent(f)}`, "weekly", "0.5"])];
-  w("sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(([p, f, pr]) => `  <url><loc>${xml(ORIGIN + p)}</loc><lastmod>${xml(day)}</lastmod><changefreq>${f}</changefreq><priority>${pr}</priority></url>`).join("\n")}\n</urlset>\n`);
+  const lastmod = (c: (typeof data.competitions)[number]) => { const d = c.stats.lastSubmission ?? c.lastUpdated; return d && /^\d{4}-\d{2}-\d{2}/.test(d) && d.slice(0, 10) <= day ? d.slice(0, 10) : day; };
+  const urls: [string, string, string, string][] = [["/", "daily", "1.0", day], ["/standard", "weekly", "0.9", day], ["/submit", "monthly", "0.6", day], ["/agents", "weekly", "0.8", day], ["/people", "weekly", "0.7", day],
+    ...data.competitions.map((c): [string, string, string, string] => [`/c/${encodeURIComponent(c.id)}`, c.stats.recordsLast30d ? "daily" : "weekly", "0.8", lastmod(c)]),
+    ...families.map((f): [string, string, string, string] => [`/agents/${encodeURIComponent(f)}`, "weekly", "0.5", day])];
+  w("sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(([p, f, pr, m]) => `  <url><loc>${xml(ORIGIN + p)}</loc><lastmod>${xml(m)}</lastmod><changefreq>${f}</changefreq><priority>${pr}</priority></url>`).join("\n")}\n</urlset>\n`);
   w("competitions.json", j(data));
 
   // Validate all output paths and render everything before deleting the previous build.

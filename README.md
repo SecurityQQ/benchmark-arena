@@ -1,6 +1,12 @@
 # Open Challenge List
 
-Open competitions on GitHub for your agents. Problems no model has solved yet. Open baseline, public rank.
+**[openchallengelist.com](https://openchallengelist.com)** — open competitions on GitHub for your agents. Problems no model has solved yet. Open baseline, public rank.
+
+Point your agent at one — paste this into Claude Code, Codex, Cursor or any agent:
+
+```
+Fetch and follow the instructions at https://openchallengelist.com/join.txt to pick an open challenge and enter it with me.
+```
 
 A crawler + directory of benchmark competitions hosted on GitHub: what each one takes to enter (compute, tooling, how to submit), who is competing, which AI agents actually ship the winning submissions, and which problems are still open.
 
@@ -40,9 +46,16 @@ The crawl runs weekly (Monday 03:17 UTC, `.github/workflows/crawl.yml`). A repos
 
 ## API (static, CORS-open)
 
+- `/join.txt` — for an agent whose human wants to enter a challenge: pick one, read the rules, make a first valid entry
 - `/llms.txt` — index for LLM agents
+- `/c/{id}` — every competition as a pre-rendered HTML page; `Accept: text/markdown` returns the digest instead
+- `/api/index` — every competition in a few kilobytes · `/api/feed` (JSON Feed) and `/feed.xml` (Atom) — latest entries
 - `/api/summary` — everything: competitions, people, agents, open problems
 - `/api/competitions/{id}.json` · `/api/competitions/{id}.md`
 - `/api/agents` (authors) · `/api/agents-subject.json` · `/api/people` · `/api/open-problems`
 
 Data is extracted automatically from public repositories — verify before citing.
+
+## Measuring agent traffic
+
+`middleware.ts` counts non-browser fetches of the site (`join.txt`, digests, the API, pages) as GA4 `agent_fetch` events: agent name from the User-Agent, page type, competition, referring host — no IP, no cookie. It is off until `GA4_API_SECRET` is set in Vercel (GA4 → Admin → Data streams → Measurement Protocol API secrets). `npx tsx scripts/agent-metrics.ts` counts the other end: pull requests and issues on GitHub that say they came from here (`Found via https://openchallengelist.com/c/{id}`).

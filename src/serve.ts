@@ -3,8 +3,10 @@ import { createServer } from "node:http";
 import { readFile } from "node:fs/promises";
 import { join, extname } from "node:path";
 import { publicDataset, readSiteAsset } from "./build.js";
-import { aggregatePeople, aggregateAgents, openProblems } from "./aggregate.js";
-import { competitionToMarkdown, llmsTxt } from "./render.js";
+import { aggregatePeople, aggregateAgents, competitionIndex, openProblems } from "./aggregate.js";
+import { competitionToMarkdown, feedAtom, feedJson, joinTxt, llmsTxt } from "./render.js";
+import { pages, renderPage } from "./prerender.js";
+import { markdownFor } from "./agentTraffic.js";
 
 const PORT = Number(process.env.PORT ?? 3000);
 const HOST = process.env.HOST ?? "127.0.0.1";
@@ -59,7 +61,27 @@ const server = createServer(async (req, res) => {
     } catch {
       return send(res, 400, "Bad request");
     }
+    // Accept: text/markdown → the Markdown twin, as middleware.ts does in production
+    const twin = markdownFor(path, req.headers.accept ?? null);
+    if (twin) path = twin;
+
     // ── API ──
+    if (path === "/api/index" || path === "/api/index.json") {
+      const data = await loadData();
+      return send(res, 200, JSON.stringify({ crawledAt: data.crawledAt, competitions: competitionIndex(data.competitions) }), MIME[".json"]);
+    }
+    if (path === "/api/feed" || path === "/api/feed.json") {
+      const data = await loadData();
+      return send(res, 200, JSON.stringify(feedJson(data, `http://${req.headers.host}`)), MIME[".json"]);
+    }
+    if (path === "/feed.xml") {
+      const data = await loadData();
+      return send(res, 200, feedAtom(data, `http://${req.headers.host}`), "application/atom+xml; charset=utf-8");
+    }
+    if (path === "/join.txt") {
+      const data = await loadData();
+      return send(res, 200, joinTxt(data, `http://${req.headers.host}`), MIME[".txt"]);
+    }
     if (path === "/api/competitions" || path === "/api/competitions.json") {
       const data = await loadData();
       return send(res, 200, JSON.stringify(data), MIME[".json"]);
@@ -105,9 +127,17 @@ const server = createServer(async (req, res) => {
       return send(res, 200, JSON.stringify(data), MIME[".json"]);
     }
 
+    // ── Pages: every route rendered with its content, as the build does; unknown routes get the 404 page ──
+    if (!extname(path)) {
+      const data = await loadData();
+      const all = pages(data);
+      const route = path === "/landing" ? "/" : path;
+      const p = all.find((x) => x.path === route) ?? all.find((x) => x.path === "/404")!;
+      return send(res, p.path === "/404" ? 404 : 200, renderPage(readSiteAsset(SITE_DIR, "index.html").toString(), p), MIME[".html"]);
+    }
+
     // ── Static ──
-    // SPA: any path without a file extension is a client-side route
-    const asset = extname(path) ? path.slice(1) : "index.html";
+    const asset = path.slice(1);
     const filePath = join(SITE_DIR, asset);
     const content = readSiteAsset(SITE_DIR, asset);
     return send(res, 200, content, MIME[extname(filePath)] ?? "application/octet-stream");

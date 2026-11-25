@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
 
-# AI agents are welcome: see /llms.txt and /api/summary
+# AI agents are welcome. Helping someone enter a challenge? /join.txt. Index: /llms.txt. Latest entries: /api/feed.json
 Sitemap: https://openchallengelist.com/sitemap.xml

@@ -19,6 +19,18 @@ function competition(id = "Valid_ID-1"): Competition {
   };
 }
 
+// The markers the pre-renderer fills, as in site/index.html
+const SHELL = `<!DOCTYPE html><html><head><title>Default</title>
+<meta name="description" content="Default description">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://openchallengelist.com/">
+<meta property="og:url" content="https://openchallengelist.com/">
+<meta property="og:title" content="Default">
+<meta property="og:description" content="Default description">
+<meta name="twitter:title" content="Default">
+<meta name="twitter:description" content="Default description">
+<link href="/style.css"></head><body><main id="app"></main><script src="/app.js"></script></body></html>`;
+
 function sandbox(t: { after: (fn: () => void) => void }) {
   const root = mkdtempSync(join(tmpdir(), "publication-"));
   t.after(() => rmSync(root, { recursive: true, force: true }));
@@ -31,7 +43,7 @@ function sandbox(t: { after: (fn: () => void) => void }) {
     errors: [{ repo: "private", error: "SECRET_CRAWLER_ERROR" }], privateMetadata: "SECRET_METADATA",
   });
   put("data/competitions.json", JSON.stringify(dataset()));
-  put("site/index.html", '<link href="/style.css"><script src="/app.js"></script>');
+  put("site/index.html", SHELL);
   put("site/app.js", "console.log('test')");
   put("site/style.css", "body{}");
   put("site/standard/PROBLEM.md", "# Problem");
@@ -182,7 +194,18 @@ test("dev server enforces publication, safe paths, methods, and security headers
     assert.equal(response.headers.allow, "GET, HEAD");
   }
   assert.equal((await get("/api/competitions", "HEAD")).body, "");
-  for (const path of ["/", "/c/Valid_ID-1", "/app.js", "/favicon-32.png", "/api/summary", "/llms.txt"]) {
+  const md = await new Promise<{ status: number; body: string; headers: any }>((resolve, reject) => {
+    const req = request({ host: "127.0.0.1", port, path: "/c/Valid_ID-1", headers: { accept: "text/markdown, text/html;q=0.9" } }, (res) => {
+      let body = ""; res.on("data", (chunk) => { body += chunk; }); res.on("end", () => resolve({ status: res.statusCode!, body, headers: res.headers }));
+    });
+    req.on("error", reject); req.end();
+  });
+  assert.equal(md.status, 200);
+  assert.match(md.headers["content-type"], /^text\/markdown/);
+  assert.match(md.body, /^# Test/);
+  assert.match((await get("/c/Valid_ID-1")).body, /<main id="app">[\s\S]*<h1>Test<\/h1>/);
+  assert.equal((await get("/c/missing")).status, 404);
+  for (const path of ["/", "/c/Valid_ID-1", "/app.js", "/favicon-32.png", "/api/summary", "/llms.txt", "/join.txt", "/feed.xml", "/api/feed", "/api/index"]) {
     const response = await get(path);
     assert.equal(response.status, 200, path);
     assert.equal(response.headers["x-frame-options"], "DENY");
@@ -191,3 +214,72 @@ test("dev server enforces publication, safe paths, methods, and security headers
     assert.ok(!response.body.includes("SECRET"));
   }
 });
+
+test("every route is a pre-rendered page with its own metadata, and crawled text stays data", (t) => {
+  const { root, put, dataset } = sandbox(t);
+  const c = competition("hostile");
+  c.name = `</script><script>alert(1)</script>`;
+  c.tagline = `<img src=x onerror=alert(1)> $& $1`;
+  c.url = "javascript:alert(1)";
+  c.links = [{ label: "Rules", url: "javascript:alert(2)" }, { label: "Repo", url: "https://github.com/o/r" }];
+  c.stats = { totalRecords: 1, uniqueParticipants: 1, recordsLast30d: 1, recordsLast90d: 1, lastSubmission: "2026-09-17" };
+  c.problems = [{ id: "p", name: "Track <b>", metricName: "score", metricDirection: "maximize", baseline: 1, isOpen: false,
+    records: [{ value: 2, date: "2026-09-17", contributor: "<i>eve</i>", isCurrentBest: true, agent: { family: "anthropic", tool: "Claude Code", confidence: "high", role: "author" } }] }];
+  put("data/competitions.json", JSON.stringify(dataset([competition(), c])));
+  build(root);
+  const html = readFileSync(join(root, "public/c/hostile.html"), "utf8");
+  assert.match(html, /<title>&lt;\/script&gt;&lt;script&gt;alert\(1\)&lt;\/script&gt; — Open Challenge List<\/title>/);
+  assert.match(html, /<link rel="canonical" href="https:\/\/openchallengelist\.com\/c\/hostile">/);
+  assert.match(html, /<link rel="alternate" type="text\/markdown" href="\/api\/competitions\/hostile\.md"/);
+  assert.ok(html.includes("&lt;img src=x onerror=alert(1)&gt; $&amp; $1"), "replacement patterns are not expanded");
+  assert.ok(!/<script>alert|<img src=x|href="javascript:/i.test(html));
+  assert.ok(html.includes("&lt;i&gt;eve&lt;/i&gt;") && html.includes("Claude Code"));
+  // JSON-LD cannot close its own script element
+  const ldBlocks = html.match(/<script type="application\/ld\+json">[\s\S]*?<\/script>/g) ?? [];
+  assert.equal(ldBlocks.length, 1);
+  assert.ok(!ldBlocks[0].slice(35, -9).includes("<"));
+  assert.equal(JSON.parse(ldBlocks[0].slice(35, -9)).name, c.name);
+  assert.equal((html.match(/<meta name="robots"/g) ?? []).length, 1);
+  const home = readFileSync(join(root, "public/index.html"), "utf8");
+  assert.match(home, /app\.js\?v=[a-f0-9]{10}/);
+  assert.ok(home.includes('href="/c/hostile"') && home.includes("join.txt"));
+  for (const file of ["agents.html", "agents/anthropic.html", "people.html", "standard.html", "submit.html"]) assert.ok(existsSync(join(root, "public", file)), file);
+  const notFound = readFileSync(join(root, "public/404.html"), "utf8");
+  assert.match(notFound, /<meta name="robots" content="noindex">/);
+  assert.equal((notFound.match(/<meta name="robots"/g) ?? []).length, 1);
+});
+
+test("agents get join.txt, feeds and a small index", (t) => {
+  const { root, put, dataset } = sandbox(t);
+  const c = competition("live");
+  c.stats = { totalRecords: 2, uniqueParticipants: 2, recordsLast30d: 2, recordsLast90d: 2, lastSubmission: "2026-09-17" };
+  c.problems = [
+    { id: "a", name: "A", metricName: "score", metricDirection: "maximize", isOpen: false, records: [
+      { value: 3, date: "2026-09-17", contributor: "ann & co", isCurrentBest: true, agent: { family: "openai", tool: "Codex", confidence: "high", role: "author" } },
+      { value: 1, date: "2026-09-10", contributor: "bob" },
+      { value: 9, date: "2026-09-18", contributor: "GPT-9", agent: { family: "openai", confidence: "high", role: "subject" } },
+      { value: 0, date: "2026-09-18", contributor: "baseline", isBaseline: true },
+    ] },
+    { id: "b", name: "B", metricName: "proofs", metricDirection: "maximize", passMark: 1, isOpen: true, records: [] },
+  ];
+  put("data/competitions.json", JSON.stringify(dataset([c])));
+  build(root);
+  const pub = (p: string) => readFileSync(join(root, "public", p), "utf8");
+  const join_ = pub("join.txt");
+  assert.match(join_, /Found via https:\/\/openchallengelist\.com\/c\/\{id\}/);
+  assert.match(join_, /- Test \[CPU only\] 2 entries in 30 days, 2 participants, 1 open track — .*https:\/\/openchallengelist\.com\/api\/competitions\/live\.md/);
+  const feed = JSON.parse(pub("api/feed.json"));
+  assert.deepEqual(feed.items.map((i: any) => i._entry.contributor), ["ann & co", "bob"], "newest first; no baselines, no benchmarked models");
+  assert.match(feed.items[0].title, /^ann & co with Codex → Test \/ A: 3 score · current best$/);
+  const atom = pub("feed.xml");
+  assert.ok(atom.includes("ann &amp; co") && !atom.includes("ann & co"));
+  const index = JSON.parse(pub("api/index.json"));
+  assert.deepEqual(index.competitions[0], { id: "live", name: "Test", tagline: "Test", status: "active", domain: "test", compute: "cpu", tracks: 2, openTracks: 1,
+    entries: 2, entriesLast30d: 2, participants: 2, lastEntry: "2026-09-17", agents: [], url: "https://example.com", page: "/c/live", digest: "/api/competitions/live.md" });
+  const open = JSON.parse(pub("api/open-problems.json"));
+  assert.equal(open[0].kind, "unsolved");
+  assert.equal(open[0].digest, "/api/competitions/live.md");
+  assert.match(pub("api/competitions/live.md"), /Found via https:\/\/openchallengelist\.com\/c\/live/);
+  assert.match(pub("sitemap.xml"), /<loc>https:\/\/openchallengelist\.com\/c\/live<\/loc><lastmod>2026-09-17<\/lastmod><changefreq>daily<\/changefreq>/);
+});
+
