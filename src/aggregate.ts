@@ -91,7 +91,7 @@ export function aggregateAgents(comps: Competition[], role: "author" | "subject"
 export function openProblems(comps: Competition[]): OpenProblem[] {
   const out: OpenProblem[] = [];
   for (const c of comps) for (const p of c.problems) {
-    if (!p.isOpen) continue;
+    if (!p.isOpen || c.status === "ended") continue; // a closed competition's tracks cannot be entered
     out.push({ competitionId: c.id, competitionName: c.name, compute: c.participation.compute, problemId: p.id, problemName: p.name,
       description: p.description, metricName: p.metricName, metricDirection: p.metricDirection, baseline: p.baseline, passMark: p.passMark,
       kind: p.passMark != null ? "unsolved" : "unbeaten",

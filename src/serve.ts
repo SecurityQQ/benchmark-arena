@@ -7,6 +7,7 @@ import { aggregatePeople, aggregateAgents, competitionIndex, openProblems } from
 import { competitionToMarkdown, feedAtom, feedJson, joinTxt, llmsTxt } from "./render.js";
 import { pages, renderPage, topicMarkdown } from "./prerender.js";
 import { TOPICS } from "./topics.js";
+import { applyCorrections, loadCorrections } from "./corrections.js";
 import { markdownFor } from "./agentTraffic.js";
 import { loadSocial } from "./social.js";
 
@@ -29,7 +30,8 @@ const MIME: Record<string, string> = {
 };
 
 async function loadData() {
-  return publicDataset(JSON.parse(await readFile(DATA_PATH, "utf-8")));
+  const crawled = publicDataset(JSON.parse(await readFile(DATA_PATH, "utf-8")));
+  return { ...crawled, competitions: applyCorrections(crawled.competitions, loadCorrections(process.cwd(), new Set(crawled.competitions.map((c) => c.id)))) };
 }
 
 function send(res: any, status: number, body: string | Buffer, type = "text/plain; charset=utf-8") {
