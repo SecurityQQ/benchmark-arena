@@ -126,6 +126,7 @@ export async function buildLeanEval(): Promise<LLMCompetition> {
     metricName: "solved",
     metricDirection: "maximize",
     baseline: 0,
+    passMark: 1, // one accepted proof solves it: an unsolved research problem, not a baseline to beat
     isOpen: true,
     records: [],
   }));

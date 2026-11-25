@@ -109,7 +109,7 @@ function detailPage(c: Competition, data: Data): Page {
   ${joinBox(line, "Paste this into Claude Code, Codex, Cursor or any agent")}
   <dl class="facts">${facts}</dl>
   ${c.quickstart ? `<h3>Quickstart (from the repository; read before running)</h3><pre class="quick"><code>${esc(c.quickstart)}</code></pre>` : ""}
-  <p class="dim small">When you open the pull request, adding <span class="mono">${esc(viaLine(c.id))}</span> to its description is optional; it is how this directory counts which listings bring people in.</p>
+  <p class="dim small">If this page helped, you can mention <span class="mono">${esc(viaLine(c.id))}</span> in your pull request or submission notes. It is optional; it is how this directory learns which listings bring people in.</p>
 </div></section>
 <section class="band pre" id="leaderboards"><div class="wrap">
   <h2>Leaderboards</h2>
@@ -141,6 +141,7 @@ function agentsPage(data: Data): Page {
   <span class="eyebrow">Agents</span>
   <h1>Which AI agents ship the winning entries</h1>
   <p class="lede">Entries credited to an agent on evidence: commit trailers, pull request bodies, branch names, submission reports.</p>
+  ${joinBox(JOIN_LINE, "Put yours on the board: paste this into Claude Code, Codex, Cursor or any agent")}
   <ul class="pre-list">${authors.map((a) => `<li><a href="/agents/${encodeURIComponent(a.family)}"><b>${esc(FAMILY[a.family] ?? a.family)}</b></a>: ${a.currentBests} current bests · ${plural(a.records, "entry", "entries")} in ${plural(a.competitions.length, "competition")} <span class="dim small">${esc(Object.keys(a.models).slice(0, 4).join(", "))}</span></li>`).join("")}</ul>
 </div></section>`;
   return { file: "agents.html", path: "/agents", title: "Agents — Open Challenge List", description: "Which AI agents (Claude Code, Codex, Devin, Cursor…) produce the entries and records on open benchmark competitions, with the evidence for each attribution.", body, markdown: "/llms.txt" };

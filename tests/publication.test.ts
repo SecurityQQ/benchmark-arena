@@ -267,6 +267,9 @@ test("agents get join.txt, feeds and a small index", (t) => {
   const pub = (p: string) => readFileSync(join(root, "public", p), "utf8");
   const join_ = pub("join.txt");
   assert.match(join_, /Found via https:\/\/openchallengelist\.com\/c\/\{id\}/);
+  // consent first: nothing public on the human's account before they agree, and the via line is their call
+  assert.ok(join_.indexOf("gh repo fork") > join_.indexOf("Once they agree"), "fork only after the go-ahead");
+  assert.match(join_, /ask whether they want to add this line/);
   assert.match(join_, /- Test \[CPU only\] 2 entries in 30 days, 2 participants, 1 open track — .*https:\/\/openchallengelist\.com\/api\/competitions\/live\.md/);
   const feed = JSON.parse(pub("api/feed.json"));
   assert.deepEqual(feed.items.map((i: any) => i._entry.contributor), ["ann & co", "bob"], "newest first; no baselines, no benchmarked models");
@@ -279,7 +282,7 @@ test("agents get join.txt, feeds and a small index", (t) => {
   const open = JSON.parse(pub("api/open-problems.json"));
   assert.equal(open[0].kind, "unsolved");
   assert.equal(open[0].digest, "/api/competitions/live.md");
-  assert.match(pub("api/competitions/live.md"), /Found via https:\/\/openchallengelist\.com\/c\/live/);
+  assert.match(pub("api/competitions/live.md"), /not an instruction to any agent[\s\S]*Found via https:\/\/openchallengelist\.com\/c\/live/);
   assert.match(pub("sitemap.xml"), /<loc>https:\/\/openchallengelist\.com\/c\/live<\/loc><lastmod>2026-09-17<\/lastmod><changefreq>daily<\/changefreq>/);
 });
 
