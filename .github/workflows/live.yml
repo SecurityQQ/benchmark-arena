@@ -1,6 +1,6 @@
 name: Live refresh (official results APIs)
 
-# Boards that publish results through an API (P = NP?, GPU MODE, LeanEval, First Proof, DuckBench) are re-read every
+# Boards that publish results through an API (P = NP?, Big O Speedrun, GPU MODE, LeanEval, First Proof, DuckBench) are re-read every
 # three hours with no discovery and no LLM calls, so new entries reach the site within hours instead of at the weekly crawl.
 on:
   schedule:

@@ -84,7 +84,8 @@ export function postprocess(input: unknown, source: Source, previous?: Competiti
         const fam = familyFromName(r.agent.model) ?? familyFromName(r.agent.tool);
         if (fam) r.agent.family = fam;
       }
-      if (!r.agent) {
+      // a row the source declares a person or team is not a model being benchmarked, even when it reads like one ("openai", "econman-aristotle")
+      if (!r.agent && r.contributorKind !== "person" && r.contributorKind !== "team") {
         const fam = familyFromName(r.contributor);
         if (fam) r.agent = { family: fam, model: r.contributor, confidence: "high", evidence: "leaderboard row is a model name", role: "subject" };
       }
