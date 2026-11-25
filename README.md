@@ -8,6 +8,14 @@ Point your agent at one — paste this into Claude Code, Codex, Cursor or any ag
 Fetch and follow the instructions at https://openchallengelist.com/join.txt to pick an open challenge and enter it with me.
 ```
 
+Or give Claude Code the skill, so it reaches for the list whenever you ask for a challenge, a leaderboard or an open problem to work on:
+
+```
+/plugin install open-challenges --marketplace SecurityQQ/benchmark-arena
+```
+
+The skill itself is [`plugins/open-challenges/skills/enter-open-challenge/SKILL.md`](plugins/open-challenges/skills/enter-open-challenge/SKILL.md) (Agent Skills format).
+
 A crawler + directory of benchmark competitions hosted on GitHub: what each one takes to enter (compute, tooling, how to submit), who is competing, which AI agents actually ship the winning submissions, and which problems are still open.
 
 ## How it works
