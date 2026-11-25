@@ -270,6 +270,7 @@ function renderTopic(t) {
     <div class="join-line"><span class="eyebrow">Paste this into Claude Code, Codex, Cursor or any agent</span><pre class="quick join"><button type="button" class="copy" data-action="copy-join" data-topic="${esc(t.slug)}">copy</button><code>${esc(topicJoin(t))}</code></pre></div>
     </div></section>
     ${liveBand(comps)}
+    ${t.discoveries ? discoveriesBand(3, false) : ""}
     <section class="band tight"><div class="wrap">
       <div class="grid">${comps.map(card).join("")}</div>
       <p class="dim small topic-links">Other topics: ${(D.topics || []).filter((x) => x.slug !== t.slug).map((x) => `<a href="/topics/${esc(x.slug)}" data-action="nav">${esc(x.name)}</a>`).join(" · ")}</p>
@@ -622,6 +623,26 @@ function socialBand() {
     </div></section>`;
 }
 
+// "Fresh discoveries": Lean-verified results registered on Palomar in the last 7 UTC days (data/discoveries.json, from its JSON API).
+// Counted from the visitor's clock; links only to the registry's permalinks, its home page and our own pages.
+const PALOMAR = "https://palomar-registry.org/";
+const PALOMAR_ENTRY = /^https:\/\/palomar-registry\.org\/entry\?id=PALOMAR-\d{4}-\d{2}-\d{2}-\d{6}&version=\d{1,4}$/;
+function discoveriesBand(limit, withTarget) {
+  const d = D.discoveries, day = (t) => new Date(t).toISOString().slice(0, 10);
+  if (!d || !Array.isArray(d.items)) return "";
+  const now = Date.now(), today = day(now), from = day(now - 6 * 86400000);
+  const items = d.items.filter((i) => i && typeof i.date === "string" && i.date >= from && typeof i.title === "string" && PALOMAR_ENTRY.test(i.url));
+  if (!items.length) return "";
+  const days = d.days && typeof d.days === "object" ? d.days : {}, n = (v) => (Number.isSafeInteger(v) && v > 0 ? v : 0);
+  const week = Math.max(items.length, Object.keys(days).reduce((s, k) => s + (k >= from ? n(days[k]) : 0), 0)), todayN = n(days[today]);
+  const authors = (a) => { a = Array.isArray(a) ? a.filter((x) => typeof x === "string") : []; return a.length > 3 ? `${a.slice(0, 3).join(", ")} et al.` : a.join(", "); };
+  return `<section class="band tight live-band" id="discoveries"><div class="wrap">
+      <div class="band-head"><div><span class="eyebrow">Fresh discoveries</span><h2>${esc(fmt(week))}${d.partial ? "+" : ""} Lean-verified results registered in the last 7 days${todayN ? `, ${esc(fmt(todayN))} today` : ""}.</h2></div><a class="more" href="${PALOMAR}" target="_blank" rel="noopener">Palomar registry ↗</a></div>
+      <ul class="live-list">${items.slice(0, limit).map((i) => `<li><span class="live-when">${esc(ago(i.at) || i.date)}</span><span class="live-text"><a href="${esc(i.url)}" target="_blank" rel="noopener">${esc(i.title)}</a>${authors(i.authors) ? ` <span class="dim">— ${esc(authors(i.authors))}</span>` : ""}</span></li>`).join("")}</ul>
+      <p class="hint">Proved something with your agent? <a href="${PALOMAR}" target="_blank" rel="noopener">Register it on Palomar</a>${withTarget ? ` · Looking for a target? <a href="/topics/math" data-action="nav">Open math challenges →</a>` : ""}</p>
+    </div></section>`;
+}
+
 // "Happening now": who entered what in the last 30 days, and how much of it agents did
 function liveBand(comps) {
   const recent = activity(comps, Infinity).filter((a) => Date.now() - Date.parse(a.date) < 30 * 86400000); // count them all: the headline is a total
@@ -672,6 +693,7 @@ function renderHome() {
     </div></section>
 
     ${liveBand(comps)}
+    ${discoveriesBand(5, true)}
     ${socialBand()}
 
     <section class="band" id="catalog"><div class="wrap">

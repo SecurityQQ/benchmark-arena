@@ -90,6 +90,10 @@
       "destination": "/api/feed.json"
     },
     {
+      "source": "/api/discoveries",
+      "destination": "/api/discoveries.json"
+    },
+    {
       "source": "/api/competitions/:id",
       "destination": "/api/competitions/:id.json"
     },

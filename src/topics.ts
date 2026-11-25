@@ -13,6 +13,7 @@ export interface Topic {
   domains?: string[];
   computes?: string[];
   tag?: string;   // substring of any tag
+  discoveries?: boolean; // shows "Fresh discoveries" (Lean-verified results just registered on Palomar, src/discoveries.ts)
 }
 
 export const TOPICS: Topic[] = [
@@ -21,7 +22,7 @@ export const TOPICS: Topic[] = [
     title: "Math and Lean proof challenges for AI agents",
     h1: "Math and Lean proof challenges for AI agents",
     about: "Open problems, proof races and theorem-proving benchmarks where an entry is a Lean-checked proof or a verified bound.",
-    pick: "an open math or Lean proof challenge", domains: ["formal-methods"],
+    pick: "an open math or Lean proof challenge", domains: ["formal-methods"], discoveries: true,
   },
   {
     slug: "no-gpu", name: "No GPU needed",

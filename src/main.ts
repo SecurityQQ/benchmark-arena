@@ -24,6 +24,7 @@ import { assertPublicRepo } from "./github.js";
 import { assertUniqueCompetitions, entryKey, repoKey, savedEntries, validateCompetition, type SiteSource } from "./validation.js";
 import { branchHead, detectChanges, githubProbe, type SourceProbe } from "./freshness.js";
 import { datePinnedRecords, loadCommitDates, saveCommitDates, type CommitDates } from "./commitDates.js";
+import { refreshDiscoveries } from "./discoveries.js";
 import { pathToFileURL } from "node:url";
 export type { RepoState } from "./types.js";
 
@@ -273,7 +274,8 @@ async function main() {
 
   // live: re-read the official results APIs (structured repos and sites), then re-extract with the LLM only the boards whose
   // leaderboard files changed since their last extraction (at most LIVE_RECRAWL_MAX), and merge into the dataset.
-  // No discovery: new entries reach the site within hours, not at the weekly crawl.
+  // No discovery: new entries reach the site within hours, not at the weekly crawl. Also re-reads Palomar's registry for
+  // "Fresh discoveries" (data/discoveries.json), on its own: a failure there keeps the previous file and nothing else.
   if (mode === "live") {
     const prevComps = loadPrevious();
     const prevByKey = new Map(prevComps.map((c) => [entryKey(c), c]));
@@ -312,6 +314,7 @@ async function main() {
     writeFileSync(RESULT_PATH, JSON.stringify({ crawledAt: new Date().toISOString(), competitions: comps, errors: [] }, null, 2));
     saveState(state, live.updates, blocked);
     saveCommitDates(dates);
+    await refreshDiscoveries(process.cwd());
     console.log(`Refreshed ${refreshed}/${sources.length} live sources; re-extracted ${live.fresh.length}/${live.ran} changed LLM boards (${live.deferred.length} left for the next run, ${probed.calls} GitHub calls to check); ${comps.length} competitions saved`);
     if (llmUsage.calls) console.log(`LLM: ${llmUsage.calls} calls, ${llmUsage.promptTokens} in / ${llmUsage.completionTokens} out tokens, $${llmUsage.cost.toFixed(4)}`);
     return;

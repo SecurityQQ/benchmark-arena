@@ -335,3 +335,31 @@ test("topic hubs: a page, a Markdown twin and a sitemap entry per topic, filtere
   assert.match(pub("llms.txt"), /By topic: https:\/\/openchallengelist\.com\/topics\/math\.md/);
   assert.ok(pub("index.html").includes('href="/topics/math"'));
 });
+
+test("fresh discoveries: /api/discoveries.json, in the summary, on the home and math pages; not in the feeds or join.txt", (t) => {
+  const { root, put, dataset } = sandbox(t);
+  const math = competition("proofs");
+  math.domain = "formal-methods";
+  put("data/competitions.json", JSON.stringify(dataset([math])));
+  build(root);
+  const pub = (p: string) => readFileSync(join(root, "public", p), "utf8");
+  assert.deepEqual(JSON.parse(pub("api/discoveries.json")).items, [], "before the first refresh: an empty list");
+  assert.ok(!pub("index.html").includes("Fresh discoveries"));
+  const item = { source: "palomar", id: "PALOMAR-2026-09-18-000001", version: 2, title: "Lemma <b>bold</b>", authors: ["Ann"], date: "2026-09-18", at: "2026-09-18T09:00:00Z",
+    url: "javascript:alert(1)", repo: "ann/lemma", subjects: ["math.NT"], abstract: "not published" };
+  put("data/discoveries.json", JSON.stringify({ fetchedAt: "2026-09-18T12:00:00Z", totals: { results: 5, projects: 4 }, days: { "2026-09-18": 1 }, items: [item] }));
+  build(root);
+  const api = JSON.parse(pub("api/discoveries.json"));
+  assert.equal(api.items[0].url, "https://palomar-registry.org/entry?id=PALOMAR-2026-09-18-000001&version=2");
+  assert.equal(api.items[0].abstract, undefined);
+  assert.deepEqual(JSON.parse(pub("api/summary.json")).discoveries, api);
+  for (const page of ["index.html", "topics/math.html"]) {
+    const html = pub(page);
+    assert.ok(html.includes("1 Lean-verified result registered in the last 7 days, 1 today.") && html.includes("Lemma &lt;b&gt;bold&lt;/b&gt;"), page);
+    assert.ok(html.includes('href="https://palomar-registry.org/entry?id=PALOMAR-2026-09-18-000001&amp;version=2"') && !html.includes("javascript:"), page);
+  }
+  assert.ok(!pub("topics/no-gpu.html").includes("Fresh discoveries"));
+  assert.match(pub("topics/math.md"), /## Fresh discoveries[\s\S]*- 2026-09-18 · \[Lemma <b>bold<\/b>\]\(https:\/\/palomar-registry\.org\/entry\?id=PALOMAR-2026-09-18-000001&version=2\) — Ann/);
+  assert.match(pub("llms.txt"), /GET \/api\/discoveries\.json/);
+  for (const p of ["api/feed.json", "feed.xml", "join.txt"]) assert.ok(!/palomar/i.test(pub(p)), p);
+});

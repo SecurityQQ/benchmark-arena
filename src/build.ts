@@ -10,6 +10,7 @@ import { pages, renderPage, topicMarkdown } from "./prerender.js";
 import { TOPICS } from "./topics.js";
 import { applyCorrections, loadCorrections } from "./corrections.js";
 import { loadSocial } from "./social.js";
+import { NO_DISCOVERIES, loadDiscoveries } from "./discoveries.js";
 
 // IndexNow (Bing, Yandex, Seznam…): the key is public by design; the file at /{key}.txt proves the site owns it
 export const INDEXNOW_KEY = "ad98448484b5c15a593b4febe60a83bc";
@@ -98,10 +99,11 @@ export function build(root = process.cwd()) {
   const ORIGIN = origin.origin;
 
   const social = loadSocial(ROOT, new Set(data.competitions.map((c) => c.id)));
+  const discoveries = loadDiscoveries(ROOT);
 
   // Every route as a real page (agents and crawlers that do not run JavaScript), index.html included
   const shell = files.get("index.html")!.toString();
-  for (const p of pages(data, social)) {
+  for (const p of pages(data, social, discoveries)) {
     const html = renderPage(shell, p, ORIGIN);
     if (p.file === "index.html") files.set("index.html", html); else w(p.file, html);
   }
@@ -110,6 +112,7 @@ export function build(root = process.cwd()) {
   w("api/competitions.json", j(data));
   w("api/index.json", j({ crawledAt: data.crawledAt, competitions: competitionIndex(data.competitions) }));
   w("api/social.json", j(social));
+  w("api/discoveries.json", j(discoveries ?? NO_DISCOVERIES));
   w("api/feed.json", j(feedJson(data, ORIGIN)));
   w("feed.xml", feedAtom(data, ORIGIN));
   w("join.txt", joinTxt(data, ORIGIN));
@@ -126,6 +129,7 @@ export function build(root = process.cwd()) {
     evaluated: aggregateAgents(data.competitions, "subject"),
     openProblems: openProblems(data.competitions),
     social,
+    discoveries: discoveries ?? NO_DISCOVERIES,
     topics: TOPICS,
   }));
   for (const c of data.competitions) {
@@ -133,7 +137,7 @@ export function build(root = process.cwd()) {
     w(`api/competitions/${c.id}.md`, competitionToMarkdown(c));
   }
   w("llms.txt", llmsTxt({ ...data, errors: [] }));
-  for (const t of TOPICS) w(`topics/${t.slug}.md`, topicMarkdown(t, data, ORIGIN));
+  for (const t of TOPICS) w(`topics/${t.slug}.md`, topicMarkdown(t, data, ORIGIN, discoveries));
   // Neutral filename avoids blockers that stall requests for *SUBMISSION*.md.
   w("standard/templates.json", j({ "PROBLEM.md": readSiteAsset(join(ROOT, "site"), "standard/PROBLEM.md").toString(), "SUBMISSION.md": readSiteAsset(join(ROOT, "site"), "standard/SUBMISSION.md").toString() }));
 
