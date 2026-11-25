@@ -45,6 +45,15 @@
       "text": "Nossa contribuição ao projeto colaborativo P vs. NP … foi aceita, verificada formalmente em Lean e incorporada ao repositório oficial. Os guaxinins entraram no jogo. 🦝",
       "competition": "open-goat-pequalnp-proofs-529cfdd011232bcc",
       "likes": 10
+    },
+    {
+      "url": "https://x.com/atveit/status/2124572630988501382",
+      "author": "atveit",
+      "name": "Amund Tveit",
+      "date": "2026-11-22",
+      "text": "LLM pretraining to 3.28 loss in 29.90 s on 8×Nvidia H100 using 45 Wh (~boiling 400 ml of water) on GPU power. My 3rd modded-nanogpt Track 1 attempt (PRs #406/#407 on #404)",
+      "competition": "kellerjordan-modded-nanogpt-b334f62b98ac328d",
+      "likes": 5
     }
   ]
 }
