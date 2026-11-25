@@ -132,10 +132,10 @@
     "checkedAt": "2026-10-26T09:10:33.525Z"
   },
   "dicklesworthstone/rust_scriptbots": {
-    "pushedAt": "2026-11-25T07:03:43Z",
+    "pushedAt": "2026-11-25T07:17:16Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
-    "checkedAt": "2026-11-25T07:15:02.226Z"
+    "checkedAt": "2026-11-25T10:42:20.206Z"
   },
   "eeshan-vaghjiani/spendly": {
     "pushedAt": "2026-11-17T13:56:02Z",
@@ -157,6 +157,19 @@
     "checkedAt": "2026-11-25T07:09:54.141Z",
     "head": "9097e2f90e66d2f6244209cb1c07f7120d17ec53"
   },
+  "harbor-framework/terminal-bench-challenges": {
+    "pushedAt": "2026-11-24T20:29:36Z",
+    "fingerprint": "81e7e9bf9471aa91",
+    "verdict": "competition",
+    "checkedAt": "2026-11-25T10:42:08.466Z",
+    "head": "578b75ffe20944faba321b8a0a596684428c19cb",
+    "sources": [
+      "README.md",
+      "inference-engine-codegolf/README.md",
+      "rust-compiler-speedup/README.md",
+      "wasm-render/README.md"
+    ]
+  },
   "hschindele/gmaapp": {
     "pushedAt": "2023-01-13T01:29:46Z",
     "fingerprint": "81e7e9bf9471aa91",
@@ -164,10 +177,24 @@
     "checkedAt": "2026-10-13T23:17:25.948Z"
   },
   "ibm/assetopsbench": {
-    "pushedAt": "2026-11-25T00:37:28Z",
+    "pushedAt": "2026-11-25T07:53:13Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-25T06:11:10.256Z"
+    "checkedAt": "2026-11-25T10:38:18.044Z",
+    "head": "075bd1aed039cdc54ae99091cc0b551e42b294a8",
+    "sources": [
+      "README.md",
+      "METRICS.md",
+      "RESEARCH_USE.md",
+      "INSTRUCTIONS.md",
+      "docs/university-projects.md",
+      "CITATION_AUDIT.md",
+      "docs/static-json-evaluation.md",
+      "COVERAGE_AND_EVENTS.md",
+      "docs/guideline/utterance_design_guideline.md",
+      "docs/guideline/ground_truth_design_guideline.md",
+      "docs/external-industrial-datasets.md"
+    ]
   },
   "identitynulll/ascension": {
     "pushedAt": "2026-05-26T09:27:32Z",
@@ -180,6 +207,12 @@
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
     "checkedAt": "2026-10-13T23:14:29.087Z"
+  },
+  "kaihui-amd/modelbot-cli": {
+    "pushedAt": "2026-11-25T07:41:34Z",
+    "fingerprint": "81e7e9bf9471aa91",
+    "verdict": "none",
+    "checkedAt": "2026-11-25T10:43:07.142Z"
   },
   "kellerjordan/modded-nanogpt": {
     "pushedAt": "2026-09-28T21:46:14Z",
@@ -284,6 +317,19 @@
     "checkedAt": "2026-11-25T06:11:41.872Z",
     "head": "bd0a6783e9c7df50680db1fda0908f6276f6f800"
   },
+  "ndif-team/looped-lens-challenge": {
+    "pushedAt": "2026-11-25T02:03:46Z",
+    "fingerprint": "81e7e9bf9471aa91",
+    "verdict": "competition",
+    "checkedAt": "2026-11-25T10:42:39.477Z",
+    "head": "405b88be86e9b55636337e670315d4c8b213f52f",
+    "sources": [
+      "README.md",
+      "final-evals/README.md",
+      "space/README.md",
+      "AGENTS.md"
+    ]
+  },
   "openai/mle-bench": {
     "pushedAt": "2026-04-24T17:33:44Z",
     "fingerprint": "81e7e9bf9471aa91",
@@ -323,10 +369,16 @@
     "checkedAt": "2026-11-23T13:10:32.234Z"
   },
   "programbench/submissions": {
-    "pushedAt": "2026-10-14T22:39:47Z",
+    "pushedAt": "2026-10-22T07:00:26Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-10-19T09:13:00.604Z"
+    "checkedAt": "2026-11-25T10:42:58.863Z",
+    "head": "0e2d155aed1ce72f55ec9ab357d9b3b17f29f19e",
+    "sources": [
+      "README.md",
+      "submissions/README.md",
+      "submissions/../README.md"
+    ]
   },
   "qlabs-eng/noise": {
     "pushedAt": "2026-11-24T00:50:05Z",
@@ -389,10 +441,21 @@
     "checkedAt": "2026-11-16T11:41:42.833Z"
   },
   "starvla/starvla": {
-    "pushedAt": "2026-10-31T07:05:02Z",
+    "pushedAt": "2026-11-18T04:24:21Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-02T11:22:39.993Z"
+    "checkedAt": "2026-11-25T10:37:57.705Z",
+    "head": "99764f57339d2d5e1e74f075d32066c5edac78ef",
+    "sources": [
+      "README.md",
+      "docs/WM4A.md",
+      "examples/modelExtensions/CoTrainVLM/README.md",
+      "docs/starVLA_guideline.md",
+      "docs/model_zoo.md",
+      "assets/intro_v1.md",
+      "docs/faq.md",
+      "docs/CONTRIBUTING.md"
+    ]
   },
   "suyoumo/clawprobench": {
     "pushedAt": "2026-08-25T11:47:44Z",

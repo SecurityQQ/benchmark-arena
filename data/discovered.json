@@ -14,7 +14,7 @@
     "name": "audio.cpp",
     "url": "https://github.com/0xShug0/audio.cpp",
     "description": "An all-in-one, pure C++ inference engine for audio models, powered by ggml. Supports TTS, STT, VAD, voice conversion, music generation, and more, with highly optimized performance. No Python dependency.",
-    "stars": 4450,
+    "stars": 4453,
     "topics": [
       "ai",
       "amd-gpu",
@@ -60,7 +60,7 @@
     "name": "starVLA",
     "url": "https://github.com/starVLA/starVLA",
     "description": "StarVLA: A Lego-like Codebase for Vision-Language-Action Model Developing",
-    "stars": 3977,
+    "stars": 3980,
     "topics": [
       "robotic-foundation-model",
       "robotics",
@@ -75,7 +75,7 @@
     "name": "AssetOpsBench",
     "url": "https://github.com/IBM/AssetOpsBench",
     "description": "AssetOpsBench - Industry 4.0: A unified benchmark and framework for building, orchestrating, and evaluating domain-specific AI agents for Industry 4.0 asset operations and maintenance, with 460+ scenarios, 5 specialist agents (IoT, FMSR, TSFM, Work Order,...), and multi-agent orchestration blueprints (MetaAgent, AgentHive) over MCP.",
-    "stars": 2494,
+    "stars": 2495,
     "topics": [
       "ai-for-physical-assets",
       "condition-based-maintenance",
@@ -87,7 +87,7 @@
       "time-series-forecasting"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-25T00:37:28Z"
+    "pushedAt": "2026-11-25T07:53:13Z"
   },
   {
     "owner": "AGI-Edgerunners",
@@ -153,16 +153,6 @@
     "pushedAt": "2025-08-09T07:23:36Z"
   },
   {
-    "owner": "LiveSplit",
-    "name": "LiveSplit",
-    "url": "https://github.com/LiveSplit/LiveSplit",
-    "description": "A sleek, highly customizable timer for speedrunners.",
-    "stars": 1860,
-    "topics": [],
-    "defaultBranch": "master",
-    "pushedAt": "2026-11-17T20:03:27Z"
-  },
-  {
     "owner": "THUDM",
     "name": "CogDL",
     "url": "https://github.com/THUDM/CogDL",
@@ -203,16 +193,6 @@
     ],
     "defaultBranch": "main",
     "pushedAt": "2026-11-24T15:36:54Z"
-  },
-  {
-    "owner": "OSU-NLP-Group",
-    "name": "GUI-Agents-Paper-List",
-    "url": "https://github.com/OSU-NLP-Group/GUI-Agents-Paper-List",
-    "description": "Awesome GUI Agent Paper List",
-    "stars": 936,
-    "topics": [],
-    "defaultBranch": "main",
-    "pushedAt": "2026-11-17T06:42:26Z"
   },
   {
     "owner": "suyoumo",
@@ -387,7 +367,7 @@
     "name": "SKAB",
     "url": "https://github.com/waico/SKAB",
     "description": "SKAB - Skoltech Anomaly Benchmark. Time-series data for evaluating Anomaly Detection algorithms.",
-    "stars": 412,
+    "stars": 413,
     "topics": [
       "algorithms-evaluation",
       "anomaly-detection",
@@ -459,16 +439,6 @@
     "pushedAt": "2026-11-24T15:01:55Z"
   },
   {
-    "owner": "lbx154",
-    "name": "Argus",
-    "url": "https://github.com/lbx154/Argus",
-    "description": "A self-evolving multi-agent system for autonomous research, operating 24/7 to explore, learn, and improve.",
-    "stars": 336,
-    "topics": [],
-    "defaultBranch": "main",
-    "pushedAt": "2026-11-23T11:42:56Z"
-  },
-  {
     "owner": "gpu-mode",
     "name": "reference-kernels",
     "url": "https://github.com/gpu-mode/reference-kernels",
@@ -527,124 +497,14 @@
     "pushedAt": "2024-08-23T20:09:41Z"
   },
   {
-    "owner": "tailuge",
-    "name": "billiards",
-    "url": "https://github.com/tailuge/billiards",
-    "description": "billiards physics in the browser",
-    "stars": 285,
-    "topics": [
-      "3-cushion",
-      "3d",
-      "billiards",
-      "carom",
-      "driebanden",
-      "eight-ball",
-      "online-game",
-      "open-source",
-      "physics",
-      "pool",
-      "simulation",
-      "snooker",
-      "threejs",
-      "typescript",
-      "webgl-game"
-    ],
-    "defaultBranch": "master",
-    "pushedAt": "2026-11-24T19:45:34Z"
-  },
-  {
-    "owner": "DarwinBaker",
-    "name": "AATool",
-    "url": "https://github.com/DarwinBaker/AATool",
-    "description": "A tool to track Minecraft Advancement progress.",
-    "stars": 277,
-    "topics": [
-      "minecraft",
-      "speedrun",
-      "streaming"
-    ],
-    "defaultBranch": "main",
-    "pushedAt": "2025-06-17T07:39:31Z"
-  },
-  {
-    "owner": "recursive-org",
-    "name": "first-steps-toward-automated-ai-research",
-    "url": "https://github.com/recursive-org/first-steps-toward-automated-ai-research",
-    "description": "Research artifacts from Recursive's automated AI research system",
-    "stars": 270,
-    "topics": [],
-    "defaultBranch": "main",
-    "pushedAt": "2026-06-11T07:57:36Z"
-  },
-  {
-    "owner": "Tencent-Hunyuan",
-    "name": "Hyra-results",
-    "url": "https://github.com/Tencent-Hunyuan/Hyra-results",
-    "description": "Research artifacts from Hyra (/ˈhaɪ.rɑː/)",
-    "stars": 263,
-    "topics": [
-      "agent",
-      "ai-for-science",
-      "ai4science",
-      "autoresearch",
-      "coding",
-      "llm",
-      "recursive-self-improvement"
-    ],
-    "defaultBranch": "main",
-    "pushedAt": "2026-11-14T16:30:00Z"
-  },
-  {
     "owner": "open-goat",
     "name": "pequalnp-proofs",
     "url": "https://github.com/open-goat/pequalnp-proofs",
     "description": "Lean 4 proofs from the public AI attempt at P vs NP (pequalnp.com). Open gaps welcome pull requests.",
-    "stars": 181,
+    "stars": 185,
     "topics": [],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-25T07:06:59Z"
-  },
-  {
-    "owner": "Saivineeth147",
-    "name": "lora-speedrun",
-    "url": "https://github.com/Saivineeth147/lora-speedrun",
-    "description": "Speedrunning LoRA fine-tuning: frozen task, frozen hardware, public wall-clock leaderboard. modded-nanogpt for fine-tuning.",
-    "stars": 151,
-    "topics": [
-      "benchmark",
-      "fine-tuning",
-      "leaderboard",
-      "llm",
-      "lora",
-      "peft",
-      "qlora",
-      "speedrun"
-    ],
-    "defaultBranch": "main",
-    "pushedAt": "2026-09-12T04:50:56Z"
-  },
-  {
-    "owner": "microsoft",
-    "name": "ArgusAgent",
-    "url": "https://github.com/microsoft/ArgusAgent",
-    "description": "A persistent, reviewed multi-agent runtime for long-horizon research and engineering.",
-    "stars": 151,
-    "topics": [
-      "agentic-ai",
-      "ai-agents",
-      "autonomous-agents",
-      "claude",
-      "codex",
-      "copilot",
-      "llm",
-      "mcp",
-      "multi-agent-systems",
-      "python",
-      "research",
-      "software-engineering"
-    ],
-    "defaultBranch": "main",
-    "pushedAt": "2026-11-23T21:41:08Z"
+    "pushedAt": "2026-11-25T10:36:38Z"
   },
   {
     "owner": "metacognitionai",
@@ -655,51 +515,6 @@
     "topics": [],
     "defaultBranch": "main",
     "pushedAt": "2026-10-14T05:05:20Z"
-  },
-  {
-    "owner": "darkxex",
-    "name": "SwanStationPS5",
-    "url": "https://github.com/darkxex/SwanStationPS5",
-    "description": "SwanStationPS5: a PlayStation 1 emulator running natively on jailbroken PS5, based on SwanStation.  https://discord.gg/Drx8tsqq3B",
-    "stars": 115,
-    "topics": [
-      "homebrew",
-      "libretro",
-      "playstation-5",
-      "psx-emulator",
-      "swanstation"
-    ],
-    "defaultBranch": "main",
-    "pushedAt": "2026-11-20T18:46:56Z"
-  },
-  {
-    "owner": "aws-samples",
-    "name": "sample-agent-cost-bench",
-    "url": "https://github.com/aws-samples/sample-agent-cost-bench",
-    "description": "Benchmark framework that measures cost, quality, and duration of coding agents across any AI Coding Assistant CLI, any model, and any use case — with pluggable verification and real-repo support.",
-    "stars": 110,
-    "topics": [],
-    "defaultBranch": "main",
-    "pushedAt": "2026-11-18T02:54:56Z"
-  },
-  {
-    "owner": "SynoPiia",
-    "name": "PSXS5",
-    "url": "https://github.com/SynoPiia/PSXS5",
-    "description": "PSXS5 (PlayStation X Super 5): a PlayStation 1 emulator running natively on jailbroken PS5, based on PCSX-ReARMed. Cover-flow shelf, xBR upscaling, RetroAchievements, cheats.",
-    "stars": 100,
-    "topics": [
-      "emulator",
-      "etahen",
-      "homebrew",
-      "pcsx-rearmed",
-      "playstation",
-      "ps1",
-      "ps5",
-      "retroachievements"
-    ],
-    "defaultBranch": "main",
-    "pushedAt": "2026-10-12T03:31:26Z"
   },
   {
     "owner": "leanprover",
@@ -722,6 +537,15 @@
     "pushedAt": "2026-08-27T18:30:50Z"
   },
   {
+    "owner": "harbor-framework",
+    "name": "terminal-bench-challenges",
+    "url": "https://github.com/harbor-framework/terminal-bench-challenges",
+    "stars": 26,
+    "topics": [],
+    "defaultBranch": "main",
+    "pushedAt": "2026-11-24T20:29:36Z"
+  },
+  {
     "owner": "1stproof",
     "name": "batch-2",
     "url": "https://github.com/1stproof/batch-2",
@@ -735,7 +559,7 @@
     "name": "riemann-hypothesis",
     "url": "https://github.com/Osgood001/riemann-hypothesis",
     "description": "Independent Comparator setup for the Lean formalization of the Riemann Hypothesis (Alpöge, 2026-11-20)",
-    "stars": 15,
+    "stars": 18,
     "topics": [],
     "defaultBranch": "main",
     "pushedAt": "2026-11-23T07:46:03Z"
@@ -764,7 +588,7 @@
       "simulation"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-25T07:03:43Z"
+    "pushedAt": "2026-11-25T07:17:16Z"
   },
   {
     "owner": "leanprover",
@@ -774,7 +598,7 @@
     "stars": 10,
     "topics": [],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-25T06:34:01Z"
+    "pushedAt": "2026-11-25T08:06:23Z"
   },
   {
     "owner": "leansolving",
@@ -820,6 +644,20 @@
     "pushedAt": "2025-05-27T04:01:51Z"
   },
   {
+    "owner": "ndif-team",
+    "name": "looped-lens-challenge",
+    "url": "https://github.com/ndif-team/looped-lens-challenge",
+    "description": "The Looped Lens Challenge: an NDIF competition for lenses that read what a model computes but never writes",
+    "stars": 8,
+    "topics": [
+      "interpretability",
+      "ndif",
+      "nnsight"
+    ],
+    "defaultBranch": "main",
+    "pushedAt": "2026-11-25T02:03:46Z"
+  },
+  {
     "owner": "programbench",
     "name": "submissions",
     "url": "https://github.com/ProgramBench/submissions",
@@ -840,7 +678,7 @@
       "research-software"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-25T06:47:22Z"
+    "pushedAt": "2026-11-25T10:17:27Z"
   },
   {
     "owner": "kings-crown",
@@ -947,6 +785,16 @@
     "topics": [],
     "defaultBranch": "main",
     "pushedAt": "2026-11-17T13:56:02Z"
+  },
+  {
+    "owner": "Kaihui-AMD",
+    "name": "modelbot-cli",
+    "url": "https://github.com/Kaihui-AMD/modelbot-cli",
+    "description": "Contestant CLI for the ROCm llama.cpp challenge (rocm-challenge.amddev.ai): register with GitHub, submit patches, follow results and the leaderboard",
+    "stars": 2,
+    "topics": [],
+    "defaultBranch": "main",
+    "pushedAt": "2026-11-25T07:41:34Z"
   },
   {
     "owner": "IdentityNulll",
