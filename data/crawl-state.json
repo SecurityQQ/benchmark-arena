@@ -431,8 +431,27 @@
     "pushedAt": "2026-09-12T04:50:56Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-16T11:47:06.234Z",
-    "head": "143665849832d5f2e3e1c8486f49ea4c6f193e70"
+    "checkedAt": "2026-11-25T10:54:34.319Z",
+    "head": "143665849832d5f2e3e1c8486f49ea4c6f193e70",
+    "sources": [
+      "README.md",
+      "space/README.md",
+      "records/RECORDS.md",
+      "records/records.json",
+      "CONTRIBUTING.md",
+      "records/verifications/000-baseline.md",
+      "records/verifications/001-saivineeth147.md",
+      "records/verifications/002-pmigdal.md",
+      "records/verifications/003-pmigdal.md",
+      "records/verifications/004-slippylolo.md",
+      "records/verifications/005-slippylolo.md",
+      "records/verifications/t2-000-baseline.md",
+      "records/verifications/t2-001-bacon.md",
+      "TASK.md",
+      "JUDGING.md",
+      "SECURITY.md",
+      "records/"
+    ]
   },
   "seblague/chess-challenge": {
     "pushedAt": "2024-05-23T05:47:00Z",

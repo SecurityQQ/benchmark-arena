@@ -504,7 +504,26 @@
     "stars": 185,
     "topics": [],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-25T10:42:46Z"
+    "pushedAt": "2026-11-25T10:51:11Z"
+  },
+  {
+    "owner": "Saivineeth147",
+    "name": "lora-speedrun",
+    "url": "https://github.com/Saivineeth147/lora-speedrun",
+    "description": "Speedrunning LoRA fine-tuning: frozen task, frozen hardware, public wall-clock leaderboard. modded-nanogpt for fine-tuning.",
+    "stars": 151,
+    "topics": [
+      "benchmark",
+      "fine-tuning",
+      "leaderboard",
+      "llm",
+      "lora",
+      "peft",
+      "qlora",
+      "speedrun"
+    ],
+    "defaultBranch": "main",
+    "pushedAt": "2026-09-12T04:50:56Z"
   },
   {
     "owner": "metacognitionai",
@@ -678,7 +697,7 @@
       "research-software"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-25T10:17:27Z"
+    "pushedAt": "2026-11-25T10:47:26Z"
   },
   {
     "owner": "kings-crown",
