@@ -5,7 +5,8 @@ import { join, extname } from "node:path";
 import { publicDataset, readSiteAsset } from "./build.js";
 import { aggregatePeople, aggregateAgents, competitionIndex, openProblems } from "./aggregate.js";
 import { competitionToMarkdown, feedAtom, feedJson, joinTxt, llmsTxt } from "./render.js";
-import { pages, renderPage } from "./prerender.js";
+import { pages, renderPage, topicMarkdown } from "./prerender.js";
+import { TOPICS } from "./topics.js";
 import { markdownFor } from "./agentTraffic.js";
 import { loadSocial } from "./social.js";
 
@@ -110,6 +111,7 @@ const server = createServer(async (req, res) => {
         evaluated: aggregateAgents(data.competitions, "subject"),
         openProblems: openProblems(data.competitions),
         social: loadSocial(process.cwd(), new Set(data.competitions.map((c) => c.id))),
+        topics: TOPICS,
       }), MIME[".json"]);
     }
     const apiMatch = path.match(/^\/api\/competitions\/([^/]+?)(\.json|\.md)?$/);
@@ -119,6 +121,12 @@ const server = createServer(async (req, res) => {
       if (!c) return send(res, 404, JSON.stringify({ error: "not found" }), MIME[".json"]);
       if (apiMatch[2] === ".md") return send(res, 200, competitionToMarkdown(c), MIME[".md"]);
       return send(res, 200, JSON.stringify(c, null, 2), MIME[".json"]);
+    }
+    const topicMatch = path.match(/^\/topics\/([a-z0-9-]{1,40})\.md$/);
+    if (topicMatch) {
+      const t = TOPICS.find((x) => x.slug === topicMatch[1]);
+      if (!t) return send(res, 404, "Not found");
+      return send(res, 200, topicMarkdown(t, await loadData(), `http://${req.headers.host}`), MIME[".md"]);
     }
     if (path === "/llms.txt") {
       const data = await loadData();

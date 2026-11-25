@@ -1,6 +1,7 @@
 // Text renderers shared by the dev server and the static build
 import type { Competition, CrawlResult } from "./types.js";
 import { aggregateAgents, aggregatePeople, openProblems, recentActivity, hotCompetitions, type ActivityItem } from "./aggregate.js";
+import { TOPICS } from "./topics.js";
 
 export const SITE = "https://openchallengelist.com";
 // The line a person pastes into their agent. Requests for join.txt are how we count agents that start.
@@ -99,6 +100,7 @@ export function llmsTxt(data: CrawlResult): string {
         ``,
         `Machine-readable: GET /api/competitions (all) · GET /api/competitions/{id}.json · GET /api/competitions/{id}.md · GET /api/agents · GET /api/people · GET /api/open-problems · GET /api/feed.json (latest entries) · /feed.xml (Atom)`,
         `Every competition also has an HTML page at /c/{id}; send Accept: text/markdown to get the digest instead.`,
+        `By topic: ${TOPICS.map((t) => `${SITE}/topics/${t.slug}.md (${t.name})`).join(" · ")}`,
         ``,
         `Run a competition? Put PROBLEM.md at the root of the repository: the task, rules, tracks and the folder entries go into. Each entry carries a SUBMISSION.md: the approach, the value achieved per track, and the model/agent that produced it (templates: /standard/PROBLEM.md, /standard/SUBMISSION.md, spec: /standard). Such repositories are found by code search, crawled weekly, and the leaderboard is built from the files.`,
         ``,

@@ -297,3 +297,35 @@ test("agents get join.txt, feeds and a small index", (t) => {
   assert.match(pub("sitemap.xml"), /<loc>https:\/\/openchallengelist\.com\/c\/live<\/loc><lastmod>2026-09-17<\/lastmod><changefreq>daily<\/changefreq>/);
 });
 
+
+test("topic hubs: a page, a Markdown twin and a sitemap entry per topic, filtered by the topic's rules", (t) => {
+  const { root, put, dataset } = sandbox(t);
+  const math = competition("proofs");
+  math.name = `Proofs <script>alert(1)</script>`;
+  math.domain = "formal-methods";
+  math.stats = { totalRecords: 1, uniqueParticipants: 1, recordsLast30d: 1, recordsLast90d: 1, lastSubmission: "2026-09-17" };
+  math.problems = [{ id: "p", name: "Lemma", metricName: "proofs", metricDirection: "maximize", passMark: 1, isOpen: true,
+    records: [{ value: 1, date: "2026-09-17", contributor: "ann", agent: { family: "anthropic", tool: "Claude Code", confidence: "high", role: "author" } }] }];
+  const run = competition("run");
+  run.domain = "ml-research"; run.tags = ["speedrun"]; run.participation = { requirements: [], compute: "datacenter-gpu" };
+  put("data/competitions.json", JSON.stringify(dataset([math, run])));
+  build(root);
+  const pub = (p: string) => readFileSync(join(root, "public", p), "utf8");
+  const html = pub("topics/math.html");
+  assert.match(html, /<title>Math and Lean proof challenges for AI agents — Open Challenge List<\/title>/);
+  assert.match(html, /<link rel="canonical" href="https:\/\/openchallengelist\.com\/topics\/math">/);
+  assert.match(html, /<link rel="alternate" type="text\/markdown" href="\/topics\/math\.md"/);
+  assert.ok(html.includes("to pick an open math or Lean proof challenge and enter it with me."));
+  assert.ok(html.includes('href="/c/proofs"') && !html.includes('href="/c/run"'));
+  assert.ok(html.includes("Proofs &lt;script&gt;") && !html.includes("<script>alert"));
+  assert.equal(JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)![1])["@type"], "CollectionPage");
+  const md = pub("topics/math.md");
+  assert.match(md, /1 competition, 1 open track, 1 entry in the last 30 days \(1 credited to an AI agent\)/);
+  assert.match(md, /ann with Claude Code → Proofs <script>alert\(1\)<\/script> \/ Lemma/);
+  assert.ok(pub("topics/no-gpu.md").includes("/c/proofs") && !pub("topics/no-gpu.md").includes("/c/run"), "no-gpu leaves out datacenter-GPU boards");
+  assert.ok(pub("topics/speedruns.md").includes("/c/run") && !pub("topics/speedruns.md").includes("/c/proofs"));
+  assert.match(pub("sitemap.xml"), /<loc>https:\/\/openchallengelist\.com\/topics\/math<\/loc>/);
+  assert.deepEqual(JSON.parse(pub("api/summary.json")).topics.map((x: { slug: string }) => x.slug), ["math", "no-gpu", "speedruns", "gpu-kernels"]);
+  assert.match(pub("llms.txt"), /By topic: https:\/\/openchallengelist\.com\/topics\/math\.md/);
+  assert.ok(pub("index.html").includes('href="/topics/math"'));
+});

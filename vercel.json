@@ -86,6 +86,10 @@
       "destination": "/agents/:family.html"
     },
     {
+      "source": "/topics/:slug",
+      "destination": "/topics/:slug.html"
+    },
+    {
       "source": "/landing",
       "destination": "/"
     },
@@ -132,6 +136,15 @@
     },
     {
       "source": "/c/:id",
+      "headers": [
+        {
+          "key": "Vary",
+          "value": "Accept"
+        }
+      ]
+    },
+    {
+      "source": "/topics/:slug",
       "headers": [
         {
           "key": "Vary",

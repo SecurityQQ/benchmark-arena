@@ -53,6 +53,7 @@ export function pageType(path: string): string {
   if (/^\/api\/competitions\/[^/]+\.md$/.test(path)) return "digest";
   if (path.startsWith("/api/")) return "api";
   if (path.startsWith("/c/")) return "competition";
+  if (path.startsWith("/topics/")) return "topic";
   if (path === "/") return "home";
   if (path === "/robots.txt" || path === "/sitemap.xml") return "crawl";
   return "page";
@@ -91,6 +92,8 @@ export function agentEvent(path: string, ua: string | null, referer: string | nu
 export function markdownFor(path: string, accept: string | null): string | null {
   if (!accept || !/\btext\/markdown\b/i.test(accept)) return null;
   if (path === "/") return "/llms.txt";
+  const topic = /^\/topics\/([a-z0-9-]{1,40})$/.exec(path)?.[1];
+  if (topic) return `/topics/${topic}.md`;
   const id = /^\/c\/([A-Za-z0-9_-]{1,200})$/.exec(path)?.[1];
   return id ? `/api/competitions/${id}.md` : null;
 }
