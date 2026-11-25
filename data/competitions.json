@@ -93286,6 +93286,1753 @@
         "recordsLast90d": 0
       },
       "lastUpdated": "2026-11-25T10:56:23.985Z"
+    },
+    {
+      "id": "open-discovery-challenge",
+      "name": "Open Discovery Challenge",
+      "tagline": "Design a drug candidate for a neglected disease with any AI model, submit it as SMILES, and the organizers' GPUs score it 0–100 against approved drugs; the top entry of each season takes the prize.",
+      "description": "The Open Discovery Challenge (FINAL-Bench, on Hugging Face Spaces) asks one question about a molecule an AI just designed: is it any good? An entry is a single structure (SMILES or InChI) for the season's target. The organizers dock it against the target and the human counter-target, predict whole-cell activity and ADMET, and score it 0–100 on activity, binding, selectivity, ADMET, novelty and synthetic accessibility — minutes per entry, on their GPUs, so an entrant needs nothing but a browser. Approved drugs and inert controls are scored on the same rubric and sit on the board as the scale to read it against. Seasons run concurrently, each for a different disease: Season 3 (Chagas disease, T. cruzi CYP51), Season 4 (Non-opioid analgesia, Nav1.7 (VSD4)). 26,182 submissions from 145 accounts so far. Tracks here list each account's best ranked entry (top 50 accounts per season) from the public leaderboard API, over the reference compounds as baselines. Structures are never republished here, and the model behind a row is only what the entrant typed in the submission form (self-reported).",
+      "url": "https://huggingface.co/spaces/FINAL-Bench/open-discovery-challenge",
+      "host": "huggingface",
+      "status": "active",
+      "domain": "ml-research",
+      "tags": [
+        "drug-discovery",
+        "chemistry",
+        "cheminformatics",
+        "admet",
+        "molecular-docking",
+        "neglected-tropical-diseases",
+        "ai-for-science",
+        "smiles",
+        "leaderboard"
+      ],
+      "images": [],
+      "participation": {
+        "howToSubmit": "Open the Space, sign in with your Hugging Face account, and submit one structure per entry: the SMILES (or InChI), a display ID of your choice, and the model you used. Scoring is queued on the organizers' GPUs and the score appears on the leaderboard within minutes. Programmatically: POST https://final-bench-open-discovery-challenge.hf.space/api/submit with {\"season\": N, \"structure\": \"<SMILES>\", \"display_name\": \"...\", \"model_name\": \"...\", \"visibility\": \"private\"} from a signed-in session.",
+        "submissionFormat": "One molecule as SMILES or InChI — not a molecular formula, not a mixture or salt. Size caps: Season 3 molecular weight ≤ 750, ≤ 55 heavy atoms; Season 4 molecular weight ≤ 600, ≤ 45 heavy atoms. You choose whether the structure is published or stays private (private is the default; publishing a structure can cost you patentability).",
+        "computeDetails": "Nothing to run locally: designing a candidate is a model's answer you can get in a chat window, and all scoring (docking against the target and counter-target, whole-cell activity, ADMET) runs on the organizers' GPUs.",
+        "deadline": "Season 3 closes 2026-11-30; Season 4 closes 2027-01-31 (end of day UTC)",
+        "rounds": "Seasons run concurrently, each with its own disease, target, rubric weights and prize; a new season opens as earlier ones close.",
+        "prizes": "Season 3: USD 1,000; Season 4: USD 1,000, to the top-ranked entry at the close of the season; ties go to whoever submitted first.",
+        "eligibility": "Anyone with a Hugging Face account. 5 entries per account per day across all seasons (resets at midnight KST), to keep the GPU queue fair.",
+        "cost": "free",
+        "verification": "Every entry is scored automatically by the organizers' models, with no human judging: structures are gated on arrival (parse, reactive or covalent warheads, PAINS motifs, size caps, duplicates), and predicted mutagenicity or extreme insolubility relegates an entry below every clean one. Scores are computational predictions, not measurements of efficacy or safety. The declared model is self-reported.",
+        "requirements": [
+          "A Hugging Face account (OAuth sign-in)",
+          "A molecule as SMILES or InChI",
+          "Any AI model, or none — the model is self-reported, not restricted"
+        ],
+        "compute": "cpu"
+      },
+      "links": [
+        {
+          "label": "Challenge (Hugging Face Space)",
+          "url": "https://huggingface.co/spaces/FINAL-Bench/open-discovery-challenge"
+        },
+        {
+          "label": "How it works (blog post)",
+          "url": "https://huggingface.co/blog/FINAL-Bench/open-discovery-challenge"
+        },
+        {
+          "label": "Seasons, targets and deadlines (API)",
+          "url": "https://final-bench-open-discovery-challenge.hf.space/api/seasons"
+        },
+        {
+          "label": "Leaderboard (API)",
+          "url": "https://final-bench-open-discovery-challenge.hf.space/api/leaderboard?season=3"
+        },
+        {
+          "label": "Per-model standings (API)",
+          "url": "https://final-bench-open-discovery-challenge.hf.space/api/models"
+        },
+        {
+          "label": "Organizer on Hugging Face",
+          "url": "https://huggingface.co/FINAL-Bench"
+        }
+      ],
+      "organizer": {
+        "name": "FINAL-Bench (VIDRAFT)",
+        "url": "https://huggingface.co/FINAL-Bench",
+        "type": "company"
+      },
+      "venue": {
+        "location": "Hugging Face Spaces",
+        "type": "online"
+      },
+      "quickstart": "# paste into your coding agent or chat model:\nRead https://huggingface.co/spaces/FINAL-Bench/open-discovery-challenge (and its Entrant guide tab), then design 5 candidate molecules for the open season:\nhit the season's target, miss the human counter-target, stay inside the size caps, and keep them novel and makeable.\nGive me each as SMILES with a one-line rationale.\n# then sign in to the Space with your Hugging Face account and submit them yourself (5 per account per day)",
+      "problems": [
+        {
+          "description": "Inhibit T. cruzi CYP51 (Trypanosoma cruzi), not human CYP51A1. Each entry is one molecule, scored 0–100 by the organizers' models on whole-cell activity, target binding, selectivity over the counter-target, ADMET, novelty and synthetic accessibility. Points: activity 10, binding 30, selectivity 30, ADMET 15, novelty 10, synthesis 5. Admission limits: molecular weight ≤ 750, ≤ 55 heavy atoms. Closes 2026-11-30 (end of day UTC); USD 1,000 to the top-ranked entry. Records: each account's best ranked entry (top 50 accounts), over the reference compounds — approved drugs and inert controls the organizers score on the same rubric. Relegated and duplicate entries are not ranked by the board and are left out. Structures are not republished here.",
+          "metricUnit": "pts",
+          "id": "season-3",
+          "name": "Season 3 — Chagas disease (T. cruzi CYP51)",
+          "metricName": "score",
+          "metricDirection": "maximize",
+          "baseline": 36.144,
+          "isOpen": false,
+          "records": [
+            {
+              "contributor": "topabaem",
+              "description": "rank 1 of 5,703 ranked entries · best of this account's 34 scored entries · candidate ODC-F83F19 · activity 4.2/10, binding 29.9/30, selectivity 29.9/30, ADMET 4.3/15, novelty 9.5/10, synthesis 3.2/5 · structure kept private (the entrant's choice)",
+              "date": "2026-11-23",
+              "value": 81.045,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/topabaem",
+              "isBaseline": false,
+              "isCurrentBest": true
+            },
+            {
+              "contributor": "Ku-ku",
+              "description": "rank 2 of 5,703 ranked entries · best of this account's 797 scored entries · candidate ODC-5B80CF · activity 5.7/10, binding 28.5/30, selectivity 29.4/30, ADMET 4/15, novelty 8.9/10, synthesis 3.7/5 · structure kept private (the entrant's choice)",
+              "date": "2026-08-29",
+              "value": 80.296,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/Ku-ku",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "Claude Opus",
+                "evidence": "open-discovery-challenge season 3 leaderboard: model_name \"Claude-Opus\" (typed by the entrant, self-reported)",
+                "family": "anthropic",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "1Dmeds",
+              "description": "rank 4 of 5,703 ranked entries · best of this account's 778 scored entries · candidate ODC-E27503 · activity 5.6/10, binding 29/30, selectivity 28.7/30, ADMET 4/15, novelty 9.1/10, synthesis 3.8/5 · structure kept private (the entrant's choice)",
+              "date": "2026-08-28",
+              "value": 80.189,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/1Dmeds",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "Claude Opus 5",
+                "evidence": "open-discovery-challenge season 3 leaderboard: model_name \"Claude Opus 5\" (typed by the entrant, self-reported)",
+                "family": "anthropic",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "MeroZemory",
+              "description": "rank 10 of 5,703 ranked entries · best of this account's 198 scored entries · candidate ODC-D56A3F · activity 6.1/10, binding 28.9/30, selectivity 26.5/30, ADMET 3.7/15, novelty 9/10, synthesis 3.7/5 · structure kept private (the entrant's choice)",
+              "date": "2026-08-29",
+              "value": 77.965,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/MeroZemory",
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
+              "contributor": "Flansma",
+              "description": "rank 49 of 5,703 ranked entries · best of this account's 182 scored entries · candidate ODC-4AD316 · activity 3.4/10, binding 28.9/30, selectivity 26.3/30, ADMET 3.4/15, novelty 9.2/10, synthesis 3/5 · structure kept private (the entrant's choice)",
+              "date": "2026-08-23",
+              "value": 74.182,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/Flansma",
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
+              "contributor": "healing5120",
+              "description": "rank 73 of 5,703 ranked entries · best of this account's 220 scored entries · candidate ODC-482C2C · activity 2.6/10, binding 29.8/30, selectivity 23.1/30, ADMET 3.3/15, novelty 9.4/10, synthesis 4.4/5 · structure kept private (the entrant's choice)",
+              "date": "2026-10-30",
+              "value": 72.716,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/healing5120",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "tool": "Codex",
+                "evidence": "open-discovery-challenge season 3 leaderboard: model_name \"OpenAI Codex\" (typed by the entrant, self-reported)",
+                "family": "openai",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "Bio-JS",
+              "description": "rank 95 of 5,703 ranked entries · best of this account's 942 scored entries · candidate ODC-BCE0C9 · activity 4.6/10, binding 27.3/30, selectivity 23.2/30, ADMET 4.5/15, novelty 8.7/10, synthesis 3.1/5 · structure kept private (the entrant's choice)",
+              "date": "2026-09-06",
+              "value": 71.516,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/Bio-JS",
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
+              "contributor": "rator9521",
+              "description": "rank 97 of 5,703 ranked entries · best of this account's 263 scored entries · candidate ODC-049425 · activity 0.3/10, binding 30/30, selectivity 19.4/30, ADMET 10.1/15, novelty 9.3/10, synthesis 2.4/5 · structure kept private (the entrant's choice)",
+              "date": "2026-08-24",
+              "value": 71.452,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/rator9521",
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
+              "contributor": "MaryDog",
+              "description": "rank 99 of 5,703 ranked entries · best of this account's 878 scored entries · candidate ODC-5DB6CF · activity 4.8/10, binding 29.6/30, selectivity 20.6/30, ADMET 3.8/15, novelty 9.3/10, synthesis 3.2/5 · structure kept private (the entrant's choice)",
+              "date": "2026-10-16",
+              "value": 71.304,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/MaryDog",
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
+              "contributor": "Agentlas",
+              "description": "rank 160 of 5,703 ranked entries · best of this account's 135 scored entries · candidate ODC-DAD3EA · activity 0.3/10, binding 29.6/30, selectivity 20.8/30, ADMET 6.9/15, novelty 9.2/10, synthesis 2.7/5 · structure kept private (the entrant's choice)",
+              "date": "2026-08-23",
+              "value": 69.496,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/Agentlas",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "Claude Opus 5.6",
+                "evidence": "open-discovery-challenge season 3 leaderboard: model_name \"Agentlas(opus 5.6)\" (typed by the entrant, self-reported)",
+                "family": "anthropic",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "SheepJaehyeok",
+              "description": "rank 171 of 5,703 ranked entries · best of this account's 239 scored entries · candidate ODC-78B20F · activity 3.4/10, binding 29.9/30, selectivity 19.1/30, ADMET 4/15, novelty 9.4/10, synthesis 3.4/5 · structure kept private (the entrant's choice)",
+              "date": "2026-08-22",
+              "value": 69.221,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/SheepJaehyeok",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "Claude Opus 5",
+                "evidence": "open-discovery-challenge season 3 leaderboard: model_name \"Claude Opus 5\" (typed by the entrant, self-reported)",
+                "family": "anthropic",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "luckluckman",
+              "description": "rank 310 of 5,703 ranked entries · best of this account's 35 scored entries · candidate ODC-16D0CE · activity 1/10, binding 28.5/30, selectivity 19.8/30, ADMET 4.4/15, novelty 8.9/10, synthesis 3.7/5 · structure kept private (the entrant's choice)",
+              "date": "2026-08-20",
+              "value": 66.257,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/luckluckman",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "Claude Opus 5",
+                "evidence": "open-discovery-challenge season 3 leaderboard: model_name \"claude opus5\" (typed by the entrant, self-reported)",
+                "family": "anthropic",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "jhnyy",
+              "description": "rank 375 of 5,703 ranked entries · best of this account's 120 scored entries · candidate ODC-1E9B37 · activity 3.5/10, binding 24.2/30, selectivity 22.4/30, ADMET 4.1/15, novelty 7.5/10, synthesis 3.4/5 · structure kept private (the entrant's choice)",
+              "date": "2026-08-23",
+              "value": 65.135,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/jhnyy",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "Claude Opus 5",
+                "evidence": "open-discovery-challenge season 3 leaderboard: model_name \"Claude Opus 5\" (typed by the entrant, self-reported)",
+                "family": "anthropic",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "trblnfxn",
+              "description": "rank 470 of 5,703 ranked entries · best of this account's 122 scored entries · candidate ODC-0C181C · activity 8.3/10, binding 25.3/30, selectivity 15.2/30, ADMET 3.5/15, novelty 8/10, synthesis 3.4/5 · structure kept private (the entrant's choice)",
+              "date": "2026-09-13",
+              "value": 63.646,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/trblnfxn",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "evidence": "open-discovery-challenge season 3 leaderboard: model_name \"azure/gpt41mini-mva\" (typed by the entrant, self-reported)",
+                "family": "openai",
+                "confidence": "medium",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "donglemusic",
+              "description": "rank 498 of 5,703 ranked entries · best of this account's 211 scored entries · candidate ODC-CFB4FC · activity 0.5/10, binding 28/30, selectivity 18.8/30, ADMET 3.1/15, novelty 8.8/10, synthesis 3.8/5 · structure kept private (the entrant's choice)",
+              "date": "2026-11-24",
+              "value": 63.069,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/donglemusic",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "Claude Fable 5",
+                "evidence": "open-discovery-challenge season 3 leaderboard: model_name \"Claude Fable 5\" (typed by the entrant, self-reported)",
+                "family": "anthropic",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "TechforHuman",
+              "description": "rank 653 of 5,703 ranked entries · best of this account's 145 scored entries · candidate ODC-4D1D8A · activity 3/10, binding 27.5/30, selectivity 12.5/30, ADMET 4.9/15, novelty 8.8/10, synthesis 4.1/5 · structure kept private (the entrant's choice)",
+              "date": "2026-10-07",
+              "value": 60.793,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/TechforHuman",
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
+              "contributor": "Jaewonismyname",
+              "description": "rank 1328 of 5,703 ranked entries · best of this account's 78 scored entries · candidate ODC-2A50C5 · activity 10/10, binding 20.5/30, selectivity 5.8/30, ADMET 4.2/15, novelty 9.4/10, synthesis 4.2/5 · structure kept private (the entrant's choice)",
+              "date": "2026-09-07",
+              "value": 54.059,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/Jaewonismyname",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "GPT-5.6 Codex",
+                "tool": "Codex",
+                "evidence": "open-discovery-challenge season 3 leaderboard: model_name \"OpenAI GPT-5.6 Codex — recursive champion [S3-29B]\" (typed by the entrant, self-reported)",
+                "family": "openai",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "sunglee",
+              "description": "rank 1394 of 5,703 ranked entries · best of this account's 57 scored entries · candidate ODC-8B0AE6 · activity 4.8/10, binding 25.3/30, selectivity 7.4/30, ADMET 4.8/15, novelty 8/10, synthesis 3.2/5 · structure kept private (the entrant's choice)",
+              "date": "2026-08-23",
+              "value": 53.465,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/sunglee",
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
+              "contributor": "ssssseeeeoooocccckkkk",
+              "description": "rank 1898 of 5,703 ranked entries · best of this account's 156 scored entries · candidate ODC-74FC02 · activity 0.2/10, binding 23.6/30, selectivity 11.9/30, ADMET 3.3/15, novelty 7.5/10, synthesis 2.9/5 · structure kept private (the entrant's choice)",
+              "date": "2026-08-24",
+              "value": 49.434,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/ssssseeeeoooocccckkkk",
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
+              "contributor": "dlghkdueo",
+              "description": "rank 1954 of 5,703 ranked entries · best of this account's 66 scored entries · candidate ODC-2F0C89 · activity 1.9/10, binding 23.4/30, selectivity 10.5/30, ADMET 3.3/15, novelty 7.3/10, synthesis 2.6/5 · structure kept private (the entrant's choice)",
+              "date": "2026-09-14",
+              "value": 48.926,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/dlghkdueo",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "GPT-6 Astra",
+                "tool": "Codex",
+                "evidence": "open-discovery-challenge season 3 leaderboard: model_name \"OpenAI Codex / gpt-6-astra\" (typed by the entrant, self-reported)",
+                "family": "openai",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "takutoyo",
+              "description": "rank 2436 of 5,703 ranked entries · best of this account's 16 scored entries · candidate ODC-2AFE48 · activity 0.5/10, binding 24.4/30, selectivity 6.8/30, ADMET 3/15, novelty 7.8/10, synthesis 2.3/5 · structure kept private (the entrant's choice)",
+              "date": "2026-08-22",
+              "value": 44.765,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/takutoyo",
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
+              "contributor": "PhD-Shin",
+              "description": "rank 2619 of 5,703 ranked entries · best of this account's 29 scored entries · candidate ODC-0E2867 · activity 0.5/10, binding 22.6/30, selectivity 4.9/30, ADMET 4.3/15, novelty 7/10, synthesis 3.8/5 · structure kept private (the entrant's choice)",
+              "date": "2026-08-20",
+              "value": 43,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/PhD-Shin",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "Claude Opus 5",
+                "evidence": "open-discovery-challenge season 3 leaderboard: model_name \"claude-opus-5\" (typed by the entrant, self-reported)",
+                "family": "anthropic",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "KarinDV",
+              "description": "rank 2789 of 5,703 ranked entries · best of this account's 8 scored entries · candidate ODC-9C0E10 · activity 2.5/10, binding 21.3/30, selectivity 5/30, ADMET 3/15, novelty 6.7/10, synthesis 3/5 · structure kept private (the entrant's choice)",
+              "date": "2026-11-16",
+              "value": 41.584,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/KarinDV",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "evidence": "open-discovery-challenge season 3 leaderboard: model_name \"Claude\" (typed by the entrant, self-reported)",
+                "family": "anthropic",
+                "confidence": "medium",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "bluOsean",
+              "description": "rank 2799 of 5,703 ranked entries · best of this account's 6 scored entries · candidate ODC-62FA9E · activity 0.2/10, binding 22.5/30, selectivity 4.3/30, ADMET 5/15, novelty 7.1/10, synthesis 2.4/5 · structure kept private (the entrant's choice)",
+              "date": "2026-11-16",
+              "value": 41.499,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/bluOsean",
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
+              "contributor": "doo513",
+              "description": "rank 2860 of 5,703 ranked entries · best of this account's 2 scored entries · candidate ODC-2535AA · activity 0.3/10, binding 20.1/30, selectivity 7.1/30, ADMET 4.7/15, novelty 6.3/10, synthesis 2.4/5 · structure kept private (the entrant's choice)",
+              "date": "2026-11-17",
+              "value": 40.909,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/doo513",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "Gemini 4",
+                "evidence": "open-discovery-challenge season 3 leaderboard: model_name \"Gemini-4-Hydrogen\" (typed by the entrant, self-reported)",
+                "family": "google",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "obcafri",
+              "description": "rank 2883 of 5,703 ranked entries · best of this account's 19 scored entries · candidate ODC-FD372D · activity 6.3/10, binding 16/30, selectivity 5.4/30, ADMET 3.9/15, novelty 5.9/10, synthesis 3.1/5 · structure kept private (the entrant's choice)",
+              "date": "2026-08-19",
+              "value": 40.674,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/obcafri",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "GLM-5.3",
+                "evidence": "open-discovery-challenge season 3 leaderboard: model_name \"GLM-5.3\" (typed by the entrant, self-reported)",
+                "family": "zhipu",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "Moonweave",
+              "description": "rank 2942 of 5,703 ranked entries · best of this account's 4 scored entries · candidate ODC-CED535 · activity 3.3/10, binding 23.3/30, selectivity 0/30, ADMET 3.5/15, novelty 7.3/10, synthesis 2.8/5 · structure kept private (the entrant's choice)",
+              "date": "2026-08-25",
+              "value": 40.151,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/Moonweave",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "tool": "Codex",
+                "evidence": "open-discovery-challenge season 3 leaderboard: model_name \"OpenAI Codex — reference diagnostic\" (typed by the entrant, self-reported)",
+                "family": "openai",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "JUNSAM",
+              "description": "rank 3216 of 5,703 ranked entries · best of this account's 6 scored entries · candidate ODC-2B52AD · activity 6.7/10, binding 18/30, selectivity 0.5/30, ADMET 3.1/15, novelty 6.3/10, synthesis 3.1/5 · structure kept private (the entrant's choice)",
+              "date": "2026-08-20",
+              "value": 37.67,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/JUNSAM",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "GPT-5.6 Sol",
+                "evidence": "open-discovery-challenge season 3 leaderboard: model_name \"OpenAI GPT-5.6 Sol\" (typed by the entrant, self-reported)",
+                "family": "openai",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "Lauhel",
+              "description": "rank 3306 of 5,703 ranked entries · best of this account's 3 scored entries · candidate ODC-B39834 · activity 0.5/10, binding 22.7/30, selectivity 0/30, ADMET 3.8/15, novelty 6.9/10, synthesis 2.7/5 · structure kept private (the entrant's choice)",
+              "date": "2026-09-02",
+              "value": 36.674,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/Lauhel",
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
+              "contributor": "ppitu09",
+              "description": "rank 3717 of 5,703 ranked entries · best of this account's 5 scored entries · candidate ODC-423340 · activity 5.2/10, binding 13.9/30, selectivity 3.3/30, ADMET 2.7/15, novelty 4.8/10, synthesis 2.4/5 · structure kept private (the entrant's choice)",
+              "date": "2026-08-24",
+              "value": 32.406,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/ppitu09",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "GPT-5.6 Sol",
+                "evidence": "open-discovery-challenge season 3 leaderboard: model_name \"OpenAI GPT-5.6 Sol\" (typed by the entrant, self-reported)",
+                "family": "openai",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "tangyani2025",
+              "description": "rank 3737 of 5,703 ranked entries · best of this account's 6 scored entries · candidate ODC-2DDF5A · activity 3.3/10, binding 16.3/30, selectivity 2.4/30, ADMET 2.9/15, novelty 5.2/10, synthesis 2.1/5 · structure kept private (the entrant's choice)",
+              "date": "2026-10-20",
+              "value": 32.19,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/tangyani2025",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "Claude Opus",
+                "evidence": "open-discovery-challenge season 3 leaderboard: model_name \"Claude-Opus\" (typed by the entrant, self-reported)",
+                "family": "anthropic",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "epicsaga",
+              "description": "rank 3798 of 5,703 ranked entries · best of this account's 10 scored entries · candidate ODC-A98A2A · activity 0.4/10, binding 17.8/30, selectivity 0.3/30, ADMET 5.2/15, novelty 5.5/10, synthesis 2.3/5 · structure kept private (the entrant's choice)",
+              "date": "2026-08-20",
+              "value": 31.596,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/epicsaga",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "GLM-5.3",
+                "evidence": "open-discovery-challenge season 3 leaderboard: model_name \"GLM-5.3\" (typed by the entrant, self-reported)",
+                "family": "zhipu",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "Techforlife",
+              "description": "rank 3855 of 5,703 ranked entries · best of this account's 21 scored entries · candidate ODC-F4CBE2 · activity 2.8/10, binding 16.8/30, selectivity 0/30, ADMET 3.3/15, novelty 5.3/10, synthesis 2.8/5 · structure kept private (the entrant's choice)",
+              "date": "2026-08-19",
+              "value": 30.969,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/Techforlife",
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
+              "contributor": "h-s-b",
+              "description": "rank 4178 of 5,703 ranked entries · best of this account's 12 scored entries · candidate ODC-EE2F51 · activity 0/10, binding 12.2/30, selectivity 7.1/30, ADMET 2.6/15, novelty 3.8/10, synthesis 1.8/5 · structure kept private (the entrant's choice)",
+              "date": "2026-09-17",
+              "value": 27.672,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/h-s-b",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "evidence": "open-discovery-challenge season 3 leaderboard: model_name \"gpt\" (typed by the entrant, self-reported)",
+                "family": "openai",
+                "confidence": "medium",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "andrewl23023",
+              "description": "rank 4228 of 5,703 ranked entries · best of this account's 38 scored entries · candidate ODC-932D7C · activity 4.1/10, binding 11.3/30, selectivity 3.8/30, ADMET 2.4/15, novelty 3.9/10, synthesis 1.7/5 · structure kept private (the entrant's choice)",
+              "date": "2026-11-18",
+              "value": 27.181,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/andrewl23023",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "Claude Opus 5",
+                "evidence": "open-discovery-challenge season 3 leaderboard: model_name \"Claude Opus 5\" (typed by the entrant, self-reported)",
+                "family": "anthropic",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "FwangFwang",
+              "description": "rank 4470 of 5,703 ranked entries · best of this account's 3 scored entries · candidate ODC-1F51E1 · activity 0.2/10, binding 11.5/30, selectivity 4/30, ADMET 3.5/15, novelty 3.6/10, synthesis 1.9/5 · structure kept private (the entrant's choice)",
+              "date": "2026-08-19",
+              "value": 24.794,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/FwangFwang",
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
+              "contributor": "hansu99",
+              "description": "rank 4568 of 5,703 ranked entries · best of this account's 2 scored entries · candidate ODC-7A120B · activity 0.2/10, binding 12.9/30, selectivity 2.3/30, ADMET 2.4/15, novelty 4/10, synthesis 2.1/5 · structure kept private (the entrant's choice)",
+              "date": "2026-08-20",
+              "value": 23.851,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/hansu99",
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
+              "contributor": "injaeryou",
+              "description": "rank 4977 of 5,703 ranked entries · one scored entry · candidate ODC-1CCC31 · activity 0.6/10, binding 10.9/30, selectivity 0.2/30, ADMET 1.7/15, novelty 3.4/10, synthesis 1.8/5 · structure kept private (the entrant's choice)",
+              "date": "2026-08-20",
+              "value": 18.728,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/injaeryou",
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
+              "contributor": "Sunghokim",
+              "description": "rank 5357 of 5,703 ranked entries · one scored entry · candidate ODC-E8CD07 · activity 1.5/10, binding 6.4/30, selectivity 0/30, ADMET 1/15, novelty 2/10, synthesis 0.9/5 · structure published on the leaderboard",
+              "date": "2026-08-19",
+              "value": 11.713,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/Sunghokim",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "evidence": "open-discovery-challenge season 3 leaderboard: model_name \"GEMINI\" (typed by the entrant, self-reported)",
+                "family": "google",
+                "confidence": "medium",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "NILKNARFGonzo",
+              "description": "rank 5434 of 5,703 ranked entries · best of this account's 4 scored entries · candidate ODC-1EE410 · activity 0/10, binding 5.2/30, selectivity 0/30, ADMET 1.7/15, novelty 1.7/10, synthesis 0.7/5 · structure published on the leaderboard",
+              "date": "2026-08-22",
+              "value": 9.281,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/NILKNARFGonzo",
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
+              "contributor": "Shadow081",
+              "description": "rank 5513 of 5,703 ranked entries · one scored entry · candidate ODC-777596 · activity 0.1/10, binding 4/30, selectivity 0/30, ADMET 1.1/15, novelty 1.2/10, synthesis 0.7/5 · structure kept private (the entrant's choice)",
+              "date": "2026-11-15",
+              "value": 7.064,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/Shadow081",
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
+              "contributor": "posaconazole",
+              "description": "Reference compound scored by the organizers · azole, established in vitro activity against T. cruzi · activity 3.4/10, binding 19.1/30, selectivity 3.1/30, ADMET 3.3/15, novelty 5.9/10, synthesis 1.4/5",
+              "value": 36.144,
+              "contributorKind": "method",
+              "isBaseline": true
+            },
+            {
+              "contributor": "ketoconazole",
+              "description": "Reference compound scored by the organizers · azole, established in vitro activity against T. cruzi · activity 4.4/10, binding 18.8/30, selectivity 0/30, ADMET 2.7/15, novelty 5.9/10, synthesis 2.3/5",
+              "value": 34.226,
+              "contributorKind": "method",
+              "isBaseline": true
+            },
+            {
+              "contributor": "itraconazole",
+              "description": "Reference compound scored by the organizers · azole, established in vitro activity against T. cruzi · activity 7.9/10, binding 12.8/30, selectivity 0/30, ADMET 2.7/15, novelty 7.4/10, synthesis 2.1/5",
+              "value": 32.869,
+              "contributorKind": "method",
+              "isBaseline": true
+            },
+            {
+              "contributor": "fluconazole",
+              "description": "Reference compound scored by the organizers · an azole, but weak against this organism · activity 0.2/10, binding 9.4/30, selectivity 1.6/30, ADMET 3/15, novelty 2.9/10, synthesis 1.4/5",
+              "value": 18.577,
+              "contributorKind": "method",
+              "isBaseline": true
+            },
+            {
+              "contributor": "benznidazole",
+              "description": "Reference compound scored by the organizers · current Chagas drug - a nitro prodrug acting on a different target · activity 0/10, binding 1.3/30, selectivity 0/30, ADMET 0.4/15, novelty 0.4/10, synthesis 0.2/5",
+              "value": 2.402,
+              "contributorKind": "method",
+              "isBaseline": true
+            },
+            {
+              "contributor": "nifurtimox",
+              "description": "Reference compound scored by the organizers · current Chagas drug - a nitro prodrug acting on a different target · activity 0.1/10, binding 1.2/30, selectivity 0/30, ADMET 0.3/15, novelty 0.4/10, synthesis 0.1/5",
+              "value": 2.024,
+              "contributorKind": "method",
+              "isBaseline": true
+            },
+            {
+              "contributor": "caffeine",
+              "description": "Reference compound scored by the organizers · nothing to do with Chagas disease (negative control) · activity 0/10, binding 0/30, selectivity 0/30, ADMET 0/15, novelty 0/10, synthesis 0/5",
+              "value": 0.081,
+              "contributorKind": "method",
+              "isBaseline": true
+            },
+            {
+              "contributor": "aspirin",
+              "description": "Reference compound scored by the organizers · nothing to do with Chagas disease (negative control) · activity 0/10, binding 0/30, selectivity 0/30, ADMET 0/15, novelty 0/10, synthesis 0/5",
+              "value": 0.05,
+              "contributorKind": "method",
+              "isBaseline": true
+            }
+          ],
+          "contested": true
+        },
+        {
+          "description": "Inhibit Nav1.7 (VSD4) (Homo sapiens), not hERG (pore tetramer). Each entry is one molecule, scored 0–100 by the organizers' models on whole-cell activity, target binding, selectivity over the counter-target, ADMET, novelty and synthetic accessibility. Points: activity 10, binding 30, selectivity 30, ADMET 15, novelty 10, synthesis 5. Admission limits: molecular weight ≤ 600, ≤ 45 heavy atoms. Closes 2027-01-31 (end of day UTC); USD 1,000 to the top-ranked entry. Records: each account's best ranked entry (top 50 accounts), over the reference compounds — approved drugs and inert controls the organizers score on the same rubric. Relegated and duplicate entries are not ranked by the board and are left out. Structures are not republished here.",
+          "metricUnit": "pts",
+          "id": "season-4",
+          "name": "Season 4 — Non-opioid analgesia (Nav1.7 (VSD4))",
+          "metricName": "score",
+          "metricDirection": "maximize",
+          "baseline": 29.725,
+          "isOpen": false,
+          "records": [
+            {
+              "contributor": "Bio-JS",
+              "description": "rank 1 of 4,964 ranked entries · best of this account's 1,019 scored entries · candidate ODC-1B8E4D · activity 6.8/10, binding 30/30, selectivity 30/30, ADMET 5.2/15, novelty 7.6/10, synthesis 3.7/5 · structure kept private (the entrant's choice)",
+              "date": "2026-09-22",
+              "value": 83.319,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/Bio-JS",
+              "isBaseline": false,
+              "isCurrentBest": true
+            },
+            {
+              "contributor": "Ku-ku",
+              "description": "rank 14 of 4,964 ranked entries · best of this account's 1,031 scored entries · candidate ODC-D9336A · activity 5/10, binding 30/30, selectivity 30/30, ADMET 6/15, novelty 6.6/10, synthesis 4.3/5 · structure kept private (the entrant's choice)",
+              "date": "2026-09-17",
+              "value": 81.907,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/Ku-ku",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "Claude Opus",
+                "evidence": "open-discovery-challenge season 4 leaderboard: model_name \"Claude-Opus\" (typed by the entrant, self-reported)",
+                "family": "anthropic",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "MaryDog",
+              "description": "rank 92 of 4,964 ranked entries · best of this account's 905 scored entries · candidate ODC-425BCB · activity 6.6/10, binding 28.8/30, selectivity 30/30, ADMET 3.5/15, novelty 7.9/10, synthesis 3.3/5 · structure kept private (the entrant's choice)",
+              "date": "2026-10-18",
+              "value": 80.077,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/MaryDog",
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
+              "contributor": "1Dmeds",
+              "description": "rank 188 of 4,964 ranked entries · best of this account's 771 scored entries · candidate ODC-1D8CF0 · activity 2/10, binding 30/30, selectivity 29.8/30, ADMET 6/15, novelty 7.8/10, synthesis 3.4/5 · structure kept private (the entrant's choice)",
+              "date": "2026-10-27",
+              "value": 79.051,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/1Dmeds",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "Claude Opus 5.5",
+                "evidence": "open-discovery-challenge season 4 leaderboard: model_name \"Opus 5.5 judge · Luna Gemini Sonnet round 6\" (typed by the entrant, self-reported)",
+                "family": "anthropic",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "MeroZemory",
+              "description": "rank 418 of 4,964 ranked entries · best of this account's 74 scored entries · candidate ODC-4EBC33 · activity 2.1/10, binding 30/30, selectivity 30/30, ADMET 3.3/15, novelty 7.5/10, synthesis 3.9/5 · structure kept private (the entrant's choice)",
+              "date": "2026-09-02",
+              "value": 76.774,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/MeroZemory",
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
+              "contributor": "sunglee",
+              "description": "rank 421 of 4,964 ranked entries · best of this account's 280 scored entries · candidate ODC-4822A1 · activity 4.2/10, binding 27.9/30, selectivity 28.8/30, ADMET 9.2/15, novelty 6.1/10, synthesis 0.5/5 · structure kept private (the entrant's choice)",
+              "date": "2026-09-02",
+              "value": 76.751,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/sunglee",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "GLM-5.3",
+                "evidence": "open-discovery-challenge season 4 leaderboard: model_name \"glm-5.3\" (typed by the entrant, self-reported)",
+                "family": "zhipu",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "du-du-1",
+              "description": "rank 499 of 4,964 ranked entries · best of this account's 65 scored entries · candidate ODC-D35B38 · activity 0.7/10, binding 29.6/30, selectivity 27.5/30, ADMET 6.7/15, novelty 7.4/10, synthesis 3.9/5 · structure kept private (the entrant's choice)",
+              "date": "2026-11-23",
+              "value": 75.899,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/du-du-1",
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
+              "contributor": "healing5120",
+              "description": "rank 1143 of 4,964 ranked entries · best of this account's 234 scored entries · candidate ODC-7DC0B5 · activity 3.9/10, binding 25.3/30, selectivity 28.3/30, ADMET 2.6/15, novelty 6/10, synthesis 3.7/5 · structure kept private (the entrant's choice)",
+              "date": "2026-11-01",
+              "value": 69.743,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/healing5120",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "tool": "Codex",
+                "evidence": "open-discovery-challenge season 4 leaderboard: model_name \"OpenAI Codex\" (typed by the entrant, self-reported)",
+                "family": "openai",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "topabaem",
+              "description": "rank 1738 of 4,964 ranked entries · best of this account's 29 scored entries · candidate ODC-70CFDF · activity 1/10, binding 23.4/30, selectivity 24.3/30, ADMET 9.1/15, novelty 1.8/10, synthesis 3.9/5 · structure kept private (the entrant's choice)",
+              "date": "2026-08-29",
+              "value": 63.553,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/topabaem",
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
+              "contributor": "trblnfxn",
+              "description": "rank 2151 of 4,964 ranked entries · best of this account's 192 scored entries · candidate ODC-293AC8 · activity 1/10, binding 25.5/30, selectivity 18.6/30, ADMET 3.7/15, novelty 6/10, synthesis 3.8/5 · structure kept private (the entrant's choice)",
+              "date": "2026-09-17",
+              "value": 58.617,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/trblnfxn",
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
+              "contributor": "Jaewonismyname",
+              "description": "rank 2269 of 4,964 ranked entries · best of this account's 35 scored entries · candidate ODC-EA2336 · activity 0.5/10, binding 23.9/30, selectivity 20.6/30, ADMET 5.9/15, novelty 5.4/10, synthesis 1/5 · structure kept private (the entrant's choice)",
+              "date": "2026-09-05",
+              "value": 57.168,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/Jaewonismyname",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "GPT-5.6 Codex",
+                "tool": "Codex",
+                "evidence": "open-discovery-challenge season 4 leaderboard: model_name \"OpenAI GPT-5.6 Codex — recursive champion [S4-05C]\" (typed by the entrant, self-reported)",
+                "family": "openai",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "PhD-Shin",
+              "description": "rank 2323 of 4,964 ranked entries · best of this account's 11 scored entries · candidate ODC-4ECCD0 · activity 2/10, binding 23.9/30, selectivity 19.4/30, ADMET 3.4/15, novelty 5.6/10, synthesis 2/5 · structure kept private (the entrant's choice)",
+              "date": "2026-11-23",
+              "value": 56.351,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/PhD-Shin",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "Claude Opus 5",
+                "evidence": "open-discovery-challenge season 4 leaderboard: model_name \"claude-opus-5\" (typed by the entrant, self-reported)",
+                "family": "anthropic",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "taeyong",
+              "description": "rank 2479 of 4,964 ranked entries · best of this account's 19 scored entries · candidate ODC-F420CC · activity 6.5/10, binding 23.2/30, selectivity 14.1/30, ADMET 4.5/15, novelty 2.4/10, synthesis 3.2/5 · structure kept private (the entrant's choice)",
+              "date": "2026-09-29",
+              "value": 53.95,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/taeyong",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "evidence": "open-discovery-challenge season 4 leaderboard: model_name \"OpenAI/Aside\" (typed by the entrant, self-reported)",
+                "family": "openai",
+                "confidence": "medium",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "dlghkdueo",
+              "description": "rank 2581 of 4,964 ranked entries · best of this account's 90 scored entries · candidate ODC-11F487 · activity 1.1/10, binding 26/30, selectivity 12.7/30, ADMET 4.1/15, novelty 5/10, synthesis 3.8/5 · structure kept private (the entrant's choice)",
+              "date": "2026-09-15",
+              "value": 52.651,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/dlghkdueo",
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
+              "contributor": "andrewl23023",
+              "description": "rank 2732 of 4,964 ranked entries · best of this account's 10 scored entries · candidate ODC-1063E8 · activity 0.7/10, binding 19.5/30, selectivity 19.5/30, ADMET 4.1/15, novelty 3.5/10, synthesis 3.3/5 · structure kept private (the entrant's choice)",
+              "date": "2026-11-23",
+              "value": 50.508,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/andrewl23023",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "Claude Opus 5",
+                "evidence": "open-discovery-challenge season 4 leaderboard: model_name \"Claude Opus 5\" (typed by the entrant, self-reported)",
+                "family": "anthropic",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "tteggu",
+              "description": "rank 2852 of 4,964 ranked entries · best of this account's 15 scored entries · candidate ODC-690FA3 · activity 1.1/10, binding 21.4/30, selectivity 15.6/30, ADMET 7.3/15, novelty 0/10, synthesis 3.6/5 · structure kept private (the entrant's choice)",
+              "date": "2026-11-23",
+              "value": 49.045,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/tteggu",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "GPT-6",
+                "evidence": "open-discovery-challenge season 4 leaderboard: model_name \"OpenAI GPT-6\" (typed by the entrant, self-reported)",
+                "family": "openai",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "Agentlas",
+              "description": "rank 2889 of 4,964 ranked entries · best of this account's 30 scored entries · candidate ODC-A5DBFB · activity 3.5/10, binding 27.4/30, selectivity 2.1/30, ADMET 5.4/15, novelty 6.5/10, synthesis 3.9/5 · structure kept private (the entrant's choice)",
+              "date": "2026-09-02",
+              "value": 48.661,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/Agentlas",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "Claude Opus 5.6",
+                "evidence": "open-discovery-challenge season 4 leaderboard: model_name \"Agentlas(opus 5.6)\" (typed by the entrant, self-reported)",
+                "family": "anthropic",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "rator9521",
+              "description": "rank 3276 of 4,964 ranked entries · best of this account's 24 scored entries · candidate ODC-97D2EE · activity 1.3/10, binding 16.9/30, selectivity 15.6/30, ADMET 3.3/15, novelty 3.6/10, synthesis 2.8/5 · structure kept private (the entrant's choice)",
+              "date": "2026-08-30",
+              "value": 43.53,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/rator9521",
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
+              "contributor": "h-s-b",
+              "description": "rank 3283 of 4,964 ranked entries · best of this account's 19 scored entries · candidate ODC-EF7171 · activity 3.2/10, binding 21.6/30, selectivity 10.1/30, ADMET 3.2/15, novelty 2.5/10, synthesis 2.9/5 · structure kept private (the entrant's choice)",
+              "date": "2026-08-29",
+              "value": 43.446,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/h-s-b",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "evidence": "open-discovery-challenge season 4 leaderboard: model_name \"gpt\" (typed by the entrant, self-reported)",
+                "family": "openai",
+                "confidence": "medium",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "Jojun8403",
+              "description": "rank 3669 of 4,964 ranked entries · best of this account's 51 scored entries · candidate ODC-FD875E · activity 0/10, binding 16.2/30, selectivity 10.3/30, ADMET 4.9/15, novelty 4/10, synthesis 2.7/5 · structure kept private (the entrant's choice)",
+              "date": "2026-08-29",
+              "value": 38.129,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/Jojun8403",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "evidence": "open-discovery-challenge season 4 leaderboard: model_name \"Meta ai\" (typed by the entrant, self-reported)",
+                "family": "meta",
+                "confidence": "medium",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "gok2099",
+              "description": "rank 3807 of 4,964 ranked entries · best of this account's 2 scored entries · candidate ODC-78BC64 · activity 0.8/10, binding 15/30, selectivity 10.4/30, ADMET 4.8/15, novelty 2.7/10, synthesis 2.5/5 · structure kept private (the entrant's choice)",
+              "date": "2026-09-10",
+              "value": 36.173,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/gok2099",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "evidence": "open-discovery-challenge season 4 leaderboard: model_name \"google gemini\" (typed by the entrant, self-reported)",
+                "family": "google",
+                "confidence": "medium",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "Sunghokim",
+              "description": "rank 3946 of 4,964 ranked entries · best of this account's 13 scored entries · candidate ODC-A221F1 · activity 2.3/10, binding 16.1/30, selectivity 8.3/30, ADMET 2.5/15, novelty 2.4/10, synthesis 2.1/5 · structure kept private (the entrant's choice)",
+              "date": "2026-08-29",
+              "value": 33.65,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/Sunghokim",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "evidence": "open-discovery-challenge season 4 leaderboard: model_name \"qwen\" (typed by the entrant, self-reported)",
+                "family": "alibaba",
+                "confidence": "medium",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "WiktorMatuszek",
+              "description": "rank 3958 of 4,964 ranked entries · best of this account's 7 scored entries · candidate ODC-CE14E5 · activity 1.7/10, binding 18.8/30, selectivity 5.7/30, ADMET 3.2/15, novelty 1.2/10, synthesis 2.9/5 · structure kept private (the entrant's choice)",
+              "date": "2026-11-24",
+              "value": 33.522,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/WiktorMatuszek",
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
+              "contributor": "doo513",
+              "description": "rank 4266 of 4,964 ranked entries · best of this account's 3 scored entries · candidate ODC-94DE06 · activity 1.6/10, binding 11.9/30, selectivity 6.7/30, ADMET 2.7/15, novelty 2/10, synthesis 1.9/5 · structure kept private (the entrant's choice)",
+              "date": "2026-11-17",
+              "value": 26.914,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/doo513",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "Gemini 4",
+                "evidence": "open-discovery-challenge season 4 leaderboard: model_name \"Gemini-4-Hydrogen\" (typed by the entrant, self-reported)",
+                "family": "google",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "givemehint",
+              "description": "rank 4332 of 4,964 ranked entries · best of this account's 3 scored entries · candidate ODC-7F2B22 · activity 0.3/10, binding 11.7/30, selectivity 7.3/30, ADMET 2/15, novelty 2/10, synthesis 1.9/5 · structure kept private (the entrant's choice)",
+              "date": "2026-09-15",
+              "value": 25.263,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/givemehint",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "evidence": "open-discovery-challenge season 4 leaderboard: model_name \"gemini\" (typed by the entrant, self-reported)",
+                "family": "google",
+                "confidence": "medium",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "SeaWolf-AI",
+              "description": "rank 4496 of 4,964 ranked entries · one scored entry · candidate ODC-1ED26B · activity 0.5/10, binding 10.9/30, selectivity 3.6/30, ADMET 2.2/15, novelty 1.6/10, synthesis 1.8/5 · structure published on the leaderboard",
+              "date": "2026-08-28",
+              "value": 20.656,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/SeaWolf-AI",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "GLM-5.3",
+                "evidence": "open-discovery-challenge season 4 leaderboard: model_name \"GLM5.3\" (typed by the entrant, self-reported)",
+                "family": "zhipu",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "aquamarine-hoshino170",
+              "description": "rank 4544 of 4,964 ranked entries · best of this account's 3 scored entries · candidate ODC-4640F4 · activity 0.7/10, binding 8.2/30, selectivity 5/30, ADMET 2.1/15, novelty 1.6/10, synthesis 1.4/5 · structure kept private (the entrant's choice)",
+              "date": "2026-11-16",
+              "value": 18.931,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/aquamarine-hoshino170",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "evidence": "open-discovery-challenge season 4 leaderboard: model_name \"Meta AI - Muse Spark\" (typed by the entrant, self-reported)",
+                "family": "meta",
+                "confidence": "medium",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "Lauhel",
+              "description": "rank 4677 of 4,964 ranked entries · one scored entry · candidate ODC-C7FA62 · activity 1.7/10, binding 8.1/30, selectivity 0/30, ADMET 1.8/15, novelty 1.1/10, synthesis 1/5 · structure kept private (the entrant's choice)",
+              "date": "2026-09-02",
+              "value": 13.756,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/Lauhel",
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
+              "contributor": "rowett",
+              "description": "rank 4756 of 4,964 ranked entries · best of this account's 28 scored entries · candidate ODC-2501E6 · activity 0.3/10, binding 6.3/30, selectivity 0/30, ADMET 1.4/15, novelty 1.4/10, synthesis 1/5 · structure kept private (the entrant's choice)",
+              "date": "2026-09-05",
+              "value": 10.479,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/rowett",
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
+              "contributor": "PF-05089771",
+              "description": "Reference compound scored by the organizers · selective Nav1.7 arylsulfonamide, reached clinical trials · activity 0/10, binding 13.1/30, selectivity 5.3/30, ADMET 6.6/15, novelty 2.6/10, synthesis 2.2/5",
+              "value": 29.725,
+              "contributorKind": "method",
+              "isBaseline": true
+            },
+            {
+              "contributor": "dofetilide",
+              "description": "Reference compound scored by the organizers · potent hERG blocker, the cardiac-risk reference · activity 0/10, binding 1.9/30, selectivity 0/30, ADMET 1/15, novelty 0.5/10, synthesis 0.3/5",
+              "value": 3.705,
+              "contributorKind": "method",
+              "isBaseline": true
+            },
+            {
+              "contributor": "caffeine",
+              "description": "Reference compound scored by the organizers · control compound with nothing to do with this target · activity 0/10, binding 0.2/30, selectivity 0/30, ADMET 0.1/15, novelty 0.1/10, synthesis 0/5",
+              "value": 0.472,
+              "contributorKind": "method",
+              "isBaseline": true
+            }
+          ],
+          "contested": true
+        }
+      ],
+      "agentStats": [
+        {
+          "family": "anthropic",
+          "records": 16,
+          "currentBests": 0,
+          "models": [
+            "Claude Opus",
+            "Claude Opus 5",
+            "Claude Opus 5.6",
+            "Claude Fable 5",
+            "Claude Opus 5.5"
+          ],
+          "contributors": [
+            "Ku-ku",
+            "1Dmeds",
+            "Agentlas",
+            "SheepJaehyeok",
+            "luckluckman",
+            "jhnyy",
+            "donglemusic",
+            "PhD-Shin",
+            "KarinDV",
+            "tangyani2025",
+            "andrewl23023"
+          ]
+        },
+        {
+          "family": "openai",
+          "records": 13,
+          "currentBests": 0,
+          "models": [
+            "GPT-5.6 Codex",
+            "GPT-6 Astra",
+            "GPT-5.6 Sol",
+            "GPT-6"
+          ],
+          "contributors": [
+            "healing5120",
+            "trblnfxn",
+            "Jaewonismyname",
+            "dlghkdueo",
+            "Moonweave",
+            "JUNSAM",
+            "ppitu09",
+            "h-s-b",
+            "taeyong",
+            "tteggu"
+          ]
+        },
+        {
+          "family": "google",
+          "records": 5,
+          "currentBests": 0,
+          "models": [
+            "Gemini 4"
+          ],
+          "contributors": [
+            "doo513",
+            "Sunghokim",
+            "gok2099",
+            "givemehint"
+          ]
+        },
+        {
+          "family": "zhipu",
+          "records": 4,
+          "currentBests": 0,
+          "models": [
+            "GLM-5.3"
+          ],
+          "contributors": [
+            "obcafri",
+            "epicsaga",
+            "sunglee",
+            "SeaWolf-AI"
+          ]
+        },
+        {
+          "family": "meta",
+          "records": 2,
+          "currentBests": 0,
+          "models": [],
+          "contributors": [
+            "Jojun8403",
+            "aquamarine-hoshino170"
+          ]
+        },
+        {
+          "family": "alibaba",
+          "records": 1,
+          "currentBests": 0,
+          "models": [],
+          "contributors": [
+            "Sunghokim"
+          ]
+        }
+      ],
+      "participants": [
+        {
+          "name": "topabaem",
+          "url": "https://huggingface.co/topabaem",
+          "submissions": 2,
+          "problems": [
+            "season-3",
+            "season-4"
+          ],
+          "bestRank": 1,
+          "lastActive": "2026-11-23"
+        },
+        {
+          "name": "Bio-JS",
+          "url": "https://huggingface.co/Bio-JS",
+          "submissions": 2,
+          "problems": [
+            "season-3",
+            "season-4"
+          ],
+          "lastActive": "2026-09-22",
+          "bestRank": 1
+        },
+        {
+          "name": "Ku-ku",
+          "url": "https://huggingface.co/Ku-ku",
+          "submissions": 2,
+          "problems": [
+            "season-3",
+            "season-4"
+          ],
+          "lastActive": "2026-09-17"
+        },
+        {
+          "name": "1Dmeds",
+          "url": "https://huggingface.co/1Dmeds",
+          "submissions": 2,
+          "problems": [
+            "season-3",
+            "season-4"
+          ],
+          "lastActive": "2026-10-27"
+        },
+        {
+          "name": "MeroZemory",
+          "url": "https://huggingface.co/MeroZemory",
+          "submissions": 2,
+          "problems": [
+            "season-3",
+            "season-4"
+          ],
+          "lastActive": "2026-09-02"
+        },
+        {
+          "name": "healing5120",
+          "url": "https://huggingface.co/healing5120",
+          "submissions": 2,
+          "problems": [
+            "season-3",
+            "season-4"
+          ],
+          "lastActive": "2026-11-01"
+        },
+        {
+          "name": "rator9521",
+          "url": "https://huggingface.co/rator9521",
+          "submissions": 2,
+          "problems": [
+            "season-3",
+            "season-4"
+          ],
+          "lastActive": "2026-08-30"
+        },
+        {
+          "name": "MaryDog",
+          "url": "https://huggingface.co/MaryDog",
+          "submissions": 2,
+          "problems": [
+            "season-3",
+            "season-4"
+          ],
+          "lastActive": "2026-10-18"
+        },
+        {
+          "name": "Agentlas",
+          "url": "https://huggingface.co/Agentlas",
+          "submissions": 2,
+          "problems": [
+            "season-3",
+            "season-4"
+          ],
+          "lastActive": "2026-09-02"
+        },
+        {
+          "name": "trblnfxn",
+          "url": "https://huggingface.co/trblnfxn",
+          "submissions": 2,
+          "problems": [
+            "season-3",
+            "season-4"
+          ],
+          "lastActive": "2026-09-17"
+        },
+        {
+          "name": "Jaewonismyname",
+          "url": "https://huggingface.co/Jaewonismyname",
+          "submissions": 2,
+          "problems": [
+            "season-3",
+            "season-4"
+          ],
+          "lastActive": "2026-09-07"
+        },
+        {
+          "name": "sunglee",
+          "url": "https://huggingface.co/sunglee",
+          "submissions": 2,
+          "problems": [
+            "season-3",
+            "season-4"
+          ],
+          "lastActive": "2026-09-02"
+        },
+        {
+          "name": "dlghkdueo",
+          "url": "https://huggingface.co/dlghkdueo",
+          "submissions": 2,
+          "problems": [
+            "season-3",
+            "season-4"
+          ],
+          "lastActive": "2026-09-15"
+        },
+        {
+          "name": "PhD-Shin",
+          "url": "https://huggingface.co/PhD-Shin",
+          "submissions": 2,
+          "problems": [
+            "season-3",
+            "season-4"
+          ],
+          "lastActive": "2026-11-23"
+        },
+        {
+          "name": "doo513",
+          "url": "https://huggingface.co/doo513",
+          "submissions": 2,
+          "problems": [
+            "season-3",
+            "season-4"
+          ],
+          "lastActive": "2026-11-17"
+        },
+        {
+          "name": "Lauhel",
+          "url": "https://huggingface.co/Lauhel",
+          "submissions": 2,
+          "problems": [
+            "season-3",
+            "season-4"
+          ],
+          "lastActive": "2026-09-02"
+        },
+        {
+          "name": "h-s-b",
+          "url": "https://huggingface.co/h-s-b",
+          "submissions": 2,
+          "problems": [
+            "season-3",
+            "season-4"
+          ],
+          "lastActive": "2026-09-17"
+        },
+        {
+          "name": "andrewl23023",
+          "url": "https://huggingface.co/andrewl23023",
+          "submissions": 2,
+          "problems": [
+            "season-3",
+            "season-4"
+          ],
+          "lastActive": "2026-11-23"
+        },
+        {
+          "name": "Sunghokim",
+          "url": "https://huggingface.co/Sunghokim",
+          "submissions": 2,
+          "problems": [
+            "season-3",
+            "season-4"
+          ],
+          "lastActive": "2026-08-29"
+        },
+        {
+          "name": "Flansma",
+          "url": "https://huggingface.co/Flansma",
+          "submissions": 1,
+          "problems": [
+            "season-3"
+          ],
+          "lastActive": "2026-08-23"
+        },
+        {
+          "name": "SheepJaehyeok",
+          "url": "https://huggingface.co/SheepJaehyeok",
+          "submissions": 1,
+          "problems": [
+            "season-3"
+          ],
+          "lastActive": "2026-08-22"
+        },
+        {
+          "name": "luckluckman",
+          "url": "https://huggingface.co/luckluckman",
+          "submissions": 1,
+          "problems": [
+            "season-3"
+          ],
+          "lastActive": "2026-08-20"
+        },
+        {
+          "name": "jhnyy",
+          "url": "https://huggingface.co/jhnyy",
+          "submissions": 1,
+          "problems": [
+            "season-3"
+          ],
+          "lastActive": "2026-08-23"
+        },
+        {
+          "name": "donglemusic",
+          "url": "https://huggingface.co/donglemusic",
+          "submissions": 1,
+          "problems": [
+            "season-3"
+          ],
+          "lastActive": "2026-11-24"
+        },
+        {
+          "name": "TechforHuman",
+          "url": "https://huggingface.co/TechforHuman",
+          "submissions": 1,
+          "problems": [
+            "season-3"
+          ],
+          "lastActive": "2026-10-07"
+        },
+        {
+          "name": "ssssseeeeoooocccckkkk",
+          "url": "https://huggingface.co/ssssseeeeoooocccckkkk",
+          "submissions": 1,
+          "problems": [
+            "season-3"
+          ],
+          "lastActive": "2026-08-24"
+        },
+        {
+          "name": "takutoyo",
+          "url": "https://huggingface.co/takutoyo",
+          "submissions": 1,
+          "problems": [
+            "season-3"
+          ],
+          "lastActive": "2026-08-22"
+        },
+        {
+          "name": "KarinDV",
+          "url": "https://huggingface.co/KarinDV",
+          "submissions": 1,
+          "problems": [
+            "season-3"
+          ],
+          "lastActive": "2026-11-16"
+        },
+        {
+          "name": "bluOsean",
+          "url": "https://huggingface.co/bluOsean",
+          "submissions": 1,
+          "problems": [
+            "season-3"
+          ],
+          "lastActive": "2026-11-16"
+        },
+        {
+          "name": "obcafri",
+          "url": "https://huggingface.co/obcafri",
+          "submissions": 1,
+          "problems": [
+            "season-3"
+          ],
+          "lastActive": "2026-08-19"
+        },
+        {
+          "name": "Moonweave",
+          "url": "https://huggingface.co/Moonweave",
+          "submissions": 1,
+          "problems": [
+            "season-3"
+          ],
+          "lastActive": "2026-08-25"
+        },
+        {
+          "name": "JUNSAM",
+          "url": "https://huggingface.co/JUNSAM",
+          "submissions": 1,
+          "problems": [
+            "season-3"
+          ],
+          "lastActive": "2026-08-20"
+        },
+        {
+          "name": "ppitu09",
+          "url": "https://huggingface.co/ppitu09",
+          "submissions": 1,
+          "problems": [
+            "season-3"
+          ],
+          "lastActive": "2026-08-24"
+        },
+        {
+          "name": "tangyani2025",
+          "url": "https://huggingface.co/tangyani2025",
+          "submissions": 1,
+          "problems": [
+            "season-3"
+          ],
+          "lastActive": "2026-10-20"
+        },
+        {
+          "name": "epicsaga",
+          "url": "https://huggingface.co/epicsaga",
+          "submissions": 1,
+          "problems": [
+            "season-3"
+          ],
+          "lastActive": "2026-08-20"
+        },
+        {
+          "name": "Techforlife",
+          "url": "https://huggingface.co/Techforlife",
+          "submissions": 1,
+          "problems": [
+            "season-3"
+          ],
+          "lastActive": "2026-08-19"
+        },
+        {
+          "name": "FwangFwang",
+          "url": "https://huggingface.co/FwangFwang",
+          "submissions": 1,
+          "problems": [
+            "season-3"
+          ],
+          "lastActive": "2026-08-19"
+        },
+        {
+          "name": "hansu99",
+          "url": "https://huggingface.co/hansu99",
+          "submissions": 1,
+          "problems": [
+            "season-3"
+          ],
+          "lastActive": "2026-08-20"
+        },
+        {
+          "name": "injaeryou",
+          "url": "https://huggingface.co/injaeryou",
+          "submissions": 1,
+          "problems": [
+            "season-3"
+          ],
+          "lastActive": "2026-08-20"
+        },
+        {
+          "name": "NILKNARFGonzo",
+          "url": "https://huggingface.co/NILKNARFGonzo",
+          "submissions": 1,
+          "problems": [
+            "season-3"
+          ],
+          "lastActive": "2026-08-22"
+        },
+        {
+          "name": "Shadow081",
+          "url": "https://huggingface.co/Shadow081",
+          "submissions": 1,
+          "problems": [
+            "season-3"
+          ],
+          "lastActive": "2026-11-15"
+        },
+        {
+          "name": "du-du-1",
+          "url": "https://huggingface.co/du-du-1",
+          "submissions": 1,
+          "problems": [
+            "season-4"
+          ],
+          "lastActive": "2026-11-23"
+        },
+        {
+          "name": "taeyong",
+          "url": "https://huggingface.co/taeyong",
+          "submissions": 1,
+          "problems": [
+            "season-4"
+          ],
+          "lastActive": "2026-09-29"
+        },
+        {
+          "name": "tteggu",
+          "url": "https://huggingface.co/tteggu",
+          "submissions": 1,
+          "problems": [
+            "season-4"
+          ],
+          "lastActive": "2026-11-23"
+        },
+        {
+          "name": "Jojun8403",
+          "url": "https://huggingface.co/Jojun8403",
+          "submissions": 1,
+          "problems": [
+            "season-4"
+          ],
+          "lastActive": "2026-08-29"
+        },
+        {
+          "name": "gok2099",
+          "url": "https://huggingface.co/gok2099",
+          "submissions": 1,
+          "problems": [
+            "season-4"
+          ],
+          "lastActive": "2026-09-10"
+        },
+        {
+          "name": "WiktorMatuszek",
+          "url": "https://huggingface.co/WiktorMatuszek",
+          "submissions": 1,
+          "problems": [
+            "season-4"
+          ],
+          "lastActive": "2026-11-24"
+        },
+        {
+          "name": "givemehint",
+          "url": "https://huggingface.co/givemehint",
+          "submissions": 1,
+          "problems": [
+            "season-4"
+          ],
+          "lastActive": "2026-09-15"
+        },
+        {
+          "name": "SeaWolf-AI",
+          "url": "https://huggingface.co/SeaWolf-AI",
+          "submissions": 1,
+          "problems": [
+            "season-4"
+          ],
+          "lastActive": "2026-08-28"
+        },
+        {
+          "name": "aquamarine-hoshino170",
+          "url": "https://huggingface.co/aquamarine-hoshino170",
+          "submissions": 1,
+          "problems": [
+            "season-4"
+          ],
+          "lastActive": "2026-11-16"
+        },
+        {
+          "name": "rowett",
+          "url": "https://huggingface.co/rowett",
+          "submissions": 1,
+          "problems": [
+            "season-4"
+          ],
+          "lastActive": "2026-09-05"
+        }
+      ],
+      "stats": {
+        "totalRecords": 81,
+        "uniqueParticipants": 51,
+        "firstSubmission": "2026-08-19",
+        "lastSubmission": "2026-11-24",
+        "recordsLast30d": 17,
+        "recordsLast90d": 49
+      },
+      "lastUpdated": "2026-11-25T11:00:59.091Z"
     }
   ],
   "errors": [

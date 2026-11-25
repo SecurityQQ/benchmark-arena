@@ -197,7 +197,9 @@ test("CLI process keeps a site's previous entry when its API is down, without le
     assert.equal((result.stdout + result.stderr).includes("SECRET"), false);
     const saved = JSON.parse(readFileSync(join(cwd, "data/competitions.json"), "utf8"));
     assert.deepEqual(saved.competitions.map((c: { id: string }) => c.id), ["duckbench"]);
-    assert.deepEqual(saved.errors, [{ repo: "site:duckbench", error: "Site build failed (previous entry kept)" }]);
+    // every registered site is down in this run; the one with a previous entry keeps it, the others are only errors
+    assert.deepEqual(saved.errors.filter((e: { repo: string }) => e.repo === "site:duckbench"), [{ repo: "site:duckbench", error: "Site build failed (previous entry kept)" }]);
+    assert.ok(saved.errors.every((e: { repo: string; error: string }) => e.repo.startsWith("site:") && e.error.startsWith("Site build failed")), JSON.stringify(saved.errors));
   } finally { rmSync(cwd, { recursive: true, force: true }); }
 });
 

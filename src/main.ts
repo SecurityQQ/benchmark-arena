@@ -14,6 +14,7 @@ import { buildLeanEval } from "./structured/leanEval.js";
 import { buildGpuMode } from "./structured/gpuMode.js";
 import { buildFirstProof } from "./structured/firstProof.js";
 import { buildDuckBench } from "./structured/duckBench.js";
+import { buildOpenDiscovery } from "./structured/openDiscovery.js";
 import { buildPequalnp } from "./structured/pequalnp.js";
 import { buildBigOSpeedrun } from "./structured/bigOSpeedrun.js";
 import { buildRocmChallenge } from "./structured/rocmChallenge.js";
@@ -76,6 +77,7 @@ const MERGED_INTO: Record<string, string> = {
 // Keyed by competition id, which is also the published id (/c/<id>).
 const SITES: Record<string, { url: string; build: () => Promise<LLMCompetition> }> = {
   duckbench: { url: "https://duckbench.app/", build: buildDuckBench },  // DuckBench: robot-duck challenges for coding agents
+  "open-discovery-challenge": { url: "https://huggingface.co/spaces/FINAL-Bench/open-discovery-challenge", build: buildOpenDiscovery },  // Open Discovery Challenge (FINAL-Bench): AI-designed drug candidates, scored on the organizers' GPUs
 };
 
 // Built from an official results API: deterministic, no LLM, cheap enough to run every few hours
