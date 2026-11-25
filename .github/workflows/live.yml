@@ -1,9 +1,10 @@
 name: Live refresh (official results APIs, changed LLM boards)
 
-# Boards that publish results through an API (P = NP?, Big O Speedrun, GPU MODE, ROCm llama.cpp, LeanEval, First Proof, DuckBench) are re-read every
-# three hours with no discovery and no LLM calls. LLM-extracted boards are re-extracted only when a file the extractor read (README,
-# leaderboard files) changed since their last extraction, at most LIVE_RECRAWL_MAX (default 4) per run; a code-only push never
-# reaches the LLM. So new entries reach the site within hours instead of at the weekly crawl.
+# Boards that publish results through an API (P = NP?, Big O Speedrun, GPU MODE, ROCm llama.cpp, LeanEval, First Proof, DuckBench,
+# Open Discovery Challenge) are re-read every three hours with no discovery and no LLM calls. LLM-extracted boards are re-extracted
+# only when a file the extractor read (README, leaderboard files) changed since their last extraction, at most LIVE_RECRAWL_MAX
+# (default 4) per run; a code-only push never reaches the LLM. So new entries reach the site within hours instead of at the
+# weekly crawl.
 #
 # GitHub starts this repo's scheduled runs hours late or drops them (the weekly crawl fires 8–10 hours after its slot; the first
 # three-hourly slots never fired), so the schedule asks every 30 minutes and a refresh goes ahead only when none succeeded or
