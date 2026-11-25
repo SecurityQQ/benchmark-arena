@@ -1022,3 +1022,19 @@ body.app .art-band { padding: 36px 0 44px; }
 .pre th, .pre td { text-align: left; padding: 8px 12px 8px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
 @media (max-width: 640px) { .pre h1 { font-size: 32px; } .pre .facts { grid-template-columns: 1fr; } }
 
+/* Point your agent: the one line to paste, and who is entering what right now */
+.join-line { margin-top: 28px; max-width: 760px; }
+.join-line .eyebrow { margin-bottom: 0; }
+.start-steps .join-line { margin-top: 14px; }
+pre.quick.join { white-space: pre-wrap; word-break: break-word; padding-right: 84px; margin-top: 10px; }
+.live-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--clay); margin-right: 8px; vertical-align: 1px; animation: live-pulse 1.8s ease-in-out infinite; }
+@keyframes live-pulse { 50% { opacity: .35; } }
+@media (prefers-reduced-motion: reduce) { .live-dot { animation: none; } }
+.live-band h2 { font-size: 28px; max-width: 760px; }
+.live-list { list-style: none; padding: 0; margin: 0; }
+.live-list li { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14.5px; }
+.live-list li .avatar { flex: none; }
+.live-when { flex: none; width: 64px; color: var(--dim); font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; }
+.live-text { min-width: 0; overflow-wrap: anywhere; }
+@media (max-width: 640px) { .live-when { width: 48px; } .live-band h2 { font-size: 22px; } }
+
