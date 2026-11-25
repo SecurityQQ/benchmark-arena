@@ -158,6 +158,39 @@ test("renderers escape metadata, dates, counts, confidence, and option values", 
   }
 });
 
+test("fresh discoveries: registry text stays data, links go only to registry permalinks and our pages, counts follow the visitor's clock", () => {
+  const h = harness();
+  loadFixture(h);
+  const day = new Date().toISOString().slice(0, 10), link = (n) => `https://palomar-registry.org/entry?id=PALOMAR-${day}-00000${n}&version=1`;
+  const item = { source: "palomar", version: 1, title: payload, authors: [payload, "B", "C", "D"], date: day, at: new Date().toISOString(), subjects: [] };
+  h.context.discoveries = {
+    fetchedAt: payload, totals: { results: 9, projects: 9 }, partial: true, days: { [day]: 3, "2000-01-01": 99, [payload]: 5 },
+    items: [
+      { ...item, id: `PALOMAR-${day}-000001`, url: link(1) },
+      { ...item, id: `PALOMAR-${day}-000002`, url: "javascript:alert(1)" },
+      { ...item, id: `PALOMAR-${day}-000003`, url: `https://palomar-registry.org.evil.test/entry?id=PALOMAR-${day}-000003&version=1` },
+      { ...item, id: "PALOMAR-2000-01-01-000001", date: "2000-01-01", url: "https://palomar-registry.org/entry?id=PALOMAR-2000-01-01-000001&version=1" },
+    ],
+  };
+  h.run("D.discoveries = discoveries");
+  const math = "renderTopic({ slug: 'math', name: 'Math', title: 'Math', h1: 'Math', about: 'About', pick: 'an open math challenge', domains: ['formal-methods'], discoveries: true })";
+  for (const [expression, target] of [["renderHome()", true], [math, false]]) {
+    h.run(expression);
+    const band = h.elements.get("app").innerHTML.match(/<section class="band tight live-band" id="discoveries">[\s\S]*?<\/section>/)?.[0];
+    assert.ok(band, expression);
+    assert.match(band, /3\+ Lean-verified results registered in the last 7 days, 3 today\./);
+    assert.equal((band.match(/<li>/g) || []).length, 1, "only the in-window item with a registry permalink");
+    assert.ok(!band.includes("<x-security-probe") && band.includes("B, C et al."));
+    const hrefs = [...band.matchAll(/href="([^"]*)"/g)].map((m) => decode(m[1]));
+    assert.deepEqual(hrefs, [`https://palomar-registry.org/`, link(1), "https://palomar-registry.org/", ...(target ? ["/topics/math"] : [])], expression);
+    assert.equal(h.context.pwned, undefined);
+  }
+  h.run("renderTopic({ slug: 'no-gpu', name: 'No GPU', title: 'No GPU', h1: 'No GPU', about: 'About', pick: 'an open challenge that needs no GPU', computes: ['cpu'] })");
+  assert.ok(!h.elements.get("app").innerHTML.includes('id="discoveries"'));
+  h.run("D.discoveries = { items: 'nope' }; renderHome()");
+  assert.ok(!h.elements.get("app").innerHTML.includes('id="discoveries"'));
+});
+
 test("static and dynamic sources contain no executable inline handlers or code compilation", () => {
   assert.doesNotMatch(source, inlineHandler);
   assert.doesNotMatch(index, inlineHandler);

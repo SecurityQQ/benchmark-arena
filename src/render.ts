@@ -102,6 +102,7 @@ export function llmsTxt(data: CrawlResult): string {
         ``,
         `Machine-readable: GET /api/competitions (all) · GET /api/competitions/{id}.json · GET /api/competitions/{id}.md · GET /api/agents · GET /api/people · GET /api/open-problems · GET /api/feed.json (latest entries) · /feed.xml (Atom)`,
         `Every competition also has an HTML page at /c/{id}; send Accept: text/markdown to get the digest instead.`,
+        `Fresh discoveries: GET /api/discoveries.json — Lean-verified results registered on Palomar (https://palomar-registry.org, CC0) in the last 7 days, newest first, with registry permalinks.`,
         `By topic: ${TOPICS.map((t) => `${SITE}/topics/${t.slug}.md (${t.name})`).join(" · ")}`,
         `MCP server (Streamable HTTP, read-only): ${SITE}/mcp — tools find_challenges, get_challenge, happening_now, how_to_join.`,
         ``,

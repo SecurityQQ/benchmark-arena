@@ -87,6 +87,7 @@ The three-hourly live run also keeps LLM-extracted boards fresh. Each costs one 
 - `/api/summary` — everything: competitions, people, agents, open problems
 - `/api/competitions/{id}.json` · `/api/competitions/{id}.md`
 - `/api/agents` (authors) · `/api/agents-subject.json` · `/api/people` · `/api/open-problems`
+- `/api/discoveries.json` — Lean-verified results registered on [Palomar](https://palomar-registry.org) in the last 7 days (counts per day, the newest 60 with permalinks), re-read from its CC0 JSON API by the live refresh into `data/discoveries.json`; shown as "Fresh discoveries" on the home and math pages
 
 Data is extracted automatically from public repositories — verify before citing.
 

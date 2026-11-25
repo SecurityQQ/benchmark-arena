@@ -12,6 +12,7 @@ import { applyCorrections, loadCorrections } from "./corrections.js";
 import { markdownFor } from "./agentTraffic.js";
 import { createMcpHandler } from "./mcp.js";
 import { loadSocial } from "./social.js";
+import { NO_DISCOVERIES, loadDiscoveries } from "./discoveries.js";
 
 const PORT = Number(process.env.PORT ?? 3000);
 const HOST = process.env.HOST ?? "127.0.0.1";
@@ -120,6 +121,9 @@ const server = createServer(async (req, res) => {
       const data = await loadData();
       return send(res, 200, JSON.stringify(openProblems(data.competitions)), MIME[".json"]);
     }
+    if (path === "/api/discoveries" || path === "/api/discoveries.json") {
+      return send(res, 200, JSON.stringify(loadDiscoveries(process.cwd()) ?? NO_DISCOVERIES), MIME[".json"]);
+    }
     if (path === "/api/summary") {
       const data = await loadData();
       return send(res, 200, JSON.stringify({
@@ -130,6 +134,7 @@ const server = createServer(async (req, res) => {
         evaluated: aggregateAgents(data.competitions, "subject"),
         openProblems: openProblems(data.competitions),
         social: loadSocial(process.cwd(), new Set(data.competitions.map((c) => c.id))),
+        discoveries: loadDiscoveries(process.cwd()) ?? NO_DISCOVERIES,
         topics: TOPICS,
       }), MIME[".json"]);
     }
@@ -145,7 +150,7 @@ const server = createServer(async (req, res) => {
     if (topicMatch) {
       const t = TOPICS.find((x) => x.slug === topicMatch[1]);
       if (!t) return send(res, 404, "Not found");
-      return send(res, 200, topicMarkdown(t, await loadData(), `http://${req.headers.host}`), MIME[".md"]);
+      return send(res, 200, topicMarkdown(t, await loadData(), `http://${req.headers.host}`, loadDiscoveries(process.cwd())), MIME[".md"]);
     }
     if (path === "/llms.txt") {
       const data = await loadData();
@@ -159,7 +164,7 @@ const server = createServer(async (req, res) => {
     // ── Pages: every route rendered with its content, as the build does; unknown routes get the 404 page ──
     if (!extname(path)) {
       const data = await loadData();
-      const all = pages(data, loadSocial(process.cwd(), new Set(data.competitions.map((c) => c.id))));
+      const all = pages(data, loadSocial(process.cwd(), new Set(data.competitions.map((c) => c.id))), loadDiscoveries(process.cwd()));
       const route = path === "/landing" ? "/" : path;
       const p = all.find((x) => x.path === route) ?? all.find((x) => x.path === "/404")!;
       return send(res, p.path === "/404" ? 404 : 200, renderPage(readSiteAsset(SITE_DIR, "index.html").toString(), p), MIME[".html"]);

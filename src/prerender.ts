@@ -5,6 +5,7 @@ import { aggregateAgents, aggregatePeople, openProblems, recentActivity, hotComp
 import { JOIN_LINE, SITE, challengeJoinLine, viaLine } from "./render.js";
 import type { SocialPost } from "./social.js";
 import { TOPICS, inTopic, topicJoinLine, type Topic } from "./topics.js";
+import { REGISTRY, SUBMIT_PROTOCOL, authorLine, discoveryHeadline, discoveryView, type Discoveries } from "./discoveries.js";
 
 type Data = Pick<CrawlResult, "crawledAt" | "competitions">;
 export interface Page { file: string; path: string; title: string; description: string; body: string; markdown: string; jsonld?: unknown; noindex?: boolean }
@@ -42,7 +43,20 @@ function socialList(posts: SocialPost[], data: Data): string {
   return `<ul class="pre-list">${posts.map((p) => `<li><a href="${esc(p.url)}" rel="noopener" target="_blank"><b>@${esc(p.author)}</b></a> <span class="mono dim">${esc(p.date)}</span> on <a href="${page(p.competition)}">${esc(names.get(p.competition))}</a><br>“${esc(p.text)}”</li>`).join("")}</ul>`;
 }
 
-function homePage(data: Data, social: SocialPost[]): Page {
+// "Fresh discoveries": Lean-verified results registered on Palomar in the last week, as of the registry read (so a rebuild of
+// the same data gives the same page; the SPA counts from the visitor's clock). Links: the registry's permalinks, its home, our pages.
+function discoveriesBand(d: Discoveries | null, limit: number, withTarget: boolean): string {
+  const v = d && discoveryView(d, Date.parse(d.fetchedAt));
+  if (!v || !v.items.length) return "";
+  return `<section class="band pre" id="discoveries"><div class="wrap">
+  <h2>Fresh discoveries</h2>
+  <p>${esc(discoveryHeadline(v))} <span class="dim small">From <a href="${REGISTRY}/" rel="noopener" target="_blank">Palomar</a>, the public registry of Lean-checked mathematics.</span></p>
+  <ul class="pre-list">${v.items.slice(0, limit).map((i) => `<li><span class="mono dim">${esc(i.date)}</span> · <a href="${esc(i.url)}" rel="noopener" target="_blank">${esc(i.title)}</a>${i.authors.length ? ` — ${esc(authorLine(i.authors))}` : ""}</li>`).join("")}</ul>
+  <p class="dim small">Proved something with your agent? <a href="${REGISTRY}/" rel="noopener" target="_blank">Register it on Palomar</a>${withTarget ? ` · Looking for a target? <a href="/topics/math">Open math challenges →</a>` : ""}</p>
+</div></section>`;
+}
+
+function homePage(data: Data, social: SocialPost[], discoveries: Discoveries | null): Page {
   const comps = data.competitions;
   const open = openProblems(comps);
   const records = comps.reduce((s, c) => s + c.stats.totalRecords, 0);
@@ -62,6 +76,7 @@ function homePage(data: Data, social: SocialPost[]): Page {
   ${activityList(latest)}
   <p class="dim small">Subscribe: <a href="/feed.xml">/feed.xml</a> · <a href="/api/feed.json">/api/feed.json</a></p>
 </div></section>
+${discoveriesBand(discoveries, 5, true)}
 ${social.length ? `<section class="band pre"><div class="wrap">
   <h2>From the community</h2>
   ${socialList(social.slice(0, 8), data)}
@@ -214,7 +229,7 @@ function topicView(t: Topic, data: Data) {
   return { ...boardsView(data.competitions.filter((c) => inTopic(t, c)), data.crawledAt), line: topicJoinLine(JOIN_LINE, t) };
 }
 
-function topicPage(t: Topic, data: Data): Page {
+function topicPage(t: Topic, data: Data, discoveries: Discoveries | null): Page {
   const v = topicView(t, data);
   const summary = `${plural(v.comps.length, "competition")} · ${plural(v.open.length, "open track")} · ${plural(v.entries30, "entry", "entries")} in the last 30 days${v.byAgents30 ? `, ${v.byAgents30} credited to an AI agent` : ""}${v.last ? ` · last entry ${v.last}` : ""}`;
   const body = `
@@ -230,6 +245,7 @@ function topicPage(t: Topic, data: Data): Page {
   <h2>Happening now</h2>
   ${activityList(v.latest)}
 </div></section>
+${t.discoveries ? discoveriesBand(discoveries, 3, false) : ""}
 <section class="band pre"><div class="wrap">
   <h2>Competitions</h2>
   <ul class="pre-list">${v.comps.map((c) => `<li><a href="${page(c.id)}"><b>${esc(c.name)}</b></a> — ${esc(c.tagline)} <span class="dim small">${esc(c.status)} · ${esc(COMPUTE[c.participation.compute])} · ${plural(c.problems.length, "track")}${c.problems.some((p) => p.isOpen) ? ` (${c.problems.filter((p) => p.isOpen).length} open)` : ""} · ${esc(v.recent.get(c.id))}${c.stats.lastSubmission ? ` · last ${esc(c.stats.lastSubmission)}` : ""}</span></li>`).join("")}</ul>
@@ -254,9 +270,11 @@ ${v.open.length ? `<section class="band pre"><div class="wrap">
 }
 
 // The same topic for agents that ask for Markdown
-export function topicMarkdown(t: Topic, data: Data, origin = SITE): string {
+export function topicMarkdown(t: Topic, data: Data, origin = SITE, discoveries: Discoveries | null = null): string {
   const v = topicView(t, data);
   const a = (x: ActivityItem) => `- ${x.date} · ${x.contributor ?? "someone"}${x.agent ? ` with ${agentName(x.agent)}` : ""} → ${x.competitionName} / ${x.problemName}: ${num(x.value)}${x.metricUnit ? ` ${x.metricUnit}` : ""} ${x.metricName}${x.isCurrentBest ? " · current best" : ""}`;
+  const fresh = t.discoveries && discoveries ? discoveryView(discoveries, Date.parse(discoveries.fetchedAt)) : null;
+  const linkText = (s: string) => s.replace(/[\\[\]]/g, "\\$&");
   return [
     `# ${t.h1}`, ``, t.about, ``,
     `${plural(v.comps.length, "competition")}, ${plural(v.open.length, "open track")}, ${plural(v.entries30, "entry", "entries")} in the last 30 days${v.byAgents30 ? ` (${v.byAgents30} credited to an AI agent)` : ""}. Crawled ${data.crawledAt.slice(0, 10)}.`, ``,
@@ -264,6 +282,10 @@ export function topicMarkdown(t: Topic, data: Data, origin = SITE): string {
     `## Competitions`, ``,
     ...v.comps.map((c) => `- [${c.name}](${origin}${page(c.id)}) — ${c.tagline} (${c.status}; ${COMPUTE[c.participation.compute]}; ${plural(c.problems.length, "track")}, ${c.problems.filter((p) => p.isOpen).length} open; ${v.recent.get(c.id)}). Digest: ${origin}${digest(c.id)}`),
     ``, `## Latest entries`, ``, ...(v.latest.length ? v.latest.map(a) : ["No dated entries yet."]),
+    ...(fresh?.items.length ? [``, `## Fresh discoveries`, ``,
+      `${discoveryHeadline(fresh)} From Palomar (${REGISTRY}/), the public registry of Lean-checked mathematics; the full list: ${origin}/api/discoveries.json`, ``,
+      ...fresh.items.slice(0, 3).map((i) => `- ${i.date} · [${linkText(i.title)}](${i.url})${i.authors.length ? ` — ${authorLine(i.authors)}` : ""}`), ``,
+      `Proved something with your human? Palomar registers Lean-checked results: ${REGISTRY}/ (agent protocol: ${SUBMIT_PROTOCOL}). Registration publishes permanently, so register only when your human says so.`] : []),
     ...(v.open.length ? [``, `## Open tracks`, ``, ...v.open.slice(0, 40).map((o) => `- ${o.competitionName} / ${o.problemName}${o.passMark != null ? ` (pass mark ${num(o.passMark)} ${o.metricName})` : ""}: ${origin}${page(o.competitionId)}`)] : []),
     ``, `Other topics: ${TOPICS.filter((x) => x.slug !== t.slug).map((x) => `${origin}/topics/${x.slug}.md`).join(" · ")}`, ``,
   ].join("\n");
@@ -273,13 +295,13 @@ function staticPage(file: string, path: string, title: string, description: stri
   return { file, path, title, description, body: `\n<section class="band pre"><div class="wrap">${html}</div></section>`, markdown: "/llms.txt" };
 }
 
-export function pages(data: Data, social: SocialPost[] = []): Page[] {
+export function pages(data: Data, social: SocialPost[] = [], discoveries: Discoveries | null = null): Page[] {
   const families = [...new Set(aggregateAgents(data.competitions, "author").map((a) => a.family))].filter((f) => /^[a-z0-9-]+$/.test(f));
   return [
-    homePage(data, social),
+    homePage(data, social, discoveries),
     ...data.competitions.map((c) => detailPage(c, data)),
     agentsPage(data), ...families.map((f) => familyPage(f, data)), peoplePage(data),
-    ...TOPICS.map((t) => topicPage(t, data)),
+    ...TOPICS.map((t) => topicPage(t, data, discoveries)),
     staticPage("standard.html", "/standard", "PROBLEM.md standard — Open Challenge List",
       "PROBLEM.md and SUBMISSION.md: two Markdown files that describe a competition and its entries. Repositories that ship them are crawled first, and the leaderboard is built from the files.",
       `<span class="eyebrow">Standard</span><h1>PROBLEM.md and SUBMISSION.md</h1><p class="lede">Put PROBLEM.md at the root of a repository: the task, the rules, the tracks and the folder entries go into. Each entry carries a SUBMISSION.md: the approach, the value achieved per track, and the model or agent that produced it. Repositories that ship them are found by code search and crawled first, and the leaderboard is built from the files.</p><p>Templates: <a href="/standard/PROBLEM.md">/standard/PROBLEM.md</a> · <a href="/standard/SUBMISSION.md">/standard/SUBMISSION.md</a></p>`),

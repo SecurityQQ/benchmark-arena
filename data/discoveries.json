@@ -1,0 +1,1027 @@
+{
+  "fetchedAt": "2026-11-25T11:19:31.117Z",
+  "totals": {
+    "results": 1357,
+    "projects": 1032
+  },
+  "days": {
+    "2026-11-25": 6,
+    "2026-11-24": 22,
+    "2026-11-23": 36,
+    "2026-11-22": 33,
+    "2026-11-21": 20,
+    "2026-11-20": 26,
+    "2026-11-19": 36
+  },
+  "items": [
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-25-000006",
+      "version": 1,
+      "title": "Šverák 1992: rank-one convexity does not imply quasiconvexity, in Lean",
+      "authors": [
+        "The-Anh Vu-Le"
+      ],
+      "date": "2026-11-25",
+      "at": "2026-11-25T01:54:54Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-25-000006&version=1",
+      "repo": "vltanh/lean4-morrey",
+      "subjects": [
+        "math.AP",
+        "math.OC"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-25-000005",
+      "version": 1,
+      "title": "Iwaniec's conjecture: the quasiconvexity of L and the L^p norm of the Beurling–Ahlfors transform (Agazzi et al., arXiv:2609.28311)",
+      "authors": [
+        "The-Anh Vu-Le"
+      ],
+      "date": "2026-11-25",
+      "at": "2026-11-25T01:47:47Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-25-000005&version=1",
+      "repo": "vltanh/lean4-iwaniec",
+      "subjects": [
+        "math.CV",
+        "math.AP"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-25-000004",
+      "version": 1,
+      "title": "Balanced-Sequence Repetition Threshold Refutation: Exact RTB(7) = 6/5, RTB(9) = 8/7, and RTB(10) = 9/8",
+      "authors": [
+        "Tyler B. Hughes"
+      ],
+      "date": "2026-11-25",
+      "at": "2026-11-25T01:06:08Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-25-000004&version=1",
+      "repo": "mathdiscoveries/balanced-sequences-critical-exponent",
+      "subjects": [
+        "math.CO",
+        "cs.FL"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-25-000003",
+      "version": 1,
+      "title": "Delocalization of non-mean-field random matrices in dimensions d >= 3",
+      "authors": [
+        "Jun Yin"
+      ],
+      "date": "2026-11-25",
+      "at": "2026-11-25T00:58:59Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-25-000003&version=1",
+      "repo": "JYin80/Lean-Band3d_arXiv-2507.20274",
+      "subjects": [
+        "math.PR",
+        "math-ph"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-25-000002",
+      "version": 1,
+      "title": "Unimodality of parking functions by maximum displacement",
+      "authors": [
+        "Jaehyoung Kim"
+      ],
+      "date": "2026-11-25",
+      "at": "2026-11-25T00:45:49Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-25-000002&version=1",
+      "repo": "MegasKomnenos/parking-unimodality",
+      "subjects": [
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-25-000001",
+      "version": 1,
+      "title": "Exact Leakage-Free Quantum State Preparation on an Infinite Ammann–Beenker Graph",
+      "authors": [
+        "Alessandro Odasso"
+      ],
+      "date": "2026-11-25",
+      "at": "2026-11-25T00:20:29Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-25-000001&version=1",
+      "repo": "alexodas/spectral_geometry",
+      "subjects": [
+        "math.SP",
+        "cond-mat.mes-hall"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-24-000022",
+      "version": 1,
+      "title": "MeanResidue: mean quadratic residues, floor sums of square roots and the conjectures of Chamberland and Dilcher",
+      "authors": [
+        "Joseph S. Farland"
+      ],
+      "date": "2026-11-24",
+      "at": "2026-11-24T21:19:18Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-24-000022&version=1",
+      "repo": "jkfarland-bot/MeanResidue",
+      "subjects": [
+        "math.NT"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-24-000021",
+      "version": 2,
+      "title": "PalomaMax2SAT: an 83/84 approximation for three-occurrence Horn formulas above the Unique Games thresholds",
+      "authors": [
+        "Frank Vega"
+      ],
+      "date": "2026-11-24",
+      "at": "2026-11-24T22:23:52Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-24-000021&version=2",
+      "repo": "frankvegadelgado/paloma",
+      "subjects": [
+        "cs.CC",
+        "cs.DS"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-24-000020",
+      "version": 1,
+      "title": "Two exceptional Hodge classes of Fermat varieties have length exactly seven (degrees 44 and 52)",
+      "authors": [
+        "Joel Cruz Cabrera"
+      ],
+      "date": "2026-11-24",
+      "at": "2026-11-24T17:23:43Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-24-000020&version=1",
+      "repo": "joelcanary/fermat-hodge-length-lean",
+      "subjects": [
+        "math.AG",
+        "math.NT"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-24-000019",
+      "version": 1,
+      "title": "Kisielewicz's formula for the Dedekind numbers",
+      "authors": [
+        "Joel Cruz Cabrera"
+      ],
+      "date": "2026-11-24",
+      "at": "2026-11-24T14:55:20Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-24-000019&version=1",
+      "repo": "joelcanary/kisielewicz-dedekind-lean",
+      "subjects": [
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-24-000018",
+      "version": 1,
+      "title": "The Kochen-Specker theorem in every dimension",
+      "authors": [
+        "Zayn Blore"
+      ],
+      "date": "2026-11-24",
+      "at": "2026-11-24T14:04:27Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-24-000018&version=1",
+      "repo": "zblore/kochen-specker-lean",
+      "subjects": [
+        "quant-ph",
+        "math-ph"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-24-000017",
+      "version": 1,
+      "title": "Odd Perfect Numbers: Equal Non-Special Exponents for Every Odd Prime 3 <= r <= 73",
+      "authors": [
+        "Tyler B. Hughes"
+      ],
+      "date": "2026-11-24",
+      "at": "2026-11-24T11:05:35Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-24-000017&version=1",
+      "repo": "mathdiscoveries/odd-perfect-equal-exponents",
+      "subjects": [
+        "math.NT"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-24-000016",
+      "version": 1,
+      "title": "Weak double extension set theory is inconsistent",
+      "authors": [
+        "Peter Zhang"
+      ],
+      "date": "2026-11-24",
+      "at": "2026-11-24T09:43:14Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-24-000016&version=1",
+      "repo": "BedrockInstitute/DESTInconsistency",
+      "subjects": [
+        "math.LO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-24-000015",
+      "version": 1,
+      "title": "Rigidity of eigenvalues of generalized Wigner matrices",
+      "authors": [
+        "Jun Yin"
+      ],
+      "date": "2026-11-24",
+      "at": "2026-11-24T09:35:45Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-24-000015&version=1",
+      "repo": "JYin80/Lean-Rigidity_arXiv-1007.4652",
+      "subjects": [
+        "math.PR",
+        "math-ph"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-24-000014",
+      "version": 1,
+      "title": "One node, one density: the density of states of w1 w2 on the unit square; the zeta function, sharp partition function and free energy of the singular learning model K = (w1 w2)^2; and the zeta functi…",
+      "authors": [
+        "Rohan Badade"
+      ],
+      "date": "2026-11-24",
+      "at": "2026-11-24T09:18:28Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-24-000014&version=1",
+      "repo": "gnostrich/legendre-monodromy",
+      "subjects": [
+        "math.ST",
+        "math.LO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-24-000013",
+      "version": 1,
+      "title": "The second order (Lee–Huang–Yang) upper bound for the ground state energy of a dilute Bose gas",
+      "authors": [
+        "Jun Yin"
+      ],
+      "date": "2026-11-24",
+      "at": "2026-11-24T08:46:54Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-24-000013&version=1",
+      "repo": "JYin80/Lean-LHYUpper_arXiv-0903.5347",
+      "subjects": [
+        "math-ph"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-24-000012",
+      "version": 1,
+      "title": "Minimal k-Prolific Permutations for Every Odd k: Exact Uniqueness via Lee-Sphere Tilings",
+      "authors": [
+        "Tyler B. Hughes"
+      ],
+      "date": "2026-11-24",
+      "at": "2026-11-24T08:35:54Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-24-000012&version=1",
+      "repo": "mathdiscoveries/minimal-prolific-permutations",
+      "subjects": [
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-24-000011",
+      "version": 1,
+      "title": "Erdős Problem 1139: unbounded gaps between integers with at most two prime factors",
+      "authors": [
+        "Bruce Lee"
+      ],
+      "date": "2026-11-24",
+      "at": "2026-11-24T08:27:03Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-24-000011&version=1",
+      "repo": "BruceLoveLee000/erdos-lean-proofs",
+      "subjects": [
+        "math.NT"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-24-000010",
+      "version": 1,
+      "title": "Rigid hypergraphs for unbounded GHZ dimension",
+      "authors": [
+        "Xizhi Liu"
+      ],
+      "date": "2026-11-24",
+      "at": "2026-11-24T07:55:45Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-24-000010&version=1",
+      "repo": "xliu2022/GHZ-unbounded-lean",
+      "subjects": [
+        "math.CO",
+        "quant-ph"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-24-000009",
+      "version": 1,
+      "title": "Exact Girths of Lazebnik-Ustimenko Graphs D(k, q): Girth 14 for All |F| >= 4, Independent Proof of the Binary Girth Law, and Ternary Girths",
+      "authors": [
+        "Tyler B. Hughes"
+      ],
+      "date": "2026-11-24",
+      "at": "2026-11-24T06:59:45Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-24-000009&version=1",
+      "repo": "mathdiscoveries/lazebnik-ustimenko",
+      "subjects": [
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-24-000008",
+      "version": 1,
+      "title": "The Legendre family: Picard–Fuchs equation, period integral, solution space, local monodromy and connection formula for 2F1(1/2,1/2;1;λ)",
+      "authors": [
+        "Rohan Badade"
+      ],
+      "date": "2026-11-24",
+      "at": "2026-11-24T06:24:47Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-24-000008&version=1",
+      "repo": "gnostrich/legendre-monodromy",
+      "subjects": [
+        "math.CA",
+        "math.LO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-24-000007",
+      "version": 1,
+      "title": "Rigid hypergraphs for unbounded GHZ dimension",
+      "authors": [
+        "Xizhi Liu"
+      ],
+      "date": "2026-11-24",
+      "at": "2026-11-24T05:50:20Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-24-000007&version=1",
+      "repo": "xliu2022/GHZ-unbounded-lean",
+      "subjects": [
+        "math.CO",
+        "quant-ph"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-24-000006",
+      "version": 1,
+      "title": "Badkobeh and Ochem's Word b5: Interval-Exchange Coding, Factor Complexity 4n + 1, Projections, and Critical Exponent",
+      "authors": [
+        "Tyler B. Hughes"
+      ],
+      "date": "2026-11-24",
+      "at": "2026-11-24T03:49:10Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-24-000006&version=1",
+      "repo": "mathdiscoveries/badkobeh-ochem-word-b5",
+      "subjects": [
+        "math.CO",
+        "cs.FL"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-24-000005",
+      "version": 1,
+      "title": "Dimension-free exponential entropy quotients over F₂",
+      "authors": [
+        "Josiah Park"
+      ],
+      "date": "2026-11-24",
+      "at": "2026-11-24T03:25:20Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-24-000005&version=1",
+      "repo": "JosiahPark/entropy-palomar-v2",
+      "subjects": [
+        "math.CO",
+        "cs.IT"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-24-000004",
+      "version": 1,
+      "title": "Delocalization of two-dimensional random band matrices",
+      "authors": [
+        "Jun Yin"
+      ],
+      "date": "2026-11-24",
+      "at": "2026-11-24T03:04:39Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-24-000004&version=1",
+      "repo": "JYin80/Lean-RBM2d_arxiv-2503.07606",
+      "subjects": [
+        "math.PR",
+        "math-ph"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-24-000003",
+      "version": 1,
+      "title": "Towards the Overfull Conjecture II in Lean",
+      "authors": [
+        "Juan Pablo Traverso Gianini"
+      ],
+      "date": "2026-11-24",
+      "at": "2026-11-24T02:55:00Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-24-000003&version=1",
+      "repo": "jtraverso/overfull-criteria",
+      "subjects": [
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-24-000002",
+      "version": 1,
+      "title": "I3-334 conditional independence from ZFC + I3",
+      "authors": [
+        "James Chang"
+      ],
+      "date": "2026-11-24",
+      "at": "2026-11-24T01:12:50Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-24-000002&version=1",
+      "repo": "jamesyc/BusyBeaver",
+      "subjects": [
+        "math.LO",
+        "cs.LO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-24-000001",
+      "version": 1,
+      "title": "A Three-Graph with Transcendental Turán Density",
+      "authors": [
+        "Xizhi Liu"
+      ],
+      "date": "2026-11-24",
+      "at": "2026-11-24T00:02:58Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-24-000001&version=1",
+      "repo": "xliu2022/transcendental-turan-lean",
+      "subjects": [
+        "math.CO",
+        "math.LO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-23-000036",
+      "version": 1,
+      "title": "WOWII Conjecture 213 holds (a Hamiltonian path)",
+      "authors": [
+        "Jiří Chmel"
+      ],
+      "date": "2026-11-23",
+      "at": "2026-11-23T23:39:44Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000036&version=1",
+      "repo": "jirichmel/wowii-213-palomar",
+      "subjects": [
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-23-000035",
+      "version": 1,
+      "title": "The Last Exception for Two-Colour Rado Numbers of x + y + c = kz",
+      "authors": [
+        "Tyler B. Hughes"
+      ],
+      "date": "2026-11-23",
+      "at": "2026-11-23T23:32:19Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000035&version=1",
+      "repo": "mathdiscoveries/rado-numbers-last-exception",
+      "subjects": [
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-23-000034",
+      "version": 1,
+      "title": "Real Measurements and Sharp Pairing in the Five-Level Hardy Ladder",
+      "authors": [
+        "Stephanie Alexander"
+      ],
+      "date": "2026-11-23",
+      "at": "2026-11-23T23:25:13Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000034&version=1",
+      "repo": "stalex444/pdt-five-level-hardy-ladder",
+      "subjects": [
+        "quant-ph",
+        "math.OC"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-23-000033",
+      "version": 1,
+      "title": "Two 37-Digit 20-Base Strong Pseudoprimes (psi_20 <= n1 < 2^121), Order Criteria, and Exact Sieve Laws",
+      "authors": [
+        "Tyler B. Hughes"
+      ],
+      "date": "2026-11-23",
+      "at": "2026-11-23T22:23:09Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000033&version=1",
+      "repo": "mathdiscoveries/spsp-psi20",
+      "subjects": [
+        "math.NT"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-23-000032",
+      "version": 1,
+      "title": "WOWII Conjecture 399b is false (a 12-vertex counterexample)",
+      "authors": [
+        "Jiří Chmel"
+      ],
+      "date": "2026-11-23",
+      "at": "2026-11-23T22:13:48Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000032&version=1",
+      "repo": "jirichmel/wowii-399b-palomar",
+      "subjects": [
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-23-000031",
+      "version": 1,
+      "title": "BLF: Boolean functions that are one bit of a linear form",
+      "authors": [
+        "Joseph S. Farland"
+      ],
+      "date": "2026-11-23",
+      "at": "2026-11-23T22:03:34Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000031&version=1",
+      "repo": "jkfarland-bot/BLF",
+      "subjects": [
+        "math.CO",
+        "cs.DM"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-23-000030",
+      "version": 1,
+      "title": "The Quartic Gate and the Two-Step Hardy Optimum",
+      "authors": [
+        "Stephanie Alexander"
+      ],
+      "date": "2026-11-23",
+      "at": "2026-11-23T21:48:24Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000030&version=1",
+      "repo": "stalex444/pdt-quartic-gate-hardy-optimum",
+      "subjects": [
+        "quant-ph",
+        "math.NT"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-23-000029",
+      "version": 1,
+      "title": "The CoEndoYoneda Lemma and its Relationship to Purity for Kleisli Categories with an Idempotent Monad",
+      "authors": [
+        "Luc Duponcheel"
+      ],
+      "date": "2026-11-23",
+      "at": "2026-11-23T21:33:29Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000029&version=1",
+      "repo": "LucDuponcheelAtGitHub/coendoyoneda-and-purity",
+      "subjects": [
+        "cs.PL",
+        "math.CT",
+        "cs.LO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-23-000028",
+      "version": 1,
+      "title": "Stability of the Clique Partition Gap in Split Graphs",
+      "authors": [
+        "Juan Pablo Traverso Gianini"
+      ],
+      "date": "2026-11-23",
+      "at": "2026-11-23T20:44:59Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000028&version=1",
+      "repo": "jtraverso/split-clique-partition-gap-ii",
+      "subjects": [
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-23-000027",
+      "version": 1,
+      "title": "Independent physical and spectral half-ball counts characterize finite sums of lattice combs",
+      "authors": [
+        "Jamie Martin"
+      ],
+      "date": "2026-11-23",
+      "at": "2026-11-23T20:15:51Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000027&version=1",
+      "repo": "balancedscorpion/meyer-half-ball",
+      "subjects": [
+        "math.CA",
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-23-000026",
+      "version": 1,
+      "title": "Delocalization and quantum diffusion of random band matrices in high dimensions",
+      "authors": [
+        "Jun Yin"
+      ],
+      "date": "2026-11-23",
+      "at": "2026-11-23T19:59:24Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000026&version=1",
+      "repo": "JYin80/Lean-Band8d_arXiv-2104.12048",
+      "subjects": [
+        "math.PR",
+        "math-ph"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-23-000025",
+      "version": 1,
+      "title": "Delocalization of one-dimensional random band matrices",
+      "authors": [
+        "Jun Yin"
+      ],
+      "date": "2026-11-23",
+      "at": "2026-11-23T19:43:05Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000025&version=1",
+      "repo": "JYin80/Lean-RBM1d_arxiv-2501.01718",
+      "subjects": [
+        "math.PR",
+        "math-ph"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-23-000024",
+      "version": 1,
+      "title": "On the sum of two primes and k powers of two",
+      "authors": [
+        "Steve Hubbard"
+      ],
+      "date": "2026-11-23",
+      "at": "2026-11-23T19:23:48Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000024&version=1",
+      "repo": "sthubbar/goldbach-lean",
+      "subjects": [
+        "math.NT"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-23-000023",
+      "version": 1,
+      "title": "Carmichael's Totient Conjecture: Kernel-Verified 10^10,117 Lower Bound, 10^-5,057 Density Bound, Structural Theory, and Ford's k = 10 Descent",
+      "authors": [
+        "Tyler B. Hughes"
+      ],
+      "date": "2026-11-23",
+      "at": "2026-11-23T19:15:26Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000023&version=1",
+      "repo": "mathdiscoveries/carmichael-totient",
+      "subjects": [
+        "math.NT"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-23-000022",
+      "version": 1,
+      "title": "Binary adjacency rank and regular induced subgraphs",
+      "authors": [
+        "Arthur Ramos"
+      ],
+      "date": "2026-11-23",
+      "at": "2026-11-23T19:04:08Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000022&version=1",
+      "repo": "Arthur742Ramos/Arthur742Ramos-binary-adjacency-rank",
+      "subjects": [
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-23-000021",
+      "version": 1,
+      "title": "Structured coordinate systems in Lᵖ(ℝ)",
+      "authors": [
+        "Daniel Freeman",
+        "Lukas Liehr",
+        "Mitchell A. Taylor"
+      ],
+      "date": "2026-11-23",
+      "at": "2026-11-23T18:27:17Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000021&version=1",
+      "repo": "lukasliehr/Structured-Coordinate-Systems",
+      "subjects": [
+        "math.FA"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-23-000020",
+      "version": 1,
+      "title": "Butson's prime divisibility theorem",
+      "authors": [
+        "Zayn Blore"
+      ],
+      "date": "2026-11-23",
+      "at": "2026-11-23T18:08:16Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000020&version=1",
+      "repo": "zblore/butson-hadamard-lean",
+      "subjects": [
+        "math.CO",
+        "math.NT"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-23-000019",
+      "version": 1,
+      "title": "Anisotropic local laws for random matrices",
+      "authors": [
+        "Jun Yin"
+      ],
+      "date": "2026-11-23",
+      "at": "2026-11-23T17:38:29Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000019&version=1",
+      "repo": "JYin80/Lean-Anisotropic_arXiv-1410.3516",
+      "subjects": [
+        "math.PR",
+        "math-ph"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-23-000018",
+      "version": 1,
+      "title": "Counterexamples to All Four Malkoun Conjectures (A–D), Planar Tree Zeros, and Unconditional Path Positivity",
+      "authors": [
+        "Tomasz Tarłowski"
+      ],
+      "date": "2026-11-23",
+      "at": "2026-11-23T17:25:04Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000018&version=1",
+      "repo": "tomasztarlowski/malkoun-conjectures-counterexamples",
+      "subjects": [
+        "math-ph",
+        "math.MG",
+        "math.CO",
+        "cs.LO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-23-000017",
+      "version": 1,
+      "title": "A One-Edge Change Splits Two Energy Levels in an Infinite Ammann–Beenker Graph",
+      "authors": [
+        "Alessandro Odasso"
+      ],
+      "date": "2026-11-23",
+      "at": "2026-11-23T11:14:06Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000017&version=1",
+      "repo": "alexodas/spectral_geometry",
+      "subjects": [
+        "math.SP",
+        "cond-mat.mes-hall"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-23-000016",
+      "version": 1,
+      "title": "Conditional ZF-independence of the exact 192-state machine",
+      "authors": [
+        "James Chang"
+      ],
+      "date": "2026-11-23",
+      "at": "2026-11-23T10:44:07Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000016&version=1",
+      "repo": "jamesyc/BusyBeaver",
+      "subjects": [
+        "math.LO",
+        "cs.LO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-23-000015",
+      "version": 1,
+      "title": "Gabor Frames of Totally Positive Functions",
+      "authors": [
+        "Jaume de Dios Pont",
+        "Karlheinz Gröchenig",
+        "Lukas Liehr",
+        "Irina Shafkulovska",
+        "Mitchell A. Taylor"
+      ],
+      "date": "2026-11-23",
+      "at": "2026-11-23T09:58:30Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000015&version=1",
+      "repo": "lukasliehr/TotallyPositive",
+      "subjects": [
+        "math.FA",
+        "math.CA"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-23-000014",
+      "version": 1,
+      "title": "Irreducibility for symmetric Rademacher matrices",
+      "authors": [
+        "Tao Hu",
+        "Quanyu Tang"
+      ],
+      "date": "2026-11-23",
+      "at": "2026-11-23T09:28:39Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000014&version=1",
+      "repo": "QuanyuTang/symmetric-rademacher-irreducibility-palomar",
+      "subjects": [
+        "math.PR",
+        "math.NT"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-23-000013",
+      "version": 1,
+      "title": "Derivatives of Theta Functions and a Problem of Lyubarskii and Nes",
+      "authors": [
+        "Lukas Liehr",
+        "Irina Shafkulovska",
+        "Mitchell A. Taylor"
+      ],
+      "date": "2026-11-23",
+      "at": "2026-11-23T09:14:33Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000013&version=1",
+      "repo": "lukasliehr/h1_frames",
+      "subjects": [
+        "math.CA",
+        "math.FA"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-23-000012",
+      "version": 1,
+      "title": "Erdős Problem #643: Extremal Disjoint-Union Hypergraphs",
+      "authors": [
+        "Yilin Liu"
+      ],
+      "date": "2026-11-23",
+      "at": "2026-11-23T08:32:48Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000012&version=1",
+      "repo": "icekylinx/jsp-000523-proof",
+      "subjects": [
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-23-000011",
+      "version": 1,
+      "title": "The exceptional set of the Goldbach problem",
+      "authors": [
+        "Steve Hubbard"
+      ],
+      "date": "2026-11-23",
+      "at": "2026-11-23T08:24:40Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000011&version=1",
+      "repo": "sthubbar/goldbach-lean",
+      "subjects": [
+        "math.NT"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-23-000010",
+      "version": 1,
+      "title": "Certified Positivity: the explicit formula for Suzuki's zeta screw function, and positive semidefiniteness of its Gram kernel on every finite grid under the Riemann Hypothesis",
+      "authors": [
+        "Rohan Badade"
+      ],
+      "date": "2026-11-23",
+      "at": "2026-11-23T08:13:56Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000010&version=1",
+      "repo": "gnostrich/certified-positivity",
+      "subjects": [
+        "math.NT",
+        "math.LO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-23-000009",
+      "version": 1,
+      "title": "Finite modulated lattice-comb decompositions for crystalline measures",
+      "authors": [
+        "Jamie Martin"
+      ],
+      "date": "2026-11-23",
+      "at": "2026-11-23T07:12:52Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000009&version=1",
+      "repo": "balancedscorpion/lev-olevskii-lattice-cover",
+      "subjects": [
+        "math.CA",
+        "math.FA"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-23-000008",
+      "version": 1,
+      "title": "Conditional independence for a literal 451-state Turing machine",
+      "authors": [
+        "James Chang"
+      ],
+      "date": "2026-11-23",
+      "at": "2026-11-23T05:53:34Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000008&version=1",
+      "repo": "jamesyc/BusyBeaver",
+      "subjects": [
+        "cs.LO",
+        "math.LO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-23-000007",
+      "version": 1,
+      "title": "Short effective intervals containing primes",
+      "authors": [
+        "Steve Hubbard"
+      ],
+      "date": "2026-11-23",
+      "at": "2026-11-23T05:32:51Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000007&version=1",
+      "repo": "sthubbar/goldbach-lean",
+      "subjects": [
+        "math.NT"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-23-000006",
+      "version": 1,
+      "title": "Prime numbers and powers of two",
+      "authors": [
+        "Steve Hubbard"
+      ],
+      "date": "2026-11-23",
+      "at": "2026-11-23T05:10:19Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000006&version=1",
+      "repo": "sthubbar/goldbach-lean",
+      "subjects": [
+        "math.NT"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-23-000005",
+      "version": 1,
+      "title": "A verified finite oracle reduction for Hamiltonicity",
+      "authors": [
+        "Will Strinz"
+      ],
+      "date": "2026-11-23",
+      "at": "2026-11-23T02:47:22Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000005&version=1",
+      "repo": "wstrinz/hamiltonicity-oracle-reduction",
+      "subjects": [
+        "cs.DS",
+        "math.CO"
+      ]
+    }
+  ]
+}

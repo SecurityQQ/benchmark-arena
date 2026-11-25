@@ -4,7 +4,8 @@ name: Live refresh (official results APIs, changed LLM boards)
 # Open Discovery Challenge) are re-read every three hours with no discovery and no LLM calls. LLM-extracted boards are re-extracted
 # only when a file the extractor read (README, leaderboard files) changed since their last extraction, at most LIVE_RECRAWL_MAX
 # (default 4) per run; a code-only push never reaches the LLM. So new entries reach the site within hours instead of at the
-# weekly crawl.
+# weekly crawl. The same run re-reads Palomar's registry for "Fresh discoveries" (data/discoveries.json); that file is rewritten
+# only when what it shows changed, and a failed read leaves it as it was.
 #
 # GitHub starts this repo's scheduled runs hours late or drops them (the weekly crawl fires 8–10 hours after its slot; the first
 # three-hourly slots never fired), so the schedule asks every 30 minutes and a refresh goes ahead only when none succeeded or
@@ -77,10 +78,10 @@ jobs:
 
       - name: Commit data
         run: |
-          # new entries, or state a re-extraction or date lookup moved (without it the next run would redo that work)
-          if ! node scripts/entries-changed.mjs && git diff --quiet -- data/crawl-state.json data/commit-dates.json; then echo "no new entries"; exit 0; fi
+          # new entries, new Palomar registrations, or state a re-extraction or date lookup moved (without it the next run would redo that work)
+          if ! node scripts/entries-changed.mjs && git diff --quiet -- data/crawl-state.json data/commit-dates.json data/discoveries.json; then echo "no new entries"; exit 0; fi
           git config user.name "openchallengelist-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add data/competitions.json data/crawl-state.json data/commit-dates.json README.md
+          git add data/competitions.json data/crawl-state.json data/commit-dates.json data/discoveries.json README.md
           git commit -m "data: live refresh $(date -u +%Y-%m-%dT%H:%MZ)"
           for i in 1 2 3; do git push && exit 0; git pull --rebase origin "$GITHUB_REF_NAME" || exit 1; done; exit 1
