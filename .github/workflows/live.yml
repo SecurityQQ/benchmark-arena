@@ -19,7 +19,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
+      # the branch head when the job starts, not the commit it was queued on: another data writer in the
+      # "crawl" concurrency group may have pushed in between, and its data must be the base for ours
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
       - uses: actions/setup-node@v4
         with:
           node-version: 22
