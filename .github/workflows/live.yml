@@ -39,12 +39,15 @@ jobs:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: npx tsx src/main.ts live
 
+      - name: README "Open right now"
+        run: npx tsx src/readme.ts
+
       - name: Commit data
         run: |
           # new entries, or state a re-extraction or date lookup moved (without it the next run would redo that work)
           if ! node scripts/entries-changed.mjs && git diff --quiet -- data/crawl-state.json data/commit-dates.json; then echo "no new entries"; exit 0; fi
           git config user.name "openchallengelist-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add data/competitions.json data/crawl-state.json data/commit-dates.json
+          git add data/competitions.json data/crawl-state.json data/commit-dates.json README.md
           git commit -m "data: live refresh $(date -u +%Y-%m-%dT%H:%MZ)"
           for i in 1 2 3; do git push && exit 0; git pull --rebase origin "$GITHUB_REF_NAME" || exit 1; done; exit 1
