@@ -13,6 +13,7 @@ import { markdownFor } from "./agentTraffic.js";
 import { createMcpHandler } from "./mcp.js";
 import { loadSocial } from "./social.js";
 import { NO_DISCOVERIES, loadDiscoveries } from "./discoveries.js";
+import { loadAgentDocs, withAgentDocs } from "./agentDocs.js";
 
 const PORT = Number(process.env.PORT ?? 3000);
 const HOST = process.env.HOST ?? "127.0.0.1";
@@ -34,7 +35,7 @@ const MIME: Record<string, string> = {
 
 async function loadData() {
   const crawled = publicDataset(JSON.parse(await readFile(DATA_PATH, "utf-8")));
-  return { ...crawled, competitions: applyCorrections(crawled.competitions, loadCorrections(process.cwd(), new Set(crawled.competitions.map((c) => c.id)))) };
+  return { ...crawled, competitions: withAgentDocs(applyCorrections(crawled.competitions, loadCorrections(process.cwd(), new Set(crawled.competitions.map((c) => c.id)))), loadAgentDocs(process.cwd())) };
 }
 
 function send(res: any, status: number, body: string | Buffer, type = "text/plain; charset=utf-8") {

@@ -70,8 +70,12 @@ export interface Competition {
   agentStats: AgentStat[];       // derived: which model families produced records here
   standard?: { problem: boolean; submission: boolean; submissions: number; version: number; warnings: string[] };  // repo ships PROBLEM.md; entries carry SUBMISSION.md
   agentPolicy?: { agents?: string; attribution?: string };  // from SUBMISSION.md: are AI agents welcome, how to disclose them
+  agentDocs?: AgentDoc[];        // the organizer's own instructions for agents (data/agent-docs.json, src/agentDocs.ts): linked, never copied
   lastUpdated: string;
 }
+
+// A link to an organizer's AGENTS.md, CLAUDE.md or llms.txt. The label is one of ours (src/agentDocs.ts), never the file's text.
+export interface AgentDoc { label: string; url: string }
 
 export type AgentFamily =
   | "anthropic" | "openai" | "google" | "deepseek" | "meta" | "xai" | "mistral" | "alibaba" | "moonshot" | "zhipu"

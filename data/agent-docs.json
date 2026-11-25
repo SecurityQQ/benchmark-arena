@@ -1,0 +1,72 @@
+{
+  "boards": {
+    "bigospeedrun-verifier-d059f6016f1c0796": [
+      {
+        "label": "AGENTS.md",
+        "url": "https://raw.githubusercontent.com/bigospeedrun/verifier/HEAD/AGENTS.md"
+      },
+      {
+        "label": "llms.txt (site)",
+        "url": "https://bigospeedrun.com/llms.txt"
+      }
+    ],
+    "chi-bench": [
+      {
+        "label": "CLAUDE.md",
+        "url": "https://raw.githubusercontent.com/actava-ai/leaderboard/HEAD/CLAUDE.md"
+      }
+    ],
+    "crocswap-integer-mult-bounds-33a6ab842bf8f8e0": [
+      {
+        "label": "AGENTS.md",
+        "url": "https://raw.githubusercontent.com/CrocSwap/integer-mult-bounds/HEAD/AGENTS.md"
+      }
+    ],
+    "duckbench": [
+      {
+        "label": "llms.txt (site)",
+        "url": "https://duckbench.app/llms.txt"
+      }
+    ],
+    "google-deepmind-formal-conjectures-26b7f8cc558bf9b7": [
+      {
+        "label": "AGENTS.md",
+        "url": "https://raw.githubusercontent.com/google-deepmind/formal-conjectures/HEAD/AGENTS.md"
+      }
+    ],
+    "leansolving-squeezebench-04bec82398b15ff6": [
+      {
+        "label": "AGENTS.md",
+        "url": "https://raw.githubusercontent.com/leansolving/SqueezeBench/HEAD/AGENTS.md"
+      }
+    ],
+    "ndif-team-looped-lens-challenge-760f0dba003c4c92": [
+      {
+        "label": "AGENTS.md",
+        "url": "https://raw.githubusercontent.com/ndif-team/looped-lens-challenge/HEAD/AGENTS.md"
+      }
+    ],
+    "polymarket-paper-trader": [
+      {
+        "label": "AGENTS.md",
+        "url": "https://raw.githubusercontent.com/agent-next/polymarket-paper-trader/HEAD/AGENTS.md"
+      }
+    ],
+    "rtl-ai-silicon-arena-d20cfa656a05f7ad": [
+      {
+        "label": "AGENTS.md",
+        "url": "https://raw.githubusercontent.com/rtl-ai/silicon-arena/HEAD/AGENTS.md"
+      },
+      {
+        "label": "llms.txt",
+        "url": "https://raw.githubusercontent.com/rtl-ai/silicon-arena/HEAD/llms.txt"
+      }
+    ],
+    "sutro-problems": [
+      {
+        "label": "CLAUDE.md",
+        "url": "https://raw.githubusercontent.com/cybertronai/sutro-problems/HEAD/CLAUDE.md"
+      }
+    ]
+  }
+}
