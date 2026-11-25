@@ -1,6 +1,11 @@
 {
   "buildCommand": "npm run build:site",
   "outputDirectory": "public",
+  "functions": {
+    "api/mcp.ts": {
+      "maxDuration": 15
+    }
+  },
   "redirects": [
     {
       "source": "/:path((?!api/|llms\\.txt|join\\.txt|feed\\.xml|standard/).*)",
@@ -37,6 +42,10 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/mcp",
+      "destination": "/api/mcp"
+    },
     {
       "source": "/api/summary",
       "destination": "/api/summary.json"

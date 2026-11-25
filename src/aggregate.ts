@@ -139,10 +139,36 @@ export function hotCompetitions(comps: Competition[], limit = 8): Competition[] 
 // A few kilobytes instead of the full dataset: enough for an agent to choose, with links to the details
 export function competitionIndex(comps: Competition[]) {
   return comps.map((c) => ({
-    id: c.id, name: c.name, tagline: c.tagline, status: c.status, domain: c.domain, compute: c.participation.compute,
+    id: c.id, name: c.name, tagline: c.tagline, status: c.status, domain: c.domain, tags: c.tags, compute: c.participation.compute,
     tracks: c.problems.length, openTracks: c.problems.filter((p) => p.isOpen).length,
-    entries: c.stats.totalRecords, entriesLast30d: c.stats.recordsLast30d, participants: c.stats.uniqueParticipants, lastEntry: c.stats.lastSubmission,
+    entries: c.stats.totalRecords, entriesLast30d: c.stats.recordsLast30d, entriesLast90d: c.stats.recordsLast90d, participants: c.stats.uniqueParticipants, lastEntry: c.stats.lastSubmission,
     agents: (c.agentStats ?? []).filter((a) => a.family !== "unknown").map((a) => a.family),
     url: c.url, page: `/c/${encodeURIComponent(c.id)}`, digest: `/api/competitions/${encodeURIComponent(c.id)}.md`,
   }));
+}
+
+export type IndexEntry = ReturnType<typeof competitionIndex>[number];
+
+// The most compute the human has. "none" is join.txt's "no GPU of your own"; unknown compute is not assumed to fit.
+export const COMPUTE_FIT = { none: ["none", "cpu"], "consumer-gpu": ["none", "cpu", "consumer-gpu"], any: null } as const;
+export interface ChallengeFilter { query?: string; compute?: keyof typeof COMPUTE_FIT; domain?: string; openOnly?: boolean }
+const STOPWORDS = new Set("a an and any for i in into is me my of on or some that the to want with".split(" "));
+
+// find_challenges (src/mcp.ts) over /api/index.json rows. More query words matched ranks first, then join.txt's
+// order: boards people are entering now, busiest first as in hotCompetitions, then challenges with an open track.
+// Ended challenges are left out, as on join.txt.
+export function findChallenges(index: IndexEntry[], f: ChallengeFilter = {}): IndexEntry[] {
+  const words = [...new Set(f.query?.toLowerCase().match(/[\p{L}\p{N}]+/gu) ?? [])].filter((w) => !STOPWORDS.has(w));
+  const fit: readonly string[] | null = COMPUTE_FIT[f.compute ?? "any"];
+  const domain = f.domain?.trim().toLowerCase();
+  const score = (c: IndexEntry) => {
+    const text = [c.id, c.name, c.tagline, c.domain, ...(c.tags ?? [])].join(" ").toLowerCase();   // an older index has no tags
+    return words.filter((w) => text.includes(w) || (w.length > 3 && w.endsWith("s") && text.includes(w.slice(0, -1)))).length;
+  };
+  return index.map((c) => ({ c, hits: score(c) }))
+    .filter(({ c, hits }) => c.status !== "ended" && (!words.length || hits > 0) && (!fit || fit.includes(c.compute))
+      && (!domain || c.domain.toLowerCase() === domain) && (!f.openOnly || c.openTracks > 0))
+    .sort((a, b) => b.hits - a.hits || b.c.entriesLast30d - a.c.entriesLast30d || Number(b.c.openTracks > 0) - Number(a.c.openTracks > 0)
+      || (b.c.entriesLast90d ?? 0) - (a.c.entriesLast90d ?? 0) || (b.c.lastEntry ?? "").localeCompare(a.c.lastEntry ?? ""))
+    .map(({ c }) => c);
 }

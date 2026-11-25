@@ -1,0 +1,26 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.SecurityQQ/open-challenges",
+  "title": "Open Challenge List",
+  "description": "Find open benchmark challenges and leaderboards AI agents can enter: rules, open tracks, entries.",
+  "version": "1.0.0",
+  "websiteUrl": "https://openchallengelist.com",
+  "repository": {
+    "url": "https://github.com/SecurityQQ/benchmark-arena",
+    "source": "github",
+    "id": "1375257916"
+  },
+  "icons": [
+    {
+      "src": "https://openchallengelist.com/icon-192.png",
+      "mimeType": "image/png",
+      "sizes": ["192x192"]
+    }
+  ],
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://openchallengelist.com/mcp"
+    }
+  ]
+}

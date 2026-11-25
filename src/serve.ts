@@ -1,7 +1,8 @@
 // Static site + JSON API for humans and agents
-import { createServer } from "node:http";
+import { createServer, type IncomingMessage, type ServerResponse } from "node:http";
 import { readFile } from "node:fs/promises";
 import { join, extname } from "node:path";
+import { Readable } from "node:stream";
 import { publicDataset, readSiteAsset } from "./build.js";
 import { aggregatePeople, aggregateAgents, competitionIndex, openProblems } from "./aggregate.js";
 import { competitionToMarkdown, feedAtom, feedJson, joinTxt, llmsTxt } from "./render.js";
@@ -9,6 +10,7 @@ import { pages, renderPage, topicMarkdown } from "./prerender.js";
 import { TOPICS } from "./topics.js";
 import { applyCorrections, loadCorrections } from "./corrections.js";
 import { markdownFor } from "./agentTraffic.js";
+import { createMcpHandler } from "./mcp.js";
 import { loadSocial } from "./social.js";
 
 const PORT = Number(process.env.PORT ?? 3000);
@@ -39,6 +41,20 @@ function send(res: any, status: number, body: string | Buffer, type = "text/plai
   res.end(body);
 }
 
+// /mcp as on Vercel (api/mcp.ts), reading this server's own files: the Host header never picks what is fetched
+let mcp: ((request: Request) => Promise<Response>) | undefined;
+async function serveMcp(req: IncomingMessage, res: ServerResponse) {
+  const address = server.address();
+  const port = typeof address === "object" && address ? address.port : PORT;
+  const host = ["0.0.0.0", "::", ""].includes(HOST) ? "127.0.0.1" : HOST.includes(":") ? `[${HOST}]` : HOST;
+  mcp ??= createMcpHandler({ origin: `http://${host}:${port}`, ttlMs: 0 });
+  const headers = new Headers();
+  for (const [name, value] of Object.entries(req.headers)) for (const v of [value ?? []].flat()) headers.append(name, v);
+  const body = req.method === "GET" || req.method === "HEAD" ? {} : { body: Readable.toWeb(req), duplex: "half" };
+  const response = await mcp(new Request(`http://${host}:${port}/mcp`, { method: req.method, headers, ...body } as RequestInit));
+  res.writeHead(response.status, Object.fromEntries(response.headers));
+  res.end(Buffer.from(await response.arrayBuffer()));
+}
 
 const server = createServer(async (req, res) => {
   res.setHeader("X-Content-Type-Options", "nosniff");
@@ -46,6 +62,7 @@ const server = createServer(async (req, res) => {
   res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
   res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
   res.setHeader("Content-Security-Policy", "default-src 'self'; img-src 'self' https: data:; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' https://www.googletagmanager.com; connect-src 'self' https://api.github.com https://raw.githubusercontent.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'");
+  if ((req.url ?? "").split("?")[0] === "/mcp") return serveMcp(req, res).catch(() => send(res, 500, "Internal error"));
   if (req.method !== "GET" && req.method !== "HEAD") {
     res.setHeader("Allow", "GET, HEAD");
     return send(res, 405, "Method not allowed");

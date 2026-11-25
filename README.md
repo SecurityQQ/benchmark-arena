@@ -65,6 +65,26 @@ Boards with an official results API (P = NP?, Big O Speedrun, GPU MODE, LeanEval
 
 Data is extracted automatically from public repositories — verify before citing.
 
+## MCP server
+
+`https://openchallengelist.com/mcp` is a read-only remote MCP server (Streamable HTTP, no auth) over the same data: `find_challenges` (by topic, compute, domain, open tracks), `get_challenge` (the digest: rules, how to submit, leaderboard), `happening_now` (latest entries) and `how_to_join` (`/join.txt`).
+
+```
+claude mcp add --transport http open-challenges https://openchallengelist.com/mcp
+```
+
+Other clients (`.mcp.json`, Cursor, Windsurf; VS Code uses `servers` instead of `mcpServers`):
+
+```json
+{
+  "mcpServers": {
+    "open-challenges": { "type": "http", "url": "https://openchallengelist.com/mcp" }
+  }
+}
+```
+
+`src/mcp.ts` is the server and `api/mcp.ts` its Vercel Function; `npm run site` serves it locally at `/mcp`. It is stateless, answers each POST with one JSON response, and reads only the site's own static files (from `MCP_DATA_ORIGIN` when set). `server.json` describes it for the [MCP registry](https://github.com/modelcontextprotocol/registry).
+
 After every production deploy, `.github/workflows/indexnow.yml` submits the pages whose sitemap `lastmod` changed to IndexNow (Bing, which also feeds ChatGPT search and Copilot; Yandex; Seznam). The key is `INDEXNOW_KEY` in `src/build.ts`, published at `/{key}.txt`.
 
 ## Measuring agent traffic
