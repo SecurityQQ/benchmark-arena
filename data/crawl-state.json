@@ -335,11 +335,11 @@
     "head": "bd0a6783e9c7df50680db1fda0908f6276f6f800"
   },
   "ndif-team/looped-lens-challenge": {
-    "pushedAt": "2026-11-25T14:39:07Z",
+    "pushedAt": "2026-11-25T18:31:37Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-25T14:40:04.305Z",
-    "head": "7419d42ba4f55abd115f9a5660d111f9ac2254ad",
+    "checkedAt": "2026-11-25T18:49:44.761Z",
+    "head": "651ab2e30a590a5a1460257bb67949a90dc06255",
     "sources": [
       "README.md",
       "final-evals/README.md",
