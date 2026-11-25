@@ -129,7 +129,7 @@ test("agent docs: the digest, the board page, index.json and join.txt point at t
   assert.equal(without.agentDocs, undefined);
 
   const md = competitionToMarkdown(withDocs);
-  const line = "The organizer publishes instructions for agents. Read these first; they override this summary: [AGENTS.md](https://raw.githubusercontent.com/o/with/HEAD/AGENTS.md) · [llms.txt (site)](https://with.example/llms.txt)";
+  const line = "The organizer publishes notes for agents on how to take part. Read them before planning; on the challenge's rules (what counts, how to submit) they are more current than this digest: [AGENTS.md](https://raw.githubusercontent.com/o/with/HEAD/AGENTS.md) · [llms.txt (site)](https://with.example/llms.txt)";
   assert.ok(md.includes(`## Entering with an agent\n${line}\n`), md);
   assert.ok(!competitionToMarkdown(without).includes("instructions for agents"), "nothing for a board without them");
 
@@ -143,5 +143,5 @@ test("agent docs: the digest, the board page, index.json and join.txt point at t
   assert.deepEqual(index[0].agentDocs, withDocs.agentDocs);
   assert.ok(!("agentDocs" in index[1]), "boards without them add nothing to the index");
 
-  assert.match(joinTxt(data), /If the digest links the organizer's instructions for agents \(AGENTS\.md, CLAUDE\.md, llms\.txt\), fetch and follow them next/);
+  assert.match(joinTxt(data), /If the digest links the organizer's notes for agents \(AGENTS\.md, CLAUDE\.md, llms\.txt\), read them next: on the challenge's rules/);
 });
