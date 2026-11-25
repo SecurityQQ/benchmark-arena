@@ -88,12 +88,6 @@
     "checkedAt": "2026-11-25T06:13:07.178Z",
     "head": "a8725a2a6a2d213b0b8935a15bb271505bf21e30"
   },
-  "bigospeedrun/verifier": {
-    "pushedAt": "2026-11-25T06:47:22Z",
-    "fingerprint": "81e7e9bf9471aa91",
-    "verdict": "competition",
-    "checkedAt": "2026-11-25T07:16:00.437Z"
-  },
   "changwookjun/nlp-paper": {
     "pushedAt": "2026-11-12T05:06:57Z",
     "fingerprint": "81e7e9bf9471aa91",
@@ -227,12 +221,6 @@
     "verdict": "none",
     "checkedAt": "2026-10-13T23:14:29.087Z"
   },
-  "kaihui-amd/modelbot-cli": {
-    "pushedAt": "2026-11-25T07:41:34Z",
-    "fingerprint": "81e7e9bf9471aa91",
-    "verdict": "none",
-    "checkedAt": "2026-11-25T10:43:07.142Z"
-  },
   "kellerjordan/modded-nanogpt": {
     "pushedAt": "2026-09-28T21:46:14Z",
     "fingerprint": "81e7e9bf9471aa91",
@@ -347,17 +335,18 @@
     "head": "bd0a6783e9c7df50680db1fda0908f6276f6f800"
   },
   "ndif-team/looped-lens-challenge": {
-    "pushedAt": "2026-11-25T02:03:46Z",
+    "pushedAt": "2026-11-25T14:39:07Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-25T10:42:39.477Z",
-    "head": "405b88be86e9b55636337e670315d4c8b213f52f",
+    "checkedAt": "2026-11-25T14:40:04.305Z",
+    "head": "7419d42ba4f55abd115f9a5660d111f9ac2254ad",
     "sources": [
       "README.md",
       "final-evals/README.md",
       "space/README.md",
       "AGENTS.md"
-    ]
+    ],
+    "live": true
   },
   "openai/mle-bench": {
     "pushedAt": "2026-04-24T17:33:44Z",
