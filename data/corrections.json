@@ -7,6 +7,20 @@
       "deadline": "Stage 2 submissions closed on August 31, 2026, 23:59 AoE",
       "source": "https://github.com/SAIRcompetition/equational-theories-lean-stage2/blob/main/rules/overview.md",
       "checked": "2026-11-25"
+    },
+    {
+      "id": "apex-humanoid-parkour",
+      "status": "ended",
+      "deadline": "Ended: Macrocosmos docs list it as \"Ended: Humanoid Parkour Competition\", no longer among SN1 current competitions",
+      "source": "https://docs.macrocosmos.ai/subnets/readme/subnet-1-current-competitions/ended-humanoid-parkour-competition",
+      "checked": "2026-11-25"
+    },
+    {
+      "id": "mle-bench",
+      "status": "ended",
+      "deadline": "Leaderboard paused since 2026-04-24: \"not taking any new submissions\" until OpenAI announces a new process",
+      "source": "https://github.com/openai/mle-bench/blob/main/README.md#leaderboard",
+      "checked": "2026-11-25"
     }
   ]
 }
