@@ -20,7 +20,7 @@ async function main() {
   const gh = getOctokit();
   const data: CrawlResult = JSON.parse(readFileSync(join(process.cwd(), "data", "competitions.json"), "utf-8"));
   const byRepo = new Map(data.competitions.filter((c) => c.repo).map((c) => [`${c.repo!.owner}/${c.repo!.name}`.toLowerCase(), c.id]));
-  const seen = new Map<string, { url: string; repo: string; kind: "pr" | "issue"; state: string; createdAt: string; author?: string; competition?: string; via?: string }>();
+  const seen = new Map<string, { url: string; repo: string; kind: "pr" | "issue"; state: string; createdAt: string; author?: string; association?: string; competition?: string; via?: string }>();
   for (const q of QUERIES) {
     const items = await gh.paginate(gh.search.issuesAndPullRequests, { q, per_page: 100 }, (r) => r.data);
     for (const it of items) {
@@ -29,20 +29,25 @@ async function main() {
       if (!/openchallengelist\.com|problem\.md\/v1/i.test(`${it.title}\n${it.body ?? ""}`)) continue; // search tokenizes: keep literal mentions only
       const via = /openchallengelist\.com\/c\/([A-Za-z0-9_-]{1,200})/.exec(it.body ?? "")?.[1];
       seen.set(it.html_url, { url: it.html_url, repo, kind: it.pull_request ? "pr" : "issue", state: it.state, createdAt: it.created_at, author: it.user?.login,
-        competition: byRepo.get(repo) ?? via, via });
+        association: it.author_association, competition: byRepo.get(repo) ?? via, via });
     }
   }
-  const code = await gh.search.code({ q: '"openchallengelist.com"', per_page: 100 }).then((r) => r.data.items.map((i) => i.repository.full_name.toLowerCase()), () => [] as string[]);
+  // null, not [], when GitHub code search fails: "nobody links here" and "could not check" are different answers
+  const code = await gh.search.code({ q: '"openchallengelist.com"', per_page: 100 }).then((r) => r.data.items.map((i) => i.repository.full_name.toLowerCase()), () => null);
   const refs = [...seen.values()].sort((a, b) => b.createdAt.localeCompare(a.createdAt));
   const month = (d: string) => d.slice(0, 7);
+  // the repository's own people adopting the standard, as GitHub reports them on the PR or issue
+  const isOrganizer = (r: { association?: string }) => ["OWNER", "MEMBER", "COLLABORATOR"].includes(r.association ?? "");
   const result = {
     checkedAt: new Date().toISOString(),
-    // headline: PRs into a listed competition that say they came from here
-    entriesViaDirectory: refs.filter((r) => r.kind === "pr" && byRepo.has(r.repo)).length,
+    // headline: PRs into a listed competition that say they came from here, by someone other than the organizer
+    entriesViaDirectory: refs.filter((r) => r.kind === "pr" && byRepo.has(r.repo) && !isOrganizer(r)).length,
+    // organizers who adopted the standard in their own repository (a listing, not an entry)
+    organizerAdoptions: refs.filter(isOrganizer).map((r) => r.url),
     byCompetition: Object.fromEntries([...new Set(refs.map((r) => r.competition).filter(Boolean))].map((id) => [id, refs.filter((r) => r.competition === id).length])),
     byMonth: Object.fromEntries([...new Set(refs.map((r) => month(r.createdAt)))].sort().map((m) => [m, refs.filter((r) => month(r.createdAt) === m).length])),
     references: refs,
-    reposLinkingHere: [...new Set(code)].filter((r) => r !== SELF).sort(),
+    reposLinkingHere: code && [...new Set(code)].filter((r) => r !== SELF).sort(),
   };
   console.log(JSON.stringify(result, null, 2));
   if (process.env.WRITE === "1") writeFileSync(join(process.cwd(), "data", "agent-metrics.json"), JSON.stringify(result, null, 2) + "\n");
