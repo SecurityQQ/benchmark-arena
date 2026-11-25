@@ -71,6 +71,17 @@ const SITES: Record<string, { url: string; build: () => Promise<LLMCompetition> 
   duckbench: { url: "https://duckbench.app/", build: buildDuckBench },  // DuckBench: robot-duck challenges for coding agents
 };
 
+// Built from an official results API: deterministic, no LLM, cheap enough to run every few hours
+async function buildStructured(repo: DiscoveredRepo, prev?: Competition): Promise<Competition> {
+  return postprocess(await STRUCTURED[repoKey(repo)](), repo, prev);
+}
+async function buildSite(id: string, prev?: Competition): Promise<Competition> {
+  return postprocess(await SITES[id].build(), { site: id, url: SITES[id].url } satisfies SiteSource, prev);
+}
+// An LLM pass is noisy and an API can hiccup: a sudden shrink keeps the previous, richer version
+const shrunk = (c: Competition, prev?: Competition) => !!prev && prev.stats.totalRecords >= 10 && c.stats.totalRecords < prev.stats.totalRecords * 0.6;
+const agentSummary = (c: Competition) => c.agentStats.map((a) => `${a.family}:${a.records}`).join(" ");
+
 const DATA_DIR = join(process.cwd(), "data");
 const DISCOVERED_PATH = join(DATA_DIR, "discovered.json");
 const RESULT_PATH = join(DATA_DIR, "competitions.json");
@@ -93,8 +104,8 @@ export function canSkip(st: RepoState | undefined, repo: DiscoveredRepo, now = D
 }
 
 async function main() {
-  const mode = process.argv[2] ?? "full"; // "discover" | "process" | "full" | "priority" | "repost"
-  if (!["full", "discover", "process", "priority", "repost"].includes(mode)) throw new Error("Invalid mode");
+  const mode = process.argv[2] ?? "full"; // "discover" | "process" | "full" | "priority" | "repost" | "live"
+  if (!["full", "discover", "process", "priority", "repost", "live"].includes(mode)) throw new Error("Invalid mode");
 
   console.log("=== Open Challenge List Crawler ===");
   console.log(`Mode: ${mode}\n`);
@@ -114,6 +125,36 @@ async function main() {
     assertUniqueCompetitions(comps);
     writeFileSync(RESULT_PATH, JSON.stringify({ crawledAt: new Date().toISOString(), competitions: comps, errors: [] }, null, 2));
     console.log(`Recomputed ${comps.length} competitions`);
+    return;
+  }
+
+  // live: re-read only the official results APIs (structured repos and sites) and merge into the dataset.
+  // No discovery, no LLM: new entries on the busiest boards reach the site within hours, not at the weekly crawl.
+  if (mode === "live") {
+    const prevComps = loadPrevious();
+    const prevByKey = new Map(prevComps.map((c) => [entryKey(c), c]));
+    const known: DiscoveredRepo[] = existsSync(DISCOVERED_PATH) ? JSON.parse(readFileSync(DISCOVERED_PATH, "utf-8")) : [];
+    const fresh: Competition[] = [];
+    const blocked = new Set<string>();
+    const sources: [string, () => Promise<Competition>][] = [
+      ...known.filter((r) => STRUCTURED[repoKey(r)] && prevByKey.has(repoKey(r))).map((r): [string, () => Promise<Competition>] => [repoKey(r), async () => {
+        await assertPublicRepo(r.owner, r.name).catch((e) => { blocked.add(repoKey(r)); throw e; });
+        return buildStructured(r, prevByKey.get(repoKey(r)));
+      }]),
+      ...Object.keys(SITES).filter((id) => prevByKey.has(`site:${id}`)).map((id): [string, () => Promise<Competition>] => [`site:${id}`, () => buildSite(id, prevByKey.get(`site:${id}`))]),
+    ];
+    for (const [key, build] of sources) {
+      try {
+        const c = await build(), prev = prevByKey.get(key)!;
+        if (shrunk(c, prev)) { console.log(`  ! ${c.name}: records ${prev.stats.totalRecords} → ${c.stats.totalRecords}, keeping the previous version`); continue; }
+        console.log(`  ✓ ${c.name}: ${c.stats.totalRecords} records (${c.stats.totalRecords - prev.stats.totalRecords >= 0 ? "+" : ""}${c.stats.totalRecords - prev.stats.totalRecords})${agentSummary(c) ? ` · agents ${agentSummary(c)}` : ""}`);
+        fresh.push(c);
+      } catch { console.log(`  ${key}: refresh failed, keeping the previous entry`); }
+    }
+    const comps = await publicCompetitions(mergeCompetitions(prevComps, fresh, blocked), blocked);
+    assertUniqueCompetitions(comps);
+    writeFileSync(RESULT_PATH, JSON.stringify({ crawledAt: new Date().toISOString(), competitions: comps, errors: [] }, null, 2));
+    console.log(`Refreshed ${fresh.length}/${sources.length} live sources; ${comps.length} competitions saved`);
     return;
   }
 
@@ -193,9 +234,8 @@ async function main() {
     }
     if (STRUCTURED[key]) {
       try {
-        const built = await STRUCTURED[key]();
-        const competition = postprocess(built, repo, prevByRepo.get(key));
-        const fams = competition.agentStats.map((a) => `${a.family}:${a.records}`).join(" ");
+        const competition = await buildStructured(repo, prevByRepo.get(key));
+        const fams = agentSummary(competition);
         console.log(`    ✓ ${competition.name} [structured] ${competition.problems.length} tracks, ${competition.stats.totalRecords} records, ${competition.stats.uniqueParticipants} participants${fams ? ` · agents ${fams}` : ""}`);
         competitions.push(competition);
       } catch {
@@ -294,11 +334,11 @@ async function main() {
   // Sites: built from their public APIs on every crawl (not in the priority lane, which is about PROBLEM.md repos); ONLY matches their id
   const sites = mode === "priority" ? [] : Object.keys(SITES).filter((id) => !only || onlyList.some((o) => id.includes(o)));
   for (const id of sites) {
-    const source: SiteSource = { site: id, url: SITES[id].url }, key = `site:${id}`;
+    const key = `site:${id}`;
     console.log(`  [site] ${id}`);
     try {
-      const competition = postprocess(await SITES[id].build(), source, prevByRepo.get(key));
-      const fams = competition.agentStats.map((a) => `${a.family}:${a.records}`).join(" ");
+      const competition = await buildSite(id, prevByRepo.get(key));
+      const fams = agentSummary(competition);
       console.log(`    ✓ ${competition.name} [site] ${competition.problems.length} tracks, ${competition.stats.totalRecords} records, ${competition.stats.uniqueParticipants} participants${fams ? ` · agents ${fams}` : ""}`);
       competitions.push(competition);
     } catch {
@@ -310,7 +350,7 @@ async function main() {
   // Safety net, part 1: a suspicious shrink (LLM truncation) keeps the previous, richer version
   for (let i = 0; i < competitions.length; i++) {
     const c = competitions[i], prev = prevByRepo.get(entryKey(c));
-    if (prev && prev.stats.totalRecords >= 10 && c.stats.totalRecords < prev.stats.totalRecords * 0.6) {
+    if (prev && shrunk(c, prev)) {
       console.log(`  ! ${c.name}: records ${prev.stats.totalRecords} → ${c.stats.totalRecords}, keeping the previous version`);
       competitions[i] = prev;
       stateUpdates.delete(entryKey(c)); // retry next crawl

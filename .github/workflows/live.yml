@@ -1,0 +1,41 @@
+name: Live refresh (official results APIs)
+
+# Boards that publish results through an API (P = NP?, GPU MODE, LeanEval, First Proof, DuckBench) are re-read every
+# three hours with no discovery and no LLM calls, so new entries reach the site within hours instead of at the weekly crawl.
+on:
+  schedule:
+    - cron: "41 */3 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: crawl
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+
+      - name: Refresh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx tsx src/main.ts live
+
+      - name: Commit data
+        run: |
+          if ! node scripts/entries-changed.mjs; then echo "no new entries"; exit 0; fi
+          git config user.name "openchallengelist-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data/competitions.json
+          git commit -m "data: live refresh $(date -u +%Y-%m-%dT%H:%MZ)"
+          for i in 1 2 3; do git push && exit 0; git pull --rebase origin "$GITHUB_REF_NAME" || exit 1; done; exit 1
