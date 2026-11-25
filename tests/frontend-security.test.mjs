@@ -24,11 +24,11 @@ function click(h, el) {
   return event;
 }
 
-function harness() {
+function harness({ querySelector = () => null, pathname = "/" } = {}) {
   const elements = new Map(), listeners = new Map(), appended = [];
   const element = () => ({ innerHTML: "", dataset: {}, querySelectorAll: () => [], focus() {} });
   const document = {
-    querySelector: () => null,
+    querySelector,
     querySelectorAll: () => [],
     getElementById(id) { if (!elements.has(id)) elements.set(id, element()); return elements.get(id); },
     createElement: element,
@@ -38,7 +38,7 @@ function harness() {
   const context = vm.createContext({
     document, URLSearchParams, payload,
     window: { addEventListener() {} },
-    location: { pathname: "/", search: "", origin: "https://example.test" },
+    location: { pathname, search: "", origin: "https://example.test" },
     localStorage: { getItem: () => null },
     fetch: () => new Promise(() => {}),
   });
@@ -255,6 +255,30 @@ test("numeric formatting does not return markup or throw for numeric strings", (
   assert.equal(h.run("fmt(payload)"), "\u2014");
   assert.equal(h.run("fmt('12.5')"), "12.5");
   assert.equal(h.run("fmt(1234)"), h.run("(1234).toLocaleString()"));
+});
+
+test("client-side routes keep the social image in step: the server page's own card, another route's card, or /og.jpg", () => {
+  // the head as the build renders /c/a: its card with a version, and the card in words
+  const head = new Map(Object.entries({ "og:image": "https://openchallengelist.com/og/c/a.png?v=0123456789", "og:image:secure_url": "https://openchallengelist.com/og/c/a.png?v=0123456789",
+    "og:image:type": "image/png", "og:image:alt": "A. 3 entries in 30 days. openchallengelist.com.", "twitter:image": "https://openchallengelist.com/og/c/a.png?v=0123456789",
+    "twitter:image:alt": "A. 3 entries in 30 days. openchallengelist.com.", description: "", "og:description": "", "twitter:description": "", "og:url": "", "og:title": "", "twitter:title": "" }));
+  const tag = (key) => ({ getAttribute: () => head.get(key), setAttribute: (_, value) => head.set(key, value) });
+  const querySelector = (sel) => { const key = sel.match(/meta\[(?:property|name)="([^"]+)"\]/)?.[1]; return key && head.has(key) ? tag(key) : null; };
+  const h = harness({ querySelector, pathname: "/c/a" });
+  h.run(`D = { competitions: [{ id: "a", name: "A", tagline: "Ends with a stop.", problems: [], stats: { totalRecords: 0 } }, { id: "b", name: "B", tagline: "B", problems: [], stats: { totalRecords: 0 } }], topics: [{ slug: "math", about: "Math" }] }`);
+  h.context.document.title = "B — Open Challenge List";
+  const visit = (path) => { h.context.location.pathname = path; h.run("syncMeta()"); return Object.fromEntries(["og:image", "og:image:secure_url", "twitter:image", "og:image:type", "og:image:alt", "twitter:image:alt"].map((k) => [k, head.get(k)])); };
+  const own = visit("/c/a");
+  assert.equal(own["og:image"], "https://openchallengelist.com/og/c/a.png?v=0123456789");
+  assert.equal(own["og:image:alt"], "A. 3 entries in 30 days. openchallengelist.com.");
+  assert.match(head.get("description"), /^Ends with a stop\. 0 tracks/, "one full stop after a tagline that has one");
+  const other = visit("/c/b");
+  assert.deepEqual([other["og:image"], other["og:image:secure_url"], other["twitter:image"], other["og:image:type"], other["og:image:alt"], other["twitter:image:alt"]],
+    ["https://openchallengelist.com/og/c/b.png", "https://openchallengelist.com/og/c/b.png", "https://openchallengelist.com/og/c/b.png", "image/png", "B — Open Challenge List", "B — Open Challenge List"]);
+  assert.equal(visit("/topics/math")["og:image"], "https://openchallengelist.com/og/topics/math.png");
+  assert.equal(visit("/landing")["og:image"], "https://openchallengelist.com/og/home.png");
+  assert.deepEqual([visit("/agents")["og:image"], head.get("og:image:type")], ["https://openchallengelist.com/og.jpg", "image/jpeg"]);
+  assert.deepEqual([visit("/c/missing")["og:image"], visit("/c/a")["og:image"]], ["https://openchallengelist.com/og.jpg", "https://openchallengelist.com/og/c/a.png?v=0123456789"]);
 });
 
 // Optional: point at an already-installed Playwright module/browser. No downloads.

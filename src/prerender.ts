@@ -6,9 +6,11 @@ import { JOIN_LINE, SITE, challengeJoinLine, viaLine } from "./render.js";
 import type { SocialPost } from "./social.js";
 import { TOPICS, inTopic, topicJoinLine, type Topic } from "./topics.js";
 import { REGISTRY, SUBMIT_PROTOCOL, authorLine, discoveryHeadline, discoveryView, type Discoveries } from "./discoveries.js";
+import { OG_HEIGHT, OG_WIDTH, cardAlt, plain, type Card } from "./og.js";
 
 type Data = Pick<CrawlResult, "crawledAt" | "competitions">;
-export interface Page { file: string; path: string; title: string; description: string; body: string; markdown: string; jsonld?: unknown; noindex?: boolean }
+// card: the page's social preview (src/og.ts); a page without one keeps the shell's /og.jpg
+export interface Page { file: string; path: string; title: string; description: string; body: string; markdown: string; jsonld?: unknown; noindex?: boolean; card?: Card }
 
 const esc = (s: unknown) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
 // Crawled URLs are third-party data: only http(s) becomes a link
@@ -56,7 +58,7 @@ function discoveriesBand(d: Discoveries | null, limit: number, withTarget: boole
 </div></section>`;
 }
 
-function homePage(data: Data, social: SocialPost[], discoveries: Discoveries | null): Page {
+function homePage(data: Data, social: SocialPost[], discoveries: Discoveries | null, boards: ReturnType<typeof boardsView>): Page {
   const comps = data.competitions;
   const open = openProblems(comps);
   const records = comps.reduce((s, c) => s + c.stats.totalRecords, 0);
@@ -102,11 +104,12 @@ ${social.length ? `<section class="band pre"><div class="wrap">
   return {
     file: "index.html", path: "/", title: "Open Challenge List — all open-source challenges in one place",
     description: `All open-source challenges in one place: ${comps.length} benchmark competitions on GitHub with public leaderboards, ${open.length} open problems and the AI agents that hold the records. Point your agent at a repo, open a pull request, get on the board.`,
-    body, markdown: "/llms.txt",
+    body, markdown: "/llms.txt", card: homeCard(data, boards, discoveries),
   };
 }
 
-function detailPage(c: Competition, data: Data): Page {
+// month: this board's last 30 days as boardsView counts them, so the page, its card, its topic and the README agree
+function detailPage(c: Competition, data: Data, month: BoardMonth): Page {
   const p = c.participation;
   const open = c.problems.filter((x) => x.isOpen).length;
   const latest = recentActivity([c], 12);
@@ -120,7 +123,7 @@ function detailPage(c: Competition, data: Data): Page {
     fact("Deadline", p.deadline), fact("Rounds", p.rounds), fact("Prizes", p.prizes), fact("Eligibility", p.eligibility), fact("Cost", p.cost),
   ].join("");
   const line = challengeJoinLine(c.name, c.id);
-  const description = `${c.tagline || c.description || c.name}. ${plural(c.problems.length, "track")}${open ? ` (${open} open)` : ""}, ${num(c.stats.totalRecords)} entries${c.stats.recordsLast30d ? `, ${c.stats.recordsLast30d} in the last 30 days` : ""}. How to enter with your agent, leaderboards and which AI agents hold the records.`.slice(0, 300);
+  const description = `${sentence(c.tagline || c.description || c.name)} ${plural(c.problems.length, "track")}${open ? ` (${open} open)` : ""}, ${num(c.stats.totalRecords)} entries${month.entries ? `, ${month.entries} in the last 30 days` : ""}. How to enter with your agent, leaderboards and which AI agents hold the records.`.slice(0, 300);
   const body = `
 <section class="band pre"><div class="wrap">
   <a class="back" href="/">← All competitions</a>
@@ -129,7 +132,7 @@ function detailPage(c: Competition, data: Data): Page {
   <p class="lede">${esc(c.tagline)}</p>
   <p>${esc(c.description)}</p>
   ${c.organizer ? `<p class="dim">Run by ${ext(c.organizer.url, c.organizer.name)}</p>` : ""}
-  <p class="dim">${plural(c.problems.length, "track")} · ${num(c.stats.totalRecords)} entries · ${plural(c.stats.uniqueParticipants, "participant")}${c.stats.lastSubmission ? ` · last entry ${esc(c.stats.lastSubmission)}` : ""}${c.stats.recordsLast30d ? ` · ${c.stats.recordsLast30d} in the last 30 days` : ""}</p>
+  <p class="dim">${plural(c.problems.length, "track")} · ${num(c.stats.totalRecords)} entries · ${plural(c.stats.uniqueParticipants, "participant")}${c.stats.lastSubmission ? ` · last entry ${esc(c.stats.lastSubmission)}` : ""}${month.entries ? ` · ${esc(monthLine(month))}` : ""}</p>
   <p>${ext(c.url, slug ? `Repository: github.com/${slug}` : `Competition site: ${c.url}`)} · <a href="${digest(c.id)}">Markdown digest</a> · <a href="/api/competitions/${encodeURIComponent(c.id)}.json">JSON</a></p>
 </div></section>
 <section class="band pre"><div class="wrap">
@@ -153,6 +156,7 @@ function detailPage(c: Competition, data: Data): Page {
 </div></section>`;
   return {
     file: `c/${c.id}.html`, path: page(c.id), title: `${c.name} — Open Challenge List`, description, body, markdown: digest(c.id),
+    card: competitionCard(c, month, data.crawledAt),
     jsonld: {
       "@context": "https://schema.org", "@type": "WebPage", name: c.name, description, url: SITE + page(c.id),
       dateModified: c.stats.lastSubmission ?? c.lastUpdated, isPartOf: { "@id": `${SITE}/#website` },
@@ -204,22 +208,27 @@ function peoplePage(data: Data): Page {
 
 // One topic: its boards by activity, what happened lately, the open tracks. Counts come from dated entries
 // within 30 days of the crawl, so a rebuild of the same data gives the same page.
-// Boards ranked by who is entering them this month, with the evidence per board (topic pages, the README's "Open right now")
+// Per board, who got on it in the 30 days before the crawl: the evidence that an agent can enter it tonight
+export interface BoardMonth { entries: number; people: number; withAgents: number; tools: string[] }
+const monthLine = (m: BoardMonth) => (m.entries ? `${plural(m.entries, "entry", "entries")} from ${plural(m.people, "person", "people")} in 30 days${m.withAgents ? `, ${m.withAgents} with AI agents (${m.tools.join(", ")})` : ""}` : "no dated entries in 30 days");
+
+// Boards ranked by who is entering them this month, with the evidence per board (topic pages, competition pages and their
+// cards, the README's "Open right now")
 export function boardsView(comps: Competition[], crawledAt: string) {
   const cutoff = new Date(Date.parse(crawledAt) - 30 * 86400000).toISOString().slice(0, 10);
   const activity = recentActivity(comps, 100000);
   const month = activity.filter((a) => a.date >= cutoff);
   const openTracks = (c: Competition) => c.problems.filter((p) => p.isOpen).length;
   const boards = [...comps].sort((a, b) => b.stats.recordsLast30d - a.stats.recordsLast30d || openTracks(b) - openTracks(a) || b.stats.totalRecords - a.stats.totalRecords);
-  // per board, who got on it this month: the evidence that an agent can enter it tonight
-  const recent = new Map(boards.map((c) => {
+  const months = new Map(boards.map((c): [string, BoardMonth] => {
     const mine = month.filter((a) => a.competitionId === c.id), withAgents = mine.filter((a) => a.agent && a.agent.family !== "human");
-    const tools = [...new Set(withAgents.map((a) => a.agent!.tool ?? FAMILY[a.agent!.family] ?? a.agent!.family))].slice(0, 3);
-    const people = new Set(mine.map((a) => (a.contributor ?? "").toLowerCase())).size;
-    return [c.id, mine.length ? `${plural(mine.length, "entry", "entries")} from ${plural(people, "person", "people")} in 30 days${withAgents.length ? `, ${withAgents.length} with AI agents (${tools.join(", ")})` : ""}` : "no dated entries in 30 days"];
+    return [c.id, {
+      entries: mine.length, people: new Set(mine.map((a) => (a.contributor ?? "").toLowerCase())).size, withAgents: withAgents.length,
+      tools: [...new Set(withAgents.map((a) => a.agent!.tool ?? FAMILY[a.agent!.family] ?? a.agent!.family))].slice(0, 3),
+    }];
   }));
   return {
-    comps: boards, recent, latest: activity.slice(0, 10), open: openProblems(comps),
+    comps: boards, months, recent: new Map([...months].map(([id, m]) => [id, monthLine(m)])), latest: activity.slice(0, 10), open: openProblems(comps),
     entries30: month.length, byAgents30: month.filter((a) => a.agent && a.agent.family !== "human").length,
     last: activity[0]?.date,
   };
@@ -227,6 +236,59 @@ export function boardsView(comps: Competition[], crawledAt: string) {
 
 function topicView(t: Topic, data: Data) {
   return { ...boardsView(data.competitions.filter((c) => inTopic(t, c)), data.crawledAt), line: topicJoinLine(JOIN_LINE, t) };
+}
+
+// ─── Social preview cards: the numbers the page shows, for a link shared on X (src/og.ts draws them) ───
+const stat = (value: number, one: string, many: string) => ({ value, label: value === 1 ? one : many });
+const SHARE = "point your agent at it";
+function card(file: string, c: Omit<Card, "file" | "alt">): Card {
+  const kept = { ...c, stats: c.stats.filter((s) => s.value > 0), notes: c.notes.filter(Boolean) };
+  return { file, ...kept, alt: cardAlt(kept) };
+}
+const sentence = (s: string) => (/[.!?…]$/.test(s.trim()) ? s.trim() : `${s.trim()}.`);
+
+function homeCard(data: Data, v: ReturnType<typeof boardsView>, discoveries: Discoveries | null): Card {
+  const fresh = discoveries && discoveryView(discoveries, Date.parse(discoveries.fetchedAt));
+  return card("og/home.png", {
+    eyebrow: "Open Challenge List", title: "Every open challenge your AI agent can enter",
+    subtitle: "Point your agent at a repo, open a pull request, get on the board.",
+    stats: [stat(data.competitions.length, "competition", "competitions"), stat(v.open.length, "open track", "open tracks"),
+      stat(v.entries30, "entry in 30 days", "entries in 30 days"), stat(v.byAgents30, "by an AI agent", "by AI agents")],
+    notes: [fresh?.week ? `Fresh discoveries: ${fresh.week.toLocaleString("en-US")}${fresh.plus ? "+" : ""} Lean-verified ${fresh.week === 1 && !fresh.plus ? "result" : "results"} this week` : ""],
+    action: SHARE,
+  });
+}
+
+function topicCard(t: Topic, v: ReturnType<typeof topicView>): Card {
+  const busiest = v.comps.filter((c) => c.status !== "ended" && v.months.get(c.id)!.entries > 0).slice(0, 3).map((c) => plain(c.name, 40));
+  return card(`og/topics/${t.slug}.png`, {
+    eyebrow: "Open Challenge List · Topic", title: t.h1, subtitle: t.about,
+    stats: [stat(v.comps.length, "competition", "competitions"), stat(v.open.length, "open track", "open tracks"),
+      stat(v.entries30, "entry in 30 days", "entries in 30 days"), stat(v.byAgents30, "by an AI agent", "by AI agents")],
+    notes: [busiest.length ? `Busiest: ${busiest.join(", ")}` : ""],
+    action: SHARE,
+  });
+}
+
+// An ended competition says so plainly: what it had, nothing to join
+function competitionCard(c: Competition, m: BoardMonth, crawledAt: string): Card {
+  const p = c.participation, ended = c.status === "ended", open = c.problems.filter((x) => x.isOpen).length;
+  const topic = TOPICS.find((t) => !t.computes && inTopic(t, c));
+  const last = c.stats.lastSubmission && /^\d{4}-\d{2}-\d{2}/.test(c.stats.lastSubmission) ? `Last entry ${c.stats.lastSubmission.slice(0, 10)}` : "";
+  const deadline = /^\d{4}-\d{2}-\d{2}/.exec(p.deadline ?? "")?.[0];
+  const until = deadline && Number.isFinite(Date.parse(deadline)) && deadline >= crawledAt.slice(0, 10)
+    ? `Deadline ${new Date(`${deadline}T00:00:00Z`).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" })}` : "";
+  return card(`og/c/${c.id}.png`, {
+    eyebrow: `${ended ? "Ended" : c.status === "upcoming" ? "Upcoming challenge" : "Open challenge"}${topic ? ` · ${topic.name}` : ""}`,
+    title: plain(c.name, 100) || c.id, subtitle: plain(c.tagline, 200),
+    stats: ended ? [stat(c.stats.totalRecords, "entry", "entries"), stat(c.stats.uniqueParticipants, "participant", "participants"), stat(c.problems.length, "track", "tracks")]
+      : m.entries ? [stat(m.entries, "entry in 30 days", "entries in 30 days"), stat(m.people, "person", "people"), stat(m.withAgents, "with an AI agent", "with AI agents"), stat(open, "open track", "open tracks")]
+      : [stat(open, "open track", "open tracks"), stat(c.stats.totalRecords, "entry so far", "entries so far"), stat(c.problems.length > open ? c.problems.length : 0, "track", "tracks")],
+    notes: ended ? ["Closed to new entries", last]
+      : [p.compute === "none" || p.compute === "cpu" ? "No GPU needed" : p.compute === "unknown" ? "" : COMPUTE[p.compute] ?? "", until,
+        m.withAgents ? `Agents: ${m.tools.map((x) => plain(x, 30)).join(", ")}` : "", m.entries ? "" : last || (c.stats.totalRecords ? "" : "No entries yet")],
+    action: ended ? "results and leaderboards" : SHARE,
+  });
 }
 
 function topicPage(t: Topic, data: Data, discoveries: Discoveries | null): Page {
@@ -260,7 +322,7 @@ ${v.open.length ? `<section class="band pre"><div class="wrap">
 </div></section>`;
   return {
     file: `topics/${t.slug}.html`, path: `/topics/${t.slug}`, title: `${t.title} — Open Challenge List`,
-    description: `${t.about} ${summary}.`.slice(0, 300), body, markdown: `/topics/${t.slug}.md`,
+    description: `${t.about} ${summary}.`.slice(0, 300), body, markdown: `/topics/${t.slug}.md`, card: topicCard(t, v),
     jsonld: {
       "@context": "https://schema.org", "@type": "CollectionPage", name: t.title, description: t.about, url: `${SITE}/topics/${t.slug}`,
       isPartOf: { "@id": `${SITE}/#website` }, ...(v.last ? { dateModified: v.last } : {}),
@@ -297,9 +359,10 @@ function staticPage(file: string, path: string, title: string, description: stri
 
 export function pages(data: Data, social: SocialPost[] = [], discoveries: Discoveries | null = null): Page[] {
   const families = [...new Set(aggregateAgents(data.competitions, "author").map((a) => a.family))].filter((f) => /^[a-z0-9-]+$/.test(f));
+  const boards = boardsView(data.competitions, data.crawledAt);
   return [
-    homePage(data, social, discoveries),
-    ...data.competitions.map((c) => detailPage(c, data)),
+    homePage(data, social, discoveries, boards),
+    ...data.competitions.map((c) => detailPage(c, data, boards.months.get(c.id)!)),
     agentsPage(data), ...families.map((f) => familyPage(f, data)), peoplePage(data),
     ...TOPICS.map((t) => topicPage(t, data, discoveries)),
     staticPage("standard.html", "/standard", "PROBLEM.md standard — Open Challenge List",
@@ -313,10 +376,23 @@ export function pages(data: Data, social: SocialPost[] = [], discoveries: Discov
   ];
 }
 
-// Fill the shell: every marker must match exactly once, or the build fails rather than publish a stale page
-export function renderPage(template: string, p: Page, origin = SITE): string {
+// Fill the shell: every marker must match exactly once, or the build fails rather than publish a stale page.
+// image: the page's rendered card (site-relative path with its version, and the card in words); without one the shell's
+// /og.jpg stays.
+export function renderPage(template: string, p: Page, origin = SITE, image?: { path: string; alt: string }): string {
   const url = origin + (p.path === "/404" ? "/" : p.path);
+  const src = image && esc(origin + image.path), alt = image && esc(image.alt);
   const swaps: [RegExp, string][] = [
+    ...(image ? [
+      [/<meta property="og:image" content="[^"]*">/, `<meta property="og:image" content="${src}">`],
+      [/<meta property="og:image:secure_url" content="[^"]*">/, `<meta property="og:image:secure_url" content="${src}">`],
+      [/<meta property="og:image:type" content="[^"]*">/, `<meta property="og:image:type" content="image/png">`],
+      [/<meta property="og:image:width" content="[^"]*">/, `<meta property="og:image:width" content="${OG_WIDTH}">`],
+      [/<meta property="og:image:height" content="[^"]*">/, `<meta property="og:image:height" content="${OG_HEIGHT}">`],
+      [/<meta property="og:image:alt" content="[^"]*">/, `<meta property="og:image:alt" content="${alt}">`],
+      [/<meta name="twitter:image" content="[^"]*">/, `<meta name="twitter:image" content="${src}">`],
+      [/<meta name="twitter:image:alt" content="[^"]*">/, `<meta name="twitter:image:alt" content="${alt}">`],
+    ] satisfies [RegExp, string][] : []),
     [/<title>[^<]*<\/title>/, `<title>${esc(p.title)}</title>`],
     [/<meta name="description" content="[^"]*">/, `<meta name="description" content="${esc(p.description)}">`],
     [/<link rel="canonical" href="[^"]*">/, `<link rel="canonical" href="${esc(url)}">`],

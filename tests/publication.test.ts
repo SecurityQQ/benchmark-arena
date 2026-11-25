@@ -27,8 +27,16 @@ const SHELL = `<!DOCTYPE html><html><head><title>Default</title>
 <meta property="og:url" content="https://openchallengelist.com/">
 <meta property="og:title" content="Default">
 <meta property="og:description" content="Default description">
+<meta property="og:image" content="https://openchallengelist.com/og.jpg">
+<meta property="og:image:secure_url" content="https://openchallengelist.com/og.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Default">
 <meta name="twitter:title" content="Default">
 <meta name="twitter:description" content="Default description">
+<meta name="twitter:image" content="https://openchallengelist.com/og.jpg">
+<meta name="twitter:image:alt" content="Default">
 <link href="/style.css"></head><body><main id="app"></main><script src="/app.js"></script></body></html>`;
 
 function sandbox(t: { after: (fn: () => void) => void }) {
@@ -61,11 +69,11 @@ function sandbox(t: { after: (fn: () => void) => void }) {
   return { root, put, dataset };
 }
 
-test("build publishes complete data with only public envelope fields and inventoried assets", (t) => {
+test("build publishes complete data with only public envelope fields and inventoried assets", async (t) => {
   const { root, put, dataset } = sandbox(t);
   const data = dataset([competition(), competition("second")]);
   put("data/competitions.json", JSON.stringify(data));
-  build(root);
+  await build(root);
   for (const path of ["competitions.json", "api/competitions.json"]) {
     assert.deepEqual(JSON.parse(readFileSync(join(root, "public", path), "utf8")), publicDataset(data));
   }
@@ -79,7 +87,7 @@ test("build publishes complete data with only public envelope fields and invento
   }
 });
 
-test("build CLI runs successfully in a temporary sandbox", (t) => {
+test("build CLI runs successfully in a temporary sandbox", async (t) => {
   const { root } = sandbox(t);
   const result = spawnSync(process.execPath, ["--import", import.meta.resolve("tsx"), fileURLToPath(new URL("../src/build.ts", import.meta.url))], {
     cwd: root, encoding: "utf8", timeout: 10000,
@@ -89,47 +97,47 @@ test("build CLI runs successfully in a temporary sandbox", (t) => {
   assert.ok(existsSync(join(root, "public/sitemap.xml")));
 });
 
-test("unsafe IDs and duplicates fail before any output is changed", (t) => {
+test("unsafe IDs and duplicates fail before any output is changed", async (t) => {
   const { root, put, dataset } = sandbox(t);
   for (const id of ["", ".hidden", "..", "../escape", "/absolute", "a/b", "a\\b", "a%2fb", "a\0b", "a?b", "a#b", "a.b", "CON", "x".repeat(200 + 1)]) {
     put("data/competitions.json", JSON.stringify(dataset([competition(id)])));
-    assert.throws(() => build(root), /Unsafe competition ID/, id);
+    await assert.rejects(build(root), /Unsafe competition ID/, id);
     assert.equal(readFileSync(join(root, "public/keep.txt"), "utf8"), "previous build");
   }
   for (const ids of [["same", "same"], ["Same", "same"]]) {
     put("data/competitions.json", JSON.stringify(dataset(ids.map(competition))));
-    assert.throws(() => build(root), /Duplicate competition ID/);
+    await assert.rejects(build(root), /Duplicate competition ID/);
     assert.ok(existsSync(join(root, "public/keep.txt")));
   }
   assert.throws(() => containedPath(join(root, "public"), "../escape"));
   assert.throws(() => containedPath(join(root, "public"), "../public-other/escape"));
 });
 
-test("symlinked output and inventoried assets cannot escape the sandbox", (t) => {
+test("symlinked output and inventoried assets cannot escape the sandbox", async (t) => {
   const { root } = sandbox(t);
   mkdirSync(join(root, "outside"));
   writeFileSync(join(root, "outside/keep.txt"), "private");
   rmSync(join(root, "public"), { recursive: true });
   symlinkSync(join(root, "outside"), join(root, "public"));
-  assert.throws(() => build(root), /Unsafe public output/);
+  await assert.rejects(build(root), /Unsafe public output/);
   assert.equal(readFileSync(join(root, "outside/keep.txt"), "utf8"), "private");
   rmSync(join(root, "public"));
   symlinkSync(join(root, "outside/keep.txt"), join(root, "site/hero.jpg"));
-  assert.throws(() => build(root), /Symlinks/);
+  await assert.rejects(build(root), /Symlinks/);
   rmSync(join(root, "site/hero.jpg"));
   rmSync(join(root, "site/art"), { recursive: true });
   symlinkSync(join(root, "outside"), join(root, "site/art"));
-  assert.throws(() => build(root), /Symlinks/);
+  await assert.rejects(build(root), /Symlinks/);
   assert.equal(existsSync(join(root, "public")), false);
 });
 
-test("sitemap rejects non-origins before deleting output and escapes generated URLs", (t) => {
+test("sitemap rejects non-origins before deleting output and escapes generated URLs", async (t) => {
   const { root, put, dataset } = sandbox(t);
   const previous = process.env.SITE_ORIGIN;
   t.after(() => { if (previous === undefined) delete process.env.SITE_ORIGIN; else process.env.SITE_ORIGIN = previous; });
   for (const origin of ["not a URL", "javascript:alert(1)", "https://user:pass@example.com", "https://example.com/path", "https://example.com/?x=1", "https://example.com/#fragment"]) {
     process.env.SITE_ORIGIN = origin;
-    assert.throws(() => build(root));
+    await assert.rejects(build(root));
     assert.ok(existsSync(join(root, "public/keep.txt")));
   }
   process.env.SITE_ORIGIN = "https://example.com/";
@@ -137,7 +145,7 @@ test("sitemap rejects non-origins before deleting output and escapes generated U
   c.problems = [{ id: "p", name: "P", metricName: "score", metricDirection: "maximize", isOpen: false,
     records: [{ value: 1, agent: { family: "a&<'/b" as any, confidence: "high", role: "author" } }] }];
   put("data/competitions.json", JSON.stringify(dataset([c])));
-  build(root);
+  await build(root);
   const sitemap = readFileSync(join(root, "public/sitemap.xml"), "utf8");
   assert.ok(sitemap.includes("https://example.com/agents/a%26%3C&apos;%2Fb"));
   assert.ok(!sitemap.includes("example.com//"));
@@ -221,7 +229,7 @@ test("dev server enforces publication, safe paths, methods, and security headers
   }
 });
 
-test("every route is a pre-rendered page with its own metadata, and crawled text stays data", (t) => {
+test("every route is a pre-rendered page with its own metadata, and crawled text stays data", async (t) => {
   const { root, put, dataset } = sandbox(t);
   const c = competition("hostile");
   c.name = `</script><script>alert(1)</script>`;
@@ -232,7 +240,7 @@ test("every route is a pre-rendered page with its own metadata, and crawled text
   c.problems = [{ id: "p", name: "Track <b>", metricName: "score", metricDirection: "maximize", baseline: 1, isOpen: false,
     records: [{ value: 2, date: "2026-09-17", contributor: "<i>eve</i>", isCurrentBest: true, agent: { family: "anthropic", tool: "Claude Code", confidence: "high", role: "author" } }] }];
   put("data/competitions.json", JSON.stringify(dataset([competition(), c])));
-  build(root);
+  await build(root);
   const html = readFileSync(join(root, "public/c/hostile.html"), "utf8");
   assert.match(html, /<title>&lt;\/script&gt;&lt;script&gt;alert\(1\)&lt;\/script&gt; — Open Challenge List<\/title>/);
   assert.match(html, /<link rel="canonical" href="https:\/\/openchallengelist\.com\/c\/hostile">/);
@@ -251,7 +259,7 @@ test("every route is a pre-rendered page with its own metadata, and crawled text
   assert.ok(home.includes('href="/c/hostile"') && home.includes("join.txt"));
   for (const file of ["agents.html", "agents/anthropic.html", "people.html", "standard.html", "submit.html"]) assert.ok(existsSync(join(root, "public", file)), file);
   put("data/social.json", JSON.stringify({ posts: [{ url: "https://x.com/eve/status/1", author: "eve", date: "2026-09-17", text: "<script>alert(1)</script> record!", competition: "hostile" }] }));
-  build(root);
+  await build(root);
   const withSocial = readFileSync(join(root, "public/index.html"), "utf8");
   assert.ok(withSocial.includes("From the community") && withSocial.includes("&lt;script&gt;alert(1)&lt;/script&gt; record!") && !withSocial.includes("<script>alert(1)"));
   assert.equal(JSON.parse(readFileSync(join(root, "public/api/summary.json"), "utf8")).social[0].author, "eve");
@@ -261,7 +269,7 @@ test("every route is a pre-rendered page with its own metadata, and crawled text
   assert.equal((notFound.match(/<meta name="robots"/g) ?? []).length, 1);
 });
 
-test("agents get join.txt, feeds and a small index", (t) => {
+test("agents get join.txt, feeds and a small index", async (t) => {
   const { root, put, dataset } = sandbox(t);
   const c = competition("live");
   c.stats = { totalRecords: 2, uniqueParticipants: 2, recordsLast30d: 2, recordsLast90d: 2, lastSubmission: "2026-09-17" };
@@ -275,7 +283,7 @@ test("agents get join.txt, feeds and a small index", (t) => {
     { id: "b", name: "B", metricName: "proofs", metricDirection: "maximize", passMark: 1, isOpen: true, records: [] },
   ];
   put("data/competitions.json", JSON.stringify(dataset([c])));
-  build(root);
+  await build(root);
   const pub = (p: string) => readFileSync(join(root, "public", p), "utf8");
   const join_ = pub("join.txt");
   assert.match(join_, /Found via https:\/\/openchallengelist\.com\/c\/\{id\}/);
@@ -304,7 +312,7 @@ test("agents get join.txt, feeds and a small index", (t) => {
 });
 
 
-test("topic hubs: a page, a Markdown twin and a sitemap entry per topic, filtered by the topic's rules", (t) => {
+test("topic hubs: a page, a Markdown twin and a sitemap entry per topic, filtered by the topic's rules", async (t) => {
   const { root, put, dataset } = sandbox(t);
   const math = competition("proofs");
   math.name = `Proofs <script>alert(1)</script>`;
@@ -315,7 +323,7 @@ test("topic hubs: a page, a Markdown twin and a sitemap entry per topic, filtere
   const run = competition("run");
   run.domain = "ml-research"; run.tags = ["speedrun"]; run.participation = { requirements: [], compute: "datacenter-gpu" };
   put("data/competitions.json", JSON.stringify(dataset([math, run])));
-  build(root);
+  await build(root);
   const pub = (p: string) => readFileSync(join(root, "public", p), "utf8");
   const html = pub("topics/math.html");
   assert.match(html, /<title>Math and Lean proof challenges for AI agents — Open Challenge List<\/title>/);
@@ -336,19 +344,19 @@ test("topic hubs: a page, a Markdown twin and a sitemap entry per topic, filtere
   assert.ok(pub("index.html").includes('href="/topics/math"'));
 });
 
-test("fresh discoveries: /api/discoveries.json, in the summary, on the home and math pages; not in the feeds or join.txt", (t) => {
+test("fresh discoveries: /api/discoveries.json, in the summary, on the home and math pages; not in the feeds or join.txt", async (t) => {
   const { root, put, dataset } = sandbox(t);
   const math = competition("proofs");
   math.domain = "formal-methods";
   put("data/competitions.json", JSON.stringify(dataset([math])));
-  build(root);
+  await build(root);
   const pub = (p: string) => readFileSync(join(root, "public", p), "utf8");
   assert.deepEqual(JSON.parse(pub("api/discoveries.json")).items, [], "before the first refresh: an empty list");
   assert.ok(!pub("index.html").includes("Fresh discoveries"));
   const item = { source: "palomar", id: "PALOMAR-2026-09-18-000001", version: 2, title: "Lemma <b>bold</b>", authors: ["Ann"], date: "2026-09-18", at: "2026-09-18T09:00:00Z",
     url: "javascript:alert(1)", repo: "ann/lemma", subjects: ["math.NT"], abstract: "not published" };
   put("data/discoveries.json", JSON.stringify({ fetchedAt: "2026-09-18T12:00:00Z", totals: { results: 5, projects: 4 }, days: { "2026-09-18": 1 }, items: [item] }));
-  build(root);
+  await build(root);
   const api = JSON.parse(pub("api/discoveries.json"));
   assert.equal(api.items[0].url, "https://palomar-registry.org/entry?id=PALOMAR-2026-09-18-000001&version=2");
   assert.equal(api.items[0].abstract, undefined);
