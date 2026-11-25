@@ -5,7 +5,7 @@ import { join } from "node:path";
 import { loadEnv } from "./env.js";
 loadEnv();
 
-import type { CrawlResult, Competition, DiscoveredRepo } from "./types.js";
+import type { CrawlResult, Competition, DiscoveredRepo, RepoState } from "./types.js";
 import { discoverRepos } from "./discovery.js";
 import { clearRepoCache, fetchRepoPages } from "./fetcher.js";
 import { processRepoWithLLM, attributeRecordsWithLLM, EXTRACTION_FINGERPRINT, llmUsage } from "./llm.js";
@@ -20,7 +20,10 @@ import { applyStandard } from "./standard.js";
 import type { LLMCompetition } from "./llm.js";
 import { assertPublicRepo } from "./github.js";
 import { assertUniqueCompetitions, entryKey, repoKey, savedEntries, validateCompetition, type SiteSource } from "./validation.js";
+import { branchHead, detectChanges, githubProbe, type SourceProbe } from "./freshness.js";
+import { datePinnedRecords, loadCommitDates, saveCommitDates, type CommitDates } from "./commitDates.js";
 import { pathToFileURL } from "node:url";
+export type { RepoState } from "./types.js";
 
 function loadPrevious(): Competition[] {
   if (!existsSync(RESULT_PATH)) return [];
@@ -89,20 +92,152 @@ const DISCOVERED_PATH = join(DATA_DIR, "discovered.json");
 const RESULT_PATH = join(DATA_DIR, "competitions.json");
 const STATE_PATH = join(DATA_DIR, "crawl-state.json");
 
-// What the last LLM pass saw per repo. A repo with the same last push and the same prompts/model is not re-sent
-// to the LLM: its previous entry is reused, or, if it was "not a competition", it stays rejected.
-export interface RepoState { pushedAt: string; fingerprint: string; verdict: "competition" | "none"; checkedAt: string }
+// What the last LLM pass saw per repo (RepoState): an unchanged repo is not re-sent to the LLM
 const DAY = 86_400_000;
 const MAX_AGE_DAYS = { competition: 28, none: 56 }; // re-check now and then anyway: deadlines pass, statuses change
 
 function loadState(): Record<string, RepoState> {
   try { return existsSync(STATE_PATH) ? JSON.parse(readFileSync(STATE_PATH, "utf-8")) : {}; } catch { return {}; }
 }
+function saveState(state: Record<string, RepoState>, updates: Map<string, RepoState>, blocked: Set<string>): void {
+  const next = { ...state };
+  for (const [k, v] of updates) next[k] = v;
+  for (const k of blocked) delete next[k];
+  writeFileSync(STATE_PATH, JSON.stringify(Object.fromEntries(Object.entries(next).sort(([a], [b]) => a.localeCompare(b))), null, 2) + "\n");
+}
 
 export function canSkip(st: RepoState | undefined, repo: DiscoveredRepo, now = Date.now(), force = process.env.FORCE === "1"): RepoState["verdict"] | null {
   if (force || !st || !repo.pushedAt || st.pushedAt !== repo.pushedAt || st.fingerprint !== EXTRACTION_FINGERPRINT) return null;
   const age = now - Date.parse(st.checkedAt);
   return Number.isFinite(age) && age < MAX_AGE_DAYS[st.verdict] * DAY ? st.verdict : null;
+}
+
+export type Extraction =
+  | { kind: "empty" }                                                              // nothing to read
+  | { kind: "none"; head?: string; sources: string[] }                             // read, not a competition
+  | { kind: "competition"; competition: Competition; head?: string; sources: string[] };
+
+// One repository through the LLM, shared by the weekly crawl and the live re-extraction: pages → extraction →
+// PROBLEM.md / SUBMISSION.md overlay → dates from pinned commits → attribution pass → derived stats. Throws on failure.
+export async function extractRepo(repo: DiscoveredRepo, prevEntry: Competition | undefined, dates: CommitDates): Promise<Extraction> {
+  // the commit the files are read at, taken first: a push during the read only costs one extra re-read later
+  const head = await branchHead(repo.owner, repo.name, repo.defaultBranch).catch(() => undefined);
+  const pages = await fetchRepoPages(repo.owner, repo.name, repo.defaultBranch);
+  if (pages.pages.length === 0) return { kind: "empty" };
+  console.log(`    fetched ${pages.pages.length} pages, ${pages.totalChars} chars`);
+  const watch = { ...(head ? { head } : {}), sources: pages.sources };
+
+  // Process with LLM, then overlay the facts declared in PROBLEM.md / SUBMISSION.md
+  const extracted = await processRepoWithLLM(pages, undefined, (prevEntry?.problems ?? []).map((p) => ({ id: p.id, name: p.name })));
+  const { competition: overlaid, info: standardInfo } = applyStandard(extracted, pages.standardDocs, { ...repo, branch: repo.defaultBranch });
+  const llmResult = overlaid === null ? null : validateCompetition({ ...overlaid, ...(standardInfo ? { standard: standardInfo } : {}) }, repo);
+  if (standardInfo) console.log(`    standard: PROBLEM.md ${standardInfo.problem ? "✓" : "—"} · ${standardInfo.submissions} SUBMISSION.md row(s)${standardInfo.warnings.length ? ` · ${standardInfo.warnings.length} warning(s)` : ""}`);
+  if (llmResult === null) return { kind: "none", ...watch };
+
+  // before the attribution pass (it matches evidence by date) and the carry-over below (keyed by date)
+  const dated = await datePinnedRecords(llmResult.problems ?? [], repo, dates);
+  if (dated) console.log(`    ${dated} record(s) dated from pinned commits`);
+
+  // Second pass: focused agent attribution using commits/PRs/reports as evidence
+  const evidencePages = pages.pages.filter((p) => p.path === "__attribution__" || /submissions?\/.*\.md$/i.test(p.path) || /report|writeup/i.test(p.path));
+  const evidence = evidencePages.map((p) => `=== ${p.path} ===\n${p.content}`).join("\n\n");
+  const flat: { key: string; problem: string; contributor?: string; date?: string; value: number; description?: string; files?: string[] }[] = [];
+  (llmResult.problems ?? []).forEach((p, pi) => (p.records ?? []).forEach((r, ri) => {
+    if (!r.agent || r.agent.confidence !== "high") flat.push({ key: `${pi}.${ri}`, problem: p.id, contributor: r.contributor, date: r.date, value: r.value, description: r.description, files: r.submissionUrls });
+  }));
+  if (flat.length && evidence.length > 200) {
+    try {
+      const attrs = await attributeRecordsWithLLM(llmResult.id, flat, evidence);
+      let n = 0;
+      for (const [key, a] of Object.entries(attrs)) {
+        const [pi, ri] = key.split(".").map(Number);
+        const rec = llmResult.problems?.[pi]?.records?.[ri];
+        if (rec && a && a.family) { rec.agent = a; n++; }
+      }
+      console.log(`    attribution pass: ${n}/${flat.length} records attributed (${evidencePages.length} evidence pages)`);
+    } catch { console.log("    attribution pass failed"); }
+  }
+
+  // Safety net for attribution: an evidenced agent found by an earlier crawl is not lost because this pass missed it
+  if (prevEntry) {
+    const prevAgents = new Map(prevEntry.problems.flatMap((p) => p.records.filter((r) => r.agent).map((r) => [`${p.id}|${r.date}|${r.value}|${r.contributor}`, r.agent!] as const)));
+    let kept = 0;
+    for (const p of llmResult.problems ?? []) for (const r of p.records ?? []) {
+      const a = prevAgents.get(`${p.id}|${r.date}|${r.value}|${r.contributor}`);
+      if (!r.agent && a) { r.agent = a; kept++; }
+    }
+    if (kept) console.log(`    attribution carried over from the previous crawl: ${kept}`);
+  }
+
+  const competition = postprocess(llmResult, repo, prevEntry);
+  const { totalRecords, uniqueParticipants } = competition.stats;
+  const fams = competition.agentStats.map((a) => `${a.family}:${a.records}`).join(" ");
+  console.log(`    ✓ ${competition.name} [${competition.status}] ${competition.problems.length} problems, ${totalRecords} records, ${uniqueParticipants} participants, compute=${competition.participation.compute}${fams ? ` · agents ${fams}` : ""}`);
+  return { kind: "competition", competition, ...watch };
+}
+
+// Saved entries: an undated record that links a pinned commit of its own repo gets that commit's date, and the entry's stats
+// are derived again. LLM-extracted boards only: structured builders and sites date their records themselves.
+export async function datePinned(comps: Competition[], dates: CommitDates): Promise<Competition[]> {
+  const out: Competition[] = [];
+  for (const c of comps) {
+    const n = c.repo && !STRUCTURED[repoKey(c.repo)] ? await datePinnedRecords(c.problems, c.repo, dates) : 0;
+    if (!n) { out.push(c); continue; }
+    const { owner, name, branch } = c.repo!;
+    out.push(postprocess(c, { owner, name, url: `https://github.com/${owner}/${name}`, defaultBranch: branch ?? "main", stars: 0, topics: [] }, c));
+    console.log(`  ${c.name}: ${n} record(s) dated from pinned commits`);
+  }
+  if (dates.deferred.size) console.log(`  ${dates.deferred.size} pinned commit(s) over the lookup cap, dated on the next run`);
+  return out;
+}
+
+export interface LiveDeps {
+  probe: SourceProbe;
+  extract: (repo: DiscoveredRepo, prev: Competition) => Promise<Extraction>;
+  max: number;              // LLM re-extractions per run
+  hasKey: boolean;          // OPENROUTER_API_KEY present
+  now?: number;
+  deadline?: number;        // no re-extraction starts after this (ms): the job's timeout must not eat the refresh
+}
+
+// Live: re-extract the LLM-crawled boards whose sources changed since their extraction, most recently pushed first, at most
+// deps.max per run; the rest wait for the next run (their state is untouched). Merged like ONLY=… process mode: a failure,
+// "not a competition" or a shrunk board keeps the previous entry.
+export async function liveRecrawl(known: DiscoveredRepo[], state: Record<string, RepoState>, prevByKey: Map<string, Competition>, deps: LiveDeps) {
+  const now = deps.now ?? Date.now();
+  // never boards with a deterministic builder (sites have no repository, so they are not in `known`)
+  const repos = known.filter((r) => !STRUCTURED[repoKey(r)] && !MERGED_INTO[repoKey(r)] && prevByKey.has(repoKey(r)));
+  const report = await detectChanges(repos, state, deps.probe, now);
+  const updates = new Map<string, RepoState>([...report.baselines].map(([k, head]) => [k, { ...state[k], head }]));
+  const fresh: Competition[] = [];
+  console.log(`  LLM boards: ${report.checked} checked · ${report.quiet} unchanged · ${report.codeOnly.length} pushed without touching a source${report.codeOnly.length ? ` (${report.codeOnly.join(", ")})` : ""} · ${report.changed.length} changed${report.backoff.length ? ` · ${report.backoff.length} backing off after a failure` : ""}${report.failed.length ? ` · ${report.failed.length} check(s) failed` : ""}`);
+  for (const c of report.changed) console.log(`    ${repoKey(c.repo)}: ${c.files.slice(0, 4).join(", ")}${c.files.length > 4 ? ` +${c.files.length - 4}` : ""}`);
+  if (report.changed.length && !deps.hasKey) {
+    console.log(`  OPENROUTER_API_KEY not set: ${report.changed.length} changed board(s) not re-extracted`);
+    return { fresh, updates, ran: 0, deferred: report.changed.map((c) => repoKey(c.repo)) };
+  }
+  const run = report.changed.slice(0, Math.max(0, deps.max));
+  const deferred = report.changed.slice(run.length).map((c) => repoKey(c.repo));
+  if (deferred.length) console.log(`  LIVE_RECRAWL_MAX=${deps.max}: ${deferred.length} changed board(s) left for the next run: ${deferred.join(", ")}`);
+  let ran = 0;
+  for (const c of run) {
+    const key = repoKey(c.repo), prev = prevByKey.get(key)!;
+    if (Date.now() > (deps.deadline ?? Infinity)) { deferred.push(key); console.log(`  ${key}: out of time, left for the next run`); continue; }
+    const keep = (why: string) => {
+      console.log(`  ! ${key}: ${why}, keeping the previous entry`);
+      updates.set(key, { ...state[key], liveFailedAt: new Date(now).toISOString() });
+    };
+    console.log(`  [live] ${key}`);
+    ran++;
+    try {
+      const x = await deps.extract(c.repo, prev);
+      if (x.kind !== "competition") { keep(x.kind === "none" ? "came back as not a competition" : "no pages found"); continue; }
+      if (shrunk(x.competition, prev)) { keep(`records ${prev.stats.totalRecords} → ${x.competition.stats.totalRecords}`); continue; }
+      fresh.push(x.competition);
+      updates.set(key, { pushedAt: c.pushedAt ?? state[key].pushedAt, fingerprint: EXTRACTION_FINGERPRINT, verdict: "competition", checkedAt: new Date().toISOString(), ...(x.head ? { head: x.head } : {}), sources: x.sources, live: true });
+    } catch { keep("re-extraction failed"); }
+  }
+  return { fresh, updates, ran, deferred };
 }
 
 async function main() {
@@ -114,24 +249,27 @@ async function main() {
 
   let repos: DiscoveredRepo[] = [];
 
-  // repost: recompute derived fields (participants, stats, agentStats, roles) from saved data, no LLM calls
+  // repost: recompute derived fields (participants, stats, agentStats, roles, dates from pinned commits) from saved data, no LLM calls
   if (mode === "repost") {
     const entries = savedEntries(JSON.parse(readFileSync(RESULT_PATH, "utf-8")));
-    const comps = await publicCompetitions(entries.map(({ value, source, id }) => {
+    const dates = loadCommitDates();
+    const comps = await publicCompetitions(await datePinned(entries.map(({ value, source, id }) => {
       const validated = validateCompetition(value, source);
       for (const p of validated.problems) for (const r of p.records) if (r.agent) Reflect.deleteProperty(r.agent, "role");
       const c = postprocess(validated, source);
       c.id = id;
       return c;
-    }));
+    }), dates));
     assertUniqueCompetitions(comps);
     writeFileSync(RESULT_PATH, JSON.stringify({ crawledAt: new Date().toISOString(), competitions: comps, errors: [] }, null, 2));
+    saveCommitDates(dates);
     console.log(`Recomputed ${comps.length} competitions`);
     return;
   }
 
-  // live: re-read only the official results APIs (structured repos and sites) and merge into the dataset.
-  // No discovery, no LLM: new entries on the busiest boards reach the site within hours, not at the weekly crawl.
+  // live: re-read the official results APIs (structured repos and sites), then re-extract with the LLM only the boards whose
+  // leaderboard files changed since their last extraction (at most LIVE_RECRAWL_MAX), and merge into the dataset.
+  // No discovery: new entries reach the site within hours, not at the weekly crawl.
   if (mode === "live") {
     const prevComps = loadPrevious();
     const prevByKey = new Map(prevComps.map((c) => [entryKey(c), c]));
@@ -153,10 +291,25 @@ async function main() {
         fresh.push(c);
       } catch { console.log(`  ${key}: refresh failed, keeping the previous entry`); }
     }
-    const comps = await publicCompetitions(mergeCompetitions(prevComps, fresh, blocked), blocked);
+    const refreshed = fresh.length;
+    const state = loadState(), dates = loadCommitDates(), probed = { calls: 0 };
+    const cap = Number(process.env.LIVE_RECRAWL_MAX ?? 4);
+    const live = await liveRecrawl(known, state, prevByKey, {
+      probe: githubProbe(probed),
+      // a fresh checkout has no fetch cache; a local one may hold files from before the change
+      extract: (repo, prev) => { clearRepoCache(repo.owner, repo.name); return extractRepo(repo, prev, dates); },
+      max: Number.isInteger(cap) && cap >= 0 ? cap : 4,
+      hasKey: !!process.env.OPENROUTER_API_KEY,
+      deadline: Date.now() + 30 * 60_000,
+    });
+    fresh.push(...live.fresh);
+    const comps = await publicCompetitions(await datePinned(mergeCompetitions(prevComps, fresh, blocked), dates), blocked);
     assertUniqueCompetitions(comps);
     writeFileSync(RESULT_PATH, JSON.stringify({ crawledAt: new Date().toISOString(), competitions: comps, errors: [] }, null, 2));
-    console.log(`Refreshed ${fresh.length}/${sources.length} live sources; ${comps.length} competitions saved`);
+    saveState(state, live.updates, blocked);
+    saveCommitDates(dates);
+    console.log(`Refreshed ${refreshed}/${sources.length} live sources; re-extracted ${live.fresh.length}/${live.ran} changed LLM boards (${live.deferred.length} left for the next run, ${probed.calls} GitHub calls to check); ${comps.length} competitions saved`);
+    if (llmUsage.calls) console.log(`LLM: ${llmUsage.calls} calls, ${llmUsage.promptTokens} in / ${llmUsage.completionTokens} out tokens, $${llmUsage.cost.toFixed(4)}`);
     return;
   }
 
@@ -215,6 +368,7 @@ async function main() {
   const prevByRepo = new Map(prevComps.map((c) => [entryKey(c), c]));
   const state = loadState();
   const stateUpdates = new Map<string, RepoState>();
+  const dates = loadCommitDates();
   let skipped = 0;
   for (let i = 0; i < repos.length; i++) {
     const repo = repos[i];
@@ -260,73 +414,29 @@ async function main() {
       skipped++;
       continue;
     }
-    // new push (or first time): the cached README/leaderboard text is stale
-    if (repo.pushedAt && state[key]?.pushedAt !== repo.pushedAt) {
+    // new push (or first time), or re-read by a live run since this cache was filled: the cached README/leaderboard text is stale
+    if ((repo.pushedAt && state[key]?.pushedAt !== repo.pushedAt) || state[key]?.live) {
       const n = clearRepoCache(repo.owner, repo.name);
-      if (n) console.log(`    new push, dropped ${n} cached file(s)`);
+      if (n) console.log(`    ${state[key]?.live ? "re-read by a live run" : "new push"}, dropped ${n} cached file(s)`);
     }
-    const remember = (verdict: RepoState["verdict"]) => {
-      if (repo.pushedAt) stateUpdates.set(key, { pushedAt: repo.pushedAt, fingerprint: EXTRACTION_FINGERPRINT, verdict, checkedAt: new Date().toISOString() });
+    const remember = (verdict: RepoState["verdict"], watch: Pick<RepoState, "head" | "sources"> = {}) => {
+      if (repo.pushedAt) stateUpdates.set(key, { pushedAt: repo.pushedAt, fingerprint: EXTRACTION_FINGERPRINT, verdict, checkedAt: new Date().toISOString(), ...watch });
     };
     try {
-      // Fetch pages
-      const pages = await fetchRepoPages(repo.owner, repo.name, repo.defaultBranch);
-      if (pages.pages.length === 0) {
+      const x = await extractRepo(repo, prevEntry, dates);
+      if (x.kind === "empty") {
         console.log(`    no pages found, skipping`);
         errors.push({ repo: key, error: "no pages found" });
         continue;
       }
-      console.log(`    fetched ${pages.pages.length} pages, ${pages.totalChars} chars`);
-
-      // Process with LLM, then overlay the facts declared in PROBLEM.md / SUBMISSION.md
-      const extracted = await processRepoWithLLM(pages, undefined, (prevEntry?.problems ?? []).map((p) => ({ id: p.id, name: p.name })));
-      const { competition: overlaid, info: standardInfo } = applyStandard(extracted, pages.standardDocs, { ...repo, branch: repo.defaultBranch });
-      const llmResult = overlaid === null ? null : validateCompetition({ ...overlaid, ...(standardInfo ? { standard: standardInfo } : {}) }, repo);
-      if (standardInfo) console.log(`    standard: PROBLEM.md ${standardInfo.problem ? "✓" : "—"} · ${standardInfo.submissions} SUBMISSION.md row(s)${standardInfo.warnings.length ? ` · ${standardInfo.warnings.length} warning(s)` : ""}`);
-      if (llmResult === null) {
+      if (x.kind === "none") {
         console.log(`    not a competition, skipping`);
         errors.push({ repo: key, error: "not a competition" });
         if (!prevEntry) remember("none"); // a known competition that came back empty is retried next time
         continue;
       }
-
-      // Second pass: focused agent attribution using commits/PRs/reports as evidence
-      const evidencePages = pages.pages.filter((p) => p.path === "__attribution__" || /submissions?\/.*\.md$/i.test(p.path) || /report|writeup/i.test(p.path));
-      const evidence = evidencePages.map((p) => `=== ${p.path} ===\n${p.content}`).join("\n\n");
-      const flat: { key: string; problem: string; contributor?: string; date?: string; value: number; description?: string; files?: string[] }[] = [];
-      (llmResult.problems ?? []).forEach((p, pi) => (p.records ?? []).forEach((r, ri) => {
-        if (!r.agent || r.agent.confidence !== "high") flat.push({ key: `${pi}.${ri}`, problem: p.id, contributor: r.contributor, date: r.date, value: r.value, description: r.description, files: r.submissionUrls });
-      }));
-      if (flat.length && evidence.length > 200) {
-        try {
-          const attrs = await attributeRecordsWithLLM(llmResult.id, flat, evidence);
-          let n = 0;
-          for (const [key, a] of Object.entries(attrs)) {
-            const [pi, ri] = key.split(".").map(Number);
-            const rec = llmResult.problems?.[pi]?.records?.[ri];
-            if (rec && a && a.family) { rec.agent = a; n++; }
-          }
-          console.log(`    attribution pass: ${n}/${flat.length} records attributed (${evidencePages.length} evidence pages)`);
-        } catch { console.log("    attribution pass failed"); }
-      }
-
-      // Safety net for attribution: an evidenced agent found by an earlier crawl is not lost because this pass missed it
-      if (prevEntry) {
-        const prevAgents = new Map(prevEntry.problems.flatMap((p) => p.records.filter((r) => r.agent).map((r) => [`${p.id}|${r.date}|${r.value}|${r.contributor}`, r.agent!] as const)));
-        let kept = 0;
-        for (const p of llmResult.problems ?? []) for (const r of p.records ?? []) {
-          const a = prevAgents.get(`${p.id}|${r.date}|${r.value}|${r.contributor}`);
-          if (!r.agent && a) { r.agent = a; kept++; }
-        }
-        if (kept) console.log(`    attribution carried over from the previous crawl: ${kept}`);
-      }
-
-      const competition = postprocess(llmResult, repo, prevEntry);
-      const { totalRecords, uniqueParticipants } = competition.stats;
-      const fams = competition.agentStats.map((a) => `${a.family}:${a.records}`).join(" ");
-      console.log(`    ✓ ${competition.name} [${competition.status}] ${competition.problems.length} problems, ${totalRecords} records, ${uniqueParticipants} participants, compute=${competition.participation.compute}${fams ? ` · agents ${fams}` : ""}`);
-      competitions.push(competition);
-      remember("competition");
+      competitions.push(x.competition);
+      remember("competition", { ...(x.head ? { head: x.head } : {}), sources: x.sources });
     } catch {
       console.log("    repository processing failed");
       errors.push({ repo: key, error: "Repository processing failed" });
@@ -371,7 +481,7 @@ async function main() {
   if ((only || mode === "priority") && existsSync(RESULT_PATH)) {
     finalComps = mergeCompetitions(prevComps, competitions, blocked);
   }
-  finalComps = await publicCompetitions(finalComps, blocked);
+  finalComps = await publicCompetitions(await datePinned(finalComps, dates), blocked);
   assertUniqueCompetitions(finalComps);
   for (const key of blocked) {
     const error = errors.find((e) => e.repo.toLowerCase() === key);
@@ -385,10 +495,8 @@ async function main() {
   };
   mkdirSync(DATA_DIR, { recursive: true });
   writeFileSync(RESULT_PATH, JSON.stringify(result, null, 2));
-  const nextState = { ...state };
-  for (const [k, v] of stateUpdates) nextState[k] = v;
-  for (const k of blocked) delete nextState[k];
-  writeFileSync(STATE_PATH, JSON.stringify(Object.fromEntries(Object.entries(nextState).sort(([a], [b]) => a.localeCompare(b))), null, 2) + "\n");
+  saveState(state, stateUpdates, blocked);
+  saveCommitDates(dates);
 
   console.log(`  ${finalComps.length} competitions saved`);
   console.log(`  ${errors.length} repos skipped/failed`);

@@ -1,7 +1,9 @@
-name: Live refresh (official results APIs)
+name: Live refresh (official results APIs, changed LLM boards)
 
 # Boards that publish results through an API (P = NP?, Big O Speedrun, GPU MODE, LeanEval, First Proof, DuckBench) are re-read every
-# three hours with no discovery and no LLM calls, so new entries reach the site within hours instead of at the weekly crawl.
+# three hours with no discovery and no LLM calls. LLM-extracted boards are re-extracted only when a file the extractor read (README,
+# leaderboard files) changed since their last extraction, at most LIVE_RECRAWL_MAX (default 4) per run; a code-only push never
+# reaches the LLM. So new entries reach the site within hours instead of at the weekly crawl.
 on:
   schedule:
     - cron: "41 */3 * * *"
@@ -17,7 +19,8 @@ permissions:
 jobs:
   live:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    # re-extractions stop starting after 30 minutes; one in flight may take up to 2 × the 10-minute LLM timeout
+    timeout-minutes: 60
     steps:
       # the branch head when the job starts, not the commit it was queued on: another data writer in the
       # "crawl" concurrency group may have pushed in between, and its data must be the base for ours
@@ -33,13 +36,15 @@ jobs:
       - name: Refresh
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: npx tsx src/main.ts live
 
       - name: Commit data
         run: |
-          if ! node scripts/entries-changed.mjs; then echo "no new entries"; exit 0; fi
+          # new entries, or state a re-extraction or date lookup moved (without it the next run would redo that work)
+          if ! node scripts/entries-changed.mjs && git diff --quiet -- data/crawl-state.json data/commit-dates.json; then echo "no new entries"; exit 0; fi
           git config user.name "openchallengelist-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add data/competitions.json
+          git add data/competitions.json data/crawl-state.json data/commit-dates.json
           git commit -m "data: live refresh $(date -u +%Y-%m-%dT%H:%MZ)"
           for i in 1 2 3; do git push && exit 0; git pull --rebase origin "$GITHUB_REF_NAME" || exit 1; done; exit 1

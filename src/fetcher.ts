@@ -51,10 +51,11 @@ export interface RepoPages {
   pages: FetchedPage[];
   totalChars: number;
   standardDocs: StandardDoc[];   // parsed PROBLEM.md and every entry's SUBMISSION.md, when the repo follows the standard
+  sources: string[];             // what the extraction read: page paths, plus "dir/" for folders whose new files it would pick up
 }
 
 // Files that often contain leaderboards
-const LEADERBOARD_FILENAMES = [
+export const LEADERBOARD_FILENAMES = [
   "README.md", "README.MD", "readme.md",
   "LEADERBOARD.md", "leaderboard.md",
   "SCORES.md", "scores.md",
@@ -69,6 +70,8 @@ const SKIP_DIRS = new Set([
   "scripts", "lib", "bin", "vendor", "dist", "build", "out",
   ".vscode", ".idea", "assets", "images", "img",
 ]);
+// Folders read as machine-readable leaderboard data (json/csv/yaml/tsv/md)
+const DATA_DIRS = new Set(["results", "leaderboard", "leaderboards", "data", "submissions", "scores", "records"]);
 
 /**
  * Fetch README + discover leaderboard-like files in a repo.
@@ -191,11 +194,12 @@ export async function fetchRepoPages(
   }
 
   // 4b. Machine-readable leaderboard data: results/, leaderboard/, data/, submissions/ (json/csv/yaml/tsv/md)
-  const DATA_DIRS = new Set(["results", "leaderboard", "leaderboards", "data", "submissions", "scores", "records"]);
   let dataChars = 0;
+  const dataDirs = new Set<string>(); // the ones that supplied a page: a new file there is a new row
   for (const entry of rootEntries) {
     if (entry.type !== "dir" || !DATA_DIRS.has(entry.name.toLowerCase())) continue;
     if (totalChars >= maxChars || dataChars > 60000) break;
+    const before = pages.length;
     let sub: { name: string; path: string; type: string }[] = [];
     try { sub = await listDir(owner, name, entry.path, branch); } catch { continue; }
     const files = sub.filter((f) => f.type === "file" && /\.(json|csv|tsv|ya?ml|md)$/i.test(f.name) && !/^(readme|contributing|license)/i.test(f.name)).slice(0, 12);
@@ -221,6 +225,7 @@ export async function fetchRepoPages(
       dataChars += excerpt.length;
       if (!addPage(p, excerpt)) break;
     }
+    if (pages.length > before) dataDirs.add(`${entry.path}/`);
   }
 
   // 5. Submission reports linked from leaderboard tables (often name the model/agent used)
@@ -255,11 +260,16 @@ export async function fetchRepoPages(
     totalChars += attribution.length;
   }
 
+  // The live refresh re-extracts only when one of these changed. Data folders that supplied a page, and the standard's
+  // submissions folder, are watched whole. Commit/PR evidence is not a source.
+  const sources = [...new Set([...pages.filter((p) => p.path !== "__attribution__").map((p) => p.path), ...(subDir ? [`${subDir}/`] : []), ...dataDirs])];
+
   return {
     repo: { owner, name, branch },
     pages,
     totalChars,
     standardDocs,
+    sources,
   };
 }
 
