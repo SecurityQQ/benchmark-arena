@@ -14,7 +14,7 @@
     "name": "audio.cpp",
     "url": "https://github.com/0xShug0/audio.cpp",
     "description": "An all-in-one, pure C++ inference engine for audio models, powered by ggml. Supports TTS, STT, VAD, voice conversion, music generation, and more, with highly optimized performance. No Python dependency.",
-    "stars": 4453,
+    "stars": 4454,
     "topics": [
       "ai",
       "amd-gpu",
@@ -504,7 +504,7 @@
     "stars": 185,
     "topics": [],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-25T10:51:11Z"
+    "pushedAt": "2026-11-25T11:52:17Z"
   },
   {
     "owner": "Saivineeth147",
@@ -697,7 +697,7 @@
       "research-software"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-25T10:47:26Z"
+    "pushedAt": "2026-11-25T11:47:25Z"
   },
   {
     "owner": "kings-crown",
@@ -816,6 +816,26 @@
     "pushedAt": "2026-11-25T07:41:34Z"
   },
   {
+    "owner": "keyu-wang-2002",
+    "name": "DepthDash",
+    "url": "https://github.com/keyu-wang-2002/DepthDash",
+    "description": "Speedrun codebase for advancing residual connection design at depth",
+    "stars": 2,
+    "topics": [],
+    "defaultBranch": "main",
+    "pushedAt": "2026-11-23T20:32:00Z"
+  },
+  {
+    "owner": "basicv8vc",
+    "name": "modded-supermimic",
+    "url": "https://github.com/basicv8vc/modded-supermimic",
+    "description": "Unitree G1 motion-tracking speedrun benchmark on 1x Colab G4 (LAFAN1 40 clips, FULL_COLLISION)",
+    "stars": 2,
+    "topics": [],
+    "defaultBranch": "main",
+    "pushedAt": "2026-11-20T03:02:45Z"
+  },
+  {
     "owner": "IdentityNulll",
     "name": "Ascension",
     "url": "https://github.com/IdentityNulll/Ascension",
@@ -831,16 +851,6 @@
     ],
     "defaultBranch": "main",
     "pushedAt": "2026-05-26T09:27:32Z"
-  },
-  {
-    "owner": "ArcElewyn",
-    "name": "Discord",
-    "url": "https://github.com/ArcElewyn/Discord",
-    "description": "Repos for my discord bots test",
-    "stars": 2,
-    "topics": [],
-    "defaultBranch": "main",
-    "pushedAt": "2025-12-02T08:21:37Z"
   },
   {
     "owner": "RDI-Foundation",

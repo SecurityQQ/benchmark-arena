@@ -62,6 +62,25 @@
     "verdict": "none",
     "checkedAt": "2026-11-23T13:08:52.106Z"
   },
+  "basicv8vc/modded-supermimic": {
+    "pushedAt": "2026-11-20T03:02:45Z",
+    "fingerprint": "81e7e9bf9471aa91",
+    "verdict": "competition",
+    "checkedAt": "2026-11-25T11:57:15.657Z",
+    "head": "23e3bb29ccab1cb13775eed8cadacd6edb444c93",
+    "sources": [
+      "README.md",
+      "baselines/README.md",
+      "records/README.md",
+      "records/v2/003_instanttrack_v14/README.md",
+      "records/v2/002_nablamimic_nablaengine/README.md",
+      "records/v2/001_supermimic_official_mjlab/README.md",
+      "docs/POLICY_INTERFACE.md",
+      "baselines/instanttrack/README.md",
+      "baselines/nablamimic/README.md",
+      "baselines/supermimic_mjlab/README.md"
+    ]
+  },
   "bichengwang/rl-pricing": {
     "pushedAt": "2026-11-24T15:01:55Z",
     "fingerprint": "81e7e9bf9471aa91",
@@ -220,6 +239,16 @@
     "verdict": "competition",
     "checkedAt": "2026-11-25T07:08:57.157Z",
     "head": "4ea6b937337a4889b8cfe3f38a93d120048d8f71"
+  },
+  "keyu-wang-2002/depthdash": {
+    "pushedAt": "2026-11-23T20:32:00Z",
+    "fingerprint": "81e7e9bf9471aa91",
+    "verdict": "competition",
+    "checkedAt": "2026-11-25T11:56:55.144Z",
+    "head": "233c9babe759382c418a0687ba4c21dd244af161",
+    "sources": [
+      "README.md"
+    ]
   },
   "kings-crown/s2n-bignum-bench": {
     "pushedAt": "2026-11-22T15:44:31Z",
@@ -386,6 +415,16 @@
     "verdict": "competition",
     "checkedAt": "2026-11-25T06:12:02.542Z",
     "head": "a027e8cf0aa57122609584b118ca9c0e14f2ae2c"
+  },
+  "rajpurkar/squad-explorer": {
+    "pushedAt": "2023-10-13T20:58:11Z",
+    "fingerprint": "81e7e9bf9471aa91",
+    "verdict": "competition",
+    "checkedAt": "2026-11-25T11:53:23.645Z",
+    "head": "eee5fdbf62f8613a7812b03419e6b29617b74fd1",
+    "sources": [
+      "README.md"
+    ]
   },
   "rdi-foundation/swe-bench-leaderboard": {
     "pushedAt": "2026-11-21T06:42:46Z",
