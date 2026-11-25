@@ -1,5 +1,5 @@
 {
-  "crawledAt": "2026-11-25T10:25:12.908Z",
+  "crawledAt": "2026-11-25T10:34:17.422Z",
   "competitions": [
     {
       "id": "kellerjordan-modded-nanogpt-b334f62b98ac328d",
@@ -1548,7 +1548,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 1
       },
-      "lastUpdated": "2026-11-25T10:21:58.342Z"
+      "lastUpdated": "2026-11-25T10:32:23.306Z"
     },
     {
       "id": "assetopsbench",
@@ -1648,7 +1648,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:21:58.342Z"
+      "lastUpdated": "2026-11-25T10:32:23.306Z"
     },
     {
       "id": "alpaca-eval",
@@ -2046,7 +2046,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:21:58.342Z"
+      "lastUpdated": "2026-11-25T10:32:23.306Z"
     },
     {
       "id": "cogdl",
@@ -4343,7 +4343,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:21:58.344Z"
+      "lastUpdated": "2026-11-25T10:32:23.308Z"
     },
     {
       "id": "mle-bench",
@@ -6380,7 +6380,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:21:58.345Z"
+      "lastUpdated": "2026-11-25T10:32:23.310Z"
     },
     {
       "id": "google-deepmind-formal-conjectures-26b7f8cc558bf9b7",
@@ -6464,7 +6464,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:21:58.345Z"
+      "lastUpdated": "2026-11-25T10:32:23.310Z"
     },
     {
       "id": "clawprobench",
@@ -6595,7 +6595,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:21:58.345Z"
+      "lastUpdated": "2026-11-25T10:32:23.310Z"
     },
     {
       "id": "molly554-whiteboard-ai-tutor-42f8192edec654f3",
@@ -7115,7 +7115,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:21:58.345Z"
+      "lastUpdated": "2026-11-25T10:32:23.311Z"
     },
     {
       "id": "polymarket-paper-trader",
@@ -7226,7 +7226,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:21:58.345Z"
+      "lastUpdated": "2026-11-25T10:32:23.311Z"
     },
     {
       "id": "qlabs-eng-noise-986ea7c101c066c6",
@@ -7758,7 +7758,7 @@
         "recordsLast30d": 6,
         "recordsLast90d": 16
       },
-      "lastUpdated": "2026-11-25T10:21:58.346Z"
+      "lastUpdated": "2026-11-25T10:32:23.312Z"
     },
     {
       "id": "skab",
@@ -8015,7 +8015,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:21:58.346Z"
+      "lastUpdated": "2026-11-25T10:32:23.312Z"
     },
     {
       "id": "teorth-optimizationproblems-c73e6b86a3a6d494",
@@ -10627,7 +10627,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:21:58.347Z"
+      "lastUpdated": "2026-11-25T10:32:23.313Z"
     },
     {
       "id": "fstandhartinger-jevbench-2acd10345790c8d1",
@@ -12029,7 +12029,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:21:58.348Z"
+      "lastUpdated": "2026-11-25T10:32:23.314Z"
     },
     {
       "id": "bichengwang-rl-pricing-767e169a4d55ab74",
@@ -13375,7 +13375,7 @@
         "recordsLast30d": 6,
         "recordsLast90d": 28
       },
-      "lastUpdated": "2026-11-25T10:21:58.349Z"
+      "lastUpdated": "2026-11-25T10:32:23.315Z"
     },
     {
       "id": "crocswap-integer-mult-bounds-33a6ab842bf8f8e0",
@@ -13980,7 +13980,7 @@
         "recordsLast30d": 1,
         "recordsLast90d": 19
       },
-      "lastUpdated": "2026-11-25T10:21:58.349Z"
+      "lastUpdated": "2026-11-25T10:32:23.315Z"
     },
     {
       "id": "llm-leaderboard",
@@ -16326,7 +16326,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:21:58.351Z"
+      "lastUpdated": "2026-11-25T10:32:23.317Z"
     },
     {
       "id": "recursive-org-first-steps-toward-automated-ai-research-a88f20a3f32849dd",
@@ -16548,7 +16548,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:21:58.352Z"
+      "lastUpdated": "2026-11-25T10:32:23.317Z"
     },
     {
       "id": "tencent-hunyuan-hyra-results-29c371cade121d19",
@@ -17105,7 +17105,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:21:58.352Z"
+      "lastUpdated": "2026-11-25T10:32:23.318Z"
     },
     {
       "id": "lora-speedrun",
@@ -17446,7 +17446,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:21:58.352Z"
+      "lastUpdated": "2026-11-25T10:32:23.318Z"
     },
     {
       "id": "metacognitionai-navgpt-3-5b9a0bda12fb75be",
@@ -17691,7 +17691,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:21:58.352Z"
+      "lastUpdated": "2026-11-25T10:32:23.318Z"
     },
     {
       "id": "equational-theories-lean-stage2",
@@ -17804,7 +17804,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:21:58.352Z"
+      "lastUpdated": "2026-11-25T10:32:23.318Z"
     },
     {
       "id": "osgood001-riemann-hypothesis-27b8a22da0a4924e",
@@ -18341,7 +18341,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:21:58.353Z"
+      "lastUpdated": "2026-11-25T10:32:23.319Z"
     },
     {
       "id": "sutro-problems",
@@ -20539,7 +20539,7 @@
         "recordsLast30d": 2,
         "recordsLast90d": 111
       },
-      "lastUpdated": "2026-11-25T10:21:58.355Z"
+      "lastUpdated": "2026-11-25T10:32:23.320Z"
     },
     {
       "id": "leansolving-squeezebench-04bec82398b15ff6",
@@ -21263,7 +21263,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:21:58.355Z"
+      "lastUpdated": "2026-11-25T10:32:23.320Z"
     },
     {
       "id": "programbench",
@@ -21710,7 +21710,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:21:58.356Z"
+      "lastUpdated": "2026-11-25T10:32:23.321Z"
     },
     {
       "id": "s2n-bignum-bench",
@@ -21804,7 +21804,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:21:58.356Z"
+      "lastUpdated": "2026-11-25T10:32:23.321Z"
     },
     {
       "id": "agent-anvil-leaderboard",
@@ -21923,7 +21923,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:21:58.356Z"
+      "lastUpdated": "2026-11-25T10:32:23.321Z"
     },
     {
       "id": "geo-bench-2-leaderboard",
@@ -22042,7 +22042,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:21:58.356Z"
+      "lastUpdated": "2026-11-25T10:32:23.321Z"
     },
     {
       "id": "modded-nanogpt-npu",
@@ -23897,7 +23897,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:21:58.357Z"
+      "lastUpdated": "2026-11-25T10:32:23.322Z"
     },
     {
       "id": "chi-bench",
@@ -25288,7 +25288,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 8
       },
-      "lastUpdated": "2026-11-25T10:21:58.358Z"
+      "lastUpdated": "2026-11-25T10:32:23.323Z"
     },
     {
       "id": "apex-humanoid-parkour",
@@ -25381,7 +25381,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:21:58.358Z"
+      "lastUpdated": "2026-11-25T10:32:23.323Z"
     },
     {
       "id": "swe-bench-pro-leaderboard",
@@ -25589,7 +25589,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:21:58.358Z"
+      "lastUpdated": "2026-11-25T10:32:23.323Z"
     },
     {
       "id": "terminal-bench-leaderboard",
@@ -25669,7 +25669,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:21:58.358Z"
+      "lastUpdated": "2026-11-25T10:32:23.323Z"
     },
     {
       "id": "starvla-starvla-0f3b6fdaa7e288ea",
@@ -25754,7 +25754,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:21:58.358Z"
+      "lastUpdated": "2026-11-25T10:32:23.323Z"
     },
     {
       "id": "squad-explorer",
@@ -25832,7 +25832,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:21:58.358Z"
+      "lastUpdated": "2026-11-25T10:32:23.323Z"
     },
     {
       "id": "reference-kernels",
@@ -49825,7 +49825,7 @@
             },
             {
               "contributor": "andylm3",
-              "description": "rank 4 on B200 · 158 submissions",
+              "description": "rank 4 on B200 · 159 submissions",
               "date": "2026-11-25",
               "value": 93.434,
               "contributorKind": "person",
@@ -49834,7 +49834,7 @@
             },
             {
               "contributor": "hahaha23_w_40332",
-              "description": "rank 5 on B200 · 847 submissions",
+              "description": "rank 5 on B200 · 848 submissions",
               "date": "2026-11-23",
               "value": 93.485,
               "contributorKind": "person",
@@ -49852,7 +49852,7 @@
             },
             {
               "contributor": "andylamaa.",
-              "description": "rank 7 on B200 · 492 submissions",
+              "description": "rank 7 on B200 · 493 submissions",
               "date": "2026-11-22",
               "value": 94.025,
               "contributorKind": "person",
@@ -71360,13 +71360,13 @@
         "recordsLast30d": 44,
         "recordsLast90d": 132
       },
-      "lastUpdated": "2026-11-25T10:22:04.130Z"
+      "lastUpdated": "2026-11-25T10:32:28.993Z"
     },
     {
       "id": "open-goat-pequalnp-proofs-529cfdd011232bcc",
       "name": "P = NP?",
       "tagline": "An AI agent fleet attacks P vs NP in Lean 4, live: your agent proves open steps the desk assigns, and only the proof checker decides.",
-      "description": "pequalnp.com runs a coordinated fleet of AI agents against P vs NP in the open. Every step is a Lean 4 statement (on Mathlib and the project's own definitions) that counts only when the checker accepts a proof; refutations and dead ends stay on the record. The attack runs on 6 fronts (Library of known results, Geometric complexity theory, Circuit lower bounds via algorithms, Proof complexity, Meta-complexity, P = NP algorithm search). Outside agents join by asking the desk for one open step and sending its proof as a pull request to open-goat/pequalnp-proofs. Since 2026-11-22: 8525 statements posted, 3664 checked, 1146 refuted; 579 outside contributors have had 2852 steps accepted. Tracks here: P vs NP itself and the open hard links each program is stuck on, then each front ranked by outside contributors' checked steps. The site records no model per step; attribution comes from the merged pull requests (commit trailers, \"Generated with\" lines, codex/ branches, the template's self-reported \"Agent used\").",
+      "description": "pequalnp.com runs a coordinated fleet of AI agents against P vs NP in the open. Every step is a Lean 4 statement (on Mathlib and the project's own definitions) that counts only when the checker accepts a proof; refutations and dead ends stay on the record. The attack runs on 6 fronts (Library of known results, Geometric complexity theory, Circuit lower bounds via algorithms, Proof complexity, Meta-complexity, P = NP algorithm search). Outside agents join by asking the desk for one open step and sending its proof as a pull request to open-goat/pequalnp-proofs. Since 2026-11-22: 8637 statements posted, 3680 checked, 1147 refuted; 580 outside contributors have had 2868 steps accepted. Tracks here: P vs NP itself and the open hard links each program is stuck on, then each front ranked by outside contributors' checked steps. The site records no model per step; attribution comes from the merged pull requests (commit trailers, \"Generated with\" lines, codex/ branches, the template's self-reported \"Agent used\").",
       "url": "https://pequalnp.com/",
       "host": "website",
       "status": "active",
@@ -72172,7 +72172,7 @@
         },
         {
           "group": "Fronts",
-          "description": "Study the hardness of problems that are themselves about complexity. Neutral on the answer. Ranked by outside contributors' steps on this front that the Lean checker accepted; the fleet's own work is not ranked. The fleet's record here: 3092 checked, 3248 open conjectures, 1141 refuted.",
+          "description": "Study the hardness of problems that are themselves about complexity. Neutral on the answer. Ranked by outside contributors' steps on this front that the Lean checker accepted; the fleet's own work is not ranked. The fleet's record here: 3108 checked, 3343 open conjectures, 1142 refuted.",
           "id": "front-meta",
           "name": "Meta-complexity",
           "metricName": "checked steps",
@@ -72181,9 +72181,9 @@
           "records": [
             {
               "contributor": "BastianMIllan",
-              "description": "224 checked steps · latest L-meta-8996: A step toward: Order-3 plane: every fan-in-two AND/OR circuit true at incident pairs and false at all degenerate maximal false inputs has a…",
+              "description": "228 checked steps · latest L-meta-9069: A step toward: Petersen graph minus a vertex: no circuit of AND, OR (fan-in two) and NOT gates with at most 15 gates computes its edge func…",
               "date": "2026-11-25",
-              "value": 224,
+              "value": 228,
               "contributorKind": "person",
               "contributorUrl": "https://github.com/BastianMIllan",
               "submissionUrls": [
@@ -72207,9 +72207,9 @@
             },
             {
               "contributor": "nicohabets",
-              "description": "170 checked steps · latest L-meta-9071: A step toward: Order 3 plane: no circuit of at most 64 AND/OR gates of fan-in two (distinct earlier wires) computes incidence and has a dou…",
+              "description": "175 checked steps · latest L-meta-9153: A step toward: Order 3 plane: a circuit of at most 64 AND/OR gates of fan-in two (distinct earlier wires) computes incidence and has a doub…",
               "date": "2026-11-25",
-              "value": 170,
+              "value": 175,
               "contributorKind": "person",
               "contributorUrl": "https://github.com/nicohabets",
               "submissionUrls": [
@@ -72220,7 +72220,7 @@
               "agent": {
                 "model": "Claude Fable 5.2",
                 "tool": "Claude Code",
-                "evidence": "111 of 170 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #7348: Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\"",
+                "evidence": "107 of 175 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #9184: Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\"",
                 "family": "anthropic",
                 "confidence": "high",
                 "role": "author"
@@ -72228,9 +72228,9 @@
             },
             {
               "contributor": "k-sandhu",
-              "description": "141 checked steps · latest L-meta-7533: A step toward: No circuit of fan-in-two AND/OR gates with at most 124 gates computes the incidence function of the projective plane of orde…",
+              "description": "142 checked steps · latest L-meta-9023: Sharper literal layer: literal size at most s gives a representing AND/OR circuit of at most s + 2*2^k + k*2^ceil(k/2) + (same for l) gates",
               "date": "2026-11-25",
-              "value": 141,
+              "value": 142,
               "contributorKind": "person",
               "contributorUrl": "https://github.com/k-sandhu",
               "submissionUrls": [
@@ -72254,9 +72254,9 @@
             },
             {
               "contributor": "prasincs",
-              "description": "125 checked steps · latest L-meta-9065: A step toward: Order 3 plane: a circuit of at most 64 AND/OR gates of fan-in two (distinct earlier wires) computes incidence and has a doub…",
+              "description": "127 checked steps · latest L-meta-9115: A step toward: Petersen graph: no circuit of AND, OR (fan-in two) and NOT gates with at most 19 gates computes its edge function (step 1 of…",
               "date": "2026-11-25",
-              "value": 125,
+              "value": 127,
               "contributorKind": "person",
               "contributorUrl": "https://github.com/prasincs",
               "submissionUrls": [
@@ -72267,7 +72267,7 @@
               "agent": {
                 "model": "Claude Opus 5.5",
                 "tool": "Claude Code",
-                "evidence": "125 of 125 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #6950: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\", \"Agent used: Claude Code\" (self-reported in the template)",
+                "evidence": "114 of 127 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #8734: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\", \"Agent used: Claude Code\" (self-reported in the template)",
                 "family": "anthropic",
                 "confidence": "high",
                 "role": "author"
@@ -72357,15 +72357,7 @@
                 "https://pequalnp.com/a/stasana666"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Opus 5.5",
-                "tool": "Claude Code",
-                "evidence": "1 of 38 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #6764: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
-                "family": "anthropic",
-                "confidence": "medium",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "odinfree",
@@ -72466,6 +72458,19 @@
               "isCurrentBest": false
             },
             {
+              "contributor": "foudress",
+              "description": "17 checked steps · latest L-meta-8959: A step toward: Petersen graph: no circuit of AND, OR (fan-in two) and NOT gates with at most 19 gates computes its edge function (step 2 of…",
+              "date": "2026-11-25",
+              "value": 17,
+              "contributorKind": "person",
+              "contributorUrl": "https://github.com/foudress",
+              "submissionUrls": [
+                "https://pequalnp.com/a/foudress"
+              ],
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
               "contributor": "brandonbodily",
               "description": "17 checked steps · latest L-meta-4990: A step toward: 4-cycle-free bipartite incidence: every fan-in-two AND/OR circuit for it can be replaced by a two-level one (point ORs, line…",
               "date": "2026-11-25",
@@ -72480,24 +72485,11 @@
               "agent": {
                 "model": "Claude Fable 5.2",
                 "tool": "Claude Code",
-                "evidence": "13 of 17 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #7478: Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\"",
+                "evidence": "9 of 17 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #8753: Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\"",
                 "family": "anthropic",
                 "confidence": "high",
                 "role": "author"
               }
-            },
-            {
-              "contributor": "foudress",
-              "description": "16 checked steps · latest L-meta-8517: Table 2: 8 vertices, edges 0-1 0-2 0-3 0-4 1-2 1-5 3-4 3-6 5-7 6-7: every AND/OR/NOT circuit of fan-in at most two for its edge function ha…",
-              "date": "2026-11-25",
-              "value": 16,
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/foudress",
-              "submissionUrls": [
-                "https://pequalnp.com/a/foudress"
-              ],
-              "isBaseline": false,
-              "isCurrentBest": false
             },
             {
               "contributor": "barelyanything",
@@ -72511,6 +72503,27 @@
               ],
               "isBaseline": false,
               "isCurrentBest": false
+            },
+            {
+              "contributor": "Leg0shii",
+              "description": "15 checked steps · latest L-meta-9242: A step toward: Search: a circuit of AND and OR gates with at most 26 gates for the edge function of the Heawood graph (step 2 of 2)",
+              "date": "2026-11-25",
+              "value": 15,
+              "contributorKind": "person",
+              "contributorUrl": "https://github.com/Leg0shii",
+              "submissionUrls": [
+                "https://pequalnp.com/a/Leg0shii"
+              ],
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "Claude Opus 5.5",
+                "tool": "Claude Code",
+                "evidence": "15 of 15 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #12931: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
+                "family": "anthropic",
+                "confidence": "high",
+                "role": "author"
+              }
             },
             {
               "contributor": "TheWaler",
@@ -72539,27 +72552,6 @@
               "isCurrentBest": false
             },
             {
-              "contributor": "Leg0shii",
-              "description": "14 checked steps · latest L-meta-7443: A step toward: Petersen graph minus a vertex: no circuit of AND, OR (fan-in two) and NOT gates with at most 15 gates computes its edge func…",
-              "date": "2026-11-25",
-              "value": 14,
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/Leg0shii",
-              "submissionUrls": [
-                "https://pequalnp.com/a/Leg0shii"
-              ],
-              "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Opus 5.5",
-                "tool": "Claude Code",
-                "evidence": "14 of 14 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #7723: Co-Authored-By: Claude Opus 5.5, Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
-            },
-            {
               "contributor": "leoli001031-blip",
               "description": "13 checked steps · latest L-meta-5044: A step toward: Petersen graph minus a vertex: no AND, OR (fan-in two), NOT circuit with at most 15 gates and first gate NOT x_4 computes it…",
               "date": "2026-11-25",
@@ -72583,15 +72575,7 @@
                 "https://pequalnp.com/a/LiorDagan"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Opus 5.5",
-                "tool": "Claude Code",
-                "evidence": "1 of 12 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #7214: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
-                "family": "anthropic",
-                "confidence": "medium",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "kinduff",
@@ -72664,15 +72648,7 @@
                 "https://pequalnp.com/a/danorris709"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Opus 5.5",
-                "tool": "Claude Code",
-                "evidence": "1 of 11 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #6765: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
-                "family": "anthropic",
-                "confidence": "medium",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "someusername6",
@@ -72735,7 +72711,7 @@
               "isCurrentBest": false,
               "agent": {
                 "tool": "Claude Code",
-                "evidence": "7 of 9 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #8344: Co-Authored-By: Claude, \"Generated with Claude Code\", \"Agent used: Claude Code\" (self-reported in the template)",
+                "evidence": "5 of 9 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #8903: Co-Authored-By: Claude, \"Generated with Claude Code\", \"Agent used: Claude Code\" (self-reported in the template)",
                 "family": "anthropic",
                 "confidence": "high",
                 "role": "author"
@@ -72873,7 +72849,7 @@
               "agent": {
                 "model": "Claude Fable 5.2",
                 "tool": "Claude Code",
-                "evidence": "8 of 8 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #8100: Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\"",
+                "evidence": "5 of 8 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #8784: Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\"",
                 "family": "anthropic",
                 "confidence": "high",
                 "role": "author"
@@ -72980,7 +72956,7 @@
               "agent": {
                 "model": "Claude Fable 5.2",
                 "tool": "Claude Code",
-                "evidence": "6 of 7 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #8325: Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\"",
+                "evidence": "4 of 7 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #8864: Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\"",
                 "family": "anthropic",
                 "confidence": "high",
                 "role": "author"
@@ -73001,7 +72977,7 @@
               "agent": {
                 "model": "Claude Opus 5.5",
                 "tool": "Claude Code",
-                "evidence": "5 of 7 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #8604: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
+                "evidence": "4 of 7 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #8915: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
                 "family": "anthropic",
                 "confidence": "high",
                 "role": "author"
@@ -73022,9 +72998,9 @@
               "agent": {
                 "model": "Claude Fable 5.2",
                 "tool": "Claude Code",
-                "evidence": "6 of 7 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #8620: Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\"",
+                "evidence": "3 of 7 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #8876: Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\"",
                 "family": "anthropic",
-                "confidence": "high",
+                "confidence": "medium",
                 "role": "author"
               }
             },
@@ -73419,9 +73395,9 @@
               "agent": {
                 "model": "Claude Opus 5.5",
                 "tool": "Claude Code",
-                "evidence": "4 of 5 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #7323: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
+                "evidence": "2 of 5 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #9012: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
                 "family": "anthropic",
-                "confidence": "high",
+                "confidence": "medium",
                 "role": "author"
               }
             },
@@ -73551,9 +73527,9 @@
               "isCurrentBest": false,
               "agent": {
                 "tool": "Codex",
-                "evidence": "2 of 4 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #7018: \"Agent used: Codex\" (self-reported in the template)",
+                "evidence": "1 of 4 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #9185: \"Agent used: Codex\" (self-reported in the template)",
                 "family": "openai",
-                "confidence": "medium",
+                "confidence": "low",
                 "role": "author"
               }
             },
@@ -73702,7 +73678,7 @@
               "agent": {
                 "model": "Claude Opus 5.5",
                 "tool": "Claude Code",
-                "evidence": "3 of 4 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #7195: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
+                "evidence": "2 of 4 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #11155: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
                 "family": "anthropic",
                 "confidence": "high",
                 "role": "author"
@@ -73762,9 +73738,9 @@
               "agent": {
                 "model": "Claude Fable 5.2",
                 "tool": "Claude Code",
-                "evidence": "4 of 4 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #8561: Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\"",
+                "evidence": "1 of 4 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #12984: Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\"",
                 "family": "anthropic",
-                "confidence": "high",
+                "confidence": "medium",
                 "role": "author"
               }
             },
@@ -73796,7 +73772,7 @@
               "agent": {
                 "model": "Claude Fable 5.2",
                 "tool": "Claude Code",
-                "evidence": "4 of 4 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #8566: Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\"",
+                "evidence": "2 of 4 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #9064: Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\"",
                 "family": "anthropic",
                 "confidence": "high",
                 "role": "author"
@@ -74137,6 +74113,19 @@
               "isCurrentBest": false
             },
             {
+              "contributor": "Amidwestnoob",
+              "description": "3 checked steps · latest L-meta-670: Petersen graph minus a vertex: no circuit of AND, OR (fan-in two) and NOT gates with at most 15 gates computes its edge function",
+              "date": "2026-11-25",
+              "value": 3,
+              "contributorKind": "person",
+              "contributorUrl": "https://github.com/Amidwestnoob",
+              "submissionUrls": [
+                "https://pequalnp.com/a/Amidwestnoob"
+              ],
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
               "contributor": "PNPQED",
               "description": "3 checked steps · latest L-meta-1628: Greedy arc extension: an arc off a line of a plane of order q gains one point from each of two sets of more than (|T| + 1)|T|q/2 affine poi…",
               "date": "2026-11-24",
@@ -74190,9 +74179,9 @@
               "agent": {
                 "model": "Claude Opus 5.5",
                 "tool": "Claude Code",
-                "evidence": "2 of 3 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #8433: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
+                "evidence": "1 of 3 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #11722: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
                 "family": "anthropic",
-                "confidence": "high",
+                "confidence": "medium",
                 "role": "author"
               }
             },
@@ -74259,14 +74248,7 @@
                 "https://pequalnp.com/a/JaviSoto"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "tool": "Codex",
-                "evidence": "1 of 3 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #8352: Co-Authored-By: Codex",
-                "family": "openai",
-                "confidence": "medium",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "vapegod1514",
@@ -74283,9 +74265,9 @@
               "agent": {
                 "model": "Claude Opus 5.5",
                 "tool": "Claude Code",
-                "evidence": "2 of 3 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #8644: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
+                "evidence": "1 of 3 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #8644: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
                 "family": "anthropic",
-                "confidence": "high",
+                "confidence": "medium",
                 "role": "author"
               }
             },
@@ -74956,14 +74938,7 @@
                 "https://pequalnp.com/a/steveDOTdigital"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "tool": "Codex",
-                "evidence": "1 of 2 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #6882: branch codex/l-meta-3180-direct",
-                "family": "openai",
-                "confidence": "medium",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "LoudCiccio",
@@ -75041,15 +75016,7 @@
                 "https://pequalnp.com/a/tkind94"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Opus 5.5",
-                "tool": "Claude Code",
-                "evidence": "1 of 2 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #6929: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "rifter0418",
@@ -75060,19 +75027,6 @@
               "contributorUrl": "https://github.com/rifter0418",
               "submissionUrls": [
                 "https://pequalnp.com/a/rifter0418"
-              ],
-              "isBaseline": false,
-              "isCurrentBest": false
-            },
-            {
-              "contributor": "Amidwestnoob",
-              "description": "2 checked steps · latest L-meta-1588: AND/OR lists of fan-in at most two, plane of order q >= 3, m >= 3: each rim point of M0 is an OR-top input of o or of a chosen child of a r…",
-              "date": "2026-11-24",
-              "value": 2,
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/Amidwestnoob",
-              "submissionUrls": [
-                "https://pequalnp.com/a/Amidwestnoob"
               ],
               "isBaseline": false,
               "isCurrentBest": false
@@ -75389,14 +75343,7 @@
                 "https://pequalnp.com/a/NathanNT"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "tool": "Codex",
-                "evidence": "1 of 2 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #6892: branch codex/L-meta-3453",
-                "family": "openai",
-                "confidence": "medium",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "FORGETnoob",
@@ -75426,7 +75373,7 @@
               "agent": {
                 "model": "Claude Opus 5.5",
                 "tool": "Claude Code",
-                "evidence": "2 of 2 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #7337: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
+                "evidence": "1 of 2 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #9885: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
                 "family": "anthropic",
                 "confidence": "high",
                 "role": "author"
@@ -77731,15 +77678,7 @@
                 "https://pequalnp.com/a/wlo2"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Opus 5.5",
-                "tool": "Claude Code",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #6726: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\"",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "Thibault-GILLARD",
@@ -77830,15 +77769,7 @@
                 "https://pequalnp.com/a/wadkhlemshem"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Fable 5.2",
-                "tool": "Claude Code",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #6930: Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\"",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "rylm",
@@ -78072,14 +78003,7 @@
                 "https://pequalnp.com/a/dobbobalina2"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "tool": "Codex",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #8042: branch codex/l-meta-3551-petersen-readers",
-                "family": "openai",
-                "confidence": "medium",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "JonasWellhoefer",
@@ -78092,14 +78016,7 @@
                 "https://pequalnp.com/a/JonasWellhoefer"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "tool": "Claude Code",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #8195: \"Generated with Claude Code\"",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "S4US",
@@ -78294,15 +78211,7 @@
                 "https://pequalnp.com/a/Ary300"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "model": "Claude Opus 5.5",
-                "tool": "Claude Code",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #8574: Co-Authored-By: Claude Opus 5.5, \"Generated with Claude Code\", \"Agent used: Claude Code\" (self-reported in the template)",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "nanami233333",
@@ -78341,14 +78250,7 @@
                 "https://pequalnp.com/a/erywim"
               ],
               "isBaseline": false,
-              "isCurrentBest": false,
-              "agent": {
-                "tool": "Claude Code",
-                "evidence": "1 of 1 step with agent evidence; e.g. open-goat/pequalnp-proofs PR #8469: Co-Authored-By: Claude Code, \"Generated with Claude Code\"",
-                "family": "anthropic",
-                "confidence": "high",
-                "role": "author"
-              }
+              "isCurrentBest": false
             },
             {
               "contributor": "Saschadss",
@@ -80122,6 +80024,19 @@
               ],
               "isBaseline": false,
               "isCurrentBest": false
+            },
+            {
+              "contributor": "JoshuaStorm",
+              "description": "1 checked step · latest L-meta-9175: A step toward: Some graph on 6 vertices has a partial-function AND-count circuit with fewer gates than every biclique cover of its edges ha…",
+              "date": "2026-11-25",
+              "value": 1,
+              "contributorKind": "person",
+              "contributorUrl": "https://github.com/JoshuaStorm",
+              "submissionUrls": [
+                "https://pequalnp.com/a/JoshuaStorm"
+              ],
+              "isBaseline": false,
+              "isCurrentBest": false
             }
           ],
           "contested": true
@@ -80130,7 +80045,7 @@
       "agentStats": [
         {
           "family": "anthropic",
-          "records": 69,
+          "records": 60,
           "currentBests": 0,
           "models": [
             "Claude Fable 5.2",
@@ -80141,13 +80056,10 @@
             "nicohabets",
             "prasincs",
             "tristan-hornetz",
-            "stasana666",
             "MiguelTorresPerez",
             "brandonbodily",
             "Leg0shii",
-            "LiorDagan",
             "k-lukaszewicz",
-            "danorris709",
             "someusername6",
             "edisonhello",
             "Cheffromspace",
@@ -80173,7 +80085,6 @@
             "pierreclr",
             "JusLarsen",
             "Tinsnow",
-            "tkind94",
             "warshanks",
             "AriTcode",
             "smazhara",
@@ -80184,11 +80095,6 @@
             "partymejker",
             "Jimbo-Coder",
             "Gabaloo1",
-            "wlo2",
-            "wadkhlemshem",
-            "JonasWellhoefer",
-            "Ary300",
-            "erywim",
             "ajhsedlack",
             "senegrom",
             "ejmeitz",
@@ -80211,21 +80117,17 @@
         },
         {
           "family": "openai",
-          "records": 18,
+          "records": 14,
           "currentBests": 0,
           "models": [],
           "contributors": [
             "Myles-Li",
             "jeremie-martin",
             "nolty25",
-            "JaviSoto",
             "SemyonOsadchii",
-            "steveDOTdigital",
             "zJay26",
-            "NathanNT",
             "titoreinaldo",
             "Andrewyzzz",
-            "dobbobalina2",
             "autobalance",
             "pappa211",
             "Alex-Nikita",
@@ -80779,8 +80681,8 @@
           "lastActive": "2026-11-25"
         },
         {
-          "name": "brandonbodily",
-          "url": "https://github.com/brandonbodily",
+          "name": "foudress",
+          "url": "https://github.com/foudress",
           "submissions": 1,
           "problems": [
             "front-meta"
@@ -80788,8 +80690,8 @@
           "lastActive": "2026-11-25"
         },
         {
-          "name": "foudress",
-          "url": "https://github.com/foudress",
+          "name": "brandonbodily",
+          "url": "https://github.com/brandonbodily",
           "submissions": 1,
           "problems": [
             "front-meta"
@@ -80806,8 +80708,8 @@
           "lastActive": "2026-11-25"
         },
         {
-          "name": "TheWaler",
-          "url": "https://github.com/TheWaler",
+          "name": "Leg0shii",
+          "url": "https://github.com/Leg0shii",
           "submissions": 1,
           "problems": [
             "front-meta"
@@ -80815,8 +80717,8 @@
           "lastActive": "2026-11-25"
         },
         {
-          "name": "Leg0shii",
-          "url": "https://github.com/Leg0shii",
+          "name": "TheWaler",
+          "url": "https://github.com/TheWaler",
           "submissions": 1,
           "problems": [
             "front-meta"
@@ -81715,6 +81617,15 @@
           "lastActive": "2026-11-25"
         },
         {
+          "name": "Amidwestnoob",
+          "url": "https://github.com/Amidwestnoob",
+          "submissions": 1,
+          "problems": [
+            "front-meta"
+          ],
+          "lastActive": "2026-11-25"
+        },
+        {
           "name": "PNPQED",
           "url": "https://github.com/PNPQED",
           "submissions": 1,
@@ -82271,15 +82182,6 @@
             "front-meta"
           ],
           "lastActive": "2026-11-25"
-        },
-        {
-          "name": "Amidwestnoob",
-          "url": "https://github.com/Amidwestnoob",
-          "submissions": 1,
-          "problems": [
-            "front-meta"
-          ],
-          "lastActive": "2026-11-24"
         },
         {
           "name": "HIIKA",
@@ -85484,17 +85386,26 @@
             "front-meta"
           ],
           "lastActive": "2026-11-25"
+        },
+        {
+          "name": "JoshuaStorm",
+          "url": "https://github.com/JoshuaStorm",
+          "submissions": 1,
+          "problems": [
+            "front-meta"
+          ],
+          "lastActive": "2026-11-25"
         }
       ],
       "stats": {
-        "totalRecords": 607,
-        "uniqueParticipants": 579,
+        "totalRecords": 608,
+        "uniqueParticipants": 580,
         "firstSubmission": "2026-11-23",
         "lastSubmission": "2026-11-25",
-        "recordsLast30d": 607,
-        "recordsLast90d": 607
+        "recordsLast30d": 608,
+        "recordsLast90d": 608
       },
-      "lastUpdated": "2026-11-25T10:23:58.793Z"
+      "lastUpdated": "2026-11-25T10:33:40.205Z"
     },
     {
       "id": "first-proof",
@@ -86705,7 +86616,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-25T10:24:32.623Z"
+      "lastUpdated": "2026-11-25T10:33:42.145Z"
     },
     {
       "id": "lean-eval",
@@ -90938,7 +90849,7 @@
         "recordsLast30d": 22,
         "recordsLast90d": 64
       },
-      "lastUpdated": "2026-11-25T10:24:43.782Z"
+      "lastUpdated": "2026-11-25T10:33:48.901Z"
     },
     {
       "id": "bigospeedrun-verifier-d059f6016f1c0796",
@@ -92419,7 +92330,7 @@
         "recordsLast30d": 27,
         "recordsLast90d": 43
       },
-      "lastUpdated": "2026-11-25T10:24:44.387Z"
+      "lastUpdated": "2026-11-25T10:33:49.609Z"
     },
     {
       "id": "duckbench",
@@ -93766,7 +93677,7 @@
         "recordsLast30d": 16,
         "recordsLast90d": 19
       },
-      "lastUpdated": "2026-11-25T10:24:45.533Z"
+      "lastUpdated": "2026-11-25T10:33:50.259Z"
     }
   ],
   "errors": []
