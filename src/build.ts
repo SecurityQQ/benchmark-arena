@@ -4,7 +4,7 @@ import { dirname, join, resolve, relative, isAbsolute, sep } from "node:path";
 import { pathToFileURL } from "node:url";
 import { createHash } from "node:crypto";
 import type { CrawlResult } from "./types.js";
-import { aggregateAgents, aggregatePeople, competitionIndex, openProblems } from "./aggregate.js";
+import { aggregateAgents, aggregatePeople, competitionIndex, openProblems, withEntryCounts } from "./aggregate.js";
 import { competitionToMarkdown, feedAtom, feedJson, joinTxt, llmsTxt } from "./render.js";
 import { pages, renderPage, topicMarkdown } from "./prerender.js";
 import { TOPICS } from "./topics.js";
@@ -62,10 +62,11 @@ export function publicDataset(value: CrawlResult): Pick<CrawlResult, "crawledAt"
   return { crawledAt: value.crawledAt, competitions: value.competitions };
 }
 
-// What the site publishes: the crawled dataset with the checked corrections applied
+// What the site publishes: the crawled dataset with the checked corrections applied and the 30/90-day entry counts as of the crawl
 export function loadPublished(root: string) {
   const crawled = publicDataset(JSON.parse(readFileSync(join(root, "data", "competitions.json"), "utf-8")));
-  return { ...crawled, competitions: applyCorrections(crawled.competitions, loadCorrections(root, new Set(crawled.competitions.map((c) => c.id)))) };
+  const corrected = applyCorrections(crawled.competitions, loadCorrections(root, new Set(crawled.competitions.map((c) => c.id))));
+  return { ...crawled, competitions: withEntryCounts(corrected, crawled.crawledAt) };
 }
 
 export async function build(root = process.cwd()) {
