@@ -33,3 +33,9 @@ test("corrections: status and deadline are overridden, the source is linked, and
   assert.equal(b.status, "active");
   assert.deepEqual(openProblems([a, b]).map((o) => o.competitionId), ["b"]);
 });
+
+test("corrections: a delisted competition is dropped from the published data", () => {
+  const fixes = validCorrections({ corrections: [{ id: "a", delist: "showcase, no outside submissions", source: "https://example.com/readme", checked: "2026-11-25" }] }, new Set(["a", "b"]));
+  assert.equal(fixes[0].delist, "showcase, no outside submissions");
+  assert.deepEqual(applyCorrections([comp("a"), comp("b")], fixes).map((c) => c.id), ["b"]);
+});
