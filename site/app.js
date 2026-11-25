@@ -989,7 +989,7 @@ function renderStandard() {
 }
 
 // ── Submit a competition: no backend; the form opens a prefilled GitHub issue that a maintainer approves ──
-const SITE_REPO = "SecurityQQ/benchmark-arena";
+const SITE_REPO = "SecurityQQ/open-challenge-list";
 // a listing issue: the live refresh verifies the named repository's PROBLEM.md, lists it and answers with the link
 const LISTING_ISSUE = `https://github.com/${SITE_REPO}/issues/new?title=List+owner/repo&labels=listing`;
 const listingIssue = (r) => `https://github.com/${SITE_REPO}/issues/new?title=${encodeURIComponent(`List ${r.owner}/${r.name}`)}&labels=listing&body=${encodeURIComponent(`https://github.com/${r.owner}/${r.name}`)}`;
