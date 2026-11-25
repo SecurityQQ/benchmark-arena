@@ -269,6 +269,13 @@ const agentDocsLine = (c) => (c.agentDocs && c.agentDocs.length ? `<span class="
 function joinBlock(c, label) {
   return `<div class="join-line"><span class="eyebrow">${esc(label)}</span><pre class="quick join"><button type="button" class="copy" data-action="copy-join" data-comp-id="${esc(c ? c.id : "")}">copy</button><code>${esc(joinFor(c))}</code></pre></div>`;
 }
+// ── For the organizer: the README badge with the board's live number, drawn at build time (src/badge.ts), linking to the board ──
+const BADGE_NOTE = "Add this badge to your README: it shows this listing's live numbers and links here.";
+const BADGE_PATTERN = "[![Open Challenge List](https://openchallengelist.com/badge/c/{id}.svg)](https://openchallengelist.com/c/{id})";
+const badgeMd = (c) => BADGE_PATTERN.split("{id}").join(pathPart(c.id));
+function badgeBlock(c) {
+  return `<div class="readme-badge"><span class="eyebrow">For the organizer</span><p class="hint"><img src="/badge/c/${pathPart(c.id)}.svg" alt="Open Challenge List badge" height="20" loading="lazy" data-error="remove"> ${esc(BADGE_NOTE)}</p><pre class="quick badge-md"><button type="button" class="copy" data-action="copy-badge" data-comp-id="${esc(c.id)}">copy</button><code>${esc(badgeMd(c))}</code></pre></div>`;
+}
 // ── Topic hubs (/topics/{slug}): the filters from src/topics.ts, shipped in /api/summary ──
 const topicFor = (path) => { const tm = path.match(/^\/topics\/([^/]+)$/); return tm && D ? (D.topics || []).find((t) => t.slug === decodeURIComponent(tm[1])) : null; };
 const inTopic = (t, c) => (!t.domains || t.domains.includes(c.domain)) && (!t.computes || t.computes.includes(c.participation.compute)) && (!t.tag || c.tags.some((x) => x.includes(t.tag)));
@@ -463,6 +470,7 @@ document.addEventListener("click", (e) => {
     case "track": e.preventDefault(); gotoTrack(d.track); break;
     case "copy": copyText(el); break;
     case "copy-join": copyText(el); track("copy_join", { competition: d.compId || "any", ...(d.topic ? { topic: d.topic } : {}) }); break;
+    case "copy-badge": copyText(el); track("copy_badge", { competition: d.compId || "" }); break;
     case "lightbox": lightbox(el.src); break;
   }
 }, true);
@@ -941,6 +949,7 @@ function renderStandard() {
         <div class="panel"><h2>A leaderboard that builds itself</h2><p>Every <code>SUBMISSION.md</code> is a row: author, date, the value per track, the approach. No table to maintain by hand, no language model guessing numbers out of a README.</p></div>
         <div class="panel"><h2>Honest agent attribution</h2><p>Entries declare the model and harness that produced them. An agent pointed at your repository reads <code>PROBLEM.md</code>, knows what to optimize and where to put its answer. Listed competitions get a <span class="std-badge static">${I.doc}<span>PROBLEM.md</span></span> mark.</p></div>
       </div>
+      <p class="hint std-readme-badge">Once listed, the repository can show the board's live numbers in its README with a badge that links to the board: <code>${esc(BADGE_PATTERN)}</code>, where {id} is the last part of the board's address. Each board page has its exact snippet.</p>
     </div></section>
 
     <section class="band soft" id="templates"><div class="wrap">
@@ -1313,6 +1322,7 @@ function renderDetail(id) {
         </div>
       </aside>
     </div>
+    ${badgeBlock(c)}
     </div></section>`;
 
   app.querySelectorAll(".problem-head").forEach((h) => (h.onclick = (e) => { if (!e.target.closest(".btn, .ask")) h.parentElement.classList.toggle("open"); }));

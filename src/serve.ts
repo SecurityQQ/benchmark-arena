@@ -4,7 +4,8 @@ import { readFile } from "node:fs/promises";
 import { join, extname } from "node:path";
 import { Readable } from "node:stream";
 import { publicDataset, readSiteAsset } from "./build.js";
-import { aggregatePeople, aggregateAgents, competitionIndex, openProblems } from "./aggregate.js";
+import { aggregatePeople, aggregateAgents, competitionIndex, openProblems, withEntryCounts } from "./aggregate.js";
+import { competitionBadge, listedBadge } from "./badge.js";
 import { competitionToMarkdown, feedAtom, feedJson, joinTxt, llmsTxt } from "./render.js";
 import { pages, renderPage, topicMarkdown } from "./prerender.js";
 import { TOPICS } from "./topics.js";
@@ -160,6 +161,15 @@ const server = createServer(async (req, res) => {
     if (path === "/competitions.json") {
       const data = await loadData();
       return send(res, 200, JSON.stringify(data), MIME[".json"]);
+    }
+
+    // README badges (src/badge.ts), with the entry counts the build publishes
+    if (path === "/badge/listed.svg") return send(res, 200, listedBadge(), MIME[".svg"]);
+    const badgeMatch = path.match(/^\/badge\/c\/([A-Za-z0-9_-]{1,200})\.svg$/);
+    if (badgeMatch) {
+      const data = await loadData();
+      const c = withEntryCounts(data.competitions, data.crawledAt).find((x) => x.id === badgeMatch[1]);
+      return c ? send(res, 200, competitionBadge(c), MIME[".svg"]) : send(res, 404, "Not found");
     }
 
     // ── Pages: every route rendered with its content, as the build does; unknown routes get the 404 page ──
