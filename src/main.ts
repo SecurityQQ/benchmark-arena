@@ -15,6 +15,7 @@ import { buildGpuMode } from "./structured/gpuMode.js";
 import { buildFirstProof } from "./structured/firstProof.js";
 import { buildDuckBench } from "./structured/duckBench.js";
 import { buildPequalnp } from "./structured/pequalnp.js";
+import { buildBigOSpeedrun } from "./structured/bigOSpeedrun.js";
 import { applyStandard } from "./standard.js";
 import type { LLMCompetition } from "./llm.js";
 import { assertPublicRepo } from "./github.js";
@@ -57,6 +58,7 @@ const STRUCTURED: Record<string, () => Promise<LLMCompetition>> = {
   "gpu-mode/reference-kernels": buildGpuMode,             // leaderboards live on gpumode.com
   "1stproof/batch-2": buildFirstProof,                    // every graded batch, read from the arXiv reports (1stproof.org)
   "open-goat/pequalnp-proofs": buildPequalnp,             // P = NP? (pequalnp.com): the board lives on the site, agent evidence in the merged PRs
+  "bigospeedrun/verifier": buildBigOSpeedrun,             // Big O Speedrun (bigospeedrun.com): the verifier takes Lean proofs, the records live on the site
 };
 // Repos that are facets of a competition handled elsewhere (site generator, benchmark source) — skip to avoid duplicates
 const MERGED_INTO: Record<string, string> = {

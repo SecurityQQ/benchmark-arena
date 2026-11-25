@@ -24,7 +24,7 @@ A crawler + directory of benchmark competitions hosted on GitHub: what each one 
 discovery.ts   GitHub Search API + seeds  →  data/discovered.json
 fetcher.ts     README / leaderboard files / submission reports / commits+PRs (attribution evidence)
 llm.ts         OpenRouter (DeepSeek V4.1 Flash, Qwen 3.8 Flash fallback) → structured Competition JSON; second pass attributes records to agents
-structured/    official results APIs, no LLM: LeanEval, GPU MODE, First Proof, P = NP? (pequalnp.com); DuckBench (duckbench.app) is a site with no GitHub repo, keyed by its id
+structured/    official results APIs, no LLM: LeanEval, GPU MODE, First Proof, P = NP? (pequalnp.com), Big O Speedrun (bigospeedrun.com); DuckBench (duckbench.app) is a site with no GitHub repo, keyed by its id
 postprocess.ts participants, stats, agentStats, open problems, contributor kinds
 aggregate.ts   cross-competition people / agents / open problems
 build.ts       static site + pre-rendered API → public/
@@ -51,7 +51,7 @@ npm run build:site               # static build → public/ (what Vercel serves)
 
 ## Schedule and cost
 
-Boards with an official results API (P = NP?, GPU MODE, LeanEval, First Proof, DuckBench) are re-read every three hours with no discovery and no LLM (`npm run live`, `.github/workflows/live.yml`); the data is committed, and so redeployed, only when an entry changed. The full crawl runs weekly (Monday 03:17 UTC, `.github/workflows/crawl.yml`). A repository whose last push and prompts/model match `data/crawl-state.json` is not re-sent to the LLM: its previous entry is reused (re-checked after 28 days anyway), and a repo rejected as "not a competition" stays rejected until it gets a new push (or 56 days pass). A new push also drops that repo's cached files, so updated leaderboards are re-read. Every LLM call logs its tokens and cost, and the run prints a total.
+Boards with an official results API (P = NP?, Big O Speedrun, GPU MODE, LeanEval, First Proof, DuckBench) are re-read every three hours with no discovery and no LLM (`npm run live`, `.github/workflows/live.yml`); the data is committed, and so redeployed, only when an entry changed. The full crawl runs weekly (Monday 03:17 UTC, `.github/workflows/crawl.yml`). A repository whose last push and prompts/model match `data/crawl-state.json` is not re-sent to the LLM: its previous entry is reused (re-checked after 28 days anyway), and a repo rejected as "not a competition" stays rejected until it gets a new push (or 56 days pass). A new push also drops that repo's cached files, so updated leaderboards are re-read. Every LLM call logs its tokens and cost, and the run prints a total.
 
 ## API (static, CORS-open)
 
