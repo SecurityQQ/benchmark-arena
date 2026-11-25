@@ -91,7 +91,9 @@ const SEED_REPOS = [
   { owner: "ndif-team", name: "looped-lens-challenge" },   // NDIF Looped Lens Challenge: interpretability lenses scored on NDIF-hosted models (opened 2026-11-23)
   { owner: "harbor-framework", name: "terminal-bench-challenges" }, // Terminal-Bench Challenges: single hard tasks solved by fully autonomous agents
   { owner: "Saivineeth147", name: "lora-speedrun" },       // LoRA Speedrun: listed since September; a 2026-11-25 crawl dropped it when search missed it
-  { owner: "Kaihui-AMD", name: "modelbot-cli" },           // ROCm llama.cpp challenge (rocm-challenge.amddev.ai): patches evaluated on AMD's GPUs, open to 2026-12-31
+  { owner: "Kaihui-AMD", name: "modelbot-cli" },
+  { owner: "keyu-wang-2002", name: "DepthDash" },          // DepthDash: modded-NanoGPT-style speedrun on residual-connection design at depth (created 2026-11-15)
+  { owner: "basicv8vc", name: "modded-supermimic" },       // Unitree G1 motion-tracking speedrun on 1× Colab G4: training wall time to a 40-clip return target, records by PR           // ROCm llama.cpp challenge (rocm-challenge.amddev.ai): patches evaluated on AMD's GPUs, open to 2026-12-31
 ];
 
 /** Repos anywhere on GitHub that ship PROBLEM.md / SUBMISSION.md with our front matter. Needs an authenticated token (code search). */
