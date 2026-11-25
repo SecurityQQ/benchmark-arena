@@ -162,6 +162,7 @@ export function competitionIndex(comps: Competition[]) {
     entries: c.stats.totalRecords, entriesLast30d: c.stats.recordsLast30d, entriesLast90d: c.stats.recordsLast90d, participants: c.stats.uniqueParticipants, lastEntry: c.stats.lastSubmission,
     agents: (c.agentStats ?? []).filter((a) => a.family !== "unknown").map((a) => a.family),
     url: c.url, page: `/c/${encodeURIComponent(c.id)}`, digest: `/api/competitions/${encodeURIComponent(c.id)}.md`,
+    ...(c.agentDocs?.length ? { agentDocs: c.agentDocs } : {}),   // only boards that have them: the index stays small
   }));
 }
 

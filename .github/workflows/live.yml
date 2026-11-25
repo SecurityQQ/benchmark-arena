@@ -11,6 +11,9 @@ name: Live refresh (official results APIs, changed LLM boards)
 # code search, seeds), so an organizer who adopts the standard is listed within hours; after the push, listing issues get the
 # link (or, once, the reason the repository was not listed).
 #
+# Each run also re-checks which organizers publish instructions for agents (data/agent-docs.json, scripts/agent-docs.ts), so the
+# board pages and digests link them.
+#
 # GitHub starts this repo's scheduled runs hours late or drops them (the weekly crawl fires 8–10 hours after its slot; the first
 # three-hourly slots never fired), so the schedule asks every 30 minutes and a refresh goes ahead only when none succeeded or
 # started in the last 2 h 40 min. Whichever scheduled runs do arrive keep the cadence near three hours.
@@ -61,8 +64,9 @@ jobs:
       issues: write   # reads listing issues, answers and closes them
     runs-on: ubuntu-latest
     # re-extractions stop starting after 30 minutes; one in flight may take up to 2 × the 10-minute LLM timeout; then the
-    # priority lane (at most 30 minutes) and the listing answers (waiting at most 8 minutes for the deploy)
-    timeout-minutes: 100
+    # priority lane (at most 30 minutes), the agent-docs check (at most 5) and the listing answers (waiting at most 8 minutes for
+    # the deploy)
+    timeout-minutes: 105
     steps:
       # the branch head when the job starts, not the commit it was queued on: another data writer in the
       # "crawl" concurrency group may have pushed in between, and its data must be the base for ours
@@ -93,17 +97,29 @@ jobs:
           NEW_ONLY: "1"
         run: npx tsx src/main.ts priority || { echo "::warning::priority lane failed; the live refresh is committed without it"; exit 1; }
 
+      # Links to the organizers' own instructions for agents (AGENTS.md, CLAUDE.md, llms.txt at the repository root, an llms.txt on
+      # the competition's site), boards from the priority lane included. One GitHub call per repository; data/agent-docs.json has no
+      # timestamp, so it changes only when the docs did. A board whose source gave no answer keeps its last entry; a failure here
+      # leaves the file as it was.
+      - name: Organizer instructions for agents
+        continue-on-error: true
+        timeout-minutes: 5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx tsx scripts/agent-docs.ts
+
       - name: README "Open right now"
         run: npx tsx src/readme.ts
 
       - name: Commit data
         run: |
-          # new entries, new Palomar registrations, or state a re-extraction or date lookup moved (without it the next run would redo that work)
-          if ! node scripts/entries-changed.mjs && git diff --quiet -- data/crawl-state.json data/commit-dates.json data/discoveries.json; then echo "no new entries"; exit 0; fi
+          # new entries, new Palomar registrations, state a re-extraction or date lookup moved (without it the next run would redo that
+          # work), or organizer instructions for agents that appeared, moved or went away
+          if ! node scripts/entries-changed.mjs && git diff --quiet -- data/crawl-state.json data/commit-dates.json data/discoveries.json data/agent-docs.json; then echo "no new entries"; exit 0; fi
           git config user.name "openchallengelist-bot"
           git config user.email "bot@users.noreply.github.com"
           # discovered.json: the priority lane's new repositories, which the next refresh follows for changes
-          git add data/competitions.json data/crawl-state.json data/commit-dates.json data/discoveries.json data/discovered.json README.md
+          git add data/competitions.json data/crawl-state.json data/commit-dates.json data/discoveries.json data/discovered.json data/agent-docs.json README.md
           git commit -m "data: live refresh $(date -u +%Y-%m-%dT%H:%MZ)"
           for i in 1 2 3; do git push && exit 0; git pull --rebase origin "$GITHUB_REF_NAME" || exit 1; done; exit 1
 

@@ -12,6 +12,7 @@ import { applyCorrections, loadCorrections } from "./corrections.js";
 import { loadSocial } from "./social.js";
 import { NO_DISCOVERIES, loadDiscoveries } from "./discoveries.js";
 import { cardRenderer, type CardRenderer } from "./og.js";
+import { loadAgentDocs, withAgentDocs } from "./agentDocs.js";
 
 // IndexNow (Bing, Yandex, Seznam…): the key is public by design; the file at /{key}.txt proves the site owns it
 export const INDEXNOW_KEY = "ad98448484b5c15a593b4febe60a83bc";
@@ -62,11 +63,12 @@ export function publicDataset(value: CrawlResult): Pick<CrawlResult, "crawledAt"
   return { crawledAt: value.crawledAt, competitions: value.competitions };
 }
 
-// What the site publishes: the crawled dataset with the checked corrections applied and the 30/90-day entry counts as of the crawl
+// What the site publishes: the crawled dataset with the checked corrections applied, the 30/90-day entry counts as of the crawl,
+// and links to the organizers' own instructions for agents (data/agent-docs.json, when present)
 export function loadPublished(root: string) {
   const crawled = publicDataset(JSON.parse(readFileSync(join(root, "data", "competitions.json"), "utf-8")));
   const corrected = applyCorrections(crawled.competitions, loadCorrections(root, new Set(crawled.competitions.map((c) => c.id))));
-  return { ...crawled, competitions: withEntryCounts(corrected, crawled.crawledAt) };
+  return { ...crawled, competitions: withAgentDocs(withEntryCounts(corrected, crawled.crawledAt), loadAgentDocs(root)) };
 }
 
 export async function build(root = process.cwd()) {

@@ -1026,6 +1026,7 @@ body.app .art-band { padding: 36px 0 44px; }
 .join-line { margin-top: 28px; max-width: 760px; }
 .join-line .eyebrow { margin-bottom: 0; }
 .start-steps .join-line { margin-top: 14px; }
+.start-steps .agent-docs { margin-top: 14px; }
 .topic-links { margin-top: 28px; }
 pre.quick.join { white-space: pre-wrap; word-break: break-word; padding-right: 84px; margin-top: 10px; }
 .live-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--clay); margin-right: 8px; vertical-align: 1px; animation: live-pulse 1.8s ease-in-out infinite; }

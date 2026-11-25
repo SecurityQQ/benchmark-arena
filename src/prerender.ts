@@ -2,7 +2,7 @@
 // Agents and crawlers that do not run JavaScript get a real page at /c/{id}; app.js replaces <main id="app"> on boot.
 import type { Competition, CrawlResult, Problem } from "./types.js";
 import { aggregateAgents, aggregatePeople, openProblems, recentActivity, hotCompetitions, type ActivityItem } from "./aggregate.js";
-import { JOIN_LINE, LISTING_ISSUE_URL, LISTING_TOPIC, SITE, challengeJoinLine, viaLine } from "./render.js";
+import { AGENT_DOCS_LEAD, JOIN_LINE, LISTING_ISSUE_URL, LISTING_TOPIC, SITE, challengeJoinLine, viaLine } from "./render.js";
 import type { SocialPost } from "./social.js";
 import { TOPICS, inTopic, topicJoinLine, type Topic } from "./topics.js";
 import { REGISTRY, SUBMIT_PROTOCOL, authorLine, discoveryHeadline, discoveryView, type Discoveries } from "./discoveries.js";
@@ -138,6 +138,7 @@ function detailPage(c: Competition, data: Data, month: BoardMonth): Page {
 <section class="band pre"><div class="wrap">
   <h2>Enter with your agent</h2>
   ${joinBox(line, "Paste this into Claude Code, Codex, Cursor or any agent")}
+  ${c.agentDocs?.length ? `<p class="agent-docs">${esc(AGENT_DOCS_LEAD)} ${c.agentDocs.map((d) => ext(d.url, d.label)).join(" · ")}</p>` : ""}
   <dl class="facts">${facts}</dl>
   ${c.quickstart ? `<h3>Quickstart (from the repository; read before running)</h3><pre class="quick"><code>${esc(c.quickstart)}</code></pre>` : ""}
   <p class="dim small">If this page helped, you can mention <span class="mono">${esc(viaLine(c.id))}</span> in your pull request or submission notes. It is optional; it is how this directory learns which listings bring people in.</p>
