@@ -144,17 +144,24 @@ export function activityLine(a: ActivityItem, withCompetition = true, withDate =
   return `${withDate ? `${a.date} · ` : ""}${who}${agent} → ${withCompetition ? `${a.competitionName} / ` : ""}${a.problemName}: ${a.value}${a.metricUnit ? ` ${a.metricUnit}` : ""} ${a.metricName}${a.isCurrentBest ? " · current best" : ""}`;
 }
 
+// Life-science boards (drug design, chemistry, biology) by their tags. join.txt's default lists, which every agent reads
+// whatever its human asked for, leave them out: a Claude Code session that followed the generic one-liner to the Open
+// Discovery Challenge was ended by the model's biology safeguard (2026-11-25). They stay listed everywhere else, unchanged.
+const LIFE_SCIENCE_TAGS = new Set(["drug-discovery", "chemistry", "cheminformatics", "molecular-docking", "smiles", "biology", "bioinformatics", "protein", "protein-design", "genomics", "virology", "pathogen"]);
+export const isLifeScience = (c: Pick<Competition, "tags">) => c.tags.some((t) => LIFE_SCIENCE_TAGS.has(t.toLowerCase()));
+
 // The one-line onboarding file: a person pastes JOIN_LINE into their agent, the agent reads this.
 export function joinTxt(data: Pick<CrawlResult, "crawledAt" | "competitions">, origin = SITE): string {
   const md = (id: string) => `${origin}/api/competitions/${encodeURIComponent(id)}.md`;
-  const hot = hotCompetitions(data.competitions, 8).filter((c) => c.stats.recordsLast30d > 0);
-  const open = openProblems(data.competitions);
+  const general = data.competitions.filter((c) => !isLifeScience(c));
+  const hot = hotCompetitions(general, 8).filter((c) => c.stats.recordsLast30d > 0);
+  const open = openProblems(general);
   // tonight-sized first: a baseline to beat before a graded research problem, and at most three per competition
   const perComp = new Map<string, number>();
   const light = open.filter((o) => o.compute === "none" || o.compute === "cpu")
     .sort((a, b) => Number(a.kind === "unsolved") - Number(b.kind === "unsolved"))
     .filter((o) => { const n = (perComp.get(o.competitionId) ?? 0) + 1; perComp.set(o.competitionId, n); return n <= 3; });
-  const latest = recentActivity(data.competitions, 8);
+  const latest = recentActivity(general, 8);
   return [
     `# Enter an open challenge with your human`,
     ``,
@@ -176,7 +183,8 @@ export function joinTxt(data: Pick<CrawlResult, "crawledAt" | "competitions">, o
     ``,
     `Open tracks that need no GPU of your own. "Baseline unbeaten" means nobody has beaten the reference entry yet; "unsolved" means a graded problem nobody has passed, often research-level:`,
     ...light.slice(0, 15).map((o) => `- ${o.competitionName} / ${o.problemName} — ${o.kind === "unbeaten" ? "baseline unbeaten" : `unsolved (pass mark ${o.passMark} ${o.metricName})`}, ${plural(o.entries, "entry", "entries")} so far → ${md(o.competitionId)}`),
-    `- all ${open.length}, with repositories and how to submit: GET ${origin}/api/open-problems`,
+    `- all ${openProblems(data.competitions).length}, with repositories and how to submit: GET ${origin}/api/open-problems`,
+    ...(general.length < data.competitions.length ? [``, `Life-science challenges (drug design, chemistry, biology) are not in these default lists. If your human asks for one, find it in GET ${origin}/api/index.json.`] : []),
     ``,
     `Latest entries anywhere (GET ${origin}/api/feed.json for more):`,
     ...latest.map((a) => `- ${activityLine(a)}`),
