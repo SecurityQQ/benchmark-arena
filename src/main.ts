@@ -17,6 +17,7 @@ import { buildDuckBench } from "./structured/duckBench.js";
 import { buildOpenDiscovery } from "./structured/openDiscovery.js";
 import { buildAiTx } from "./structured/aiTx.js";
 import { buildVesuvius } from "./structured/vesuvius.js";
+import { buildQuantumAdvantage } from "./structured/quantumAdvantage.js";
 import { buildAlchemistry } from "./structured/alchemistry.js";
 import { buildPequalnp } from "./structured/pequalnp.js";
 import { buildBigOSpeedrun } from "./structured/bigOSpeedrun.js";
@@ -84,6 +85,7 @@ const STRUCTURED: Record<string, () => Promise<LLMCompetition>> = {
   "kaihui-amd/modelbot-cli": buildRocmChallenge,          // ROCm llama.cpp challenge (rocm-challenge.amddev.ai): the repo is the contestant CLI, the boards live on the site
   "osgood001/riemann-hypothesis": buildRiemannHub,        // Riemann Hypothesis Lean 4 hub: runs are verified and scored on Bohrium, the board lives on riemann.verifytask.cn
   "ndif-team/looped-lens-challenge": buildLoopedLens,     // The Looped Lens Challenge (NDIF): the repo has the starter lens and submit.py, the board lives on a Hugging Face Space
+  "quantum-advantage-tracker/quantum-advantage-tracker.github.io": buildQuantumAdvantage, // Quantum Advantage Tracker (IBM, Flatiron…): accepted entries are JSON in the repo's data/; the LLM pass had called it "not a competition"
 };
 // Repos that are facets of a competition handled elsewhere (site generator, benchmark source) — skip to avoid duplicates
 const MERGED_INTO: Record<string, string> = {
