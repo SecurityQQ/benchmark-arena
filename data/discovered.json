@@ -1,10 +1,29 @@
 [
   {
+    "owner": "open-challenges",
+    "name": "shortest-riemann-hypothesis-proof",
+    "url": "https://github.com/open-challenges/shortest-riemann-hypothesis-proof",
+    "description": "Shortest Riemann Hypothesis Proof: shorten the machine-checked Lean proof of RH. Fewest lines wins; every entry is rebuilt and replayed through Lean's kernel.",
+    "stars": 0,
+    "topics": [
+      "code-golf",
+      "formal-verification",
+      "lean4",
+      "mathlib",
+      "open-challenge-list",
+      "riemann-hypothesis",
+      "theorem-proving"
+    ],
+    "defaultBranch": "main",
+    "pushedAt": "2026-11-26T17:26:19Z",
+    "priority": true
+  },
+  {
     "owner": "KellerJordan",
     "name": "modded-nanogpt",
     "url": "https://github.com/KellerJordan/modded-nanogpt",
     "description": "NanoGPT (124M) in 90 seconds",
-    "stars": 6070,
+    "stars": 6071,
     "topics": [],
     "defaultBranch": "master",
     "pushedAt": "2026-09-28T21:46:14Z"
@@ -14,7 +33,7 @@
     "name": "audio.cpp",
     "url": "https://github.com/0xShug0/audio.cpp",
     "description": "An all-in-one, pure C++ inference engine for audio models, powered by ggml. Supports TTS, STT, VAD, voice conversion, music generation, and more, with highly optimized performance. No Python dependency.",
-    "stars": 4463,
+    "stars": 4472,
     "topics": [
       "ai",
       "amd-gpu",
@@ -38,7 +57,7 @@
       "yue2"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-26T04:58:29Z"
+    "pushedAt": "2026-11-26T16:28:48Z"
   },
   {
     "owner": "cporter202",
@@ -60,7 +79,7 @@
     "name": "starVLA",
     "url": "https://github.com/starVLA/starVLA",
     "description": "StarVLA: A Lego-like Codebase for Vision-Language-Action Model Developing",
-    "stars": 3977,
+    "stars": 3983,
     "topics": [
       "robotic-foundation-model",
       "robotics",
@@ -68,14 +87,14 @@
       "world-action-model"
     ],
     "defaultBranch": "starVLA_dev",
-    "pushedAt": "2026-11-18T04:24:21Z"
+    "pushedAt": "2026-11-26T15:00:27Z"
   },
   {
     "owner": "IBM",
     "name": "AssetOpsBench",
     "url": "https://github.com/IBM/AssetOpsBench",
     "description": "AssetOpsBench - Industry 4.0: A unified benchmark and framework for building, orchestrating, and evaluating domain-specific AI agents for Industry 4.0 asset operations and maintenance, with 460+ scenarios, 5 specialist agents (IoT, FMSR, TSFM, Work Order,...), and multi-agent orchestration blueprints (MetaAgent, AgentHive) over MCP.",
-    "stars": 2502,
+    "stars": 2508,
     "topics": [
       "ai-for-physical-assets",
       "condition-based-maintenance",
@@ -94,17 +113,17 @@
     "name": "Black-Friday-Deals",
     "url": "https://github.com/mRs-/Black-Friday-Deals",
     "description": "Black Friday Deals for macOS / iOS Software & Books",
-    "stars": 2358,
+    "stars": 2362,
     "topics": [],
     "defaultBranch": "master",
-    "pushedAt": "2026-11-25T22:05:12Z"
+    "pushedAt": "2026-11-26T15:47:49Z"
   },
   {
     "owner": "AGI-Edgerunners",
     "name": "LLM-Agents-Papers",
     "url": "https://github.com/AGI-Edgerunners/LLM-Agents-Papers",
     "description": "A repo lists papers related to LLM based agent",
-    "stars": 2357,
+    "stars": 2358,
     "topics": [
       "agents",
       "large-language-models",
@@ -186,7 +205,7 @@
     "name": "mle-bench",
     "url": "https://github.com/openai/mle-bench",
     "description": "MLE-bench is a benchmark for measuring how well AI agents perform at machine learning engineering",
-    "stars": 1803,
+    "stars": 1804,
     "topics": [],
     "defaultBranch": "main",
     "pushedAt": "2026-04-24T17:33:44Z"
@@ -196,13 +215,13 @@
     "name": "formal-conjectures",
     "url": "https://github.com/google-deepmind/formal-conjectures",
     "description": "A collection of formalized statements of conjectures in Lean.",
-    "stars": 1401,
+    "stars": 1406,
     "topics": [
       "formal-mathematics",
       "lean4"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-24T15:36:54Z"
+    "pushedAt": "2026-11-26T15:46:27Z"
   },
   {
     "owner": "sunblaze-ucb",
@@ -310,25 +329,11 @@
     "pushedAt": "2025-03-14T08:57:10Z"
   },
   {
-    "owner": "rajpurkar",
-    "name": "SQuAD-explorer",
-    "url": "https://github.com/rajpurkar/SQuAD-explorer",
-    "description": "Visually Explore the Stanford Question Answering Dataset",
-    "stars": 568,
-    "topics": [
-      "dataset",
-      "leaderboard",
-      "visual-analysis"
-    ],
-    "defaultBranch": "master",
-    "pushedAt": "2023-10-13T20:58:11Z"
-  },
-  {
     "owner": "molly554",
     "name": "whiteboard-ai-tutor",
     "url": "https://github.com/molly554/whiteboard-ai-tutor",
     "description": "Open-source whiteboard AI tutor with animated lessons and interactive playback. Compare Claude, Gemini & DeepSeek across 288 generation runs and 64 blind-reviewed boards.",
-    "stars": 567,
+    "stars": 571,
     "topics": [
       "ai-teacher",
       "ai-teaching",
@@ -351,7 +356,21 @@
       "whiteboard-animation"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-24T04:01:52Z"
+    "pushedAt": "2026-11-26T09:39:31Z"
+  },
+  {
+    "owner": "rajpurkar",
+    "name": "SQuAD-explorer",
+    "url": "https://github.com/rajpurkar/SQuAD-explorer",
+    "description": "Visually Explore the Stanford Question Answering Dataset",
+    "stars": 568,
+    "topics": [
+      "dataset",
+      "leaderboard",
+      "visual-analysis"
+    ],
+    "defaultBranch": "master",
+    "pushedAt": "2023-10-13T20:58:11Z"
   },
   {
     "owner": "agent-next",
@@ -425,6 +444,16 @@
     "pushedAt": "2026-11-23T23:56:26Z"
   },
   {
+    "owner": "model-checking",
+    "name": "verify-rust-std",
+    "url": "https://github.com/model-checking/verify-rust-std",
+    "description": "Verifying the Rust standard library",
+    "stars": 376,
+    "topics": [],
+    "defaultBranch": "main",
+    "pushedAt": "2026-11-26T16:00:11Z"
+  },
+  {
     "owner": "fstandhartinger",
     "name": "jevbench",
     "url": "https://github.com/fstandhartinger/jevbench",
@@ -466,14 +495,14 @@
       "reproducibility"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-25T14:27:31Z"
+    "pushedAt": "2026-11-26T13:53:45Z"
   },
   {
     "owner": "gpu-mode",
     "name": "reference-kernels",
     "url": "https://github.com/gpu-mode/reference-kernels",
     "description": "Official Problem Sets / Reference Kernels for the GPU MODE Leaderboard!",
-    "stars": 335,
+    "stars": 336,
     "topics": [
       "cuda",
       "gpu",
@@ -509,7 +538,7 @@
       "visualization"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-26T01:27:05Z"
+    "pushedAt": "2026-11-26T15:02:51Z"
   },
   {
     "owner": "LudwigStumpp",
@@ -527,14 +556,31 @@
     "pushedAt": "2024-08-23T20:09:41Z"
   },
   {
+    "owner": "janosh",
+    "name": "matbench-discovery",
+    "url": "https://github.com/janosh/matbench-discovery",
+    "description": "An evaluation framework for machine learning models simulating high-throughput materials discovery.",
+    "stars": 260,
+    "topics": [
+      "bayesian-optimization",
+      "convex-hull",
+      "high-throughput-search",
+      "interatomic-potential",
+      "machine-learning",
+      "materials-discovery"
+    ],
+    "defaultBranch": "main",
+    "pushedAt": "2026-11-23T13:22:26Z"
+  },
+  {
     "owner": "open-goat",
     "name": "pequalnp-proofs",
     "url": "https://github.com/open-goat/pequalnp-proofs",
     "description": "Lean 4 proofs from the public AI attempt at P vs NP (pequalnp.com). Open gaps welcome pull requests.",
-    "stars": 219,
+    "stars": 247,
     "topics": [],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-26T05:12:16Z"
+    "pushedAt": "2026-11-26T17:40:14Z"
   },
   {
     "owner": "Saivineeth147",
@@ -556,6 +602,16 @@
     "pushedAt": "2026-09-12T04:50:56Z"
   },
   {
+    "owner": "quantum-advantage-tracker",
+    "name": "quantum-advantage-tracker.github.io",
+    "url": "https://github.com/quantum-advantage-tracker/quantum-advantage-tracker.github.io",
+    "description": "As claims of quantum advantage emerge, this project provides a platform-agnostic framework to collect, validate, and compare experimental results.",
+    "stars": 133,
+    "topics": [],
+    "defaultBranch": "main",
+    "pushedAt": "2026-11-03T23:23:28Z"
+  },
+  {
     "owner": "metacognitionai",
     "name": "NavGPT-3",
     "url": "https://github.com/metacognitionai/NavGPT-3",
@@ -566,6 +622,54 @@
     "pushedAt": "2026-10-14T05:05:20Z"
   },
   {
+    "owner": "realchendahuang",
+    "name": "before-you-install-t3code",
+    "url": "https://github.com/realchendahuang/before-you-install-t3code",
+    "description": "Independent telemetry, security, governance, and public-record audit of pingdotgg/t3code across 18 languages, 6 dossiers, 108 receipts, 320+ primary sources & live evidence portal.",
+    "stars": 99,
+    "topics": [
+      "github-pages",
+      "i18n",
+      "open-source",
+      "privacy",
+      "security-audit",
+      "security-research",
+      "t3code",
+      "telemetry"
+    ],
+    "defaultBranch": "main",
+    "pushedAt": "2026-11-26T15:08:47Z"
+  },
+  {
+    "owner": "Layr-Labs",
+    "name": "ecdsafail-challenge",
+    "url": "https://github.com/Layr-Labs/ecdsafail-challenge",
+    "description": "A collaborative effort to build the leanest circuit that breaks ECDSA",
+    "stars": 95,
+    "topics": [],
+    "defaultBranch": "main",
+    "pushedAt": "2026-11-26T17:13:37Z"
+  },
+  {
+    "owner": "cdcepi",
+    "name": "FluSight-forecast-hub",
+    "url": "https://github.com/cdcepi/FluSight-forecast-hub",
+    "stars": 74,
+    "topics": [],
+    "defaultBranch": "main",
+    "pushedAt": "2026-11-26T04:09:15Z"
+  },
+  {
+    "owner": "unitaryfoundation",
+    "name": "qldpc-challenge",
+    "url": "https://github.com/unitaryfoundation/qldpc-challenge",
+    "description": "Public challenge to find optimal qLDPC codes.",
+    "stars": 44,
+    "topics": [],
+    "defaultBranch": "main",
+    "pushedAt": "2026-11-26T17:38:13Z"
+  },
+  {
     "owner": "leanprover",
     "name": "lean-eval-leaderboard",
     "url": "https://github.com/leanprover/lean-eval-leaderboard",
@@ -573,7 +677,7 @@
     "stars": 32,
     "topics": [],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-21T11:53:44Z"
+    "pushedAt": "2026-11-26T06:00:15Z"
   },
   {
     "owner": "SAIRcompetition",
@@ -634,6 +738,20 @@
     "pushedAt": "2026-09-09T04:49:54Z"
   },
   {
+    "owner": "ndif-team",
+    "name": "looped-lens-challenge",
+    "url": "https://github.com/ndif-team/looped-lens-challenge",
+    "description": "The Looped Lens Challenge: an NDIF competition for lenses that read what a model computes but never writes",
+    "stars": 12,
+    "topics": [
+      "interpretability",
+      "ndif",
+      "nnsight"
+    ],
+    "defaultBranch": "main",
+    "pushedAt": "2026-11-25T18:31:37Z"
+  },
+  {
     "owner": "Dicklesworthstone",
     "name": "rust_scriptbots",
     "url": "https://github.com/Dicklesworthstone/rust_scriptbots",
@@ -647,21 +765,7 @@
       "simulation"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-26T05:07:57Z"
-  },
-  {
-    "owner": "ndif-team",
-    "name": "looped-lens-challenge",
-    "url": "https://github.com/ndif-team/looped-lens-challenge",
-    "description": "The Looped Lens Challenge: an NDIF competition for lenses that read what a model computes but never writes",
-    "stars": 11,
-    "topics": [
-      "interpretability",
-      "ndif",
-      "nnsight"
-    ],
-    "defaultBranch": "main",
-    "pushedAt": "2026-11-25T18:31:37Z"
+    "pushedAt": "2026-11-26T17:44:00Z"
   },
   {
     "owner": "leanprover",
@@ -717,6 +821,16 @@
     "pushedAt": "2025-05-27T04:01:51Z"
   },
   {
+    "owner": "alan-turing-institute",
+    "name": "Ravensport-Competition",
+    "url": "https://github.com/alan-turing-institute/Ravensport-Competition",
+    "description": "Ravensport competition for SatML 2027: Actionable Detection and Autonomous Mitigation in CNI",
+    "stars": 8,
+    "topics": [],
+    "defaultBranch": "main",
+    "pushedAt": "2026-11-14T12:38:10Z"
+  },
+  {
     "owner": "programbench",
     "name": "submissions",
     "url": "https://github.com/ProgramBench/submissions",
@@ -737,7 +851,7 @@
       "research-software"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-26T04:47:17Z"
+    "pushedAt": "2026-11-26T17:48:01Z"
   },
   {
     "owner": "kings-crown",
@@ -853,7 +967,7 @@
     "stars": 2,
     "topics": [],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-25T07:41:34Z"
+    "pushedAt": "2026-11-26T09:05:18Z"
   },
   {
     "owner": "keyu-wang-2002",
@@ -917,32 +1031,24 @@
     "url": "https://github.com/rtl-ai/silicon-arena",
     "description": "Open, agent-driven research to design manufacturable AI training and inference chips with optimized PPBA, cost, and yield.",
     "stars": 0,
-    "topics": [],
+    "topics": [
+      "ai-agents",
+      "benchmark",
+      "eda",
+      "formal-verification",
+      "fpga",
+      "hardware-design",
+      "logic-synthesis",
+      "rtl",
+      "verilog",
+      "yosys"
+    ],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-26T02:07:34Z"
+    "pushedAt": "2026-11-26T12:20:15Z"
   },
   {
     "owner": "open-challenges",
     "name": "rh-golf",
-    "url": "https://github.com/open-challenges/rh-golf",
-    "description": "Shorten the machine-checked Lean proof of the Riemann Hypothesis: fewest lines wins, every entry rebuilt and replayed through Lean's kernel.",
-    "stars": 0,
-    "topics": [
-      "code-golf",
-      "formal-verification",
-      "lean4",
-      "mathlib",
-      "open-challenge-list",
-      "riemann-hypothesis",
-      "theorem-proving"
-    ],
-    "defaultBranch": "main",
-    "pushedAt": "2026-11-26T08:26:44Z",
-    "priority": true
-  },
-  {
-    "owner": "open-challenges",
-    "name": "shortest-riemann-hypothesis-proof",
     "url": "https://github.com/open-challenges/shortest-riemann-hypothesis-proof",
     "description": "Shortest Riemann Hypothesis Proof: shorten the machine-checked Lean proof of RH. Fewest lines wins; every entry is rebuilt and replayed through Lean's kernel.",
     "stars": 0,
@@ -956,7 +1062,6 @@
       "theorem-proving"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-26T17:26:19Z",
-    "priority": true
+    "pushedAt": "2026-11-26T17:26:19Z"
   }
 ]

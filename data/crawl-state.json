@@ -1,9 +1,9 @@
 {
   "0xshug0/audio.cpp": {
-    "pushedAt": "2026-11-26T04:58:29Z",
+    "pushedAt": "2026-11-26T16:28:48Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "none",
-    "checkedAt": "2026-11-26T05:15:48.507Z"
+    "checkedAt": "2026-11-26T17:51:46.222Z"
   },
   "1105216375-alt/resimind": {
     "pushedAt": "2026-10-15T15:00:55Z",
@@ -13,10 +13,17 @@
   },
   "actava-ai/leaderboard": {
     "pushedAt": "2026-11-06T21:20:07Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-09T11:49:00.578Z",
-    "head": "86ef971ff809f037dd4c502d099733b7dc23f9b2"
+    "checkedAt": "2026-11-26T18:03:54.190Z",
+    "head": "86ef971ff809f037dd4c502d099733b7dc23f9b2",
+    "sources": [
+      "README.md",
+      "benchmarks/README.md",
+      "CONTRIBUTING.md",
+      ".claude/skills/submit-to-leaderboard/SKILL.md",
+      "AGENTS.md"
+    ]
   },
   "agent-axiom/agent-anvil-leaderboard": {
     "pushedAt": "2026-06-08T19:34:24Z",
@@ -63,6 +70,26 @@
     "verdict": "none",
     "checkedAt": "2026-11-26T05:17:05.147Z"
   },
+  "alan-turing-institute/ravensport-competition": {
+    "pushedAt": "2026-11-14T12:38:10Z",
+    "fingerprint": "a0f0ccb7f37eb7e2",
+    "verdict": "competition",
+    "checkedAt": "2026-11-26T18:03:07.182Z",
+    "head": "e5ceba0ca35c5b7487639d5f3961f9d49fde9488",
+    "sources": [
+      "README.md",
+      "narrative.md",
+      "docs/entry-guide.md",
+      "docs/training.md",
+      "specs/competition/episodes.md",
+      "specs/competition/episode-runner-impl.md",
+      "specs/digital.md",
+      "specs/sim.md",
+      "specs/host_specs/siem/siem.md",
+      "docs/testbed.md",
+      "TERMS.md"
+    ]
+  },
   "alankaspersky/kaspersky-inventions-for-tanki-online": {
     "pushedAt": "2026-11-01T16:17:10Z",
     "fingerprint": "81e7e9bf9471aa91",
@@ -107,11 +134,11 @@
     ]
   },
   "bichengwang/rl-pricing": {
-    "pushedAt": "2026-11-25T14:27:31Z",
+    "pushedAt": "2026-11-26T13:53:45Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-26T05:25:32.496Z",
-    "head": "c8e269cf2e6f20b878d2e944ee9ca1cf61e0e190",
+    "checkedAt": "2026-11-26T17:54:47.175Z",
+    "head": "da2721eba83f5bd64b392f3ee9525973931ed41f",
     "sources": [
       "README.md",
       ".plan/README.md",
@@ -140,6 +167,22 @@
       ".plan/v2.md",
       ".plan/paper-v2.md",
       "leaderboard/"
+    ]
+  },
+  "cdcepi/flusight-forecast-hub": {
+    "pushedAt": "2026-11-26T04:09:15Z",
+    "fingerprint": "a0f0ccb7f37eb7e2",
+    "verdict": "competition",
+    "checkedAt": "2026-11-26T18:02:16.839Z",
+    "head": "ff8f3b287029e3352ca5fc278d1184103e354455",
+    "sources": [
+      "README.md",
+      "auxiliary-data/README.md",
+      "hub-config/README.md",
+      "model-metadata/README.md",
+      "model-output/README.md",
+      "target-data/README.md",
+      "model-output/../target-data/README.md"
     ]
   },
   "changwookjun/nlp-paper": {
@@ -251,10 +294,10 @@
     "checkedAt": "2026-11-26T05:34:48.294Z"
   },
   "dicklesworthstone/rust_scriptbots": {
-    "pushedAt": "2026-11-26T05:07:57Z",
+    "pushedAt": "2026-11-26T17:44:00Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "none",
-    "checkedAt": "2026-11-26T05:34:06.971Z"
+    "checkedAt": "2026-11-26T18:02:49.649Z"
   },
   "ecro/embedeval": {
     "pushedAt": "2026-09-09T04:49:54Z",
@@ -358,6 +401,16 @@
     "verdict": "none",
     "checkedAt": "2026-11-26T05:37:31.090Z"
   },
+  "janosh/matbench-discovery": {
+    "pushedAt": "2026-11-23T13:22:26Z",
+    "fingerprint": "a0f0ccb7f37eb7e2",
+    "verdict": "competition",
+    "checkedAt": "2026-11-26T17:55:23.102Z",
+    "head": "20739948ec8d6b9a17e0959200c6bbd267bc88a0",
+    "sources": [
+      "readme.md"
+    ]
+  },
   "jozzdart/track": {
     "pushedAt": "2025-05-27T04:01:51Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
@@ -395,6 +448,17 @@
     "sources": [
       "README.md",
       "GUIDE.md"
+    ]
+  },
+  "layr-labs/ecdsafail-challenge": {
+    "pushedAt": "2026-11-26T17:13:37Z",
+    "fingerprint": "a0f0ccb7f37eb7e2",
+    "verdict": "competition",
+    "checkedAt": "2026-11-26T18:01:44.999Z",
+    "head": "b4f4db0a76538e25851b771a727bc2b4d2b5919d",
+    "sources": [
+      "README.md",
+      "results.tsv"
     ]
   },
   "lbx154/argus": {
@@ -497,6 +561,21 @@
     "verdict": "none",
     "checkedAt": "2026-10-13T23:04:09.588Z"
   },
+  "model-checking/verify-rust-std": {
+    "pushedAt": "2026-11-26T16:00:11Z",
+    "fingerprint": "a0f0ccb7f37eb7e2",
+    "verdict": "competition",
+    "checkedAt": "2026-11-26T17:54:13.372Z",
+    "head": "f94155ef2983580c9c012740b75793df2922d2e5",
+    "sources": [
+      "README.md",
+      "kmir-proofs/README.md",
+      "testable-simd-models/README.md",
+      "verifast-proofs/README.md",
+      "doc/src/tool_template.md",
+      "verifast-proofs/../doc/src/tools/verifast.md"
+    ]
+  },
   "molly554/whiteboard-ai-tutor": {
     "pushedAt": "2026-11-26T09:39:31Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
@@ -523,10 +602,10 @@
     "live": true
   },
   "mrs-/black-friday-deals": {
-    "pushedAt": "2026-11-25T22:05:12Z",
+    "pushedAt": "2026-11-26T15:47:49Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "none",
-    "checkedAt": "2026-11-26T05:17:00.551Z"
+    "checkedAt": "2026-11-26T17:52:19.772Z"
   },
   "ndif-team/looped-lens-challenge": {
     "pushedAt": "2026-11-25T18:31:37Z",
@@ -645,6 +724,12 @@
       "archive/10M/README.md"
     ]
   },
+  "quantum-advantage-tracker/quantum-advantage-tracker.github.io": {
+    "pushedAt": "2026-11-03T23:23:28Z",
+    "fingerprint": "a0f0ccb7f37eb7e2",
+    "verdict": "none",
+    "checkedAt": "2026-11-26T18:01:15.914Z"
+  },
   "rajpurkar/squad-explorer": {
     "pushedAt": "2023-10-13T20:58:11Z",
     "fingerprint": "81e7e9bf9471aa91",
@@ -678,6 +763,12 @@
     "verdict": "competition",
     "checkedAt": "2026-11-25T06:21:21.502Z",
     "head": "1fd4b9639a32247382c40b97cb6ae7ef520b3772"
+  },
+  "realchendahuang/before-you-install-t3code": {
+    "pushedAt": "2026-11-26T15:08:47Z",
+    "fingerprint": "a0f0ccb7f37eb7e2",
+    "verdict": "none",
+    "checkedAt": "2026-11-26T18:01:22.432Z"
   },
   "recursive-org/first-steps-toward-automated-ai-research": {
     "pushedAt": "2026-06-11T07:57:36Z",
@@ -917,6 +1008,25 @@
     "verdict": "competition",
     "checkedAt": "2026-10-13T23:10:28.396Z"
   },
+  "unitaryfoundation/qldpc-challenge": {
+    "pushedAt": "2026-11-26T17:38:13Z",
+    "fingerprint": "a0f0ccb7f37eb7e2",
+    "verdict": "competition",
+    "checkedAt": "2026-11-26T18:02:37.503Z",
+    "head": "e142c3fdfdc83a4df1b7d417b1ce2c833ebe9712",
+    "sources": [
+      "README.md",
+      "fieldnotes/README.md",
+      "notes/README.md",
+      "research/README.md",
+      "TRACKS.md",
+      "AGENTS.md",
+      "CONTRIBUTING.md",
+      "research/AUTORESEARCH.md",
+      "beat-the-surface-code.md",
+      "notes/TEMPLATE.md"
+    ]
+  },
   "vchitect/vbench": {
     "pushedAt": "2026-08-21T15:28:08Z",
     "fingerprint": "81e7e9bf9471aa91",
@@ -948,10 +1058,10 @@
     "checkedAt": "2026-10-26T09:09:02.445Z"
   },
   "xcpcio/xcpcio": {
-    "pushedAt": "2026-11-26T01:27:05Z",
+    "pushedAt": "2026-11-26T15:02:51Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "none",
-    "checkedAt": "2026-11-26T05:26:13.564Z"
+    "checkedAt": "2026-11-26T17:55:03.422Z"
   },
   "yinizhilian/iclr2025-papers-with-code": {
     "pushedAt": "2025-03-14T08:57:10Z",
