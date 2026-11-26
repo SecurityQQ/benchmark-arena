@@ -20,6 +20,8 @@ import { buildAlchemistry } from "./structured/alchemistry.js";
 import { buildPequalnp } from "./structured/pequalnp.js";
 import { buildBigOSpeedrun } from "./structured/bigOSpeedrun.js";
 import { buildRocmChallenge } from "./structured/rocmChallenge.js";
+import { buildRiemannHub } from "./structured/riemannHub.js";
+import { buildLoopedLens } from "./structured/loopedLens.js";
 import { applyStandard } from "./standard.js";
 import type { LLMCompetition } from "./llm.js";
 import { assertPublicRepo, isNotPublic } from "./github.js";
@@ -79,6 +81,8 @@ const STRUCTURED: Record<string, () => Promise<LLMCompetition>> = {
   "open-goat/pequalnp-proofs": buildPequalnp,             // P = NP? (pequalnp.com): the board lives on the site, agent evidence in the merged PRs
   "bigospeedrun/verifier": buildBigOSpeedrun,             // Big O Speedrun (bigospeedrun.com): the verifier takes Lean proofs, the records live on the site
   "kaihui-amd/modelbot-cli": buildRocmChallenge,          // ROCm llama.cpp challenge (rocm-challenge.amddev.ai): the repo is the contestant CLI, the boards live on the site
+  "osgood001/riemann-hypothesis": buildRiemannHub,        // Riemann Hypothesis Lean 4 hub: runs are verified and scored on Bohrium, the board lives on riemann.verifytask.cn
+  "ndif-team/looped-lens-challenge": buildLoopedLens,     // The Looped Lens Challenge (NDIF): the repo has the starter lens and submit.py, the board lives on a Hugging Face Space
 };
 // Repos that are facets of a competition handled elsewhere (site generator, benchmark source) — skip to avoid duplicates
 const MERGED_INTO: Record<string, string> = {
