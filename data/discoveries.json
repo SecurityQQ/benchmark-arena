@@ -1,19 +1,206 @@
 {
-  "fetchedAt": "2026-11-25T11:19:31.117Z",
+  "fetchedAt": "2026-11-26T02:52:01.248Z",
   "totals": {
-    "results": 1357,
-    "projects": 1032
+    "results": 1368,
+    "projects": 1042
   },
   "days": {
+    "2026-11-26": 11,
     "2026-11-25": 6,
     "2026-11-24": 22,
     "2026-11-23": 36,
     "2026-11-22": 33,
     "2026-11-21": 20,
-    "2026-11-20": 26,
-    "2026-11-19": 36
+    "2026-11-20": 26
   },
   "items": [
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000011",
+      "version": 1,
+      "title": "Localization-delocalization transition for a random block matrix model",
+      "authors": [
+        "Jun Yin"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T02:44:34Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000011&version=1",
+      "repo": "JYin80/Lean-RBMTransitionEdge_arXiv-2504.00512",
+      "subjects": [
+        "math.PR",
+        "math-ph"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000010",
+      "version": 1,
+      "title": "A countable group that is hyperlinear and not sofic",
+      "authors": [
+        "Peter Burton"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T02:35:32Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000010&version=1",
+      "repo": "peterburton1728/hyperlinear-not-sofic",
+      "subjects": [
+        "math.GR",
+        "math.OA"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000009",
+      "version": 1,
+      "title": "Deterministic almost-linear-time minimum-cost flow",
+      "authors": [
+        "Mahdi JafariRaviz"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T02:23:33Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000009&version=1",
+      "repo": "mahdi-jfri/MinCostFlowAlmostLinear",
+      "subjects": [
+        "cs.DS"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000008",
+      "version": 1,
+      "title": "The Ouroboros Conjecture: Competing Attractors in Base 10 Among Last-Digit Collatz Maps",
+      "authors": [
+        "Tyler B. Hughes"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T02:11:00Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000008&version=1",
+      "repo": "mathdiscoveries/the-ouroboros-conjecture",
+      "subjects": [
+        "math.NT",
+        "math.DS"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000007",
+      "version": 1,
+      "title": "Dehn Packets in Lean: two icosahedral pairs that cannot fill space",
+      "authors": [
+        "DICTO"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T02:02:57Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000007&version=1",
+      "repo": "DICTOR-Master/dehn-packets-lean",
+      "subjects": [
+        "math.MG"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000006",
+      "version": 1,
+      "title": "How Many Prime Factors Could a Counterexample to Giuga's Conjecture Have?",
+      "authors": [
+        "Tyler B. Hughes"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T01:52:41Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000006&version=1",
+      "repo": "mathdiscoveries/giuga-conjecture-counterexample",
+      "subjects": [
+        "math.NT"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000005",
+      "version": 1,
+      "title": "Physical host recovery and gap preservation after random crossing-edge deletions",
+      "authors": [
+        "Juan Pablo Traverso Gianini"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T01:45:34Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000005&version=1",
+      "repo": "jtraverso/split-clique-partition-gap",
+      "subjects": [
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000004",
+      "version": 1,
+      "title": "Positive-Characteristic Dichotomy and Optimal Three-Register Exponents in Passive Catalytic Register Programs",
+      "authors": [
+        "Alexander S. Donahue"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T01:07:48Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000004&version=1",
+      "repo": "0thernes/catalytic-register-frontiers",
+      "subjects": [
+        "cs.CC",
+        "math.CO",
+        "cs.LO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000003",
+      "version": 1,
+      "title": "DegreeSensitivity: Sharp Low-Degree Sensitivity Bounds for Boolean Functions",
+      "authors": [
+        "Zichao Wei"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T00:58:24Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000003&version=1",
+      "repo": "exusiaiwei/degree-sensitivity-lean",
+      "subjects": [
+        "math.CO",
+        "cs.CC"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000002",
+      "version": 1,
+      "title": "Squier's theorem: finite convergent string rewriting systems have finite derivation type, with Newman's lemma, the critical pair lemma and the symmetric group S3 as a worked example",
+      "authors": [
+        "Rohan Badade"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T00:50:31Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000002&version=1",
+      "repo": "gnostrich/sqier",
+      "subjects": [
+        "math.CT",
+        "cs.LO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000001",
+      "version": 1,
+      "title": "Prescribed holes in the time frequency plane and ptychographic phase retrieval",
+      "authors": [
+        "Jaume de Dios Pont",
+        "Philippe Jaming",
+        "Lukas Liehr",
+        "Mitchell A. Taylor"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T00:39:45Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000001&version=1",
+      "repo": "lukasliehr/Ambiguity-Zeros",
+      "subjects": [
+        "math.CA",
+        "math.FA"
+      ]
+    },
     {
       "source": "palomar",
       "id": "PALOMAR-2026-11-25-000006",
@@ -831,196 +1018,6 @@
       "subjects": [
         "math.LO",
         "cs.LO"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-23-000015",
-      "version": 1,
-      "title": "Gabor Frames of Totally Positive Functions",
-      "authors": [
-        "Jaume de Dios Pont",
-        "Karlheinz Gröchenig",
-        "Lukas Liehr",
-        "Irina Shafkulovska",
-        "Mitchell A. Taylor"
-      ],
-      "date": "2026-11-23",
-      "at": "2026-11-23T09:58:30Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000015&version=1",
-      "repo": "lukasliehr/TotallyPositive",
-      "subjects": [
-        "math.FA",
-        "math.CA"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-23-000014",
-      "version": 1,
-      "title": "Irreducibility for symmetric Rademacher matrices",
-      "authors": [
-        "Tao Hu",
-        "Quanyu Tang"
-      ],
-      "date": "2026-11-23",
-      "at": "2026-11-23T09:28:39Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000014&version=1",
-      "repo": "QuanyuTang/symmetric-rademacher-irreducibility-palomar",
-      "subjects": [
-        "math.PR",
-        "math.NT"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-23-000013",
-      "version": 1,
-      "title": "Derivatives of Theta Functions and a Problem of Lyubarskii and Nes",
-      "authors": [
-        "Lukas Liehr",
-        "Irina Shafkulovska",
-        "Mitchell A. Taylor"
-      ],
-      "date": "2026-11-23",
-      "at": "2026-11-23T09:14:33Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000013&version=1",
-      "repo": "lukasliehr/h1_frames",
-      "subjects": [
-        "math.CA",
-        "math.FA"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-23-000012",
-      "version": 1,
-      "title": "Erdős Problem #643: Extremal Disjoint-Union Hypergraphs",
-      "authors": [
-        "Yilin Liu"
-      ],
-      "date": "2026-11-23",
-      "at": "2026-11-23T08:32:48Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000012&version=1",
-      "repo": "icekylinx/jsp-000523-proof",
-      "subjects": [
-        "math.CO"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-23-000011",
-      "version": 1,
-      "title": "The exceptional set of the Goldbach problem",
-      "authors": [
-        "Steve Hubbard"
-      ],
-      "date": "2026-11-23",
-      "at": "2026-11-23T08:24:40Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000011&version=1",
-      "repo": "sthubbar/goldbach-lean",
-      "subjects": [
-        "math.NT"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-23-000010",
-      "version": 1,
-      "title": "Certified Positivity: the explicit formula for Suzuki's zeta screw function, and positive semidefiniteness of its Gram kernel on every finite grid under the Riemann Hypothesis",
-      "authors": [
-        "Rohan Badade"
-      ],
-      "date": "2026-11-23",
-      "at": "2026-11-23T08:13:56Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000010&version=1",
-      "repo": "gnostrich/certified-positivity",
-      "subjects": [
-        "math.NT",
-        "math.LO"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-23-000009",
-      "version": 1,
-      "title": "Finite modulated lattice-comb decompositions for crystalline measures",
-      "authors": [
-        "Jamie Martin"
-      ],
-      "date": "2026-11-23",
-      "at": "2026-11-23T07:12:52Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000009&version=1",
-      "repo": "balancedscorpion/lev-olevskii-lattice-cover",
-      "subjects": [
-        "math.CA",
-        "math.FA"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-23-000008",
-      "version": 1,
-      "title": "Conditional independence for a literal 451-state Turing machine",
-      "authors": [
-        "James Chang"
-      ],
-      "date": "2026-11-23",
-      "at": "2026-11-23T05:53:34Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000008&version=1",
-      "repo": "jamesyc/BusyBeaver",
-      "subjects": [
-        "cs.LO",
-        "math.LO"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-23-000007",
-      "version": 1,
-      "title": "Short effective intervals containing primes",
-      "authors": [
-        "Steve Hubbard"
-      ],
-      "date": "2026-11-23",
-      "at": "2026-11-23T05:32:51Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000007&version=1",
-      "repo": "sthubbar/goldbach-lean",
-      "subjects": [
-        "math.NT"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-23-000006",
-      "version": 1,
-      "title": "Prime numbers and powers of two",
-      "authors": [
-        "Steve Hubbard"
-      ],
-      "date": "2026-11-23",
-      "at": "2026-11-23T05:10:19Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000006&version=1",
-      "repo": "sthubbar/goldbach-lean",
-      "subjects": [
-        "math.NT"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-23-000005",
-      "version": 1,
-      "title": "A verified finite oracle reduction for Hamiltonicity",
-      "authors": [
-        "Will Strinz"
-      ],
-      "date": "2026-11-23",
-      "at": "2026-11-23T02:47:22Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000005&version=1",
-      "repo": "wstrinz/hamiltonicity-oracle-reduction",
-      "subjects": [
-        "cs.DS",
-        "math.CO"
       ]
     }
   ]

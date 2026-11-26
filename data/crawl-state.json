@@ -399,11 +399,16 @@
     ]
   },
   "qlabs-eng/noise": {
-    "pushedAt": "2026-11-24T00:50:05Z",
+    "pushedAt": "2026-11-25T19:45:27Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-25T06:12:02.542Z",
-    "head": "a027e8cf0aa57122609584b118ca9c0e14f2ae2c"
+    "checkedAt": "2026-11-26T02:51:49.450Z",
+    "head": "fbd6ed5deac1ce7e88b709c3bd74cfc656cdef0c",
+    "sources": [
+      "README.md",
+      "archive/10M/README.md"
+    ],
+    "live": true
   },
   "rajpurkar/squad-explorer": {
     "pushedAt": "2023-10-13T20:58:11Z",
@@ -443,20 +448,27 @@
     "checkedAt": "2026-10-19T09:13:56.124Z"
   },
   "rtl-ai/silicon-arena": {
-    "pushedAt": "2026-11-25T15:04:42Z",
+    "pushedAt": "2026-11-26T02:07:34Z",
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
-    "checkedAt": "2026-11-25T15:05:06.102Z",
-    "head": "862f316d96cfc1ae2bbd49faefbdfe08f329ca1b",
+    "checkedAt": "2026-11-26T02:51:29.901Z",
+    "head": "6e6911d6484bab6834063d919088f369e4417cc5",
     "sources": [
       "PROBLEM.md",
+      "submissions/rtl-ai-baseline/SUBMISSION.md",
       "README.md",
+      "LEADERBOARD.md",
+      "mcp_bundle/README.md",
       "mcp_server/README.md",
-      "AGENTS.md",
-      "research/measurement.md",
-      "research/roadmap.md",
-      "research/manufacturing.md",
+      "research/inference-002.md",
+      "CONTRIBUTING.md",
       "research/challenge-contract.md",
+      "AGENTS.md",
+      "submissions/rtl-ai-baseline/../../research/challenge-contract.md",
+      "integrations/rtl_dot8/README.md",
+      "research/roadmap.md",
+      "research/measurement.md",
+      "research/manufacturing.md",
       "research/STATUS.md",
       "research/coordinator.md",
       "skills/siliconarena/SKILL.md",
@@ -467,7 +479,8 @@
       "research/discovery.md",
       "research/outreach.md",
       "submissions/"
-    ]
+    ],
+    "live": true
   },
   "ryanalberts/best-of-agent-harnesses": {
     "pushedAt": "2026-11-08T18:40:59Z",
