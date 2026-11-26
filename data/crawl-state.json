@@ -1,9 +1,9 @@
 {
   "0xshug0/audio.cpp": {
-    "pushedAt": "2026-11-26T16:28:48Z",
+    "pushedAt": "2026-11-26T22:14:08Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "none",
-    "checkedAt": "2026-11-26T17:51:46.222Z"
+    "checkedAt": "2026-11-26T22:23:19.785Z"
   },
   "1105216375-alt/resimind": {
     "pushedAt": "2026-10-15T15:00:55Z",
@@ -389,11 +389,18 @@
     ]
   },
   "google-deepmind/formal-conjectures": {
-    "pushedAt": "2026-11-24T15:36:54Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "pushedAt": "2026-11-26T15:46:27Z",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-25T07:09:54.141Z",
-    "head": "9097e2f90e66d2f6244209cb1c07f7120d17ec53"
+    "checkedAt": "2026-11-26T22:24:14.520Z",
+    "head": "ea8e3e198ded6fc73efb7f5653b74b28ac4ae1a8",
+    "sources": [
+      "README.md",
+      "FormalConjecturesTest/README.md",
+      "site/README.md",
+      "CONTRIBUTING.md",
+      "FormalConjecturesTest/../CONTRIBUTING.md"
+    ]
   },
   "google-research/weatherbench2": {
     "pushedAt": "2026-11-17T11:47:03Z",
@@ -647,10 +654,10 @@
     "live": true
   },
   "mrs-/black-friday-deals": {
-    "pushedAt": "2026-11-26T20:03:05Z",
+    "pushedAt": "2026-11-26T21:22:41Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "none",
-    "checkedAt": "2026-11-26T21:02:38.760Z"
+    "checkedAt": "2026-11-26T22:23:54.851Z"
   },
   "ndif-team/looped-lens-challenge": {
     "pushedAt": "2026-11-25T18:31:37Z",
@@ -663,6 +670,21 @@
       "final-evals/README.md",
       "space/README.md",
       "AGENTS.md"
+    ]
+  },
+  "open-challenges/keller-zero": {
+    "pushedAt": "2026-11-26T22:06:34Z",
+    "fingerprint": "a0f0ccb7f37eb7e2",
+    "verdict": "competition",
+    "checkedAt": "2026-11-26T22:22:59.014Z",
+    "head": "60e77c3e81dc36b28be04b989985e538291fc6f0",
+    "sources": [
+      "PROBLEM.md",
+      "submissions/alpoge-stambler/SUBMISSION.md",
+      "README.md",
+      "DIRECTION.md",
+      "AGENTS.md",
+      "submissions/"
     ]
   },
   "open-challenges/rh-golf": {
@@ -958,10 +980,10 @@
     ]
   },
   "scrollprize/villa": {
-    "pushedAt": "2026-11-26T13:12:04Z",
+    "pushedAt": "2026-11-26T21:19:59Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "none",
-    "checkedAt": "2026-11-26T18:25:28.407Z"
+    "checkedAt": "2026-11-26T22:24:41.860Z"
   },
   "seblague/chess-challenge": {
     "pushedAt": "2024-05-23T05:47:00Z",
