@@ -16,6 +16,7 @@ import { buildFirstProof } from "./structured/firstProof.js";
 import { buildDuckBench } from "./structured/duckBench.js";
 import { buildOpenDiscovery } from "./structured/openDiscovery.js";
 import { buildAiTx } from "./structured/aiTx.js";
+import { buildAlchemistry } from "./structured/alchemistry.js";
 import { buildPequalnp } from "./structured/pequalnp.js";
 import { buildBigOSpeedrun } from "./structured/bigOSpeedrun.js";
 import { buildRocmChallenge } from "./structured/rocmChallenge.js";
@@ -111,6 +112,7 @@ const SITES: Record<string, { url: string; build: () => Promise<LLMCompetition> 
   duckbench: { url: "https://duckbench.app/", build: buildDuckBench },  // DuckBench: robot-duck challenges for coding agents
   "open-discovery-challenge": { url: "https://huggingface.co/spaces/FINAL-Bench/open-discovery-challenge", build: buildOpenDiscovery },  // Open Discovery Challenge (FINAL-Bench): AI-designed drug candidates, scored on the organizers' GPUs
   "ai-tx-challenge": { url: "https://aitxchallenge.org/", build: () => buildAiTx() },  // SAIL AI-Tx Challenge (Harvard DBMI): therapy reports for rare disease patients, judged by an expert panel
+  "alchemistry-2027": { url: "https://huggingface.co/spaces/openadmet/alchemistry-2027-challenge", build: () => buildAlchemistry() },  // Alchemistry 2027 Blind Challenge: binding free energies of Dengue-2 protease inhibitors, before the measurements are released
 };
 
 // Built from an official results API: deterministic, no LLM, cheap enough to run every few hours

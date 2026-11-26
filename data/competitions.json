@@ -103482,6 +103482,103 @@
         "recordsLast90d": 0
       },
       "lastUpdated": "2026-11-26T07:10:07.747Z"
+    },
+    {
+      "id": "alchemistry-2027",
+      "name": "Alchemistry 2027 Blind Challenge: Dengue Antivirals",
+      "tagline": "Predict how strongly 54 candidate dengue antivirals bind their target before the lab results are released.",
+      "description": "Dengue infects hundreds of millions of people a year and has no approved antiviral. The Alchemistry 2027 Blind Challenge, run by the Open Molecular Software Foundation's Alchemistry community with ASAP Discovery, OpenADMET and OpenBind, takes a real lead series from ASAP's open pan-flavivirus antiviral programme and asks how well computational methods would have guided it. Entrants get the structures of 54 congeneric inhibitors of the Dengue-2 NS2B-NS3 protease, spanning more than two orders of magnitude in measured potency, and predict each one's binding free energy before the measurements are released. Free energy calculations and machine learning are ranked on separate leaderboards by Kendall's τ. Half the compounds score a live leaderboard while the challenge runs; the other half are held back, so the final ranking cannot be tuned against. Top performers present at the Alchemistry 2027 workshop.",
+      "url": "https://huggingface.co/spaces/openadmet/alchemistry-2027-challenge",
+      "host": "huggingface",
+      "status": "active",
+      "domain": "ml-research",
+      "tags": [
+        "drug-discovery",
+        "virology",
+        "dengue",
+        "antivirals",
+        "free-energy",
+        "binding-affinity",
+        "cheminformatics",
+        "blind-challenge"
+      ],
+      "images": [],
+      "participation": {
+        "howToSubmit": "Sign in to https://huggingface.co/spaces/openadmet/alchemistry-2027-challenge with a Hugging Face account, download the test set from https://huggingface.co/datasets/openadmet/alchemistry-2027-antiviral-blind-challenge, and upload your predictions on the Space's Submit tab, choosing your method class. Participation is anonymous by default.",
+        "submissionFormat": "A .parquet (preferred) or .csv file with exactly 54 rows: Molecule_Name, \"CXSMILES (CDD Compatible)\", denv2_ns2b_ns3_potency_predicted and denv2_ns2b_ns3_potency_predicted_uncertainty (kcal/mol). Relative methods also upload an edge file of predicted ΔΔG.",
+        "computeDetails": "Free energy calculations want a GPU; machine-learning entries can run on a laptop. Organizer partners (Cresset, OpenEye, Rowan) offer licences and compute tokens on request.",
+        "deadline": "2027-03-25",
+        "rounds": "Submissions are open from the test set release (2026-11-01) to 2027-03-25, 23:59 UTC; entries in by 2027-01-15 make the intermediate leaderboard. Final leaderboard from 2027-04-01, talks at Alchemistry 2027 (May 3–5, 2027, San Francisco).",
+        "prizes": "No cash prize: top performers are invited to present at the Alchemistry 2027 workshop.",
+        "eligibility": "Open to anyone with a Hugging Face account; open-sourcing your method is required for community recognition.",
+        "cost": "free",
+        "verification": "Scored by the organizers against hidden measured potencies; at most one submission per track every 48 hours, and only the latest valid one counts.",
+        "requirements": [
+          "A Hugging Face account (one per lab or team)",
+          "A binding free energy or affinity prediction method",
+          "A short method description with each submission"
+        ],
+        "compute": "consumer-gpu"
+      },
+      "links": [
+        {
+          "label": "Announcement and timeline",
+          "url": "https://omsf.io/alchemistry/news/2026/10/alchemistry-blind-challenge-2027/"
+        },
+        {
+          "label": "Submission portal and leaderboards",
+          "url": "https://huggingface.co/spaces/openadmet/alchemistry-2027-challenge"
+        },
+        {
+          "label": "Test set (Hugging Face dataset)",
+          "url": "https://huggingface.co/datasets/openadmet/alchemistry-2027-antiviral-blind-challenge"
+        },
+        {
+          "label": "Discord (#alchemistry-2027-challenge)",
+          "url": "https://discord.gg/Vmp8cfjQHB"
+        }
+      ],
+      "organizer": {
+        "name": "OMSF Alchemistry, with ASAP Discovery, OpenADMET and OpenBind",
+        "url": "https://omsf.io/alchemistry/news/2026/10/alchemistry-blind-challenge-2027/",
+        "type": "foundation"
+      },
+      "venue": {
+        "event": "Alchemistry 2027",
+        "type": "online"
+      },
+      "quickstart": "# paste into your coding agent:\nRead https://omsf.io/alchemistry/news/2026/10/alchemistry-blind-challenge-2027/ and the About tab of https://huggingface.co/spaces/openadmet/alchemistry-2027-challenge.\nDownload the 54 test compounds from https://huggingface.co/datasets/openadmet/alchemistry-2027-antiviral-blind-challenge.\nPredict each compound's binding free energy to the Dengue-2 NS2B-NS3 protease in kcal/mol with an uncertainty,\nand write exactly 54 rows with the columns Molecule_Name, \"CXSMILES (CDD Compatible)\", denv2_ns2b_ns3_potency_predicted,\ndenv2_ns2b_ns3_potency_predicted_uncertainty to predictions.csv.\n# then sign in and upload the file yourself on the Space's Submit tab",
+      "problems": [
+        {
+          "description": "Physics-based predictions: relative (FEP/TI over a perturbation map, with per-edge ΔΔG also submitted) or absolute binding free energy calculations. Predict the binding free energy (kcal/mol, with an uncertainty) of all 54 test compounds against the Dengue-2 NS2B-NS3 protease; ranked by Kendall's τ against the measured potencies. The live board scores half the compounds; the final ranking, on all 54, is published from 2027-04-01.",
+          "id": "free-energy",
+          "name": "Free energy methods",
+          "metricName": "Kendall's τ",
+          "metricDirection": "maximize",
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "description": "Pure machine-learning, docking-based and other or hybrid predictions, ranked on their own leaderboard. Predict the binding free energy (kcal/mol, with an uncertainty) of all 54 test compounds against the Dengue-2 NS2B-NS3 protease; ranked by Kendall's τ against the measured potencies. The live board scores half the compounds; the final ranking, on all 54, is published from 2027-04-01.",
+          "id": "machine-learning",
+          "name": "Machine learning and hybrid methods",
+          "metricName": "Kendall's τ",
+          "metricDirection": "maximize",
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        }
+      ],
+      "agentStats": [],
+      "participants": [],
+      "stats": {
+        "totalRecords": 0,
+        "uniqueParticipants": 0,
+        "recordsLast30d": 0,
+        "recordsLast90d": 0
+      },
+      "lastUpdated": "2026-11-26T07:46:26.427Z"
     }
   ],
   "errors": []
