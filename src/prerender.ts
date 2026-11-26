@@ -2,7 +2,7 @@
 // Agents and crawlers that do not run JavaScript get a real page at /c/{id}; app.js replaces <main id="app"> on boot.
 import type { Competition, CrawlResult, Problem } from "./types.js";
 import { aggregateAgents, aggregatePeople, openProblems, recentActivity, hotCompetitions, type ActivityItem } from "./aggregate.js";
-import { AGENT_DOCS_LEAD, JOIN_LINE, LISTING_ISSUE_URL, LISTING_TOPIC, SITE, challengeJoinLine, viaLine } from "./render.js";
+import { AGENT_DOCS_LEAD, JOIN_LINE, LISTING_ISSUE_URL, LISTING_TOPIC, SITE, challengeJoinLine, hasStandard, specLabel, viaLine } from "./render.js";
 import type { SocialPost } from "./social.js";
 import { TOPICS, inTopic, topicJoinLine, type Topic } from "./topics.js";
 import { REGISTRY, SUBMIT_PROTOCOL, authorLine, discoveryHeadline, discoveryView, type Discoveries } from "./discoveries.js";
@@ -139,6 +139,7 @@ function detailPage(c: Competition, data: Data, month: BoardMonth): Page {
   <p class="lede">${esc(c.tagline)}</p>
   <p>${esc(c.description)}</p>
   ${c.organizer ? `<p class="dim">Run by ${ext(c.organizer.url, c.organizer.name)}</p>` : ""}
+  ${hasStandard(c) ? `<p class="dim">Follows <a href="/standard"><code>${esc(specLabel(c.standard))}</code></a>: ${c.standard.problem ? "tracks and how to submit come from the repository's PROBLEM.md" : `${plural(c.standard.submissions, "entry", "entries")} from SUBMISSION.md files`}</p>` : ""}
   <p class="dim">${plural(c.problems.length, "track")} · ${num(c.stats.totalRecords)} entries · ${plural(c.stats.uniqueParticipants, "participant")}${c.stats.lastSubmission ? ` · last entry ${esc(c.stats.lastSubmission)}` : ""}${month.entries ? ` · ${esc(monthLine(month))}` : ""}</p>
   <p>${ext(c.url, slug ? `Repository: github.com/${slug}` : `Competition site: ${c.url}`)} · <a href="${digest(c.id)}">Markdown digest</a> · <a href="/api/competitions/${encodeURIComponent(c.id)}.json">JSON</a></p>
 </div></section>

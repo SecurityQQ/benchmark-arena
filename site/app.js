@@ -881,7 +881,9 @@ function card(c) {
 
 const introPill = () => `<a class="intro-pill" href="/standard" data-action="nav"><span class="ip-tag">New</span><span class="ip-text">Introducing <b>Problem.MD</b> &amp; <b>Submission.MD</b></span><span class="ip-arrow" aria-hidden="true">→</span></a>`;
 // ── The standard: PROBLEM.md + SUBMISSION.md (problem.md · submission.md) ──
-const stdBadge = (c) => c.standard?.problem || c.standard?.submission ? `<a class="std-badge" href="/standard" title="Follows the standard: PROBLEM.md${c.standard.submissions ? ` and ${esc(c.standard.submissions)} SUBMISSION.md entr${c.standard.submissions === 1 ? "y" : "ies"}` : ""}. Crawled weekly, facts taken from the files" data-action="nav" data-stop>${I.doc}<span>${c.standard.problem ? "PROBLEM.md" : "SUBMISSION.md"}</span></a>` : "";
+// The label is the spec and its version as organizers write it ("problem.md/v1"); render.ts specLabel is the server twin
+const specLabel = (s) => `${s.problem ? "problem" : "submission"}.md/v${Number(s.version) || 1}`;
+const stdBadge = (c) => c.standard?.problem || c.standard?.submission ? `<a class="std-badge" href="/standard" title="Follows ${esc(specLabel(c.standard))}: ${c.standard.problem ? "tracks and how to submit come from the repository's PROBLEM.md" : "entries come from SUBMISSION.md files"}${c.standard.submissions ? `, ${esc(c.standard.submissions)} SUBMISSION.md entr${c.standard.submissions === 1 ? "y" : "ies"}` : ""}" data-action="nav" data-stop>${I.doc}<span>${esc(specLabel(c.standard))}</span></a>` : "";
 // does a repo ship the two files? raw.githubusercontent serves with CORS, so the browser can look
 async function checkStandard(owner, name, branch) {
   const marked = (t, k) => new RegExp(`^spec\\s*:\\s*${k}\\.md/v\\d+`, "mi").test(t || "");
@@ -947,7 +949,7 @@ function renderStandard() {
         <div class="panel"><h2>Listed within hours</h2><p>Add the GitHub topic <code>open-challenge-list</code> to the repository, or <a href="${esc(LISTING_ISSUE)}" target="_blank" rel="noopener">open an issue</a> titled “List owner/repo” with the repository URL. The next live refresh (every few hours) verifies PROBLEM.md and lists it; the issue gets the link. No approval queue, no star threshold.</p></div>
         <div class="panel"><h2>First in line</h2><p>Standard repositories are processed before everything else in the weekly crawl, and their leaderboard is built straight from the files.</p></div>
         <div class="panel"><h2>A leaderboard that builds itself</h2><p>Every <code>SUBMISSION.md</code> is a row: author, date, the value per track, the approach. No table to maintain by hand, no language model guessing numbers out of a README.</p></div>
-        <div class="panel"><h2>Honest agent attribution</h2><p>Entries declare the model and harness that produced them. An agent pointed at your repository reads <code>PROBLEM.md</code>, knows what to optimize and where to put its answer. Listed competitions get a <span class="std-badge static">${I.doc}<span>PROBLEM.md</span></span> mark.</p></div>
+        <div class="panel"><h2>Honest agent attribution</h2><p>Entries declare the model and harness that produced them. An agent pointed at your repository reads <code>PROBLEM.md</code>, knows what to optimize and where to put its answer. Listed competitions get a <span class="std-badge static">${I.doc}<span>problem.md/v1</span></span> mark with the version their file declares.</p></div>
       </div>
       <p class="hint std-readme-badge">Once listed, the repository can show the board's live numbers in its README with a badge that links to the board: <code>${esc(BADGE_PATTERN)}</code>, where {id} is the last part of the board's address. Each board page has its exact snippet.</p>
     </div></section>
