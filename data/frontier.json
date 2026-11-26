@@ -441,6 +441,13 @@
       "verified": 2,
       "why": "How well AI agents patch real vulnerabilities, scored on security and on not breaking the code.",
       "checked": "2026-11-26"
+    },
+    "cdcgov-rsv-forecast-hub-5eaa3b3e4b32caea": {
+      "stakes": 3,
+      "open": 2,
+      "verified": 3,
+      "why": "The CDC's weekly RSV hospitalization forecasts, used in public health planning; every forecast is scored against what actually happened.",
+      "checked": "2026-11-26"
     }
   }
 }
