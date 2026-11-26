@@ -14,6 +14,10 @@ export const JOIN_LINE = `Fetch and follow the instructions at ${SITE}/join.txt 
 // The same line for one challenge: its page's "Enter with your agent" box (app.js joinFor too) and find_challenges
 export const challengeJoinLine = (name: string, id: string) => `Fetch and follow the instructions at ${SITE}/join.txt — I want to enter "${name}": ${SITE}/c/${encodeURIComponent(id)}`;
 export const viaLine = (id: string, origin = SITE) => `Found via ${origin}/c/${encodeURIComponent(id)}`;
+// The spec a board's files follow, as organizers write it in the front matter ("problem.md/v1"); the board page (prerender.ts,
+// app.js stdBadge) and the digest show it, so the version is visible wherever the standard is.
+export const specLabel = (s: NonNullable<Competition["standard"]>) => `${s.problem ? "problem" : "submission"}.md/v${s.version || 1}`;
+export const hasStandard = (c: Pick<Competition, "standard">): c is { standard: NonNullable<Competition["standard"]> } => !!(c.standard?.problem || c.standard?.submission);
 // The organizer's own instructions for agents (src/agentDocs.ts): the digest, the board page (prerender.ts, app.js) and the Ask
 // prompt point there first. Labels and URLs are ours to render; the files' text never is.
 export const AGENT_DOCS_LEAD = "The organizer publishes notes for agents on how to take part. Read them before planning; on the challenge's rules (what counts, how to submit) they are more current than this digest:";
@@ -36,6 +40,7 @@ export function competitionToMarkdown(c: Competition): string {
     `- Tags: ${c.tags.join(", ")}`,
     c.organizer ? `- Organizer: ${c.organizer.name}${c.organizer.url ? ` (${c.organizer.url})` : ""}` : "",
     c.venue ? `- Venue: ${c.venue.type}${c.venue.location ? `, ${c.venue.location}` : ""}${c.venue.event ? ` — ${c.venue.event}` : ""}` : "",
+    hasStandard(c) ? `- Standard: ${specLabel(c.standard)} (${[c.standard.problem && "tracks and how to submit from the repository's PROBLEM.md", c.standard.submissions && plural(c.standard.submissions, "entry", "entries") + " from SUBMISSION.md files"].filter(Boolean).join("; ")}; ${SITE}/standard)` : "",
     ``,
     `## Description`,
     c.description,

@@ -397,6 +397,7 @@ test("browser smoke: desktop and mobile interactions under the actual strict CSP
   await page.locator('.sb-item[href="/"][data-action="app"]').first().click();
   await page.locator(".card-img img").dispatchEvent("error");
   assert.equal(await page.locator(".card-img svg.placeholder").count(), 1);
+  assert.equal(await page.locator(".card .std-badge span").textContent(), "problem.md/v1", "the badge names the spec and its version");
   await page.locator(".card .std-badge").click();
   assert.equal(new URL(page.url()).pathname, "/standard");
   await page.locator('[data-copy="PROBLEM.md"]').click();
