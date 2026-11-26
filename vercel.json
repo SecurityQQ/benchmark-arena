@@ -147,6 +147,10 @@
       "destination": "/join/:id.txt"
     },
     {
+      "source": "/challenges/:slug/join.txt",
+      "destination": "/join/challenges/:slug.txt"
+    },
+    {
       "source": "/c/:id",
       "destination": "/c/:id.html"
     },
@@ -257,6 +261,19 @@
     },
     {
       "source": "/c/:id/join.txt",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=300"
+        }
+      ]
+    },
+    {
+      "source": "/challenges/:slug/join.txt",
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",

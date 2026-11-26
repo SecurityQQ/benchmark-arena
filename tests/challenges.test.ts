@@ -1,25 +1,24 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { existsSync, readFileSync } from "node:fs";
-import { CHALLENGES, challengeBoards, challengeJoin, challengesOf, inChallenge } from "../src/challenges.js";
-import { JOIN_LINE } from "../src/render.js";
-import { GRAND, HOME } from "../src/prerender.js";
+import { CHALLENGES, challengeBoards, challengeStart, challengesOf, inChallenge } from "../src/challenges.js";
+import { grandJoinLine } from "../src/grandJoin.js";
+import { GRAND, HOME, JOIN_STEPS } from "../src/prerender.js";
 import { SITE_ASSETS } from "../src/build.js";
 
 const APP = readFileSync("site/app.js", "utf-8");
 const literal = (name: string) => Function(`return (${APP.match(new RegExp(`const ${name} = (\\{[\\s\\S]*?\\});\\n`))![1]});`)();
 
-test("grand challenges: slugs are URL-safe and unique, tags are lower case, every plate is published, and the join line still points at join.txt", () => {
+test("grand challenges: slugs are URL-safe and unique, tags are lower case, every plate is published, and the join line points at the challenge's own join.txt", () => {
   assert.equal(new Set(CHALLENGES.map((ch) => ch.slug)).size, CHALLENGES.length);
   for (const ch of CHALLENGES) {
     assert.match(ch.slug, /^[a-z0-9-]{1,40}$/);
     assert.ok(ch.tags.length && ch.tags.every((t) => t === t.toLowerCase() && /^[a-z0-9.+-]+$/.test(t)), ch.slug);
     for (const f of [`art/${ch.art}.jpg`, `art/${ch.art}-sm.jpg`]) assert.ok(SITE_ASSETS.has(f) && existsSync(`site/${f}`), f);
-    assert.match(challengeJoin(JOIN_LINE, ch), /^Fetch and follow the instructions at https:\/\/openchallengelist\.com\/join\.txt to pick an open .+ and enter it with me\.$/);
-    for (const text of [ch.name, ch.field, ch.question, ch.stakes, ch.work]) assert.ok(text.trim().length > 3);
+    assert.equal(grandJoinLine(ch), `Fetch and follow the instructions at https://openchallengelist.com/challenges/${ch.slug}/join.txt to join the grand challenge "${ch.name}" with me.`);
+    for (const text of [ch.name, ch.field, ch.question, ch.stakes, ch.work, ch.pick]) assert.ok(text.trim().length > 3);
     assert.match(ch.question, /\?$/);
   }
-  assert.throws(() => challengeJoin("Something else entirely.", CHALLENGES[0]));
   // no board in two challenges: a tag belongs to one of them
   const tags = CHALLENGES.flatMap((ch) => ch.tags);
   assert.equal(new Set(tags).size, tags.length);
@@ -35,6 +34,35 @@ test("grand challenges: a board belongs by an exact tag; inside, ended boards go
   assert.deepEqual(challengesOf(c("a", ["robotics"])), []);
   const boards = [c("busy", ["kernels"], 40), c("over", ["speedrun"], 90, "ended"), c("sutro-problems", ["energy-efficiency"], 2), c("quiet-open", ["speedrun"], 0, "active", 3), c("quiet", ["speedrun"]), c("other", ["lean4"], 500)];
   assert.deepEqual(challengeBoards(by("energy"), boards).map((b) => b.id), ["sutro-problems", "busy", "quiet-open", "quiet", "over"]);
+});
+
+test("grand challenges: joining starts with the first competition taking entries, and says why it is first", () => {
+  const by = (slug: string) => CHALLENGES.find((ch) => ch.slug === slug)!;
+  const c = (id: string, month = 0, status = "active", open = 0) => ({ id, status, stats: { recordsLast30d: month }, problems: Array.from({ length: open }, () => ({ isOpen: true })) }) as any;
+  assert.deepEqual(challengeStart(by("energy"), [c("sutro-problems", 2), c("busy", 40)]), { board: c("sutro-problems", 2), why: "the one this challenge leads with" });
+  assert.equal(challengeStart(by("p-vs-np"), [c("busy", 40), c("quiet")])!.why, "the busiest this month");
+  assert.equal(challengeStart(by("p-vs-np"), [c("open", 0, "active", 3), c("quiet")])!.why, "the one with the most open tracks");
+  assert.equal(challengeStart(by("p-vs-np"), [c("quiet"), c("quiet-2")])!.why, "the first listed");
+  // one that is over or has not opened is never where to start
+  assert.deepEqual(challengeStart(by("p-vs-np"), [c("soon", 0, "upcoming"), c("only", 3), c("over", 90, "ended")]), { board: c("only", 3), why: "the one taking entries" });
+  assert.equal(challengeStart(by("p-vs-np"), [c("soon", 0, "upcoming"), c("over", 90, "ended")]), null);
+  assert.equal(challengeStart(by("p-vs-np"), []), null);
+});
+
+test("grand challenges: the app joins a challenge the way the pre-rendered page does", () => {
+  const fn = (name: string, end: string) => APP.slice(APP.indexOf(name), APP.indexOf(end, APP.indexOf(name)));
+  // the line: the app's template, filled in, is grandJoinLine
+  const tpl = APP.match(/const challengeJoin = \(ch\) => `([^`]+)`;/)![1];
+  for (const ch of CHALLENGES) assert.equal(tpl.replace("${ch.slug}", ch.slug).replace("${ch.name}", ch.name), grandJoinLine(ch));
+  // the start: the same rule and the same reasons
+  const start = fn("function challengeStart(ch, boards)", "\n}\n");
+  const pre = readFileSync("src/challenges.ts", "utf-8");
+  for (const why of ["the one taking entries", "the one this challenge leads with", "the busiest this month", "the one with the most open tracks", "the first listed"]) assert.ok(start.includes(`"${why}"`) && pre.includes(`"${why}"`), why);
+  assert.ok(APP.includes('const takesEntries = (c) => c.status !== "ended" && c.status !== "upcoming";'));
+  // the steps under the line
+  const block = fn("function challengeJoinBlock(ch, boards)", "\n}\n");
+  for (const text of [...JOIN_STEPS.paste, JOIN_STEPS.pick, ...JOIN_STEPS.enter, "Join this challenge", "Read what your agent reads →", "None is taking entries yet, so it will say so and offer another challenge."]) assert.ok(block.includes(text), text);
+  assert.ok(block.includes('data-action="copy-join"') && block.includes("grandJoinPath(ch)"));
 });
 
 test("grand challenges: the app's copy over the cards and its hero names are the pre-rendered page's", () => {

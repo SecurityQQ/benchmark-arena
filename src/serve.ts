@@ -24,6 +24,7 @@ import { loadEvents } from "./events.js";
 import { NO_DISCOVERIES, loadDiscoveries } from "./discoveries.js";
 import { loadAgentDocs, withAgentDocs } from "./agentDocs.js";
 import { boardJoinTxt } from "./boardJoin.js";
+import { grandJoinTxt } from "./grandJoin.js";
 
 const PORT = Number(process.env.PORT ?? 3000);
 const HOST = process.env.HOST ?? "127.0.0.1";
@@ -222,6 +223,13 @@ const server = createServer(async (req, res) => {
       const t = TOPICS.find((x) => x.slug === topicMatch[1]);
       if (!t) return send(res, 404, "Not found");
       return send(res, 200, topicMarkdown(t, await loadData(), `http://${req.headers.host}`, loadDiscoveries(process.cwd())), MIME[".md"]);
+    }
+    // one grand challenge's instructions for an agent (src/grandJoin.ts), at the URL vercel.json rewrites to the built file
+    const grandJoinMatch = path.match(/^\/challenges\/([a-z0-9-]{1,40})\/join\.txt$/);
+    if (grandJoinMatch) {
+      const ch = CHALLENGES.find((x) => x.slug === grandJoinMatch[1]);
+      if (!ch) return send(res, 404, "Not found");
+      return send(res, 200, grandJoinTxt(ch, await loadData(), `http://${req.headers.host}`), MIME[".txt"]);
     }
     const challengeMatch = path.match(/^\/challenges\/([a-z0-9-]{1,40})\.md$/);
     if (challengeMatch) {

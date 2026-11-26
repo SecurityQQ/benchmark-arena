@@ -332,7 +332,28 @@ function challengeBoards(ch) {
 const challengeStats = (boards) => ({ boards: boards.length, entries30: boards.reduce((s, c) => s + count(c.stats.recordsLast30d), 0), open: boards.reduce((s, c) => s + openTracks(c), 0) });
 const challengeArt = (ch) => (ART[ch.art] ? ch.art : "dawn");
 const challengeNo = (ch) => String(grandList().indexOf(ch) + 1).padStart(2, "0");
-const challengeJoin = (ch) => JOIN.replace("an open challenge", ch.pick);
+// Joining a grand challenge means entering a competition running on it: the ones taking entries, the one to start with and
+// why, and the line that sends an agent to the challenge's own instructions (src/challenges.ts challengeStart, src/grandJoin.ts)
+const takesEntries = (c) => c.status !== "ended" && c.status !== "upcoming";
+function challengeStart(ch, boards) {
+  const taking = boards.filter(takesEntries), board = taking[0];
+  if (!board) return null;
+  const why = taking.length === 1 ? "the one taking entries" : (ch.lead || []).includes(board.id) ? "the one this challenge leads with"
+    : count(board.stats.recordsLast30d) > 0 ? "the busiest this month" : openTracks(board) ? "the one with the most open tracks" : "the first listed";
+  return { board, why };
+}
+const grandJoinPath = (ch) => `/challenges/${pathPart(ch.slug)}/join.txt`;
+const challengeJoin = (ch) => `Fetch and follow the instructions at https://openchallengelist.com/challenges/${ch.slug}/join.txt to join the grand challenge "${ch.name}" with me.`;
+// "Join this challenge": the line to paste and what happens after, as on the pre-rendered page (prerender.ts challengeJoinBlock, JOIN_STEPS)
+function challengeJoinBlock(ch, boards) {
+  const taking = boards.filter(takesEntries).length, start = challengeStart(ch, boards);
+  const pick = start
+    ? `You join by entering ${taking === 1 ? "the competition" : `one of the ${esc(fmt(taking))} competitions`} running on this. It suggests <a href="/c/${pathPart(start.board.id)}" data-action="nav">${esc(start.board.name)}</a>, ${esc(start.why)}.`
+    : "You join by entering a competition running on this. None is taking entries yet, so it will say so and offer another challenge.";
+  return `<div class="join-line gc-join" id="join"><span class="eyebrow">Join this challenge</span><pre class="quick join"><button type="button" class="copy" data-action="copy-join" data-topic="${esc(ch.slug)}">copy</button><code>${esc(challengeJoin(ch))}</code></pre>
+    <ol class="gc-steps"><li><b>Paste the line into your agent</b><span>Claude Code, Codex, Cursor or any agent that can run a shell.</span></li><li><b>Pick a competition with it</b><span>${pick}</span></li><li><b>Get on its leaderboard</b><span>It reads the rules and works with you to a first valid entry. Nothing is forked, pushed or submitted until you say go.</span></li></ol>
+    <p class="gc-join-foot"><a href="${grandJoinPath(ch)}" target="_blank" rel="noopener">Read what your agent reads →</a>${start ? ` <a href="#competitions" data-action="section" data-section="competitions">Or pick a competition yourself ↓</a>` : ""}</p></div>`;
+}
 const many = (n, one, more) => `<b>${esc(fmt(n))}</b> ${n === 1 ? one : more}`;
 // one competition inside a challenge: who entered this month, else what is open, else what it holds
 function runningRow(c) {
@@ -395,7 +416,7 @@ function renderChallenge(ch) {
     <a class="back" href="/" data-action="nav">← All competitions</a>
     <div class="hero"><span class="eyebrow">Grand challenge ${challengeNo(ch)} · ${esc(ch.field)}</span><h1>${esc(ch.name)}</h1><p class="lede">${esc(ch.question)}</p><p class="gc-stakes">${esc(ch.stakes)}</p></div>
     <div class="gc-stats big"><span>${many(s.boards, "competition", "competitions")}</span><span>${many(s.entries30, "entry", "entries")} in 30 days</span><span>${many(s.open, "open track", "open tracks")}</span></div>
-    <div class="join-line"><span class="eyebrow">Paste this into Claude Code, Codex, Cursor or any agent</span><pre class="quick join"><button type="button" class="copy" data-action="copy-join" data-topic="${esc(ch.slug)}">copy</button><code>${esc(challengeJoin(ch))}</code></pre></div>
+    ${challengeJoinBlock(ch, boards)}
     </div></section>
     <section class="band" id="competitions"><div class="wrap">
       <div class="band-head"><div><span class="eyebrow"><span class="live-dot" aria-hidden="true"></span>Competitions running</span><h2>${boards.length ? `${esc(fmt(boards.length))} ${boards.length === 1 ? "competition is" : "competitions are"} running on this.` : "No competition is listed on this yet."}</h2><p>${esc(ch.work)}</p></div></div>
