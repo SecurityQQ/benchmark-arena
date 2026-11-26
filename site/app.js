@@ -602,6 +602,7 @@ function renderAppHome() {
     <section class="band"><div class="wrap">
       ${(() => { const k = state.domain && ART_BY_DOMAIN[state.domain] ? ART_BY_DOMAIN[state.domain][0] : state.compute && ART_BY_COMPUTE[state.compute] ? ART_BY_COMPUTE[state.compute] : state.open ? "datacenter" : null; if (!k) return ""; const label = state.domain ? DOMAIN[state.domain] || state.domain : state.compute ? COMPUTE[state.compute] : "Open problems"; return `<div class="ah-art">${artBg(k)}<div class="ah-art-cap"><span class="eyebrow">${state.domain ? "Domain" : state.compute ? "Compute" : "Unclaimed"}</span><div class="t">${esc(label)}</div><div class="q">${ART[k].caption}</div></div></div>`; })()}
       <div class="ah-intro hero-pills"><div class="pulse-pill" id="pulse-pill" hidden></div>${introPill()}</div>
+      <div class="joiners ah-joiners" id="joiners" hidden></div>
       <div class="ah-head">
         <div><h1>${state.open ? "Open problems" : state.domain ? esc(DOMAIN[state.domain] || state.domain) : state.sort === "recent" ? "Recent" : "Competitions"}</h1><p>Open benchmark competitions on GitHub with public leaderboards. Pick one, point your agent at the repository, get on the board.</p></div>
         <div class="dim small mono" id="grid-count"></div>
@@ -723,7 +724,7 @@ function liveBand(comps) {
 // The "Just in" bar, the "working right now" pill and the live card on the home page. Every time shown is the time the board
 // gave the event; the visitor's clock only moves the "ago". The page reads the pulse every 30 s while it is visible. A pulse
 // older than 5 minutes, or two failed reads in a row, turns the live dots off and says so; what was last read stays.
-const PULSE = { data: null, fails: 0, seen: null, timer: 0, shown: null, readAt: 0 };
+const PULSE = { data: null, fails: 0, seen: null, joinSeen: null, timer: 0, shown: null, readAt: 0 };
 const PULSE_EVERY = 30000, PULSE_STALE = 5 * 60000;
 const PULSE_LINK = /^https:\/\/(?:pequalnp\.com|palomar-registry\.org|riemann\.verifytask\.cn|play\.bohrium\.com|ndif-looped-lens-challenge\.hf\.space|duckbench\.app)\//;
 const since = (iso) => {
@@ -786,7 +787,8 @@ function todayLine() {
 function paintPulse() {
   const p = PULSE.data, stale = pulseStale();
   const card = document.getElementById("pulse-card"), pill = document.getElementById("pulse-pill"), bar = document.getElementById("just-in");
-  if (!p) { for (const el of [card, pill, bar]) if (el) el.hidden = true; return; }
+  if (!p) { for (const el of [card, pill, bar, document.getElementById("joiners")]) if (el) el.hidden = true; return; }
+  paintJoiners(p);
   const events = Array.isArray(p.events) ? p.events : [];
   if (card) {
     const first = PULSE.seen === null, before = PULSE.seen || new Set();
@@ -815,6 +817,54 @@ function paintPulse() {
   }
 }
 
+// ── Just joined: first entries on the boards whose lists reach back to their start (pulse.joined) ──
+// Newest first, with each board's newest joiner kept in view; a face for a GitHub login, initials otherwise.
+const JN_TONES = ["#B8603F", "#5F7247", "#4F7DA8", "#A24F6D", "#9C7656", "#6B6990", "#56756C"];
+const initials = (s) => (String(s || "").replace(/^@/, "").match(/[\p{L}\p{N}]+/gu) || ["?"]).slice(0, 2).map((w) => w[0].toUpperCase()).join("");
+const tone = (s) => JN_TONES[[...String(s || "")].reduce((h, c) => (h * 31 + c.codePointAt(0)) >>> 0, 7) % JN_TONES.length];
+function pickJoiners(list, n) {
+  const newestOf = new Map();
+  for (const x of list) { const k = x.board || x.source; if (!newestOf.has(k)) newestOf.set(k, x); }
+  const keep = new Set([...newestOf.values()].slice(0, n));
+  for (const x of list) { if (keep.size >= n) break; keep.add(x); }
+  return [...keep].sort((a, b) => String(b.at).localeCompare(String(a.at)));
+}
+function joinChip(x, fresh) {
+  const face = /^[A-Za-z0-9-]{1,39}$/.test(x.login || "")
+    ? `<img class="jn-face" src="https://github.com/${x.login}.png?size=48" alt="" data-error="hide">`
+    : `<span class="jn-face jn-mono" style="--c:${tone(x.who)}" aria-hidden="true">${esc(initials(x.who))}</span>`;
+  const href = PULSE_LINK.test(x.url) ? x.url : x.board ? `/c/${pathPart(x.board)}` : "#";
+  return `<a class="jn-chip${fresh ? " fresh" : ""}" role="listitem" href="${esc(safeUrl(href))}" target="_blank" rel="noopener" title="${esc(`First entry on ${x.boardName || "the board"}${x.first ? `: ${x.first}` : ""}`)}">${face}<span class="jn-who">${esc(x.who)}</span><span class="jn-meta">${esc(x.boardName || "")} · ${timeAgo(x.at)}</span></a>`;
+}
+function paintJoiners(p) {
+  const box = document.getElementById("joiners");
+  if (!box) return;
+  const j = p.joined, people = j && Array.isArray(j.people) ? pickJoiners(j.people, 24) : [];
+  box.hidden = !people.length;
+  if (!people.length) return;
+  // Drawn again only when someone new is in it or the count moved: a strip scrolled by hand stays where it is
+  const key = `${people.map((x) => x.id).join("|")}#${j.last24h}${j.partial ? "+" : ""}`;
+  if (box.dataset && box.dataset.key === key && box.innerHTML) return;
+  if (box.dataset) box.dataset.key = key;
+  const first = PULSE.joinSeen === null, before = PULSE.joinSeen || new Set();
+  const by = Array.isArray(j.by) ? j.by.map((b) => `${b.name}: ${fmt(b.count)}`).join(" · ") : "";
+  box.innerHTML = `<div class="jn-head"><span class="jn-title"><span class="live-dot" aria-hidden="true"></span>Just joined</span>${j.last24h ? `<span class="jn-sub" title="${esc(`First entries in the last 24 h. ${by}${j.partial ? ". A lower bound: a source could not be read." : ""}`)}"><b>${esc(fmt(j.last24h))}${j.partial ? "+" : ""}</b> people made their first entry in the last 24 h</span>` : ""}</div>
+    <div class="jn-row" role="list" aria-label="Newest first entries">${people.map((x) => joinChip(x, !first && !before.has(x.id))).join("")}</div>`;
+  PULSE.joinSeen = new Set(people.map((x) => x.id));
+  dragScroll(box.querySelector?.(".jn-row"));
+}
+// A mouse drags the strip sideways (touch and trackpads scroll it natively); a drag is not a click on the chip under it
+function dragScroll(row) {
+  if (!row || typeof row.addEventListener !== "function") return;
+  let x0 = 0, left0 = 0, moved = false, down = false;
+  row.addEventListener("pointerdown", (e) => { if (e.pointerType !== "mouse" || e.button !== 0) return; down = true; moved = false; x0 = e.clientX; left0 = row.scrollLeft; });
+  row.addEventListener("pointermove", (e) => { if (!down) return; const dx = e.clientX - x0; if (Math.abs(dx) > 4) { moved = true; row.classList.add("dragging"); } if (moved) row.scrollLeft = left0 - dx; });
+  const end = () => { down = false; row.classList.remove("dragging"); };
+  row.addEventListener("pointerup", end); row.addEventListener("pointerleave", end);
+  row.addEventListener("click", (e) => { if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; } }, true);
+  row.addEventListener("dragstart", (e) => e.preventDefault());
+}
+
 // The pill's number counts from what it last showed to the new one; at once when motion is reduced
 function countUp(el, to) {
   const from = PULSE.shown;
@@ -839,7 +889,7 @@ async function readPulse() {
 }
 
 function startPulse() {
-  PULSE.seen = null; PULSE.shown = null;
+  PULSE.seen = null; PULSE.joinSeen = null; PULSE.shown = null;
   if (PULSE.data) paintPulse();
   if (Date.now() - PULSE.readAt > 20000) readPulse(); // a re-render (a filter click) does not read again within 20 s
   if (PULSE.timer || typeof setInterval !== "function") return;
@@ -875,6 +925,7 @@ function renderHome() {
         ${joinBlock(null, "Or point your agent: paste this into Claude Code, Codex or Cursor")}
       </div>
       <aside class="pulse-card" id="pulse-card" aria-label="Live across the boards" hidden></aside>
+      <div class="joiners" id="joiners" hidden></div>
       </div>
     </section>
     <section class="band tight kpi-band"><div class="wrap">

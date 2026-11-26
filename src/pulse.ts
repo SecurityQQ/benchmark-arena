@@ -8,6 +8,8 @@
 //   - The Looped Lens Challenge — its Space's /api/leaderboard: every submission since the start, with the team's pass rate.
 //   - DuckBench — https://duckbench.app/api/feed: verified attempts, new records and broken records.
 //   - Palomar — the newest Lean-verified registrations (https://data.palomar-registry.org/api/v1/results, CC0, CORS *).
+// Who joined: P = NP?'s contributors file (named in head.json by its content hash, so it is read again only when it changes)
+// gives each outside contributor's first accepted proof; the Looped Lens list gives each team's first submission.
 // Each source is read at most once per its own TTL (with If-None-Match where it sends an ETag), so a 1 MB board is not
 // downloaded every 15 s; the answer is rebuilt from what was read and the CDN keeps it for 15 s on top. Nothing is timed by
 // when we read it: an event without a time of its own is not an event here. A source that cannot be read is said so in
@@ -21,7 +23,8 @@ import { dataOrigin } from "./mcp.js";
 import { SITE } from "./render.js";
 
 export const PNP_SITE = "https://pequalnp.com";
-export const PNP_HEAD = "https://data.pequalnp.com/head.json";
+export const PNP_DATA = "https://data.pequalnp.com";
+export const PNP_HEAD = `${PNP_DATA}/head.json`;
 export const RIEMANN_SITE = "https://riemann.verifytask.cn/";
 export const RIEMANN_BOARD = "https://riemann.verifytask.cn/api/board";
 export const LOOPED_SITE = "https://ndif-looped-lens-challenge.hf.space/";
@@ -40,7 +43,7 @@ const INDEX_TTL_MS = 10 * 60_000;
 const HOUR = 3_600_000, DAY = 86_400_000;
 
 export type PulseKind = "headline" | "record" | "proof" | "submission" | "check" | "note" | "discovery";
-export type PulseSource = "pequalnp" | "riemann" | "looped-lens" | "duckbench" | "palomar";
+export type PulseSource = "pequalnp" | "pequalnp-people" | "riemann" | "looped-lens" | "duckbench" | "palomar";
 
 export interface PulseEvent {
   id: string;            // stable across reads, so a client can tell a new event from one it has shown
@@ -72,22 +75,37 @@ export interface Tally { count: number; boards: number; partial: boolean; by: { 
 
 export interface SourceState { id: PulseSource; name: string; ok: boolean; at?: string; error?: string }
 
+/** Someone's first entry on a board, at the time the board gave it: a GitHub login when the board credits one (then a face is shown). */
+export interface Joiner {
+  id: string;
+  who: string;
+  login?: string;
+  at: string;
+  source: PulseSource;
+  board?: string;
+  boardName?: string;
+  first?: string;        // what the first entry was, in a few words
+  url: string;           // the person's page on the board, or the board
+}
+export interface Joins { lastHour: number; last24h: number; partial: boolean; by: { source: PulseSource; name: string; count: number }[]; people: Joiner[] }
+
 export interface Pulse {
   at: string;                                                // when this answer was made
   agentsNow: { total: number; counts: LiveCount[] } | null;  // null: no board publishes a fresh live count right now
   activity: { lastHour: Tally; last24h: Tally };             // entries the sources list, by the times they give
+  joined: Joins;                                             // first entries, newest first, from the boards whose lists reach back to their start
   events: PulseEvent[];                                      // newest first
   sources: SourceState[];
 }
 
-export interface SourceRead { count?: LiveCount; events: PulseEvent[]; window?: Window }
+export interface SourceRead { count?: LiveCount; events: PulseEvent[]; window?: Window; joined?: { people: Joiner[]; lastHour: number; last24h: number } }
+export const MAX_JOINERS = 30;
 
 // ─── Third-party fields ─────────────────────────────────────────────────
 const obj = (v: unknown): Record<string, unknown> | undefined => (v && typeof v === "object" && !Array.isArray(v) ? v as Record<string, unknown> : undefined);
 const ISO = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,6})?(?:Z|[+-]\d{2}:\d{2})$/;
 const LOGIN = /^[A-Za-z0-9](?:[A-Za-z0-9-]{0,38})$/;
 const LEMMA = /^L-[a-z]{1,12}-\d{1,7}$/;
-const SLUG = /^[a-z0-9][a-z0-9-]{0,79}$/;
 // pequalnp's own rule for a link to one of its pages (sitePath in its data.js): relative, lowercase path, an optional anchor
 const PNP_PATH = /^[a-z0-9_./-]{1,120}(?:#[A-Za-z0-9_=.-]{1,80})?$/;
 const count = (v: unknown, max: number): number | undefined => (Number.isSafeInteger(v) && (v as number) >= 0 && (v as number) <= max ? v as number : undefined);
@@ -158,6 +176,36 @@ export function fromPequalnp(raw: unknown, now: number, board?: BoardRef): Sourc
   return { ...(live ? { count: live } : {}), events, ...(window ? { window } : {}) };
 }
 
+/** The contributors file head.json names (content-addressed), as a URL; nothing when the name is not one the exporter writes. */
+export function pnpPeopleUrl(head: unknown): string | undefined {
+  const name = obj(obj(head)?.files)?.contributors;
+  return typeof name === "string" && /^data\/contributors\.[0-9a-f]{8,64}\.json$/.test(name) ? `${PNP_DATA}/${name}` : undefined;
+}
+
+/**
+ * P = NP?'s contributors file: every outside contributor with the time of their first accepted proof (first_proof_at) and
+ * the lemmas they proved. Only the GitHub login and those times are read; the file's other handles are not.
+ */
+export function fromPequalnpPeople(raw: unknown, now: number, board?: BoardRef): SourceRead {
+  const list = obj(raw)?.contributors;
+  if (!Array.isArray(list)) throw new Error("the contributors file answered in an unexpected shape");
+  const tag = tagOf(board, "P = NP?"), people: Joiner[] = [];
+  let lastHour = 0, last24h = 0;
+  for (const c of list.slice(0, 100_000)) {
+    const o = obj(c), login = typeof o?.github === "string" && LOGIN.test(o.github) ? o.github : undefined, at = when(o?.first_proof_at, now, Infinity);
+    if (!o || !login || !at) continue;
+    const t = Date.parse(at);
+    if (now - t < HOUR) lastHour++;
+    if (now - t < DAY) last24h++;
+    if (now - t > MAX_AGE_MS) continue;
+    const firstLemma = Array.isArray(o.lemmas) ? o.lemmas.map(obj).find((l) => l && when(l.at, now, Infinity) === at && typeof l.id === "string" && LEMMA.test(l.id))?.id as string | undefined : undefined;
+    people.push({ id: `pequalnp:${login}`, who: `@${login}`, login, at, source: "pequalnp-people", ...tag,
+      first: firstLemma ? `first proof: ${firstLemma}` : "first proof checked in Lean", url: `${PNP_SITE}/a/${login}` });
+  }
+  people.sort((a, b) => b.at.localeCompare(a.at));
+  return { events: [], joined: { people: people.slice(0, MAX_JOINERS), lastHour, last24h } };
+}
+
 // ─── Riemann Hypothesis Lean 4 hub ──────────────────────────────────────
 const BOHRIUM = /^https:\/\/play\.bohrium\.com\/challenges\/[a-z0-9-]{1,120}$/;
 
@@ -205,7 +253,7 @@ export function fromLoopedLens(raw: unknown, now: number, board?: BoardRef): Sou
   const rows = obj(raw)?.rows;
   if (!Array.isArray(rows)) throw new Error("the Looped Lens leaderboard answered in an unexpected shape");
   const tag = tagOf(board, "The Looped Lens Challenge");
-  const times: number[] = [], events: PulseEvent[] = [];
+  const times: number[] = [], events: PulseEvent[] = [], firsts = new Map<string, { at: string; rate?: number }>();
   let oldest = Infinity;
   for (const r of rows.slice(0, 20_000)) {
     const o = obj(r), at = when(o?.submitted_at, now, Infinity);
@@ -214,6 +262,8 @@ export function fromLoopedLens(raw: unknown, now: number, board?: BoardRef): Sou
     oldest = Math.min(oldest, t);
     times.push(t);
     const team = text(o.team, 60), rate = real(obj(o.metrics)?.pass_rate, 0, 1), id = typeof o.id === "string" && /^[A-Za-z0-9_-]{1,80}$/.test(o.id) ? o.id : undefined;
+    const first = team ? firsts.get(team.toLowerCase()) : undefined;
+    if (team && (!first || at < first.at)) firsts.set(team.toLowerCase(), { at, rate });
     if (now - t > MAX_AGE_MS || !team || rate === undefined || !id) continue;
     const rank = o.best === true ? count(o.rank, 100_000) : undefined;
     const pass = `${num(rate * 100)}% pass rate`;
@@ -222,7 +272,14 @@ export function fromLoopedLens(raw: unknown, now: number, board?: BoardRef): Sou
       url: LOOPED_SITE });
   }
   events.sort((x, y) => y.at.localeCompare(x.at));
-  return { events: events.slice(0, PER_SOURCE), window: windowOf(times, now, "submissions", now - oldest > DAY) };
+  // Each team's first submission is when it joined; the list holds every submission since the start, so "first" is first
+  const names = new Map<string, string>();
+  for (const r of rows.slice(0, 20_000)) { const t = text(obj(r)?.team, 60); if (t && !names.has(t.toLowerCase())) names.set(t.toLowerCase(), t); }
+  const joined = [...firsts].map(([key, f]): Joiner => ({ id: `looped-lens:${key}`, who: names.get(key) ?? key, at: f.at, source: "looped-lens", ...tag,
+    ...(f.rate !== undefined ? { first: `first run: ${num(f.rate * 100)}% pass rate` } : {}), url: LOOPED_SITE }));
+  const fresh = joined.filter((j) => now - Date.parse(j.at) <= MAX_AGE_MS).sort((a, b) => b.at.localeCompare(a.at));
+  return { events: events.slice(0, PER_SOURCE), window: windowOf(times, now, "submissions", now - oldest > DAY),
+    joined: { people: fresh.slice(0, MAX_JOINERS), lastHour: joined.filter((j) => now - Date.parse(j.at) < HOUR).length, last24h: joined.filter((j) => now - Date.parse(j.at) < DAY).length } };
 }
 
 // ─── DuckBench ──────────────────────────────────────────────────────────
@@ -284,7 +341,10 @@ export interface BoardMatch { host?: string; path?: string; repo?: string }
 interface Source {
   id: PulseSource;
   name: string;                                  // as the sources list and the Markdown name it
-  url: (now: number) => string;
+  kind: "board" | "people" | "registry";         // board: its entries count in `activity`; people: who joined; registry: events only
+  url: (now: number, cache: SourceCache) => string | undefined; // nothing: no read this round
+  after?: PulseSource;                           // read once this source has been read (its URL comes from that body)
+  immutable?: boolean;                           // the URL names its content: the same URL is never read twice
   ttlMs: number;                                 // one read serves this long
   maxBytes: number;                              // decompressed
   match?: BoardMatch;                            // how this site's board for it is found in /api/index.json
@@ -292,11 +352,13 @@ interface Source {
 }
 
 export const SOURCES: Source[] = [
-  { id: "pequalnp", name: "P = NP?", url: () => PNP_HEAD, ttlMs: 15_000, maxBytes: 256 * 1024, match: { host: "pequalnp.com" }, read: fromPequalnp },
-  { id: "riemann", name: "Riemann Hypothesis Lean 4 hub", url: () => RIEMANN_BOARD, ttlMs: 2 * 60_000, maxBytes: 8 * 1024 * 1024, match: { repo: "osgood001/riemann-hypothesis" }, read: fromRiemann },
-  { id: "looped-lens", name: "The Looped Lens Challenge", url: () => LOOPED_BOARD, ttlMs: 3 * 60_000, maxBytes: 8 * 1024 * 1024, match: { repo: "ndif-team/looped-lens-challenge" }, read: fromLoopedLens },
-  { id: "duckbench", name: "DuckBench", url: () => DUCK_FEED, ttlMs: 2 * 60_000, maxBytes: 1024 * 1024, match: { host: "duckbench.app" }, read: fromDuckBench },
-  { id: "palomar", name: "Palomar", url: (now) => `${RESULTS_API}?order=registered&from=${new Date(now - DAY).toISOString().slice(0, 10)}`, ttlMs: 60_000, maxBytes: 1024 * 1024, read: (raw, now) => fromPalomar(raw, now) },
+  { id: "pequalnp", name: "P = NP?", kind: "board", url: () => PNP_HEAD, ttlMs: 15_000, maxBytes: 256 * 1024, match: { host: "pequalnp.com" }, read: fromPequalnp },
+  { id: "pequalnp-people", name: "P = NP? contributors", kind: "people", url: (_, cache) => pnpPeopleUrl(cache.get("pequalnp")?.body), after: "pequalnp", immutable: true,
+    ttlMs: 60_000, maxBytes: 16 * 1024 * 1024, match: { host: "pequalnp.com" }, read: fromPequalnpPeople },
+  { id: "riemann", name: "Riemann Hypothesis Lean 4 hub", kind: "board", url: () => RIEMANN_BOARD, ttlMs: 2 * 60_000, maxBytes: 8 * 1024 * 1024, match: { repo: "osgood001/riemann-hypothesis" }, read: fromRiemann },
+  { id: "looped-lens", name: "The Looped Lens Challenge", kind: "board", url: () => LOOPED_BOARD, ttlMs: 3 * 60_000, maxBytes: 8 * 1024 * 1024, match: { repo: "ndif-team/looped-lens-challenge" }, read: fromLoopedLens },
+  { id: "duckbench", name: "DuckBench", kind: "board", url: () => DUCK_FEED, ttlMs: 2 * 60_000, maxBytes: 1024 * 1024, match: { host: "duckbench.app" }, read: fromDuckBench },
+  { id: "palomar", name: "Palomar", kind: "registry", url: (now) => `${RESULTS_API}?order=registered&from=${new Date(now - DAY).toISOString().slice(0, 10)}`, ttlMs: 60_000, maxBytes: 1024 * 1024, read: (raw, now) => fromPalomar(raw, now) },
 ];
 
 async function getJson(fetchImpl: Fetch, url: string, maxBytes: number, etag?: string): Promise<{ status: 200; body: unknown; etag?: string } | { status: 304 }> {
@@ -328,14 +390,28 @@ export function boardFor(index: unknown, match: BoardMatch | string): BoardRef |
 }
 
 /** What each source gave last: its body, ETag and when it was read; a failed read leaves the last good one in place. */
-export type SourceCache = Map<PulseSource, { readAt: number; body?: unknown; etag?: string; goodAt?: number; error?: string }>;
+export type SourceCache = Map<PulseSource, { readAt: number; url?: string; body?: unknown; etag?: string; goodAt?: number; error?: string }>;
 
 /** Entries on the listed boards (Palomar is a registry, not a board: its results are events, not entries), and whether the sum is a lower bound. */
 function tally(all: { source: Source; read?: SourceRead }[], key: "lastHour" | "last24h"): Tally {
-  const reads = all.filter(({ source }) => source.match);
+  const reads = all.filter(({ source }) => source.kind === "board");
   const by = reads.flatMap(({ source, read }) => (read?.window?.[key] !== undefined ? [{ source: source.id, name: source.name, count: read.window[key]!, noun: read.window.noun }] : []));
   const partial = reads.some(({ read }) => !read?.window || read.window[key] === undefined || (key === "last24h" && !read.window.complete));
   return { count: by.reduce((s, b) => s + b.count, 0), boards: by.filter((b) => b.count > 0).length, partial, by: by.filter((b) => b.count > 0) };
+}
+
+/** First entries from the sources that know them, newest first; partial when one of them could not be read. */
+function joins(reads: { source: Source; read?: SourceRead }[]): Joins {
+  const from = reads.filter(({ source }) => source.id === "pequalnp-people" || source.id === "looped-lens");
+  const by = from.flatMap(({ source, read }) => (read?.joined ? [{ source: source.id, name: source.id === "pequalnp-people" ? "P = NP?" : source.name, count: read.joined.last24h }] : []));
+  const seen = new Set<string>();
+  const people = from.flatMap(({ read }) => read?.joined?.people ?? []).filter((j) => !seen.has(j.id) && !!seen.add(j.id))
+    .sort((a, b) => b.at.localeCompare(a.at) || a.id.localeCompare(b.id)).slice(0, MAX_JOINERS);
+  return {
+    lastHour: from.reduce((s, { read }) => s + (read?.joined?.lastHour ?? 0), 0),
+    last24h: from.reduce((s, { read }) => s + (read?.joined?.last24h ?? 0), 0),
+    partial: from.some(({ read }) => !read?.joined), by: by.filter((b) => b.count > 0), people,
+  };
 }
 
 /**
@@ -344,18 +420,24 @@ function tally(all: { source: Source; read?: SourceRead }[], key: "lastHour" | "
  */
 export async function buildPulse(opts: { fetch: Fetch; now: number; boards?: Partial<Record<PulseSource, BoardRef>>; cache?: SourceCache; sources?: Source[] }): Promise<Pulse> {
   const { fetch: f, now } = opts, cache: SourceCache = opts.cache ?? new Map(), sources = opts.sources ?? SOURCES;
-  await Promise.all(sources.map(async (s) => {
+  const readOne = async (s: Source) => {
     const prev = cache.get(s.id);
     if (prev && now - prev.readAt < s.ttlMs) return;
+    const url = s.url(now, cache);
+    if (!url) return;
+    if (s.immutable && prev?.url === url && prev.body !== undefined) { cache.set(s.id, { ...prev, readAt: now, goodAt: now, error: undefined }); return; }
     try {
-      const r = await getJson(f, s.url(now), s.maxBytes, prev?.body !== undefined ? prev.etag : undefined);
-      cache.set(s.id, r.status === 304 ? { ...prev!, readAt: now, goodAt: now, error: undefined } : { readAt: now, body: r.body, etag: r.etag, goodAt: now });
+      const r = await getJson(f, url, s.maxBytes, prev?.body !== undefined && prev.url === url ? prev.etag : undefined);
+      cache.set(s.id, r.status === 304 ? { ...prev!, readAt: now, goodAt: now, error: undefined } : { readAt: now, url, body: r.body, etag: r.etag, goodAt: now });
     } catch (e) {
       const error = String((e as Error)?.message ?? e).slice(0, 120);
       const keep = prev?.goodAt !== undefined && now - prev.goodAt < KEEP_MS;
-      cache.set(s.id, { readAt: now, ...(keep ? { body: prev!.body, etag: prev!.etag, goodAt: prev!.goodAt } : {}), error });
+      cache.set(s.id, { readAt: now, ...(keep ? { url: prev!.url, body: prev!.body, etag: prev!.etag, goodAt: prev!.goodAt } : {}), error });
     }
-  }));
+  };
+  // Sources whose URL comes from another source's body are read once that one has been read
+  await Promise.all(sources.filter((s) => !s.after).map(readOne));
+  await Promise.all(sources.filter((s) => s.after).map(readOne));
   const reads = sources.map((source) => {
     const c = cache.get(source.id);
     let read: SourceRead | undefined, error = c?.error;
@@ -375,6 +457,7 @@ export async function buildPulse(opts: { fetch: Fetch; now: number; boards?: Par
     at: new Date(now).toISOString(),
     agentsNow: counts.length ? { total: counts.reduce((s, c) => s + c.count, 0), counts } : null,
     activity: { lastHour: tally(reads, "lastHour"), last24h: tally(reads, "last24h") },
+    joined: joins(reads),
     events,
     sources: reads.map((r) => r.state),
   };
@@ -400,6 +483,11 @@ export function pulseMarkdown(p: Pulse, site: string): string {
   if (day.count) {
     lines.push(`In the last 24 hours: ${day.count}${day.partial ? "+" : ""} entries on the boards that list them with times${day.partial ? " (a lower bound: not every source lists a whole day)" : ""}:`);
     for (const b of day.by) lines.push(`- ${flat(b.name)}: ${b.count} ${b.noun}`);
+    lines.push("");
+  }
+  if (p.joined.last24h) {
+    lines.push(`Joined in the last 24 hours: ${p.joined.last24h}${p.joined.partial ? "+" : ""} people made their first entry (${p.joined.by.map((b) => `${flat(b.name)} ${b.count}`).join(", ")}). Newest:`);
+    for (const j of p.joined.people.slice(0, 10)) lines.push(`- ${hhmm(j.at)} · ${flat(j.who)} · ${flat(j.boardName ?? j.source)}${j.first ? ` · ${flat(j.first)}` : ""} — ${j.url}`);
     lines.push("");
   }
   lines.push("## Latest", "");
