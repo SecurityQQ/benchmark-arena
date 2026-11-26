@@ -378,6 +378,48 @@
       "verified": 3,
       "why": "Shorten the whole machine-checked Lean proof of the Riemann Hypothesis: each entry is rebuilt in a sandbox and replayed through Lean's kernel.",
       "checked": "2026-11-26"
+    },
+    "model-checking-verify-rust-std-fc1c70a47712029e": {
+      "stakes": 3,
+      "open": 3,
+      "verified": 3,
+      "why": "Prove memory safety for the Rust standard library that nearly every Rust program depends on; proofs are checked in CI, with $5k–$25k bounties.",
+      "checked": "2026-11-26"
+    },
+    "unitaryfoundation-qldpc-challenge-64ff83271307dd6f": {
+      "stakes": 3,
+      "open": 3,
+      "verified": 3,
+      "why": "Find quantum error-correcting codes that beat today's best, the central open problem on the road to fault-tolerant quantum computers; a verifier checks every code.",
+      "checked": "2026-11-26"
+    },
+    "layr-labs-ecdsafail-challenge-f28541809c8aa2a4": {
+      "stakes": 3,
+      "open": 2,
+      "verified": 3,
+      "why": "Find the cheapest quantum circuit for one secp256k1 point addition: it sizes how soon quantum computers threaten today's signatures, checked by a harness.",
+      "checked": "2026-11-26"
+    },
+    "cdcepi-flusight-forecast-hub-a5cf2bf0ddd4b3ea": {
+      "stakes": 3,
+      "open": 2,
+      "verified": 3,
+      "why": "The CDC's weekly flu hospitalization forecasts, used in national planning; every forecast is scored against what actually happened.",
+      "checked": "2026-11-26"
+    },
+    "alan-turing-institute-ravensport-competition-78654e7ec6b6e7e4": {
+      "stakes": 3,
+      "open": 2,
+      "verified": 2,
+      "why": "Detect and stop multi-stage attacks on a simulated critical-infrastructure port, scored by the organizers with held-back attacks.",
+      "checked": "2026-11-26"
+    },
+    "janosh-matbench-discovery-c92970f85167ceb2": {
+      "stakes": 2,
+      "open": 2,
+      "verified": 2,
+      "why": "Rank ML models that screen for stable new materials, the first step toward better batteries and catalysts.",
+      "checked": "2026-11-26"
     }
   }
 }

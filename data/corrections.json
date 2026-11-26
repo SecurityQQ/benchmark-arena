@@ -46,6 +46,12 @@
       "delist": "The same challenge under its former repository name (open-challenges/rh-golf); it is listed as open-challenges-shortest-riemann-hypothesis-proof-fad76d46f55ca517",
       "source": "https://github.com/open-challenges/shortest-riemann-hypothesis-proof",
       "checked": "2026-11-26"
+    },
+    {
+      "id": "cdcepi-flusight-forecast-hub-a5cf2bf0ddd4b3ea",
+      "deadline": "2026-27 season: weekly forecasts from October 7, 2026 through May 2027 (dates may shift with flu activity)",
+      "source": "https://github.com/cdcepi/FluSight-forecast-hub#readme",
+      "checked": "2026-11-26"
     }
   ]
 }
