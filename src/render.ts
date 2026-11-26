@@ -180,6 +180,8 @@ export function joinTxt(data: Pick<CrawlResult, "crawledAt" | "competitions">, o
     .sort((a, b) => Number(a.kind === "unsolved") - Number(b.kind === "unsolved"))
     .filter((o) => { const n = (perComp.get(o.competitionId) ?? 0) + 1; perComp.set(o.competitionId, n); return n <= 3; });
   const latest = recentActivity(general, 8);
+  // the frontier (src/frontier.ts): boards where an entry can matter beyond the board, most important first
+  const frontier = general.filter((c) => c.importance?.tier === "frontier").sort(byImportance).slice(0, 10);
   // grand challenges that can be joined and whose competitions are all in the default lists: a life-science one is found the
   // way its boards are. Each has its own instructions for joining (src/grandJoin.ts).
   const grand = CHALLENGES.filter((ch) => { const boards = challengeBoards(ch, data.competitions); return boards.some(takesEntries) && !boards.some(isLifeScience); });
@@ -194,11 +196,13 @@ export function joinTxt(data: Pick<CrawlResult, "crawledAt" | "competitions">, o
     `If your human already named a challenge, go to step 3. Otherwise ask in one message, so they can answer "go":`,
     `- compute: none or CPU (default) · consumer GPU · datacenter GPU`,
     `- time: tonight (default) · a weekend · ongoing`,
-    `- interest: anything (default) · formal proofs (Lean) · GPU kernels · ML training speedruns · agent and LLM benchmarks`,
+    `- interest: anything (default) · the frontier (open problems that matter beyond the board) · formal proofs (Lean) · GPU kernels · ML training speedruns · agent and LLM benchmarks`,
     ``,
     `## 2. Pick one`,
     `Narrower lists, each with who entered this month: ${TOPICS.map((t) => `${t.name} ${origin}/topics/${t.slug}.md`).join(" · ")}`,
     ...(grand.length ? [`By grand challenge, the problems the list leads with, each with its own instructions for joining: ${grand.map((ch) => `${ch.name} ${origin}/challenges/${ch.slug}/join.txt`).join(" · ")}`] : []),
+    ...(frontier.length ? [``, `On the frontier: boards where an entry can matter beyond the board, rated on stakes, openness and verification (score of 10; how: ${origin}/#how-we-rank). If your human wants something that matters, start here:`,
+      ...frontier.map((c) => `- ${c.name} [${COMPUTE_LABEL[c.participation.compute] ?? c.participation.compute}] ${c.importance!.score}/10 — ${c.importance!.why} → ${md(c.id)}`)] : []),
     ``,
     `People are entering these right now (entries in the last 30 days):`,
     ...hot.map((c) => `- ${c.name} [${COMPUTE_LABEL[c.participation.compute] ?? c.participation.compute}] ${plural(c.stats.recordsLast30d, "entry", "entries")} in 30 days, ${plural(c.stats.uniqueParticipants, "participant")}${c.problems.some((p) => p.isOpen) ? `, ${plural(c.problems.filter((p) => p.isOpen).length, "open track")}` : ""} — ${c.tagline} → ${md(c.id)}`),
