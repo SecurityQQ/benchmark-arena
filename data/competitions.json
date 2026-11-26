@@ -121793,6 +121793,119 @@
         "recordsLast90d": 0
       },
       "lastUpdated": "2026-11-26T21:02:04.431Z"
+    },
+    {
+      "id": "vesuvius-challenge",
+      "name": "Vesuvius Challenge",
+      "tagline": "Read the Herculaneum scrolls, carbonized by Vesuvius in 79 AD, from X-ray CT scans: unroll them virtually and find the ink with machine learning.",
+      "description": "Hundreds of papyrus scrolls from a Roman villa at Herculaneum were carbonized by the eruption of Mount Vesuvius in 79 AD; they cannot be opened without destroying them. The Vesuvius Challenge, founded by Nat Friedman, Daniel Gross and Brent Seales, publishes high-resolution X-ray CT scans of them and pays for every step toward reading them: virtually unrolling the papyrus surface, detecting ink that is almost invisible in the scans, and turning it into text scholars can read. $2,140,000 is open in prizes. The 2027 milestone prizes go to the first teams to fully unroll a scroll, uncover the first letters of new scrolls, or recover a title; monthly prizes reward open-source progress. Winners are verified by the challenge's technical team and papyrologists, and results are open-sourced.",
+      "url": "https://scrollprize.org/prizes",
+      "host": "website",
+      "status": "active",
+      "domain": "ml-research",
+      "tags": [
+        "computer-vision",
+        "ct-scanning",
+        "segmentation",
+        "ink-detection",
+        "papyrology",
+        "machine-learning",
+        "open-science"
+      ],
+      "images": [],
+      "participation": {
+        "howToSubmit": "Read the rules on https://scrollprize.org/prizes, get the scan data through https://scrollprize.org/data, and send each result through the submission form linked under its prize. Monthly submissions are judged every month; the milestone prizes go to the first team that meets the stated conditions.",
+        "submissionFormat": "A write-up with the method, the images or text produced, and the open-source code, data and model weights the prize requires.",
+        "computeDetails": "Ink detection models train on a single modern GPU; full-scroll unrolling pipelines need more storage and compute.",
+        "deadline": "2027-06-25",
+        "rounds": "Milestone prizes until 2027-06-25; monthly progress prizes, next deadline 2026-11-30.",
+        "prizes": "$2,140,000 open prize pool; 2027 Grand Prize $1,000,000 in total; First Letters $50,000 per scroll; $50,000 for the title of PHerc. Paris. 4; best monthly submission $20,000",
+        "eligibility": "Teams or individuals; see the rules on the prizes page.",
+        "cost": "free",
+        "verification": "The Vesuvius Challenge technical team reproduces each claim and papyrologists judge legibility; the Grand Prize pipeline must be largely automated.",
+        "requirements": [
+          "The CT scan data (several terabytes per scroll; subsets are enough to start)",
+          "Python with volume segmentation and ink detection tooling (the ScrollPrize/villa repository)"
+        ],
+        "compute": "consumer-gpu"
+      },
+      "links": [
+        {
+          "label": "Prizes and rules",
+          "url": "https://scrollprize.org/prizes"
+        },
+        {
+          "label": "Data",
+          "url": "https://scrollprize.org/data"
+        },
+        {
+          "label": "Code (ScrollPrize/villa)",
+          "url": "https://github.com/ScrollPrize/villa"
+        },
+        {
+          "label": "Get started",
+          "url": "https://scrollprize.org/get_started"
+        }
+      ],
+      "organizer": {
+        "name": "Vesuvius Challenge (Scroll Prize)",
+        "url": "https://scrollprize.org/",
+        "type": "community"
+      },
+      "venue": {
+        "type": "online"
+      },
+      "problems": [
+        {
+          "description": "Fully unroll one of the eligible scroll scans and make it readable. First place takes the largest share, with prizes for second to fourth. Deadline 2027-06-25.",
+          "id": "grand-prize-2027",
+          "name": "2027 Grand Prize ($1,000,000 in total)",
+          "metricName": "scroll unrolled and readable",
+          "metricDirection": "maximize",
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "description": "The first team to uncover 10 letters within a single 4 cm² area of an eligible scroll, and open source the code, data and weights, wins that scroll's prize.",
+          "id": "first-letters",
+          "name": "First Letters ($50,000 per scroll)",
+          "metricName": "letters uncovered in 4 cm²",
+          "metricDirection": "maximize",
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "description": "The first team to discover this scroll's title tells scholars what, and whom, they have been reading.",
+          "id": "title-pherc-paris-4",
+          "name": "The title of PHerc. Paris. 4 ($50,000)",
+          "metricName": "title recovered",
+          "metricDirection": "maximize",
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "description": "Open-source contributions that help read the scrolls, judged every month. Next deadline 2026-11-30.",
+          "id": "monthly-progress",
+          "name": "Monthly progress prizes (best of the month $20,000)",
+          "metricName": "significance of the contribution",
+          "metricDirection": "maximize",
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        }
+      ],
+      "agentStats": [],
+      "participants": [],
+      "stats": {
+        "totalRecords": 0,
+        "uniqueParticipants": 0,
+        "recordsLast30d": 0,
+        "recordsLast90d": 0
+      },
+      "lastUpdated": "2026-11-26T21:44:26.153Z"
     }
   ],
   "errors": [
