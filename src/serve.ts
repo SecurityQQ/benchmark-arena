@@ -6,8 +6,12 @@ import { Readable } from "node:stream";
 import { publicDataset, readSiteAsset } from "./build.js";
 import { aggregatePeople, aggregateAgents, competitionIndex, openProblems, withEntryCounts } from "./aggregate.js";
 import { competitionBadge, listedBadge } from "./badge.js";
-import { competitionToMarkdown, feedAtom, feedJson, joinTxt, llmsTxt } from "./render.js";
-import { pages, renderPage, topicMarkdown } from "./prerender.js";
+import { claimTxt, competitionToMarkdown, feedAtom, feedJson, joinTxt, llmsTxt } from "./render.js";
+import { pages, profilePage, renderPage, topicMarkdown } from "./prerender.js";
+import { buildProfiles, peopleWithProfiles, profileIndex, withProfiles } from "./profiles.js";
+import { createAccountsHandler, memoryStore } from "./accounts.js";
+import { connectAccounts, pgStore } from "./accountsDb.js";
+import { databaseUrl } from "./db.js";
 import { TOPICS } from "./topics.js";
 import { applyCorrections, loadCorrections } from "./corrections.js";
 import { markdownFor } from "./agentTraffic.js";
@@ -38,7 +42,8 @@ const MIME: Record<string, string> = {
 
 async function loadData() {
   const crawled = publicDataset(JSON.parse(await readFile(DATA_PATH, "utf-8")));
-  return { ...crawled, competitions: withAgentDocs(applyCorrections(crawled.competitions, loadCorrections(process.cwd(), new Set(crawled.competitions.map((c) => c.id)))), loadAgentDocs(process.cwd())) };
+  const comps = withAgentDocs(applyCorrections(crawled.competitions, loadCorrections(process.cwd(), new Set(crawled.competitions.map((c) => c.id)))), loadAgentDocs(process.cwd()));
+  return { ...crawled, competitions: withProfiles(comps, buildProfiles(comps)) };
 }
 
 function send(res: any, status: number, body: string | Buffer, type = "text/plain; charset=utf-8") {
@@ -61,6 +66,27 @@ async function serveMcp(req: IncomingMessage, res: ServerResponse) {
   res.end(Buffer.from(await response.arrayBuffer()));
 }
 
+// /api/v1 as on Vercel (api/v1.ts): the database in SUPABASE_DB_URL when set (ACCOUNTS_DB=memory keeps it in memory), profiles
+// read from this server. Sign-in needs GITHUB_CLIENT_ID and GITHUB_CLIENT_SECRET with a callback on this origin.
+let accounts: ((request: Request) => Promise<Response>) | undefined;
+async function serveAccounts(req: IncomingMessage, res: ServerResponse) {
+  const address = server.address();
+  const port = typeof address === "object" && address ? address.port : PORT;
+  const host = ["0.0.0.0", "::", ""].includes(HOST) ? "127.0.0.1" : HOST.includes(":") ? `[${HOST}]` : HOST;
+  const db = process.env.ACCOUNTS_DB === "memory" ? undefined : databaseUrl();
+  const id = process.env.GITHUB_CLIENT_ID, secret = process.env.GITHUB_CLIENT_SECRET;
+  accounts ??= createAccountsHandler({ store: db ? pgStore(connectAccounts(db)) : memoryStore(), origin: `http://${host}:${port}`, github: id && secret ? { clientId: id, clientSecret: secret } : null, log: (l) => console.log(l) });
+  const headers = new Headers();
+  for (const [name, value] of Object.entries(req.headers)) for (const v of [value ?? []].flat()) headers.append(name, v);
+  const body = req.method === "GET" || req.method === "HEAD" ? {} : { body: Readable.toWeb(req), duplex: "half" };
+  const response = await accounts(new Request(`http://${host}:${port}${req.url}`, { method: req.method, headers, ...body } as RequestInit));
+  const out: Record<string, string | string[]> = Object.fromEntries(response.headers);
+  const cookies = response.headers.getSetCookie();
+  if (cookies.length) out["set-cookie"] = cookies;
+  res.writeHead(response.status, out);
+  res.end(Buffer.from(await response.arrayBuffer()));
+}
+
 const server = createServer(async (req, res) => {
   res.setHeader("X-Content-Type-Options", "nosniff");
   res.setHeader("X-Frame-Options", "DENY");
@@ -68,6 +94,7 @@ const server = createServer(async (req, res) => {
   res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
   res.setHeader("Content-Security-Policy", "default-src 'self'; img-src 'self' https: data:; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' https://www.googletagmanager.com; connect-src 'self' https://api.github.com https://raw.githubusercontent.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'");
   if ((req.url ?? "").split("?")[0] === "/mcp") return serveMcp(req, res).catch(() => send(res, 500, "Internal error"));
+  if (/^\/api\/v1(\/|\?|$)/.test(req.url ?? "")) return serveAccounts(req, res).catch(() => send(res, 500, "Internal error"));
   if (req.method !== "GET" && req.method !== "HEAD") {
     res.setHeader("Allow", "GET, HEAD");
     return send(res, 405, "Method not allowed");
@@ -112,9 +139,23 @@ const server = createServer(async (req, res) => {
       const data = await loadData();
       return send(res, 200, JSON.stringify(data), MIME[".json"]);
     }
+    if (path === "/claim.txt") return send(res, 200, claimTxt(`http://${req.headers.host}`), MIME[".txt"]);
     if (path === "/api/people") {
       const data = await loadData();
-      return send(res, 200, JSON.stringify(aggregatePeople(data.competitions)), MIME[".json"]);
+      return send(res, 200, JSON.stringify(peopleWithProfiles(aggregatePeople(data.competitions), data.competitions)), MIME[".json"]);
+    }
+    if (path === "/api/profiles" || path === "/api/profiles.json") {
+      const data = await loadData();
+      return send(res, 200, JSON.stringify(profileIndex(buildProfiles(data.competitions).profiles)), MIME[".json"]);
+    }
+    const profileMatch = path.match(/^\/(api\/profiles|u)\/([a-z0-9-]{1,100}?)(\.json)?$/);
+    if (profileMatch && (profileMatch[1] === "u") === !profileMatch[3]) {
+      const p = buildProfiles((await loadData()).competitions).profiles.find((x) => x.slug === profileMatch[2]);
+      if (profileMatch[1] === "u") {
+        const shell = readSiteAsset(SITE_DIR, "index.html").toString();
+        return p ? send(res, 200, renderPage(shell, profilePage(p)), MIME[".html"]) : send(res, 404, renderPage(shell, pages({ crawledAt: new Date().toISOString(), competitions: [] }, [], null, [], []).find((x) => x.path === "/404")!), MIME[".html"]);
+      }
+      return p ? send(res, 200, JSON.stringify(p), MIME[".json"]) : send(res, 404, JSON.stringify({ error: "not found" }), MIME[".json"]);
     }
     if (path === "/api/agents") {
       const data = await loadData();
@@ -133,7 +174,8 @@ const server = createServer(async (req, res) => {
       return send(res, 200, JSON.stringify({
         crawledAt: data.crawledAt,
         competitions: data.competitions,
-        people: aggregatePeople(data.competitions),
+        people: peopleWithProfiles(aggregatePeople(data.competitions), data.competitions),
+        profileCount: buildProfiles(data.competitions).profiles.length,
         agents: aggregateAgents(data.competitions, "author"),
         evaluated: aggregateAgents(data.competitions, "subject"),
         openProblems: openProblems(data.competitions),
@@ -186,7 +228,7 @@ const server = createServer(async (req, res) => {
     if (!extname(path)) {
       const data = await loadData();
       const all = pages(data, loadSocial(process.cwd(), new Set(data.competitions.map((c) => c.id))), loadDiscoveries(process.cwd()));
-      const route = path === "/landing" ? "/" : path;
+      const route = path === "/landing" ? "/" : /^\/a\/[^/]+$/.test(path) ? "/a" : path;
       const p = all.find((x) => x.path === route) ?? all.find((x) => x.path === "/404")!;
       return send(res, p.path === "/404" ? 404 : 200, renderPage(readSiteAsset(SITE_DIR, "index.html").toString(), p), MIME[".html"]);
     }

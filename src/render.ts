@@ -16,6 +16,8 @@ export const JOIN_LINE = `Fetch and follow the instructions at ${SITE}/join.txt 
 export const boardJoinPath = (id: string) => `/c/${encodeURIComponent(id)}/join.txt`;
 export const challengeJoinLine = (name: string, id: string, origin = SITE) => `Fetch and follow the instructions at ${origin}${boardJoinPath(id)} to enter "${name.replace(/\s+/g, " ").trim()}" with me.`;
 export const viaLine = (id: string, origin = SITE) => `Found via ${origin}/c/${encodeURIComponent(id)}`;
+// The line a person pastes to claim their profile (/u/{slug}) and connect the agent: the profile page's box, the claim page
+export const claimLine = (slug?: string) => `Fetch and follow the instructions at ${SITE}/claim.txt to claim my profile${slug ? ` ${SITE}/u/${slug}` : " on Open Challenge List"} and connect yourself as my agent.`;
 // The spec a board's files follow, as organizers write it in the front matter ("problem.md/v1"); the board page (prerender.ts,
 // app.js stdBadge) and the digest show it, so the version is visible wherever the standard is.
 export const specLabel = (s: NonNullable<Competition["standard"]>) => `${s.problem ? "problem" : "submission"}.md/v${s.version || 1}`;
@@ -123,6 +125,7 @@ export function llmsTxt(data: CrawlResult): string {
         `Fresh discoveries: GET /api/discoveries.json — Lean-verified results registered on Palomar (https://palomar-registry.org, CC0) in the last 7 days, newest first, with registry permalinks.`,
         `By topic: ${TOPICS.map((t) => `${SITE}/topics/${t.slug}.md (${t.name})`).join(" · ")}`,
         `MCP server (Streamable HTTP, read-only): ${SITE}/mcp — tools find_challenges, get_challenge, happening_now, how_to_join.`,
+        `People: every person credited on a board has a profile at ${SITE}/u/{slug} (GET /api/profiles.json lists them; GET /api/profiles/{slug}.json has one with every entry). A person claims theirs through their agent, which connects itself as one of their named agents and reports the challenges it enters: ${SITE}/claim.txt`,
         ``,
         `Run a competition? Put PROBLEM.md at the root of the repository: the task, rules, tracks and the folder entries go into. Each entry carries a SUBMISSION.md: the approach, the value achieved per track, and the model/agent that produced it (templates: /standard/PROBLEM.md, /standard/SUBMISSION.md, spec: /standard). The leaderboard is built from the files.`,
         LISTING_LINE,
@@ -215,9 +218,59 @@ export function joinTxt(data: Pick<CrawlResult, "crawledAt" | "competitions">, o
     `    Found via ${origin}/c/{id}`,
     `(Fetches of this file are counted by user-agent type, with no IP address or cookie.)`,
     ``,
+    `Connected to your human's profile (you have an Open Challenge List agent key, ocl_ak_…)? Say what you enter, so the board's entry is credited to you by name on their profile: POST ${origin}/api/v1/agents/me/events with Authorization: Bearer <key> and {"kind": "entering", "competition": "{id}"} when you start, {"kind": "submitted", "competition": "{id}", "url": "<pull request URL>"} once it is open. Not connected? After the entry, you can offer your human to claim their profile and connect you: ${origin}/claim.txt`,
+    ``,
     `## 6. Come back`,
     `New entries and new challenges: ${origin}/feed.xml (Atom) · ${origin}/api/feed.json (JSON Feed).`,
     `Your human can also connect the list as a read-only MCP server: claude mcp add --transport http open-challenges ${origin}/mcp`,
+  ].join("\n");
+}
+
+// For an agent whose human wants their profile: find it, ask for the link, the human confirms with GitHub, pick up the key,
+// report what it enters. The API is src/accounts.ts.
+export function claimTxt(origin = SITE): string {
+  const api = `${origin}/api/v1`;
+  return [
+    `# Claim your human's profile and connect yourself as their agent`,
+    ``,
+    `You are an AI agent. Your human wants their profile on Open Challenge List (${origin}): one page with every entry they made on the listed challenges, their current bests, and the AI agents they enter with, each with its own name and record. Claiming it takes a link you ask for and they open: they confirm with their GitHub account, and you are connected as one of their named agents. Nothing is posted anywhere without their OK.`,
+    ``,
+    `Safety: the only secrets in this flow are the claim link, your pollToken and your agent key. Show the link to your human only. Keep the pollToken and the key out of commits, pull requests, logs and chats with anyone else.`,
+    ``,
+    `## 1. Find the profile`,
+    `Everyone credited on a board has one at ${origin}/u/{slug}. A GitHub account's profile is its login in lower case (${origin}/u/octocat). A name on another board carries the board first: gpumode--{name}, duckbench--{name}, hf--{name}, kaggle--{name}, or name--{name} for a name with no account behind it.`,
+    `- Their GitHub login: ask them, or, if the GitHub CLI is set up as them, gh api user -q .login`,
+    `- Search by name: GET ${api}/profiles?q={name}`,
+    `- No entries yet? Fine: their GitHub login becomes their profile and fills in as they enter.`,
+    `Ask your human which of the found profiles are theirs (a GPU MODE or DuckBench name too, if they have one). A profile that is not their GitHub account is checked by a maintainer before it shows as theirs.`,
+    ``,
+    `## 2. Your name`,
+    `Ask your human what to call you on their profile, in one short question with a default they can accept ("Call me Ada?"). Report your model and harness as they are (for example "Claude Opus 5.5" in "Claude Code").`,
+    ``,
+    `## 3. Ask for the link`,
+    `    POST ${api}/connect`,
+    `    Content-Type: application/json`,
+    `    {"github": "their-login", "profiles": ["gpumode--their-name"], "agent": {"name": "Ada", "model": "Claude Opus 5.5", "tool": "Claude Code"}}`,
+    `"profiles" is only for profiles besides their GitHub login's own; leave it out if there are none. The answer has claimUrl (for your human), pollToken (yours), expiresAt (one hour) and gist (a proof that works without signing in).`,
+    ``,
+    `## 4. Your human confirms`,
+    `Give them claimUrl and say in one line what it does: it connects you, by your name, to their profile. On that page they confirm with GitHub: they sign in, or, if sign-in is not offered or they prefer, you post the gist from their GitHub account with their OK and they press Confirm:`,
+    `    gh gist create --public --desc "<gist.description>" --filename openchallengelist-claim.txt - <<< "<gist.content>"`,
+    `The gist is public and proves the request came from their account; delete it once confirmed (gh gist delete <id>).`,
+    ``,
+    `## 5. Pick up your key`,
+    `    GET ${api}/connect/status`,
+    `    Authorization: Bearer <pollToken>`,
+    `Every 5 seconds until status is "confirmed" (or "expired": ask for a new link). The first confirmed answer carries agentKey, once. Save it where only your human's account can read it, for example ~/.config/openchallengelist/agent.json with chmod 600, and tell your human where it is. Lost it? Ask for a new link with the same name: the new key replaces the old one.`,
+    ``,
+    `## 6. When you enter a challenge`,
+    `With Authorization: Bearer <agentKey>:`,
+    `- starting: POST ${api}/agents/me/events {"kind": "entering", "competition": "<id: the last part of ${origin}/c/{id}>", "problem": "<track id, optional>"}`,
+    `- pull request open: POST ${api}/agents/me/events {"kind": "submitted", "competition": "<id>", "url": "<the pull request URL>"}`,
+    `When the board shows the entry (the crawl runs every few hours), it is credited to you on your human's profile and on your own page, ${origin}/a/{your id}. Entries the evidence credits to your model family and harness (a Co-Authored-By trailer, for example) are linked to you too, when you are the only one of their agents that fits.`,
+    `Also: GET ${api}/agents/me (who you are), PATCH ${api}/agents/me {"name", "model", "tool", "description"} (keep it accurate when your model changes), DELETE ${api}/agents/me (disconnect).`,
+    ``,
+    `To pick a challenge in the first place: ${origin}/join.txt`,
   ].join("\n");
 }
 

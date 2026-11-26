@@ -5,7 +5,8 @@ import { pathToFileURL } from "node:url";
 import { createHash } from "node:crypto";
 import type { CrawlResult } from "./types.js";
 import { aggregateAgents, aggregatePeople, competitionIndex, openProblems, withEntryCounts } from "./aggregate.js";
-import { competitionToMarkdown, feedAtom, feedJson, joinTxt, llmsTxt } from "./render.js";
+import { claimTxt, competitionToMarkdown, feedAtom, feedJson, joinTxt, llmsTxt } from "./render.js";
+import { buildProfiles, peopleWithProfiles, profileIndex, withProfiles } from "./profiles.js";
 import { pages, renderPage, topicMarkdown } from "./prerender.js";
 import { TOPICS } from "./topics.js";
 import { applyCorrections, loadCorrections } from "./corrections.js";
@@ -67,11 +68,13 @@ export function publicDataset(value: CrawlResult): Pick<CrawlResult, "crawledAt"
 }
 
 // What the site publishes: the crawled dataset with the checked corrections applied, the 30/90-day entry counts as of the crawl,
-// and links to the organizers' own instructions for agents (data/agent-docs.json, when present)
+// links to the organizers' own instructions for agents (data/agent-docs.json, when present) and each entry's people's
+// profiles (src/profiles.ts)
 export function loadPublished(root: string) {
   const crawled = publicDataset(JSON.parse(readFileSync(join(root, "data", "competitions.json"), "utf-8")));
   const corrected = applyCorrections(crawled.competitions, loadCorrections(root, new Set(crawled.competitions.map((c) => c.id))));
-  return { ...crawled, competitions: withAgentDocs(withEntryCounts(corrected, crawled.crawledAt), loadAgentDocs(root)) };
+  const comps = withAgentDocs(withEntryCounts(corrected, crawled.crawledAt), loadAgentDocs(root));
+  return { ...crawled, competitions: withProfiles(comps, buildProfiles(comps)) };
 }
 
 export async function build(root = process.cwd()) {
@@ -112,7 +115,8 @@ export async function build(root = process.cwd()) {
   // Every route as a real page (agents and crawlers that do not run JavaScript), index.html included, with its social card
   // (src/og.ts) when it has one. A card that cannot be drawn leaves that page on /og.jpg rather than block a data deploy.
   const shell = files.get("index.html")!.toString();
-  const all = pages(data, social, discoveries, events);
+  const { profiles } = buildProfiles(data.competitions);
+  const all = pages(data, social, discoveries, events, profiles);
   let draw: CardRenderer | null = null;
   try { if (all.some((p) => p.card)) draw = await cardRenderer(); }
   catch (error) { console.warn(`og: cards unavailable, pages keep /og.jpg (${(error as Error).message})`); }
@@ -144,15 +148,21 @@ export async function build(root = process.cwd()) {
   w("api/feed.json", j(feedJson(data, ORIGIN)));
   w("feed.xml", feedAtom(data, ORIGIN));
   w("join.txt", joinTxt(data, ORIGIN));
+  w("claim.txt", claimTxt(ORIGIN));
   w(`${INDEXNOW_KEY}.txt`, INDEXNOW_KEY);
-  w("api/people.json", j(aggregatePeople(data.competitions)));
+  const people = peopleWithProfiles(aggregatePeople(data.competitions), data.competitions);
+  w("api/people.json", j(people));
+  // Profiles: the index for the people page and searches, one file per person for their page and the accounts API
+  w("api/profiles.json", j(profileIndex(profiles)));
+  for (const p of profiles) w(`api/profiles/${p.slug}.json`, j(p));
   w("api/agents.json", j(aggregateAgents(data.competitions, "author")));
   w("api/agents-subject.json", j(aggregateAgents(data.competitions, "subject")));
   w("api/open-problems.json", j(openProblems(data.competitions)));
   w("api/summary.json", j({
     crawledAt: data.crawledAt,
     competitions: data.competitions,
-    people: aggregatePeople(data.competitions),
+    people,
+    profileCount: profiles.length,
     agents: aggregateAgents(data.competitions, "author"),
     evaluated: aggregateAgents(data.competitions, "subject"),
     openProblems: openProblems(data.competitions),
@@ -183,7 +193,9 @@ export async function build(root = process.cwd()) {
   const urls: [string, string, string, string][] = [["/", "daily", "1.0", day], ["/standard", "weekly", "0.9", day], ["/submit", "monthly", "0.6", day], ["/agents", "weekly", "0.8", day], ["/people", "weekly", "0.7", day],
     ...data.competitions.map((c): [string, string, string, string] => [`/c/${encodeURIComponent(c.id)}`, c.stats.recordsLast30d ? "daily" : "weekly", "0.8", lastmod(c)]),
     ...TOPICS.map((t): [string, string, string, string] => [`/topics/${t.slug}`, "daily", "0.9", day]),
-    ...families.map((f): [string, string, string, string] => [`/agents/${encodeURIComponent(f)}`, "weekly", "0.5", day])];
+    ...families.map((f): [string, string, string, string] => [`/agents/${encodeURIComponent(f)}`, "weekly", "0.5", day]),
+    // profiles worth a search result: the ones prerender.ts does not mark noindex
+    ...profiles.filter((p) => p.records >= 2 || p.currentBests).map((p): [string, string, string, string] => [`/u/${p.slug}`, "weekly", "0.4", p.lastActive && p.lastActive <= day ? p.lastActive : day])];
   w("sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(([p, f, pr, m]) => `  <url><loc>${xml(ORIGIN + p)}</loc><lastmod>${xml(m)}</lastmod><changefreq>${f}</changefreq><priority>${pr}</priority></url>`).join("\n")}\n</urlset>\n`);
   w("competitions.json", j(data));
 
