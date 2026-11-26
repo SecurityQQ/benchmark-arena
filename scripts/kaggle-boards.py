@@ -29,7 +29,21 @@ def build(api, slug, now):
             entry_deadline = entry_deadline.replace(tzinfo=timezone.utc)
         eligibility = f"New entrants must accept the rules by {entry_deadline.isoformat()}."
     direction, file_format, tags = BOARDS[slug]
-    rows = api.competition_leaderboard_view(slug, public=True, page_size=20)
+    # Ask for the public standings explicitly once a competition has ended.
+    # While entries are open the default standings are already public.
+    if now <= deadline:
+        rows = api.competition_leaderboard_view(slug, page_size=20)
+    else:
+        from kagglesdk.competitions.types.competition_api_service import ApiGetLeaderboardRequest
+
+        request = ApiGetLeaderboardRequest()
+        if not hasattr(type(request), "override_public"):
+            raise ValueError("SDK cannot select the archived public leaderboard")
+        request.competition_name = slug
+        request.page_size = 20
+        request.override_public = True
+        with api.build_kaggle_client() as client:
+            rows = client.competitions.competition_api_client.get_leaderboard(request).submissions
     records = []
     for row in rows or []:
         name = (row.team_name or "").strip()
@@ -78,9 +92,14 @@ def main():
             temporary = path.with_suffix(".tmp")
             temporary.write_text(json.dumps(board, allow_nan=False), encoding="utf-8")
             temporary.replace(path)
+            print(f"Kaggle {slug}: {len(board['problems'][0]['records'])} public leaderboard rows")
         except Exception as exc:
-            # Only the error type reaches CI logs. The crawler keeps the last verified board.
-            print(f"::warning::Kaggle {slug} unavailable ({type(exc).__name__})")
+            # Report the call site without logging exception text or request headers.
+            import traceback
+
+            frames = traceback.extract_tb(exc.__traceback__)
+            line = next(frame.lineno for frame in reversed(frames) if frame.filename == __file__)
+            print(f"::warning::Kaggle {slug} unavailable ({type(exc).__name__}, importer line {line})")
 
 
 if __name__ == "__main__":
