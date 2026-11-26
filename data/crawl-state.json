@@ -541,6 +541,20 @@
       "AGENTS.md"
     ]
   },
+  "open-challenges/rh-golf": {
+    "pushedAt": "2026-11-26T08:26:44Z",
+    "fingerprint": "a0f0ccb7f37eb7e2",
+    "verdict": "competition",
+    "checkedAt": "2026-11-26T17:08:38.955Z",
+    "head": "1d200ef699f96699c44aec0fde5e937274ca5fc8",
+    "sources": [
+      "PROBLEM.md",
+      "submissions/lsernau-grh-compact/SUBMISSION.md",
+      "README.md",
+      "AGENTS.md",
+      "submissions/"
+    ]
+  },
   "openai/mle-bench": {
     "pushedAt": "2026-04-24T17:33:44Z",
     "fingerprint": "a0f0ccb7f37eb7e2",

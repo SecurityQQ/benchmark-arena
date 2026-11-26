@@ -1,11 +1,11 @@
 {
-  "fetchedAt": "2026-11-26T09:11:49.200Z",
+  "fetchedAt": "2026-11-26T17:08:22.165Z",
   "totals": {
-    "results": 1395,
-    "projects": 1067
+    "results": 1412,
+    "projects": 1082
   },
   "days": {
-    "2026-11-26": 37,
+    "2026-11-26": 54,
     "2026-11-25": 7,
     "2026-11-24": 22,
     "2026-11-23": 36,
@@ -14,6 +14,287 @@
     "2026-11-20": 26
   },
   "items": [
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000054",
+      "version": 1,
+      "title": "On the Ramsey number of a tight path of length 3 versus a clique",
+      "authors": [
+        "Abhishek Methuku"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T15:43:45Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000054&version=1",
+      "repo": "methuku-git-hub/tp3-ramsey-lean",
+      "subjects": [
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000053",
+      "version": 1,
+      "title": "A supercongruence modulo p^5 for OEIS A212334 (observed by Peter Bala)",
+      "authors": [
+        "EliaSupernova"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T15:33:37Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000053&version=1",
+      "repo": "EliaSupernova/oeis-a212334-lean",
+      "subjects": [
+        "math.NT",
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000052",
+      "version": 1,
+      "title": "Affine Hulls and NP Query Compression",
+      "authors": [
+        "Ludwig Leitmeir"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T15:29:29Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000052&version=1",
+      "repo": "lleit/affine-hulls-and-np-query-compression",
+      "subjects": [
+        "cs.CC"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000051",
+      "version": 1,
+      "title": "There is no symmetric configuration 59₈",
+      "authors": [
+        "John Tripodo"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T15:22:14Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000051&version=1",
+      "repo": "jjtripodo-lgtm/symconf59-checker",
+      "subjects": [
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000050",
+      "version": 1,
+      "title": "OEIS A212334: Peter Bala's mod p^5 and mod p^(3r+3) supercongruence conjectures",
+      "authors": [
+        "Tanner Clary"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T15:06:10Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000050&version=1",
+      "repo": "tanclary/oeis-a212334-palomar",
+      "subjects": [
+        "math.NT",
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000049",
+      "version": 1,
+      "title": "Exact determination of the book Ramsey number R(B5,B9) = 29",
+      "authors": [
+        "HITESH4577"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T14:17:51Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000049&version=1",
+      "repo": "HITESH4577/Book-Ramsey-5-9",
+      "subjects": [
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000048",
+      "version": 1,
+      "title": "Erdős Problem #128: Improved Unconditional Sparse Halves Bound (261/10000)",
+      "authors": [
+        "Cristian George Anuta"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T13:58:36Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000048&version=1",
+      "repo": "Eno654/erdos-128-sparse-halves-lean4",
+      "subjects": [
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000047",
+      "version": 1,
+      "title": "Point counts of graph hypersurfaces: Kontsevich's polynomiality holds for every series–parallel graph, with the series–parallel rules for the graph and 2-forest polynomials and the exact counts for b…",
+      "authors": [
+        "Rohan Badade"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T13:34:18Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000047&version=1",
+      "repo": "gnostrich/sqier",
+      "subjects": [
+        "math.CO",
+        "math.AG"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000046",
+      "version": 1,
+      "title": "The orientation threshold 4 for the substitutions of x^n - x - 1, n >= 3, and the twelve-letter rho Q tensor",
+      "authors": [
+        "Stephanie Alexander"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T13:04:01Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000046&version=1",
+      "repo": "stalex444/arithmetic-of-time-four-tick-orientation",
+      "subjects": [
+        "math.CO",
+        "math.DS"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000045",
+      "version": 1,
+      "title": "An odd solution of Znám's problem and a solution of the coprime variant of Erdős Problem #307",
+      "authors": [
+        "Doug Phillips"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T12:26:56Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000045&version=1",
+      "repo": "duggiephresh/palomar-unit-fractions",
+      "subjects": [
+        "math.NT"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000044",
+      "version": 1,
+      "title": "Sharp bounds for typed triangle absorbers of doubled ears",
+      "authors": [
+        "Juan Pablo Traverso Gianini"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T12:17:36Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000044&version=1",
+      "repo": "jtraverso/typed-triangle-absorption",
+      "subjects": [
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000043",
+      "version": 1,
+      "title": "Xodarev Signature Volatility Models in Lean 4",
+      "authors": [
+        "Lars Warren Ericson"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T12:13:28Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000043&version=1",
+      "repo": "catskillsresearch/xodarev2026",
+      "subjects": [
+        "math.PR",
+        "q-fin.PR",
+        "math.CA"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000042",
+      "version": 1,
+      "title": "Erdős Problem #617: Balanced Colorings for Prime r^2 and r = 3",
+      "authors": [
+        "Cristian George Anuta"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T11:25:30Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000042&version=1",
+      "repo": "Eno654/erdos-617-lean4",
+      "subjects": [
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000041",
+      "version": 1,
+      "title": "Hypergraphs with zero uniform Turán density at intermediate levels",
+      "authors": [
+        "Xizhi Liu"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T11:20:56Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000041&version=1",
+      "repo": "xliu2022/uniform-turan-zero-density-lean",
+      "subjects": [
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000040",
+      "version": 1,
+      "title": "SIC-POVMs exist in every dimension (Open Quantum Problem 23): a Lean 4 formalization",
+      "authors": [
+        "Yaoling Yang"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T10:33:14Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000040&version=1",
+      "repo": "Hertaspace/sic-povm-lean",
+      "subjects": [
+        "quant-ph",
+        "math.NT"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000039",
+      "version": 1,
+      "title": "A nonrational four-polytope with fifteen vertices",
+      "authors": [
+        "Caius Folkerts"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T10:27:35Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000039&version=1",
+      "repo": "caiusdfolkerts/palomar-submissions",
+      "subjects": [
+        "math.CO",
+        "math.MG"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000038",
+      "version": 1,
+      "title": "The discrete Hudson theorem",
+      "authors": [
+        "Zayn Blore"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T08:05:39Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000038&version=1",
+      "repo": "zblore/discrete-hudson-lean",
+      "subjects": [
+        "quant-ph",
+        "math-ph"
+      ]
+    },
     {
       "source": "palomar",
       "id": "PALOMAR-2026-11-26-000037",
@@ -727,287 +1008,6 @@
       "repo": "MegasKomnenos/parking-unimodality",
       "subjects": [
         "math.CO"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-25-000001",
-      "version": 1,
-      "title": "Exact Leakage-Free Quantum State Preparation on an Infinite Ammann–Beenker Graph",
-      "authors": [
-        "Alessandro Odasso"
-      ],
-      "date": "2026-11-25",
-      "at": "2026-11-25T00:20:29Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-25-000001&version=1",
-      "repo": "alexodas/spectral_geometry",
-      "subjects": [
-        "math.SP",
-        "cond-mat.mes-hall"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-24-000022",
-      "version": 1,
-      "title": "MeanResidue: mean quadratic residues, floor sums of square roots and the conjectures of Chamberland and Dilcher",
-      "authors": [
-        "Joseph S. Farland"
-      ],
-      "date": "2026-11-24",
-      "at": "2026-11-24T21:19:18Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-24-000022&version=1",
-      "repo": "jkfarland-bot/MeanResidue",
-      "subjects": [
-        "math.NT"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-24-000021",
-      "version": 2,
-      "title": "PalomaMax2SAT: an 83/84 approximation for three-occurrence Horn formulas above the Unique Games thresholds",
-      "authors": [
-        "Frank Vega"
-      ],
-      "date": "2026-11-24",
-      "at": "2026-11-24T22:23:52Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-24-000021&version=2",
-      "repo": "frankvegadelgado/paloma",
-      "subjects": [
-        "cs.CC",
-        "cs.DS"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-24-000020",
-      "version": 1,
-      "title": "Two exceptional Hodge classes of Fermat varieties have length exactly seven (degrees 44 and 52)",
-      "authors": [
-        "Joel Cruz Cabrera"
-      ],
-      "date": "2026-11-24",
-      "at": "2026-11-24T17:23:43Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-24-000020&version=1",
-      "repo": "joelcanary/fermat-hodge-length-lean",
-      "subjects": [
-        "math.AG",
-        "math.NT"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-24-000019",
-      "version": 1,
-      "title": "Kisielewicz's formula for the Dedekind numbers",
-      "authors": [
-        "Joel Cruz Cabrera"
-      ],
-      "date": "2026-11-24",
-      "at": "2026-11-24T14:55:20Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-24-000019&version=1",
-      "repo": "joelcanary/kisielewicz-dedekind-lean",
-      "subjects": [
-        "math.CO"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-24-000018",
-      "version": 1,
-      "title": "The Kochen-Specker theorem in every dimension",
-      "authors": [
-        "Zayn Blore"
-      ],
-      "date": "2026-11-24",
-      "at": "2026-11-24T14:04:27Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-24-000018&version=1",
-      "repo": "zblore/kochen-specker-lean",
-      "subjects": [
-        "quant-ph",
-        "math-ph"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-24-000017",
-      "version": 1,
-      "title": "Odd Perfect Numbers: Equal Non-Special Exponents for Every Odd Prime 3 <= r <= 73",
-      "authors": [
-        "Tyler B. Hughes"
-      ],
-      "date": "2026-11-24",
-      "at": "2026-11-24T11:05:35Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-24-000017&version=1",
-      "repo": "mathdiscoveries/odd-perfect-equal-exponents",
-      "subjects": [
-        "math.NT"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-24-000016",
-      "version": 1,
-      "title": "Weak double extension set theory is inconsistent",
-      "authors": [
-        "Peter Zhang"
-      ],
-      "date": "2026-11-24",
-      "at": "2026-11-24T09:43:14Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-24-000016&version=1",
-      "repo": "BedrockInstitute/DESTInconsistency",
-      "subjects": [
-        "math.LO"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-24-000015",
-      "version": 1,
-      "title": "Rigidity of eigenvalues of generalized Wigner matrices",
-      "authors": [
-        "Jun Yin"
-      ],
-      "date": "2026-11-24",
-      "at": "2026-11-24T09:35:45Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-24-000015&version=1",
-      "repo": "JYin80/Lean-Rigidity_arXiv-1007.4652",
-      "subjects": [
-        "math.PR",
-        "math-ph"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-24-000014",
-      "version": 1,
-      "title": "One node, one density: the density of states of w1 w2 on the unit square; the zeta function, sharp partition function and free energy of the singular learning model K = (w1 w2)^2; and the zeta functi…",
-      "authors": [
-        "Rohan Badade"
-      ],
-      "date": "2026-11-24",
-      "at": "2026-11-24T09:18:28Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-24-000014&version=1",
-      "repo": "gnostrich/legendre-monodromy",
-      "subjects": [
-        "math.ST",
-        "math.LO"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-24-000013",
-      "version": 1,
-      "title": "The second order (Lee–Huang–Yang) upper bound for the ground state energy of a dilute Bose gas",
-      "authors": [
-        "Jun Yin"
-      ],
-      "date": "2026-11-24",
-      "at": "2026-11-24T08:46:54Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-24-000013&version=1",
-      "repo": "JYin80/Lean-LHYUpper_arXiv-0903.5347",
-      "subjects": [
-        "math-ph"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-24-000012",
-      "version": 1,
-      "title": "Minimal k-Prolific Permutations for Every Odd k: Exact Uniqueness via Lee-Sphere Tilings",
-      "authors": [
-        "Tyler B. Hughes"
-      ],
-      "date": "2026-11-24",
-      "at": "2026-11-24T08:35:54Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-24-000012&version=1",
-      "repo": "mathdiscoveries/minimal-prolific-permutations",
-      "subjects": [
-        "math.CO"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-24-000011",
-      "version": 1,
-      "title": "Erdős Problem 1139: unbounded gaps between integers with at most two prime factors",
-      "authors": [
-        "Bruce Lee"
-      ],
-      "date": "2026-11-24",
-      "at": "2026-11-24T08:27:03Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-24-000011&version=1",
-      "repo": "BruceLoveLee000/erdos-lean-proofs",
-      "subjects": [
-        "math.NT"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-24-000010",
-      "version": 1,
-      "title": "Rigid hypergraphs for unbounded GHZ dimension",
-      "authors": [
-        "Xizhi Liu"
-      ],
-      "date": "2026-11-24",
-      "at": "2026-11-24T07:55:45Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-24-000010&version=1",
-      "repo": "xliu2022/GHZ-unbounded-lean",
-      "subjects": [
-        "math.CO",
-        "quant-ph"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-24-000009",
-      "version": 1,
-      "title": "Exact Girths of Lazebnik-Ustimenko Graphs D(k, q): Girth 14 for All |F| >= 4, Independent Proof of the Binary Girth Law, and Ternary Girths",
-      "authors": [
-        "Tyler B. Hughes"
-      ],
-      "date": "2026-11-24",
-      "at": "2026-11-24T06:59:45Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-24-000009&version=1",
-      "repo": "mathdiscoveries/lazebnik-ustimenko",
-      "subjects": [
-        "math.CO"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-24-000008",
-      "version": 1,
-      "title": "The Legendre family: Picard–Fuchs equation, period integral, solution space, local monodromy and connection formula for 2F1(1/2,1/2;1;λ)",
-      "authors": [
-        "Rohan Badade"
-      ],
-      "date": "2026-11-24",
-      "at": "2026-11-24T06:24:47Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-24-000008&version=1",
-      "repo": "gnostrich/legendre-monodromy",
-      "subjects": [
-        "math.CA",
-        "math.LO"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-24-000007",
-      "version": 1,
-      "title": "Rigid hypergraphs for unbounded GHZ dimension",
-      "authors": [
-        "Xizhi Liu"
-      ],
-      "date": "2026-11-24",
-      "at": "2026-11-24T05:50:20Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-24-000007&version=1",
-      "repo": "xliu2022/GHZ-unbounded-lean",
-      "subjects": [
-        "math.CO",
-        "quant-ph"
       ]
     }
   ]

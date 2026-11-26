@@ -920,5 +920,24 @@
     "topics": [],
     "defaultBranch": "main",
     "pushedAt": "2026-11-26T02:07:34Z"
+  },
+  {
+    "owner": "open-challenges",
+    "name": "rh-golf",
+    "url": "https://github.com/open-challenges/rh-golf",
+    "description": "Shorten the machine-checked Lean proof of the Riemann Hypothesis: fewest lines wins, every entry rebuilt and replayed through Lean's kernel.",
+    "stars": 0,
+    "topics": [
+      "code-golf",
+      "formal-verification",
+      "lean4",
+      "mathlib",
+      "open-challenge-list",
+      "riemann-hypothesis",
+      "theorem-proving"
+    ],
+    "defaultBranch": "main",
+    "pushedAt": "2026-11-26T08:26:44Z",
+    "priority": true
   }
 ]
