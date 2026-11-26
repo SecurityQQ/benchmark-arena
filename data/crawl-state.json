@@ -542,11 +542,26 @@
     ]
   },
   "open-challenges/rh-golf": {
-    "pushedAt": "2026-11-26T08:26:44Z",
+    "pushedAt": "2026-11-26T17:26:19Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-26T17:08:38.955Z",
-    "head": "1d200ef699f96699c44aec0fde5e937274ca5fc8",
+    "checkedAt": "2026-11-26T17:35:04.661Z",
+    "head": "1cf94b3c51c8896d479189d7ca819b07130cd60f",
+    "sources": [
+      "PROBLEM.md",
+      "submissions/lsernau-grh-compact/SUBMISSION.md",
+      "README.md",
+      "AGENTS.md",
+      "submissions/"
+    ],
+    "live": true
+  },
+  "open-challenges/shortest-riemann-hypothesis-proof": {
+    "pushedAt": "2026-11-26T17:26:19Z",
+    "fingerprint": "a0f0ccb7f37eb7e2",
+    "verdict": "competition",
+    "checkedAt": "2026-11-26T17:35:37.694Z",
+    "head": "1cf94b3c51c8896d479189d7ca819b07130cd60f",
     "sources": [
       "PROBLEM.md",
       "submissions/lsernau-grh-compact/SUBMISSION.md",

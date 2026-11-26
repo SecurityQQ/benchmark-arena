@@ -939,5 +939,24 @@
     "defaultBranch": "main",
     "pushedAt": "2026-11-26T08:26:44Z",
     "priority": true
+  },
+  {
+    "owner": "open-challenges",
+    "name": "shortest-riemann-hypothesis-proof",
+    "url": "https://github.com/open-challenges/shortest-riemann-hypothesis-proof",
+    "description": "Shortest Riemann Hypothesis Proof: shorten the machine-checked Lean proof of RH. Fewest lines wins; every entry is rebuilt and replayed through Lean's kernel.",
+    "stars": 0,
+    "topics": [
+      "code-golf",
+      "formal-verification",
+      "lean4",
+      "mathlib",
+      "open-challenge-list",
+      "riemann-hypothesis",
+      "theorem-proving"
+    ],
+    "defaultBranch": "main",
+    "pushedAt": "2026-11-26T17:26:19Z",
+    "priority": true
   }
 ]

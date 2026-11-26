@@ -58,6 +58,12 @@
         "url": "https://raw.githubusercontent.com/open-challenges/rh-golf/HEAD/AGENTS.md"
       }
     ],
+    "open-challenges-shortest-riemann-hypothesis-proof-fad76d46f55ca517": [
+      {
+        "label": "AGENTS.md",
+        "url": "https://raw.githubusercontent.com/open-challenges/shortest-riemann-hypothesis-proof/HEAD/AGENTS.md"
+      }
+    ],
     "polymarket-paper-trader": [
       {
         "label": "AGENTS.md",
