@@ -1335,3 +1335,79 @@ img.pc-face { object-fit: cover; background: var(--canvas-2); }
 .tier-head p { color: var(--muted); font-size: 14px; }
 .score-chip { align-self: flex-start; font-family: var(--font-mono); font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 2px 9px; }
 .score-chip.front { color: #fff; background: var(--ink, #141413); border-color: transparent; }
+
+/* ── Grand challenges: the problems the catalog leads with, each with the competitions running on it
+   (app.js grandCard, grandBand, grandBlock, renderChallenge; data from src/challenges.ts) ── */
+.gc-band { padding: 72px 0 80px; }
+.gc-band .band-head { margin-bottom: 36px; }
+.gc-band .band-head h2 { font-size: 38px; line-height: 1.1; max-width: 760px; letter-spacing: -.015em; }
+.kpi-band.after-grand { border-top: 0 !important; }
+.gc-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.gc-grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+@media (max-width: 960px) { .gc-grid.three { grid-template-columns: 1fr; } }
+@media (max-width: 760px) { .gc-grid { grid-template-columns: 1fr; } .gc-band .band-head h2 { font-size: 30px; } }
+.gc-card { position: relative; display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; transition: border-color .15s; }
+.gc-card:hover { border-color: var(--ink); }
+.gc-cover { position: absolute; inset: 0; z-index: 1; }
+.gc-art { position: relative; height: 210px; overflow: hidden; background: var(--canvas-2); border-bottom: 1px solid var(--line); }
+.gc-art img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(.9) contrast(.97); transition: transform .7s ease; }
+.gc-card:hover .gc-art img { transform: scale(1.03); }
+.gc-art::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(250, 249, 245, .95) 0%, rgba(250, 249, 245, .82) 32%, rgba(250, 249, 245, .28) 58%, rgba(250, 249, 245, 0) 78%); }
+.gc-cap { position: absolute; left: 28px; right: 36%; bottom: 22px; z-index: 2; }
+.gc-cap .eyebrow { color: var(--ink-soft); margin-bottom: 10px; }
+.gc-name { font-size: 38px; line-height: 1.04; letter-spacing: -.02em; text-wrap: balance; }
+.gc-name a:hover { text-decoration: none; }
+.gc-body { display: flex; flex-direction: column; gap: 16px; flex: 1; padding: 22px 28px 10px; }
+.gc-q { font-family: var(--font-serif); font-size: 19px; line-height: 1.4; color: var(--ink); text-wrap: pretty; }
+.gc-stats { display: flex; flex-wrap: wrap; gap: 6px 22px; font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.gc-stats b { font-family: var(--font-serif); font-size: 22px; font-weight: 500; letter-spacing: -.01em; color: var(--ink); margin-right: 3px; vertical-align: -2px; }
+.gc-run .eyebrow { margin-bottom: 6px; }
+.gc-run .live-dot { background: var(--olive); }
+.gc-run ul { list-style: none; border-top: 1px solid var(--line); }
+.gc-run li a { position: relative; z-index: 2; display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14.5px; }
+.gc-run li:last-child a { border-bottom: 0; }
+.gc-run li a:hover { text-decoration: none; }
+.gc-run li a:hover .gc-rn { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.gc-dot { flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--secondary); }
+.gc-dot.active { background: var(--olive); }
+.gc-dot.upcoming { background: var(--sky); }
+.gc-rn { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500; }
+.gc-rs { flex: none; color: var(--muted); font-size: 12.5px; white-space: nowrap; }
+.gc-rs b { color: var(--ink); font-weight: 500; }
+.gc-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: auto; padding: 14px 28px 18px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+.gc-go { color: var(--ink); font-weight: 500; white-space: nowrap; }
+.gc-go span { display: inline-block; transition: transform .15s; }
+.gc-card:hover .gc-go span { transform: translateX(3px); }
+.gc-card.small .gc-art { height: 150px; }
+.gc-card.small .gc-name { font-size: 26px; }
+.gc-card.small .gc-cap { left: 22px; bottom: 18px; right: 30%; }
+.gc-card.small .gc-body { padding: 18px 22px 8px; gap: 12px; }
+.gc-card.small .gc-q { font-size: 16px; }
+.gc-card.small .gc-stats b { font-size: 18px; }
+.gc-card.small .gc-foot { padding: 12px 22px 16px; }
+@media (max-width: 480px) { .gc-art { height: 170px; } .gc-name { font-size: 30px; } .gc-cap { left: 20px; right: 28%; } .gc-body { padding: 18px 20px 8px; } .gc-foot { padding: 12px 20px 16px; } .gc-q { font-size: 17px; } }
+/* in the app, over the catalog */
+.gc-block { margin-bottom: 40px; padding-bottom: 40px; border-bottom: 1px solid var(--line); }
+.gc-block[hidden] { display: none; }
+.gc-block .ah-head .eyebrow { margin-bottom: 8px; }
+.gc-block .gc-grid { gap: 20px; }
+.gc-block .gc-art { height: 170px; }
+.gc-block .gc-name { font-size: 32px; }
+.gc-block .gc-q { font-size: 17px; }
+/* a challenge's own page */
+.gc-hero .hero { max-width: 700px; }
+.gc-stakes { margin-top: 18px; max-width: 620px; color: var(--ink-soft); font-size: 16px; line-height: 1.65; }
+.gc-stats.big { margin-top: 28px; gap: 10px 36px; }
+.gc-stats.big span { display: flex; flex-direction: column; gap: 8px; }
+.gc-stats.big b { font-size: 36px; line-height: 1; margin: 0; }
+.gc-wanted { margin-top: 28px; padding: 26px 28px; border: 1px dashed var(--line-strong); border-radius: var(--r); }
+.gc-wanted p { font-family: var(--font-serif); font-size: 19px; line-height: 1.45; max-width: 760px; }
+.gc-wanted .cta { margin-top: 20px; }
+/* on a board's page: the challenge it is part of */
+.gc-part { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 16px; padding: 7px 14px 7px 14px; border: 1px solid var(--line-strong); border-radius: 999px; font-size: 14px; transition: border-color .15s, background .15s; }
+.gc-part .eyebrow { display: inline; margin: 0; }
+.gc-part b { font-family: var(--font-serif); font-weight: 500; font-size: 16px; }
+.gc-part:hover { text-decoration: none; border-color: var(--ink); background: var(--canvas-2); }
+.hero .lede .hero-gc { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; text-decoration-color: var(--line-strong); transition: text-decoration-color .15s; }
+.hero .lede .hero-gc:hover { text-decoration-color: var(--ink); }
+body.app .gc-hero .hero .lede, .gc-hero .hero .lede { font-family: var(--font-serif); font-size: 22px; line-height: 1.4; color: var(--ink); max-width: 620px; }

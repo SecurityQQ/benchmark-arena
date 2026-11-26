@@ -167,6 +167,10 @@
       "destination": "/topics/:slug.html"
     },
     {
+      "source": "/challenges/:slug",
+      "destination": "/challenges/:slug.html"
+    },
+    {
       "source": "/landing",
       "destination": "/"
     },
@@ -222,6 +226,15 @@
     },
     {
       "source": "/topics/:slug",
+      "headers": [
+        {
+          "key": "Vary",
+          "value": "Accept"
+        }
+      ]
+    },
+    {
+      "source": "/challenges/:slug",
       "headers": [
         {
           "key": "Vary",

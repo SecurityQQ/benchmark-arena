@@ -331,6 +331,59 @@ test("live on a board's page: only this board's part of the pulse, every number 
   assert.equal(h.context.pwned, undefined);
 });
 
+test("grand challenges: the summary's text stays data, a board belongs by an exact tag, links go only to the challenge and its boards, the block steps aside for a search", () => {
+  const h = harness();
+  loadFixture(h);
+  const ch = (slug, tags, extra = {}) => ({ slug, name: payload, field: payload, question: payload, stakes: payload, work: payload, pick: payload, tags, art: payload, ...extra });
+  h.context.challenges = [ch(payload, [payload.toLowerCase()], { wanted: payload, lead: [payload] }), ch("empty", ["no-such-tag"])];
+  h.run("D.challenges = challenges");
+  assert.equal(h.run("challengeBoards(D.challenges[0]).length"), 1);
+  assert.equal(h.run("challengeBoards(D.challenges[1]).length"), 0);
+  assert.equal(h.run("challengesOf(D.competitions[0]).length"), 1);
+  assert.equal(h.run("inChallenge({ tags: ['speedrun'] }, { tags: ['speedrunner', 'training-speedrun'] })"), false, "a tag that only contains one is not a match");
+  assert.equal(h.run("challengeFor('/challenges/empty').slug"), "empty");
+  assert.equal(h.run("challengeFor('/challenges/missing')"), null);
+  for (const expression of ["grandCard(D.challenges[0])", "grandCard(D.challenges[1], { rows: 0, small: true })", "grandBand()", "grandBlock()", "heroLede()"]) {
+    const html = h.run(expression);
+    assert.ok(!html.includes("<x-security-probe"), expression);
+    assert.doesNotMatch(html, inlineHandler);
+    for (const [, href] of html.matchAll(/href="([^"]*)"/g)) assert.match(href, /^\/(challenges|c)\/[^/"]+$/, expression);
+    // a plate the app does not have falls back to one it has
+    for (const [, src] of html.matchAll(/src="([^"]*)"/g)) assert.equal(src, "/art/dawn-sm.jpg", expression);
+  }
+  // the card: the challenge once under everything and once by name, then one link per competition running inside
+  const card = h.run("grandCard(D.challenges[0])");
+  const links = actions(card).map((el) => el.getAttribute("href"));
+  assert.equal(links.length, 3);
+  assert.ok(links[0] === links[1] && links[0].startsWith("/challenges/") && links[2].startsWith("/c/"));
+  h.run("nav = (path) => { globalThis.destination = path; return false; }");
+  for (const el of actions(card)) {
+    assert.equal(click(h, el).defaultPrevented, true);
+    assert.equal(decodeURIComponent(h.context.destination.replace(/^\/(challenges|c)\//, "")), payload);
+    assert.equal(h.context.pwned, undefined);
+  }
+  assert.ok(!h.run("grandCard(D.challenges[1])").includes("gc-run"), "nothing running: no list");
+  // the challenge's own page, the home pages and a board's page
+  for (const expression of ["renderChallenge(D.challenges[0])", "renderChallenge(D.challenges[1])", "renderHome()", "renderAppHome()", "renderDetail(payload)", "renderSidebar()"]) {
+    h.run(expression);
+    const html = h.elements.get(expression === "renderSidebar()" ? "sidebar" : "app").innerHTML;
+    assert.ok(!html.includes("<x-security-probe"), expression);
+    assert.ok(!/href="(?:javascript|data):/.test(html), expression);
+    assert.doesNotMatch(html, inlineHandler);
+    assert.ok(html.includes("/challenges/"), expression);
+  }
+  h.run("renderChallenge(D.challenges[1])");
+  assert.ok(h.elements.get("app").innerHTML.includes("No competition is listed on this yet."));
+  h.run("renderDetail(payload)");
+  assert.ok(h.elements.get("app").innerHTML.includes('class="gc-part"'));
+  // in the app the block is over the catalog; a filter or another sort is about the catalog, and a search hides it in place
+  assert.ok(h.run("grandBlock()").includes('id="grand"'));
+  assert.equal(h.run("state.domain = 'x'; grandBlock()"), "");
+  assert.equal(h.run("state.domain = ''; state.sort = 'recent'; grandBlock()"), "");
+  assert.match(h.run("state.sort = 'importance'; state.q = 'lean'; grandBlock()"), /id="grand" hidden/);
+  assert.equal(h.run("state.q = ''; D.challenges = undefined; grandBlock() + grandBand()"), "");
+});
+
 test("since your last visit: a snapshot in this browser, compared after 30 minutes away; names stay data; no storage, no card", () => {
   const h = harness();
   loadFixture(h);

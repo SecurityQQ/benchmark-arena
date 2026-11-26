@@ -1,7 +1,7 @@
 {
   "name": "Open Challenge List",
   "short_name": "Challenges",
-  "description": "All open-source challenges in one place.",
+  "description": "Open competitions on the world's hardest problems.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#FAF9F5",

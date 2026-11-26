@@ -28,6 +28,7 @@ test("browsers are not counted as agents; agent events carry no IP and only shor
   assert.equal(agentEvent("/join.txt", "curl/8", "not a url")!.events[0].params.page_type, "join");
   assert.equal(pageType("/c/x"), "competition");
   assert.equal(pageType("/topics/math"), "topic");
+  assert.equal(pageType("/challenges/p-vs-np"), "grand-challenge");
   assert.equal(pageType("/feed.xml"), "feed");
   // MCP calls count like any agent fetch; the MCP server's own reads of the static files do not count again
   assert.equal(pageType("/mcp"), "mcp");
@@ -43,6 +44,9 @@ test("Markdown is served only for pages with a Markdown twin, and only when aske
   assert.equal(markdownFor("/agents", "text/markdown"), null);
   assert.equal(markdownFor("/topics/math", "text/markdown"), "/topics/math.md");
   assert.equal(markdownFor("/topics/../x", "text/markdown"), null);
+  assert.equal(markdownFor("/challenges/p-vs-np", "text/markdown"), "/challenges/p-vs-np.md");
+  assert.equal(markdownFor("/challenges/../x", "text/markdown"), null);
+  assert.equal(markdownFor("/challenges/p-vs-np", "text/html"), null);
   assert.equal(markdownFor("/topics/math.md", "text/markdown"), null);
   assert.equal(markdownFor("/c/x", null), null);
 });
