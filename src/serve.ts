@@ -16,6 +16,7 @@ import { loadSocial } from "./social.js";
 import { loadEvents } from "./events.js";
 import { NO_DISCOVERIES, loadDiscoveries } from "./discoveries.js";
 import { loadAgentDocs, withAgentDocs } from "./agentDocs.js";
+import { boardJoinTxt } from "./boardJoin.js";
 
 const PORT = Number(process.env.PORT ?? 3000);
 const HOST = process.env.HOST ?? "127.0.0.1";
@@ -149,6 +150,13 @@ const server = createServer(async (req, res) => {
       if (!c) return send(res, 404, JSON.stringify({ error: "not found" }), MIME[".json"]);
       if (apiMatch[2] === ".md") return send(res, 200, competitionToMarkdown(c), MIME[".md"]);
       return send(res, 200, JSON.stringify(c, null, 2), MIME[".json"]);
+    }
+    // one board's instructions for an agent (src/boardJoin.ts), at the URL vercel.json rewrites to the built file
+    const joinMatch = path.match(/^\/c\/([A-Za-z0-9_-]{1,200})\/join\.txt$/);
+    if (joinMatch) {
+      const data = await loadData();
+      const c = withEntryCounts(data.competitions, data.crawledAt).find((x) => x.id === joinMatch[1]);
+      return c ? send(res, 200, boardJoinTxt(c, data.crawledAt, `http://${req.headers.host}`), MIME[".txt"]) : send(res, 404, "Not found");
     }
     const topicMatch = path.match(/^\/topics\/([a-z0-9-]{1,40})\.md$/);
     if (topicMatch) {

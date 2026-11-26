@@ -69,6 +69,19 @@ const plural = (n: number, w: string, many = `${w}s`) => `${n} ${n === 1 ? w : m
 const str: Schema = { type: "string" }, int: Schema = { type: "integer" };
 const text = (t: string, structuredContent?: Record<string, unknown>): ToolResult => ({ content: [{ type: "text", text: t }], ...(structuredContent ? { structuredContent } : {}) });
 
+// The index entry for an id a tool was given. Ids are unique ignoring case (src/build.ts), and only an id the index lists
+// ever goes into a URL.
+async function challenge(want: string, read: Read): Promise<IndexEntry> {
+  const { competitions } = await loadIndex(read);
+  const lower = want.toLowerCase();
+  const c = competitions.find((x) => x.id === want) ?? competitions.find((x) => x.id.toLowerCase() === lower);
+  if (!c || !ID.test(c.id)) {
+    const near = competitions.filter((x) => x.id.toLowerCase().includes(lower) || x.name.toLowerCase().includes(lower)).slice(0, 5);
+    throw new ToolError(`No challenge has the id "${want}".${near.length ? ` Close matches: ${near.map((x) => `${x.id} (${x.name})`).join(", ")}.` : ""} find_challenges returns ids.`);
+  }
+  return c;
+}
+
 async function loadIndex(read: Read): Promise<{ crawledAt: string; competitions: IndexEntry[] }> {
   const index = JSON.parse(await read("/api/index.json"));
   if (!Array.isArray(index?.competitions)) throw new ToolError("The site's index is not in the expected shape. Try again later.");
@@ -145,14 +158,7 @@ const TOOLS: Tool[] = [
       additionalProperties: false,
     },
     async run(args, read) {
-      const { competitions } = await loadIndex(read);
-      const want = args.id as string, lower = want.toLowerCase();
-      // ids are unique ignoring case (src/build.ts), and only an id the index lists ever goes into a URL
-      const c = competitions.find((x) => x.id === want) ?? competitions.find((x) => x.id.toLowerCase() === lower);
-      if (!c || !ID.test(c.id)) {
-        const near = competitions.filter((x) => x.id.toLowerCase().includes(lower) || x.name.toLowerCase().includes(lower)).slice(0, 5);
-        throw new ToolError(`No challenge has the id "${want}".${near.length ? ` Close matches: ${near.map((x) => `${x.id} (${x.name})`).join(", ")}.` : ""} find_challenges returns ids.`);
-      }
+      const c = await challenge(args.id as string, read);
       return text(await read(`/api/competitions/${encodeURIComponent(c.id)}.md`));
     },
   },
@@ -192,10 +198,16 @@ const TOOLS: Tool[] = [
   {
     name: "how_to_join",
     title: "How to enter a challenge",
-    description: "Step-by-step instructions for an agent helping its human enter a challenge: ask once, pick one, read the rules, plan, build, submit. The same text as https://openchallengelist.com/join.txt, with the boards people are entering right now.",
-    inputSchema: { type: "object", properties: {}, additionalProperties: false },
-    async run(_args, read) {
-      return text(await read("/join.txt"));
+    description: "Step-by-step instructions for an agent helping its human enter a challenge: ask once, pick one, read the rules, plan, build, submit. Without an id, the same text as https://openchallengelist.com/join.txt, with the boards people are entering right now; with an id, that one challenge's own instructions (https://openchallengelist.com/c/{id}/join.txt): what to beat, what to tell the human before starting, what is needed, how to start and submit.",
+    inputSchema: {
+      type: "object",
+      properties: { id: { type: "string", pattern: ID.source, description: "Optional: the challenge id from find_challenges, for that challenge's own instructions." } },
+      additionalProperties: false,
+    },
+    async run(args, read) {
+      if (args.id === undefined) return text(await read("/join.txt"));
+      const c = await challenge(args.id as string, read);
+      return text(await read(`/c/${encodeURIComponent(c.id)}/join.txt`));
     },
   },
 ];

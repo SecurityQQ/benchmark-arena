@@ -261,9 +261,11 @@ const I = {
   ext: '<svg viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>',
 };
 
-// ── Point your agent: one line to paste, the same as on the pre-rendered pages (src/render.ts JOIN_LINE) ──
+// ── Point your agent: one line to paste, the same as on the pre-rendered pages (src/render.ts JOIN_LINE, challengeJoinLine).
+// For one board it points at that board's own instructions for agents, /c/{id}/join.txt (src/boardJoin.ts). ──
 const JOIN = "Fetch and follow the instructions at https://openchallengelist.com/join.txt to pick an open challenge and enter it with me.";
-const joinFor = (c) => c ? `Fetch and follow the instructions at https://openchallengelist.com/join.txt — I want to enter "${c.name}": https://openchallengelist.com/c/${pathPart(c.id)}` : JOIN;
+const boardJoinPath = (c) => `/c/${pathPart(c.id)}/join.txt`;
+const joinFor = (c) => c ? `Fetch and follow the instructions at https://openchallengelist.com${boardJoinPath(c)} to enter "${String(c.name).replace(/\s+/g, " ").trim()}" with me.` : JOIN;
 // The organizer's own instructions for agents, as on the pre-rendered page and the digest (src/render.ts AGENT_DOCS_LEAD)
 const AGENT_DOCS_LEAD = "The organizer publishes notes for agents on how to take part. Read them before planning; on the challenge's rules (what counts, how to submit) they are more current than this digest:";
 const agentDocsLine = (c) => (c.agentDocs && c.agentDocs.length ? `<span class="agent-docs">${esc(AGENT_DOCS_LEAD)} ${c.agentDocs.map((d) => `<a href="${esc(safeUrl(d.url))}" target="_blank" rel="noopener">${esc(d.label)}</a>`).join(" · ")}</span>` : "");
@@ -356,7 +358,7 @@ function buildPrompt(c, pr) {
     pr ? `3. Focus on the "${pr.name}" track: study the current leaderboard and the best existing entries, and find the number I have to beat.` : `3. Study the leaderboard and the best existing entries, and tell me which track is the easiest way in.`,
     `4. Propose a concrete plan for a first valid submission. Do not push, submit or open a PR without asking me.`,
   ].join("\n");
-  const tail = `Full digest (fetch it first, it has every track and record):\n${api}.md\n${api}.json`;
+  const tail = `Full digest (fetch it first, it has every track and record):\n${api}.md\n${api}.json\nStep-by-step instructions for an agent entering this challenge: ${location.origin}${boardJoinPath(c)}`;
   const fields = (quick) => [
     ["Competition", c.name], ["About", clip(c.tagline || c.description, 240)], ["URL", c.url], ["Repo", slug && `https://github.com/${slug}`], ["Status", c.status],
     ["Organizer", c.organizer?.name], ["Deadline", clip(p.deadline, 160)], ["Prizes", clip(p.prizes, 200)],
@@ -1321,6 +1323,8 @@ function renderDetail(id) {
     </div>
     </div></section>
 
+    ${pointAgent(c)}
+
     <section class="band"><div class="wrap">
     <div class="cols">
       <div>
@@ -1383,6 +1387,33 @@ function agentCell(r) {
   return `<span title="${esc(title)}" class="conf-${esc(a.confidence)}">${famChip(a.family)}${a.tool || a.model ? `<span class="dim small"> ${esc(a.model || a.tool)}</span>` : ""}</span>`;
 }
 
+// ── Point your agent at it: the board's own instructions for agents (src/boardJoin.ts) behind one line to paste. The page's
+// main call, right under the hero; prerender.ts pointAgent is the same block for agents and crawlers without JavaScript. ──
+const lowerFirst = (s) => (/^[A-Z][a-z]/.test(s) ? s[0].toLowerCase() + s.slice(1) : s);
+function pointAgent(c) {
+  const ps = c.problems, open = ps.filter((x) => x.isOpen).length, one = ps.length === 1 ? ps[0] : null;
+  const target = one ? trackBest(one)?.value ?? baselineOf(one) : null;
+  const goal = target != null ? `${fmt(target)}${unitOf(one)}` : open ? `${open} open track${open === 1 ? "" : "s"}` : "";
+  const file = boardJoinPath(c);
+  const steps = [
+    ["Reads the rules", `What is measured, how entries are verified${goal ? `, and what to beat: <b>${esc(goal)}</b>` : ""}.`],
+    ["Checks with you first", `Compute (${esc(lowerFirst(COMPUTE[c.participation.compute] || "not specified"))}), cost, and what becomes public, before it changes anything.`],
+    ["Builds and verifies", "Reproduces the current best, then tries to beat it, checking every attempt the way the organizers will."],
+    ["Submits on your go", `${c.repo ? "Opens the pull request" : "Submits"} only when you say so, with the agent credited.`],
+  ];
+  return `<section class="band point-band"><div class="wrap"><div class="point-agent invert">
+    <div class="pa-head">
+      <span class="eyebrow">Point your agent at it</span>
+      <h2>Solve ${esc(c.name)} with your agent</h2>
+      <p>Paste this into Claude Code, Codex, Cursor or any agent that can run a shell. It reads <a href="${file}" target="_blank" rel="noopener">this challenge's instructions for agents</a> and works with you from the rules to a first valid entry.</p>
+    </div>
+    <pre class="quick join pa-line"><button type="button" class="copy" data-action="copy-join" data-comp-id="${esc(c.id)}">copy</button><code>${esc(joinFor(c))}</code></pre>
+    <ol class="pa-steps">${steps.map(([b, t]) => `<li><b>${b}</b><span>${t}</span></li>`).join("")}</ol>
+    ${agentDocsLine(c) ? `<p class="pa-docs">${agentDocsLine(c)}</p>` : ""}
+    <p class="pa-foot"><a href="${file}" target="_blank" rel="noopener">Read what your agent reads →</a><span>Nothing is forked, pushed or submitted without you.</span></p>
+  </div></div></section>`;
+}
+
 // ── Start competing: TL;DR of the challenge + the agent path in ──
 const trackDomId = (pr) => "track-" + String(pr.id ?? pr.name).replace(/[^a-z0-9_-]+/gi, "-");
 const trackBest = (pr) => pr.records.find((r) => r.isCurrentBest && !r.isBaseline);
@@ -1433,7 +1464,6 @@ function startSection(c) {
     <p class="tldr">${esc(tldr(c))}</p>
     ${chips}
     <ol class="start-steps">
-      <li><b>Hand it to your agent</b><span>The prompt forks the repo, reads the rules and proposes a first valid submission. Nothing is pushed without you.</span><div class="mini-cta">${ctaButtons(c, undefined, { small: true, openLabel: c.host === "github" ? "Open repository" : "Open competition" })}</div>${joinBlock(c, "Or paste one line into any agent")}${agentDocsLine(c)}</li>
       <li>${pick}</li>
       <li>${submit}</li>
     </ol>

@@ -5,6 +5,7 @@ import { readFileSync } from "node:fs";
 import { competitionIndex } from "../src/aggregate.js";
 import { INTERNAL_UA } from "../src/agentTraffic.js";
 import { SITE, challengeJoinLine, competitionToMarkdown, feedJson, joinTxt, llmsTxt } from "../src/render.js";
+import { boardJoinTxt } from "../src/boardJoin.js";
 import { INSTRUCTIONS, MAX_BODY, MCP_VERSION, PROTOCOL_VERSIONS, createMcpHandler, schemaErrors, toolList, type McpOptions } from "../src/mcp.js";
 import type { Competition, CompetitionStatus, ComputeTier, Problem, RecordEntry } from "../src/types.js";
 
@@ -40,6 +41,7 @@ const FILES = new Map<string, string>([
   ["/api/index.json", JSON.stringify({ crawledAt: DATA.crawledAt, competitions: competitionIndex(COMPS) })],
   ["/api/feed.json", JSON.stringify(feedJson(DATA))],
   ["/join.txt", joinTxt(DATA)],
+  ...COMPS.map((c): [string, string] => [`/c/${c.id}/join.txt`, boardJoinTxt(c, DATA.crawledAt)]),
   ...COMPS.map((c): [string, string] => [`/api/competitions/${c.id}.md`, competitionToMarkdown(c)]),
 ]);
 
@@ -202,7 +204,7 @@ test("find_challenges: boards with recent entries first, then open tracks; filte
     entriesLast30d: 12, participants: 1, tracks: 1, openTracks: 0, lastEntry: "2026-11-24", url: "https://github.com/o/busy-gpu",
     page: `${SITE}/c/busy-gpu`, digest: `${SITE}/api/competitions/busy-gpu.md`, join: challengeJoinLine("NanoGPT Speedrun", "busy-gpu"),
   });
-  assert.equal(c.join, `Fetch and follow the instructions at ${SITE}/join.txt — I want to enter "NanoGPT Speedrun": ${SITE}/c/busy-gpu`);
+  assert.equal(c.join, `Fetch and follow the instructions at ${SITE}/c/busy-gpu/join.txt to enter "NanoGPT Speedrun" with me.`);
   const text = one.content[0].text;
   assert.match(text, /^1 of 6 matching challenges, crawled 2026-11-25\./);
   assert.ok(text.includes(`   Join line: ${c.join}`));
@@ -287,6 +289,14 @@ test("happening_now lists the latest entries from the feed; how_to_join is join.
   assert.deepEqual(join.content, [{ type: "text", text: joinTxt(DATA) }]);
   assert.match(join.content[0].text, /do not push, submit or open a pull request until your human says so/);
   assert.equal((await call(handle, "how_to_join", { x: 1 })).isError, true);
+  // with an id: that board's own instructions, found through the index like get_challenge
+  const one = await call(handle, "how_to_join", { id: "BUSY-GPU" });
+  assert.deepEqual(one.content, [{ type: "text", text: boardJoinTxt(COMPS.find((c) => c.id === "busy-gpu")!, DATA.crawledAt) }]);
+  assert.match(one.content[0].text, /^ENTER NANOGPT SPEEDRUN\n/);
+  const missing = await call(handle, "how_to_join", { id: "busy" });
+  assert.equal(missing.isError, true);
+  assert.match(missing.content[0].text, /No challenge has the id "busy"\. Close matches: busy-gpu \(NanoGPT Speedrun\)/);
+  assert.equal((await call(handle, "how_to_join", { id: "../etc" })).isError, true);
 });
 
 test("the site's files are cached for a few minutes, read as the MCP server, and a stale copy outlives an outage", async () => {

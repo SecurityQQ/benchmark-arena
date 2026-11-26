@@ -47,7 +47,7 @@ export function classifyAgent(ua: string | null): { agent: string; kind: AgentKi
 }
 
 export function pageType(path: string): string {
-  if (path === "/join.txt") return "join";
+  if (path === "/join.txt" || /^\/c\/[^/]+\/join\.txt$/.test(path)) return "join";
   if (path === "/llms.txt") return "llms";
   if (path === "/mcp" || path === "/api/mcp") return "mcp";
   if (path === "/feed.xml" || /^\/api\/feed(\.json)?$/.test(path)) return "feed";
@@ -60,7 +60,7 @@ export function pageType(path: string): string {
   return "page";
 }
 
-const competitionOf = (path: string) => /^\/(?:c|api\/competitions)\/([A-Za-z0-9_-]{1,200})(?:\.md|\.json)?$/.exec(path)?.[1];
+const competitionOf = (path: string) => /^\/(?:c\/([A-Za-z0-9_-]{1,200})(?:\/join\.txt)?|api\/competitions\/([A-Za-z0-9_-]{1,200})(?:\.md|\.json)?)$/.exec(path)?.slice(1).find(Boolean);
 
 // FNV-1a: a stable, non-reversible id per agent per day, so GA4 groups an agent's fetches without identifying anyone
 function fnv(s: string): number {
