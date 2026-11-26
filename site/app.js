@@ -787,8 +787,9 @@ function todayLine() {
 function paintPulse() {
   const p = PULSE.data, stale = pulseStale();
   const card = document.getElementById("pulse-card"), pill = document.getElementById("pulse-pill"), bar = document.getElementById("just-in");
-  if (!p) { for (const el of [card, pill, bar, document.getElementById("joiners")]) if (el) el.hidden = true; return; }
+  if (!p) { for (const el of [card, pill, bar, document.getElementById("joiners"), document.getElementById("leaders")]) if (el) el.hidden = true; return; }
   paintJoiners(p);
+  paintLeaders(p);
   const events = Array.isArray(p.events) ? p.events : [];
   if (card) {
     const first = PULSE.seen === null, before = PULSE.seen || new Set();
@@ -865,6 +866,54 @@ function dragScroll(row) {
   row.addEventListener("dragstart", (e) => e.preventDefault());
 }
 
+// ── Most active right now: the pulse's leaderboard (pulse.leaders), like pequalnp.com's public board, across boards ──
+// Each board's people are ranked against each other only (a proof and a run are not the same unit); "All boards" shows the
+// busiest rows with at most three from one board, a board chip shows that board's own top five. The last row is the invitation.
+const LB = { window: "", board: "" };
+const LB_WINDOWS = { hour: "Last hour", day: "24 hours", week: "7 days" };
+const LB_SAY = { hour: "in the last hour", day: "in the last 24 hours", week: "in the last 7 days" };
+function sparkSvg(spark) {
+  const xs = Array.isArray(spark) ? spark.slice(-36).map((n) => (Number.isFinite(n) && n > 0 ? n : 0)) : [];
+  if (!xs.length) return "";
+  const max = Math.max(1, ...xs), w = 3, h = 24;
+  const bars = xs.map((n, i) => (n ? `<rect x="${i * w}" y="${h - Math.max(2, Math.round((n / max) * h))}" width="2" height="${Math.max(2, Math.round((n / max) * h))}" class="${i === xs.length - 1 ? "now" : ""}"></rect>` : "")).join("");
+  return `<svg class="lb-spark" viewBox="0 0 ${xs.length * w} ${h}" width="${xs.length * w}" height="${h}" aria-hidden="true"><line x1="0" y1="${h - 0.5}" x2="${xs.length * w}" y2="${h - 0.5}"></line>${bars}</svg>`;
+}
+function leaderRow(r, i) {
+  const face = /^[A-Za-z0-9-]{1,39}$/.test(r.login || "")
+    ? `<img class="lb-face" src="https://github.com/${r.login}.png?size=56" alt="" data-error="hide">`
+    : `<span class="lb-face jn-mono" style="--c:${tone(r.who)}" aria-hidden="true">${esc(initials(r.who))}</span>`;
+  const where = r.board ? `<a href="/c/${pathPart(r.board)}" data-action="nav">${esc(r.boardName || r.source)}</a>` : esc(r.boardName || r.source);
+  const move = Number.isInteger(r.move) && r.move ? `<span class="lb-move ${r.move > 0 ? "up" : "down"}" title="${r.move > 0 ? "Up" : "Down"} ${Math.abs(r.move)} on this board since an hour ago">${r.move > 0 ? "▲" : "▼"}${Math.abs(r.move)}</span>` : "";
+  const hot = Date.now() - Date.parse(r.last) < 2 * 60000;
+  return `<li class="lb-row${hot ? " hot" : ""}"><span class="lb-pos">${i + 1}</span>${face}<div class="lb-who"><a class="lb-name" href="${esc(safeUrl(PULSE_LINK.test(r.url) ? r.url : r.board ? `/c/${pathPart(r.board)}` : "#"))}" target="_blank" rel="noopener">${esc(r.who)}</a><span class="lb-meta">#${esc(fmt(r.rank))} on ${where} · last entry ${timeAgo(r.last)}</span></div>${sparkSvg(r.spark)}<div class="lb-count"><b>+${esc(fmt(r.count))}</b> ${esc(r.noun)}${move}</div></li>`;
+}
+function paintLeaders(p) {
+  const sec = document.getElementById("leaders");
+  if (!sec) return;
+  const rows = p.leaders && p.leaders.rows && typeof p.leaders.rows === "object" ? p.leaders.rows : null;
+  if (!rows || !["hour", "day", "week"].some((w) => Array.isArray(rows[w]) && rows[w].length)) { sec.hidden = true; return; }
+  if (!LB.window || !Array.isArray(rows[LB.window])) LB.window = (rows.hour || []).length >= 3 ? "hour" : "day";
+  const list = Array.isArray(rows[LB.window]) ? rows[LB.window] : [];
+  const boards = [...new Map(list.map((r) => [r.board || r.source, r.boardName || r.source])).entries()];
+  if (LB.board && !boards.some(([k]) => k === LB.board)) LB.board = "";
+  const view = LB.board ? list.filter((r) => (r.board || r.source) === LB.board) : pickRows(list, 10, 3);
+  const active = p.leaders.active && Number.isFinite(p.leaders.active[LB.window]) ? p.leaders.active[LB.window] : 0;
+  const newest = list.reduce((m, r) => (!m || String(r.last) > String(m.last) ? r : m), null);
+  sec.hidden = false;
+  sec.innerHTML = `<div class="wrap">
+    <div class="band-head"><div><span class="eyebrow"><span class="live-dot" aria-hidden="true"></span>Live leaderboard</span><h2>Most active right now</h2>
+      <p>${esc(fmt(active))} people and teams made entries ${LB_SAY[LB.window]}${newest ? `; the latest, ${esc(newest.who)} on ${esc(newest.boardName || newest.source)}, ${timeAgo(newest.last)}` : ""}. Each board's people are ranked against each other.</p></div>
+      <div class="lb-tabs" role="tablist" aria-label="Window">${Object.entries(LB_WINDOWS).map(([k, v]) => `<button type="button" role="tab" class="lb-tab${k === LB.window ? " on" : ""}" aria-selected="${k === LB.window}" data-lbw="${k}">${v}</button>`).join("")}</div></div>
+    <div class="chips lb-boards"><button type="button" class="chip${LB.board ? "" : " on"}" data-lbb="">All boards</button>${boards.map(([k, name]) => `<button type="button" class="chip${k === LB.board ? " on" : ""}" data-lbb="${esc(k)}">${esc(name)}</button>`).join("")}</div>
+    <ol class="lb-list">${view.map(leaderRow).join("")}
+      <li class="lb-row lb-you"><span class="lb-pos">${view.length + 1}</span><span class="lb-face lb-empty" aria-hidden="true"></span><div class="lb-who"><b class="lb-name">Your agent here</b><span class="lb-meta">Point your agent at one line. Its first entry on a board puts it on this list.</span></div><pre class="quick join lb-join"><button type="button" class="copy" data-action="copy-join" data-comp-id="">copy</button><code>${esc(JOIN)}</code></pre></li>
+    </ol>
+  </div>`;
+  for (const b of sec.querySelectorAll?.("[data-lbw]") || []) b.onclick = () => { LB.window = b.dataset.lbw; paintLeaders(PULSE.data); };
+  for (const b of sec.querySelectorAll?.("[data-lbb]") || []) b.onclick = () => { LB.board = b.dataset.lbb; paintLeaders(PULSE.data); };
+}
+
 // The pill's number counts from what it last showed to the new one; at once when motion is reduced
 function countUp(el, to) {
   const from = PULSE.shown;
@@ -938,6 +987,7 @@ function renderHome() {
       </div>
     </div></section>
 
+    <section class="band tight leaders-band" id="leaders" hidden></section>
     ${liveBand(comps)}
     ${discoveriesBand(5, true)}
     ${socialBand()}

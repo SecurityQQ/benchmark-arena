@@ -94,11 +94,26 @@ export interface Pulse {
   agentsNow: { total: number; counts: LiveCount[] } | null;  // null: no board publishes a fresh live count right now
   activity: { lastHour: Tally; last24h: Tally };             // entries the sources list, by the times they give
   joined: Joins;                                             // first entries, newest first, from the boards whose lists reach back to their start
+  leaders: Leaders;                                          // who made the most entries in the last hour, day and week, board by board
   events: PulseEvent[];                                      // newest first
   sources: SourceState[];
 }
 
-export interface SourceRead { count?: LiveCount; events: PulseEvent[]; window?: Window; joined?: { people: Joiner[]; lastHour: number; last24h: number } }
+/** One person's (or team's) entries on one board in the last week, as epoch ms: what the leaderboard counts. */
+export interface Actor { key: string; who: string; login?: string; url: string; noun: string; times: number[] }
+/**
+ * A leaderboard row: entries in the window, the place on its own board, when the last entry was, the last 36 hours by hour (oldest
+ * first) and the places it moved on its board since an hour ago.
+ */
+export interface Leader {
+  who: string; login?: string; url: string; source: PulseSource; board?: string; boardName?: string; noun: string;
+  count: number; rank: number; last: string; spark: number[]; move?: number;
+}
+export type LeaderWindow = "hour" | "day" | "week";
+export interface Leaders { active: Record<LeaderWindow, number>; rows: Record<LeaderWindow, Leader[]> }
+
+export interface SourceRead { count?: LiveCount; events: PulseEvent[]; window?: Window; joined?: { people: Joiner[]; lastHour: number; last24h: number }; actors?: Actor[] }
+export const LEADERS_PER_BOARD = 5, SPARK_HOURS = 36;
 export const MAX_JOINERS = 30;
 
 // ─── Third-party fields ─────────────────────────────────────────────────
@@ -127,6 +142,19 @@ function windowOf(times: number[], now: number, noun: string, complete: boolean)
 }
 
 export interface BoardRef { id: string; name: string }
+
+/** Entries grouped by who made them (names matched without case), times in the last week only. */
+function actorsOf(rows: { who: string; login?: string; url: string; t: number }[], now: number, noun: string): Actor[] {
+  const by = new Map<string, Actor>();
+  for (const r of rows) {
+    if (now - r.t > MAX_AGE_MS || r.t > now + SKEW_MS) continue;
+    const key = r.who.toLowerCase();
+    const a = by.get(key) ?? { key, who: r.who, ...(r.login ? { login: r.login } : {}), url: r.url, noun, times: [] };
+    a.times.push(r.t);
+    by.set(key, a);
+  }
+  return [...by.values()];
+}
 const tagOf = (board: BoardRef | undefined, name: string) => (board ? { board: board.id, boardName: board.name } : { boardName: name });
 
 // ─── P = NP? ────────────────────────────────────────────────────────────
@@ -189,10 +217,13 @@ export function pnpPeopleUrl(head: unknown): string | undefined {
 export function fromPequalnpPeople(raw: unknown, now: number, board?: BoardRef): SourceRead {
   const list = obj(raw)?.contributors;
   if (!Array.isArray(list)) throw new Error("the contributors file answered in an unexpected shape");
-  const tag = tagOf(board, "P = NP?"), people: Joiner[] = [];
+  const tag = tagOf(board, "P = NP?"), people: Joiner[] = [], proofs: { who: string; login: string; url: string; t: number }[] = [];
   let lastHour = 0, last24h = 0;
   for (const c of list.slice(0, 100_000)) {
     const o = obj(c), login = typeof o?.github === "string" && LOGIN.test(o.github) ? o.github : undefined, at = when(o?.first_proof_at, now, Infinity);
+    if (o && login && Array.isArray(o.lemmas)) {
+      for (const l of o.lemmas.slice(0, 20_000)) { const t = when(obj(l)?.at, now); if (t) proofs.push({ who: `@${login}`, login, url: `${PNP_SITE}/a/${login}`, t: Date.parse(t) }); }
+    }
     if (!o || !login || !at) continue;
     const t = Date.parse(at);
     if (now - t < HOUR) lastHour++;
@@ -203,7 +234,7 @@ export function fromPequalnpPeople(raw: unknown, now: number, board?: BoardRef):
       first: firstLemma ? `first proof: ${firstLemma}` : "first proof checked in Lean", url: `${PNP_SITE}/a/${login}` });
   }
   people.sort((a, b) => b.at.localeCompare(a.at));
-  return { events: [], joined: { people: people.slice(0, MAX_JOINERS), lastHour, last24h } };
+  return { events: [], joined: { people: people.slice(0, MAX_JOINERS), lastHour, last24h }, actors: actorsOf(proofs, now, "proofs") };
 }
 
 // ─── Riemann Hypothesis Lean 4 hub ──────────────────────────────────────
@@ -224,7 +255,7 @@ export function fromRiemann(raw: unknown, now: number, board?: BoardRef): Source
     if (key && name) pillars.set(key, { name, url: typeof o?.url === "string" && BOHRIUM.test(o.url) ? o.url : RIEMANN_SITE });
   }
   const tag = tagOf(board, "Riemann Hypothesis Lean 4 hub");
-  const times: number[] = [], events: PulseEvent[] = [];
+  const times: number[] = [], events: PulseEvent[] = [], done: { who: string; url: string; t: number }[] = [];
   let oldest = Infinity;
   for (const r of runs.slice(-5000)) {
     const o = obj(r), at = when(o?.ts, now, Infinity), id = count(o?.id, 1e12);
@@ -234,6 +265,7 @@ export function fromRiemann(raw: unknown, now: number, board?: BoardRef): Source
     times.push(t);
     if (now - t > MAX_AGE_MS) continue;
     const author = text(o.authorName, 60), pillar = typeof o.challenge_key === "string" ? pillars.get(o.challenge_key) : undefined;
+    if (author) done.push({ who: author, url: RIEMANN_SITE, t });
     if (!author || !pillar) continue;
     const pct = real(o.compression_pct, 0, 100);
     const agent = [text(o.model_display, 60), text(o.harness_display, 40)].filter(Boolean).join(" · ");
@@ -244,7 +276,7 @@ export function fromRiemann(raw: unknown, now: number, board?: BoardRef): Source
       url: pillar.url });
   }
   events.sort((x, y) => y.at.localeCompare(x.at));
-  return { events: events.slice(0, PER_SOURCE), window: windowOf(times, now, "verified runs", now - oldest > DAY) };
+  return { events: events.slice(0, PER_SOURCE), window: windowOf(times, now, "verified runs", now - oldest > DAY), actors: actorsOf(done, now, "verified runs") };
 }
 
 // ─── The Looped Lens Challenge ──────────────────────────────────────────
@@ -253,7 +285,7 @@ export function fromLoopedLens(raw: unknown, now: number, board?: BoardRef): Sou
   const rows = obj(raw)?.rows;
   if (!Array.isArray(rows)) throw new Error("the Looped Lens leaderboard answered in an unexpected shape");
   const tag = tagOf(board, "The Looped Lens Challenge");
-  const times: number[] = [], events: PulseEvent[] = [], firsts = new Map<string, { at: string; rate?: number }>();
+  const times: number[] = [], events: PulseEvent[] = [], firsts = new Map<string, { at: string; rate?: number }>(), subs: { who: string; url: string; t: number }[] = [];
   let oldest = Infinity;
   for (const r of rows.slice(0, 20_000)) {
     const o = obj(r), at = when(o?.submitted_at, now, Infinity);
@@ -264,6 +296,7 @@ export function fromLoopedLens(raw: unknown, now: number, board?: BoardRef): Sou
     const team = text(o.team, 60), rate = real(obj(o.metrics)?.pass_rate, 0, 1), id = typeof o.id === "string" && /^[A-Za-z0-9_-]{1,80}$/.test(o.id) ? o.id : undefined;
     const first = team ? firsts.get(team.toLowerCase()) : undefined;
     if (team && (!first || at < first.at)) firsts.set(team.toLowerCase(), { at, rate });
+    if (team) subs.push({ who: team, url: LOOPED_SITE, t });
     if (now - t > MAX_AGE_MS || !team || rate === undefined || !id) continue;
     const rank = o.best === true ? count(o.rank, 100_000) : undefined;
     const pass = `${num(rate * 100)}% pass rate`;
@@ -279,7 +312,8 @@ export function fromLoopedLens(raw: unknown, now: number, board?: BoardRef): Sou
     ...(f.rate !== undefined ? { first: `first run: ${num(f.rate * 100)}% pass rate` } : {}), url: LOOPED_SITE }));
   const fresh = joined.filter((j) => now - Date.parse(j.at) <= MAX_AGE_MS).sort((a, b) => b.at.localeCompare(a.at));
   return { events: events.slice(0, PER_SOURCE), window: windowOf(times, now, "submissions", now - oldest > DAY),
-    joined: { people: fresh.slice(0, MAX_JOINERS), lastHour: joined.filter((j) => now - Date.parse(j.at) < HOUR).length, last24h: joined.filter((j) => now - Date.parse(j.at) < DAY).length } };
+    joined: { people: fresh.slice(0, MAX_JOINERS), lastHour: joined.filter((j) => now - Date.parse(j.at) < HOUR).length, last24h: joined.filter((j) => now - Date.parse(j.at) < DAY).length },
+    actors: actorsOf(subs, now, "submissions") };
 }
 
 // ─── DuckBench ──────────────────────────────────────────────────────────
@@ -290,7 +324,7 @@ export function fromDuckBench(raw: unknown, now: number, board?: BoardRef): Sour
   const items = obj(raw)?.items;
   if (!Array.isArray(items)) throw new Error("the DuckBench feed answered in an unexpected shape");
   const tag = tagOf(board, "DuckBench");
-  const times: number[] = [], events: PulseEvent[] = [];
+  const times: number[] = [], events: PulseEvent[] = [], tries: { who: string; url: string; t: number }[] = [];
   let oldest = Infinity;
   for (const r of items.slice(0, 200)) {
     const o = obj(r), at = when(o?.created_at, now, Infinity);
@@ -302,6 +336,7 @@ export function fromDuckBench(raw: unknown, now: number, board?: BoardRef): Sour
     const attempt = typeof o.attempt_id === "string" && DUCK_ID.test(o.attempt_id) ? o.attempt_id : undefined;
     const handle = typeof o.handle === "string" && DUCK_HANDLE.test(o.handle) ? o.handle : undefined;
     const title = text(o.challenge_title, 60), result = real(obj(o.payload)?.result, -1e12, 1e12), id = count(o.id, 1e12);
+    if (handle) tries.push({ who: `@${handle}`, url: `${DUCK_SITE}/@${handle}`, t });
     if (now - t > MAX_AGE_MS || !challenge || !handle || !title || result === undefined || id === undefined) continue;
     const unit = text(obj(o.ranking)?.unit, 8) ?? "";
     const value = `${num(result)}${unit ? ` ${unit}` : ""}`;
@@ -314,7 +349,7 @@ export function fromDuckBench(raw: unknown, now: number, board?: BoardRef): Sour
       url: attempt ? `${DUCK_SITE}/challenges/${challenge}/attempts/${attempt}` : `${DUCK_SITE}/challenges/${challenge}` });
   }
   events.sort((x, y) => y.at.localeCompare(x.at));
-  return { events: events.slice(0, PER_SOURCE), window: windowOf(times, now, "verified attempts", now - oldest > DAY) };
+  return { events: events.slice(0, PER_SOURCE), window: windowOf(times, now, "verified attempts", now - oldest > DAY), actors: actorsOf(tries, now, "verified attempts") };
 }
 
 // ─── Palomar ────────────────────────────────────────────────────────────
@@ -354,7 +389,7 @@ interface Source {
 export const SOURCES: Source[] = [
   { id: "pequalnp", name: "P = NP?", kind: "board", url: () => PNP_HEAD, ttlMs: 15_000, maxBytes: 256 * 1024, match: { host: "pequalnp.com" }, read: fromPequalnp },
   { id: "pequalnp-people", name: "P = NP? contributors", kind: "people", url: (_, cache) => pnpPeopleUrl(cache.get("pequalnp")?.body), after: "pequalnp", immutable: true,
-    ttlMs: 60_000, maxBytes: 16 * 1024 * 1024, match: { host: "pequalnp.com" }, read: fromPequalnpPeople },
+    ttlMs: 5 * 60_000, maxBytes: 16 * 1024 * 1024, match: { host: "pequalnp.com" }, read: fromPequalnpPeople },
   { id: "riemann", name: "Riemann Hypothesis Lean 4 hub", kind: "board", url: () => RIEMANN_BOARD, ttlMs: 2 * 60_000, maxBytes: 8 * 1024 * 1024, match: { repo: "osgood001/riemann-hypothesis" }, read: fromRiemann },
   { id: "looped-lens", name: "The Looped Lens Challenge", kind: "board", url: () => LOOPED_BOARD, ttlMs: 3 * 60_000, maxBytes: 8 * 1024 * 1024, match: { repo: "ndif-team/looped-lens-challenge" }, read: fromLoopedLens },
   { id: "duckbench", name: "DuckBench", kind: "board", url: () => DUCK_FEED, ttlMs: 2 * 60_000, maxBytes: 1024 * 1024, match: { host: "duckbench.app" }, read: fromDuckBench },
@@ -414,6 +449,45 @@ function joins(reads: { source: Source; read?: SourceRead }[]): Joins {
   };
 }
 
+const WINDOW_MS: Record<LeaderWindow, number> = { hour: HOUR, day: DAY, week: 7 * DAY };
+
+/**
+ * Who made the most entries in each window, board by board: each board's own people are ranked against each other (a proof on
+ * one board and a run on another are not the same unit, and the boards name people differently, so nothing joins or compares
+ * them), and its top LEADERS_PER_BOARD are kept. Ties go to the most recent entry. `move` is how many places a row climbed
+ * (or fell) on its board since an hour ago, for the day and the week; a row that was not ranked then has none.
+ */
+export function leadersOf(reads: { source: Source; read?: SourceRead; board?: BoardRef }[], now: number): Leaders {
+  const groups = reads.filter(({ read }) => read?.actors?.length).map(({ source, read, board }) => ({ source, board, actors: read!.actors! }));
+  const ranked = (actors: Actor[], w: LeaderWindow, at: number) => actors
+    .map((a) => { const n = a.times.filter((t) => t <= at && at - t < WINDOW_MS[w]); return { a, n: n.length, last: n.length ? Math.max(...n) : 0 }; })
+    .filter((x) => x.n > 0)
+    .sort((x, y) => y.n - x.n || y.last - x.last || x.a.key.localeCompare(y.a.key));
+  const out = { active: {} as Record<LeaderWindow, number>, rows: {} as Record<LeaderWindow, Leader[]> };
+  for (const w of ["hour", "day", "week"] as LeaderWindow[]) {
+    let active = 0;
+    const rows: Leader[] = [];
+    for (const g of groups) {
+      const nowRank = ranked(g.actors, w, now);
+      active += nowRank.length;
+      const before = w === "hour" ? undefined : new Map(ranked(g.actors, w, now - HOUR).slice(0, 50).map((x, i) => [x.a.key, i]));
+      const source = g.source.id === "pequalnp-people" ? "pequalnp" as const : g.source.id;
+      for (const [i, x] of nowRank.slice(0, LEADERS_PER_BOARD).entries()) {
+        const spark = Array.from({ length: SPARK_HOURS }, (_, h) => x.a.times.filter((t) => t <= now && now - t < (SPARK_HOURS - h) * HOUR && now - t >= (SPARK_HOURS - h - 1) * HOUR).length);
+        const was = before?.get(x.a.key);
+        rows.push({
+          who: x.a.who, ...(x.a.login ? { login: x.a.login } : {}), url: x.a.url, source,
+          ...(g.board ? { board: g.board.id, boardName: g.board.name } : { boardName: g.source.id === "pequalnp-people" ? "P = NP?" : g.source.name }),
+          noun: x.a.noun, count: x.n, rank: i + 1, last: new Date(x.last).toISOString(), spark, ...(was !== undefined && was !== i ? { move: was - i } : {}),
+        });
+      }
+    }
+    out.active[w] = active;
+    out.rows[w] = rows.sort((x, y) => y.count - x.count || y.last.localeCompare(x.last));
+  }
+  return out;
+}
+
 /**
  * Builds the pulse: each source whose last read is older than its TTL is read again (in parallel, each failure contained),
  * then every source's last good body is turned into events at `now`. `cache` carries the bodies between calls.
@@ -458,6 +532,7 @@ export async function buildPulse(opts: { fetch: Fetch; now: number; boards?: Par
     agentsNow: counts.length ? { total: counts.reduce((s, c) => s + c.count, 0), counts } : null,
     activity: { lastHour: tally(reads, "lastHour"), last24h: tally(reads, "last24h") },
     joined: joins(reads),
+    leaders: leadersOf(reads.map((r) => ({ ...r, board: opts.boards?.[r.source.id] })), now),
     events,
     sources: reads.map((r) => r.state),
   };
@@ -488,6 +563,12 @@ export function pulseMarkdown(p: Pulse, site: string): string {
   if (p.joined.last24h) {
     lines.push(`Joined in the last 24 hours: ${p.joined.last24h}${p.joined.partial ? "+" : ""} people made their first entry (${p.joined.by.map((b) => `${flat(b.name)} ${b.count}`).join(", ")}). Newest:`);
     for (const j of p.joined.people.slice(0, 10)) lines.push(`- ${hhmm(j.at)} · ${flat(j.who)} · ${flat(j.boardName ?? j.source)}${j.first ? ` · ${flat(j.first)}` : ""} — ${j.url}`);
+    lines.push("");
+  }
+  const top = p.leaders.rows.day;
+  if (top.length) {
+    lines.push(`Most active in the last 24 hours, board by board (${p.leaders.active.day} people and teams with entries; each board's people are ranked against each other only):`);
+    for (const r of top) lines.push(`- #${r.rank} on ${flat(r.boardName ?? r.source)}: ${flat(r.who)}, ${r.count} ${r.noun}, the last at ${hhmm(r.last)} — ${r.url}`);
     lines.push("");
   }
   lines.push("## Latest", "");
