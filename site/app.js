@@ -1353,6 +1353,8 @@ async function renderClaim() {
   const frag = location.hash.slice(1);
   if (/^ocl_ct_[\w-]{10,}$/.test(frag)) { try { sessionStorage.setItem(CLAIM_TOKEN, frag); } catch {} history.replaceState({}, "", "/claim"); }
   let token = null; try { token = sessionStorage.getItem(CLAIM_TOKEN); } catch {}
+  // analytics.js takes the token off the address first; the fragment is the fallback when it did not run
+  if (!token && /^ocl_ct_[\w-]{10,}$/.test(window.oclClaimToken || "")) token = window.oclClaimToken;
   if (!token && /^ocl_ct_[\w-]{10,}$/.test(frag)) token = frag;
   const shell = (inner) => `<section class="band art-band">${artBg("finish")}<div class="wrap"><div class="hero claim-hero">${inner}</div></div></section>`;
   if (q.get("confirmed")) {
@@ -1434,6 +1436,7 @@ async function renderClaim() {
     e.target.disabled = false;
     if (!r.ok) return state("bad", esc(out.error || "That did not work."));
     try { sessionStorage.removeItem(CLAIM_TOKEN); } catch {}
+    window.oclClaimToken = null;
     history.replaceState({}, "", `/claim?confirmed=${encodeURIComponent(out.profile.replace("/u/", ""))}&agent=${encodeURIComponent(out.agentId)}`);
     renderClaim();
   });

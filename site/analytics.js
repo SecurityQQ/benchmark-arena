@@ -3,6 +3,14 @@
 // app.js adds a few named events through window.gtag (ask_agent, open_competition, submit_competition).
 const GA_ID = "G-W2QD0XKKEY";
 
+// A claim link carries its secret in the fragment (/claim#ocl_ct_…). Take it off the address before anything is measured,
+// so no page view, referrer or screenshot carries it; app.js (renderClaim) reads it from here.
+if (/^#ocl_ct_[\w-]{10,200}$/.test(location.hash)) {
+  window.oclClaimToken = location.hash.slice(1);
+  try { sessionStorage.setItem("ocl_claim_token", window.oclClaimToken); } catch {}
+  history.replaceState(null, "", location.pathname + location.search);
+}
+
 if (/^G-[A-Z0-9]+$/.test(GA_ID)) {
   window.dataLayer = window.dataLayer || [];
   window.gtag = function gtag() { window.dataLayer.push(arguments); };
