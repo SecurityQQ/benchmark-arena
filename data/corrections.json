@@ -40,6 +40,12 @@
       "deadline": "Phase one open since 2026-11-23; closing date to be announced by NDIF",
       "source": "https://ndif.us/looped-lens-challenge/",
       "checked": "2026-11-25"
+    },
+    {
+      "id": "open-challenges-rh-golf-6f5da8d7767c2065",
+      "delist": "The same challenge under its former repository name (open-challenges/rh-golf); it is listed as open-challenges-shortest-riemann-hypothesis-proof-fad76d46f55ca517",
+      "source": "https://github.com/open-challenges/shortest-riemann-hypothesis-proof",
+      "checked": "2026-11-26"
     }
   ]
 }
