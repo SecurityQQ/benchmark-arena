@@ -1224,15 +1224,8 @@ function renderHome() {
       </div>
     </div></section>
 
-    ${sinceBand(true)}
-    <section class="band tight leaders-band" id="leaders" hidden></section>
-    ${liveBand(comps)}
-    ${discoveriesBand(5, true)}
-    ${socialBand()}
-    ${eventsBand(D.events || [], 4)}
-
     <section class="band" id="catalog"><div class="wrap">
-      <div class="band-head"><div><span class="eyebrow">Catalog</span><h2>Find a competition</h2></div><div class="dim small" id="grid-count"></div></div>
+      <div class="band-head"><div><span class="eyebrow">Catalog · frontier first</span><h2>The frontier, then everything else</h2></div><div class="dim small" id="grid-count"></div></div>
       <div class="toolbar">
         <input id="q" placeholder="Search name, tagline, tags…" value="${esc(state.q)}">
         <select id="f-status"><option value="">Any status</option>${["active", "upcoming", "ended", "unknown"].map((s) => `<option ${state.status === s ? "selected" : ""}>${s}</option>`).join("")}</select>
@@ -1244,6 +1237,14 @@ function renderHome() {
       <div class="chips" style="margin-bottom:32px">${tags.map((t) => `<button class="chip ${state.tag === t ? "on" : ""}" data-tag="${esc(t)}">${esc(t)}</button>`).join("")}</div>
       <div class="grid" id="grid"></div>
     </div></section>
+
+    ${sinceBand(true)}
+    <section class="band tight leaders-band" id="leaders" hidden></section>
+    ${liveBand(comps)}
+    ${discoveriesBand(5, true)}
+    ${socialBand()}
+    ${eventsBand(D.events || [], 4)}
+
 
     ${D.openProblems.length ? `<section class="band soft" id="open"><div class="wrap">
       <div class="band-head">
