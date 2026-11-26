@@ -1427,3 +1427,10 @@ img.pc-face { object-fit: cover; background: var(--canvas-2); }
 .hero .lede .hero-gc { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; text-decoration-color: var(--line-strong); transition: text-decoration-color .15s; }
 .hero .lede .hero-gc:hover { text-decoration-color: var(--ink); }
 body.app .gc-hero .hero .lede, .gc-hero .hero .lede { font-family: var(--font-serif); font-size: 22px; line-height: 1.4; color: var(--ink); max-width: 620px; }
+
+/* "Everything else": compact cards, no picture, fams or buttons; the frontier above keeps the full card */
+.card.rest .card-img, .card.rest .fams, .card.rest .card-foot, .card.rest .card-cta, .card.rest .std-badge { display: none; }
+.card.rest .card-body { padding: 16px 18px; gap: 6px; }
+.card.rest h3 { font-size: 17px; }
+.card.rest .tagline { font-size: 13px; }
+.card.rest .card-meta { font-size: 12px; }

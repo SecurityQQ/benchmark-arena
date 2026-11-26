@@ -309,7 +309,7 @@ function renderTopic(t) {
     ${t.discoveries ? discoveriesBand(3, false) : ""}
     ${eventsBand((D.events || []).filter((e) => (e.topics || []).includes(t.slug)), 3)}
     <section class="band tight"><div class="wrap">
-      <div class="grid">${comps.map(card).join("")}</div>
+      <div class="grid">${comps.map((c) => card(c)).join("")}</div>
       <p class="dim small topic-links">Other topics: ${(D.topics || []).filter((x) => x.slug !== t.slug).map((x) => `<a href="/topics/${esc(x.slug)}" data-action="nav">${esc(x.name)}</a>`).join(" · ")}</p>
     </div></section>`;
 }
@@ -420,7 +420,7 @@ function renderChallenge(ch) {
     </div></section>
     <section class="band" id="competitions"><div class="wrap">
       <div class="band-head"><div><span class="eyebrow"><span class="live-dot" aria-hidden="true"></span>Competitions running</span><h2>${boards.length ? `${esc(fmt(boards.length))} ${boards.length === 1 ? "competition is" : "competitions are"} running on this.` : "No competition is listed on this yet."}</h2><p>${esc(ch.work)}</p></div></div>
-      <div class="grid">${boards.map(card).join("")}</div>
+      <div class="grid">${boards.map((c) => card(c)).join("")}</div>
       <div class="gc-wanted"><span class="eyebrow">${ch.wanted ? "Wanted" : "Running one?"}</span><p>${esc(ch.wanted || "Running another competition on this? List it and it joins this challenge.")}</p><div class="cta"><a class="btn primary" href="/submit" data-action="nav">Submit a competition →</a><a class="btn" href="/standard" data-action="nav">The PROBLEM.md standard</a></div></div>
     </div></section>
     ${liveBand(boards)}
@@ -1359,7 +1359,7 @@ function renderGrid() {
   // frontier first: a heading over each part, so the boards that matter most are never mixed in with the rest
   const tiered = (state.sort || "importance") === "importance", head = (t, s) => `<div class="tier-head"><h3>${t}</h3><p>${s}</p></div>`;
   grid.innerHTML = list.map((c, i) => (tiered && i === 0 && isFront(c) ? head("On the frontier", FRONTIER_LINE) : "")
-    + (tiered && !isFront(c) && (i === 0 || isFront(list[i - 1])) ? head("Everything else", "Benchmarks and leaderboards off the frontier, most important first.") : "") + card(c)).join("");
+    + (tiered && !isFront(c) && (i === 0 || isFront(list[i - 1])) ? head("Everything else", "Benchmarks and leaderboards off the frontier, most important first.") : "") + card(c, tiered && !isFront(c))).join("");
   grid.querySelectorAll(".card").forEach((el) => (el.onclick = (e) => { if (!e.target.closest(".btn, .ask")) nav(`/c/${pathPart(el.dataset.id)}`); }));
 }
 
@@ -1375,12 +1375,13 @@ function byImportance(a, b) {
 }
 const scoreChip = (c) => c.importance ? `<span class="score-chip${isFront(c) ? " front" : ""}" title="Stakes ${c.importance.stakes}/4 · open ${c.importance.open}/3 · verified ${c.importance.verified}/3">${isFront(c) ? "Frontier · " : ""}${c.importance.score}/10</span>` : "";
 
-function card(c) {
+// compact: a board under "Everything else", shown as a short row of facts, no picture or buttons (the frontier gets the room)
+function card(c, compact) {
   const p = c.participation, last = ago(c.stats.lastSubmission), img = c.images[0];
   const open = c.problems.filter((x) => x.isOpen).length;
   const top = (c.agentStats || []).filter((a) => a.family !== "human" && a.family !== "unknown").slice(0, 2);
   return `
-    <article class="card" data-id="${esc(c.id)}">
+    <article class="card${compact ? " rest" : ""}" data-id="${esc(c.id)}">
       <div class="card-img">${img ? `<img src="${esc(safeUrl(img))}" loading="lazy" alt="" data-placeholder="${esc(c.id)}">` : placeholderArt(c.id)}</div>
       <div class="card-body">
         <div class="card-top"><h3>${esc(c.name)}</h3><span class="badge ${esc(c.status)}">${esc(c.status)}</span></div>
