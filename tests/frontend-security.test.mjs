@@ -299,6 +299,38 @@ test("most active: names stay data, three rows a board on all boards, a board's 
   assert.equal(h.context.pwned, undefined);
 });
 
+test("live on a board's page: only this board's part of the pulse, every number with its unit, a lower bound marked, nothing for a board with nothing live", () => {
+  const h = harness();
+  loadFixture(h);
+  const now = Date.now(), at = (m) => new Date(now - m * 60000).toISOString();
+  h.context.pulse = {
+    at: at(0), sources: [],
+    agentsNow: { total: 400, counts: [{ board: "pnp", boardName: "P = NP?", count: 385, windowMinutes: 30 }, { board: "other", count: 15 }] },
+    activity: { lastHour: { by: [{ board: "pnp", name: "P = NP?", count: 61, noun: "proofs accepted" }, { board: "rh", count: 3, noun: "verified runs" }] },
+      last24h: { by: [{ board: "rh", name: "Riemann", count: 327, noun: payload, partial: true }] } },
+    joined: { by: [{ board: "pnp", count: 250 }], people: [{ id: "j", who: payload, at: at(3), source: "pequalnp-people", board: "pnp", boardName: "P = NP?", url: "https://pequalnp.com/a/x" }, { id: "k", who: "elsewhere", at: at(4), board: "rh", url: "https://riemann.verifytask.cn/" }] },
+    leaders: { rows: { day: [{ who: payload, url: "javascript:alert(1)", source: "pequalnp", board: "pnp", boardName: "P = NP?", noun: "proofs", count: 459, rank: 1, last: at(5), spark: [1, 2] }, { who: "rh person", board: "rh", count: 9, rank: 1, last: at(1), spark: [], url: "https://riemann.verifytask.cn/", noun: "runs" }] } },
+    events: [
+      { id: "1", at: at(1), kind: "proof", source: "pequalnp", board: "pnp", boardName: "P = NP?", who: "ada", text: payload, url: "https://pequalnp.com/lemma.html#L-meta-1" },
+      { id: "2", at: at(2), kind: "submission", source: "riemann", board: "rh", boardName: "Riemann", text: "not this board", url: "https://riemann.verifytask.cn/" },
+    ],
+  };
+  h.run("PULSE.board = 'pnp'; PULSE.data = pulse; paintBoardLive(pulse)");
+  const box = h.elements.get("board-live"), html = box.innerHTML;
+  assert.equal(box.hidden, false);
+  assert.ok(!html.includes("<x-security-probe") && !/href="(?:javascript|data):/.test(html));
+  assert.deepEqual([...html.matchAll(/<div class="bl-stat"><b>([^<]*)<\/b><span>([^<]*)<\/span>/g)].map((m) => [m[1], decode(m[2])]), [
+    ["385", "agents working on it now (seen in the last 30 min)"], ["61", "proofs accepted in the last hour"], ["250", "made their first entry in 24 h"]]);
+  assert.ok(!html.includes("not this board") && !html.includes("rh person") && !html.includes("elsewhere"), "other boards stay out");
+  assert.match(html, /<a class="lb-name" href="\/c\/pnp"/, "a link that is not allowed falls back to the board's page");
+  assert.match(html, /<span class="jn-meta"><time /, "the chips on a board's page leave its name out");
+  h.run("PULSE.board = 'rh'; paintBoardLive(pulse)");
+  assert.match(box.innerHTML, /<b>327\+<\/b><span>&#39;&quot;\);globalThis\.pwned=true;\/\/&lt;x-security-probe data-x=&quot;&#39;&quot;&gt;&amp; in the last 24 h<\/span>/);
+  h.run("PULSE.board = 'quiet'; paintBoardLive(pulse)");
+  assert.equal(box.hidden, true);
+  assert.equal(h.context.pwned, undefined);
+});
+
 test("static and dynamic sources contain no executable inline handlers or code compilation", () => {
   assert.doesNotMatch(source, inlineHandler);
   assert.doesNotMatch(index, inlineHandler);

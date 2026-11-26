@@ -1283,3 +1283,33 @@ img.pc-face { object-fit: cover; background: var(--canvas-2); }
   .lb-you .lb-join { grid-column: 1 / -1; }
 }
 .lb-face.jn-mono { display: grid; place-items: center; background: var(--c, var(--muted)); color: #fff; }
+
+/* ── Live on a board's own page (paintBoardLive) ── */
+.board-live-band[hidden] { display: none; }
+.board-live-band { padding-top: 0; }
+.bl-card { padding: 18px 22px 14px; border: 1px solid var(--line); border-radius: 18px; background: linear-gradient(180deg, rgba(255, 254, 251, .95), rgba(245, 243, 236, .9));
+  box-shadow: 0 1px 2px rgba(20, 20, 19, .05), 0 24px 48px -32px rgba(20, 20, 19, .35); }
+.bl-card.paused .live-dot { background: var(--secondary); box-shadow: none; animation: none; }
+.bl-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 0; margin: 16px 0 6px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.bl-stat { display: flex; flex-direction: column; gap: 2px; padding: 14px 16px 14px 0; }
+.bl-stat + .bl-stat { padding-left: 16px; border-left: 1px solid var(--line); }
+.bl-stat b { font-family: var(--font-serif); font-size: 34px; font-weight: 500; line-height: 1.05; color: var(--ink); font-variant-numeric: tabular-nums; }
+.bl-stat span { font-size: 13px; color: var(--muted); }
+.bl-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 12px 36px; margin-top: 10px; }
+.bl-h { margin: 12px 0 4px; font-family: var(--font-mono); font-size: 11px; font-weight: 400; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.bl-leaders { margin-top: 6px; }
+.bl-leaders .lb-row { grid-template-columns: 22px 32px minmax(0, 1fr) 108px auto; gap: 10px; padding: 8px 12px; }
+.bl-leaders .lb-move { display: block; margin: 1px 0 0; }
+.bl-leaders .lb-face { width: 32px; height: 32px; }
+.bl-leaders .lb-count b { font-size: 18px; }
+.bl-joined { margin-top: 6px; }
+.bl-joined .jn-row { margin-top: 6px; }
+.bl-note { margin: 10px 0 0; font-size: 12px; color: var(--muted); }
+.bl-note a { margin-left: 4px; color: var(--muted); }
+@media (max-width: 860px) {
+  .bl-cols { grid-template-columns: minmax(0, 1fr); }
+  .bl-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; }
+  .bl-stat, .bl-stat + .bl-stat { padding: 12px 0; border-left: 0; }
+  .bl-stat b { font-size: 28px; }
+}
+.bl-card .pc-meta .pc-src { visibility: hidden; } /* the board is this page's own */

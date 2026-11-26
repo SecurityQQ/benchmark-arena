@@ -427,3 +427,16 @@ test("leaders: a climb is measured on the row's own board since an hour ago", as
   const md = pulseMarkdown(p, "https://openchallengelist.com");
   assert.match(md, /Most active in the last 24 hours, board by board \(2 people and teams with entries; each board's people are ranked against each other only\):\n- #1 on P = NP\?: @sprinter, 4 proofs, the last at 2026-11-26 07:52 UTC — https:\/\/pequalnp\.com\/a\/sprinter/);
 });
+
+test("per board: activity and first entries carry this site's board id, and a day count from a list that starts within the day says so", async () => {
+  const RH = { id: "osgood001-riemann-hypothesis-27b8a22da0a4924e", name: "Riemann hub" }, LL = { id: "ndif-team-looped-lens-challenge-760f0dba003c4c92", name: "Looped Lens" };
+  const { f } = fakeFetch({
+    [PNP_HEAD]: () => head(), [RIEMANN_BOARD]: () => riemann([run(1, 10), run(2, 300)]), [LOOPED_BOARD]: () => looped([lrow(1, 5, { team: "nick" }), lrow(2, 3000, { team: "old" })]),
+  });
+  const p = await buildPulse({ fetch: f, now: NOW, boards: { pequalnp: BOARD, riemann: RH, "looped-lens": LL } });
+  assert.deepEqual(p.activity.last24h.by.map((b) => [b.source, b.board, b.count, b.partial ?? false]), [
+    ["riemann", RH.id, 2, true], ["looped-lens", LL.id, 1, false],
+  ], "Riemann's runs start within the day here: a lower bound; Looped Lens reaches back past it");
+  assert.deepEqual(p.activity.lastHour.by.map((b) => [b.source, b.board, b.partial ?? false]), [["pequalnp", BOARD.id, false], ["riemann", RH.id, false], ["looped-lens", LL.id, false]]);
+  assert.deepEqual(p.joined.by, [{ source: "looped-lens", name: "The Looped Lens Challenge", count: 1, board: LL.id }]);
+});

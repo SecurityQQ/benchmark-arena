@@ -724,7 +724,7 @@ function liveBand(comps) {
 // The "Just in" bar, the "working right now" pill and the live card on the home page. Every time shown is the time the board
 // gave the event; the visitor's clock only moves the "ago". The page reads the pulse every 30 s while it is visible. A pulse
 // older than 5 minutes, or two failed reads in a row, turns the live dots off and says so; what was last read stays.
-const PULSE = { data: null, fails: 0, seen: null, joinSeen: null, timer: 0, shown: null, readAt: 0 };
+const PULSE = { data: null, fails: 0, seen: null, joinSeen: null, boardSeen: null, board: "", timer: 0, shown: null, readAt: 0 };
 const PULSE_EVERY = 30000, PULSE_STALE = 5 * 60000;
 const PULSE_LINK = /^https:\/\/(?:pequalnp\.com|palomar-registry\.org|riemann\.verifytask\.cn|play\.bohrium\.com|ndif-looped-lens-challenge\.hf\.space|duckbench\.app)\//;
 const since = (iso) => {
@@ -787,9 +787,10 @@ function todayLine() {
 function paintPulse() {
   const p = PULSE.data, stale = pulseStale();
   const card = document.getElementById("pulse-card"), pill = document.getElementById("pulse-pill"), bar = document.getElementById("just-in");
-  if (!p) { for (const el of [card, pill, bar, document.getElementById("joiners"), document.getElementById("leaders")]) if (el) el.hidden = true; return; }
+  if (!p) { for (const el of [card, pill, bar, document.getElementById("joiners"), document.getElementById("leaders"), document.getElementById("board-live")]) if (el) el.hidden = true; return; }
   paintJoiners(p);
   paintLeaders(p);
+  paintBoardLive(p);
   const events = Array.isArray(p.events) ? p.events : [];
   if (card) {
     const first = PULSE.seen === null, before = PULSE.seen || new Set();
@@ -830,12 +831,12 @@ function pickJoiners(list, n) {
   for (const x of list) { if (keep.size >= n) break; keep.add(x); }
   return [...keep].sort((a, b) => String(b.at).localeCompare(String(a.at)));
 }
-function joinChip(x, fresh) {
+function joinChip(x, fresh, here) {
   const face = /^[A-Za-z0-9-]{1,39}$/.test(x.login || "")
     ? `<img class="jn-face" src="https://github.com/${x.login}.png?size=48" alt="" data-error="hide">`
     : `<span class="jn-face jn-mono" style="--c:${tone(x.who)}" aria-hidden="true">${esc(initials(x.who))}</span>`;
   const href = PULSE_LINK.test(x.url) ? x.url : x.board ? `/c/${pathPart(x.board)}` : "#";
-  return `<a class="jn-chip${fresh ? " fresh" : ""}" role="listitem" href="${esc(safeUrl(href))}" target="_blank" rel="noopener" title="${esc(`First entry on ${x.boardName || "the board"}${x.first ? `: ${x.first}` : ""}`)}">${face}<span class="jn-who">${esc(x.who)}</span><span class="jn-meta">${esc(x.boardName || "")} · ${timeAgo(x.at)}</span></a>`;
+  return `<a class="jn-chip${fresh ? " fresh" : ""}" role="listitem" href="${esc(safeUrl(href))}" target="_blank" rel="noopener" title="${esc(`First entry on ${x.boardName || "the board"}${x.first ? `: ${x.first}` : ""}`)}">${face}<span class="jn-who">${esc(x.who)}</span><span class="jn-meta">${here ? "" : `${esc(x.boardName || "")} · `}${timeAgo(x.at)}</span></a>`;
 }
 function paintJoiners(p) {
   const box = document.getElementById("joiners");
@@ -879,14 +880,14 @@ function sparkSvg(spark) {
   const bars = xs.map((n, i) => (n ? `<rect x="${i * w}" y="${h - Math.max(2, Math.round((n / max) * h))}" width="2" height="${Math.max(2, Math.round((n / max) * h))}" class="${i === xs.length - 1 ? "now" : ""}"></rect>` : "")).join("");
   return `<svg class="lb-spark" viewBox="0 0 ${xs.length * w} ${h}" width="${xs.length * w}" height="${h}" aria-hidden="true"><line x1="0" y1="${h - 0.5}" x2="${xs.length * w}" y2="${h - 0.5}"></line>${bars}</svg>`;
 }
-function leaderRow(r, i) {
+function leaderRow(r, i, here) {
   const face = /^[A-Za-z0-9-]{1,39}$/.test(r.login || "")
     ? `<img class="lb-face" src="https://github.com/${r.login}.png?size=56" alt="" data-error="hide">`
     : `<span class="lb-face jn-mono" style="--c:${tone(r.who)}" aria-hidden="true">${esc(initials(r.who))}</span>`;
   const where = r.board ? `<a href="/c/${pathPart(r.board)}" data-action="nav">${esc(r.boardName || r.source)}</a>` : esc(r.boardName || r.source);
   const move = Number.isInteger(r.move) && r.move ? `<span class="lb-move ${r.move > 0 ? "up" : "down"}" title="${r.move > 0 ? "Up" : "Down"} ${Math.abs(r.move)} on this board since an hour ago">${r.move > 0 ? "▲" : "▼"}${Math.abs(r.move)}</span>` : "";
   const hot = Date.now() - Date.parse(r.last) < 2 * 60000;
-  return `<li class="lb-row${hot ? " hot" : ""}"><span class="lb-pos">${i + 1}</span>${face}<div class="lb-who"><a class="lb-name" href="${esc(safeUrl(PULSE_LINK.test(r.url) ? r.url : r.board ? `/c/${pathPart(r.board)}` : "#"))}" target="_blank" rel="noopener">${esc(r.who)}</a><span class="lb-meta">#${esc(fmt(r.rank))} on ${where} · last entry ${timeAgo(r.last)}</span></div>${sparkSvg(r.spark)}<div class="lb-count"><b>+${esc(fmt(r.count))}</b> ${esc(r.noun)}${move}</div></li>`;
+  return `<li class="lb-row${hot ? " hot" : ""}"><span class="lb-pos">${i + 1}</span>${face}<div class="lb-who"><a class="lb-name" href="${esc(safeUrl(PULSE_LINK.test(r.url) ? r.url : r.board ? `/c/${pathPart(r.board)}` : "#"))}" target="_blank" rel="noopener">${esc(r.who)}</a><span class="lb-meta">${here ? "" : `#${esc(fmt(r.rank))} on ${where} · `}last entry ${timeAgo(r.last)}</span></div>${sparkSvg(r.spark)}<div class="lb-count"><b>+${esc(fmt(r.count))}</b> ${esc(r.noun)}${move}</div></li>`;
 }
 function paintLeaders(p) {
   const sec = document.getElementById("leaders");
@@ -914,6 +915,43 @@ function paintLeaders(p) {
   for (const b of sec.querySelectorAll?.("[data-lbb]") || []) b.onclick = () => { LB.board = b.dataset.lbb; paintLeaders(PULSE.data); };
 }
 
+// ── Live on a board's own page (/c/{id}): the same pulse, this board's part of it ──
+// Drawn only for a board a live source reads (P = NP?, the Riemann hub, Looped Lens, DuckBench); every number says its unit
+// and its window, a day count that does not cover the whole day says "+", and nothing is drawn for a board with nothing live.
+function paintBoardLive(p) {
+  const box = document.getElementById("board-live"), id = PULSE.board;
+  if (!box) return;
+  const mine = (x) => x && x.board === id;
+  const by = (t) => (t && Array.isArray(t.by) ? t.by.find(mine) : undefined);
+  const events = (Array.isArray(p.events) ? p.events : []).filter(mine).slice(0, 6);
+  const now = p.agentsNow && Array.isArray(p.agentsNow.counts) ? p.agentsNow.counts.find(mine) : undefined;
+  const hour = by(p.activity && p.activity.lastHour), day = by(p.activity && p.activity.last24h), joined = by(p.joined);
+  const leaders = p.leaders && p.leaders.rows && Array.isArray(p.leaders.rows.day) ? p.leaders.rows.day.filter(mine).slice(0, 5) : [];
+  const people = p.joined && Array.isArray(p.joined.people) ? p.joined.people.filter(mine).slice(0, 16) : [];
+  if (!id || !(events.length || now || hour || day || leaders.length)) { box.hidden = true; return; }
+  const stat = (n, label, plus) => `<div class="bl-stat"><b>${esc(fmt(n))}${plus ? "+" : ""}</b><span>${esc(label)}</span></div>`;
+  const stats = [
+    now ? stat(now.count, `agents working on it now${now.windowMinutes ? ` (seen in the last ${now.windowMinutes} min)` : ""}`) : "",
+    hour ? stat(hour.count, `${hour.noun} in the last hour`) : "",
+    day ? stat(day.count, `${day.noun} in the last 24 h`, day.partial) : "",
+    joined && joined.count ? stat(joined.count, "made their first entry in 24 h") : "",
+  ].filter(Boolean).join("");
+  const first = PULSE.boardSeen === null, before = PULSE.boardSeen || new Set();
+  box.hidden = false;
+  box.innerHTML = `<div class="wrap"><div class="bl-card${pulseStale() ? " paused" : ""}">
+    <div class="pc-head"><span class="pc-title"><span class="live-dot" aria-hidden="true"></span>Live on this board</span><span class="pc-upd">${pulseStale() ? "paused · retrying" : `updated ${timeAgo(p.at)}`}</span></div>
+    ${stats ? `<div class="bl-stats">${stats}</div>` : ""}
+    <div class="bl-cols">
+      ${events.length ? `<div><h3 class="bl-h">Latest</h3><ol class="pc-list">${events.map((e) => pulseRow(e, !first && !before.has(e.id))).join("")}</ol></div>` : ""}
+      ${leaders.length ? `<div><h3 class="bl-h">Most active in the last 24 h</h3><ol class="lb-list bl-leaders">${leaders.map((r, i) => leaderRow(r, i, true)).join("")}</ol></div>` : ""}
+    </div>
+    ${people.length ? `<div class="bl-joined"><h3 class="bl-h">Just joined</h3><div class="jn-row" role="list" aria-label="Newest first entries on this board">${people.map((x) => joinChip(x, false, true)).join("")}</div></div>` : ""}
+    <p class="bl-note">From the board's own live data, read every 15 s to 3 min; times are the board's. <a class="mono" href="/api/pulse.md">/api/pulse</a></p>
+  </div></div>`;
+  PULSE.boardSeen = new Set(events.map((e) => e.id));
+  dragScroll(box.querySelector?.(".bl-joined .jn-row"));
+}
+
 // The pill's number counts from what it last showed to the new one; at once when motion is reduced
 function countUp(el, to) {
   const from = PULSE.shown;
@@ -925,7 +963,7 @@ function countUp(el, to) {
 }
 
 async function readPulse() {
-  if (!document.getElementById("pulse-card") && !document.getElementById("pulse-pill")) return;
+  if (!document.getElementById("pulse-card") && !document.getElementById("pulse-pill") && !document.getElementById("board-live")) return;
   try {
     const r = await fetch("/api/pulse", { headers: { accept: "application/json" } });
     if (!r.ok) throw new Error(String(r.status));
@@ -938,7 +976,7 @@ async function readPulse() {
 }
 
 function startPulse() {
-  PULSE.seen = null; PULSE.joinSeen = null; PULSE.shown = null;
+  PULSE.seen = null; PULSE.joinSeen = null; PULSE.boardSeen = null; PULSE.shown = null;
   if (PULSE.data) paintPulse();
   if (Date.now() - PULSE.readAt > 20000) readPulse(); // a re-render (a filter click) does not read again within 20 s
   if (PULSE.timer || typeof setInterval !== "function") return;
@@ -1872,6 +1910,8 @@ function renderDetail(id) {
     </div>
     </div></section>
 
+    <section class="band tight board-live-band" id="board-live" aria-label="Live on this board" hidden></section>
+
     ${pointAgent(c)}
 
     <section class="band"><div class="wrap">
@@ -1908,6 +1948,8 @@ function renderDetail(id) {
 
   app.querySelectorAll(".problem-head").forEach((h) => (h.onclick = (e) => { if (!e.target.closest(".btn, .ask")) h.parentElement.classList.toggle("open"); }));
   app.querySelectorAll("canvas.spark").forEach(drawSpark);
+  PULSE.board = c.id;
+  startPulse();
 }
 
 function agentsOf(c, name) {
