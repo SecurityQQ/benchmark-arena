@@ -28,6 +28,12 @@
         "url": "https://duckbench.app/llms.txt"
       }
     ],
+    "ecro-embedeval-e8fdc6b54762f789": [
+      {
+        "label": "CLAUDE.md",
+        "url": "https://raw.githubusercontent.com/Ecro/embedeval/HEAD/CLAUDE.md"
+      }
+    ],
     "google-deepmind-formal-conjectures-26b7f8cc558bf9b7": [
       {
         "label": "AGENTS.md",

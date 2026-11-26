@@ -1,12 +1,12 @@
 {
-  "fetchedAt": "2026-11-26T03:29:21.269Z",
+  "fetchedAt": "2026-11-26T06:38:08.609Z",
   "totals": {
-    "results": 1369,
-    "projects": 1043
+    "results": 1374,
+    "projects": 1047
   },
   "days": {
-    "2026-11-26": 12,
-    "2026-11-25": 6,
+    "2026-11-26": 16,
+    "2026-11-25": 7,
     "2026-11-24": 22,
     "2026-11-23": 36,
     "2026-11-22": 33,
@@ -14,6 +14,72 @@
     "2026-11-20": 26
   },
   "items": [
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000016",
+      "version": 1,
+      "title": "Density Hajnal–Szemerédi formalization",
+      "authors": [
+        "Xizhi Liu"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T03:53:54Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000016&version=1",
+      "repo": "xliu2022/density-hajnal-szemeredi-lean",
+      "subjects": [
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000015",
+      "version": 1,
+      "title": "Spectral Protection During Coordinated Control on an Infinite Ammann–Beenker Graph",
+      "authors": [
+        "Alessandro Odasso"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T03:49:51Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000015&version=1",
+      "repo": "alexodas/spectral_geometry",
+      "subjects": [
+        "math.SP",
+        "cond-mat.mes-hall"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000014",
+      "version": 1,
+      "title": "The staircase theorem for parking functions counted by maximum displacement",
+      "authors": [
+        "Jaehyoung Kim"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T03:44:58Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000014&version=1",
+      "repo": "MegasKomnenos/parking-staircase",
+      "subjects": [
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000013",
+      "version": 1,
+      "title": "Characterizations of E-finite algebras and conjectures on brick-finiteness",
+      "authors": [
+        "Haruhisa Enomoto"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T03:38:46Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000013&version=1",
+      "repo": "haruhisa-enomoto/e-finite-characterizations",
+      "subjects": [
+        "math.RT",
+        "math.RA"
+      ]
+    },
     {
       "source": "palomar",
       "id": "PALOMAR-2026-11-26-000012",
@@ -215,6 +281,23 @@
       "subjects": [
         "math.CA",
         "math.FA"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-25-000007",
+      "version": 1,
+      "title": "Keevash, The existence of designs II: Lemma dom (Freedman's inequality) for independent uniform permutations",
+      "authors": [
+        "Juan Pablo Traverso Gianini"
+      ],
+      "date": "2026-11-25",
+      "at": "2026-11-25T02:36:49Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-25-000007&version=1",
+      "repo": "jtraverso/keevash-designs-ii-concentration",
+      "subjects": [
+        "math.PR",
+        "math.CO"
       ]
     },
     {
@@ -929,94 +1012,6 @@
       "repo": "Arthur742Ramos/Arthur742Ramos-binary-adjacency-rank",
       "subjects": [
         "math.CO"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-23-000021",
-      "version": 1,
-      "title": "Structured coordinate systems in Lᵖ(ℝ)",
-      "authors": [
-        "Daniel Freeman",
-        "Lukas Liehr",
-        "Mitchell A. Taylor"
-      ],
-      "date": "2026-11-23",
-      "at": "2026-11-23T18:27:17Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000021&version=1",
-      "repo": "lukasliehr/Structured-Coordinate-Systems",
-      "subjects": [
-        "math.FA"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-23-000020",
-      "version": 1,
-      "title": "Butson's prime divisibility theorem",
-      "authors": [
-        "Zayn Blore"
-      ],
-      "date": "2026-11-23",
-      "at": "2026-11-23T18:08:16Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000020&version=1",
-      "repo": "zblore/butson-hadamard-lean",
-      "subjects": [
-        "math.CO",
-        "math.NT"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-23-000019",
-      "version": 1,
-      "title": "Anisotropic local laws for random matrices",
-      "authors": [
-        "Jun Yin"
-      ],
-      "date": "2026-11-23",
-      "at": "2026-11-23T17:38:29Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000019&version=1",
-      "repo": "JYin80/Lean-Anisotropic_arXiv-1410.3516",
-      "subjects": [
-        "math.PR",
-        "math-ph"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-23-000018",
-      "version": 1,
-      "title": "Counterexamples to All Four Malkoun Conjectures (A–D), Planar Tree Zeros, and Unconditional Path Positivity",
-      "authors": [
-        "Tomasz Tarłowski"
-      ],
-      "date": "2026-11-23",
-      "at": "2026-11-23T17:25:04Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000018&version=1",
-      "repo": "tomasztarlowski/malkoun-conjectures-counterexamples",
-      "subjects": [
-        "math-ph",
-        "math.MG",
-        "math.CO",
-        "cs.LO"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-23-000017",
-      "version": 1,
-      "title": "A One-Edge Change Splits Two Energy Levels in an Infinite Ammann–Beenker Graph",
-      "authors": [
-        "Alessandro Odasso"
-      ],
-      "date": "2026-11-23",
-      "at": "2026-11-23T11:14:06Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000017&version=1",
-      "repo": "alexodas/spectral_geometry",
-      "subjects": [
-        "math.SP",
-        "cond-mat.mes-hall"
       ]
     }
   ]
