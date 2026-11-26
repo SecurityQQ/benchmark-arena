@@ -106,6 +106,10 @@ const SEED_REPOS = [
   { owner: "alan-turing-institute", name: "Ravensport-Competition" }, // SaTML 2027 (Turing Institute + UK NCSC): autonomous detection and mitigation of attacks on a simulated port network, closes 2027-02-19
   { owner: "quantum-advantage-tracker", name: "quantum-advantage-tracker.github.io" }, // IBM/Flatiron/Algorithmiq: quantum advantage candidates and the classical results that supersede them, reviewed in public
   { owner: "janosh", name: "matbench-discovery" },           // Matbench Discovery: ML models that find stable new materials (batteries, catalysts), leaderboard by PR
+  { owner: "ScrollPrize", name: "villa" },                   // Vesuvius Challenge: read the carbonized Herculaneum scrolls; $1M grand prize and First Letters prizes to 2027-06-25, monthly progress prizes
+  { owner: "proximafusion", name: "constellaration" },       // ConStellaration (Proxima Fusion + Hugging Face): stellarator plasma boundaries re-scored by the physics code, leaderboard on the HF Space
+  { owner: "ai-sec-lab", name: "PatchBench" },               // PatchBench (UMD): AI agents patching real vulnerabilities, public leaderboard with AIxCC systems
+  { owner: "SAIRcompetition", name: "lean-kernel-challenge" }, // SAIR + Lean FRO: verified computation in the fewest Lean kernel instructions; Stage 2 begins December 2026
 ];
 
 // A raw file on a branch, or null when GitHub says it is not there. Any other failure throws: it may pass by the next run.
