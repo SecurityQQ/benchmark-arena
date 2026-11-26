@@ -498,11 +498,11 @@
     "checkedAt": "2026-10-13T23:04:09.588Z"
   },
   "molly554/whiteboard-ai-tutor": {
-    "pushedAt": "2026-11-24T04:01:52Z",
+    "pushedAt": "2026-11-26T07:11:56Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-26T05:21:40.306Z",
-    "head": "bd0a6783e9c7df50680db1fda0908f6276f6f800",
+    "checkedAt": "2026-11-26T09:11:35.432Z",
+    "head": "5a277a9abe51ca9a24918ec07c57d209fbc69d90",
     "sources": [
       "README.md",
       "results/leaderboard.json",
@@ -518,7 +518,8 @@
       "ROADMAP.md",
       "CONTRIBUTING.md",
       "results/"
-    ]
+    ],
+    "live": true
   },
   "mrs-/black-friday-deals": {
     "pushedAt": "2026-11-25T22:05:12Z",
