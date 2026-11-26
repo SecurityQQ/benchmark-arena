@@ -672,6 +672,20 @@
       "AGENTS.md"
     ]
   },
+  "open-challenges/fastest-lean-compiler": {
+    "pushedAt": "2026-11-26T22:28:28Z",
+    "fingerprint": "a0f0ccb7f37eb7e2",
+    "verdict": "competition",
+    "checkedAt": "2026-11-26T22:41:11.801Z",
+    "head": "b602a02c5e529aef817c38c03d1717016bb8b4ab",
+    "sources": [
+      "PROBLEM.md",
+      "submissions/lean-v4.36.0/SUBMISSION.md",
+      "README.md",
+      "AGENTS.md",
+      "submissions/"
+    ]
+  },
   "open-challenges/keller-zero": {
     "pushedAt": "2026-11-26T22:06:34Z",
     "fingerprint": "a0f0ccb7f37eb7e2",

@@ -1153,5 +1153,23 @@
     ],
     "defaultBranch": "main",
     "pushedAt": "2026-11-26T17:26:19Z"
+  },
+  {
+    "owner": "open-challenges",
+    "name": "fastest-lean-compiler",
+    "url": "https://github.com/open-challenges/fastest-lean-compiler",
+    "description": "Fastest Lean Compiler: make the Lean 4 toolchain build real proofs faster, with byte-for-byte the same verified output.",
+    "stars": 0,
+    "topics": [
+      "compilers",
+      "formal-verification",
+      "lean4",
+      "open-challenge-list",
+      "performance",
+      "theorem-proving"
+    ],
+    "defaultBranch": "main",
+    "pushedAt": "2026-11-26T22:28:28Z",
+    "priority": true
   }
 ]

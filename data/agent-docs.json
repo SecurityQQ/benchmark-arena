@@ -52,6 +52,18 @@
         "url": "https://raw.githubusercontent.com/ndif-team/looped-lens-challenge/HEAD/AGENTS.md"
       }
     ],
+    "open-challenges-fastest-lean-compiler-0273cfe4ff66c741": [
+      {
+        "label": "AGENTS.md",
+        "url": "https://raw.githubusercontent.com/open-challenges/fastest-lean-compiler/HEAD/AGENTS.md"
+      }
+    ],
+    "open-challenges-keller-zero-a5e3b6508081e209": [
+      {
+        "label": "AGENTS.md",
+        "url": "https://raw.githubusercontent.com/open-challenges/keller-zero/HEAD/AGENTS.md"
+      }
+    ],
     "open-challenges-rh-golf-6f5da8d7767c2065": [
       {
         "label": "AGENTS.md",
@@ -68,6 +80,12 @@
       {
         "label": "AGENTS.md",
         "url": "https://raw.githubusercontent.com/agent-next/polymarket-paper-trader/HEAD/AGENTS.md"
+      }
+    ],
+    "quantum-advantage-tracker-quantum-advantage-tracker-github-io-0184f4f5119c07a6": [
+      {
+        "label": "AGENTS.md",
+        "url": "https://raw.githubusercontent.com/quantum-advantage-tracker/quantum-advantage-tracker.github.io/HEAD/AGENTS.md"
       }
     ],
     "rtl-ai-silicon-arena-d20cfa656a05f7ad": [

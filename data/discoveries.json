@@ -1,11 +1,11 @@
 {
-  "fetchedAt": "2026-11-26T22:01:31.158Z",
+  "fetchedAt": "2026-11-26T22:40:57.136Z",
   "totals": {
-    "results": 1416,
-    "projects": 1086
+    "results": 1420,
+    "projects": 1089
   },
   "days": {
-    "2026-11-26": 58,
+    "2026-11-26": 62,
     "2026-11-25": 7,
     "2026-11-24": 22,
     "2026-11-23": 36,
@@ -14,6 +14,71 @@
     "2026-11-20": 26
   },
   "items": [
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000062",
+      "version": 1,
+      "title": "The Chen-Erdős-Staton bound for Erdős Problem 642",
+      "authors": [
+        "Alp Albayrak"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T21:26:43Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000062&version=1",
+      "repo": "alpalbayrak91-boop/erdos642-ces",
+      "subjects": [
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000061",
+      "version": 1,
+      "title": "Inverse Z-polynomial log-concavity through rank four",
+      "authors": [
+        "Jaime Nistal"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T20:58:03Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000061&version=1",
+      "repo": "RokaSwK/conjecture-lab",
+      "subjects": [
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000060",
+      "version": 1,
+      "title": "Kolmogorov–Loveland and Martin-Löf randomness",
+      "authors": [
+        "Bjørn Kjos-Hanssen"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T20:24:16Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000060&version=1",
+      "repo": "bjoernkjoshanssen/klr",
+      "subjects": [
+        "math.LO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000059",
+      "version": 1,
+      "title": "Morrey's problem for homogeneous isotropic integrands on 2x2 matrices, in Lean",
+      "authors": [
+        "The-Anh Vu-Le"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T20:20:04Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000059&version=1",
+      "repo": "vltanh/lean4-morrey",
+      "subjects": [
+        "math.AP",
+        "math.OC"
+      ]
+    },
     {
       "source": "palomar",
       "id": "PALOMAR-2026-11-26-000058",
@@ -938,77 +1003,6 @@
       "subjects": [
         "math.CO",
         "cs.CC"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-26-000002",
-      "version": 1,
-      "title": "Squier's theorem: finite convergent string rewriting systems have finite derivation type, with Newman's lemma, the critical pair lemma and the symmetric group S3 as a worked example",
-      "authors": [
-        "Rohan Badade"
-      ],
-      "date": "2026-11-26",
-      "at": "2026-11-26T00:50:31Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000002&version=1",
-      "repo": "gnostrich/sqier",
-      "subjects": [
-        "math.CT",
-        "cs.LO"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-26-000001",
-      "version": 1,
-      "title": "Prescribed holes in the time frequency plane and ptychographic phase retrieval",
-      "authors": [
-        "Jaume de Dios Pont",
-        "Philippe Jaming",
-        "Lukas Liehr",
-        "Mitchell A. Taylor"
-      ],
-      "date": "2026-11-26",
-      "at": "2026-11-26T00:39:45Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000001&version=1",
-      "repo": "lukasliehr/Ambiguity-Zeros",
-      "subjects": [
-        "math.CA",
-        "math.FA"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-25-000007",
-      "version": 1,
-      "title": "Keevash, The existence of designs II: Lemma dom (Freedman's inequality) for independent uniform permutations",
-      "authors": [
-        "Juan Pablo Traverso Gianini"
-      ],
-      "date": "2026-11-25",
-      "at": "2026-11-25T02:36:49Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-25-000007&version=1",
-      "repo": "jtraverso/keevash-designs-ii-concentration",
-      "subjects": [
-        "math.PR",
-        "math.CO"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-25-000006",
-      "version": 1,
-      "title": "Šverák 1992: rank-one convexity does not imply quasiconvexity, in Lean",
-      "authors": [
-        "The-Anh Vu-Le"
-      ],
-      "date": "2026-11-25",
-      "at": "2026-11-25T01:54:54Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-25-000006&version=1",
-      "repo": "vltanh/lean4-morrey",
-      "subjects": [
-        "math.AP",
-        "math.OC"
       ]
     }
   ]
