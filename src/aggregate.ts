@@ -174,8 +174,8 @@ export const COMPUTE_FIT = { none: ["none", "cpu"], "consumer-gpu": ["none", "cp
 export interface ChallengeFilter { query?: string; compute?: keyof typeof COMPUTE_FIT; domain?: string; openOnly?: boolean }
 const STOPWORDS = new Set("a an and any for i in into is me my of on or some that the to want with".split(" "));
 
-// find_challenges (src/mcp.ts) over /api/index.json rows. More query words matched ranks first, then join.txt's
-// order: boards people are entering now, busiest first as in hotCompetitions, then challenges with an open track.
+// find_challenges (src/mcp.ts) over /api/index.json rows. More query words matched ranks first, then the frontier and the
+// rating (src/frontier.ts), then boards people are entering now, busiest first, then challenges with an open track.
 // Ended challenges are left out, as on join.txt.
 export function findChallenges(index: IndexEntry[], f: ChallengeFilter = {}): IndexEntry[] {
   const words = [...new Set(f.query?.toLowerCase().match(/[\p{L}\p{N}]+/gu) ?? [])].filter((w) => !STOPWORDS.has(w));
@@ -188,7 +188,8 @@ export function findChallenges(index: IndexEntry[], f: ChallengeFilter = {}): In
   return index.map((c) => ({ c, hits: score(c) }))
     .filter(({ c, hits }) => c.status !== "ended" && (!words.length || hits > 0) && (!fit || fit.includes(c.compute))
       && (!domain || c.domain.toLowerCase() === domain) && (!f.openOnly || c.openTracks > 0))
-    .sort((a, b) => b.hits - a.hits || b.c.entriesLast30d - a.c.entriesLast30d || Number(b.c.openTracks > 0) - Number(a.c.openTracks > 0)
+    .sort((a, b) => b.hits - a.hits || Number(b.c.tier === "frontier") - Number(a.c.tier === "frontier") || (b.c.score ?? -1) - (a.c.score ?? -1)
+      || b.c.entriesLast30d - a.c.entriesLast30d || Number(b.c.openTracks > 0) - Number(a.c.openTracks > 0)
       || (b.c.entriesLast90d ?? 0) - (a.c.entriesLast90d ?? 0) || (b.c.lastEntry ?? "").localeCompare(a.c.lastEntry ?? ""))
     .map(({ c }) => c);
 }
