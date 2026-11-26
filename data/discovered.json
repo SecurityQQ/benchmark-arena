@@ -444,6 +444,16 @@
     "pushedAt": "2026-11-23T23:56:26Z"
   },
   {
+    "owner": "ScrollPrize",
+    "name": "villa",
+    "url": "https://github.com/ScrollPrize/villa",
+    "description": "The Vesuvius Challenge monorepo",
+    "stars": 388,
+    "topics": [],
+    "defaultBranch": "main",
+    "pushedAt": "2026-11-26T13:12:04Z"
+  },
+  {
     "owner": "model-checking",
     "name": "verify-rust-std",
     "url": "https://github.com/model-checking/verify-rust-std",
@@ -577,10 +587,10 @@
     "name": "pequalnp-proofs",
     "url": "https://github.com/open-goat/pequalnp-proofs",
     "description": "Lean 4 proofs from the public AI attempt at P vs NP (pequalnp.com). Open gaps welcome pull requests.",
-    "stars": 247,
+    "stars": 250,
     "topics": [],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-26T17:40:14Z"
+    "pushedAt": "2026-11-26T18:22:32Z"
   },
   {
     "owner": "Saivineeth147",
@@ -626,7 +636,7 @@
     "name": "before-you-install-t3code",
     "url": "https://github.com/realchendahuang/before-you-install-t3code",
     "description": "Independent telemetry, security, governance, and public-record audit of pingdotgg/t3code across 18 languages, 6 dossiers, 108 receipts, 320+ primary sources & live evidence portal.",
-    "stars": 99,
+    "stars": 100,
     "topics": [
       "github-pages",
       "i18n",
@@ -658,6 +668,16 @@
     "topics": [],
     "defaultBranch": "main",
     "pushedAt": "2026-11-26T04:09:15Z"
+  },
+  {
+    "owner": "proximafusion",
+    "name": "constellaration",
+    "url": "https://github.com/proximafusion/constellaration",
+    "description": "Code for analyzing and evaluating stellarator plasma boundaries",
+    "stars": 71,
+    "topics": [],
+    "defaultBranch": "main",
+    "pushedAt": "2026-11-21T20:46:08Z"
   },
   {
     "owner": "unitaryfoundation",
@@ -696,7 +716,7 @@
     "stars": 26,
     "topics": [],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-25T15:50:43Z"
+    "pushedAt": "2026-11-26T17:56:08Z"
   },
   {
     "owner": "1stproof",
@@ -718,6 +738,15 @@
     "pushedAt": "2026-11-23T07:46:03Z"
   },
   {
+    "owner": "SAIRcompetition",
+    "name": "lean-kernel-challenge",
+    "url": "https://github.com/SAIRcompetition/lean-kernel-challenge",
+    "stars": 17,
+    "topics": [],
+    "defaultBranch": "main",
+    "pushedAt": "2026-09-17T15:14:22Z"
+  },
+  {
     "owner": "cybertronai",
     "name": "sutro-problems",
     "url": "https://github.com/cybertronai/sutro-problems",
@@ -726,6 +755,20 @@
     "topics": [],
     "defaultBranch": "main",
     "pushedAt": "2026-11-23T23:28:13Z"
+  },
+  {
+    "owner": "ai-sec-lab",
+    "name": "PatchBench",
+    "url": "https://github.com/ai-sec-lab/PatchBench",
+    "description": "PatchBench: Evaluating AI Agents for Vulnerability Patching https://arxiv.org/pdf/2609.04075",
+    "stars": 14,
+    "topics": [
+      "ai-agents",
+      "benchmark",
+      "vulnerability-patching"
+    ],
+    "defaultBranch": "main",
+    "pushedAt": "2026-11-05T17:01:35Z"
   },
   {
     "owner": "Ecro",
@@ -765,7 +808,7 @@
       "simulation"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-26T17:44:00Z"
+    "pushedAt": "2026-11-26T17:51:56Z"
   },
   {
     "owner": "leanprover",
@@ -851,7 +894,7 @@
       "research-software"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-26T17:48:01Z"
+    "pushedAt": "2026-11-26T18:17:32Z"
   },
   {
     "owner": "kings-crown",

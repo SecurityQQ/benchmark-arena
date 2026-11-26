@@ -70,6 +70,18 @@
     "verdict": "none",
     "checkedAt": "2026-11-26T05:17:05.147Z"
   },
+  "ai-sec-lab/patchbench": {
+    "pushedAt": "2026-11-05T17:01:35Z",
+    "fingerprint": "a0f0ccb7f37eb7e2",
+    "verdict": "competition",
+    "checkedAt": "2026-11-26T18:33:27.958Z",
+    "head": "a600005a1a9f311f2a12c5f8bd1b7715f256be2b",
+    "sources": [
+      "README.md",
+      "data/fuzz_targets.csv",
+      "data/"
+    ]
+  },
   "alan-turing-institute/ravensport-competition": {
     "pushedAt": "2026-11-14T12:38:10Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
@@ -294,10 +306,10 @@
     "checkedAt": "2026-11-26T05:34:48.294Z"
   },
   "dicklesworthstone/rust_scriptbots": {
-    "pushedAt": "2026-11-26T17:44:00Z",
+    "pushedAt": "2026-11-26T17:51:56Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "none",
-    "checkedAt": "2026-11-26T18:02:49.649Z"
+    "checkedAt": "2026-11-26T18:33:36.048Z"
   },
   "ecro/embedeval": {
     "pushedAt": "2026-09-09T04:49:54Z",
@@ -357,10 +369,10 @@
     "head": "9097e2f90e66d2f6244209cb1c07f7120d17ec53"
   },
   "harbor-framework/terminal-bench-challenges": {
-    "pushedAt": "2026-11-25T15:50:43Z",
+    "pushedAt": "2026-11-26T17:56:08Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-26T05:32:10.430Z",
+    "checkedAt": "2026-11-26T18:32:59.891Z",
     "head": "578b75ffe20944faba321b8a0a596684428c19cb",
     "sources": [
       "README.md",
@@ -713,6 +725,17 @@
       "submissions/../README.md"
     ]
   },
+  "proximafusion/constellaration": {
+    "pushedAt": "2026-11-21T20:46:08Z",
+    "fingerprint": "a0f0ccb7f37eb7e2",
+    "verdict": "competition",
+    "checkedAt": "2026-11-26T18:32:47.558Z",
+    "head": "3d9c72334caf6ba9de823a86d98491d53028e3df",
+    "sources": [
+      "README.md",
+      "hugging_face_competition/README.md"
+    ]
+  },
   "qlabs-eng/noise": {
     "pushedAt": "2026-11-25T19:45:27Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
@@ -839,6 +862,31 @@
       "CONTRIBUTING.md"
     ]
   },
+  "saircompetition/lean-kernel-challenge": {
+    "pushedAt": "2026-09-17T15:14:22Z",
+    "fingerprint": "a0f0ccb7f37eb7e2",
+    "verdict": "competition",
+    "checkedAt": "2026-11-26T18:33:17.138Z",
+    "head": "940f0a2ead23ef70ab1387edabb347e629111edd",
+    "sources": [
+      "README.md",
+      "evaluation/README.md",
+      "examples/README.md",
+      "rules/overview.md",
+      "evaluation/maintainers.md",
+      "rules/problems/fib.md",
+      "rules/problems/partition.md",
+      "rules/problems/mertens.md",
+      "rules/problems/primecount.md",
+      "rules/problems/permanent.md",
+      "rules/problems/ca-rule110.md",
+      "rules/problems/sha256.md",
+      "rules/problems/polydisc.md",
+      "evaluation/../rules/problems/README.md",
+      "examples/../evaluation/README.md",
+      "examples/../rules/problems/README.md"
+    ]
+  },
   "saivineeth147/lora-speedrun": {
     "pushedAt": "2026-09-12T04:50:56Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
@@ -864,6 +912,12 @@
       "SECURITY.md",
       "records/"
     ]
+  },
+  "scrollprize/villa": {
+    "pushedAt": "2026-11-26T13:12:04Z",
+    "fingerprint": "a0f0ccb7f37eb7e2",
+    "verdict": "none",
+    "checkedAt": "2026-11-26T18:25:28.407Z"
   },
   "seblague/chess-challenge": {
     "pushedAt": "2024-05-23T05:47:00Z",
@@ -961,10 +1015,14 @@
   },
   "teorth/optimizationproblems": {
     "pushedAt": "2026-11-23T23:56:26Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-25T07:11:56.639Z",
-    "head": "83e93c372e2e4889b12e5ada3a7c3422521e7baf"
+    "checkedAt": "2026-11-26T18:25:05.467Z",
+    "head": "83e93c372e2e4889b12e5ada3a7c3422521e7baf",
+    "sources": [
+      "README.md",
+      "CONTRIBUTING.md"
+    ]
   },
   "the-ai-alliance/geo-bench-2-leaderboard": {
     "pushedAt": "2026-01-19T11:41:51Z",
