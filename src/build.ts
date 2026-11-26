@@ -10,6 +10,7 @@ import { pages, renderPage, topicMarkdown } from "./prerender.js";
 import { TOPICS } from "./topics.js";
 import { applyCorrections, loadCorrections } from "./corrections.js";
 import { loadSocial } from "./social.js";
+import { loadEvents } from "./events.js";
 import { NO_DISCOVERIES, loadDiscoveries } from "./discoveries.js";
 import { cardRenderer, type CardRenderer } from "./og.js";
 import { loadAgentDocs, withAgentDocs } from "./agentDocs.js";
@@ -105,11 +106,12 @@ export async function build(root = process.cwd()) {
 
   const social = loadSocial(ROOT, new Set(data.competitions.map((c) => c.id)));
   const discoveries = loadDiscoveries(ROOT);
+  const events = loadEvents(ROOT);
 
   // Every route as a real page (agents and crawlers that do not run JavaScript), index.html included, with its social card
   // (src/og.ts) when it has one. A card that cannot be drawn leaves that page on /og.jpg rather than block a data deploy.
   const shell = files.get("index.html")!.toString();
-  const all = pages(data, social, discoveries);
+  const all = pages(data, social, discoveries, events);
   let draw: CardRenderer | null = null;
   try { if (all.some((p) => p.card)) draw = await cardRenderer(); }
   catch (error) { console.warn(`og: cards unavailable, pages keep /og.jpg (${(error as Error).message})`); }
@@ -136,6 +138,7 @@ export async function build(root = process.cwd()) {
   w("api/competitions.json", j(data));
   w("api/index.json", j({ crawledAt: data.crawledAt, competitions: competitionIndex(data.competitions) }));
   w("api/social.json", j(social));
+  w("api/events.json", j(events));
   w("api/discoveries.json", j(discoveries ?? NO_DISCOVERIES));
   w("api/feed.json", j(feedJson(data, ORIGIN)));
   w("feed.xml", feedAtom(data, ORIGIN));
@@ -153,6 +156,7 @@ export async function build(root = process.cwd()) {
     evaluated: aggregateAgents(data.competitions, "subject"),
     openProblems: openProblems(data.competitions),
     social,
+    events,
     discoveries: discoveries ?? NO_DISCOVERIES,
     topics: TOPICS,
   }));

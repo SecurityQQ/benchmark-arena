@@ -13,6 +13,7 @@ import { applyCorrections, loadCorrections } from "./corrections.js";
 import { markdownFor } from "./agentTraffic.js";
 import { createMcpHandler } from "./mcp.js";
 import { loadSocial } from "./social.js";
+import { loadEvents } from "./events.js";
 import { NO_DISCOVERIES, loadDiscoveries } from "./discoveries.js";
 import { loadAgentDocs, withAgentDocs } from "./agentDocs.js";
 
@@ -136,6 +137,7 @@ const server = createServer(async (req, res) => {
         evaluated: aggregateAgents(data.competitions, "subject"),
         openProblems: openProblems(data.competitions),
         social: loadSocial(process.cwd(), new Set(data.competitions.map((c) => c.id))),
+        events: loadEvents(process.cwd()),
         discoveries: loadDiscoveries(process.cwd()) ?? NO_DISCOVERIES,
         topics: TOPICS,
       }), MIME[".json"]);
