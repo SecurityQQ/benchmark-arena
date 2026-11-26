@@ -101,7 +101,7 @@
     "stars": 2363,
     "topics": [],
     "defaultBranch": "master",
-    "pushedAt": "2026-11-26T19:15:53Z"
+    "pushedAt": "2026-11-26T20:03:05Z"
   },
   {
     "owner": "AGI-Edgerunners",
@@ -213,7 +213,7 @@
     "name": "exploitgym",
     "url": "https://github.com/sunblaze-ucb/exploitgym",
     "description": "ExploitGym is a large-scale, realistic benchmark built from real-world vulnerabilities designed to evaluate AI agents' ability to develop exploits.",
-    "stars": 1323,
+    "stars": 1324,
     "topics": [],
     "defaultBranch": "main",
     "pushedAt": "2026-11-14T04:53:32Z"
@@ -263,6 +263,16 @@
     ],
     "defaultBranch": "3.x",
     "pushedAt": "2026-11-23T16:12:47Z"
+  },
+  {
+    "owner": "google-research",
+    "name": "weatherbench2",
+    "url": "https://github.com/google-research/weatherbench2",
+    "description": "A benchmark for the next generation of data-driven global weather models.",
+    "stars": 651,
+    "topics": [],
+    "defaultBranch": "main",
+    "pushedAt": "2026-11-17T11:47:03Z"
   },
   {
     "owner": "changwookjun",
@@ -572,10 +582,10 @@
     "name": "pequalnp-proofs",
     "url": "https://github.com/open-goat/pequalnp-proofs",
     "description": "Lean 4 proofs from the public AI attempt at P vs NP (pequalnp.com). Open gaps welcome pull requests.",
-    "stars": 253,
+    "stars": 255,
     "topics": [],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-26T19:42:21Z"
+    "pushedAt": "2026-11-26T21:00:14Z"
   },
   {
     "owner": "Saivineeth147",
@@ -652,7 +662,7 @@
     "stars": 74,
     "topics": [],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-26T04:09:15Z"
+    "pushedAt": "2026-11-26T20:26:38Z"
   },
   {
     "owner": "proximafusion",
@@ -669,10 +679,10 @@
     "name": "qldpc-challenge",
     "url": "https://github.com/unitaryfoundation/qldpc-challenge",
     "description": "Public challenge to find optimal qLDPC codes.",
-    "stars": 44,
+    "stars": 45,
     "topics": [],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-26T17:38:13Z"
+    "pushedAt": "2026-11-26T19:54:15Z"
   },
   {
     "owner": "leanprover",
@@ -911,7 +921,7 @@
       "research-software"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-26T18:17:32Z"
+    "pushedAt": "2026-11-26T20:47:18Z"
   },
   {
     "owner": "kings-crown",

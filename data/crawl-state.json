@@ -182,11 +182,11 @@
     ]
   },
   "cdcepi/flusight-forecast-hub": {
-    "pushedAt": "2026-11-26T04:09:15Z",
+    "pushedAt": "2026-11-26T20:26:38Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-26T18:02:16.839Z",
-    "head": "ff8f3b287029e3352ca5fc278d1184103e354455",
+    "checkedAt": "2026-11-26T21:09:53.559Z",
+    "head": "4ad732daf72f7c7b981ab9a343b9ebd58a4c4cbe",
     "sources": [
       "README.md",
       "auxiliary-data/README.md",
@@ -394,6 +394,12 @@
     "verdict": "competition",
     "checkedAt": "2026-11-25T07:09:54.141Z",
     "head": "9097e2f90e66d2f6244209cb1c07f7120d17ec53"
+  },
+  "google-research/weatherbench2": {
+    "pushedAt": "2026-11-17T11:47:03Z",
+    "fingerprint": "a0f0ccb7f37eb7e2",
+    "verdict": "none",
+    "checkedAt": "2026-11-26T21:03:04.423Z"
   },
   "harbor-framework/terminal-bench-challenges": {
     "pushedAt": "2026-11-26T17:56:08Z",
@@ -641,10 +647,10 @@
     "live": true
   },
   "mrs-/black-friday-deals": {
-    "pushedAt": "2026-11-26T19:15:53Z",
+    "pushedAt": "2026-11-26T20:03:05Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "none",
-    "checkedAt": "2026-11-26T19:43:25.819Z"
+    "checkedAt": "2026-11-26T21:02:38.760Z"
   },
   "ndif-team/looped-lens-challenge": {
     "pushedAt": "2026-11-25T18:31:37Z",
@@ -742,9 +748,9 @@
   },
   "programbench/submissions": {
     "pushedAt": "2026-10-22T07:00:26Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-25T10:42:58.863Z",
+    "checkedAt": "2026-11-26T21:11:09.705Z",
     "head": "0e2d155aed1ce72f55ec9ab357d9b3b17f29f19e",
     "sources": [
       "README.md",
@@ -1105,10 +1111,10 @@
     "checkedAt": "2026-10-13T23:10:28.396Z"
   },
   "unitaryfoundation/qldpc-challenge": {
-    "pushedAt": "2026-11-26T17:38:13Z",
+    "pushedAt": "2026-11-26T19:54:15Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-26T18:02:37.503Z",
+    "checkedAt": "2026-11-26T21:10:15.456Z",
     "head": "e142c3fdfdc83a4df1b7d417b1ce2c833ebe9712",
     "sources": [
       "README.md",
