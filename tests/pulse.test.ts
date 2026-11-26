@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import {
   boardFor, buildPulse, createPulseHandler, DUCK_FEED, fromDuckBench, fromLoopedLens, fromPalomar, fromPequalnp, fromPequalnpPeople, fromRiemann, KEEP_MS,
-  LOOPED_BOARD, MAX_EVENTS, MAX_JOINERS, num, PER_SOURCE, PNP_DATA, PNP_HEAD, pnpPeopleUrl, pulseMarkdown, RIEMANN_BOARD, when, type Fetch, type SourceCache,
+  LEADERS_PER_BOARD, LOOPED_BOARD, MAX_EVENTS, MAX_JOINERS, num, PER_SOURCE, PNP_DATA, PNP_HEAD, pnpPeopleUrl, pulseMarkdown, RIEMANN_BOARD, SPARK_HOURS, when, type Fetch, type SourceCache,
 } from "../src/pulse.js";
 import { RESULTS_API } from "../src/discoveries.js";
 
@@ -298,7 +298,7 @@ test("handler: JSON with a short shared cache, one read per source per window, b
 
 test("markdown: quoted text cannot open links, images or HTML", () => {
   const md = pulseMarkdown({ at: iso(0), agentsNow: null, activity: { lastHour: { count: 0, boards: 0, partial: true, by: [] }, last24h: { count: 0, boards: 0, partial: true, by: [] } },
-    joined: { lastHour: 0, last24h: 0, partial: true, by: [], people: [] },
+    joined: { lastHour: 0, last24h: 0, partial: true, by: [], people: [] }, leaders: { active: { hour: 0, day: 0, week: 0 }, rows: { hour: [], day: [], week: [] } },
     sources: [{ id: "pequalnp", name: "P = NP?", ok: false }], events: [
       { id: "e", at: iso(1), kind: "note", source: "pequalnp", boardName: "P = NP?", agent: "[x](y)", text: "see [this](https://evil.test) ![x](y) <script>\nnew line", url: "https://pequalnp.com/" },
     ] }, "https://openchallengelist.com");
@@ -367,7 +367,63 @@ test("buildPulse: who joined is read after head.json in the same build, and a co
   name = "data/contributors.bbbbbbbbbbbb.json";
   now += 61_000;
   await buildPulse({ fetch: f, now, cache });
+  assert.equal(count(`${PNP_DATA}/data/contributors.`), 1, "a 2 MB file is read at most every 5 minutes, even under a new name");
+  now += 5 * 60_000;
+  await buildPulse({ fetch: f, now, cache });
   assert.equal(count(`${PNP_DATA}/data/contributors.`), 2, "a new name is read");
   const md = pulseMarkdown(await buildPulse({ fetch: f, now: now + 1, cache }), "https://openchallengelist.com");
   assert.match(md, /Joined in the last 24 hours: 3 people made their first entry \(P = NP\? 2, The Looped Lens Challenge 1\)\. Newest:\n- \d{4}-\d{2}-\d{2} \d{2}:\d{2} UTC · @ryan-thompson · P = NP\? · first proof: L-meta-19064 — https:\/\/pequalnp\.com\/a\/ryan-thompson/);
+});
+
+// ─── Most active ────────────────────────────────────────────────────────
+test("leaders: each board's people ranked against each other, top five a board, newest first among equals, a sparkline of 36 hours, moves since an hour ago", async () => {
+  const lemmas = (minutes: number[]) => minutes.map((m, i) => ({ id: `L-meta-${i + 1}`, at: iso(m) }));
+  const { f } = fakeFetch({
+    [PNP_HEAD]: () => head({ files: { contributors: "data/contributors.aaaaaaaaaaaa.json" } }),
+    [`${PNP_DATA}/data/contributors.`]: () => ({ contributors: [
+      { github: "foudress", first_proof_at: iso(3000), lemmas: lemmas([1, 2, 3, 4, 70, 3000]) },
+      { github: "willakone", first_proof_at: iso(5), lemmas: lemmas([5, 6, 65, 66, 67, 68, 69]) },
+      ...Array.from({ length: 7 }, (_, i) => ({ github: `p${i}`, first_proof_at: iso(30 + i), lemmas: lemmas([30 + i]) })),
+      { github: "old", first_proof_at: iso(20_000), lemmas: lemmas([20_000]) },
+    ] }),
+    [RIEMANN_BOARD]: () => riemann([run(1, 10), run(2, 20), run(3, 200, { authorName: "LewyM" })]),
+    [LOOPED_BOARD]: () => looped([lrow(1, 15, { team: "lululens" }), lrow(2, 25, { team: "LULULENS" }), lrow(3, 3, { team: "Flag", flagged: true })]),
+  });
+  const p = await buildPulse({ fetch: f, now: NOW, boards: { pequalnp: BOARD, "pequalnp-people": BOARD } });
+  const hour = p.leaders.rows.hour;
+  assert.deepEqual(hour.map((r) => [r.who, r.rank, r.count, r.noun, r.boardName]), [
+    ["@foudress", 1, 4, "proofs", "P = NP?"],
+    ["@willakone", 2, 2, "proofs", "P = NP?"],
+    ["Andrew Pullin", 1, 2, "verified runs", "Riemann Hypothesis Lean 4 hub"],
+    ["lululens", 1, 2, "submissions", "The Looped Lens Challenge"],
+    ["@p0", 3, 1, "proofs", "P = NP?"], ["@p1", 4, 1, "proofs", "P = NP?"], ["@p2", 5, 1, "proofs", "P = NP?"],
+  ]);
+  assert.equal(hour.filter((r) => r.source === "pequalnp").length, LEADERS_PER_BOARD, "five a board");
+  assert.equal(p.leaders.active.hour, 11, "P = NP? 9 people, Riemann 1, Looped Lens 1 (names matched without case; flagged left out)");
+  const f1 = hour[0];
+  assert.equal(f1.board, BOARD.id);
+  assert.equal(f1.login, "foudress");
+  assert.equal(f1.url, "https://pequalnp.com/a/foudress");
+  assert.equal(f1.last, iso(1));
+  assert.equal(f1.spark.length, SPARK_HOURS);
+  assert.deepEqual(f1.spark.slice(-2), [1, 4], "the hour before and this hour");
+  const day = p.leaders.rows.day;
+  assert.deepEqual(day.slice(0, 2).map((r) => [r.who, r.count, r.move ?? 0]), [["@willakone", 7, 0], ["@foudress", 5, 0]]);
+  assert.equal(day.find((r) => r.who === "LewyM")?.count, 1);
+  assert.ok(!p.leaders.rows.week.some((r) => r.who === "@old"), "older than a week");
+});
+
+test("leaders: a climb is measured on the row's own board since an hour ago", async () => {
+  const { f } = fakeFetch({
+    [PNP_HEAD]: () => head({ files: { contributors: "data/contributors.aaaaaaaaaaaa.json" } }),
+    [`${PNP_DATA}/data/contributors.`]: () => ({ contributors: [
+      { github: "steady", first_proof_at: iso(600), lemmas: [{ id: "L-meta-1", at: iso(500) }, { id: "L-meta-2", at: iso(400) }, { id: "L-meta-3", at: iso(300) }] },
+      { github: "sprinter", first_proof_at: iso(120), lemmas: [{ id: "L-meta-4", at: iso(120) }, { id: "L-meta-5", at: iso(10) }, { id: "L-meta-6", at: iso(9) }, { id: "L-meta-7", at: iso(8) }] },
+    ] }),
+  });
+  const p = await buildPulse({ fetch: f, now: NOW });
+  assert.deepEqual(p.leaders.rows.day.map((r) => [r.who, r.rank, r.move ?? 0]), [["@sprinter", 1, 1], ["@steady", 2, -1]]);
+  assert.ok(p.leaders.rows.hour.every((r) => r.move === undefined), "no move on the hour board");
+  const md = pulseMarkdown(p, "https://openchallengelist.com");
+  assert.match(md, /Most active in the last 24 hours, board by board \(2 people and teams with entries; each board's people are ranked against each other only\):\n- #1 on P = NP\?: @sprinter, 4 proofs, the last at 2026-11-26 07:52 UTC — https:\/\/pequalnp\.com\/a\/sprinter/);
 });

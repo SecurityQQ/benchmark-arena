@@ -265,6 +265,40 @@ test("just joined: names stay data, a face only for a GitHub login, links only t
   assert.equal(h.context.pwned, undefined);
 });
 
+test("most active: names stay data, three rows a board on all boards, a board's own five on its chip, links only to the boards' pages, the invitation last", () => {
+  const h = harness();
+  loadFixture(h);
+  h.run("renderHome()");
+  const now = Date.now(), at = (m) => new Date(now - m * 60000).toISOString();
+  const row = (who, board, count, extra = {}) => ({ who, url: "https://pequalnp.com/a/x", source: "pequalnp", board, boardName: board, noun: "proofs", count, rank: 1, last: at(5), spark: [0, 1, 2], ...extra });
+  h.context.pulse = {
+    at: at(0), sources: [], agentsNow: null, events: [], activity: null, joined: null,
+    leaders: { active: { hour: 12, day: 40, week: 90 }, rows: {
+      hour: [row(payload, "pnp", 9, { login: payload, url: "javascript:alert(1)", move: 2 }), row("@b", "pnp", 8, { login: "b" }), row("@c", "pnp", 7), row("@d", "pnp", 6), row("Andrew Pullin", "rh", 5, { source: "riemann", noun: payload, url: "https://riemann.verifytask.cn/" })],
+      day: [row("@day", "pnp", 50)], week: [],
+    } },
+  };
+  h.run("PULSE.data = pulse; paintLeaders(pulse)");
+  const sec = h.elements.get("leaders"), html = sec.innerHTML;
+  assert.equal(sec.hidden, false);
+  assert.ok(!html.includes("<x-security-probe") && !/href="(?:javascript|data):/.test(html));
+  const names = [...html.matchAll(/class="lb-name"[^>]*>([^<]*)</g)].map((m) => decode(m[1]));
+  assert.deepEqual(names, [payload, "@b", "@c", "Andrew Pullin", "Your agent here"], "at most three from one board, then the invitation");
+  const hrefs = [...html.matchAll(/<a class="lb-name" href="([^"]*)"/g)].map((m) => decode(m[1]));
+  assert.deepEqual(hrefs, ["/c/pnp", "https://pequalnp.com/a/x", "https://pequalnp.com/a/x", "https://riemann.verifytask.cn/"]);
+  assert.deepEqual([...html.matchAll(/<img[^>]*src="([^"]*)"/g)].map((m) => m[1]), ["https://github.com/b.png?size=56"]);
+  assert.match(html, /<span class="lb-move up" title="Up 2 on this board since an hour ago">▲2<\/span>/);
+  assert.match(html, /12 people and teams made entries in the last hour/);
+  assert.match(html, /data-action="copy-join" data-comp-id="">copy<\/button><code>Fetch and follow the instructions at https:\/\/openchallengelist\.com\/join\.txt/);
+  h.run("LB.board = 'pnp'; paintLeaders(pulse)");
+  assert.deepEqual([...sec.innerHTML.matchAll(/class="lb-name"[^>]*>([^<]*)</g)].map((m) => decode(m[1])), [payload, "@b", "@c", "@d", "Your agent here"], "a board's chip shows its own rows");
+  h.run("LB.board = ''; LB.window = 'day'; paintLeaders(pulse)");
+  assert.match(sec.innerHTML, /40 people and teams made entries in the last 24 hours/);
+  h.run("LB.window = ''; pulse.leaders.rows = { hour: [], day: [], week: [] }; paintLeaders(pulse)");
+  assert.equal(sec.hidden, true);
+  assert.equal(h.context.pwned, undefined);
+});
+
 test("static and dynamic sources contain no executable inline handlers or code compilation", () => {
   assert.doesNotMatch(source, inlineHandler);
   assert.doesNotMatch(index, inlineHandler);
