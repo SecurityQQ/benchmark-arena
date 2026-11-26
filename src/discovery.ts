@@ -112,6 +112,7 @@ const SEED_REPOS = [
   { owner: "SAIRcompetition", name: "lean-kernel-challenge" }, // SAIR + Lean FRO: verified computation in the fewest Lean kernel instructions; Stage 2 begins December 2026
   { owner: "CDCgov", name: "covid19-forecast-hub" },        // CDC COVID-19 Forecast Hub: weekly hospital admission forecasts by PR, scored against reported data
   { owner: "CDCgov", name: "rsv-forecast-hub" },            // CDC RSV Forecast Hub: the same weekly format for RSV, 2026-27 season opened September 23
+  { owner: "google-research", name: "weatherbench2" },      // WeatherBench 2: global ML weather models scored against ERA5 on a public scorecard; models join through the submission guide
 ];
 
 // A raw file on a branch, or null when GitHub says it is not there. Any other failure throws: it may pass by the next run.
