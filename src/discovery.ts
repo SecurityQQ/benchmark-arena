@@ -95,6 +95,9 @@ const SEED_REPOS = [
   { owner: "keyu-wang-2002", name: "DepthDash" },          // DepthDash: modded-NanoGPT-style speedrun on residual-connection design at depth (created 2026-11-15)
   { owner: "basicv8vc", name: "modded-supermimic" },       // Unitree G1 motion-tracking speedrun on 1× Colab G4: training wall time to a 40-clip return target, records by PR           // ROCm llama.cpp challenge (rocm-challenge.amddev.ai): patches evaluated on AMD's GPUs, open to 2026-12-31
   { owner: "rtl-ai", name: "silicon-arena" },              // SiliconArena: agent-driven RTL/ASIC research challenge for AI training/inference chips; adopted problem.md/v1 on 2026-11-25; ranked tracks upcoming
+  { owner: "sunblaze-ucb", name: "exploitgym" },           // ExploitGym (cybersecurity): agents write working exploits for real userspace/V8/kernel bugs; entries by PR to exploitgym-results, leaderboard on cybergym.io
+  { owner: "sunblaze-ucb", name: "cybergym" },             // CyberGym (cybersecurity): PoCs that reproduce ~1,500 real OSS-Fuzz vulnerabilities; entries by issue, leaderboard on cybergym.io
+  { owner: "Ecro", name: "embedeval" },                    // EmbedEval (firmware): pass@1 on 267 embedded C tasks (Zephyr, ESP-IDF, STM32 HAL, FreeRTOS); runs by PR to results/
 ];
 
 // A raw file on a branch, or null when GitHub says it is not there. Any other failure throws: it may pass by the next run.
