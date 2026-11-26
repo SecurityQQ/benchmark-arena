@@ -371,6 +371,13 @@
       "verified": 3,
       "why": "Cut the Lean 4 proof of the Riemann Hypothesis to the fewest lines; every entry is rebuilt and replayed through Lean's kernel.",
       "checked": "2026-11-26"
+    },
+    "open-challenges-shortest-riemann-hypothesis-proof-fad76d46f55ca517": {
+      "stakes": 3,
+      "open": 2,
+      "verified": 3,
+      "why": "Shorten the whole machine-checked Lean proof of the Riemann Hypothesis: each entry is rebuilt in a sandbox and replayed through Lean's kernel.",
+      "checked": "2026-11-26"
     }
   }
 }
