@@ -1,0 +1,14 @@
+{
+  "events": [
+    {
+      "url": "https://partiful.com/e/jaeBJVICdYxjFuPF4aXZ",
+      "title": "Frontier Formal Verification Brunch",
+      "start": "2026-11-07T21:30:00.000Z",
+      "end": "2026-11-07T23:00:00.000Z",
+      "timezone": "America/Los_Angeles",
+      "place": "Lower Nob Hill, San Francisco",
+      "about": "Frontier builders in formal verification at one table, moderated by Alex Varga: LeanEval leaderboard winners, the engineer behind a #1-ranked kernel, a DSL and formal-methods engineer with 11 years of experience, and researchers from frontier labs.",
+      "topics": ["math", "gpu-kernels"]
+    }
+  ]
+}

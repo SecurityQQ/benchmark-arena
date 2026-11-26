@@ -297,6 +297,7 @@ function renderTopic(t) {
     </div></section>
     ${liveBand(comps)}
     ${t.discoveries ? discoveriesBand(3, false) : ""}
+    ${eventsBand((D.events || []).filter((e) => (e.topics || []).includes(t.slug)), 3)}
     <section class="band tight"><div class="wrap">
       <div class="grid">${comps.map(card).join("")}</div>
       <p class="dim small topic-links">Other topics: ${(D.topics || []).filter((x) => x.slug !== t.slug).map((x) => `<a href="/topics/${esc(x.slug)}" data-action="nav">${esc(x.name)}</a>`).join(" · ")}</p>
@@ -651,6 +652,29 @@ function socialBand() {
     </div></section>`;
 }
 
+// Events (data/events.json): meetups for people entering these challenges, upcoming first, then past ones; twin of src/events.ts
+const RSVP_SITES = { "partiful.com": "Partiful", "lu.ma": "Luma", "luma.com": "Luma", "www.eventbrite.com": "Eventbrite", "www.meetup.com": "Meetup" };
+function eventWhen(e) {
+  const day = (t) => new Intl.DateTimeFormat("en-US", { timeZone: e.timezone, weekday: "short", month: "short", day: "numeric", year: "numeric" }).format(new Date(t));
+  const time = (t, zone) => new Intl.DateTimeFormat("en-US", { timeZone: e.timezone, hour: "numeric", minute: "2-digit", ...(zone ? { timeZoneName: "short" } : {}) }).format(new Date(t));
+  return `${day(e.start)} · ${e.end && day(e.end) === day(e.start) ? `${time(e.start, false)}–${time(e.end, true)}` : time(e.start, true)}`;
+}
+function eventsBand(events, limit) {
+  const now = Date.now(), past = (e) => Date.parse(e.end || e.start) < now;
+  const list = [...events.filter((e) => !past(e)).sort((a, b) => Date.parse(a.start) - Date.parse(b.start)), ...events.filter(past).sort((a, b) => Date.parse(b.start) - Date.parse(a.start))].slice(0, limit);
+  if (!list.length) return "";
+  const site = (u) => { try { return RSVP_SITES[new URL(u).hostname] || "the event page"; } catch { return "the event page"; } };
+  return `<section class="band tight social-band" id="events"><div class="wrap">
+      <div class="band-head"><div><span class="eyebrow">Events</span><h2>Meet the people entering these challenges.</h2></div></div>
+      <div class="social-grid">${list.map((e) => `<a class="social-card" href="${esc(safeUrl(e.url))}" target="_blank" rel="noopener">
+        <span class="social-head"><b>${esc(e.title)}</b>${past(e) ? `<span class="dim small">past event</span>` : `<span class="openpill">upcoming</span>`}</span>
+        <span class="dim small">${esc(eventWhen(e))} · ${esc(e.place)}</span>
+        <span class="social-text">${esc(e.about)}</span>
+        <span class="social-foot dim small">${past(e) ? "event page" : "RSVP"} on ${esc(site(e.url))} ↗</span>
+      </a>`).join("")}</div>
+    </div></section>`;
+}
+
 // "Fresh discoveries": Lean-verified results registered on Palomar in the last 7 UTC days (data/discoveries.json, from its JSON API).
 // Counted from the visitor's clock; links only to the registry's permalinks, its home page and our own pages.
 const PALOMAR = "https://palomar-registry.org/";
@@ -723,6 +747,7 @@ function renderHome() {
     ${liveBand(comps)}
     ${discoveriesBand(5, true)}
     ${socialBand()}
+    ${eventsBand(D.events || [], 4)}
 
     <section class="band" id="catalog"><div class="wrap">
       <div class="band-head"><div><span class="eyebrow">Catalog</span><h2>Find a competition</h2></div><div class="dim small" id="grid-count"></div></div>

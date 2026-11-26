@@ -4,6 +4,7 @@ import type { Competition, CrawlResult, Problem } from "./types.js";
 import { aggregateAgents, aggregatePeople, openProblems, recentActivity, hotCompetitions, type ActivityItem } from "./aggregate.js";
 import { AGENT_DOCS_LEAD, JOIN_LINE, LISTING_ISSUE_URL, LISTING_TOPIC, SITE, challengeJoinLine, hasStandard, specLabel, viaLine } from "./render.js";
 import type { SocialPost } from "./social.js";
+import { eventWhen, orderedEvents, type CommunityEvent } from "./events.js";
 import { TOPICS, inTopic, topicJoinLine, type Topic } from "./topics.js";
 import { REGISTRY, SUBMIT_PROTOCOL, authorLine, discoveryHeadline, discoveryView, type Discoveries } from "./discoveries.js";
 import { OG_HEIGHT, OG_WIDTH, cardAlt, plain, type Card } from "./og.js";
@@ -65,7 +66,17 @@ function discoveriesBand(d: Discoveries | null, limit: number, withTarget: boole
 </div></section>`;
 }
 
-function homePage(data: Data, social: SocialPost[], discoveries: Discoveries | null, boards: ReturnType<typeof boardsView>): Page {
+// Events (data/events.json): upcoming first, then past ones, as of the crawl, so a rebuild of the same data gives the same page
+function eventsBand(events: CommunityEvent[], now: number, limit: number): string {
+  const list = orderedEvents(events, now).slice(0, limit);
+  if (!list.length) return "";
+  return `<section class="band pre" id="events"><div class="wrap">
+  <h2>Events</h2>
+  <ul class="pre-list">${list.map((e) => `<li><a href="${esc(e.url)}" rel="noopener" target="_blank"><b>${esc(e.title)}</b></a> <span class="dim small">${e.past ? "Past · " : ""}${esc(eventWhen(e))} · ${esc(e.place)}</span><br>${esc(e.about)}</li>`).join("")}</ul>
+</div></section>`;
+}
+
+function homePage(data: Data, social: SocialPost[], discoveries: Discoveries | null, boards: ReturnType<typeof boardsView>, events: CommunityEvent[]): Page {
   const comps = data.competitions;
   const open = openProblems(comps);
   const records = comps.reduce((s, c) => s + c.stats.totalRecords, 0);
@@ -90,6 +101,7 @@ ${social.length ? `<section class="band pre"><div class="wrap">
   <h2>From the community</h2>
   ${socialList(social.slice(0, 8), data)}
 </div></section>` : ""}
+${eventsBand(events, Date.parse(data.crawledAt), 4)}
 <section class="band pre"><div class="wrap">
   <h2>Busiest this month</h2>
   <ul class="pre-list">${hot.map((c) => `<li><a href="${page(c.id)}"><b>${esc(c.name)}</b></a> — ${esc(c.tagline)} <span class="dim small">${esc(COMPUTE[c.participation.compute])} · ${plural(c.stats.recordsLast30d, "entry", "entries")} in 30 days · ${plural(c.stats.uniqueParticipants, "participant")}</span></li>`).join("")}</ul>
@@ -303,7 +315,7 @@ function competitionCard(c: Competition, m: BoardMonth, crawledAt: string): Card
   });
 }
 
-function topicPage(t: Topic, data: Data, discoveries: Discoveries | null): Page {
+function topicPage(t: Topic, data: Data, discoveries: Discoveries | null, events: CommunityEvent[]): Page {
   const v = topicView(t, data);
   const summary = `${plural(v.comps.length, "competition")} · ${plural(v.open.length, "open track")} · ${plural(v.entries30, "entry", "entries")} in the last 30 days${v.byAgents30 ? `, ${v.byAgents30} credited to an AI agent` : ""}${v.last ? ` · last entry ${v.last}` : ""}`;
   const body = `
@@ -320,6 +332,7 @@ function topicPage(t: Topic, data: Data, discoveries: Discoveries | null): Page 
   ${activityList(v.latest)}
 </div></section>
 ${t.discoveries ? discoveriesBand(discoveries, 3, false) : ""}
+${eventsBand(events.filter((e) => e.topics.includes(t.slug)), Date.parse(data.crawledAt), 3)}
 <section class="band pre"><div class="wrap">
   <h2>Competitions</h2>
   <ul class="pre-list">${v.comps.map((c) => `<li><a href="${page(c.id)}"><b>${esc(c.name)}</b></a> — ${esc(c.tagline)} <span class="dim small">${esc(c.status)} · ${esc(COMPUTE[c.participation.compute])} · ${plural(c.problems.length, "track")}${c.problems.some((p) => p.isOpen) ? ` (${c.problems.filter((p) => p.isOpen).length} open)` : ""} · ${esc(v.recent.get(c.id))}${c.stats.lastSubmission ? ` · last ${esc(c.stats.lastSubmission)}` : ""}</span></li>`).join("")}</ul>
@@ -369,14 +382,14 @@ function staticPage(file: string, path: string, title: string, description: stri
   return { file, path, title, description, body: `\n<section class="band pre"><div class="wrap">${html}</div></section>`, markdown: "/llms.txt" };
 }
 
-export function pages(data: Data, social: SocialPost[] = [], discoveries: Discoveries | null = null): Page[] {
+export function pages(data: Data, social: SocialPost[] = [], discoveries: Discoveries | null = null, events: CommunityEvent[] = []): Page[] {
   const families = [...new Set(aggregateAgents(data.competitions, "author").map((a) => a.family))].filter((f) => /^[a-z0-9-]+$/.test(f));
   const boards = boardsView(data.competitions, data.crawledAt);
   return [
-    homePage(data, social, discoveries, boards),
+    homePage(data, social, discoveries, boards, events),
     ...data.competitions.map((c) => detailPage(c, data, boards.months.get(c.id)!)),
     agentsPage(data), ...families.map((f) => familyPage(f, data)), peoplePage(data),
-    ...TOPICS.map((t) => topicPage(t, data, discoveries)),
+    ...TOPICS.map((t) => topicPage(t, data, discoveries, events)),
     staticPage("standard.html", "/standard", "PROBLEM.md standard — Open Challenge List",
       "PROBLEM.md and SUBMISSION.md: two Markdown files that describe a competition and its entries. Add the topic open-challenge-list or open a listing issue and the repository is listed within hours; the leaderboard is built from the files.",
       `<span class="eyebrow">Standard</span><h1>PROBLEM.md and SUBMISSION.md</h1><p class="lede">Put PROBLEM.md at the root of a repository: the task, the rules, the tracks and the folder entries go into. Each entry carries a SUBMISSION.md: the approach, the value achieved per track, and the model or agent that produced it. The leaderboard is built from the files.</p><p>Get listed within hours: add the GitHub topic <code>${LISTING_TOPIC}</code> to the repository, or <a href="${esc(LISTING_ISSUE_URL)}" rel="noopener">open an issue</a> titled “List owner/repo” with the repository URL. The next live refresh (every few hours) verifies PROBLEM.md and lists it; the issue gets the link.</p><p>Once listed, the repository can show the board's live numbers in its README with a badge that links to the board: <code>${esc(BADGE_PATTERN)}</code>, where {id} is the last part of the board's address. Each board page has its exact snippet.</p><p>Templates: <a href="/standard/PROBLEM.md">/standard/PROBLEM.md</a> · <a href="/standard/SUBMISSION.md">/standard/SUBMISSION.md</a></p>`),
