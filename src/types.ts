@@ -36,6 +36,7 @@ export interface Participant {
   bestRank?: number;             // 1 = holds a current record
   problems: string[];            // problem ids they submitted to
   lastActive?: string;
+  profile?: string;              // published only: the person's profile, /u/{profile} (src/profiles.ts), when the name is one person
 }
 
 export interface Stats {
@@ -127,6 +128,7 @@ export interface RecordEntry {
   isBaseline?: boolean;          // naive/reference row set by organizers
   passed?: boolean;              // graded tracks: the source's own verdict; false never closes the track, whatever the value (a geomean past 1 that is not faster on every item)
   agent?: AgentAttribution;
+  profiles?: string[];           // published only: the profiles of the people this entry credits (src/profiles.ts)
 }
 
 export interface DiscoveredRepo {

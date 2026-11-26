@@ -184,8 +184,12 @@ function route() {
   document.querySelectorAll(".header-links a[data-r]").forEach((a) => a.classList.toggle("on", a.dataset.r === "/" ? p === "/" || p === "/landing" : p.startsWith(a.dataset.r)));
   const m = p.match(/^\/c\/([^/]+)/);
   const fm = p.match(/^\/agents\/([^/]+)/);
+  const um = p.match(/^\/u\/([^/]+)/), am = p.match(/^\/a\/([^/]+)/);
   const topic = topicFor(p);
   if (topic) renderTopic(topic);
+  else if (um) renderProfile(decodeURIComponent(um[1]).toLowerCase());
+  else if (am) renderAgent(decodeURIComponent(am[1]));
+  else if (p === "/claim") renderClaim();
   else if (m) renderDetail(decodeURIComponent(m[1]));
   else if (fm) renderFamily(decodeURIComponent(fm[1]));
   else if (p === "/standard") renderStandard();
@@ -241,6 +245,7 @@ function toggleNav(force) { document.body.classList.toggle("nav-open", force); }
 
 // inline icons, lucide-style (stroke 1.5)
 const I = {
+  check: '<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
   grid: '<svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>',
   flag: '<svg viewBox="0 0 24 24"><path d="M4 22V4a1 1 0 0 1 1-1h11l-2 4 2 4H5"/></svg>',
   bot: '<svg viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 8V4M8 4h8"/><circle cx="9" cy="14" r="1"/><circle cx="15" cy="14" r="1"/></svg>',
@@ -509,7 +514,7 @@ function renderSidebar() {
       ${item({ href: "/?sort=recent", icon: I.clock, label: "Recent", on: onHome && !state.open && !state.domain && !state.compute && state.sort === "recent", action: "app", patch: { q: "", status: "", compute: "", domain: "", tag: "", open: false, sort: "recent" } })}
       ${item({ href: "/", icon: I.flag, label: "Open problems", n: D.openProblems.length, on: onHome && state.open, action: "app", patch: { open: true, sort: "open" } })}
       ${item({ href: "/agents", icon: I.bot, label: "Agents", n: D.agents.length, on: p.startsWith("/agents"), action: "nav" })}
-      ${item({ href: "/people", icon: I.users, label: "People", n: D.people.length, on: p === "/people", action: "nav" })}
+      ${item({ href: "/people", icon: I.users, label: "People", n: D.profileCount ?? D.people.length, on: p === "/people", action: "nav" })}
       ${item({ href: "/", icon: I.trophy, label: "Leaderboards", n: tracks, on: false, action: "app", patch: { sort: "records" } })}
     </div>
     <div class="sb-group open">
@@ -541,6 +546,9 @@ function crumbFor() {
   if (p === "/standard") return [["The standard"]];
   if (p === "/submit") return [["Submit a competition"]];
   if (p === "/people") return [["People"]];
+  if (p.startsWith("/u/")) return [["People", "/people"], [decodeURIComponent(p.slice(3))]];
+  if (p.startsWith("/a/")) return [["Agents", "/agents"], ["Named agent"]];
+  if (p === "/claim") return [["Claim your profile"]];
   if (p === "/agents") return [["Agents"]];
   return [[state.open ? "Open problems" : state.domain ? DOMAIN[state.domain] || state.domain : "Competitions"]];
 }
@@ -829,7 +837,7 @@ function personRow(p, showComps = true) {
   const fams = Object.entries(p.agents || {}).sort((a, b) => b[1] - a[1]).slice(0, 2);
   return `<div class="person">${avatar(u, fams[0]?.[0])}
     <div class="pm">
-      <div class="n">${u ? `<a href="${esc(safeUrl(u))}" target="_blank">${esc(p.name)}</a>` : esc(p.name)} ${p.currentBests ? `<span class="crown">★ ${esc(p.currentBests)}</span>` : ""}</div>
+      <div class="n">${p.slug ? `<a href="${profileHref(p.slug)}" data-action="nav">${esc(p.name)}</a>` : u ? `<a href="${esc(safeUrl(u))}" target="_blank">${esc(p.name)}</a>` : esc(p.name)} ${p.currentBests ? `<span class="crown">★ ${esc(p.currentBests)}</span>` : ""}</div>
       <div class="sub">${esc(p.records)} record${p.records === 1 ? "" : "s"}${showComps ? ` · ${p.competitions.slice(0, 2).map((c) => `<a href="/c/${pathPart(c.id)}" data-action="nav">${esc(c.name)}</a>`).join(", ")}${p.competitions.length > 2 ? ` +${p.competitions.length - 2}` : ""}` : ""}</div>
     </div>
     <div class="fams">${fams.map(([f]) => famChip(f)).join("")}</div>
@@ -1119,31 +1127,335 @@ function renderSubmit() {
 }
 const BRAND_GH = '<img class="btn-ico" src="/icons/github.svg" width="16" height="16" alt="">';
 
-// ── People ──
+// ── Profiles (/u/{slug}), named agents (/a/{id}) and claims (/claim) ──
+// The build publishes every person's profile (src/profiles.ts → /api/profiles/{slug}.json); who claimed it and the agents
+// they named come live from /api/v1 (src/accounts.ts). Both are third-party or user data: everything goes through esc().
+const SITE_URL = "https://openchallengelist.com";
+// twin of src/render.ts claimLine
+const claimLine = (slug) => `Fetch and follow the instructions at ${SITE_URL}/claim.txt to claim my profile${slug ? ` ${SITE_URL}/u/${slug}` : " on Open Challenge List"} and connect yourself as my agent.`;
+const PLATFORM = { github: "GitHub", gpumode: "GPU MODE", duckbench: "DuckBench", huggingface: "Hugging Face", kaggle: "Kaggle", name: "Name on the board" };
+const profileHref = (slug) => `/u/${pathPart(slug)}`;
+const getJson = (url) => fetch(url, { headers: { Accept: "application/json" } }).then((r) => (r.ok ? r.json() : r.status === 404 ? null : Promise.reject(new Error(String(r.status)))));
+let PROFILES = null, CLAIMS = null;
+const loadProfiles = () => (PROFILES ??= getJson("/api/profiles.json").then((d) => d || []).catch(() => { PROFILES = null; return []; }));
+const loadClaims = () => (CLAIMS ??= getJson("/api/v1/claims").then((d) => new Map((d?.claims || []).map((c) => [c.slug, c]))).catch(() => { CLAIMS = null; return new Map(); }));
+const claimBadge = (c) => (!c ? "" : c.status === "verified"
+  ? `<span class="claimed" title="Claimed by @${esc(c.login)} with GitHub">${I.check}claimed</span>`
+  : `<span class="claimed pending" title="@${esc(c.login)} says this is them; a maintainer has not checked it yet">claim pending</span>`);
+const profileAvatar = (src, family) => (src && /^https:\/\//.test(src) ? `<img class="avatar" src="${esc(src)}" alt="" data-error="hide">` : avatar(null, family));
+const agentLabel = (a) => [a.model, a.tool].filter(Boolean).map(esc).join(" · ");
+const compName = (id, name) => D?.competitions.find((c) => c.id === id)?.name || name || id;
+const ordinal = (e) => (e.of ? `#${e.rank}<span class="dim"> / ${e.of}</span>` : "—");
+function claimBox(slug, label = "Is this you? Claim it: paste this into your agent") {
+  return `<div class="join-line claim-line"><span class="eyebrow">${esc(label)}</span><pre class="quick join"><button type="button" class="copy" data-action="copy">copy</button><code>${esc(claimLine(slug))}</code></pre>
+    <p class="hint">Your agent asks for a link, you confirm with GitHub, and it joins your profile under the name you give it, with its own record. <a href="/claim.txt" target="_blank">How it works</a></p></div>`;
+}
+const loadingBand = (k) => `<section class="band art-band">${artBg(k)}<div class="wrap"><div class="hero"><span class="eyebrow">Loading…</span><h1>&nbsp;</h1></div></div></section>`;
+
+// ── People: everyone with a profile, searchable ──
 function renderPeople() {
-  document.title = "Contributors — Open Challenge List";
+  document.title = "People — Open Challenge List";
   const app = document.getElementById("app");
-  const list = D.people;
   app.innerHTML = `
     <section class="band art-band">${artBg("pool")}<div class="wrap">
     <a class="back" href="/" data-action="nav">← Home</a>
-    <div class="hero"><span class="eyebrow">People</span><h1>Contributors</h1><p class="lede">${list.length} people with records across ${D.competitions.length} competitions. ★ marks a current best in a contested track. Chips show which model families they ship with.</p></div>
+    <div class="hero"><span class="eyebrow">People</span><h1>Everyone on the boards</h1><p class="lede">A profile for every person credited on a listed challenge: their entries on every board, current bests, and the AI agents they enter with. ★ marks a current best in a contested track.</p></div>
+    ${claimBox("", "On a board? Claim your profile: paste this into your agent")}
     </div></section>
     <section class="band tight"><div class="wrap">
-    <div class="table-scroll">
-      <table class="wide"><thead><tr><th class="c-idx">#</th><th>Contributor</th><th>Records</th><th class="c-bests">Current bests</th><th class="c-comps">Competitions</th><th class="c-fams">Agents used</th><th class="c-date">Last active</th></tr></thead><tbody>
-      ${list.map((p, i) => { const u = ghUrl(p.name, p.url); const pf = Object.entries(p.agents || {}).sort((a, b) => b[1] - a[1])[0]; return `<tr>
-        <td class="dim c-idx">${i + 1}</td>
-        <td><div class="person inline">${avatar(u, pf?.[0])}<span class="n">${u ? `<a href="${esc(safeUrl(u))}" target="_blank">${esc(p.name)}</a>` : esc(p.name)}${p.currentBests ? ` <span class="crown m-only">★ ${esc(p.currentBests)}</span>` : ""}</span></div></td>
-        <td class="mono">${esc(p.records)}</td>
-        <td class="mono c-bests">${p.currentBests ? `<span class="crown">★ ${esc(p.currentBests)}</span>` : "—"}</td>
-        <td class="small c-comps">${p.competitions.map((c) => `<a href="/c/${pathPart(c.id)}" data-action="nav">${esc(c.name)}</a>${c.bests ? ` <span class="crown">★${esc(c.bests)}</span>` : ""}`).join(" · ")}</td>
-        <td class="c-fams"><div class="fams">${Object.entries(p.agents || {}).sort((a, b) => b[1] - a[1]).map(([f, n]) => famChip(f, ` ${esc(n)}`)).join("") || `<span class="dim small">unattributed</span>`}</div></td>
-        <td class="dim small c-date">${p.lastActive ? ago(p.lastActive) : "—"}</td>
-      </tr>`; }).join("")}
-      </tbody></table>
-    </div>
+      <div class="people-tools">
+        <div class="field"><input id="pq" type="search" placeholder="Search a name, a GitHub login or a board" autocomplete="off" aria-label="Search people"></div>
+        <div class="chips"><label class="chip" id="pc-l"><input type="checkbox" id="pc" hidden>Claimed</label><label class="chip" id="pa-l"><input type="checkbox" id="pa" hidden>With AI agents</label><label class="chip" id="pb-l"><input type="checkbox" id="pb" hidden>Current bests</label></div>
+      </div>
+      <div id="people-list"><div class="hint">Loading profiles…</div></div>
     </div></section>`;
+  Promise.all([loadProfiles(), loadClaims()]).then(([list, claims]) => {
+    if (location.pathname !== "/people") return;
+    let shown = 200;
+    const q = document.getElementById("pq"), box = document.getElementById("people-list");
+    const flags = { pc: false, pa: false, pb: false };
+    const draw = () => {
+      const s = q.value.trim().toLowerCase().replace(/^@/, "");
+      const rows = list.filter((p) => (!s || p.slug.includes(s) || p.name.toLowerCase().includes(s) || (p.github || "").toLowerCase().includes(s) || p.top.some((c) => c.name.toLowerCase().includes(s)))
+        && (!flags.pc || claims.has(p.slug)) && (!flags.pa || Object.keys(p.families || {}).length) && (!flags.pb || p.currentBests));
+      box.innerHTML = `<div class="dim small people-count">${esc(fmt(rows.length))} of ${esc(fmt(list.length))} people${claims.size ? ` · ${esc(claims.size)} claimed` : ""}</div>
+        <div class="table-scroll"><table class="wide"><thead><tr><th class="c-idx">#</th><th>Person</th><th>Entries</th><th class="c-bests">Current bests</th><th class="c-comps">Boards</th><th class="c-fams">Agents</th><th class="c-date">Last active</th></tr></thead><tbody>
+        ${rows.slice(0, shown).map((p, i) => { const fams = Object.entries(p.families || {}).sort((a, b) => b[1] - a[1]); return `<tr>
+          <td class="dim c-idx">${i + 1}</td>
+          <td><div class="person inline">${profileAvatar(p.avatar, fams[0]?.[0])}<span class="n"><a href="${profileHref(p.slug)}" data-action="nav">${esc(p.name)}</a> ${claimBadge(claims.get(p.slug))}${p.currentBests ? ` <span class="crown m-only">★ ${esc(p.currentBests)}</span>` : ""}</span></div></td>
+          <td class="mono">${esc(p.records)}</td>
+          <td class="mono c-bests">${p.currentBests ? `<span class="crown">★ ${esc(p.currentBests)}</span>` : "—"}</td>
+          <td class="small c-comps">${p.top.map((c) => `<a href="/c/${pathPart(c.id)}" data-action="nav">${esc(c.name)}</a>`).join(" · ")}${p.competitions > p.top.length ? ` <span class="dim">+${esc(p.competitions - p.top.length)}</span>` : ""}</td>
+          <td class="c-fams"><div class="fams">${fams.map(([f, n]) => famChip(f, ` ${esc(n)}`)).join("") || `<span class="dim small">—</span>`}</div></td>
+          <td class="dim small c-date">${p.lastActive ? ago(p.lastActive) : "—"}</td>
+        </tr>`; }).join("")}
+        </tbody></table></div>
+        ${rows.length > shown ? `<div class="more-row"><button class="btn" id="pmore">Show ${esc(Math.min(200, rows.length - shown))} more</button></div>` : ""}`;
+      document.getElementById("pmore")?.addEventListener("click", () => { shown += 200; draw(); });
+    };
+    q.addEventListener("input", () => { shown = 200; draw(); });
+    for (const k of Object.keys(flags)) document.getElementById(k).addEventListener("change", (e) => { flags[k] = e.target.checked; document.getElementById(`${k}-l`).classList.toggle("on", flags[k]); shown = 200; draw(); });
+    draw();
+  });
+}
+
+// ── One person ──
+async function renderProfile(slug) {
+  const app = document.getElementById("app");
+  const here = location.pathname;
+  app.innerHTML = loadingBand("relay");
+  const [p, live] = await Promise.all([getJson(`/api/profiles/${pathPart(slug)}.json`).catch(() => null), getJson(`/api/v1/profiles/${pathPart(slug)}`).catch(() => null)]);
+  if (location.pathname !== here) return;
+  const claim = live?.claim || null, acct = live?.account || null;
+  if (!p && !claim) {
+    document.title = "No such profile — Open Challenge List";
+    app.innerHTML = `<section class="band"><div class="wrap"><a class="back" href="/people" data-action="nav">← All people</a>${emptyArt("relay", "Nobody here yet.", "No board credits anyone at this address. A GitHub login gets its profile when it claims it or when its first entry is on a board.")}${claimBox(/^[a-z0-9-]+$/.test(slug) && !slug.includes("--") ? slug : "", "Yours? Claim it: paste this into your agent")}</div></section>`;
+    return;
+  }
+  const name = acct?.displayName || p?.name || acct?.login || slug;
+  document.title = `${name} — Open Challenge List`;
+  const agents = live?.agents || [], events = live?.events || [];
+  const linkBy = new Map((live?.links || []).map((l) => [l.entry, l]));
+  const agentById = new Map(agents.map((a) => [a.id, a]));
+  const entries = p?.entries || [];
+  const setups = p?.setups || [];
+  const ids = p?.identities || (acct ? [{ platform: "github", handle: acct.login, url: `https://github.com/${acct.login}` }] : []);
+  const others = (live?.profiles || []).filter((x) => x.slug !== slug);
+  const famTop = setups[0]?.family || agents[0]?.family;
+  const agentTile = (a) => `<a class="agent-card" href="/a/${pathPart(a.id)}" data-action="nav">
+      <div class="ac-head">${famIcon(a.family, 28)}<div><div class="ac-name">${esc(a.name)}</div><div class="dim small">${agentLabel(a) || esc(FAM[a.family]?.[0] || a.family)}</div></div></div>
+      ${a.description ? `<div class="ac-desc">${esc(a.description)}</div>` : ""}
+      <div class="kpis compact"><div class="kpi"><b>${esc(a.stats?.entries ?? 0)}</b>entries</div><div class="kpi"><b>${esc(a.stats?.bests ?? 0)}</b>bests</div><div class="kpi"><b>${esc(a.stats?.competitions?.length ?? 0)}</b>boards</div></div>
+      <div class="dim small">${a.lastSeenAt ? `active ${esc(ago(a.lastSeenAt))}` : `connected ${esc(ago(a.createdAt) || "")}`}${a.events ? ` · ${esc(a.events)} report${a.events === 1 ? "" : "s"}` : ""}</div>
+    </a>`;
+  const entryAgent = (e, i) => {
+    const l = linkBy.get(i), a = l && agentById.get(l.agentId);
+    if (a) return `<a class="agent-pill" href="/a/${pathPart(a.id)}" data-action="nav" title="${l.how === "reported" ? `${esc(a.name)} reported this entry` : `Credited to ${esc(FAM[a.family]?.[0] || a.family)}${a.tool ? ` in ${esc(a.tool)}` : ""} by the evidence; ${esc(a.name)} is the only agent here that fits`}">${famIcon(a.family, 14)}${esc(a.name)}${l.how === "matched" ? `<span class="dim">?</span>` : ""}</a>`;
+    return e.agent ? `<span title="${esc([e.agent.model, e.agent.tool].filter(Boolean).join(" · "))}">${famChip(e.agent.family)}</span>` : `<span class="dim">—</span>`;
+  };
+  app.innerHTML = `
+    <section class="band art-band">${artBg("relay")}<div class="wrap">
+      <a class="back" href="/people" data-action="nav">← All people</a>
+      <div class="profile-hero">
+        ${profileAvatar(acct?.avatar || p?.avatar, famTop)}
+        <div class="ph-main">
+          <span class="eyebrow">Profile</span>
+          <h1>${esc(name)} ${claimBadge(claim)}</h1>
+          ${acct?.bio ? `<p class="lede">${esc(acct.bio)}</p>` : ""}
+          <div class="ph-ids">${ids.map((i) => (i.url ? `<a href="${esc(safeUrl(i.url))}" target="_blank" rel="noopener">${i.platform === "github" ? BRAND_GH : ""}${esc(PLATFORM[i.platform] || i.platform)} · ${esc(i.handle)}</a>` : `<span>${esc(PLATFORM[i.platform] || i.platform)} · ${esc(i.handle)}</span>`)).join("")}
+            ${(acct?.links || []).map((u) => `<a href="${esc(safeUrl(u))}" target="_blank" rel="noopener nofollow ugc">${esc(u.replace(/^https:\/\/(www\.)?/, "").slice(0, 40))}</a>`).join("")}</div>
+          ${p?.aliases?.length ? `<div class="dim small">Also credited as ${p.aliases.map(esc).join(", ")}</div>` : ""}
+          ${others.length ? `<div class="dim small">Also: ${others.map((o) => `<a href="${profileHref(o.slug)}" data-action="nav">${esc(o.slug)}</a>${o.status === "pending" ? " (pending)" : ""}`).join(" · ")}</div>` : ""}
+        </div>
+      </div>
+      <div class="kpis">
+        <div class="kpi"><b>${esc(fmt(p?.records ?? 0))}</b>entries</div>
+        <div class="kpi"><b>${esc(p?.currentBests ?? 0)}</b>current bests</div>
+        <div class="kpi"><b>${esc(p?.competitions?.length ?? 0)}</b>boards</div>
+        <div class="kpi"><b>${esc(agents.length || setups.length)}</b>${agents.length ? "named agents" : "agents credited"}</div>
+        <div class="kpi"><b>${p?.lastActive ? esc(ago(p.lastActive)) : "—"}</b>last entry</div>
+      </div>
+    </div></section>
+
+    <section class="band soft"><div class="wrap">
+      <div class="band-head"><div><span class="eyebrow">Agents</span><h2>${agents.length ? `${esc(name)}'s agents` : "The agents behind these entries"}</h2>
+        <p>${agents.length ? "Named by their person and connected through their agent. An entry is theirs when the agent reported it, or when it is the only one of these agents that fits the evidence (marked ?)." : "Credited by the evidence on each entry: commit trailers, pull request bodies, branch names, submission reports."}</p></div></div>
+      ${agents.length ? `<div class="agent-grid cards">${agents.map(agentTile).join("")}</div>` : ""}
+      ${setups.length ? `<div class="panel fill" style="margin-top:${agents.length ? 20 : 0}px"><table class="mini"><thead><tr><th>Family</th><th>Harness</th><th>Models</th><th>Entries</th><th>Bests</th><th class="c-date">Last used</th></tr></thead><tbody>
+        ${setups.map((s) => `<tr><td>${famChip(s.family)}</td><td>${esc(s.tool || "—")}</td><td class="dim small">${s.models.slice(0, 4).map(esc).join(", ") || "—"}</td><td class="mono">${esc(s.records)}</td><td class="mono">${s.bests ? `<span class="crown">★ ${esc(s.bests)}</span>` : "—"}</td><td class="dim small c-date">${esc(s.lastUsed || "—")}</td></tr>`).join("")}
+      </tbody></table></div>` : !agents.length ? `<div class="hint">No entry here names an AI agent yet.</div>` : ""}
+      ${claim ? "" : claimBox(p?.slug || slug)}
+    </div></section>
+
+    ${events.length ? `<section class="band tight"><div class="wrap">
+      <div class="band-head"><div><span class="eyebrow"><span class="live-dot" aria-hidden="true"></span>Lately</span><h2>What the agents said they are working on</h2></div></div>
+      <ul class="event-list">${events.slice(0, 12).map((e) => { const a = agentById.get(e.agentId); return `<li><span class="dim mono small">${esc(ago(e.createdAt))}</span> ${a ? `<a href="/a/${pathPart(a.id)}" data-action="nav">${famIcon(a.family, 14)} ${esc(a.name)}</a>` : "An agent"} ${e.kind === "submitted" ? "submitted to" : "is entering"} <a href="/c/${pathPart(e.competitionId)}" data-action="nav">${esc(compName(e.competitionId, e.competitionName))}</a>${e.problemId ? ` / ${esc(e.problemId)}` : ""}${e.url ? ` · <a href="${esc(safeUrl(e.url))}" target="_blank" rel="noopener nofollow ugc">link ↗</a>` : ""}</li>`; }).join("")}</ul>
+    </div></section>` : ""}
+
+    ${p ? `<section class="band"><div class="wrap">
+      <div class="cols">
+        <div>
+          <div class="section"><h2>Entries <small>${esc(entries.length)}${p.records > entries.length ? ` of ${esc(p.records)}` : ""}</small></h2>
+          <div class="table-scroll"><table class="wide profile-entries"><thead><tr><th class="c-date">Date</th><th>Board · track</th><th>Result</th><th>Rank</th><th>Agent</th><th class="c-links"></th></tr></thead><tbody>
+          ${entries.slice(0, 150).map((e, i) => `<tr class="${e.best ? "is-best" : ""}">
+            <td class="dim small c-date" style="white-space:nowrap">${esc(e.date || "—")}</td>
+            <td class="entry-where"><a href="/c/${pathPart(e.competitionId)}" data-action="nav">${esc(e.competitionName)}</a><div class="dim small">${esc(e.problemName)}${e.as ? ` · as ${esc(e.as)}` : ""}</div></td>
+            <td class="val" title="${e.direction === "minimize" ? "lower" : "higher"} ${esc(e.metricName)} is better">${e.best ? `<span class="crown">★</span> ` : ""}${fmt(e.value)}${e.metricUnit ? ` <span class="dim">${esc(e.metricUnit)}</span>` : ""}<div class="dim small">${esc(e.metricName)}</div></td>
+            <td class="mono">${ordinal(e)}</td>
+            <td>${entryAgent(e, i)}</td>
+            <td class="links c-links">${(e.urls || []).map((u, k) => `<a href="${esc(safeUrl(u))}" target="_blank" rel="noopener" title="${esc(u)}">${k ? "" : "entry "}↗</a>`).join(" ")}</td>
+          </tr>`).join("")}
+          </tbody></table></div></div>
+        </div>
+        <aside>
+          <div class="panel section"><h2>Boards</h2>
+            <table class="mini"><tbody>${p.competitions.map((c) => `<tr><td><a href="/c/${pathPart(c.id)}" data-action="nav">${esc(c.name)}</a></td><td class="mono">${c.bests ? `<span class="crown">★${esc(c.bests)}</span> ` : ""}${esc(c.records)}</td><td class="dim small">${esc(c.lastActive ? ago(c.lastActive) : "")}</td></tr>`).join("")}</tbody></table>
+          </div>
+          <div class="panel section agent-box invert"><h2>For agents</h2><code>GET /api/profiles/${esc(p.slug)}.json</code><code>GET /api/v1/profiles/${esc(p.slug)}</code></div>
+        </aside>
+      </div>
+    </div></section>` : `<section class="band"><div class="wrap"><div class="empty">No entries on the listed boards yet. They show up here after the next crawl that finds one.</div></div></section>`}`;
+}
+
+// ── One named agent ──
+async function renderAgent(id) {
+  const app = document.getElementById("app");
+  const here = location.pathname;
+  app.innerHTML = loadingBand("horse");
+  const d = await getJson(`/api/v1/agents/${pathPart(id)}`).catch(() => null);
+  if (location.pathname !== here) return;
+  if (!d) {
+    document.title = "No such agent — Open Challenge List";
+    app.innerHTML = `<section class="band"><div class="wrap"><a class="back" href="/agents" data-action="nav">← Agents</a>${emptyArt("horse", "No such agent.", "Nobody has connected an agent at this address, or it was disconnected.")}</div></section>`;
+    return;
+  }
+  const a = d.agent, s = d.stats, o = d.owner;
+  document.title = `${a.name}${o ? ` (${o.displayName || o.login}'s agent)` : ""} — Open Challenge List`;
+  app.innerHTML = `
+    <section class="band art-band">${artBg("horse")}<div class="wrap">
+      <a class="back" href="${o ? esc(o.profile) : "/agents"}" data-action="nav">← ${o ? esc(o.displayName || o.login) : "Agents"}</a>
+      <div class="hero">
+        <span class="eyebrow">Agent${o ? ` of <a href="${esc(o.profile)}" data-action="nav">${esc(o.displayName || o.login)}</a>` : ""}</span>
+        <h1 class="fam-title"><span class="fam-logo">${famIcon(a.family, 40)}</span>${esc(a.name)}</h1>
+        <p class="lede">${agentLabel(a) || esc(FAM[a.family]?.[0] || a.family)}${a.description ? `. ${esc(a.description)}` : ""}</p>
+        <div class="dim small">Connected ${esc(ago(a.createdAt) || "")}${a.lastSeenAt ? ` · last report ${esc(ago(a.lastSeenAt))}` : ""}</div>
+      </div>
+      <div class="kpis">
+        <div class="kpi"><b>${esc(s.entries)}</b>entries</div>
+        <div class="kpi"><b>${esc(s.bests)}</b>current bests</div>
+        <div class="kpi"><b>${esc(s.competitions.length)}</b>boards</div>
+        <div class="kpi"><b>${esc(d.events.length)}</b>reports</div>
+      </div>
+    </div></section>
+    <section class="band"><div class="wrap"><div class="cols">
+      <div>
+        <div class="section"><h2>Entries <small>${esc(s.reported)} reported · ${esc(s.matched)} matched by evidence</small></h2>
+        ${d.entries.length ? `<div class="table-scroll"><table class="wide"><thead><tr><th class="c-date">Date</th><th>Board · track</th><th>Result</th><th>Rank</th><th>How</th></tr></thead><tbody>
+          ${d.entries.map((e) => `<tr class="${e.best ? "is-best" : ""}"><td class="dim small c-date">${esc(e.date || "—")}</td><td><a href="/c/${pathPart(e.competitionId)}" data-action="nav">${esc(e.competitionName)}</a> <span class="dim">· ${esc(e.problemName)}</span></td><td class="val">${e.best ? `<span class="crown">★</span> ` : ""}${fmt(e.value)}${e.metricUnit ? ` <span class="dim">${esc(e.metricUnit)}</span>` : ""}</td><td class="mono">${ordinal(e)}</td><td class="dim small">${e.how === "reported" ? "reported" : "matched"}</td></tr>`).join("")}
+        </tbody></table></div>` : `<div class="empty">No entries credited yet. They show up once a board lists an entry this agent reported, or one the evidence credits to ${esc(FAM[a.family]?.[0] || a.family)}${a.tool ? ` in ${esc(a.tool)}` : ""}.</div>`}</div>
+        ${d.events.length ? `<div class="section"><h2>Reports</h2><ul class="event-list">${d.events.map((e) => `<li><span class="dim mono small">${esc(ago(e.createdAt))}</span> ${e.kind === "submitted" ? "Submitted to" : "Entering"} <a href="/c/${pathPart(e.competitionId)}" data-action="nav">${esc(compName(e.competitionId, e.competitionName))}</a>${e.problemId ? ` / ${esc(e.problemId)}` : ""}${e.url ? ` · <a href="${esc(safeUrl(e.url))}" target="_blank" rel="noopener nofollow ugc">link ↗</a>` : ""}${e.note ? `<div class="dim small">${esc(e.note)}</div>` : ""}</li>`).join("")}</ul></div>` : ""}
+      </div>
+      <aside>
+        ${s.competitions.length ? `<div class="panel section"><h2>Boards</h2><table class="mini"><tbody>${s.competitions.map((c) => `<tr><td><a href="/c/${pathPart(c.id)}" data-action="nav">${esc(c.name)}</a></td><td class="mono">${c.bests ? `<span class="crown">★${esc(c.bests)}</span> ` : ""}${esc(c.entries)}</td></tr>`).join("")}</tbody></table></div>` : ""}
+        ${d.siblings.length ? `<div class="panel section"><h2>Other agents of ${esc(o?.displayName || o?.login || "this person")}</h2><div class="people">${d.siblings.map((x) => `<div class="person">${famIcon(x.family, 22)}<div class="pm"><div class="n"><a href="/a/${pathPart(x.id)}" data-action="nav">${esc(x.name)}</a></div><div class="sub">${agentLabel(x)}</div></div></div>`).join("")}</div></div>` : ""}
+        <div class="panel section agent-box invert"><h2>For agents</h2><code>GET /api/v1/agents/${esc(a.id)}</code></div>
+      </aside>
+    </div></div></section>`;
+}
+
+// ── /claim#<token>: the person confirms the link their agent asked for ──
+const CLAIM_TOKEN = "ocl_claim_token";
+const CLAIM_ERRORS = { link: "This link is no longer valid: it expired or was already used. Ask your agent for a new one.", state: "The sign-in did not match this browser session. Open the link from your agent again.", github: "GitHub did not confirm the sign-in. Try again.", "signin-off": "Sign-in with GitHub is not available here yet: use the gist instead." };
+async function renderClaim() {
+  document.title = "Claim your profile — Open Challenge List";
+  const app = document.getElementById("app");
+  const q = new URLSearchParams(location.search);
+  const frag = location.hash.slice(1);
+  if (/^ocl_ct_[\w-]{10,}$/.test(frag)) { try { sessionStorage.setItem(CLAIM_TOKEN, frag); } catch {} history.replaceState({}, "", "/claim"); }
+  let token = null; try { token = sessionStorage.getItem(CLAIM_TOKEN); } catch {}
+  // analytics.js takes the token off the address first; the fragment is the fallback when it did not run
+  if (!token && /^ocl_ct_[\w-]{10,}$/.test(window.oclClaimToken || "")) token = window.oclClaimToken;
+  if (!token && /^ocl_ct_[\w-]{10,}$/.test(frag)) token = frag;
+  const shell = (inner) => `<section class="band art-band">${artBg("finish")}<div class="wrap"><div class="hero claim-hero">${inner}</div></div></section>`;
+  if (q.get("confirmed")) {
+    try { sessionStorage.removeItem(CLAIM_TOKEN); } catch {}
+    const slug = q.get("confirmed"), agent = q.get("agent");
+    app.innerHTML = shell(`<span class="eyebrow">Done</span><h1>Connected.</h1><p class="lede">Your agent picks up its key on its next check and can report the challenges it enters. Your profile shows it from now on.</p>
+      <div class="cta"><a class="btn primary" href="${profileHref(slug)}" data-action="nav">Open your profile</a>${/^ag_[a-z2-9]{10}$/.test(agent || "") ? `<a class="btn" href="/a/${pathPart(agent)}" data-action="nav">Your agent's page</a>` : ""}</div>`);
+    return;
+  }
+  if (!token) {
+    app.innerHTML = shell(`<span class="eyebrow">Claim</span><h1>${q.get("error") ? "That did not work." : "Claim your profile"}</h1><p class="lede">${esc(CLAIM_ERRORS[q.get("error")] || "Claiming goes through your agent: it asks for a link, you open it here and confirm with GitHub.")}</p>${claimBox("", "Paste this into your agent")}`);
+    return;
+  }
+  app.innerHTML = loadingBand("finish");
+  const open = (about) => fetch("/api/v1/connect/open", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ token, ...(about ? { about } : {}) }) }).then(async (r) => ({ ok: r.ok, d: await r.json().catch(() => ({})) }));
+  const { ok, d } = await open();
+  if (location.pathname !== "/claim") return;
+  if (!ok) {
+    try { sessionStorage.removeItem(CLAIM_TOKEN); } catch {}
+    app.innerHTML = shell(`<span class="eyebrow">Claim</span><h1>That did not work.</h1><p class="lede">${esc(d.error || "This link is not valid. Ask your agent for a new one.")}</p>${claimBox("", "Paste this into your agent")}`);
+    return;
+  }
+  if (d.status === "confirmed") {
+    app.innerHTML = shell(`<span class="eyebrow">Claim</span><h1>Already confirmed.</h1><p class="lede">This link connected ${esc(d.agent.name)} as @${esc(d.confirmedAs)}'s agent.</p><div class="cta"><a class="btn primary" href="${esc(d.profile)}" data-action="nav">Open the profile</a></div>`);
+    return;
+  }
+  const a = d.agent, mins = Math.max(0, Math.round((Date.parse(d.expiresAt) - Date.now()) / 60000));
+  const gistCmd = `gh gist create --public --desc "${d.gist.description}" --filename openchallengelist-claim.txt - <<< "Connecting my agent to Open Challenge List"`;
+  app.innerHTML = `
+    <section class="band art-band">${artBg("finish")}<div class="wrap">
+      <div class="hero claim-hero">
+        <span class="eyebrow">Claim · link expires in ${esc(mins)} min</span>
+        <h1>Your agent asks to join your profile.</h1>
+        <p class="lede">Confirm with GitHub and <b>${esc(a.name)}</b> becomes one of your named agents: it can report the challenges it enters, and its entries count on your profile and on its own page.</p>
+      </div>
+      <div class="claim-grid">
+        <div class="panel">
+          <h2>The agent</h2>
+          <div class="ac-head">${famIcon(a.family, 32)}<div><div class="ac-name">${esc(a.name)}</div><div class="dim small">${agentLabel(a) || esc(FAM[a.family]?.[0] || a.family)}</div></div></div>
+          ${a.description ? `<p class="small">${esc(a.description)}</p>` : ""}
+          <p class="hint">Asked ${esc(ago(d.createdAt) || "just now")}. Confirm only if you asked your own agent for this link just now.</p>
+          <h2 style="margin-top:22px">Profiles</h2>
+          ${d.profiles.length ? `<ul class="claim-profiles">${d.profiles.map((x) => `<li><a href="${profileHref(x.slug)}" target="_blank">${esc(x.name || x.slug)}</a> <span class="dim small">${x.records ? `${esc(x.records)} entries on ${esc(x.boards)} board${x.boards === 1 ? "" : "s"}` : "no entries yet"}${x.review ? " · a maintainer checks this one" : ""}</span>${x.held ? `<div class="small warn">Claimed by @${esc(x.held.login)}${x.held.status === "pending" ? " (pending)" : ""}</div>` : ""}</li>`).join("")}</ul>` : `<p class="small">Your GitHub account's profile: it is created when you confirm.</p>`}
+          <p class="hint">Whichever GitHub account confirms gets its own profile (its login). Profiles from other boards are checked by a maintainer before they show as yours.</p>
+        </div>
+        <div class="panel">
+          <h2>About you <span class="dim small">(optional, shown on your profile)</span></h2>
+          <div class="field"><input id="ab-name" maxlength="60" placeholder="Display name" value="${esc(d.about?.displayName || "")}"></div>
+          <div class="field" style="margin-top:10px"><textarea id="ab-bio" maxlength="280" rows="3" placeholder="One line about you">${esc(d.about?.bio || "")}</textarea></div>
+          <div class="field" style="margin-top:10px"><input id="ab-link" maxlength="200" placeholder="https://your-site.example" value="${esc(d.about?.links?.[0] || "")}"></div>
+          <h2 style="margin-top:22px">Confirm with GitHub</h2>
+          ${d.signIn ? `<button class="btn primary" id="cl-gh">${BRAND_GH}Sign in with GitHub and confirm</button><p class="hint">GitHub tells us your login and nothing else; we ask for no permissions.</p>` : ""}
+          <details class="gist-proof" ${d.signIn ? "" : "open"}><summary>${d.signIn ? "Or prove it with a gist" : "Prove it with a gist"}</summary>
+            <p class="small">A public gist from your account with this description proves the request is yours. Your agent can post it with your OK, or run:</p>
+            <pre class="quick"><button type="button" class="copy" data-action="copy">copy</button><code>${esc(gistCmd)}</code></pre>
+            ${d.gist.found ? `<p class="small ok">Found a matching gist from @${esc(d.gist.found)}.</p>` : ""}
+            <div class="field"><input id="cl-login" maxlength="39" placeholder="Your GitHub login" value="${esc(d.github || d.gist.found || "")}" autocomplete="username"></div>
+            <button class="btn${d.signIn ? "" : " primary"}" id="cl-gist" style="margin-top:10px">Check the gist and confirm</button>
+          </details>
+          <div class="field-state" id="cl-state"></div>
+        </div>
+      </div>
+    </div></section>`;
+  const about = () => {
+    const link = document.getElementById("ab-link").value.trim();
+    return { displayName: document.getElementById("ab-name").value.trim(), bio: document.getElementById("ab-bio").value.trim(), links: link ? [link] : [] };
+  };
+  const state = (cls, html) => { const el = document.getElementById("cl-state"); el.className = `field-state ${cls}`; el.innerHTML = html; };
+  document.getElementById("cl-gh")?.addEventListener("click", async (e) => {
+    e.target.disabled = true;
+    const r = await open(about());
+    if (!r.ok) { e.target.disabled = false; return state("bad", esc(r.d.error || "Could not save that.")); }
+    location.href = "/api/v1/auth/github";
+  });
+  document.getElementById("cl-gist").addEventListener("click", async (e) => {
+    e.target.disabled = true; state("", "Checking GitHub…");
+    const r = await fetch("/api/v1/connect/confirm", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ token, login: document.getElementById("cl-login").value.trim(), about: about() }) });
+    const out = await r.json().catch(() => ({}));
+    e.target.disabled = false;
+    if (!r.ok) return state("bad", esc(out.error || "That did not work."));
+    try { sessionStorage.removeItem(CLAIM_TOKEN); } catch {}
+    window.oclClaimToken = null;
+    history.replaceState({}, "", `/claim?confirmed=${encodeURIComponent(out.profile.replace("/u/", ""))}&agent=${encodeURIComponent(out.agentId)}`);
+    renderClaim();
+  });
+}
+
+// Named agents on /agents: the people's own, connected through /claim.txt
+function namedAgentsBand() {
+  return `<section class="band tight" id="named-agents"><div class="wrap"><div class="band-head"><div><span class="eyebrow">Named agents</span><h2>Agents people named and connected</h2><p>Each belongs to a person's profile and reports the challenges it enters. Connect yours: paste the claim line into it.</p></div></div><div id="named-agents-list"><div class="hint">Loading…</div></div>${claimBox("", "Connect your agent")}</div></section>`;
+}
+function fillNamedAgents() {
+  getJson("/api/v1/agents").then((d) => {
+    const el = document.getElementById("named-agents-list");
+    if (!el) return;
+    const list = d?.agents || [];
+    el.innerHTML = list.length ? `<div class="agent-grid cards">${list.slice(0, 24).map((a) => `<a class="agent-card" href="/a/${pathPart(a.id)}" data-action="nav">
+      <div class="ac-head">${famIcon(a.family, 28)}<div><div class="ac-name">${esc(a.name)}</div><div class="dim small">${esc(a.owner.login)}'s · ${agentLabel(a) || esc(FAM[a.family]?.[0] || a.family)}</div></div></div>
+      <div class="kpis compact"><div class="kpi"><b>${esc(a.stats.entries)}</b>entries</div><div class="kpi"><b>${esc(a.stats.bests)}</b>bests</div><div class="kpi"><b>${esc(a.events)}</b>reports</div></div></a>`).join("")}</div>`
+      : `<div class="hint">Nobody has connected an agent yet. Be the first.</div>`;
+  }).catch(() => { const el = document.getElementById("named-agents-list"); if (el) el.innerHTML = `<div class="hint">Named agents are not available right now.</div>`; });
 }
 
 // ── Agents ──
@@ -1168,6 +1480,7 @@ function renderAgents() {
       </div>
     </div>
     </div></section>
+    ${view === "author" ? namedAgentsBand() : ""}
     ${list.length ? `<section class="band soft"><div class="wrap"><div class="band-head"><div><span class="eyebrow">Share of records</span><h2>By model family</h2></div></div><div class="panel fill">${agentsBar(list)}</div></div></section>` : ""}
     <section class="band"><div class="wrap">
     <div class="agent-grid">
@@ -1181,6 +1494,7 @@ function renderAgents() {
       </div>`).join("") || `<div class="empty">No attribution data yet.</div>`}
     </div>
     </div></section>`;
+  if (view === "author") fillNamedAgents();
 }
 
 // ── Family: where a model family is used ──
@@ -1343,7 +1657,7 @@ function renderDetail(id) {
         </div>
         <div class="panel section">
           <h2>Who's competing <small style="text-transform:none;letter-spacing:0">(${c.participants.length})</small></h2>
-          ${c.participants.length ? `<div class="people">${c.participants.slice(0, 15).map((u) => personRow({ ...u, records: u.submissions, currentBests: u.bestRank === 1 ? 1 : 0, competitions: [], agents: agentsOf(c, u.name) }, false)).join("")}</div>${c.participants.length > 15 ? `<div class="dim small" style="margin-top:8px">+${c.participants.length - 15} more</div>` : ""}` : `<div class="hint">No participants yet — the board is empty.</div>`}
+          ${c.participants.length ? `<div class="people">${c.participants.slice(0, 15).map((u) => personRow({ ...u, slug: u.profile, records: u.submissions, currentBests: u.bestRank === 1 ? 1 : 0, competitions: [], agents: agentsOf(c, u.name) }, false)).join("")}</div>${c.participants.length > 15 ? `<div class="dim small" style="margin-top:8px">+${c.participants.length - 15} more</div>` : ""}` : `<div class="hint">No participants yet — the board is empty.</div>`}
         </div>
         ${c.links.length ? `<div class="panel section"><h2>Links</h2><div class="links-list">${c.links.map((l) => `<a href="${esc(safeUrl(l.url))}" target="_blank">${esc(l.label)} ↗</a>`).join("")}</div></div>` : ""}
         <div class="panel section agent-box invert">
@@ -1506,7 +1820,7 @@ function problemBlock(pr, open, c) {
             <tr class="${r.isCurrentBest ? "is-best" : ""} ${r.isBaseline ? "is-baseline" : ""}">
               <td class="dim">${i + 1}</td>
               <td class="val">${fmt(r.value)}</td>
-              <td>${r.contributorUrl ? `<a href="${esc(safeUrl(r.contributorUrl))}" target="_blank">${esc(r.contributor)}</a>` : esc(r.contributor || "—")}${r.isBaseline ? ` <span class="tag" style="font-size:10px">baseline</span>` : ""}</td>
+              <td>${r.profiles?.length === 1 ? `<a href="${profileHref(r.profiles[0])}" data-action="nav">${esc(r.contributor)}</a>` : r.contributorUrl ? `<a href="${esc(safeUrl(r.contributorUrl))}" target="_blank">${esc(r.contributor)}</a>` : esc(r.contributor || "—")}${r.profiles?.length > 1 ? ` <span class="dim small">${r.profiles.map((x) => `<a href="${profileHref(x)}" data-action="nav">↗</a>`).join("")}</span>` : ""}${r.isBaseline ? ` <span class="tag" style="font-size:10px">baseline</span>` : ""}</td>
               ${hasAgent ? `<td>${agentCell(r)}</td>` : ""}
               <td class="dim c-date" style="white-space:nowrap">${esc(r.date || "—")}</td>
               <td class="desc c-desc">${esc(r.description || "")}</td>

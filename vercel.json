@@ -4,6 +4,9 @@
   "functions": {
     "api/mcp.ts": {
       "maxDuration": 15
+    },
+    "api/v1.ts": {
+      "maxDuration": 15
     }
   },
   "redirects": [
@@ -60,6 +63,26 @@
     {
       "source": "/mcp",
       "destination": "/api/mcp"
+    },
+    {
+      "source": "/api/v1/:path*",
+      "destination": "/api/v1?path=:path*"
+    },
+    {
+      "source": "/api/profiles",
+      "destination": "/api/profiles.json"
+    },
+    {
+      "source": "/u/:slug",
+      "destination": "/u/:slug.html"
+    },
+    {
+      "source": "/a/:id",
+      "destination": "/a.html"
+    },
+    {
+      "source": "/claim",
+      "destination": "/claim.html"
     },
     {
       "source": "/api/summary",
@@ -136,7 +159,7 @@
   ],
   "headers": [
     {
-      "source": "/api/(.*)",
+      "source": "/api/((?!v1(?:/|$)).*)",
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
@@ -185,7 +208,7 @@
       ]
     },
     {
-      "source": "/(join\\.txt|feed\\.xml)",
+      "source": "/(join\\.txt|claim\\.txt|feed\\.xml)",
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",

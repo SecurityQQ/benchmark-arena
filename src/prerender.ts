@@ -1,7 +1,7 @@
 // Server-rendered pages: the SPA shell (site/index.html) filled per route with that page's content and metadata.
 // Agents and crawlers that do not run JavaScript get a real page at /c/{id}; app.js replaces <main id="app"> on boot.
 import type { Competition, CrawlResult, Problem } from "./types.js";
-import { aggregateAgents, aggregatePeople, openProblems, recentActivity, hotCompetitions, type ActivityItem } from "./aggregate.js";
+import { aggregateAgents, openProblems, recentActivity, hotCompetitions, type ActivityItem } from "./aggregate.js";
 import { AGENT_DOCS_LEAD, JOIN_LINE, LISTING_ISSUE_URL, LISTING_TOPIC, SITE, boardJoinPath, challengeJoinLine, hasStandard, specLabel, viaLine } from "./render.js";
 import type { SocialPost } from "./social.js";
 import { eventWhen, orderedEvents, type CommunityEvent } from "./events.js";
@@ -9,6 +9,8 @@ import { TOPICS, inTopic, topicJoinLine, type Topic } from "./topics.js";
 import { REGISTRY, SUBMIT_PROTOCOL, authorLine, discoveryHeadline, discoveryView, type Discoveries } from "./discoveries.js";
 import { OG_HEIGHT, OG_WIDTH, cardAlt, plain, type Card } from "./og.js";
 import { BADGE_NOTE, BADGE_PATTERN, badgeMarkdown } from "./badge.js";
+import { buildProfiles, platformLabel, type Profile } from "./profiles.js";
+import { claimLine } from "./render.js";
 
 type Data = Pick<CrawlResult, "crawledAt" | "competitions">;
 // card: the page's social preview (src/og.ts); a page without one keeps the shell's /og.jpg
@@ -243,15 +245,63 @@ function familyPage(family: string, data: Data): Page {
   return { file: `agents/${family}.html`, path: `/agents/${encodeURIComponent(family)}`, title: `${name} agents — Open Challenge List`, description: `Entries and records produced by ${name} agents on open benchmark competitions and open problems.`, body, markdown: "/llms.txt" };
 }
 
-function peoplePage(data: Data): Page {
-  const people = aggregatePeople(data.competitions).slice(0, 100);
+function peoplePage(profiles: Profile[]): Page {
   const body = `
 <section class="band pre"><div class="wrap">
   <span class="eyebrow">People</span>
   <h1>Who is on the boards</h1>
-  <ul class="pre-list">${people.map((u) => `<li>${ext(u.url, u.name)}: ${u.currentBests} current bests · ${plural(u.records, "entry", "entries")} <span class="dim small">${esc(u.competitions.map((c) => c.name).join(", "))}${Object.keys(u.agents).length ? ` · with ${esc(Object.keys(u.agents).map((f) => FAMILY[f] ?? f).join(", "))}` : ""}</span></li>`).join("")}</ul>
+  <p class="lede">${plural(profiles.length, "person", "people")} with entries on the listed challenges, each with a profile: their entries on every board, their current bests and the AI agents they enter with. Yours is here? Claim it with your agent: ${esc(SITE)}/claim.txt</p>
+  <ul class="pre-list">${profiles.slice(0, 150).map((u) => `<li><a href="/u/${esc(u.slug)}"><b>${esc(u.name)}</b></a>: ${u.currentBests} current bests · ${plural(u.records, "entry", "entries")} <span class="dim small">${esc(u.competitions.map((c) => c.name).join(", "))}${u.setups.length ? ` · with ${esc([...new Set(u.setups.map((s) => s.tool ?? FAMILY[s.family] ?? s.family))].join(", "))}` : ""}</span></li>`).join("")}</ul>
+  ${profiles.length > 150 ? `<p class="dim">Everyone: <a href="/api/profiles.json">/api/profiles.json</a></p>` : ""}
 </div></section>`;
-  return { file: "people.html", path: "/people", title: "People — Open Challenge List", description: "Contributors on open benchmark competitions: records, entries and the AI agents they ship with.", body, markdown: "/llms.txt" };
+  return { file: "people.html", path: "/people", title: "People — Open Challenge List", description: "Everyone with entries on open benchmark competitions: a profile per person with their entries, records and the AI agents they enter with.", body, markdown: "/llms.txt" };
+}
+
+// One person across every board: who they are on each platform, their entries newest first, and the AI agents the
+// evidence credits. The claim and the agents they name come from /api/v1 (src/accounts.ts), which app.js adds on top.
+const setupName = (s: Profile["setups"][number]) => `${s.tool ?? FAMILY[s.family] ?? s.family}${s.models.length ? ` (${s.models.slice(0, 3).join(", ")})` : ""}`;
+export function profilePage(p: Profile): Page {
+  const boards = p.competitions.length;
+  const span = p.firstActive && p.lastActive ? (p.firstActive === p.lastActive ? `active ${p.firstActive}` : `active ${p.firstActive} to ${p.lastActive}`) : "";
+  const summary = [plural(p.records, "entry", "entries"), `${plural(boards, "board")}`, p.currentBests ? plural(p.currentBests, "current best") : "", span].filter(Boolean).join(" · ");
+  const on = p.identities.map((i) => (i.url ? ext(i.url, `${platformLabel(i.platform)} ${i.handle}`) : `${esc(platformLabel(i.platform))}: ${esc(i.handle)}`)).join(" · ");
+  const body = `
+<section class="band pre"><div class="wrap">
+  <a class="back" href="/people">← All people</a>
+  <span class="eyebrow">Profile</span>
+  <h1>${esc(p.name)}</h1>
+  <p class="lede">${esc(summary)}</p>
+  <p class="dim">${on}${p.aliases.length ? ` · also credited as ${esc(p.aliases.join(", "))}` : ""}</p>
+  ${joinBox(claimLine(p.slug), "Is this you? Claim it: paste this into your agent")}
+</div></section>
+${p.setups.length ? `<section class="band pre"><div class="wrap">
+  <h2>Agents</h2>
+  <p class="dim">AI agents credited on these entries, by the evidence: commit trailers, pull request bodies, branch names, submission reports.</p>
+  <ul class="pre-list">${p.setups.map((s) => `<li><a href="/agents/${encodeURIComponent(s.family)}"><b>${esc(setupName(s))}</b></a>: ${plural(s.records, "entry", "entries")}${s.bests ? ` · ${plural(s.bests, "current best")}` : ""}${s.lastUsed ? ` <span class="dim small">last ${esc(s.lastUsed)}</span>` : ""}</li>`).join("")}</ul>
+</div></section>` : ""}
+<section class="band pre"><div class="wrap">
+  <h2>Boards</h2>
+  <ul class="pre-list">${p.competitions.map((c) => `<li><a href="${page(c.id)}"><b>${esc(c.name)}</b></a> <span class="dim small">${plural(c.records, "entry", "entries")}${c.bests ? ` · ${plural(c.bests, "current best")}` : ""}${c.lastActive ? ` · last ${esc(c.lastActive)}` : ""}</span></li>`).join("")}</ul>
+</div></section>
+<section class="band pre"><div class="wrap">
+  <h2>Entries</h2>
+  <ul class="pre-list">${p.entries.slice(0, 60).map((e) => `<li>${e.date ? `<span class="mono dim">${esc(e.date)}</span> ` : ""}<a href="${page(e.competitionId)}">${esc(e.competitionName)}</a> / ${esc(e.problemName)}: <span class="mono">${esc(num(e.value))}${e.metricUnit ? ` ${esc(e.metricUnit)}` : ""}</span> ${esc(e.metricName)}${e.of ? ` <span class="dim small">#${e.rank} of ${e.of}</span>` : ""}${e.best ? ` <span class="openpill">current best</span>` : ""}${e.agent ? ` <span class="dim small">with ${esc(e.agent.tool ?? FAMILY[e.agent.family] ?? e.agent.family)}${e.agent.model ? ` (${esc(e.agent.model)})` : ""}</span>` : ""}${e.as ? ` <span class="dim small">as ${esc(e.as)}</span>` : ""}</li>`).join("")}</ul>
+  ${p.entries.length > 60 ? `<p class="dim">All of them: <a href="/api/profiles/${esc(p.slug)}.json">/api/profiles/${esc(p.slug)}.json</a></p>` : ""}
+</div></section>`;
+  const agents = [...new Set(p.setups.map((s) => s.tool ?? FAMILY[s.family] ?? s.family))];
+  return {
+    file: `u/${p.slug}.html`, path: `/u/${p.slug}`, title: `${p.name} — Open Challenge List`,
+    description: `${p.name} on open challenges: ${summary}${agents.length ? `. Enters with ${agents.join(", ")}` : ""}. Boards: ${p.competitions.slice(0, 4).map((c) => c.name).join(", ")}.`.slice(0, 300),
+    body, markdown: "/llms.txt",
+    // a single entry with nothing to show is not worth a search result; the page still exists for its person and its agent
+    noindex: p.records < 2 && !p.currentBests,
+    jsonld: {
+      "@context": "https://schema.org", "@type": "ProfilePage", url: `${SITE}/u/${p.slug}`, isPartOf: { "@id": `${SITE}/#website` },
+      ...(p.lastActive ? { dateModified: p.lastActive } : {}),
+      mainEntity: { "@type": "Person", name: p.name, identifier: p.slug, ...(p.avatar ? { image: p.avatar } : {}), ...(p.aliases.length ? { alternateName: p.aliases } : {}),
+        sameAs: p.identities.map((i) => i.url).filter((u): u is string => !!u) },
+    },
+  };
 }
 
 // One topic: its boards by activity, what happened lately, the open tracks. Counts come from dated entries
@@ -408,13 +458,13 @@ function staticPage(file: string, path: string, title: string, description: stri
   return { file, path, title, description, body: `\n<section class="band pre"><div class="wrap">${html}</div></section>`, markdown: "/llms.txt" };
 }
 
-export function pages(data: Data, social: SocialPost[] = [], discoveries: Discoveries | null = null, events: CommunityEvent[] = []): Page[] {
+export function pages(data: Data, social: SocialPost[] = [], discoveries: Discoveries | null = null, events: CommunityEvent[] = [], profiles: Profile[] = buildProfiles(data.competitions).profiles): Page[] {
   const families = [...new Set(aggregateAgents(data.competitions, "author").map((a) => a.family))].filter((f) => /^[a-z0-9-]+$/.test(f));
   const boards = boardsView(data.competitions, data.crawledAt);
   return [
     homePage(data, social, discoveries, boards, events),
     ...data.competitions.map((c) => detailPage(c, data, boards.months.get(c.id)!)),
-    agentsPage(data), ...families.map((f) => familyPage(f, data)), peoplePage(data),
+    agentsPage(data), ...families.map((f) => familyPage(f, data)), peoplePage(profiles), ...profiles.map(profilePage),
     ...TOPICS.map((t) => topicPage(t, data, discoveries, events)),
     staticPage("standard.html", "/standard", "PROBLEM.md standard — Open Challenge List",
       "PROBLEM.md and SUBMISSION.md: two Markdown files that describe a competition and its entries. Add the topic open-challenge-list or open a listing issue and the repository is listed within hours; the leaderboard is built from the files.",
@@ -422,6 +472,11 @@ export function pages(data: Data, social: SocialPost[] = [], discoveries: Discov
     staticPage("submit.html", "/submit", "Submit a competition — Open Challenge List",
       "Add an open benchmark competition to the directory: point us at the GitHub repository.",
       `<span class="eyebrow">Submit</span><h1>Add a competition</h1><p class="lede">Run a challenge with a public leaderboard? Open an issue titled “Add competition: owner/repo” at <a href="https://github.com/open-challenges/open-challenge-list/issues/new" rel="noopener">github.com/open-challenges/open-challenge-list</a>, or ship a PROBLEM.md in your repository and add the topic <code>${LISTING_TOPIC}</code>: the next live refresh lists it within hours (<a href="/standard">the standard</a>).</p>`),
+    { ...staticPage("claim.html", "/claim", "Claim your profile — Open Challenge List",
+      "Confirm that a profile on Open Challenge List is yours and connect the AI agent that asked for this link.",
+      `<span class="eyebrow">Claim</span><h1>Claim your profile</h1><p class="lede">Your agent asked for this link to connect itself to your profile. Open it in a browser with JavaScript to confirm with GitHub. No link yet? Paste this into your agent:</p>${joinBox(claimLine(), "Claim your profile")}`), noindex: true },
+    { ...staticPage("a.html", "/a", "Agent — Open Challenge List", "A named AI agent on Open Challenge List: whose it is, which challenges it entered and its record.",
+      `<span class="eyebrow">Agent</span><h1>Agent</h1><p class="lede">Named agents are connected to their person's profile through <a href="/claim.txt">/claim.txt</a>. This page loads the agent from <span class="mono">/api/v1/agents/{id}</span>.</p>`), noindex: true },
     { ...staticPage("404.html", "/404", "Not found — Open Challenge List", "There is no page at this address.",
       `<h1>Not found</h1><p class="lede">There is no page at this address. <a href="/">All competitions</a> · <a href="/llms.txt">llms.txt</a></p>`), noindex: true },
   ];
