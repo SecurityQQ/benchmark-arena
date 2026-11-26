@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import {
-  boardFor, buildPulse, createPulseHandler, DUCK_FEED, fromDuckBench, fromLoopedLens, fromPalomar, fromPequalnp, fromRiemann, KEEP_MS,
-  LOOPED_BOARD, MAX_EVENTS, num, PER_SOURCE, PNP_HEAD, pulseMarkdown, RIEMANN_BOARD, when, type Fetch, type SourceCache,
+  boardFor, buildPulse, createPulseHandler, DUCK_FEED, fromDuckBench, fromLoopedLens, fromPalomar, fromPequalnp, fromPequalnpPeople, fromRiemann, KEEP_MS,
+  LOOPED_BOARD, MAX_EVENTS, MAX_JOINERS, num, PER_SOURCE, PNP_DATA, PNP_HEAD, pnpPeopleUrl, pulseMarkdown, RIEMANN_BOARD, when, type Fetch, type SourceCache,
 } from "../src/pulse.js";
 import { RESULTS_API } from "../src/discoveries.js";
 
@@ -207,7 +207,8 @@ test("buildPulse: newest first across sources, at most a few per source; activit
   const p = await buildPulse({ fetch: f, now: NOW });
   assert.deepEqual(p.events.slice(0, 4).map((e) => [e.source, e.kind]), [["palomar", "discovery"], ["pequalnp", "check"], ["pequalnp", "note"], ["looped-lens", "submission"]]);
   assert.equal(p.agentsNow?.total, 385);
-  assert.deepEqual(p.sources.map((s) => [s.id, s.ok]), [["pequalnp", true], ["riemann", true], ["looped-lens", true], ["duckbench", true], ["palomar", true]]);
+  assert.deepEqual(p.sources.map((s) => [s.id, s.ok]), [["pequalnp", true], ["pequalnp-people", false], ["riemann", true], ["looped-lens", true], ["duckbench", true], ["palomar", true]],
+    "head.json without a contributors file name: nothing to read for who joined");
   assert.deepEqual(p.activity.lastHour, { count: 22, boards: 4, partial: false, by: [
     { source: "pequalnp", name: "P = NP?", count: 19, noun: "proofs accepted" }, { source: "riemann", name: "Riemann Hypothesis Lean 4 hub", count: 1, noun: "verified runs" },
     { source: "looped-lens", name: "The Looped Lens Challenge", count: 1, noun: "submissions" }, { source: "duckbench", name: "DuckBench", count: 1, noun: "verified attempts" }] });
@@ -297,10 +298,76 @@ test("handler: JSON with a short shared cache, one read per source per window, b
 
 test("markdown: quoted text cannot open links, images or HTML", () => {
   const md = pulseMarkdown({ at: iso(0), agentsNow: null, activity: { lastHour: { count: 0, boards: 0, partial: true, by: [] }, last24h: { count: 0, boards: 0, partial: true, by: [] } },
+    joined: { lastHour: 0, last24h: 0, partial: true, by: [], people: [] },
     sources: [{ id: "pequalnp", name: "P = NP?", ok: false }], events: [
       { id: "e", at: iso(1), kind: "note", source: "pequalnp", boardName: "P = NP?", agent: "[x](y)", text: "see [this](https://evil.test) ![x](y) <script>\nnew line", url: "https://pequalnp.com/" },
     ] }, "https://openchallengelist.com");
   assert.ok(md.includes("see \\[this\\](https://evil.test) !\\[x\\](y) \\<script\\> new line (with \\[x\\](y)) — https://pequalnp.com/"));
   assert.match(md, /Live sources: P = NP\? unreachable/);
   assert.ok(!md.includes("In the last 24 hours"));
+});
+
+// ─── Who joined ─────────────────────────────────────────────────────────
+const contributor = (github: string, minutesAgo: number, extra: Record<string, unknown> = {}) => ({
+  github, steps: 1, points: 1, first_proof_at: iso(minutesAgo), last_proof_at: iso(minutesAgo), x: "secret-x", linkedin: "secret-li",
+  lemmas: [{ id: "L-meta-1", ref: "abc", title: "an older lemma", at: iso(minutesAgo + 500) }, { id: "L-meta-19064", ref: "def", title: "the first", at: iso(minutesAgo) }], ...extra,
+});
+
+test("pequalnp people: each outside contributor's first accepted proof is when they joined; only the login and times are read", () => {
+  const r = fromPequalnpPeople({ count: 4, steps: 9, contributors: [
+    contributor("ryan-thompson", 2), contributor("old-hand", 3000), contributor("-bad-", 5), contributor("ada", 30, { lemmas: [] }), contributor("late", 90, { first_proof_at: "soon" }),
+  ] }, NOW, BOARD);
+  assert.deepEqual(r.joined?.people.map((j) => [j.who, j.login, j.at, j.first, j.url, j.board]), [
+    ["@ryan-thompson", "ryan-thompson", iso(2), "first proof: L-meta-19064", "https://pequalnp.com/a/ryan-thompson", BOARD.id],
+    ["@ada", "ada", iso(30), "first proof checked in Lean", "https://pequalnp.com/a/ada", BOARD.id],
+    ["@old-hand", "old-hand", iso(3000), "first proof: L-meta-19064", "https://pequalnp.com/a/old-hand", BOARD.id],
+  ]);
+  assert.deepEqual([r.joined?.lastHour, r.joined?.last24h], [2, 2]);
+  assert.ok(!JSON.stringify(r).includes("secret"), "the file's other handles are never read");
+  assert.deepEqual(r.events, []);
+  assert.throws(() => fromPequalnpPeople({ contributors: "nope" }, NOW));
+  assert.equal(fromPequalnpPeople({ contributors: Array.from({ length: 50 }, (_, i) => contributor(`u${i}`, i + 1)) }, NOW).joined?.people.length, MAX_JOINERS);
+});
+
+test("pequalnp people: the contributors file is the one head.json names, nothing else", () => {
+  assert.equal(pnpPeopleUrl(head({ files: { contributors: "data/contributors.b300f2768bcf.json" } })), `${PNP_DATA}/data/contributors.b300f2768bcf.json`);
+  for (const name of ["https://evil.test/x.json", "data/contributors.b300.json/../../x", "data/other.b300f2768bcf.json", "/data/contributors.b300f2768bcf.json", 7]) {
+    assert.equal(pnpPeopleUrl(head({ files: { contributors: name } })), undefined, String(name));
+  }
+  assert.equal(pnpPeopleUrl(null), undefined);
+});
+
+test("looped lens: each team's first submission is when it joined, names matched without case", () => {
+  const r = fromLoopedLens(looped([lrow(1, 5, { team: "Arnav Raj" }), lrow(2, 50, { team: "arnav raj", metrics: { pass_rate: 0.5 } }), lrow(3, 20, { team: "Ouroboros" }),
+    lrow(4, 3000, { team: "Old Team" }), lrow(5, 1, { team: "Old Team" }), lrow(6, 2, { team: "Flagged", flagged: true })]), NOW);
+  assert.deepEqual(r.joined?.people.map((j) => [j.who, j.at, j.first]), [
+    ["Ouroboros", off(20).replace("+00:00", ".000Z"), "first run: 88.5% pass rate"],
+    ["Arnav Raj", off(50).replace("+00:00", ".000Z"), "first run: 50% pass rate"],
+    ["Old Team", off(3000).replace("+00:00", ".000Z"), "first run: 88.5% pass rate"],
+  ]);
+  assert.deepEqual([r.joined?.lastHour, r.joined?.last24h], [2, 2]);
+});
+
+test("buildPulse: who joined is read after head.json in the same build, and a contributors file is never read twice", async () => {
+  const cache: SourceCache = new Map();
+  let name = "data/contributors.aaaaaaaaaaaa.json";
+  const { f, count } = fakeFetch({
+    [PNP_HEAD]: () => head({ files: { contributors: name } }),
+    [`${PNP_DATA}/data/contributors.`]: () => ({ contributors: [contributor("ryan-thompson", 2), contributor("ada", 30)] }),
+    [LOOPED_BOARD]: () => looped([lrow(1, 5, { team: "Ouroboros" })]),
+  });
+  let now = NOW;
+  const p = await buildPulse({ fetch: f, now, cache });
+  assert.deepEqual(p.joined.people.map((j) => j.who), ["@ryan-thompson", "Ouroboros", "@ada"]);
+  assert.deepEqual([p.joined.last24h, p.joined.partial], [3, false]);
+  assert.deepEqual(p.joined.by, [{ source: "pequalnp-people", name: "P = NP?", count: 2 }, { source: "looped-lens", name: "The Looped Lens Challenge", count: 1 }]);
+  now += 61_000;
+  await buildPulse({ fetch: f, now, cache });
+  assert.equal(count(`${PNP_DATA}/data/contributors.`), 1, "the same content-addressed name is not read again");
+  name = "data/contributors.bbbbbbbbbbbb.json";
+  now += 61_000;
+  await buildPulse({ fetch: f, now, cache });
+  assert.equal(count(`${PNP_DATA}/data/contributors.`), 2, "a new name is read");
+  const md = pulseMarkdown(await buildPulse({ fetch: f, now: now + 1, cache }), "https://openchallengelist.com");
+  assert.match(md, /Joined in the last 24 hours: 3 people made their first entry \(P = NP\? 2, The Looped Lens Challenge 1\)\. Newest:\n- \d{4}-\d{2}-\d{2} \d{2}:\d{2} UTC · @ryan-thompson · P = NP\? · first proof: L-meta-19064 — https:\/\/pequalnp\.com\/a\/ryan-thompson/);
 });

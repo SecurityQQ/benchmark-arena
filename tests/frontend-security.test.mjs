@@ -232,6 +232,39 @@ test("pulse: board text stays data, links go only to the live sources and our bo
   assert.equal(h.context.pwned, undefined);
 });
 
+test("just joined: names stay data, a face only for a GitHub login, links only to the boards' pages, each board's newest kept in view", () => {
+  const h = harness();
+  loadFixture(h);
+  h.run("renderHome()");
+  const now = Date.now(), at = (m) => new Date(now - m * 60000).toISOString();
+  const filler = Array.from({ length: 30 }, (_, i) => ({ id: `f${i}`, who: `Team ${i}`, at: at(10 + i), source: "pequalnp-people", board: "b", boardName: "P = NP?", url: "https://pequalnp.com/" }));
+  h.context.pulse = {
+    at: at(0), sources: [], agentsNow: null, events: [], activity: null,
+    joined: { lastHour: 2, last24h: 290, partial: true, by: [{ name: payload, count: 3 }], people: [
+      { id: "a", who: payload, login: payload, at: at(1), source: "pequalnp-people", board: "b", boardName: payload, first: payload, url: "javascript:alert(1)" },
+      { id: "b", who: "@ada", login: "ada", at: at(2), source: "pequalnp-people", board: "b", boardName: "P = NP?", url: "https://pequalnp.com/a/ada" },
+      ...filler,
+      { id: "z", who: "Arnav Raj", at: at(500), source: "looped-lens", board: "l", boardName: "Looped Lens", url: "https://ndif-looped-lens-challenge.hf.space/" },
+    ] },
+  };
+  h.run("PULSE.data = pulse; paintJoiners(pulse)");
+  const box = h.elements.get("joiners"), html = box.innerHTML;
+  assert.equal(box.hidden, false);
+  assert.ok(!html.includes("<x-security-probe") && !/href="(?:javascript|data):/.test(html));
+  const hrefs = [...html.matchAll(/class="jn-chip[^"]*"[^>]*href="([^"]*)"/g)].map((m) => decode(m[1]));
+  assert.equal(hrefs.length, 24);
+  assert.deepEqual([hrefs[0], hrefs[1], hrefs.at(-1)], ["/c/b", "https://pequalnp.com/a/ada", "https://ndif-looped-lens-challenge.hf.space/"], "the oldest board's newest joiner stays in view, last");
+  assert.deepEqual([...html.matchAll(/<img[^>]*src="([^"]*)"/g)].map((m) => m[1]), ["https://github.com/ada.png?size=48"]);
+  assert.match(html, /<span class="jn-face jn-mono" style="--c:#[0-9A-F]{6}" aria-hidden="true">AR<\/span>/);
+  assert.match(html, /<b>290\+<\/b> people made their first entry in the last 24 h/);
+  const again = box.innerHTML;
+  h.run("paintJoiners(pulse)");
+  assert.equal(box.innerHTML, again, "the same people: the strip is not drawn again");
+  h.run("PULSE.data = null; paintPulse()");
+  assert.ok(box.hidden);
+  assert.equal(h.context.pwned, undefined);
+});
+
 test("static and dynamic sources contain no executable inline handlers or code compilation", () => {
   assert.doesNotMatch(source, inlineHandler);
   assert.doesNotMatch(index, inlineHandler);
