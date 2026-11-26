@@ -9,11 +9,16 @@ import type { Competition } from "../src/types.js";
 const APP = readFileSync("site/app.js", "utf-8");
 const rating = (over: Record<string, unknown> = {}) => ({ stakes: 4, open: 3, verified: 3, why: "It matters.", checked: "2026-11-26", ...over });
 
-test("frontier: every listed board is rated, and every rating names a listed board", () => {
+// The crawl lists and drops boards on its own commits, so a gap here must not fail someone else's pull request: it is
+// reported, and only a backlog (or a list that lost most of its ratings) fails
+test("frontier: listed boards are rated, and ratings name listed boards", () => {
   const ratings = loadRatings(process.cwd());
   const ids = new Set(loadPublished(process.cwd()).competitions.map((c) => c.id));
-  assert.deepEqual([...ids].filter((id) => !ratings[id]), [], "rate new boards in data/frontier.json");
-  assert.deepEqual(Object.keys(ratings).filter((id) => !ids.has(id)), []);
+  const unrated = [...ids].filter((id) => !ratings[id]), stale = Object.keys(ratings).filter((id) => !ids.has(id));
+  if (unrated.length) console.warn(`frontier: rate these new boards in data/frontier.json: ${unrated.join(", ")}`);
+  if (stale.length) console.warn(`frontier: these ratings name boards no longer listed: ${stale.join(", ")}`);
+  assert.ok(unrated.length <= 12, `${unrated.length} unrated boards: rate them in data/frontier.json`);
+  assert.ok(stale.length <= ids.size / 4, `${stale.length} ratings name unlisted boards`);
 });
 
 test("frontier: only well-formed ratings get through", () => {

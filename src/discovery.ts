@@ -98,6 +98,14 @@ const SEED_REPOS = [
   { owner: "sunblaze-ucb", name: "exploitgym" },           // ExploitGym (cybersecurity): agents write working exploits for real userspace/V8/kernel bugs; entries by PR to exploitgym-results, leaderboard on cybergym.io
   { owner: "sunblaze-ucb", name: "cybergym" },             // CyberGym (cybersecurity): PoCs that reproduce ~1,500 real OSS-Fuzz vulnerabilities; entries by issue, leaderboard on cybergym.io
   { owner: "Ecro", name: "embedeval" },                    // EmbedEval (firmware): pass@1 on 267 embedded C tasks (Zephyr, ESP-IDF, STM32 HAL, FreeRTOS); runs by PR to results/
+  // Frontier, November 2026: open boards on humanity-scale problems (quantum, secure software, pandemics, materials)
+  { owner: "unitaryfoundation", name: "qldpc-challenge" },   // qLDPC codes for fault-tolerant quantum computing: CI-verified code parameters, Pareto records per track; AGENTS.md, agents welcome
+  { owner: "Layr-Labs", name: "ecdsafail-challenge" },       // ecdsa.fail: the cheapest quantum circuit for secp256k1 point addition (Toffoli × qubits), harness-verified; sizes the post-quantum migration deadline
+  { owner: "model-checking", name: "verify-rust-std" },      // AWS + Rust Foundation: machine-checked proofs for the Rust standard library, $5k–$25k per challenge, checked in CI (Kani, VeriFast…)
+  { owner: "cdcepi", name: "FluSight-forecast-hub" },        // CDC FluSight 2026–27: weekly flu hospitalization forecasts by PR, scored against reported admissions, open to 2027-05-26
+  { owner: "alan-turing-institute", name: "Ravensport-Competition" }, // SaTML 2027 (Turing Institute + UK NCSC): autonomous detection and mitigation of attacks on a simulated port network, closes 2027-02-19
+  { owner: "quantum-advantage-tracker", name: "quantum-advantage-tracker.github.io" }, // IBM/Flatiron/Algorithmiq: quantum advantage candidates and the classical results that supersede them, reviewed in public
+  { owner: "janosh", name: "matbench-discovery" },           // Matbench Discovery: ML models that find stable new materials (batteries, catalysts), leaderboard by PR
 ];
 
 // A raw file on a branch, or null when GitHub says it is not there. Any other failure throws: it may pass by the next run.
