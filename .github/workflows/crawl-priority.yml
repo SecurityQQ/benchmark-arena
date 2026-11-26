@@ -43,3 +43,12 @@ jobs:
           git commit -m "data: priority crawl $(date -u +%Y-%m-%dT%H:%MZ)"
           # a merge to master during the crawl must not lose its results
           for i in 1 2 3; do git push && exit 0; git pull --rebase origin "$GITHUB_REF_NAME" || exit 1; done; exit 1
+
+      # The data files into Supabase (src/db.ts), read back and compared. Does nothing until the SUPABASE_DB_URL secret is set; a
+      # failure never holds up the crawl, which is already pushed.
+      - name: Mirror data to Supabase
+        continue-on-error: true
+        timeout-minutes: 5
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+        run: npx tsx scripts/db.ts sync priority
