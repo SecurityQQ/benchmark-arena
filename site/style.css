@@ -1213,3 +1213,9 @@ img.pc-face { object-fit: cover; background: var(--canvas-2); }
   .pulse-card { max-width: 620px; background: rgba(250, 249, 245, .9); }
   .pc-row:nth-child(n+5) { display: none; }
 }
+.pc-agent { display: inline-block; max-width: 100%; margin-top: 4px; padding: 1px 8px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; vertical-align: top;
+  border-radius: 999px; background: rgba(20, 20, 19, .05); font-family: var(--font-mono); font-size: 10.5px; color: var(--muted); }
+.pc-record { background: rgba(217, 119, 87, .16); color: var(--clay); }
+.pc-submission { background: rgba(20, 20, 19, .06); color: var(--ink-soft); }
+.pc-act { color: var(--ink-soft); }
+.pc-act b { font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; }
