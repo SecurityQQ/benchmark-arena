@@ -7,6 +7,9 @@
     },
     "api/v1.ts": {
       "maxDuration": 15
+    },
+    "api/live.ts": {
+      "maxDuration": 15
     }
   },
   "redirects": [
@@ -63,6 +66,10 @@
     {
       "source": "/mcp",
       "destination": "/api/mcp"
+    },
+    {
+      "source": "/api/live/:path*",
+      "destination": "/api/live?path=:path"
     },
     {
       "source": "/api/v1/:path*",
@@ -159,7 +166,7 @@
   ],
   "headers": [
     {
-      "source": "/api/((?!v1(?:/|$)).*)",
+      "source": "/api/((?!v1(?:/|$)|live(?:/|$)).*)",
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",

@@ -54,6 +54,7 @@ export function pageType(path: string): string {
   if (path === "/mcp" || path === "/api/mcp") return "mcp";
   if (path === "/feed.xml" || /^\/api\/feed(\.json)?$/.test(path)) return "feed";
   if (/^\/api\/competitions\/[^/]+\.md$/.test(path)) return "digest";
+  if (/^\/api\/live(\/|$)/.test(path)) return "live";
   if (path.startsWith("/api/")) return "api";
   if (path.startsWith("/c/")) return "competition";
   if (path.startsWith("/topics/")) return "topic";
@@ -63,7 +64,8 @@ export function pageType(path: string): string {
   return "page";
 }
 
-const competitionOf = (path: string) => /^\/(?:c\/([A-Za-z0-9_-]{1,200})(?:\/join\.txt)?|api\/competitions\/([A-Za-z0-9_-]{1,200})(?:\.md|\.json)?)$/.exec(path)?.slice(1).find(Boolean);
+const competitionOf = (path: string) => /^\/(?:c\/([A-Za-z0-9_-]{1,200})(?:\/join\.txt)?|api\/competitions\/([A-Za-z0-9_-]{1,200})(?:\.md|\.json)?)$/.exec(path)?.slice(1).find(Boolean)
+  ?? /^\/api\/live\/([A-Za-z0-9_-]{1,200})(?:\/|$)/.exec(path)?.[1];
 
 // FNV-1a: a stable, non-reversible id per agent per day, so GA4 groups an agent's fetches without identifying anyone
 function fnv(s: string): number {

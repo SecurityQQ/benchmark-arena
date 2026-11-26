@@ -27,10 +27,22 @@ export function databaseUrl(env: NodeJS.ProcessEnv = process.env): string | unde
   return env.SUPABASE_DB_URL || env.POSTGRES_URL || undefined;
 }
 
-export function connect(url: string): Sql {
+// The crawler's scripts take the defaults; the live function (api/live.ts) answers requests, so it waits less and lets no
+// statement run long
+export interface ConnectOptions { max?: number; connectTimeout?: number; statementTimeoutMs?: number; application?: string }
+
+export function connect(url: string, o: ConnectOptions = {}): Sql {
   const local = /@(localhost|127\.0\.0\.1|\[::1\])[:/]/.test(url);
   // prepare: false works through Supabase's pooler in either mode (transaction mode has no prepared statements)
-  return postgres(url, { prepare: false, max: 1, idle_timeout: 5, connect_timeout: 15, onnotice: () => {}, ssl: local ? false : "require" });
+  return postgres(url, {
+    prepare: false, max: o.max ?? 1, idle_timeout: 5, connect_timeout: o.connectTimeout ?? 15, onnotice: () => {}, ssl: local ? false : "require",
+    ...(o.statementTimeoutMs || o.application ? { connection: { ...(o.statementTimeoutMs ? { statement_timeout: o.statementTimeoutMs } : {}), ...(o.application ? { application_name: o.application } : {}) } } : {}),
+  });
+}
+
+/** The live board's connection: LIVE_DB_URL (the ocl_live role, db/migrations/0003), else the crawler's own */
+export function liveDatabaseUrl(env: NodeJS.ProcessEnv = process.env): string | undefined {
+  return env.LIVE_DB_URL || databaseUrl(env);
 }
 
 // ─── Files ⇄ rows ───────────────────────────────────────────────────────

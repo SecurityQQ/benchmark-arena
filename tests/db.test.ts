@@ -4,6 +4,7 @@ import { cpSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { compare, competitionRows, competitionsFromRows, connect, firstDifference, load, migrate, push, readDataFiles, recordId, writeDataFiles } from "../src/db.js";
+import { pgSessions, TTL_MS, MAX_ACTIVE_PER_IP } from "../src/sessions.js";
 import type { Competition } from "../src/types.js";
 import { createAccountsHandler, gistDescription } from "../src/accounts.js";
 import { connectAccounts, pgStore } from "../src/accountsDb.js";
@@ -74,7 +75,7 @@ test("push and load round-trip the saved data through Postgres", { skip: !local 
   const sql = connect(DB!);
   try {
     await sql.unsafe("drop schema if exists ocl cascade");
-    assert.deepEqual(await migrate(sql), ["0001_init.sql", "0002_accounts.sql"]);
+    assert.deepEqual(await migrate(sql), ["0001_init.sql", "0002_accounts.sql", "0003_live_sessions.sql"]);
     assert.deepEqual(await migrate(sql), []);
     assert.equal(await load(sql), null);
     await sql`set extra_float_digits = 0`;   // as on Supabase (max: 1, so this session is every query's)
@@ -158,6 +159,53 @@ test("accounts: a claim, a key and a report through Postgres", { skip: !local &&
     assert.equal((await call("DELETE", "/agents/me", undefined, second.agentKey)).status, 200);
     assert.equal((await call("GET", "/agents/me", undefined, second.agentKey)).status, 401);
     assert.equal((await call("GET", "/agents")).body.agents.length, 0);
+  } finally {
+    await sql.end({ timeout: 5 });
+  }
+});
+
+// After the round trip above (same file, so never at the same time as it): the live board's check-ins in ocl.live_session
+test("check-ins in Postgres: start, renew, end, limits, and the ocl_live role reaches only its table", { skip: !local && "TEST_DATABASE_URL (localhost) not set" }, async () => {
+  const sql = connect(DB!);
+  try {
+    await migrate(sql);
+    await sql`delete from ocl.live_session`;
+    const store = pgSessions(sql);
+    const T0 = Date.parse("2026-11-26T07:00:00Z");
+    const s = { competitionId: "board", status: "working" as const, agent: { family: "anthropic" as const, model: "Claude Opus 5.5", tool: "Claude Code" }, ipHash: "ip1" };
+    const a = await store.start({ ...s, subtask: "t-big", handle: "ann" }, T0);
+    assert.ok("token" in a, "started");
+    if (!("token" in a)) return;
+    const [row] = await sql`select token_hash, ip_hash, handle from ocl.live_session where id = ${a.id}`;
+    assert.deepEqual([row.token_hash.length, row.ip_hash, row.handle], [64, "ip1", "ann"]);
+    assert.notEqual(row.token_hash, a.token);
+    assert.deepEqual((await store.active(T0 + 1000, "board")).map((x) => [x.id, x.subtask, x.agent.tool, x.handle]), [[a.id, "t-big", "Claude Code", "ann"]]);
+    assert.deepEqual(await store.active(T0 + TTL_MS + 1), []);
+    assert.equal(await store.update("board", a.id, "t_wrong", {}, T0 + 60_000), null);
+    const u = await store.update("board", a.id, a.token, { status: "submitted", subtask: null, submission: "https://github.com/o/board/pull/1" }, T0 + 60_000);
+    assert.deepEqual([u?.status, u?.subtask, u?.submission, u?.submittedAt, u?.lastSeenAt], ["submitted", undefined, "https://github.com/o/board/pull/1", "2026-11-26T07:01:00.000Z", "2026-11-26T07:01:00.000Z"]);
+    const kept = await store.update("board", a.id, a.token, { status: "working" }, T0 + 120_000);
+    assert.equal(kept?.submittedAt, "2026-11-26T07:01:00.000Z", "the first entry's time stays");
+    const e = await store.end("board", a.id, a.token, "accepted", T0 + 180_000);
+    assert.deepEqual([e?.outcome, e?.endedAt], ["accepted", "2026-11-26T07:03:00.000Z"]);
+    assert.equal(await store.end("board", a.id, a.token, "done", T0 + 200_000), null);
+    assert.equal((await store.recent(T0 + 300_000, "board", 86_400_000)).length, 1);
+    for (let i = 0; i < MAX_ACTIVE_PER_IP; i++) assert.ok("token" in (await store.start(s, T0 + i)), `session ${i}`);
+    assert.ok("limited" in (await store.start(s, T0 + 10)), "the sixth open session from one address");
+    assert.ok("token" in (await store.start({ ...s, ipHash: "ip2" }, T0 + 10)), "another address");
+    await store.start({ ...s, ipHash: "ip3" }, T0 + 31 * 86_400_000);
+    assert.equal((await sql`select count(*)::int as n from ocl.live_session`)[0].n, 1, "rows older than 30 days go as new sessions start");
+
+    // ocl_live, once it can log in, sees this table and nothing else in the schema
+    await sql`alter role ocl_live login password 'test-only'`;
+    const live = connect(DB!.replace(/\/\/[^@]*@/, "//ocl_live:test-only@"));
+    try {
+      assert.equal((await live`select count(*)::int as n from ocl.live_session`)[0].n, 1);
+      await assert.rejects(live`select count(*) from ocl.competition`, /permission denied/);
+    } finally {
+      await live.end({ timeout: 5 });
+      await sql`alter role ocl_live nologin password null`;
+    }
   } finally {
     await sql.end({ timeout: 5 });
   }

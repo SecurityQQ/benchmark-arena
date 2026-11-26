@@ -8,6 +8,7 @@ import { SITE, challengeJoinLine, competitionToMarkdown, feedJson, joinTxt, llms
 import { boardJoinTxt } from "../src/boardJoin.js";
 import { INSTRUCTIONS, MAX_BODY, MCP_VERSION, PROTOCOL_VERSIONS, createMcpHandler, schemaErrors, toolList, type McpOptions } from "../src/mcp.js";
 import type { Competition, CompetitionStatus, ComputeTier, Problem, RecordEntry } from "../src/types.js";
+import { assembleLive, liveBase, liveRow } from "../src/live.js";
 
 type CompOpts = Partial<{ name: string; tags: string[]; domain: string; compute: ComputeTier; status: CompetitionStatus; d30: number; d90: number; open: number; records: RecordEntry[] }>;
 function comp(id: string, o: CompOpts = {}): Competition {
@@ -44,6 +45,15 @@ const FILES = new Map<string, string>([
   ...COMPS.map((c): [string, string] => [`/c/${c.id}/join.txt`, boardJoinTxt(c, DATA.crawledAt)]),
   ...COMPS.map((c): [string, string] => [`/api/competitions/${c.id}.md`, competitionToMarkdown(c)]),
 ]);
+
+// The live board as /api/live and /api/live/{id} answer: one agent checked in on lean-open's main track
+const LIVE_AT = Date.parse("2026-11-25T08:00:00Z");
+const LIVE_BASE = liveBase(DATA);
+const SESSION = { id: "s_1", competitionId: "lean-open", subtask: "main", status: "working" as const, agent: { family: "anthropic" as const, tool: "Claude Code" }, startedAt: "2026-11-25T07:50:00.000Z", lastSeenAt: "2026-11-25T07:58:00.000Z" };
+const liveOf = (id: string) => assembleLive(LIVE_BASE.challenges.find((c) => c.id === id)!, { now: LIVE_AT, origin: SITE, sources: [],
+  sessions: [SESSION], recentSessions: [SESSION] });
+FILES.set("/api/live", JSON.stringify({ generatedAt: new Date(LIVE_AT).toISOString(), agentsNow: 1, challenges: [liveRow(liveOf("lean-open"), LIVE_BASE.challenges[1])], sources: [] }));
+FILES.set("/api/live/lean-open", JSON.stringify(liveOf("lean-open")));
 
 // The site's static files behind an injected fetch: no network, and every request is recorded
 function site(opts: McpOptions = {}, files = FILES) {
@@ -154,14 +164,14 @@ test("protocol errors: malformed JSON, batches, invalid messages, unknown method
     body: new ReadableStream({ start(c) { c.enqueue(new Uint8Array(MAX_BODY).fill(32)); c.enqueue(new Uint8Array(10).fill(32)); c.close(); } }) } as RequestInit);
   await error(await handle(chunked), 413, -32600);
   await error(await post(handle, { jsonrpc: "2.0", id: 1, method: "tools/list" }, { "mcp-protocol-version": "2000-01-01" }), 400, -32600);
-  assert.equal((await rpc(handle, "tools/list", undefined, { "mcp-protocol-version": "2025-06-18" })).result.tools.length, 4);
+  assert.equal((await rpc(handle, "tools/list", undefined, { "mcp-protocol-version": "2025-06-18" })).result.tools.length, 5);
   assert.equal((await rpc(handle, "initialize", { protocolVersion: "2025-11-25" }, { "mcp-protocol-version": "2000-01-01" })).result.protocolVersion, "2025-11-25");
   assert.equal(calls.length, 0);
 });
 
-test("tools/list: four read-only tools with titles and JSON Schemas", async () => {
+test("tools/list: five read-only tools with titles and JSON Schemas", async () => {
   const { result } = await rpc(site().handle, "tools/list");
-  assert.deepEqual(result.tools.map((t: any) => t.name), ["find_challenges", "get_challenge", "happening_now", "how_to_join"]);
+  assert.deepEqual(result.tools.map((t: any) => t.name), ["find_challenges", "get_challenge", "happening_now", "live_status", "how_to_join"]);
   for (const t of result.tools) {
     assert.ok(t.title && t.description.length > 60, t.name);
     assert.equal(t.inputSchema.type, "object");
@@ -297,6 +307,38 @@ test("happening_now lists the latest entries from the feed; how_to_join is join.
   assert.equal(missing.isError, true);
   assert.match(missing.content[0].text, /No challenge has the id "busy"\. Close matches: busy-gpu \(NanoGPT Speedrun\)/);
   assert.equal((await call(handle, "how_to_join", { id: "../etc" })).isError, true);
+});
+
+test("live_status: every challenge busiest first, or one challenge's subtasks with their status, read fresh", async () => {
+  let clock = 0;
+  const { handle, calls } = site({ ttlMs: 60_000, now: () => clock });
+  const all = await call(handle, "live_status");
+  assert.equal(all.isError, undefined);
+  assert.deepEqual(schemaErrors(outputSchema("live_status"), all.structuredContent, "structuredContent"), []);
+  assert.match(all.content[0].text, /^Live board as of 2026-11-25T08:00:00\.000Z: 1 agent on 1 challenge that have not ended, busiest first\./);
+  assert.match(all.content[0].text, /\n1\. Lean Proofs \(id: lean-open\): 1 agent now \(seen here\) · 1 in progress, 1 open · 1 attempt in flight/);
+  assert.deepEqual(all.structuredContent.challenges, [{ id: "lean-open", name: "Lean Proofs", agentsNow: 1, basis: "observed", subtasks: 2, attemptsInFlight: 1, live: `${SITE}/api/live/lean-open` }]);
+
+  const one = await call(handle, "live_status", { id: "LEAN-OPEN", limit: 1 });
+  assert.deepEqual(schemaErrors(outputSchema("live_status"), one.structuredContent, "structuredContent"), []);
+  assert.deepEqual(one.structuredContent.subtasks, [{ id: "main", name: "Main", status: "in_progress", agentsNow: 1, why: "1 agent checked in; has entries; it still takes them" }]);
+  assert.match(one.content[0].text, /^Lean Proofs \(id: lean-open\), live as of 2026-11-25T08:00:00\.000Z\n1 agent now \(seen here\)\. Agents that checked in here in the last 30 minutes/);
+  assert.match(one.content[0].text, /\n1\. \[in progress\] Main \(main\): 1 agent checked in/);
+  assert.match(one.content[0].text, /- 07:50 UTC Claude Code checked in on Main/);
+  assert.match(one.content[0].text, /POST https:\/\/openchallengelist\.com\/api\/live\/lean-open\/sessions/);
+  const missing = await call(handle, "live_status", { id: "nope" });
+  assert.equal(missing.isError, true);
+  assert.match(missing.content[0].text, /^No challenge has the id "nope"\./);
+  assert.equal((await call(handle, "live_status", { id: "lean-open", limit: 0 })).isError, true);
+
+  // the live board is read again after 20 seconds, the index after the usual TTL
+  const reads = (path: string) => calls.filter((c) => c.url === `${ORIGIN}${path}`).length;
+  clock = 19_000;
+  await call(handle, "live_status", { id: "lean-open" });
+  assert.deepEqual([reads("/api/live/lean-open"), reads("/api/index.json")], [1, 1]);
+  clock = 21_000;
+  await call(handle, "live_status", { id: "lean-open" });
+  assert.deepEqual([reads("/api/live/lean-open"), reads("/api/index.json")], [2, 1]);
 });
 
 test("the site's files are cached for a few minutes, read as the MCP server, and a stale copy outlives an outage", async () => {
