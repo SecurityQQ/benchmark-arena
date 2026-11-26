@@ -420,6 +420,27 @@
       "verified": 2,
       "why": "Rank ML models that screen for stable new materials, the first step toward better batteries and catalysts.",
       "checked": "2026-11-26"
+    },
+    "proximafusion-constellaration-f56ac3da72a27be6": {
+      "stakes": 3,
+      "open": 2,
+      "verified": 3,
+      "why": "Design stellarator plasma shapes that are simpler to build and stable, a bottleneck on the road to fusion power; the physics code re-scores every entry.",
+      "checked": "2026-11-26"
+    },
+    "saircompetition-lean-kernel-challenge-d09e1d4be0a1fb34": {
+      "stakes": 2,
+      "open": 0,
+      "verified": 3,
+      "why": "Stage 1 closed November 20, 2026; Stage 2 of this verified-computation race in the Lean kernel begins in December.",
+      "checked": "2026-11-26"
+    },
+    "ai-sec-lab-patchbench-c7930aa755d0d303": {
+      "stakes": 3,
+      "open": 1,
+      "verified": 2,
+      "why": "How well AI agents patch real vulnerabilities, scored on security and on not breaking the code.",
+      "checked": "2026-11-26"
     }
   }
 }

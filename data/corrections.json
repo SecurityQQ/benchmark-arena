@@ -52,6 +52,13 @@
       "deadline": "2026-27 season: weekly forecasts from October 7, 2026 through May 2027 (dates may shift with flu activity)",
       "source": "https://github.com/cdcepi/FluSight-forecast-hub#readme",
       "checked": "2026-11-26"
+    },
+    {
+      "id": "saircompetition-lean-kernel-challenge-d09e1d4be0a1fb34",
+      "status": "ended",
+      "deadline": "Stage 1 closed November 20, 2026, 23:59 AoE; Stage 2 begins December 2026, date to be announced",
+      "source": "https://github.com/SAIRcompetition/lean-kernel-challenge/blob/main/rules/overview.md",
+      "checked": "2026-11-26"
     }
   ]
 }
