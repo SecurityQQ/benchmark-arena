@@ -17,7 +17,7 @@ runs:
       shell: bash
       run: |
         python3 -m venv "$RUNNER_TEMP/ocl-kaggle-venv"
-        "$RUNNER_TEMP/ocl-kaggle-venv/bin/pip" install --disable-pip-version-check kaggle==2.2.5
+        "$RUNNER_TEMP/ocl-kaggle-venv/bin/pip" install --disable-pip-version-check kaggle==2.2.5 six==1.17.0
     - if: inputs.token != '' || (inputs.username != '' && inputs.key != '')
       shell: bash
       env:
