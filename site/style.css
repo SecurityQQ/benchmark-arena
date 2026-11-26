@@ -1313,3 +1313,17 @@ img.pc-face { object-fit: cover; background: var(--canvas-2); }
   .bl-stat b { font-size: 28px; }
 }
 .bl-card .pc-meta .pc-src { visibility: hidden; } /* the board is this page's own */
+
+/* ── Since your last visit (sinceBand) ── */
+.since-band { padding-top: 0; }
+.since-card { padding: 16px 20px; border: 1px solid var(--line); border-left: 3px solid var(--kraft); border-radius: 12px; background: rgba(255, 254, 251, .85); }
+.ah-joiners + .since-card, .since-card + * { margin-top: 0; }
+.ah-intro ~ .since-card { margin-bottom: 22px; }
+.since-head { display: flex; align-items: baseline; gap: 12px; }
+.since-head .eyebrow { margin: 0; color: var(--ink); }
+.since-when { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+.since-list { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 6px; font-size: 14.5px; color: var(--ink-soft); }
+.since-list b { font-family: var(--font-serif); font-size: 18px; font-weight: 500; color: var(--ink); margin-right: 4px; font-variant-numeric: tabular-nums; }
+.since-list a { color: var(--ink); }
+.since-n { font-family: var(--font-mono); font-size: 12px; color: var(--olive); }
+.since-none { margin: 8px 0 0; font-size: 14px; color: var(--muted); }

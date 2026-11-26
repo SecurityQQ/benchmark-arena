@@ -603,6 +603,7 @@ function renderAppHome() {
       ${(() => { const k = state.domain && ART_BY_DOMAIN[state.domain] ? ART_BY_DOMAIN[state.domain][0] : state.compute && ART_BY_COMPUTE[state.compute] ? ART_BY_COMPUTE[state.compute] : state.open ? "datacenter" : null; if (!k) return ""; const label = state.domain ? DOMAIN[state.domain] || state.domain : state.compute ? COMPUTE[state.compute] : "Open problems"; return `<div class="ah-art">${artBg(k)}<div class="ah-art-cap"><span class="eyebrow">${state.domain ? "Domain" : state.compute ? "Compute" : "Unclaimed"}</span><div class="t">${esc(label)}</div><div class="q">${ART[k].caption}</div></div></div>`; })()}
       <div class="ah-intro hero-pills"><div class="pulse-pill" id="pulse-pill" hidden></div>${introPill()}</div>
       <div class="joiners ah-joiners" id="joiners" hidden></div>
+      ${sinceBand(false, true)}
       <div class="ah-head">
         <div><h1>${state.open ? "Open problems" : state.domain ? esc(DOMAIN[state.domain] || state.domain) : state.sort === "recent" ? "Recent" : "Competitions"}</h1><p>Open benchmark competitions on GitHub with public leaderboards. Pick one, point your agent at the repository, get on the board.</p></div>
         <div class="dim small mono" id="grid-count"></div>
@@ -985,6 +986,72 @@ function startPulse() {
   document.addEventListener("visibilitychange", () => { if (!document.hidden) readPulse(); });
 }
 
+// ── Since your last visit (pequalnp.com's return card): what the boards' records gained while you were away ──
+// A small snapshot in this browser (localStorage; never sent anywhere): each board's entry count and each track's current best.
+// A visit starts after 30 minutes away: the snapshot of the last visit becomes the one this card compares with, so reloading
+// or moving around the site does not reset it. The records refresh every few hours, so a short absence can show nothing new.
+const SEEN_KEY = "ocl_seen", SEEN_GAP = 30 * 60000;
+function seenSnapshot() {
+  const boards = {}, bests = {};
+  for (const c of D.competitions) {
+    boards[c.id] = Number(c.stats && c.stats.totalRecords) || 0;
+    bests[c.id] = {};
+    for (const p of c.problems || []) {
+      const b = (p.records || []).find((r) => r.isCurrentBest && !r.isBaseline);
+      if (b) bests[c.id][p.id] = `${String(b.contributor || "").slice(0, 60)}|${b.value}`;
+    }
+  }
+  return { v: 2, at: new Date().toISOString(), boards, bests };
+}
+function sinceLastVisit() {
+  if (!D || !Array.isArray(D.competitions)) return null;
+  let store = null;
+  try { store = JSON.parse(localStorage.getItem(SEEN_KEY) || "null"); } catch { store = null; }
+  const now = seenSnapshot(), cur = store && store.cur && store.cur.v === 2 ? store.cur : null;
+  let prev = store && store.prev && store.prev.v === 2 ? store.prev : null;
+  if (cur && !(Date.now() - Date.parse(cur.at) < SEEN_GAP)) prev = cur; // away 30 minutes or more: a new visit
+  try { localStorage.setItem(SEEN_KEY, JSON.stringify({ prev, cur: now })); } catch { /* private window, storage off: no card */ }
+  if (!prev || typeof prev.boards !== "object" || typeof prev.bests !== "object") return null;
+  const comps = new Map(D.competitions.map((c) => [c.id, c]));
+  const added = Object.keys(now.boards).filter((id) => !Object.hasOwn(prev.boards, id)).map((id) => comps.get(id)).filter(Boolean);
+  const grew = Object.keys(now.boards).filter((id) => Object.hasOwn(prev.boards, id)).map((id) => ({ c: comps.get(id), n: now.boards[id] - (Number(prev.boards[id]) || 0) }))
+    .filter((x) => x.c && x.n > 0).sort((a, b) => b.n - a.n);
+  const track = (id, pid) => {
+    const c = comps.get(id), p = c && c.problems.find((x) => x.id === pid), r = p && p.records.find((x) => x.isCurrentBest && !x.isBaseline);
+    return c && p && r ? { c, p, r } : null;
+  };
+  const fell = [], firsts = [];
+  for (const [id, tracks] of Object.entries(now.bests)) {
+    if (!Object.hasOwn(prev.boards, id)) continue; // a board new since then is said once, as listed
+    const was = prev.bests[id] && typeof prev.bests[id] === "object" ? prev.bests[id] : {};
+    for (const [pid, v] of Object.entries(tracks)) {
+      const t = Object.hasOwn(was, pid) ? (was[pid] !== v ? track(id, pid) : null) : track(id, pid);
+      if (t) (Object.hasOwn(was, pid) ? fell : firsts).push(t);
+    }
+  }
+  return { at: prev.at, added, grew, fell, firsts };
+}
+function sinceBand(withLive, bare) {
+  let d;
+  try { d = sinceLastVisit(); } catch { d = null; }
+  if (!d) return "";
+  const boardLink = (c) => `<a href="/c/${pathPart(c.id)}" data-action="nav">${esc(c.name)}</a>`;
+  const best = (x) => `<a href="/c/${pathPart(x.c.id)}" data-action="nav">${esc(x.c.name)} / ${esc(x.p.name)}</a> — ${esc(x.r.contributor || "someone")}, <span class="mono">${esc(fmt(x.r.value))}${esc(unitOf(x.p))}</span>`;
+  const entries = d.grew.reduce((s, x) => s + x.n, 0);
+  const lines = [
+    entries ? `<li><b>${esc(fmt(entries))}</b> new ${entries === 1 ? "entry" : "entries"} on ${esc(fmt(d.grew.length))} ${d.grew.length === 1 ? "board" : "boards"}: ${d.grew.slice(0, 4).map((x) => `${boardLink(x.c)} <span class="since-n">+${esc(fmt(x.n))}</span>`).join(" · ")}${d.grew.length > 4 ? ` · ${esc(fmt(d.grew.length - 4))} more` : ""}</li>` : "",
+    d.fell.length ? `<li><b>${esc(fmt(d.fell.length))}</b> ${d.fell.length === 1 ? "record fell" : "records fell"}: ${d.fell.slice(0, 3).map(best).join("; ")}${d.fell.length > 3 ? `; ${esc(fmt(d.fell.length - 3))} more` : ""}</li>` : "",
+    d.firsts.length ? `<li><b>${esc(fmt(d.firsts.length))}</b> ${d.firsts.length === 1 ? "track got its first entry" : "tracks got their first entry"}: ${d.firsts.slice(0, 3).map(best).join("; ")}${d.firsts.length > 3 ? `; ${esc(fmt(d.firsts.length - 3))} more` : ""}</li>` : "",
+    d.added.length ? `<li><b>${esc(fmt(d.added.length))}</b> new ${d.added.length === 1 ? "challenge" : "challenges"} listed: ${d.added.slice(0, 4).map(boardLink).join(", ")}${d.added.length > 4 ? `, ${esc(fmt(d.added.length - 4))} more` : ""}</li>` : "",
+  ].filter(Boolean);
+  const card = `<div class="since-card" id="since">
+    <div class="since-head"><span class="eyebrow">Since your last visit</span><span class="since-when">${timeAgo(d.at)}</span></div>
+    ${lines.length ? `<ul class="since-list">${lines.join("")}</ul>`
+      : `<p class="since-none">Nothing new in the boards' records since then: they refresh every few hours.${withLive ? " The live numbers above move by the minute." : ""}</p>`}
+  </div>`;
+  return bare ? card : `<section class="band tight since-band"><div class="wrap">${card}</div></section>`;
+}
+
 function renderHome() {
   document.title = "Open Challenge List — all open-source challenges in one place";
   const app = document.getElementById("app");
@@ -1025,6 +1092,7 @@ function renderHome() {
       </div>
     </div></section>
 
+    ${sinceBand(true)}
     <section class="band tight leaders-band" id="leaders" hidden></section>
     ${liveBand(comps)}
     ${discoveriesBand(5, true)}

@@ -331,6 +331,26 @@ test("live on a board's page: only this board's part of the pulse, every number 
   assert.equal(h.context.pwned, undefined);
 });
 
+test("since your last visit: a snapshot in this browser, compared after 30 minutes away; names stay data; no storage, no card", () => {
+  const h = harness();
+  loadFixture(h);
+  h.run("D.competitions[0].stats.totalRecords = 5; globalThis.store = {}; localStorage = { getItem: (k) => store[k] ?? null, setItem: (k, v) => { store[k] = String(v); } }");
+  assert.equal(h.run("sinceBand(true)"), "", "a first visit has no card");
+  assert.equal(h.run("sinceBand(true)"), "", "nor does a reload within the same visit");
+  // the last visit, 3 hours ago: no entries yet on the board, another best on its track
+  h.run("{ const s = JSON.parse(store.ocl_seen); s.cur.at = new Date(Date.now() - 3 * 3600e3).toISOString(); for (const id of Object.keys(s.cur.boards)) s.cur.boards[id] = 0; for (const id of Object.keys(s.cur.bests)) for (const k of Object.keys(s.cur.bests[id])) s.cur.bests[id][k] = 'other|9'; store.ocl_seen = JSON.stringify(s); }");
+  const html = h.run("sinceBand(true)");
+  assert.match(html, /<span class="eyebrow">Since your last visit<\/span><span class="since-when"><time datetime="[^"]+" data-at="[^"]+">3 h ago<\/time>/);
+  assert.match(html, /<b>5<\/b> new entries on 1 board: <a href="\/c\/[^"]+" data-action="nav">/);
+  assert.match(html, /<b>1<\/b> record fell: /);
+  assert.ok(!html.includes("<x-security-probe") && !/href="(?:javascript|data):/.test(html));
+  assert.equal(h.run("sinceBand(true)"), html, "the same visit keeps comparing with the last one");
+  assert.match(h.run("sinceBand(false, true)"), /^<div class="since-card" id="since">/, "bare for the app home");
+  h.run("localStorage = { getItem() { throw new Error('denied'); }, setItem() { throw new Error('denied'); } }");
+  assert.equal(h.run("sinceBand(true)"), "", "storage off: no card, no error");
+  assert.equal(h.context.pwned, undefined);
+});
+
 test("static and dynamic sources contain no executable inline handlers or code compilation", () => {
   assert.doesNotMatch(source, inlineHandler);
   assert.doesNotMatch(index, inlineHandler);
