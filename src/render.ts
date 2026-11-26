@@ -3,7 +3,7 @@ import { byImportance } from "./frontier.js";
 import type { Competition, CrawlResult } from "./types.js";
 import { aggregateAgents, aggregatePeople, openProblems, recentActivity, hotCompetitions, type ActivityItem } from "./aggregate.js";
 import { TOPICS } from "./topics.js";
-import { CHALLENGES, challengeBoards, challengesOf } from "./challenges.js";
+import { CHALLENGES, challengeBoards, challengesOf, takesEntries } from "./challenges.js";
 
 export const SITE = "https://openchallengelist.com";
 // How an organizer gets listed: code search does not index new repositories, so the topic or a listing issue it is. Every live
@@ -122,7 +122,7 @@ export function llmsTxt(data: CrawlResult): string {
         ``,
         `> Open competitions on the world's hardest problems, and every other open benchmark competition with a public leaderboard. ${data.competitions.length} competitions, crawled ${data.crawledAt}.`,
         ``,
-        `Helping a person enter a challenge? Follow ${SITE}/join.txt — it picks one with them, reads the rules and gets to a first valid submission. Already picked one? Each challenge has its own instructions for agents at ${SITE}/c/{id}/join.txt.`,
+        `Helping a person enter a challenge? Follow ${SITE}/join.txt — it picks one with them, reads the rules and gets to a first valid submission. Already picked one? Each challenge has its own instructions for agents at ${SITE}/c/{id}/join.txt, and each grand challenge at ${SITE}/challenges/{slug}/join.txt.`,
         ``,
         `Machine-readable: GET /api/competitions (all) · GET /api/competitions/{id}.json · GET /api/competitions/{id}.md · GET /api/agents · GET /api/people · GET /api/open-problems · GET /api/feed.json (latest entries) · /feed.xml (Atom)`,
         `Every competition also has an HTML page at /c/{id}; send Accept: text/markdown to get the digest instead.`,
@@ -180,8 +180,9 @@ export function joinTxt(data: Pick<CrawlResult, "crawledAt" | "competitions">, o
     .sort((a, b) => Number(a.kind === "unsolved") - Number(b.kind === "unsolved"))
     .filter((o) => { const n = (perComp.get(o.competitionId) ?? 0) + 1; perComp.set(o.competitionId, n); return n <= 3; });
   const latest = recentActivity(general, 8);
-  // grand challenges whose competitions are all in the default lists: a life-science one is found the way its boards are
-  const grand = CHALLENGES.filter((ch) => { const boards = challengeBoards(ch, data.competitions); return boards.length && !boards.some(isLifeScience); });
+  // grand challenges that can be joined and whose competitions are all in the default lists: a life-science one is found the
+  // way its boards are. Each has its own instructions for joining (src/grandJoin.ts).
+  const grand = CHALLENGES.filter((ch) => { const boards = challengeBoards(ch, data.competitions); return boards.some(takesEntries) && !boards.some(isLifeScience); });
   return [
     `# Enter an open challenge with your human`,
     ``,
@@ -197,7 +198,7 @@ export function joinTxt(data: Pick<CrawlResult, "crawledAt" | "competitions">, o
     ``,
     `## 2. Pick one`,
     `Narrower lists, each with who entered this month: ${TOPICS.map((t) => `${t.name} ${origin}/topics/${t.slug}.md`).join(" · ")}`,
-    ...(grand.length ? [`By grand challenge, the problems the list leads with: ${grand.map((ch) => `${ch.name} ${origin}/challenges/${ch.slug}.md`).join(" · ")}`] : []),
+    ...(grand.length ? [`By grand challenge, the problems the list leads with, each with its own instructions for joining: ${grand.map((ch) => `${ch.name} ${origin}/challenges/${ch.slug}/join.txt`).join(" · ")}`] : []),
     ``,
     `People are entering these right now (entries in the last 30 days):`,
     ...hot.map((c) => `- ${c.name} [${COMPUTE_LABEL[c.participation.compute] ?? c.participation.compute}] ${plural(c.stats.recordsLast30d, "entry", "entries")} in 30 days, ${plural(c.stats.uniqueParticipants, "participant")}${c.problems.some((p) => p.isOpen) ? `, ${plural(c.problems.filter((p) => p.isOpen).length, "open track")}` : ""} — ${c.tagline} → ${md(c.id)}`),

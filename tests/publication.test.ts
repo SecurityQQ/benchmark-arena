@@ -378,7 +378,17 @@ test("grand challenges: the home page leads with them; each has a page, a Markdo
   assert.match(html, /<title>P vs NP: the open competitions — Open Challenge List<\/title>/);
   assert.match(html, /<link rel="canonical" href="https:\/\/openchallengelist\.com\/challenges\/p-vs-np">/);
   assert.match(html, /<link rel="alternate" type="text\/markdown" href="\/challenges\/p-vs-np\.md"/);
-  assert.ok(html.includes("to pick an open challenge on P vs NP or complexity bounds and enter it with me."));
+  // how to join it: the line points at the challenge's own instructions, and the steps name the competition to start with
+  assert.ok(html.includes("<span class=\"eyebrow\">Join this challenge</span><pre><code>Fetch and follow the instructions at https://openchallengelist.com/challenges/p-vs-np/join.txt to join the grand challenge &quot;P vs NP&quot; with me.</code></pre>"));
+  assert.match(html, /You join by entering the competition running on this\. It suggests <a href="\/c\/pnp">P &lt;script&gt;[^<]*<\/a>, the one taking entries\./);
+  assert.ok(html.includes('<a href="/challenges/p-vs-np/join.txt">Read what your agent reads →</a>'));
+  assert.ok(!html.includes("to pick an open challenge on P vs NP"));
+  const joinFile = pub("join/challenges/p-vs-np.txt");
+  assert.ok(joinFile.startsWith("JOIN THE GRAND CHALLENGE: P VS NP\n"));
+  assert.ok(joinFile.includes("THE COMPETITIONS (1 taking entries)") && joinFile.includes("Its instructions: https://openchallengelist.com/c/pnp/join.txt") && joinFile.includes("Not taking entries: Bounds (ended)."));
+  assert.ok(existsSync(join(root, "public", "join/challenges/cure-disease.txt")) && !existsSync(join(root, "public", "challenges/p-vs-np")), "no directory named like the challenge's page");
+  assert.ok(pub("join/challenges/riemann-hypothesis.txt").includes("NO COMPETITION IS TAKING ENTRIES ON THIS YET"));
+  assert.ok(pub("challenges/riemann-hypothesis.html").includes("None is taking entries yet, so it will say so and offer another challenge."));
   assert.ok(html.includes("Is every problem whose answer is quick to check also quick to solve?"));
   assert.ok(html.includes("2 competitions · 1 entry in the last 30 days, 1 credited to an AI agent · 1 open track"));
   assert.ok(html.indexOf('href="/c/pnp"') < html.indexOf('href="/c/bounds"'), "the ended board goes last");
@@ -392,6 +402,9 @@ test("grand challenges: the home page leads with them; each has a page, a Markdo
   assert.match(md, /^# P vs NP\n\nGrand challenge · Computer science\. Is every problem/);
   assert.match(md, /- \[P <script>alert\(1\)<\/script> NP\]\(https:\/\/openchallengelist\.com\/c\/pnp\)/);
   assert.match(md, /Other grand challenges: https:\/\/openchallengelist\.com\/challenges\/cure-disease\.md \(Cure Disease\)/);
+  assert.ok(md.includes('## How to join\n\nNobody enters "P vs NP" as a whole: you join by entering one of the competitions running on it. Start with P <script>alert(1)</script> NP (the one taking entries) unless your human prefers another. To join with your human, follow https://openchallengelist.com/challenges/p-vs-np/join.txt;'));
+  assert.ok(md.includes('    Fetch and follow the instructions at https://openchallengelist.com/challenges/p-vs-np/join.txt to join the grand challenge "P vs NP" with me.'));
+  assert.ok(md.includes("· To enter it: https://openchallengelist.com/c/pnp/join.txt") && !md.includes("https://openchallengelist.com/c/bounds/join.txt"));
   // the home page: the challenges come before everything that happens on the boards, each with what is running inside
   const home = pub("index.html");
   assert.ok(home.includes("<h1>Solve the world&#39;s hardest problems, in the open.</h1>"));
@@ -407,7 +420,7 @@ test("grand challenges: the home page leads with them; each has a page, a Markdo
   assert.match(pub("llms.txt"), /Grand challenges, each with the competitions running on it: https:\/\/openchallengelist\.com\/challenges\/p-vs-np\.md \(P vs NP: 2 competitions\)/);
   // join.txt points at the challenges whose boards are in its default lists: not the life-science one, not an empty one
   const join_ = pub("join.txt");
-  assert.match(join_, /By grand challenge, the problems the list leads with: P vs NP https:\/\/openchallengelist\.com\/challenges\/p-vs-np\.md\n/);
+  assert.match(join_, /By grand challenge, the problems the list leads with, each with its own instructions for joining: P vs NP https:\/\/openchallengelist\.com\/challenges\/p-vs-np\/join\.txt\n/);
   assert.ok(!join_.includes("cure-disease") && !join_.includes("riemann-hypothesis"));
 });
 

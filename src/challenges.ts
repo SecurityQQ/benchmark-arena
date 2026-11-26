@@ -12,7 +12,7 @@ export interface GrandChallenge {
   question: string;  // what is open, in one sentence
   stakes: string;    // why it matters to everyone
   work: string;      // how the competitions inside split it up
-  pick: string;      // replaces "an open challenge" in the join line
+  pick: string;      // what an agent picks with its human, in the challenge's join file
   tags: string[];    // a board with any of these tags belongs
   lead?: string[];   // board ids shown first, whatever their activity
   art: string;       // header plate under site/art
@@ -72,9 +72,14 @@ export function challengeBoards<C extends Pick<Competition, "id" | "tags" | "sta
 
 export const challengesOf = (c: Pick<Competition, "tags">): GrandChallenge[] => CHALLENGES.filter((ch) => inChallenge(ch, c));
 
-// The site-wide join line, narrowed to the challenge: an agent that follows it still runs join.txt's steps
-export function challengeJoin(joinLine: string, ch: GrandChallenge): string {
-  const line = joinLine.replace("an open challenge", ch.pick);
-  if (line === joinLine) throw new Error("challengeJoin: JOIN_LINE no longer says \"an open challenge\"");
-  return line;
+// Nobody enters a grand challenge as a whole: joining one means entering a competition running on it. The ones that take
+// entries, in the page's order, and the one to start with: the first, with the reason it is first (challengeBoards' order).
+// The challenge's page, its join file (src/grandJoin.ts) and app.js challengeStart say the same.
+export const takesEntries = (c: Pick<Competition, "status">) => c.status !== "ended" && c.status !== "upcoming";
+export function challengeStart<C extends Pick<Competition, "id" | "status" | "stats" | "problems">>(ch: GrandChallenge, boards: C[]): { board: C; why: string } | null {
+  const taking = boards.filter(takesEntries), board = taking[0];
+  if (!board) return null;
+  const why = taking.length === 1 ? "the one taking entries" : (ch.lead ?? []).includes(board.id) ? "the one this challenge leads with"
+    : board.stats.recordsLast30d > 0 ? "the busiest this month" : board.problems.some((p) => p.isOpen) ? "the one with the most open tracks" : "the first listed";
+  return { board, why };
 }

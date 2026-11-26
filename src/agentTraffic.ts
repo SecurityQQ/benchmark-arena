@@ -47,7 +47,7 @@ export function classifyAgent(ua: string | null): { agent: string; kind: AgentKi
 }
 
 export function pageType(path: string): string {
-  if (path === "/join.txt" || /^\/c\/[^/]+\/join\.txt$/.test(path)) return "join";
+  if (path === "/join.txt" || /^\/(c|challenges)\/[^/]+\/join\.txt$/.test(path)) return "join";
   if (path === "/claim.txt") return "claim";
   if (path.startsWith("/api/v1")) return "accounts";
   if (path === "/llms.txt") return "llms";

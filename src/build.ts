@@ -19,6 +19,7 @@ import { loadAgentDocs, withAgentDocs } from "./agentDocs.js";
 import { badgeFile, competitionBadge, listedBadge } from "./badge.js";
 import { loadRatings, withImportance } from "./frontier.js";
 import { boardJoinFile, boardJoinTxt } from "./boardJoin.js";
+import { grandJoinFile, grandJoinTxt } from "./grandJoin.js";
 
 // IndexNow (Bing, Yandex, Seznam…): the key is public by design; the file at /{key}.txt proves the site owns it
 export const INDEXNOW_KEY = "ad98448484b5c15a593b4febe60a83bc";
@@ -185,7 +186,11 @@ export async function build(root = process.cwd()) {
   w("badge/listed.svg", listedBadge());
   w("llms.txt", llmsTxt({ ...data, errors: [] }));
   for (const t of TOPICS) w(`topics/${t.slug}.md`, topicMarkdown(t, data, ORIGIN, discoveries));
-  for (const ch of CHALLENGES) w(`challenges/${ch.slug}.md`, challengeMarkdown(ch, data, ORIGIN));
+  for (const ch of CHALLENGES) {
+    w(`challenges/${ch.slug}.md`, challengeMarkdown(ch, data, ORIGIN));
+    // its own instructions for an agent, served at /challenges/{slug}/join.txt (vercel.json)
+    w(grandJoinFile(ch.slug), grandJoinTxt(ch, data, ORIGIN));
+  }
   // Neutral filename avoids blockers that stall requests for *SUBMISSION*.md.
   w("standard/templates.json", j({ "PROBLEM.md": readSiteAsset(join(ROOT, "site"), "standard/PROBLEM.md").toString(), "SUBMISSION.md": readSiteAsset(join(ROOT, "site"), "standard/SUBMISSION.md").toString() }));
 

@@ -1400,6 +1400,22 @@ img.pc-face { object-fit: cover; background: var(--canvas-2); }
 .gc-stats.big { margin-top: 28px; gap: 10px 36px; }
 .gc-stats.big span { display: flex; flex-direction: column; gap: 8px; }
 .gc-stats.big b { font-size: 36px; line-height: 1; margin: 0; }
+/* Join this challenge: the line to paste, then what happens (app.js challengeJoinBlock, prerender.ts challengeJoinBlock) */
+.gc-steps { list-style: none; counter-reset: gcs; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 22px 0 0; padding: 0; border-top: 1px solid var(--line-strong); }
+.gc-steps li { counter-increment: gcs; padding: 16px 18px 2px 0; }
+.gc-steps li + li { padding-left: 18px; border-left: 1px solid var(--line); }
+.gc-steps li::before { content: "0" counter(gcs); display: block; font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; color: var(--clay); margin-bottom: 8px; }
+.gc-steps li > b { display: block; font-weight: 500; color: var(--ink); margin-bottom: 5px; }
+.gc-steps li > span { display: block; color: var(--ink-soft); font-size: 14px; line-height: 1.55; overflow-wrap: anywhere; }
+.gc-steps li > span a { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: var(--line-strong); }
+.gc-steps li > span a:hover { text-decoration-color: var(--ink); }
+.gc-join-foot { margin: 18px 0 0; display: flex; gap: 6px 22px; flex-wrap: wrap; font-size: 14px; }
+.gc-join-foot a { color: var(--ink-soft); }
+@media (max-width: 640px) {
+  .gc-steps { grid-template-columns: 1fr; }
+  .gc-steps li, .gc-steps li + li { padding: 14px 0 2px; border-left: 0; }
+  .gc-steps li + li { border-top: 1px solid var(--line); margin-top: 12px; }
+}
 .gc-wanted { margin-top: 28px; padding: 26px 28px; border: 1px dashed var(--line-strong); border-radius: var(--r); }
 .gc-wanted p { font-family: var(--font-serif); font-size: 19px; line-height: 1.45; max-width: 760px; }
 .gc-wanted .cta { margin-top: 20px; }

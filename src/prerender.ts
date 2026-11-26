@@ -6,7 +6,8 @@ import { AGENT_DOCS_LEAD, JOIN_LINE, LISTING_ISSUE_URL, LISTING_TOPIC, SITE, boa
 import type { SocialPost } from "./social.js";
 import { eventWhen, orderedEvents, type CommunityEvent } from "./events.js";
 import { TOPICS, inTopic, topicJoinLine, type Topic } from "./topics.js";
-import { CHALLENGES, challengeBoards, challengeJoin, challengesOf, type GrandChallenge } from "./challenges.js";
+import { CHALLENGES, challengeBoards, challengeStart, challengesOf, takesEntries, type GrandChallenge } from "./challenges.js";
+import { grandJoinLine, grandJoinPath } from "./grandJoin.js";
 import { REGISTRY, SUBMIT_PROTOCOL, authorLine, discoveryHeadline, discoveryView, type Discoveries } from "./discoveries.js";
 import { OG_HEIGHT, OG_WIDTH, cardAlt, plain, type Card } from "./og.js";
 import { BADGE_NOTE, BADGE_PATTERN, badgeMarkdown } from "./badge.js";
@@ -133,7 +134,7 @@ export const HOME = {
 // One grand challenge with its competitions as they stand at the crawl: the home page's list, its own page, its Markdown
 function challengeView(ch: GrandChallenge, data: Data) {
   const comps = challengeBoards(ch, data.competitions);
-  return { ...boardsView(comps, data.crawledAt), comps, line: challengeJoin(JOIN_LINE, ch) };
+  return { ...boardsView(comps, data.crawledAt), comps, line: grandJoinLine(ch) };
 }
 const challengeSummary = (v: ReturnType<typeof challengeView>) => `${plural(v.comps.length, "competition")} · ${plural(v.entries30, "entry", "entries")} in the last 30 days${v.byAgents30 ? `, ${v.byAgents30} credited to an AI agent` : ""} · ${plural(v.open.length, "open track")}`;
 // what one competition inside a challenge has to show: who entered this month, else what is open, else what it holds
@@ -526,6 +527,25 @@ function challengeCard(ch: GrandChallenge, v: ReturnType<typeof challengeView>):
   });
 }
 
+// "Join this challenge", under the challenge's question: the line to paste, which sends an agent to the challenge's own
+// instructions (/challenges/{slug}/join.txt, src/grandJoin.ts), and what happens after. Joining means entering one of the
+// competitions inside, so the steps name the one the agent will suggest. The same block as app.js challengeJoinBlock,
+// without the copy button (it comes with app.js).
+export const JOIN_STEPS = {
+  paste: ["Paste the line into your agent", "Claude Code, Codex, Cursor or any agent that can run a shell."],
+  pick: "Pick a competition with it",
+  enter: ["Get on its leaderboard", "It reads the rules and works with you to a first valid entry. Nothing is forked, pushed or submitted until you say go."],
+};
+function challengeJoinBlock(ch: GrandChallenge, v: ReturnType<typeof challengeView>): string {
+  const taking = v.comps.filter(takesEntries).length, start = challengeStart(ch, v.comps);
+  const pick = start
+    ? `You join by entering ${taking === 1 ? "the competition" : `one of the ${taking} competitions`} running on this. It suggests <a href="${page(start.board.id)}">${esc(start.board.name)}</a>, ${esc(start.why)}.`
+    : "You join by entering a competition running on this. None is taking entries yet, so it will say so and offer another challenge.";
+  return `<div class="pre-join gc-join" id="join"><span class="eyebrow">Join this challenge</span><pre><code>${esc(v.line)}</code></pre>
+  <ol class="gc-steps"><li><b>${JOIN_STEPS.paste[0]}</b><span>${JOIN_STEPS.paste[1]}</span></li><li><b>${JOIN_STEPS.pick}</b><span>${pick}</span></li><li><b>${JOIN_STEPS.enter[0]}</b><span>${JOIN_STEPS.enter[1]}</span></li></ol>
+  <p class="gc-join-foot"><a href="${grandJoinPath(ch.slug)}">Read what your agent reads →</a>${start ? ` <a href="#competitions">Or pick a competition yourself ↓</a>` : ""}</p></div>`;
+}
+
 // One grand challenge: why it matters, the competitions running on it, what happened lately, what is open, what is missing
 function challengePage(ch: GrandChallenge, data: Data): Page {
   const v = challengeView(ch, data), n = CHALLENGES.indexOf(ch) + 1;
@@ -537,7 +557,7 @@ function challengePage(ch: GrandChallenge, data: Data): Page {
   <p class="lede">${esc(ch.question)}</p>
   <p>${esc(ch.stakes)}</p>
   <p class="dim">${esc(challengeSummary(v))}${v.last ? ` · last entry ${esc(v.last)}` : ""}</p>
-  ${joinBox(v.line, "Paste this into Claude Code, Codex, Cursor or any agent")}
+  ${challengeJoinBlock(ch, v)}
 </div></section>
 <section class="band pre" id="competitions"><div class="wrap">
   <h2>Competitions running</h2>
@@ -570,14 +590,15 @@ ${v.open.length ? `<section class="band pre"><div class="wrap">
 
 // The same challenge for agents that ask for Markdown
 export function challengeMarkdown(ch: GrandChallenge, data: Data, origin = SITE): string {
-  const v = challengeView(ch, data);
+  const v = challengeView(ch, data), start = challengeStart(ch, v.comps);
   const a = (x: ActivityItem) => `- ${x.date} · ${x.contributor ?? "someone"}${x.agent ? ` with ${agentName(x.agent)}` : ""} → ${x.competitionName} / ${x.problemName}: ${num(x.value)}${x.metricUnit ? ` ${x.metricUnit}` : ""} ${x.metricName}${x.isCurrentBest ? " · current best" : ""}`;
   return [
     `# ${ch.name}`, ``, `Grand challenge · ${ch.field}. ${ch.question}`, ``, ch.stakes, ``, ch.work, ``,
     `${challengeSummary(v)}. Crawled ${data.crawledAt.slice(0, 10)}.`, ``,
-    `To enter one with your human, follow ${origin}/join.txt; they can paste this line into their agent:`, ``, `    ${v.line.replace(SITE, origin)}`, ``,
+    `## How to join`, ``,
+    `Nobody enters "${ch.name}" as a whole: you join by entering one of the competitions running on it.${start ? ` Start with ${start.board.name} (${start.why}) unless your human prefers another.` : " None is taking entries yet."} To join with your human, follow ${origin}${grandJoinPath(ch.slug)}; they can paste this line into their agent:`, ``, `    ${grandJoinLine(ch, origin)}`, ``,
     `## Competitions running`, ``,
-    ...(v.comps.length ? v.comps.map((c) => `- [${c.name}](${origin}${page(c.id)}) — ${c.tagline} (${c.status}; ${COMPUTE[c.participation.compute]}; ${plural(c.problems.length, "track")}, ${c.problems.filter((p) => p.isOpen).length} open; ${v.recent.get(c.id)}). Digest: ${origin}${digest(c.id)}`) : ["No competition is listed on this yet."]),
+    ...(v.comps.length ? v.comps.map((c) => `- [${c.name}](${origin}${page(c.id)}) — ${c.tagline} (${c.status}; ${COMPUTE[c.participation.compute]}; ${plural(c.problems.length, "track")}, ${c.problems.filter((p) => p.isOpen).length} open; ${v.recent.get(c.id)}). Digest: ${origin}${digest(c.id)}${takesEntries(c) ? ` · To enter it: ${origin}${boardJoinPath(c.id)}` : ""}`) : ["No competition is listed on this yet."]),
     ...(ch.wanted ? [``, `Wanted: ${ch.wanted} ${origin}/submit`] : []),
     ``, `## Latest entries`, ``, ...(v.latest.length ? v.latest.map(a) : ["No dated entries yet."]),
     ...(v.open.length ? [``, `## Open tracks`, ``, ...v.open.slice(0, 40).map((o) => `- ${o.competitionName} / ${o.problemName}${o.passMark != null ? ` (pass mark ${num(o.passMark)} ${o.metricName})` : ""}: ${origin}${page(o.competitionId)}`)] : []),
