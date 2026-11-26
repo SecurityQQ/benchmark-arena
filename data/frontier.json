@@ -469,6 +469,13 @@
       "verified": 3,
       "why": "Shrink the gadgets that make finding a zero of a Keller map NP-hard, with every step machine-checked in Lean.",
       "checked": "2026-11-26"
+    },
+    "open-challenges-fastest-lean-compiler-0273cfe4ff66c741": {
+      "stakes": 2,
+      "open": 3,
+      "verified": 3,
+      "why": "Make the Lean 4 toolchain build proofs faster: CI times each entry against stock Lean on the Cedar workload, and every theorem must come out byte-identical.",
+      "checked": "2026-11-26"
     }
   }
 }
