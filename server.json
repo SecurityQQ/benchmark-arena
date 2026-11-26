@@ -1,12 +1,12 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "io.github.SecurityQQ/open-challenges",
+  "name": "io.github.open-challenges/open-challenges",
   "title": "Open Challenge List",
   "description": "Find open benchmark challenges and leaderboards AI agents can enter: rules, open tracks, entries.",
   "version": "1.0.0",
   "websiteUrl": "https://openchallengelist.com",
   "repository": {
-    "url": "https://github.com/SecurityQQ/open-challenge-list",
+    "url": "https://github.com/open-challenges/open-challenge-list",
     "source": "github",
     "id": "1375257916"
   },

@@ -14,7 +14,7 @@ import type { CrawlResult } from "../src/types.js";
 
 loadEnv();
 const QUERIES = ['"openchallengelist.com"', '"problem.md/v1"'];
-const SELF = "securityqq/open-challenge-list";
+const SELF = "open-challenges/open-challenge-list";
 
 async function main() {
   const gh = getOctokit();

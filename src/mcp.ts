@@ -312,7 +312,7 @@ export function createMcpHandler(opts: McpOptions = {}): (request: Request) => P
   return async function handle(request: Request): Promise<Response> {
     if (request.method === "OPTIONS") return reply(204, undefined, PREFLIGHT);
     // No SSE stream to open with GET and no session to end with DELETE
-    if (request.method !== "POST") return reply(405, failure(null, -32000, "This MCP endpoint takes JSON-RPC over POST (Streamable HTTP, JSON responses, no SSE stream). Setup: https://github.com/SecurityQQ/open-challenge-list#mcp-server"), { Allow: ALLOW });
+    if (request.method !== "POST") return reply(405, failure(null, -32000, "This MCP endpoint takes JSON-RPC over POST (Streamable HTTP, JSON responses, no SSE stream). Setup: https://github.com/open-challenges/open-challenge-list#mcp-server"), { Allow: ALLOW });
     const body = await readCapped(request);
     if (body === null) return reply(413, failure(null, -32600, `Request body over ${MAX_BODY} bytes`));
     let msg: unknown;
