@@ -1,4 +1,5 @@
 // Static site + JSON API for humans and agents
+import { loadRatings, withImportance } from "./frontier.js";
 import { createServer, type IncomingMessage, type ServerResponse } from "node:http";
 import { readFile } from "node:fs/promises";
 import { join, extname } from "node:path";
@@ -43,7 +44,7 @@ const MIME: Record<string, string> = {
 
 async function loadData() {
   const crawled = publicDataset(JSON.parse(await readFile(DATA_PATH, "utf-8")));
-  const comps = withAgentDocs(applyCorrections(crawled.competitions, loadCorrections(process.cwd(), new Set(crawled.competitions.map((c) => c.id)))), loadAgentDocs(process.cwd()));
+  const comps = withImportance(withAgentDocs(applyCorrections(crawled.competitions, loadCorrections(process.cwd(), new Set(crawled.competitions.map((c) => c.id)))), loadAgentDocs(process.cwd())), loadRatings(process.cwd()));
   return { ...crawled, competitions: withProfiles(comps, buildProfiles(comps)) };
 }
 

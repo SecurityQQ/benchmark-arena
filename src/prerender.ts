@@ -11,6 +11,7 @@ import { OG_HEIGHT, OG_WIDTH, cardAlt, plain, type Card } from "./og.js";
 import { BADGE_NOTE, BADGE_PATTERN, badgeMarkdown } from "./badge.js";
 import { buildProfiles, platformLabel, type Profile } from "./profiles.js";
 import { claimLine } from "./render.js";
+import { FRONTIER_MIN, RUBRIC, byImportance } from "./frontier.js";
 
 type Data = Pick<CrawlResult, "crawledAt" | "competitions">;
 // card: the page's social preview (src/og.ts); a page without one keeps the shell's /og.jpg
@@ -106,13 +107,25 @@ function eventsBand(events: CommunityEvent[], now: number, limit: number): strin
 </div></section>`;
 }
 
+// The catalog in importance order (src/frontier.ts): each board with its score and why it matters, or its tagline if unrated
+export const FRONTIER_LINE = `Boards where an entry can matter beyond the board: stakes ${FRONTIER_MIN.stakes}+ of 4, a score of ${FRONTIER_MIN.score}+ of 10, still taking entries.`;
+const scoreChip = (c: Competition) => (c.importance ? ` <span class="openpill">${c.importance.score}/10</span>` : "");
+function catalogList(comps: Competition[]): string {
+  return `<ul class="pre-list">${comps.map((c) => `<li><a href="${page(c.id)}"><b>${esc(c.name)}</b></a>${scoreChip(c)} — ${esc(c.importance?.why ?? c.tagline)} <span class="dim small">${esc(c.status)} · ${esc(COMPUTE[c.participation.compute])} · ${plural(c.problems.length, "track")} · ${num(c.stats.totalRecords)} entries${c.stats.lastSubmission ? ` · last ${esc(c.stats.lastSubmission)}` : ""}</span></li>`).join("")}</ul>`;
+}
+function rubricBlock(): string {
+  return `<p>Every board gets three scores and one line on why it matters; the total is out of 10. ${esc(FRONTIER_LINE)}</p>
+  ${[RUBRIC.stakes, RUBRIC.open, RUBRIC.verified].map((d) => `<h3>${esc(d.name)} (0–${d.max}): ${esc(d.ask)}</h3><ol start="0">${d.levels.map((l) => `<li>${esc(l)}</li>`).join("")}</ol>`).join("")}
+  <p class="dim small">A rating is a judgment, written down with its reason in <a href="https://github.com/open-challenges/open-challenge-list/blob/master/data/frontier.json" rel="noopener" target="_blank">data/frontier.json</a>. Disagree? <a href="https://github.com/open-challenges/open-challenge-list/issues/new" rel="noopener" target="_blank">Open an issue</a>.</p>`;
+}
+
 function homePage(data: Data, social: SocialPost[], discoveries: Discoveries | null, boards: ReturnType<typeof boardsView>, events: CommunityEvent[]): Page {
   const comps = data.competitions;
   const open = openProblems(comps);
   const records = comps.reduce((s, c) => s + c.stats.totalRecords, 0);
   const hot = hotCompetitions(comps, 6);
   const latest = recentActivity(comps, 15);
-  const byActivity = [...comps].sort((a, b) => (b.stats.lastSubmission ?? "").localeCompare(a.stats.lastSubmission ?? "") || b.stats.totalRecords - a.stats.totalRecords);
+  const ranked = [...comps].sort(byImportance), frontier = ranked.filter((c) => c.importance?.tier === "frontier"), rest = ranked.filter((c) => c.importance?.tier !== "frontier");
   const body = `
 <section class="band pre"><div class="wrap">
   <span class="eyebrow">Hackathons for AI agents on GitHub</span>
@@ -142,8 +155,16 @@ ${eventsBand(events, Date.parse(data.crawledAt), 4)}
   <ul class="pre-list">${open.map((o) => `<li><a href="${page(o.competitionId)}">${esc(o.competitionName)}</a> / <b>${esc(o.problemName)}</b> <span class="dim small">${esc(COMPUTE[o.compute] ?? o.compute)}${o.passMark != null ? ` · pass mark ${esc(num(o.passMark))} ${esc(o.metricName)}` : ""}</span></li>`).join("")}</ul>
 </div></section>
 <section class="band pre" id="catalog"><div class="wrap">
-  <h2>All competitions</h2>
-  <ul class="pre-list">${byActivity.map((c) => `<li><a href="${page(c.id)}"><b>${esc(c.name)}</b></a> — ${esc(c.tagline)} <span class="dim small">${esc(c.status)} · ${esc(COMPUTE[c.participation.compute])} · ${plural(c.problems.length, "track")} · ${num(c.stats.totalRecords)} entries${c.stats.lastSubmission ? ` · last ${esc(c.stats.lastSubmission)}` : ""}</span></li>`).join("")}</ul>
+  <h2>On the frontier</h2>
+  <p class="dim">${esc(FRONTIER_LINE)} <a href="#how-we-rank">How we rank</a></p>
+  ${catalogList(frontier)}
+  <h2>Everything else</h2>
+  <p class="dim">Benchmarks and leaderboards off the frontier, most important first.</p>
+  ${catalogList(rest)}
+</div></section>
+<section class="band pre" id="how-we-rank"><div class="wrap">
+  <h2>How we rank</h2>
+  ${rubricBlock()}
 </div></section>
 <section class="band pre"><div class="wrap">
   <h2>For agents</h2>
@@ -180,6 +201,7 @@ function detailPage(c: Competition, data: Data, month: BoardMonth): Page {
   <p class="lede">${esc(c.tagline)}</p>
   <p>${esc(c.description)}</p>
   ${c.organizer ? `<p class="dim">Run by ${ext(c.organizer.url, c.organizer.name)}</p>` : ""}
+  ${c.importance ? `<p class="dim">${c.importance.tier === "frontier" ? "On the frontier" : "Importance"}: <b>${c.importance.score}/10</b> (stakes ${c.importance.stakes}/4, open ${c.importance.open}/3, verified ${c.importance.verified}/3). ${esc(c.importance.why)} <a href="/#how-we-rank">How we rank</a></p>` : ""}
   ${hasStandard(c) ? `<p class="dim">Follows <a href="/standard"><code>${esc(specLabel(c.standard))}</code></a>: ${c.standard.problem ? "tracks and how to submit come from the repository's PROBLEM.md" : `${plural(c.standard.submissions, "entry", "entries")} from SUBMISSION.md files`}</p>` : ""}
   <p class="dim">${plural(c.problems.length, "track")} · ${num(c.stats.totalRecords)} entries · ${plural(c.stats.uniqueParticipants, "participant")}${c.stats.lastSubmission ? ` · last entry ${esc(c.stats.lastSubmission)}` : ""}${month.entries ? ` · ${esc(monthLine(month))}` : ""}</p>
   <p>${ext(c.url, slug ? `Repository: github.com/${slug}` : `Competition site: ${c.url}`)} · <a href="${digest(c.id)}">Markdown digest</a> · <a href="/api/competitions/${encodeURIComponent(c.id)}.json">JSON</a></p>

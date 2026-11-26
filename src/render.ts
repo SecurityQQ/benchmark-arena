@@ -1,4 +1,5 @@
 // Text renderers shared by the dev server and the static build
+import { byImportance } from "./frontier.js";
 import type { Competition, CrawlResult } from "./types.js";
 import { aggregateAgents, aggregatePeople, openProblems, recentActivity, hotCompetitions, type ActivityItem } from "./aggregate.js";
 import { TOPICS } from "./topics.js";
@@ -44,6 +45,7 @@ export function competitionToMarkdown(c: Competition): string {
     `- Tags: ${c.tags.join(", ")}`,
     c.organizer ? `- Organizer: ${c.organizer.name}${c.organizer.url ? ` (${c.organizer.url})` : ""}` : "",
     c.venue ? `- Venue: ${c.venue.type}${c.venue.location ? `, ${c.venue.location}` : ""}${c.venue.event ? ` — ${c.venue.event}` : ""}` : "",
+    c.importance ? `- Importance: ${c.importance.score}/10${c.importance.tier === "frontier" ? ", on the frontier" : ""} (stakes ${c.importance.stakes}/4, open ${c.importance.open}/3, verified ${c.importance.verified}/3): ${c.importance.why}` : "",
     hasStandard(c) ? `- Standard: ${specLabel(c.standard)} (${[c.standard.problem && "tracks and how to submit from the repository's PROBLEM.md", c.standard.submissions && plural(c.standard.submissions, "entry", "entries") + " from SUBMISSION.md files"].filter(Boolean).join("; ")}; ${SITE}/standard)` : "",
     ``,
     `## Description`,
@@ -144,8 +146,9 @@ export function llmsTxt(data: CrawlResult): string {
         ...openProblems(data.competitions).map((o) => `- ${o.competitionName} / ${o.problemName} [${o.compute}] → /api/competitions/${o.competitionId}.md`),
         ``,
         `## Competitions`,
-        ...data.competitions.map((c) =>
-          `- [${c.name}](/api/competitions/${c.id}.md): ${c.tagline} [${c.status}, ${c.participation.compute}, ${c.stats.totalRecords} records]`),
+        `Frontier first: boards rated by stakes, openness and verification (score out of 10; GET /api/index.json carries tier, score, why).`,
+        ...[...data.competitions].sort(byImportance).map((c) =>
+          `- [${c.name}](/api/competitions/${c.id}.md): ${c.tagline} [${c.importance ? `${c.importance.tier === "frontier" ? "frontier, " : ""}${c.importance.score}/10, ` : ""}${c.status}, ${c.participation.compute}, ${c.stats.totalRecords} records]`),
   ].join("\n");
 }
 

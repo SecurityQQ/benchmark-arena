@@ -72,8 +72,12 @@ export interface Competition {
   standard?: { problem: boolean; submission: boolean; submissions: number; version: number; warnings: string[] };  // repo ships PROBLEM.md; entries carry SUBMISSION.md
   agentPolicy?: { agents?: string; attribution?: string };  // from SUBMISSION.md: are AI agents welcome, how to disclose them
   agentDocs?: AgentDoc[];        // the organizer's own instructions for agents (data/agent-docs.json, src/agentDocs.ts): linked, never copied
+  importance?: Importance;       // how much it matters and why (data/frontier.json, src/frontier.ts); unrated boards have none
   lastUpdated: string;
 }
+
+// A board's rating (src/frontier.ts): three scores, their total, the frontier tier and one line on why it matters
+export interface Importance { tier: "frontier" | "other"; score: number; stakes: number; open: number; verified: number; why: string }
 
 // A link to an organizer's AGENTS.md, CLAUDE.md or llms.txt. The label is one of ours (src/agentDocs.ts), never the file's text.
 export interface AgentDoc { label: string; url: string }
