@@ -1,11 +1,11 @@
 {
-  "fetchedAt": "2026-11-26T17:08:22.165Z",
+  "fetchedAt": "2026-11-26T22:01:31.158Z",
   "totals": {
-    "results": 1412,
-    "projects": 1082
+    "results": 1416,
+    "projects": 1086
   },
   "days": {
-    "2026-11-26": 54,
+    "2026-11-26": 58,
     "2026-11-25": 7,
     "2026-11-24": 22,
     "2026-11-23": 36,
@@ -14,6 +14,74 @@
     "2026-11-20": 26
   },
   "items": [
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000058",
+      "version": 1,
+      "title": "Exact single-port graph identification from two response derivatives",
+      "authors": [
+        "Mark Gladden"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T18:35:56Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000058&version=1",
+      "repo": "VanGogh7777/c145-lean",
+      "subjects": [
+        "math.OC",
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000057",
+      "version": 1,
+      "title": "Sixfold Tverberg Counterexamples and Convex Equipartition Obstructions",
+      "authors": [
+        "Arseniy Akopyan"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T18:24:49Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000057&version=1",
+      "repo": "akopjan/toptverbert-nandakumar",
+      "subjects": [
+        "math.CO",
+        "math.MG",
+        "math.AT"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000056",
+      "version": 1,
+      "title": "RHShortIntervals: psi(x) = x + O(x^(1/2+delta)) and primes in short intervals from the Riemann Hypothesis",
+      "authors": [
+        "Artur Flamandzki"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T17:40:49Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000056&version=1",
+      "repo": "Flaman55/RHShortIntervals",
+      "subjects": [
+        "math.NT"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000055",
+      "version": 1,
+      "title": "Akopyan's PL Nash–Kuiper–Gromov theorem",
+      "authors": [
+        "Arseniy Akopyan"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T16:29:24Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000055&version=1",
+      "repo": "akopjan/pl-nash-kuiper",
+      "subjects": [
+        "math.MG",
+        "cs.LO"
+      ]
+    },
     {
       "source": "palomar",
       "id": "PALOMAR-2026-11-26-000054",
@@ -50,14 +118,14 @@
     {
       "source": "palomar",
       "id": "PALOMAR-2026-11-26-000052",
-      "version": 1,
-      "title": "Affine Hulls and NP Query Compression",
+      "version": 2,
+      "title": "Functional NP Query Compression Is Equivalent to P = NP",
       "authors": [
         "Ludwig Leitmeir"
       ],
       "date": "2026-11-26",
-      "at": "2026-11-26T15:29:29Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000052&version=1",
+      "at": "2026-11-26T17:34:40Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000052&version=2",
       "repo": "lleit/affine-hulls-and-np-query-compression",
       "subjects": [
         "cs.CC"
@@ -165,14 +233,14 @@
     {
       "source": "palomar",
       "id": "PALOMAR-2026-11-26-000045",
-      "version": 1,
+      "version": 2,
       "title": "An odd solution of Znám's problem and a solution of the coprime variant of Erdős Problem #307",
       "authors": [
         "Doug Phillips"
       ],
       "date": "2026-11-26",
-      "at": "2026-11-26T12:26:56Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000045&version=1",
+      "at": "2026-11-26T18:52:32Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000045&version=2",
       "repo": "duggiephresh/palomar-unit-fractions",
       "subjects": [
         "math.NT"
@@ -445,14 +513,14 @@
     {
       "source": "palomar",
       "id": "PALOMAR-2026-11-26-000028",
-      "version": 1,
+      "version": 2,
       "title": "SequenceNicolas: powers of a prime in the image of summatory valuation functions",
       "authors": [
         "Frank Vega"
       ],
       "date": "2026-11-26",
-      "at": "2026-11-26T05:28:32Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000028&version=1",
+      "at": "2026-11-26T17:26:40Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000028&version=2",
       "repo": "frankvegadelgado/sequence",
       "subjects": [
         "math.NT"
@@ -941,73 +1009,6 @@
       "subjects": [
         "math.AP",
         "math.OC"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-25-000005",
-      "version": 1,
-      "title": "Iwaniec's conjecture: the quasiconvexity of L and the L^p norm of the Beurling–Ahlfors transform (Agazzi et al., arXiv:2609.28311)",
-      "authors": [
-        "The-Anh Vu-Le"
-      ],
-      "date": "2026-11-25",
-      "at": "2026-11-25T01:47:47Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-25-000005&version=1",
-      "repo": "vltanh/lean4-iwaniec",
-      "subjects": [
-        "math.CV",
-        "math.AP"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-25-000004",
-      "version": 1,
-      "title": "Balanced-Sequence Repetition Threshold Refutation: Exact RTB(7) = 6/5, RTB(9) = 8/7, and RTB(10) = 9/8",
-      "authors": [
-        "Tyler B. Hughes"
-      ],
-      "date": "2026-11-25",
-      "at": "2026-11-25T01:06:08Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-25-000004&version=1",
-      "repo": "mathdiscoveries/balanced-sequences-critical-exponent",
-      "subjects": [
-        "math.CO",
-        "cs.FL"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-25-000003",
-      "version": 1,
-      "title": "Delocalization of non-mean-field random matrices in dimensions d >= 3",
-      "authors": [
-        "Jun Yin"
-      ],
-      "date": "2026-11-25",
-      "at": "2026-11-25T00:58:59Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-25-000003&version=1",
-      "repo": "JYin80/Lean-Band3d_arXiv-2507.20274",
-      "subjects": [
-        "math.PR",
-        "math-ph"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-25-000002",
-      "version": 1,
-      "title": "Unimodality of parking functions by maximum displacement",
-      "authors": [
-        "Jaehyoung Kim"
-      ],
-      "date": "2026-11-25",
-      "at": "2026-11-25T00:45:49Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-25-000002&version=1",
-      "repo": "MegasKomnenos/parking-unimodality",
-      "subjects": [
-        "math.CO"
       ]
     }
   ]

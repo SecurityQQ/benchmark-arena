@@ -85,6 +85,18 @@
         "label": "CLAUDE.md",
         "url": "https://raw.githubusercontent.com/cybertronai/sutro-problems/HEAD/CLAUDE.md"
       }
+    ],
+    "unitaryfoundation-qldpc-challenge-64ff83271307dd6f": [
+      {
+        "label": "AGENTS.md",
+        "url": "https://raw.githubusercontent.com/unitaryfoundation/qldpc-challenge/HEAD/AGENTS.md"
+      }
+    ],
+    "vesuvius-challenge": [
+      {
+        "label": "llms.txt (site)",
+        "url": "https://scrollprize.org/llms.txt"
+      }
     ]
   }
 }
