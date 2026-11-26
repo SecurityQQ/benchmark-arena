@@ -131,6 +131,15 @@ jobs:
           git commit -m "data: live refresh $(date -u +%Y-%m-%dT%H:%MZ)"
           for i in 1 2 3; do git push && exit 0; git pull --rebase origin "$GITHUB_REF_NAME" || exit 1; done; exit 1
 
+      # The data files into Supabase (src/db.ts), read back and compared. Does nothing until the SUPABASE_DB_URL secret is set; a
+      # failure never holds up the refresh, which is already pushed.
+      - name: Mirror data to Supabase
+        continue-on-error: true
+        timeout-minutes: 5
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+        run: npx tsx scripts/db.ts sync live
+
       # After the push: a "listed" answer links a page this push deploys (the script waits for it). The script reads the issues
       # through the API; no issue text reaches this shell.
       - name: Answer listing issues

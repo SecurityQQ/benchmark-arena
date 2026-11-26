@@ -78,6 +78,21 @@ Boards with an official results API (P = NP?, Big O Speedrun, GPU MODE, ROCm lla
 
 The three-hourly live run also keeps LLM-extracted boards fresh. Each costs one GitHub call (two after a push): the default branch is diffed against the commit the last extraction read, and only a change to a file the extractor used (README, leaderboard files, a watched data or submissions folder) re-extracts it, so a code-only push never reaches the LLM. At most `LIVE_RECRAWL_MAX` boards (default 4) are re-extracted per run, most recently pushed first, the rest on the next run; a failed or shrunk re-extraction keeps the previous entry and is retried a day later. A record with no date whose link pins a commit of the board's own repository (`…/blob/<sha>/…`) gets that commit's date, looked up once and kept in `data/commit-dates.json`.
 
+## Database (Supabase)
+
+The data is moving from `data/*.json` in git to Postgres on Supabase. Phase 0, now: the crawler still reads and writes its files, and every data workflow ends with `npx tsx scripts/db.ts sync <mode>`, which applies `db/migrations`, pushes the files into schema `ocl` (one row per competition, problem, record and attribution, plus the crawl state, discovered repositories, commit dates and the Palomar and agent-docs files) and reads them back to check that nothing was lost. It does nothing until the `SUPABASE_DB_URL` secret is set, and a failure never holds up a refresh. Curated inputs (`corrections.json`, `social.json`, `seeds.json`) stay in git, where they are reviewed.
+
+`SUPABASE_DB_URL` is the Session pooler connection string (Supabase → Connect → Session pooler); the direct host is IPv6-only, which GitHub's runners cannot reach. Schema `ocl` is not exposed through Supabase's Data API, and row level security is on with no policies. Each record keeps a stable id (a hash of competition, track, contributor, value, date and first link) and `first_seen_at`, the first push that saw it. Fields without a column of their own are kept in each row's `extra`, so nothing in the files is lost on the way.
+
+```bash
+npm run db -- sync               # migrate, push data/*.json, verify (SUPABASE_DB_URL in .env)
+npm run db -- verify             # compare the database with data/*.json
+npm run db -- pull               # overwrite data/*.json with the database's copy
+npm run db -- status             # row counts, last push
+```
+
+`tests/db.test.ts` runs the same round trip against a local Postgres when `TEST_DATABASE_URL` points at localhost (CI starts one).
+
 ## API (static, CORS-open)
 
 - `/join.txt` — for an agent whose human wants to enter a challenge: pick one, read the rules, make a first valid entry
