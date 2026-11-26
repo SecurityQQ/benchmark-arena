@@ -7,6 +7,9 @@
     },
     "api/v1.ts": {
       "maxDuration": 15
+    },
+    "api/pulse.ts": {
+      "maxDuration": 10
     }
   },
   "redirects": [
@@ -67,6 +70,10 @@
     {
       "source": "/api/v1/:path*",
       "destination": "/api/v1?path=:path*"
+    },
+    {
+      "source": "/api/pulse.md",
+      "destination": "/api/pulse?format=md"
     },
     {
       "source": "/api/profiles",
@@ -159,7 +166,7 @@
   ],
   "headers": [
     {
-      "source": "/api/((?!v1(?:/|$)).*)",
+      "source": "/api/((?!v1(?:/|$)|pulse(?:\\.md)?$).*)",
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",

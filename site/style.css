@@ -1151,3 +1151,65 @@ h1 .claimed { font-size: 12px; position: relative; top: -6px; }
 .gist-proof pre.quick code { white-space: pre-wrap; word-break: break-all; display: block; padding-right: 56px; }
 td.entry-where { min-width: 180px; }
 .profile-entries td.mono, table.wide td .agent-pill { white-space: nowrap; }
+
+/* ── The pulse: the "Just in" bar, the "working right now" pill and the live card (site/app.js startPulse, /api/pulse) ── */
+.just-in { background: var(--ink); color: var(--canvas); font-size: 14px; }
+.just-in[hidden], .pulse-pill[hidden], .pulse-card[hidden] { display: none; }
+.ji-row { display: flex; align-items: center; gap: 14px; min-height: 44px; padding-top: 9px; padding-bottom: 9px; }
+.ji-label { flex: none; font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--kraft); }
+.ji-text { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: rgba(250, 249, 245, .86); }
+.ji-text b { font-weight: 600; color: var(--canvas); }
+.ji-time { flex: none; font-family: var(--font-mono); font-size: 12px; color: var(--secondary); }
+.ji-go { flex: none; color: var(--kraft); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
+.ji-go:hover { color: var(--canvas); }
+@media (max-width: 640px) { .ji-row { gap: 10px; font-size: 13px; } .ji-time { display: none; } }
+
+.hero-pills { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 22px; }
+.hero-pills .intro-pill, .ah-intro.hero-pills .intro-pill { margin-bottom: 0; }
+.ah-intro.hero-pills { margin-bottom: 16px; }
+.pulse-pill { position: relative; display: inline-flex; align-items: center; gap: 8px; height: 38px; padding: 0 6px 0 14px; border-radius: 999px;
+  background: rgba(255, 254, 251, .94); border: 1px solid var(--line); box-shadow: 0 1px 2px rgba(20, 20, 19, .06), 0 6px 16px -10px rgba(20, 20, 19, .3); font-size: 14px; color: var(--ink); }
+.pulse-pill .live-dot { margin-right: 0; background: var(--olive); box-shadow: 0 0 0 3px rgba(120, 140, 93, .18); }
+.pp-n { font-weight: 600; font-variant-numeric: tabular-nums; }
+.pp-info { display: grid; place-items: center; width: 24px; height: 24px; margin-left: 2px; padding: 0; border-radius: 50%; border: 1px solid var(--line-strong); background: transparent;
+  font: italic 600 12px/1 var(--font-serif); color: var(--muted); cursor: help; }
+.pp-tip { position: absolute; left: 0; top: calc(100% + 8px); z-index: 30; width: min(360px, 82vw); padding: 12px 14px; border-radius: 10px; background: var(--ink); color: var(--canvas);
+  font-size: 13px; line-height: 1.45; box-shadow: 0 16px 36px -14px rgba(20, 20, 19, .55); opacity: 0; visibility: hidden; transform: translateY(-4px);
+  transition: opacity .15s ease, transform .15s ease, visibility .15s; pointer-events: none; }
+.pulse-pill:hover .pp-tip, .pulse-pill:focus-within .pp-tip { opacity: 1; visibility: visible; transform: none; }
+.pulse-pill.paused .live-dot, .pulse-card.paused .live-dot { background: var(--secondary); box-shadow: none; animation: none; }
+
+.hero-grid { display: grid; grid-template-columns: minmax(0, 620px) minmax(0, 400px); justify-content: space-between; align-items: center; gap: 48px; }
+.pulse-card { background: rgba(250, 249, 245, .8); -webkit-backdrop-filter: blur(18px) saturate(1.15); backdrop-filter: blur(18px) saturate(1.15);
+  border: 1px solid rgba(255, 255, 255, .7); border-radius: 18px; padding: 16px 18px 12px; box-shadow: 0 1px 2px rgba(20, 20, 19, .08), 0 32px 64px -32px rgba(20, 20, 19, .5); }
+.pc-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 2px 0 12px; border-bottom: 1px solid var(--line); }
+.pc-title { font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink); white-space: nowrap; }
+.pc-title .live-dot { background: var(--olive); }
+.pc-upd { font-family: var(--font-mono); font-size: 11px; color: var(--muted); white-space: nowrap; }
+.pc-list { list-style: none; margin: 0; padding: 0; }
+.pc-row { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); border-radius: 8px; }
+.pc-row:last-child { border-bottom: 0; }
+.pc-face { flex: none; display: grid; place-items: center; width: 28px; height: 28px; margin-top: 2px; border-radius: 50%; font-size: 13px; line-height: 1; background: var(--canvas-2); color: var(--ink-soft); }
+img.pc-face { object-fit: cover; background: var(--canvas-2); }
+.pc-headline { background: var(--ink); color: var(--kraft); }
+.pc-check { background: rgba(120, 140, 93, .18); color: var(--olive); font-weight: 700; }
+.pc-discovery { background: rgba(106, 155, 204, .16); color: var(--sky); }
+.pc-note { background: var(--manilla); color: var(--ink-soft); font-family: var(--font-serif); }
+.pc-body { flex: 1; min-width: 0; }
+.pc-meta { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-bottom: 2px; font-size: 12px; color: var(--muted); }
+.pc-meta time { flex: none; font-family: var(--font-mono); font-size: 11px; }
+.pc-src { font-weight: 600; color: var(--ink-soft); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pc-text { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-family: var(--font-serif); font-size: 15px; line-height: 1.35; color: var(--ink); }
+.pc-text:hover { text-decoration: underline; text-underline-offset: 3px; }
+.pc-who { display: block; margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; color: var(--muted); }
+.pc-foot { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 10px 0 2px; border-top: 1px solid var(--line); font-size: 12.5px; }
+.pc-foot a { color: var(--ink-soft); }
+.pc-foot a.mono { font-size: 11px; color: var(--muted); }
+.pc-row.fresh { animation: pc-in 1.8s ease-out; }
+@keyframes pc-in { 0% { opacity: 0; transform: translateY(-8px); background: rgba(217, 119, 87, .24); } 22% { opacity: 1; transform: none; } 100% { background: rgba(217, 119, 87, 0); } }
+@media (prefers-reduced-motion: reduce) { .pc-row.fresh { animation: none; } .pp-tip { transition: none; } }
+@media (max-width: 1100px) {
+  .hero-grid { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+  .pulse-card { max-width: 620px; background: rgba(250, 249, 245, .9); }
+  .pc-row:nth-child(n+5) { display: none; }
+}
