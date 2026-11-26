@@ -16,6 +16,7 @@ import { TOPICS } from "./topics.js";
 import { applyCorrections, loadCorrections } from "./corrections.js";
 import { markdownFor } from "./agentTraffic.js";
 import { createMcpHandler } from "./mcp.js";
+import { createPulseHandler } from "./pulse.js";
 import { loadSocial } from "./social.js";
 import { loadEvents } from "./events.js";
 import { NO_DISCOVERIES, loadDiscoveries } from "./discoveries.js";
@@ -87,6 +88,18 @@ async function serveAccounts(req: IncomingMessage, res: ServerResponse) {
   res.end(Buffer.from(await response.arrayBuffer()));
 }
 
+// /api/pulse and /api/pulse.md as on Vercel (api/pulse.ts): live sources read from the network, the index from this server
+let pulse: ((request: Request) => Promise<Response>) | undefined;
+async function servePulse(req: IncomingMessage, res: ServerResponse) {
+  const address = server.address();
+  const port = typeof address === "object" && address ? address.port : PORT;
+  const host = ["0.0.0.0", "::", ""].includes(HOST) ? "127.0.0.1" : HOST.includes(":") ? `[${HOST}]` : HOST;
+  pulse ??= createPulseHandler({ origin: `http://${host}:${port}`, log: (l) => console.log(l) });
+  const response = await pulse(new Request(`http://${host}:${port}${req.url}`, { method: req.method }));
+  res.writeHead(response.status, Object.fromEntries(response.headers));
+  res.end(Buffer.from(await response.arrayBuffer()));
+}
+
 const server = createServer(async (req, res) => {
   res.setHeader("X-Content-Type-Options", "nosniff");
   res.setHeader("X-Frame-Options", "DENY");
@@ -95,6 +108,7 @@ const server = createServer(async (req, res) => {
   res.setHeader("Content-Security-Policy", "default-src 'self'; img-src 'self' https: data:; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' https://www.googletagmanager.com; connect-src 'self' https://api.github.com https://raw.githubusercontent.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'");
   if ((req.url ?? "").split("?")[0] === "/mcp") return serveMcp(req, res).catch(() => send(res, 500, "Internal error"));
   if (/^\/api\/v1(\/|\?|$)/.test(req.url ?? "")) return serveAccounts(req, res).catch(() => send(res, 500, "Internal error"));
+  if (/^\/api\/pulse(?:\.md)?(?:\?|$)/.test(req.url ?? "")) return servePulse(req, res).catch(() => send(res, 500, "Internal error"));
   if (req.method !== "GET" && req.method !== "HEAD") {
     res.setHeader("Allow", "GET, HEAD");
     return send(res, 405, "Method not allowed");

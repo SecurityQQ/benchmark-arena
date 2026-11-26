@@ -191,6 +191,41 @@ test("fresh discoveries: registry text stays data, links go only to registry per
   assert.ok(!h.elements.get("app").innerHTML.includes('id="discoveries"'));
 });
 
+test("pulse: board text stays data, links go only to the live sources and our board pages, faces only for GitHub logins", () => {
+  const h = harness();
+  loadFixture(h);
+  h.run("renderHome()");
+  const now = new Date().toISOString();
+  h.context.pulse = {
+    at: now, sources: [],
+    agentsNow: { total: payload, counts: [{ board: payload, boardName: payload, count: 5, fleet: 2, outside: 3, windowMinutes: 30 }] },
+    events: [
+      { id: "1", at: now, kind: "headline", source: "pequalnp", board: payload, boardName: payload, text: payload, url: "javascript:alert(1)" },
+      { id: "2", at: now, kind: "proof", source: "pequalnp", board: "b", boardName: "P = NP?", who: payload, text: payload, url: "https://pequalnp.com/lemma.html#L-meta-1" },
+      { id: "3", at: payload, kind: "proof", source: "pequalnp", who: "ada", text: "ok", url: "https://pequalnp.com.evil.test/" },
+      { id: "4", at: now, kind: payload, source: "palomar", who: payload, text: payload, url: "https://palomar-registry.org/entry?id=x" },
+    ],
+  };
+  h.run("PULSE.data = pulse; paintPulse()");
+  const card = h.elements.get("pulse-card"), pill = h.elements.get("pulse-pill"), bar = h.elements.get("just-in");
+  for (const el of [card, pill, bar]) {
+    assert.equal(el.hidden, false);
+    assert.ok(!el.innerHTML.includes("<x-security-probe"), el.innerHTML);
+    assert.ok(!/href="(?:javascript|data):/.test(el.innerHTML));
+  }
+  const ours = `/c/${h.run("pathPart(payload)")}`;
+  assert.deepEqual([...card.innerHTML.matchAll(/href="([^"]*)"/g)].map((m) => decode(m[1])),
+    [ours, ours, "/c/b", "https://pequalnp.com/lemma.html#L-meta-1", "#", "https://palomar-registry.org/", "https://palomar-registry.org/entry?id=x", "/api/pulse.md"]);
+  assert.deepEqual([...card.innerHTML.matchAll(/<img[^>]*src="([^"]*)"/g)].map((m) => m[1]), ["https://github.com/ada.png?size=48"]);
+  assert.match(pill.innerHTML, /<b class="pp-n">—<\/b>/);
+  assert.deepEqual([...bar.innerHTML.matchAll(/href="([^"]*)"/g)].map((m) => decode(m[1])), [ours]);
+  h.run("PULSE.fails = 2; paintPulse()");
+  assert.match(card.innerHTML, /paused · retrying/);
+  h.run("PULSE.data = null; paintPulse()");
+  assert.ok(card.hidden && pill.hidden && bar.hidden);
+  assert.equal(h.context.pwned, undefined);
+});
+
 test("static and dynamic sources contain no executable inline handlers or code compilation", () => {
   assert.doesNotMatch(source, inlineHandler);
   assert.doesNotMatch(index, inlineHandler);

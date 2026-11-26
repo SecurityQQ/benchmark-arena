@@ -9,7 +9,7 @@ import { boundedFetch } from "./github.js";
 
 export const REGISTRY = "https://palomar-registry.org";
 export const SUBMIT_PROTOCOL = "https://submit.palomar-registry.org/llms.txt";
-const API = "https://data.palomar-registry.org/api/v1/results";
+export const RESULTS_API = "https://data.palomar-registry.org/api/v1/results";
 const USER_AGENT = "openchallengelist-crawler (+https://openchallengelist.com)";
 export const WINDOW_DAYS = 7;          // today and the six UTC days before it
 export const MAX_ITEMS = 60;           // newest first; the counts cover the whole window
@@ -120,7 +120,7 @@ async function httpGet(url: string): Promise<{ status: number; body?: unknown }>
  */
 export async function fetchDiscoveries({ get = httpGet, now = Date.now() }: { get?: GetJson; now?: number } = {}): Promise<Discoveries> {
   const from = utcDay(now - (WINDOW_DAYS - 1) * DAY);
-  const first = `${API}?order=registered&from=${from}`;
+  const first = `${RESULTS_API}?order=registered&from=${from}`;
   for (let restart = 0; ; restart++) {
     const items: Discovery[] = [], days: Record<string, number> = {}, seen = new Set<string>();
     let totals: Discoveries["totals"] | undefined, url: string | undefined = first, pages = 0, partial = false, changed = false;

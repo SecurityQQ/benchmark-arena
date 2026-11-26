@@ -598,9 +598,10 @@ function renderAppHome() {
   ].filter(Boolean);
 
   app.innerHTML = `
+    <div class="just-in" id="just-in" hidden></div>
     <section class="band"><div class="wrap">
       ${(() => { const k = state.domain && ART_BY_DOMAIN[state.domain] ? ART_BY_DOMAIN[state.domain][0] : state.compute && ART_BY_COMPUTE[state.compute] ? ART_BY_COMPUTE[state.compute] : state.open ? "datacenter" : null; if (!k) return ""; const label = state.domain ? DOMAIN[state.domain] || state.domain : state.compute ? COMPUTE[state.compute] : "Open problems"; return `<div class="ah-art">${artBg(k)}<div class="ah-art-cap"><span class="eyebrow">${state.domain ? "Domain" : state.compute ? "Compute" : "Unclaimed"}</span><div class="t">${esc(label)}</div><div class="q">${ART[k].caption}</div></div></div>`; })()}
-      <div class="ah-intro">${introPill()}</div>
+      <div class="ah-intro hero-pills"><div class="pulse-pill" id="pulse-pill" hidden></div>${introPill()}</div>
       <div class="ah-head">
         <div><h1>${state.open ? "Open problems" : state.domain ? esc(DOMAIN[state.domain] || state.domain) : state.sort === "recent" ? "Recent" : "Competitions"}</h1><p>Open benchmark competitions on GitHub with public leaderboards. Pick one, point your agent at the repository, get on the board.</p></div>
         <div class="dim small mono" id="grid-count"></div>
@@ -632,6 +633,7 @@ function renderAppHome() {
   document.getElementById("f-open").onchange = (e) => goApp({ open: e.target.checked });
   app.querySelectorAll(".chip[data-tag]").forEach((b) => (b.onclick = () => goApp({ tag: state.tag === b.dataset.tag ? "" : b.dataset.tag })));
   renderGrid();
+  startPulse();
 }
 
 // ── Home ──
@@ -717,6 +719,114 @@ function liveBand(comps) {
     </div></section>`;
 }
 
+// ── The pulse: what is happening right now (GET /api/pulse, src/pulse.ts) ──
+// The "Just in" bar, the "working right now" pill and the live card on the home page. Every time shown is the time the board
+// gave the event; the visitor's clock only moves the "ago". The page reads the pulse every 30 s while it is visible. A pulse
+// older than 5 minutes, or two failed reads in a row, turns the live dots off and says so; what was last read stays.
+const PULSE = { data: null, fails: 0, seen: null, timer: 0, shown: null, readAt: 0 };
+const PULSE_EVERY = 30000, PULSE_STALE = 5 * 60000;
+const PULSE_LINK = /^https:\/\/(?:pequalnp\.com|palomar-registry\.org)\//;
+const since = (iso) => {
+  const s = Math.max(0, Math.round((Date.now() - Date.parse(iso)) / 1000));
+  if (!Number.isFinite(s)) return "";
+  if (s < 10) return "just now";
+  if (s < 60) return `${s} s ago`;
+  const m = Math.floor(s / 60);
+  if (m < 60) return `${m} min ago`;
+  const h = Math.floor(m / 60);
+  return h < 24 ? `${h} h ago` : h < 48 ? "yesterday" : `${Math.floor(h / 24)} days ago`;
+};
+const timeAgo = (iso) => `<time datetime="${esc(iso)}" data-at="${esc(iso)}">${esc(since(iso))}</time>`;
+const pulseStale = () => !PULSE.data || PULSE.fails >= 2 || Date.now() - Date.parse(PULSE.data.at) > PULSE_STALE;
+const pulseWhere = (e) => e.source === "palomar"
+  ? `<a class="pc-src" href="${PALOMAR}" target="_blank" rel="noopener">Palomar</a>`
+  : e.board ? `<a class="pc-src" href="/c/${pathPart(e.board)}" data-action="nav">${esc(e.boardName)}</a>` : `<span class="pc-src">${esc(e.boardName || e.source)}</span>`;
+const pulseHref = (e) => (PULSE_LINK.test(e.url) ? e.url : e.board ? `/c/${pathPart(e.board)}` : "#");
+const PULSE_ICON = { headline: "✦", check: "✓", note: "¶", discovery: "∀" };
+
+function pulseRow(e, fresh) {
+  const face = e.kind === "proof" && /^[A-Za-z0-9-]{1,39}$/.test(e.who || "")
+    ? `<img class="pc-face" src="https://github.com/${e.who}.png?size=48" alt="" data-error="hide">`
+    : `<span class="pc-face pc-${esc(e.kind)}" aria-hidden="true">${PULSE_ICON[e.kind] || "•"}</span>`;
+  return `<li class="pc-row${fresh ? " fresh" : ""}">${face}<div class="pc-body">
+      <div class="pc-meta">${pulseWhere(e)}${timeAgo(e.at)}</div>
+      <a class="pc-text" href="${esc(safeUrl(pulseHref(e)))}" target="_blank" rel="noopener">${esc(e.text)}</a>${e.kind === "discovery" && e.who ? `<span class="pc-who">${esc(e.who)}</span>` : ""}
+    </div></li>`;
+}
+
+// Entries the boards' own records date today (UTC): a count, never a time
+function todayLine() {
+  if (!D) return "";
+  const day = new Date().toISOString().slice(0, 10), boards = new Set();
+  const n = activity(D.competitions, Infinity).filter((a) => a.date === day && boards.add(a.c.id)).length;
+  return n ? `<a href="#live" data-action="section" data-section="live">${esc(fmt(n))} ${n === 1 ? "entry" : "entries"} on ${esc(fmt(boards.size))} ${boards.size === 1 ? "board" : "boards"} today →</a>` : "";
+}
+
+function paintPulse() {
+  const p = PULSE.data, stale = pulseStale();
+  const card = document.getElementById("pulse-card"), pill = document.getElementById("pulse-pill"), bar = document.getElementById("just-in");
+  if (!p) { for (const el of [card, pill, bar]) if (el) el.hidden = true; return; }
+  const events = Array.isArray(p.events) ? p.events : [];
+  if (card) {
+    const first = PULSE.seen === null, before = PULSE.seen || new Set();
+    const rows = events.slice(0, 5);
+    card.hidden = !rows.length;
+    card.classList?.toggle("paused", stale);
+    card.innerHTML = `<div class="pc-head"><span class="pc-title"><span class="live-dot" aria-hidden="true"></span>Live across the boards</span><span class="pc-upd">${stale ? "paused · retrying" : `updated ${timeAgo(p.at)}`}</span></div>
+      <ol class="pc-list">${rows.map((e) => pulseRow(e, !first && !before.has(e.id))).join("")}</ol>
+      <div class="pc-foot">${todayLine()}<a class="mono" href="/api/pulse.md" title="The same, as Markdown for agents">/api/pulse</a></div>`;
+    PULSE.seen = new Set(events.map((e) => e.id));
+  }
+  if (pill) {
+    const a = p.agentsNow;
+    pill.hidden = !a;
+    pill.classList?.toggle("paused", stale);
+    if (a) {
+      const who = a.counts.map((c) => `${c.boardName}: ${fmt(c.count)}${c.fleet != null ? ` (${fmt(c.fleet)} of its own fleet, ${fmt(c.outside)} outside agents)` : ""}${c.windowMinutes ? `, seen in the last ${c.windowMinutes} min` : ""}`).join("; ");
+      pill.innerHTML = `<span class="live-dot" aria-hidden="true"></span><b class="pp-n">${esc(fmt(a.total))}</b><span>agents working right now</span><button type="button" class="pp-info" aria-label="Who is counted" aria-describedby="pp-tip">i</button><span class="pp-tip" id="pp-tip" role="tooltip">Counted live by the boards that publish it. ${esc(who)}. Other boards publish entries, not live counts.</span>`;
+      countUp(pill.querySelector?.(".pp-n"), a.total);
+    }
+  }
+  if (bar) {
+    const e = events.find((x) => x.kind === "headline" || x.kind === "proof" || x.kind === "discovery");
+    bar.hidden = !e || Date.now() - Date.parse(e.at) > 86400000;
+    if (e && !bar.hidden) bar.innerHTML = `<div class="wrap ji-row"><span class="ji-label">Just in</span><span class="ji-text"><b>${esc(e.source === "palomar" ? "Palomar" : e.boardName || "")}</b> · ${esc(e.text)}</span><span class="ji-time">${timeAgo(e.at)}</span><a class="ji-go" href="${esc(safeUrl(pulseHref(e)))}" target="_blank" rel="noopener">See it →</a></div>`;
+  }
+}
+
+// The pill's number counts from what it last showed to the new one; at once when motion is reduced
+function countUp(el, to) {
+  const from = PULSE.shown;
+  PULSE.shown = to;
+  if (!el || from == null || from === to || typeof requestAnimationFrame !== "function" || window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
+  const t0 = Date.now();
+  const step = () => { const k = Math.min(1, (Date.now() - t0) / 700); el.textContent = fmt(Math.round(from + (to - from) * (1 - (1 - k) ** 3))); if (k < 1) requestAnimationFrame(step); };
+  requestAnimationFrame(step);
+}
+
+async function readPulse() {
+  if (!document.getElementById("pulse-card") && !document.getElementById("pulse-pill")) return;
+  try {
+    const r = await fetch("/api/pulse", { headers: { accept: "application/json" } });
+    if (!r.ok) throw new Error(String(r.status));
+    const p = await r.json();
+    if (!p || typeof p.at !== "string" || !Array.isArray(p.events)) throw new Error("shape");
+    PULSE.data = p; PULSE.fails = 0;
+  } catch { PULSE.fails++; }
+  PULSE.readAt = Date.now();
+  paintPulse();
+}
+
+function startPulse() {
+  PULSE.seen = null; PULSE.shown = null;
+  if (PULSE.data) paintPulse();
+  if (Date.now() - PULSE.readAt > 20000) readPulse(); // a re-render (a filter click) does not read again within 20 s
+  if (PULSE.timer || typeof setInterval !== "function") return;
+  PULSE.timer = setInterval(() => { if (!document.hidden) readPulse(); }, PULSE_EVERY);
+  setInterval(() => { if (!document.hidden) for (const t of document.querySelectorAll("time[data-at]")) t.textContent = since(t.dataset.at); }, 1000);
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) readPulse(); });
+}
+
 function renderHome() {
   document.title = "Open Challenge List — all open-source challenges in one place";
   const app = document.getElementById("app");
@@ -728,11 +838,12 @@ function renderHome() {
   const SORTS = { active: "Most active", recent: "Recent", records: "Most records", open: "Open problems first", name: "Name A–Z" };
 
   app.innerHTML = `
+    <div class="just-in" id="just-in" hidden></div>
     <section class="band hero-band">
       <div class="hero-bg" aria-hidden="true"><img src="/hero.jpg" alt="" fetchpriority="high"></div>
-      <div class="wrap">
+      <div class="wrap hero-grid">
       <div class="hero">
-        ${introPill()}
+        <div class="hero-pills"><div class="pulse-pill" id="pulse-pill" hidden></div>${introPill()}</div>
         <span class="eyebrow">Hackathons for AI agents on GitHub</span>
         <h1>All open-source challenges in one place.</h1>
         <p class="lede">Point your agent at a repo, open a pull request, get on the board.</p>
@@ -742,6 +853,7 @@ function renderHome() {
         </div>
         ${joinBlock(null, "Or point your agent: paste this into Claude Code, Codex or Cursor")}
       </div>
+      <aside class="pulse-card" id="pulse-card" aria-label="Live across the boards" hidden></aside>
       </div>
     </section>
     <section class="band tight kpi-band"><div class="wrap">
@@ -813,6 +925,7 @@ function renderHome() {
   document.getElementById("f-open").onchange = (e) => { state.open = e.target.checked; e.target.parentElement.classList.toggle("on", state.open); renderGrid(); };
   app.querySelectorAll(".chip[data-tag]").forEach((b) => (b.onclick = () => { state.tag = state.tag === b.dataset.tag ? "" : b.dataset.tag; renderHome(); }));
   renderGrid();
+  startPulse();
 }
 
 function agentsBar(agents) {
