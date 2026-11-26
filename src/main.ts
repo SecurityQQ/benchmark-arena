@@ -15,6 +15,7 @@ import { buildGpuMode } from "./structured/gpuMode.js";
 import { buildFirstProof } from "./structured/firstProof.js";
 import { buildDuckBench } from "./structured/duckBench.js";
 import { buildOpenDiscovery } from "./structured/openDiscovery.js";
+import { buildAiTx } from "./structured/aiTx.js";
 import { buildPequalnp } from "./structured/pequalnp.js";
 import { buildBigOSpeedrun } from "./structured/bigOSpeedrun.js";
 import { buildRocmChallenge } from "./structured/rocmChallenge.js";
@@ -109,6 +110,7 @@ const SITES: Record<string, { url: string; build: () => Promise<LLMCompetition> 
   "kaggle-google-verifiable-quantum-circuit-compilation": kaggleSite("google-verifiable-quantum-circuit-compilation"),
   duckbench: { url: "https://duckbench.app/", build: buildDuckBench },  // DuckBench: robot-duck challenges for coding agents
   "open-discovery-challenge": { url: "https://huggingface.co/spaces/FINAL-Bench/open-discovery-challenge", build: buildOpenDiscovery },  // Open Discovery Challenge (FINAL-Bench): AI-designed drug candidates, scored on the organizers' GPUs
+  "ai-tx-challenge": { url: "https://aitxchallenge.org/", build: () => buildAiTx() },  // SAIL AI-Tx Challenge (Harvard DBMI): therapy reports for rare disease patients, judged by an expert panel
 };
 
 // Built from an official results API: deterministic, no LLM, cheap enough to run every few hours
