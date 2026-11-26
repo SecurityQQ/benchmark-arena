@@ -448,6 +448,13 @@
       "verified": 3,
       "why": "The CDC's weekly RSV hospitalization forecasts, used in public health planning; every forecast is scored against what actually happened.",
       "checked": "2026-11-26"
+    },
+    "vesuvius-challenge": {
+      "stakes": 3,
+      "open": 3,
+      "verified": 2,
+      "why": "Read the only library to survive from antiquity, carbonized by Vesuvius in 79 AD, from CT scans; $2.1M in open prizes, results verified by the team and papyrologists.",
+      "checked": "2026-11-26"
     }
   }
 }
