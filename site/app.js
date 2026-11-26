@@ -725,7 +725,7 @@ function liveBand(comps) {
 // older than 5 minutes, or two failed reads in a row, turns the live dots off and says so; what was last read stays.
 const PULSE = { data: null, fails: 0, seen: null, timer: 0, shown: null, readAt: 0 };
 const PULSE_EVERY = 30000, PULSE_STALE = 5 * 60000;
-const PULSE_LINK = /^https:\/\/(?:pequalnp\.com|palomar-registry\.org)\//;
+const PULSE_LINK = /^https:\/\/(?:pequalnp\.com|palomar-registry\.org|riemann\.verifytask\.cn|play\.bohrium\.com|ndif-looped-lens-challenge\.hf\.space|duckbench\.app)\//;
 const since = (iso) => {
   const s = Math.max(0, Math.round((Date.now() - Date.parse(iso)) / 1000));
   if (!Number.isFinite(s)) return "";
@@ -742,7 +742,7 @@ const pulseWhere = (e) => e.source === "palomar"
   ? `<a class="pc-src" href="${PALOMAR}" target="_blank" rel="noopener">Palomar</a>`
   : e.board ? `<a class="pc-src" href="/c/${pathPart(e.board)}" data-action="nav">${esc(e.boardName)}</a>` : `<span class="pc-src">${esc(e.boardName || e.source)}</span>`;
 const pulseHref = (e) => (PULSE_LINK.test(e.url) ? e.url : e.board ? `/c/${pathPart(e.board)}` : "#");
-const PULSE_ICON = { headline: "✦", check: "✓", note: "¶", discovery: "∀" };
+const PULSE_ICON = { headline: "✦", record: "★", submission: "↑", check: "✓", note: "¶", discovery: "∀" };
 
 function pulseRow(e, fresh) {
   const face = e.kind === "proof" && /^[A-Za-z0-9-]{1,39}$/.test(e.who || "")
@@ -750,8 +750,29 @@ function pulseRow(e, fresh) {
     : `<span class="pc-face pc-${esc(e.kind)}" aria-hidden="true">${PULSE_ICON[e.kind] || "•"}</span>`;
   return `<li class="pc-row${fresh ? " fresh" : ""}">${face}<div class="pc-body">
       <div class="pc-meta">${pulseWhere(e)}${timeAgo(e.at)}</div>
-      <a class="pc-text" href="${esc(safeUrl(pulseHref(e)))}" target="_blank" rel="noopener">${esc(e.text)}</a>${e.kind === "discovery" && e.who ? `<span class="pc-who">${esc(e.who)}</span>` : ""}
+      <a class="pc-text" href="${esc(safeUrl(pulseHref(e)))}" target="_blank" rel="noopener">${esc(e.text)}</a>${e.kind === "discovery" && e.who ? `<span class="pc-who">${esc(e.who)}</span>` : ""}${e.agent ? `<span class="pc-agent" title="As the entry names it">with ${esc(e.agent)}</span>` : ""}
     </div></li>`;
+}
+
+// The newest events, at most `per` from one board, so one busy board does not fill the card
+function pickRows(events, n, per) {
+  const seen = {}, out = [];
+  for (const e of events) {
+    const k = e.board || e.source;
+    if ((seen[k] = (seen[k] || 0) + 1) <= per) out.push(e);
+    if (out.length === n) break;
+  }
+  return out;
+}
+
+// Entries the boards list with their own times: the last hour, and the day ("+" when a source does not list a whole day)
+function activityLine(a) {
+  const h = a && a.lastHour, d = a && a.last24h;
+  if (!h || !d || !(h.count || d.count)) return "";
+  const by = (t) => (Array.isArray(t.by) ? t.by.map((b) => `${b.name}: ${fmt(b.count)} ${b.noun}`).join(" · ") : "");
+  const hour = h.count ? `<b>${esc(fmt(h.count))}</b> ${h.count === 1 ? "entry" : "entries"} in the last hour` : "";
+  const day = d.count ? `<b>${esc(fmt(d.count))}${d.partial ? "+" : ""}</b> in 24 h` : "";
+  return `<span class="pc-act" title="${esc(`Last hour, on ${h.boards} ${h.boards === 1 ? "board" : "boards"}: ${by(h)}. Last 24 h: ${by(d)}${d.partial ? ". A lower bound: not every board lists a whole day." : "."}`)}">${[hour, day].filter(Boolean).join(" · ")}</span>`;
 }
 
 // Entries the boards' own records date today (UTC): a count, never a time
@@ -769,12 +790,12 @@ function paintPulse() {
   const events = Array.isArray(p.events) ? p.events : [];
   if (card) {
     const first = PULSE.seen === null, before = PULSE.seen || new Set();
-    const rows = events.slice(0, 5);
+    const rows = pickRows(events, 5, 2);
     card.hidden = !rows.length;
     card.classList?.toggle("paused", stale);
     card.innerHTML = `<div class="pc-head"><span class="pc-title"><span class="live-dot" aria-hidden="true"></span>Live across the boards</span><span class="pc-upd">${stale ? "paused · retrying" : `updated ${timeAgo(p.at)}`}</span></div>
       <ol class="pc-list">${rows.map((e) => pulseRow(e, !first && !before.has(e.id))).join("")}</ol>
-      <div class="pc-foot">${todayLine()}<a class="mono" href="/api/pulse.md" title="The same, as Markdown for agents">/api/pulse</a></div>`;
+      <div class="pc-foot">${activityLine(p.activity) || todayLine()}<a class="mono" href="/api/pulse.md" title="The same, as Markdown for agents">/api/pulse</a></div>`;
     PULSE.seen = new Set(events.map((e) => e.id));
   }
   if (pill) {
@@ -788,7 +809,7 @@ function paintPulse() {
     }
   }
   if (bar) {
-    const e = events.find((x) => x.kind === "headline" || x.kind === "proof" || x.kind === "discovery");
+    const e = events.find((x) => ["headline", "record", "proof", "discovery"].includes(x.kind));
     bar.hidden = !e || Date.now() - Date.parse(e.at) > 86400000;
     if (e && !bar.hidden) bar.innerHTML = `<div class="wrap ji-row"><span class="ji-label">Just in</span><span class="ji-text"><b>${esc(e.source === "palomar" ? "Palomar" : e.boardName || "")}</b> · ${esc(e.text)}</span><span class="ji-time">${timeAgo(e.at)}</span><a class="ji-go" href="${esc(safeUrl(pulseHref(e)))}" target="_blank" rel="noopener">See it →</a></div>`;
   }

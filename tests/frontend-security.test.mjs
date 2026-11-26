@@ -191,7 +191,7 @@ test("fresh discoveries: registry text stays data, links go only to registry per
   assert.ok(!h.elements.get("app").innerHTML.includes('id="discoveries"'));
 });
 
-test("pulse: board text stays data, links go only to the live sources and our board pages, faces only for GitHub logins", () => {
+test("pulse: board text stays data, links go only to the live sources and our board pages, faces only for GitHub logins, two rows a board", () => {
   const h = harness();
   loadFixture(h);
   h.run("renderHome()");
@@ -199,11 +199,14 @@ test("pulse: board text stays data, links go only to the live sources and our bo
   h.context.pulse = {
     at: now, sources: [],
     agentsNow: { total: payload, counts: [{ board: payload, boardName: payload, count: 5, fleet: 2, outside: 3, windowMinutes: 30 }] },
+    activity: { lastHour: { count: 5, boards: 1, partial: false, by: [{ name: payload, count: 5, noun: payload }] }, last24h: { count: 9, boards: 1, partial: true, by: [] } },
     events: [
       { id: "1", at: now, kind: "headline", source: "pequalnp", board: payload, boardName: payload, text: payload, url: "javascript:alert(1)" },
       { id: "2", at: now, kind: "proof", source: "pequalnp", board: "b", boardName: "P = NP?", who: payload, text: payload, url: "https://pequalnp.com/lemma.html#L-meta-1" },
-      { id: "3", at: payload, kind: "proof", source: "pequalnp", who: "ada", text: "ok", url: "https://pequalnp.com.evil.test/" },
-      { id: "4", at: now, kind: payload, source: "palomar", who: payload, text: payload, url: "https://palomar-registry.org/entry?id=x" },
+      { id: "3", at: payload, kind: "proof", source: "pequalnp", board: "b", who: "ada", text: "ok", url: "https://pequalnp.com.evil.test/" },
+      { id: "4", at: now, kind: "submission", source: "pequalnp", board: "b", text: "a third row from one board", url: "https://pequalnp.com/" },
+      { id: "5", at: now, kind: "record", source: "riemann", board: "rh", boardName: payload, agent: payload, text: payload, url: "https://play.bohrium.com/challenges/x" },
+      { id: "6", at: now, kind: payload, source: "palomar", who: payload, text: payload, url: "https://palomar-registry.org/entry?id=x" },
     ],
   };
   h.run("PULSE.data = pulse; paintPulse()");
@@ -215,8 +218,11 @@ test("pulse: board text stays data, links go only to the live sources and our bo
   }
   const ours = `/c/${h.run("pathPart(payload)")}`;
   assert.deepEqual([...card.innerHTML.matchAll(/href="([^"]*)"/g)].map((m) => decode(m[1])),
-    [ours, ours, "/c/b", "https://pequalnp.com/lemma.html#L-meta-1", "#", "https://palomar-registry.org/", "https://palomar-registry.org/entry?id=x", "/api/pulse.md"]);
+    [ours, ours, "/c/b", "https://pequalnp.com/lemma.html#L-meta-1", "/c/b", "/c/b", "/c/rh", "https://play.bohrium.com/challenges/x", "https://palomar-registry.org/", "https://palomar-registry.org/entry?id=x", "/api/pulse.md"]);
+  assert.ok(!card.innerHTML.includes("a third row from one board"), "at most two rows from one board");
   assert.deepEqual([...card.innerHTML.matchAll(/<img[^>]*src="([^"]*)"/g)].map((m) => m[1]), ["https://github.com/ada.png?size=48"]);
+  assert.match(card.innerHTML, /<b>5<\/b> entries in the last hour · <b>9\+<\/b> in 24 h/);
+  assert.match(card.innerHTML, /class="pc-agent" title="As the entry names it">with &#39;&quot;\);globalThis/);
   assert.match(pill.innerHTML, /<b class="pp-n">—<\/b>/);
   assert.deepEqual([...bar.innerHTML.matchAll(/href="([^"]*)"/g)].map((m) => decode(m[1])), [ours]);
   h.run("PULSE.fails = 2; paintPulse()");
