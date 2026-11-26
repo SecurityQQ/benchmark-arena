@@ -197,6 +197,33 @@
       "model-output/../target-data/README.md"
     ]
   },
+  "cdcgov/covid19-forecast-hub": {
+    "pushedAt": "2026-11-26T15:19:26Z",
+    "fingerprint": "a0f0ccb7f37eb7e2",
+    "verdict": "none",
+    "checkedAt": "2026-11-26T19:51:42.270Z"
+  },
+  "cdcgov/rsv-forecast-hub": {
+    "pushedAt": "2026-11-26T05:35:27Z",
+    "fingerprint": "a0f0ccb7f37eb7e2",
+    "verdict": "competition",
+    "checkedAt": "2026-11-26T19:52:29.614Z",
+    "head": "61d390423c2a53302f3ccdd5659d49be435e1c41",
+    "sources": [
+      "README.md",
+      "hub-config/README.md",
+      "model-metadata/README.md",
+      "model-output/README.md",
+      "target-data/README.md",
+      "open_practices.md",
+      "rules_of_behavior.md",
+      "DISCLAIMER.md",
+      "CONTRIBUTING.md",
+      "code-of-conduct.md",
+      "model-output/../target-data/README.md",
+      "model-output/../model-metadata/README.md"
+    ]
+  },
   "changwookjun/nlp-paper": {
     "pushedAt": "2026-11-12T05:06:57Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
@@ -614,10 +641,10 @@
     "live": true
   },
   "mrs-/black-friday-deals": {
-    "pushedAt": "2026-11-26T15:47:49Z",
+    "pushedAt": "2026-11-26T19:15:53Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "none",
-    "checkedAt": "2026-11-26T17:52:19.772Z"
+    "checkedAt": "2026-11-26T19:43:25.819Z"
   },
   "ndif-team/looped-lens-challenge": {
     "pushedAt": "2026-11-25T18:31:37Z",
@@ -755,9 +782,9 @@
   },
   "rajpurkar/squad-explorer": {
     "pushedAt": "2023-10-13T20:58:11Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-25T11:53:23.645Z",
+    "checkedAt": "2026-11-26T19:43:51.962Z",
     "head": "eee5fdbf62f8613a7812b03419e6b29617b74fd1",
     "sources": [
       "README.md"
@@ -782,10 +809,21 @@
   },
   "rdi-foundation/terminal-bench-leaderboard": {
     "pushedAt": "2026-07-21T03:13:20Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-25T06:21:21.502Z",
-    "head": "1fd4b9639a32247382c40b97cb6ae7ef520b3772"
+    "checkedAt": "2026-11-26T19:52:50.621Z",
+    "head": "1fd4b9639a32247382c40b97cb6ae7ef520b3772",
+    "sources": [
+      "README.md",
+      "results/019d76c7-6d7e-7bc3-aa66-0e1d80fc0067.json",
+      "results/019d76d0-5e6e-7f71-ac4a-39996fef99c8.json",
+      "results/019d76da-437f-7c33-a037-569015b1272f.json",
+      "results/019d76ea-e6cd-7041-aef5-f7ee9d57ce58.json",
+      "results/019dd928-6d99-7973-8d67-ff55b1f69e7f.json",
+      "results/019dd953-c6d9-7da0-8171-b4361369bc05.json",
+      "results/019dd98c-29c2-7621-98a6-bd6622066879.json",
+      "results/"
+    ]
   },
   "realchendahuang/before-you-install-t3code": {
     "pushedAt": "2026-11-26T15:08:47Z",

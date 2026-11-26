@@ -33,7 +33,7 @@
     "name": "audio.cpp",
     "url": "https://github.com/0xShug0/audio.cpp",
     "description": "An all-in-one, pure C++ inference engine for audio models, powered by ggml. Supports TTS, STT, VAD, voice conversion, music generation, and more, with highly optimized performance. No Python dependency.",
-    "stars": 4472,
+    "stars": 4473,
     "topics": [
       "ai",
       "amd-gpu",
@@ -60,21 +60,6 @@
     "pushedAt": "2026-11-26T16:28:48Z"
   },
   {
-    "owner": "cporter202",
-    "name": "scraping-apis-for-devs",
-    "url": "https://github.com/cporter202/scraping-apis-for-devs",
-    "description": "This GitHub repo is a powerhouse collection of scraping APIs for developers that you can start using immediately to build everything from simple automations to full-scale applications. ",
-    "stars": 4038,
-    "topics": [
-      "api-library",
-      "api-list",
-      "developer-api",
-      "scraping-api"
-    ],
-    "defaultBranch": "main",
-    "pushedAt": "2026-10-20T04:13:01Z"
-  },
-  {
     "owner": "starVLA",
     "name": "starVLA",
     "url": "https://github.com/starVLA/starVLA",
@@ -94,7 +79,7 @@
     "name": "AssetOpsBench",
     "url": "https://github.com/IBM/AssetOpsBench",
     "description": "AssetOpsBench - Industry 4.0: A unified benchmark and framework for building, orchestrating, and evaluating domain-specific AI agents for Industry 4.0 asset operations and maintenance, with 460+ scenarios, 5 specialist agents (IoT, FMSR, TSFM, Work Order,...), and multi-agent orchestration blueprints (MetaAgent, AgentHive) over MCP.",
-    "stars": 2508,
+    "stars": 2509,
     "topics": [
       "ai-for-physical-assets",
       "condition-based-maintenance",
@@ -113,10 +98,10 @@
     "name": "Black-Friday-Deals",
     "url": "https://github.com/mRs-/Black-Friday-Deals",
     "description": "Black Friday Deals for macOS / iOS Software & Books",
-    "stars": 2362,
+    "stars": 2363,
     "topics": [],
     "defaultBranch": "master",
-    "pushedAt": "2026-11-26T15:47:49Z"
+    "pushedAt": "2026-11-26T19:15:53Z"
   },
   {
     "owner": "AGI-Edgerunners",
@@ -228,7 +213,7 @@
     "name": "exploitgym",
     "url": "https://github.com/sunblaze-ucb/exploitgym",
     "description": "ExploitGym is a large-scale, realistic benchmark built from real-world vulnerabilities designed to evaluate AI agents' ability to develop exploits.",
-    "stars": 1322,
+    "stars": 1323,
     "topics": [],
     "defaultBranch": "main",
     "pushedAt": "2026-11-14T04:53:32Z"
@@ -377,7 +362,7 @@
     "name": "polymarket-paper-trader",
     "url": "https://github.com/agent-next/polymarket-paper-trader",
     "description": "Paper trading simulator for Polymarket",
-    "stars": 509,
+    "stars": 506,
     "topics": [
       "ai-agent",
       "algorithmic-trading",
@@ -587,10 +572,10 @@
     "name": "pequalnp-proofs",
     "url": "https://github.com/open-goat/pequalnp-proofs",
     "description": "Lean 4 proofs from the public AI attempt at P vs NP (pequalnp.com). Open gaps welcome pull requests.",
-    "stars": 250,
+    "stars": 253,
     "topics": [],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-26T18:22:32Z"
+    "pushedAt": "2026-11-26T19:42:21Z"
   },
   {
     "owner": "Saivineeth147",
@@ -698,6 +683,22 @@
     "topics": [],
     "defaultBranch": "main",
     "pushedAt": "2026-11-26T06:00:15Z"
+  },
+  {
+    "owner": "CDCgov",
+    "name": "covid19-forecast-hub",
+    "url": "https://github.com/CDCgov/covid19-forecast-hub",
+    "description": "A repository run by the Centers for Disease Control and Prevention (CDC) to collect forecasts of incident respiratory COVID-19 hospital admissions and emergency department visits.",
+    "stars": 31,
+    "topics": [
+      "center-for-forecasting-and-outbreak-analytics",
+      "centers-for-disease-control-and-prevention",
+      "covid-19",
+      "forecasting",
+      "hubverse"
+    ],
+    "defaultBranch": "main",
+    "pushedAt": "2026-11-26T15:19:26Z"
   },
   {
     "owner": "SAIRcompetition",
@@ -872,6 +873,22 @@
     "topics": [],
     "defaultBranch": "main",
     "pushedAt": "2026-11-14T12:38:10Z"
+  },
+  {
+    "owner": "CDCgov",
+    "name": "rsv-forecast-hub",
+    "url": "https://github.com/CDCgov/rsv-forecast-hub",
+    "description": "A repository run by the Centers for Disease Control and Prevention (CDC) to collect forecasts of incident respiratory syncytial virus (RSV) hospital admissions and emergency department visits.",
+    "stars": 7,
+    "topics": [
+      "center-for-forecasting-and-outbreak-analytics",
+      "centers-for-disease-control-and-prevention",
+      "forecasting",
+      "hubverse",
+      "respiratory-syncytial-virus"
+    ],
+    "defaultBranch": "main",
+    "pushedAt": "2026-11-26T05:35:27Z"
   },
   {
     "owner": "programbench",
