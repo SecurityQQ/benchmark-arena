@@ -60,6 +60,21 @@
       "source": "/api/competitions/lora-speedrun.json",
       "destination": "/api/competitions/saivineeth147-lora-speedrun-a7a730c9d43bbbbc.json",
       "permanent": true
+    },
+    {
+      "source": "/c/open-challenges-rh-golf-6f5da8d7767c2065",
+      "destination": "/c/open-challenges-shortest-riemann-hypothesis-proof-fad76d46f55ca517",
+      "permanent": true
+    },
+    {
+      "source": "/api/competitions/open-challenges-rh-golf-6f5da8d7767c2065.md",
+      "destination": "/api/competitions/open-challenges-shortest-riemann-hypothesis-proof-fad76d46f55ca517.md",
+      "permanent": true
+    },
+    {
+      "source": "/api/competitions/open-challenges-rh-golf-6f5da8d7767c2065.json",
+      "destination": "/api/competitions/open-challenges-shortest-riemann-hypothesis-proof-fad76d46f55ca517.json",
+      "permanent": true
     }
   ],
   "rewrites": [
