@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import type { AgentAttribution, Competition, DiscoveredRepo } from "./types.js";
 import type { LLMCompetition } from "./llm.js";
+import { DOMAINS, currentDomain } from "./domains.js";
 
 export class ValidationError extends Error {
   constructor() { super("Invalid competition data"); }
@@ -113,7 +114,7 @@ export function validateCompetition(value: unknown, source: Source): LLMCompetit
     tagline: c.tagline == null ? "" : text(c.tagline), description: c.description == null ? "" : text(c.description),
     url: url(c.url == null || c.url === "" ? source.url : c.url), host: choice(c.host, ["github", "website", "kaggle", "huggingface", "other"], "github"),
     status: choice(c.status, ["active", "upcoming", "ended", "unknown"], "unknown"),
-    domain: choice(c.domain, ["formal-methods", "hardware-efficiency", "llm-eval", "coding-agents", "ml-research", "systems-perf", "robotics", "security", "other"], "other"),
+    domain: choice(currentDomain(c.domain, c.tags), DOMAINS, "other"),
     tags: list(c.tags).map(text), images: list(c.images).map((u) => url(u, relative)),
     participation: { ...strings(part, ["howToSubmit", "submissionFormat", "computeDetails", "deadline", "rounds", "prizes", "eligibility", "cost", "verification"]), requirements: list(part.requirements).map(text), compute: choice(part.compute, ["none", "cpu", "consumer-gpu", "datacenter-gpu", "cluster", "unknown"], "unknown") },
     links: list(c.links).map((value) => { const l = object(value); return { label: text(l.label), url: url(l.url) }; }),

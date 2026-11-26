@@ -24,7 +24,8 @@ const ago = (iso) => {
   return `${Math.floor(d / 365)}y ago`;
 };
 const COMPUTE = { none: "No compute", cpu: "CPU only", "consumer-gpu": "Consumer GPU", "datacenter-gpu": "Datacenter GPU", cluster: "Cluster", unknown: "Not specified" };
-const DOMAIN = { "formal-methods": "Formal methods", "hardware-efficiency": "Hardware efficiency", "llm-eval": "LLM eval", "coding-agents": "Coding agents", "ml-research": "ML research", "systems-perf": "Systems perf", robotics: "Robotics", security: "Security", other: "Other" };
+// twin of DOMAIN_LABELS in src/domains.ts
+const DOMAIN = { "formal-methods": "Formal methods", "llm-eval": "LLM eval", "coding-agents": "Coding agents", "ml-research": "ML research", robotics: "Robotics", cybersecurity: "Cybersecurity", firmware: "Firmware", "chip-design": "Chip design", other: "Other" };
 // muted accent palette: clay / olive / sky / fig / kraft / heather / cactus — no neon
 const FAM = {
   anthropic: ["Anthropic", "#D97757"], openai: ["OpenAI", "#788C5D"], google: ["Google", "#6A9BCC"], deepseek: ["DeepSeek", "#5F6BB3"],
@@ -89,10 +90,10 @@ const ART = {
   "d-llm":      { caption: "Weighed at the line.",                    note: "LLM eval: a finish by the judges' stand, brass scales on the kerb.",        pos: "78% 70%", hpos: "84% 80%" },
   "d-ml":       { caption: "Look closer, then run again.",            note: "ML research: the back straight, a microscope and notebooks.",               pos: "80% 74%", hpos: "86% 84%" },
   "d-formal":   { caption: "Every hurdle is a lemma.",                note: "Formal methods: hurdles, a marble dodecahedron and a compass.",             pos: "82% 72%", hpos: "88% 82%" },
-  "d-hardware": { caption: "Heat is the opponent.",                   note: "Hardware efficiency: a sprint, a copper heatsink and a silicon wafer.",     pos: "70% 80%", hpos: "74% 90%" },
+  "d-hardware": { caption: "Heat is the opponent.",                   note: "Chip design: a sprint, a copper heatsink and a silicon wafer.",             pos: "70% 80%", hpos: "74% 90%" },
   "d-other":    { caption: "The plinth is still empty.",              note: "Other: open lanes and a blank marble medallion.",                           pos: "72% 78%", hpos: "78% 88%" },
   "d-robotics": { caption: "A hand that learned to let go.",          note: "Robotics: a brass mechanical hand on the track.",                           pos: "82% 80%", hpos: "86% 90%" },
-  "d-systems":  { caption: "Thousandths decide it.",                  note: "Systems performance: the finish tape and a chronograph.",                   pos: "88% 62%", hpos: "92% 74%" },
+  "d-systems":  { caption: "Thousandths decide it.",                  note: "Timing: the finish tape and a chronograph.",                               pos: "88% 62%", hpos: "92% 74%" },
   "c-none":       { caption: "Pencil, paper, bare feet.",             note: "No compute: a barefoot runner across a meadow.",                            pos: "72% 78%", hpos: "76% 88%" },
   "c-consumer":   { caption: "One card, one road.",                   note: "Consumer GPU: a lone runner, a graphics card on the kerb.",                 pos: "80% 78%", hpos: "86% 88%" },
   "c-cpu":        { caption: "A single chip on a pedestal.",          note: "CPU only: a processor on a marble block.",                                  pos: "74% 80%", hpos: "78% 90%" },
@@ -109,9 +110,9 @@ const ART = {
   pool:       { caption: "Dive into the sky.",                         note: "Swimmers leave for the clouds; the medal stays on the edge.",      pos: "70% 78%", hpos: "100% 96%" },
 };
 const ART_BY_DOMAIN = {
-  "formal-methods": ["d-formal", "compass", "caesar"], "hardware-efficiency": ["d-hardware", "datacenter", "velodrome"], "systems-perf": ["d-systems", "velodrome"],
+  "formal-methods": ["d-formal", "compass", "caesar"], "chip-design": ["d-hardware", "datacenter", "velodrome"], firmware: ["c-cpu", "d-systems", "velodrome"],
   "coding-agents": ["d-coding", "velodrome", "armillary"], "llm-eval": ["d-llm", "armillary", "caesar"], "ml-research": ["d-ml", "armillary", "pool"],
-  robotics: ["d-robotics", "horse"], security: ["caesar", "datacenter"], other: ["d-other", "pool", "horse"],
+  robotics: ["d-robotics", "horse"], cybersecurity: ["caesar", "datacenter"], other: ["d-other", "pool", "horse"],
 };
 const ART_BY_COMPUTE = { none: "c-none", cpu: "c-cpu", "consumer-gpu": "c-consumer", "datacenter-gpu": "c-datacenter", cluster: "c-cluster" };
 const hashOf = (str) => { let h = 0; for (const ch of String(str)) h = (h * 31 + ch.charCodeAt(0)) >>> 0; return h; };
@@ -278,7 +279,7 @@ function badgeBlock(c) {
 }
 // ── Topic hubs (/topics/{slug}): the filters from src/topics.ts, shipped in /api/summary ──
 const topicFor = (path) => { const tm = path.match(/^\/topics\/([^/]+)$/); return tm && D ? (D.topics || []).find((t) => t.slug === decodeURIComponent(tm[1])) : null; };
-const inTopic = (t, c) => (!t.domains || t.domains.includes(c.domain)) && (!t.computes || t.computes.includes(c.participation.compute)) && (!t.tag || c.tags.some((x) => x.includes(t.tag)));
+const inTopic = (t, c) => (!t.domains || t.domains.includes(c.domain)) && (!t.computes || t.computes.includes(c.participation.compute)) && (!t.tags || c.tags.some((x) => t.tags.some((s) => x.includes(s))));
 const topicJoin = (t) => JOIN.replace("an open challenge", t.pick);
 function renderTopic(t) {
   document.title = `${t.title} — Open Challenge List`;
@@ -287,7 +288,7 @@ function renderTopic(t) {
   const comps = D.competitions.filter((c) => inTopic(t, c))
     .sort((a, b) => b.stats.recordsLast30d - a.stats.recordsLast30d || openN(b) - openN(a) || b.stats.totalRecords - a.stats.totalRecords);
   const open = comps.reduce((s, c) => s + openN(c), 0);
-  const art = (t.domains && ART_BY_DOMAIN[t.domains[0]]?.[0]) || (t.computes && ART_BY_COMPUTE[t.computes[0]]) || "pool";
+  const art = (ART[t.art] && t.art) || (t.domains && ART_BY_DOMAIN[t.domains[0]]?.[0]) || (t.computes && ART_BY_COMPUTE[t.computes[0]]) || "pool";
   app.innerHTML = `
     <section class="band art-band">${artBg(art)}<div class="wrap">
     <a class="back" href="/" data-action="nav">← All competitions</a>

@@ -4,6 +4,7 @@ import type { Competition } from "./types.js";
 import type { RepoPages } from "./fetcher.js";
 import { validateAttributions, validateCompetition } from "./validation.js";
 import { boundedFetch } from "./github.js";
+import { DOMAINS, DOMAIN_SCOPE } from "./domains.js";
 import { createHash } from "node:crypto";
 
 const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
@@ -92,7 +93,7 @@ interface Competition {
   host: "github" | "website" | "kaggle" | "huggingface" | "other";
   status: "active" | "upcoming" | "ended" | "unknown";  // active if submissions still accepted / recent records
   tags: string[];             // 3-7 lowercase tags
-  domain: string;             // one of: "formal-methods" | "hardware-efficiency" | "llm-eval" | "coding-agents" | "ml-research" | "systems-perf" | "robotics" | "security" | "other"
+  domain: string;             // one of: ${DOMAINS.map((d) => `"${d}"`).join(" | ")} (see the domain rule below)
   images: string[];           // absolute URLs of images that illustrate the TASK (diagrams, examples). Skip badges/logos/shields. Relative paths are OK, they'll be resolved. Max 4.
   organizer?: { name: string; url?: string; type?: "company"|"academic"|"individual"|"community"|"foundation" };
   participation: {
@@ -166,6 +167,8 @@ Rules:
 - Mark isCurrentBest on the single best record per problem (min for minimize, max for maximize).
 - Be concrete and factual in participation fields. If the docs don't say, omit the field. Never invent deadlines, prizes, or compute requirements.
 - status: "active" if the leaderboard has records in the last ~6 months or docs say submissions are open; "ended" if explicitly closed; "upcoming" if it hasn't started; else "unknown".
+- domain: the one whose scope fits the task best:
+${DOMAINS.map((d) => `  ${d}: ${DOMAIN_SCOPE[d]}`).join("\n")}
 - Repos that are ONLY libraries, paper lists, static result tables with no submission path, or general eval harnesses without a public leaderboard → return null.
 - Return ONLY the JSON or null. No prose, no code fences.`;
 

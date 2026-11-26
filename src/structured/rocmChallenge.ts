@@ -245,7 +245,7 @@ export async function buildRocmChallenge(): Promise<LLMCompetition> {
     host: "website",
     status: accepting.length ? "active" : "ended",
     tags: ["gpu", "amd", "rocm", "hip", "llama.cpp", "ggml", "kernels", "inference", "performance", "leaderboard"],
-    domain: "hardware-efficiency",
+    domain: "coding-agents",
     images: [],
     organizer: { name: "AMD (modelbot)", url: `${SITE}/`, type: "company" },
     participation: {

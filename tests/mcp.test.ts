@@ -29,7 +29,7 @@ const COMPS = [
   comp("lean-open", { name: "Lean Proofs", domain: "formal-methods", tags: ["lean", "proofs"], open: 1, d90: 3, records: [{ value: 0, date: "2026-11-01", contributor: "eve" }] }),
   comp("busy-gpu", { name: "NanoGPT Speedrun", compute: "datacenter-gpu", domain: "ml-research", tags: ["speedrun"], d30: 12, d90: 20, records: [
     { value: 3.28, date: "2026-11-24", contributor: "ann", isCurrentBest: true, agent: { family: "anthropic", tool: "Claude Code", confidence: "high", role: "author" }, submissionUrls: ["https://github.com/o/busy-gpu/pull/1"] }] }),
-  comp("kernels", { name: "Kernel Golf", compute: "consumer-gpu", domain: "hardware-efficiency", tags: ["gpu kernels", "cuda"], open: 2, d30: 2, d90: 5, records: [{ value: 10, date: "2026-11-20", contributor: "bob" }] }),
+  comp("kernels", { name: "Kernel Golf", compute: "consumer-gpu", domain: "chip-design", tags: ["gpu kernels", "cuda"], open: 2, d30: 2, d90: 5, records: [{ value: 10, date: "2026-11-20", contributor: "bob" }] }),
   comp("mystery", { compute: "unknown", open: 1, d30: 1 }),
   comp("done", { name: "Lean Ended", status: "ended", domain: "formal-methods", tags: ["lean"], d30: 5 }),
   comp("Mixed_Case-1", { name: "Mixed Case", domain: "coding-agents" }),
@@ -212,7 +212,7 @@ test("find_challenges: boards with recent entries first, then open tracks; filte
   const none = await call(handle, "find_challenges", { query: "quantum chess" });
   assert.equal(none.isError, undefined);
   assert.deepEqual(none.structuredContent, { crawledAt: DATA.crawledAt, matched: 0, challenges: [] });
-  assert.match(none.content[0].text, /^No open challenge matches .*Domains in the list: coding-agents, formal-methods, hardware-efficiency, llm-eval, ml-research\./);
+  assert.match(none.content[0].text, /^No open challenge matches .*Domains in the list: chip-design, coding-agents, formal-methods, llm-eval, ml-research\./);
 
   // argument errors are tool results the model can correct, and nothing is fetched for them
   const before = calls.length;

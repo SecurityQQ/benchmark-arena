@@ -57,7 +57,7 @@ export interface Competition {
   host: "github" | "website" | "kaggle" | "huggingface" | "other";
   status: CompetitionStatus;
   tags: string[];
-  domain: string;                // "formal-methods" | "hardware-efficiency" | "llm-eval" | "coding-agents" | ...
+  domain: string;                // one of DOMAINS in domains.ts: "formal-methods" | "coding-agents" | "chip-design" | ...
   images: string[];              // absolute URLs
   organizer?: Organizer;
   participation: Participation;
