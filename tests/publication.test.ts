@@ -156,7 +156,7 @@ test("dev server enforces publication, safe paths, methods, and security headers
   const { root } = sandbox(t);
   symlinkSync(join(root, "data/competitions.json"), join(root, "site/hero.jpg"));
   const env = { ...process.env, PORT: "0" };
-  delete env.HOST;
+  for (const k of ["HOST", "LIVE_DB_URL", "GITHUB_TOKEN"]) delete env[k];
   const child = spawn(process.execPath, ["--import", import.meta.resolve("tsx"), fileURLToPath(new URL("../src/serve.ts", import.meta.url))], { cwd: root, env });
   t.after(async () => {
     if (child.exitCode === null) {
@@ -233,6 +233,14 @@ test("dev server enforces publication, safe paths, methods, and security headers
   assert.equal(mcp.status, 200);
   assert.match((await mcp.json()).result.content[0].text, /^# Test/);
   assert.equal((await get("/mcp")).status, 405);
+  // /api/live as on Vercel (api/live.ts): the board from the dev server's own files, check-ins in memory
+  const live = await fetch(`http://127.0.0.1:${port}/api/live/Valid_ID-1`);
+  assert.equal(live.status, 200);
+  assert.equal((await live.json()).id, "Valid_ID-1");
+  const checkin = await fetch(`http://127.0.0.1:${port}/api/live/Valid_ID-1/sessions`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ agent: "Claude Code" }) });
+  assert.equal(checkin.status, 201);
+  assert.equal((await (await fetch(`http://127.0.0.1:${port}/api/live`)).json()).challenges[0].agentsNow, 1);
+  assert.equal(JSON.parse((await get("/api/live-base.json")).body).challenges[0].id, "Valid_ID-1");
   for (const path of ["/", "/c/Valid_ID-1", "/app.js", "/favicon-32.png", "/api/summary", "/llms.txt", "/join.txt", "/feed.xml", "/api/feed", "/api/index"]) {
     const response = await get(path);
     assert.equal(response.status, 200, path);

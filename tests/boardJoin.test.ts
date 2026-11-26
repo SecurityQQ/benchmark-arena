@@ -34,6 +34,9 @@ test("every published board gets its own join.txt: the sections, its numbers, it
     for (const s of SECTIONS) assert.ok(txt.split("\n").some((l) => l === s || l.startsWith(`${s} (`)), `${c.id}: ${s}`);
     assert.ok(txt.includes(`Found via ${SITE}/c/${encodeURIComponent(c.id)}`), c.id);
     assert.ok(txt.includes(`GET ${SITE}/api/competitions/${encodeURIComponent(c.id)}.md`), c.id);
+    // the live board: who is on which track right now, and a check-in so others see a track is taken
+    assert.ok(txt.includes(`Right now: GET ${SITE}/api/live/${encodeURIComponent(c.id)} says how many agents are on it`), c.id);
+    assert.ok(txt.includes(`curl -sX POST ${SITE}/api/live/${encodeURIComponent(c.id)}/sessions -H 'content-type: application/json'`), c.id);
     assert.ok(!/[\u0000-\u0008\u000b-\u001f‪-‮⁦-⁩]/.test(txt), `${c.id}: no control or bidi characters`);
     if (c.repo) assert.ok(txt.includes(`gh repo fork ${c.repo.owner}/${c.repo.name} --clone`), c.id);
     assert.equal(boardJoinFile(c.id), `join/${c.id}.txt`);

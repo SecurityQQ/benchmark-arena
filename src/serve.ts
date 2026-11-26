@@ -21,6 +21,10 @@ import { loadEvents } from "./events.js";
 import { NO_DISCOVERIES, loadDiscoveries } from "./discoveries.js";
 import { loadAgentDocs, withAgentDocs } from "./agentDocs.js";
 import { boardJoinTxt } from "./boardJoin.js";
+import { liveBase } from "./live.js";
+import { createLiveHandler } from "./liveApi.js";
+import { memorySessions, pgSessions } from "./sessions.js";
+import { connect } from "./db.js";
 
 const PORT = Number(process.env.PORT ?? 3000);
 const HOST = process.env.HOST ?? "127.0.0.1";
@@ -87,6 +91,27 @@ async function serveAccounts(req: IncomingMessage, res: ServerResponse) {
   res.end(Buffer.from(await response.arrayBuffer()));
 }
 
+// /api/live as on Vercel (api/live.ts): the base from this server, check-ins in memory unless LIVE_DB_URL names a database
+let live: ((request: Request) => Promise<Response>) | undefined;
+async function serveLive(req: IncomingMessage, res: ServerResponse) {
+  const address = server.address();
+  const port = typeof address === "object" && address ? address.port : PORT;
+  const host = ["0.0.0.0", "::", ""].includes(HOST) ? "127.0.0.1" : HOST.includes(":") ? `[${HOST}]` : HOST;
+  const self = `http://${host}:${port}`;
+  live ??= createLiveHandler({
+    origin: self, publicOrigin: self, githubToken: process.env.GITHUB_TOKEN || undefined,
+    store: process.env.LIVE_DB_URL ? pgSessions(connect(process.env.LIVE_DB_URL, { max: 2, connectTimeout: 5, statementTimeoutMs: 4000 })) : memorySessions(),
+    log: (line) => console.log(line),
+  });
+  const headers = new Headers();
+  for (const [name, value] of Object.entries(req.headers)) for (const v of [value ?? []].flat()) headers.append(name, v);
+  headers.set("x-real-ip", req.socket.remoteAddress ?? "local");
+  const body = req.method === "GET" || req.method === "HEAD" ? {} : { body: Readable.toWeb(req), duplex: "half" };
+  const response = await live(new Request(`${self}${req.url ?? "/api/live"}`, { method: req.method, headers, ...body } as RequestInit));
+  res.writeHead(response.status, Object.fromEntries(response.headers));
+  res.end(Buffer.from(await response.arrayBuffer()));
+}
+
 const server = createServer(async (req, res) => {
   res.setHeader("X-Content-Type-Options", "nosniff");
   res.setHeader("X-Frame-Options", "DENY");
@@ -95,6 +120,7 @@ const server = createServer(async (req, res) => {
   res.setHeader("Content-Security-Policy", "default-src 'self'; img-src 'self' https: data:; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' https://www.googletagmanager.com; connect-src 'self' https://api.github.com https://raw.githubusercontent.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'");
   if ((req.url ?? "").split("?")[0] === "/mcp") return serveMcp(req, res).catch(() => send(res, 500, "Internal error"));
   if (/^\/api\/v1(\/|\?|$)/.test(req.url ?? "")) return serveAccounts(req, res).catch(() => send(res, 500, "Internal error"));
+  if (/^\/api\/live(\/|$)/.test((req.url ?? "").split("?")[0])) return serveLive(req, res).catch(() => send(res, 500, "Internal error"));
   if (req.method !== "GET" && req.method !== "HEAD") {
     res.setHeader("Allow", "GET, HEAD");
     return send(res, 405, "Method not allowed");
@@ -165,6 +191,10 @@ const server = createServer(async (req, res) => {
     if (path === "/api/open-problems") {
       const data = await loadData();
       return send(res, 200, JSON.stringify(openProblems(data.competitions)), MIME[".json"]);
+    }
+    if (path === "/api/live-base.json") {
+      const data = await loadData();
+      return send(res, 200, JSON.stringify(liveBase({ ...data, competitions: withEntryCounts(data.competitions, data.crawledAt) })), MIME[".json"]);
     }
     if (path === "/api/discoveries" || path === "/api/discoveries.json") {
       return send(res, 200, JSON.stringify(loadDiscoveries(process.cwd()) ?? NO_DISCOVERIES), MIME[".json"]);

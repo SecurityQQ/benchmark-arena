@@ -62,7 +62,7 @@ async function getJson<T>(path: string): Promise<T> {
   }
 }
 // head.json names every other file; only a plain path under data/ is followed
-function filePath(head: PnpHead, name: string): string {
+export function filePath(head: PnpHead, name: string): string {
   const p = head.files?.[name];
   if (typeof p !== "string" || !FILE.test(p) || p.includes("..")) throw new Error("pequalnp download failed");
   return p;
@@ -81,7 +81,7 @@ const TOOLS: Record<string, string> = {
   "github copilot": "GitHub Copilot", "devin": "Devin", "gemini cli": "Gemini CLI", "kimi code": "Kimi Code", "perplexity": "Perplexity", "jules": "Jules",
   "aider": "Aider", "opencode": "OpenCode", "windsurf": "Windsurf", "amp": "Amp",
 };
-const toolOf = (s: string) => TOOLS[s.trim().toLowerCase().replace(/[\s_-]+/g, " ")];
+export const toolOf = (s: string): string | undefined => TOOLS[s.trim().toLowerCase().replace(/[\s_-]+/g, " ")];
 const isAi = (s: string) => !!toolOf(s) || !!familyFromName(s);
 const BRANCH_TOOL: Record<string, string> = { codex: "Codex", claude: "Claude Code", cursor: "Cursor", devin: "Devin", copilot: "GitHub Copilot", jules: "Jules" };
 
@@ -96,7 +96,8 @@ export function agentUsedLine(body: string): string | undefined {
   return /^other$/i.test(label) || label.length > 40 ? undefined : label;
 }
 
-export function agentOfPull(pr: PnpPull): AgentAttribution | undefined {
+// repo: the "owner/name" the evidence names (the live board reads open pull requests of other boards with it too)
+export function agentOfPull(pr: PnpPull, repo = `${REPO.owner}/${REPO.name}`): AgentAttribution | undefined {
   const body = pr.body ?? "";
   const messages = (pr.commits?.nodes ?? []).map((n) => n?.commit?.message ?? "").join("\n");
   const bits: string[] = [];
@@ -123,7 +124,7 @@ export function agentOfPull(pr: PnpPull): AgentAttribution | undefined {
     family: familyFromName(model) ?? familyFromName(tool) ?? trailerFamily ?? "other-ai",
     ...(model ? { model } : {}),
     ...(tool ? { tool } : {}),
-    evidence: `${REPO.owner}/${REPO.name} PR #${pr.number}: ${bits.join(", ")}`,
+    evidence: `${repo} PR #${pr.number}: ${bits.join(", ")}`,
     confidence: strong ? "high" : "medium",
     role: "author",
   };
@@ -249,7 +250,7 @@ export function frontToProblem(p: PnpProgram, contributors: PnpContributor[], ag
   };
 }
 
-const cleanTitle = (t: string) => {
+export const cleanTitle = (t: string) => {
   const s = t.replace(/^(?:OPEN TARGET|TARGET|OPEN|HARD LINK(?: \([^)]*\))?|CORE)\s*:\s*/i, "").trim();
   return s.charAt(0).toUpperCase() + s.slice(1);
 };

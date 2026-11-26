@@ -17,6 +17,7 @@ import { cardRenderer, type CardRenderer } from "./og.js";
 import { loadAgentDocs, withAgentDocs } from "./agentDocs.js";
 import { badgeFile, competitionBadge, listedBadge } from "./badge.js";
 import { boardJoinFile, boardJoinTxt } from "./boardJoin.js";
+import { liveBase } from "./live.js";
 
 // IndexNow (Bing, Yandex, Seznam…): the key is public by design; the file at /{key}.txt proves the site owns it
 export const INDEXNOW_KEY = "ad98448484b5c15a593b4febe60a83bc";
@@ -158,6 +159,8 @@ export async function build(root = process.cwd()) {
   w("api/agents.json", j(aggregateAgents(data.competitions, "author")));
   w("api/agents-subject.json", j(aggregateAgents(data.competitions, "subject")));
   w("api/open-problems.json", j(openProblems(data.competitions)));
+  // the static half of the live board: api/live.ts reads it and adds what is happening now (src/live.ts)
+  w("api/live-base.json", j(liveBase(data)));
   w("api/summary.json", j({
     crawledAt: data.crawledAt,
     competitions: data.competitions,
