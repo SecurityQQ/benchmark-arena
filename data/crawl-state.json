@@ -1,9 +1,9 @@
 {
   "0xshug0/audio.cpp": {
-    "pushedAt": "2026-11-25T06:19:52Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "pushedAt": "2026-11-26T04:58:29Z",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "none",
-    "checkedAt": "2026-11-25T07:09:20.571Z"
+    "checkedAt": "2026-11-26T05:15:48.507Z"
   },
   "1105216375-alt/resimind": {
     "pushedAt": "2026-10-15T15:00:55Z",
@@ -20,23 +20,48 @@
   },
   "agent-axiom/agent-anvil-leaderboard": {
     "pushedAt": "2026-06-08T19:34:24Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-16T11:48:15.701Z",
-    "head": "9408b67e55455b0393f008b1fc2aca7d0904155b"
+    "checkedAt": "2026-11-26T05:35:36.471Z",
+    "head": "9408b67e55455b0393f008b1fc2aca7d0904155b",
+    "sources": [
+      "README.md",
+      "leaderboard.csv",
+      "leaderboard.json",
+      "maintainer_reruns/README.md",
+      "space/README.md",
+      "submissions/README.md",
+      "submissions/agent-anvil-demo-agent.json",
+      "CONTRIBUTING.md",
+      "submissions/"
+    ]
   },
   "agent-next/polymarket-paper-trader": {
     "pushedAt": "2026-11-01T17:16:52Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-02T11:23:58.382Z",
-    "head": "55bb35b7956815c71f5fb58292b2d1e859abff05"
+    "checkedAt": "2026-11-26T05:21:50.442Z",
+    "head": "55bb35b7956815c71f5fb58292b2d1e859abff05",
+    "sources": [
+      "README.md",
+      "benchmark/README.md",
+      "examples/README.md",
+      "leaderboard-client/README.md",
+      "leaderboard-server/README.md",
+      "docs/arena.md",
+      "docs/integrations.md",
+      "docs/remote-mcp.md",
+      "CHANGELOG.md",
+      "docs/kalshi.md",
+      "skill/polymarket-paper-trader/SKILL.md",
+      "CONTRIBUTING.md"
+    ]
   },
   "agi-edgerunners/llm-agents-papers": {
     "pushedAt": "2025-07-12T07:39:24Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "none",
-    "checkedAt": "2026-10-13T23:00:38.520Z"
+    "checkedAt": "2026-11-26T05:17:05.147Z"
   },
   "alankaspersky/kaspersky-inventions-for-tanki-online": {
     "pushedAt": "2026-11-01T16:17:10Z",
@@ -64,9 +89,9 @@
   },
   "basicv8vc/modded-supermimic": {
     "pushedAt": "2026-11-20T03:02:45Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-25T11:57:15.657Z",
+    "checkedAt": "2026-11-26T05:37:28.168Z",
     "head": "23e3bb29ccab1cb13775eed8cadacd6edb444c93",
     "sources": [
       "README.md",
@@ -82,49 +107,130 @@
     ]
   },
   "bichengwang/rl-pricing": {
-    "pushedAt": "2026-11-24T15:01:55Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "pushedAt": "2026-11-25T14:27:31Z",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-25T06:13:07.178Z",
-    "head": "a8725a2a6a2d213b0b8935a15bb271505bf21e30"
+    "checkedAt": "2026-11-26T05:25:32.496Z",
+    "head": "c8e269cf2e6f20b878d2e944ee9ca1cf61e0e190",
+    "sources": [
+      "README.md",
+      ".plan/README.md",
+      "reports/README.md",
+      "leaderboard/FEES.md",
+      "leaderboard/LEADERBOARD.md",
+      "leaderboard/fees.json",
+      "leaderboard/publications.json",
+      "leaderboard/reported.json",
+      "leaderboard/summary.json",
+      "reports/r0-wang-zhang-2026/report.md",
+      "reports/r3-tradingagents-live/preregistration.md",
+      "reports/r3-tradingagents-live/addendum-2026-10-29.md",
+      "reports/r5-finrl-deepseek/preregistration.md",
+      "reports/r6-llm-portfolio-live/preregistration.md",
+      "CHANGELOG.md",
+      "docs/toolkit.md",
+      ".github/pull_request_template.md",
+      ".plan/decisions.md",
+      ".plan/lab-protocol.md",
+      ".plan/targets.md",
+      ".plan/phase-0-foundations.md",
+      ".plan/phase-1-first-reports.md",
+      ".plan/phase-2-live-verdicts.md",
+      ".plan/phase-3-authority.md",
+      ".plan/v2.md",
+      ".plan/paper-v2.md",
+      "leaderboard/"
+    ]
   },
   "changwookjun/nlp-paper": {
     "pushedAt": "2026-11-12T05:06:57Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "none",
-    "checkedAt": "2026-11-16T11:42:00.917Z"
+    "checkedAt": "2026-11-26T05:21:16.449Z"
   },
   "cjmellor/level-up": {
     "pushedAt": "2026-11-23T16:12:47Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "none",
-    "checkedAt": "2026-11-25T06:11:21.668Z"
+    "checkedAt": "2026-11-26T05:21:12.759Z"
   },
   "cloud-cv/evalai": {
     "pushedAt": "2026-11-14T03:31:50Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "none",
-    "checkedAt": "2026-11-16T11:38:35.802Z"
+    "checkedAt": "2026-11-26T05:17:28.539Z"
   },
   "cporter202/scraping-apis-for-devs": {
     "pushedAt": "2026-10-20T04:13:01Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "none",
-    "checkedAt": "2026-10-26T09:05:17.054Z"
+    "checkedAt": "2026-11-26T05:15:59.525Z"
   },
   "crocswap/integer-mult-bounds": {
     "pushedAt": "2026-11-10T14:54:58Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-25T07:12:40.869Z",
-    "head": "e54523517d0f03e58352e647c403a5af3e525a57"
+    "checkedAt": "2026-11-26T05:26:01.072Z",
+    "head": "e54523517d0f03e58352e647c403a5af3e525a57",
+    "sources": [
+      "README.md",
+      "multitape-origin-return/README.md",
+      "upstream/README.md",
+      "autoresearch.md",
+      "AGENTS.md",
+      "CONTRIBUTING.md",
+      "docs/research/bottleneck-brief.md",
+      "docs/research/pr-intake-evidence/pr7000-application/PROOF-REVIEW.md",
+      "docs/research/community-frontier7000-contributors.md",
+      "docs/research/pr-intake-evidence/pr6030-audit/PROOF-REVIEW.md",
+      "docs/research/pr-intake-evidence/pr4359/PROOF-REVIEW.md",
+      "docs/research/community-productive4359-contributors.md",
+      "docs/research/pr-intake-evidence/pr4416/PROOF-REVIEW.md",
+      "docs/research/community-batch1099-review.md",
+      "docs/research/current-status.md",
+      "docs/research/community-k492-review.md",
+      "docs/research/community-cold617-review.md",
+      "docs/research/community-family588-review.md",
+      "docs/research/community-family533-review.md",
+      "docs/research/community-pr531-review.md"
+    ]
   },
   "cybertronai/sutro-problems": {
     "pushedAt": "2026-11-23T23:28:13Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-25T06:19:59.147Z",
-    "head": "2e7514dbf44f3c290f50ca043bc85e8ab117adf8"
+    "checkedAt": "2026-11-26T05:33:34.237Z",
+    "head": "2e7514dbf44f3c290f50ca043bc85e8ab117adf8",
+    "sources": [
+      "README.md",
+      "bill-dally-simplified-tutorial-gemini/README.md",
+      "binary-matmul-regimes/README.md",
+      "matmul/README.md",
+      "mnist-a100/README.md",
+      "mnist/README.md",
+      "sparse-parity/README.md",
+      "symmetry/README.md",
+      "matmul/submissions/baseline_4x4.md",
+      "matmul/submissions/outer_product_4x4.md",
+      "matmul/submissions/best_689.md",
+      "matmul/submissions/hkkk_ilp_4x4.md",
+      "matmul/submissions/best_681.md",
+      "matmul/submissions/best_675.md",
+      "matmul/submissions/best_667.md",
+      "matmul/submissions/baseline_16x16.md",
+      "matmul/submissions/tiled_16x16.md",
+      "matmul/submissions/hierarchical_16x16.md",
+      "matmul/submissions/dead_input_outputs_packed_16x16.md",
+      "matmul/submissions/aliased_16x16.md",
+      "matmul/submissions/colmajor_fused_16x16.md",
+      "matmul/submissions/output_repacked_tail_16x16.md",
+      "matmul/submissions/output_repacked_tail_deferred_value_colored_live_b_16x16.md",
+      "matmul/submissions/output_repacked_tail_deferred_value_colored_live_b_tiny_a_endpoint_16x16.md",
+      "matmul/doc/metaskills/weighted_lifetime_hillclimb_writeup.md",
+      "matmul/submissions/macro_b_staging_66633.md",
+      "matmul/submissions/cheap_capture_66524.md",
+      "matmul/submissions/motif_bundle_66400.md"
+    ]
   },
   "darkxex/swanstationps5": {
     "pushedAt": "2026-11-20T18:46:56Z",
@@ -140,28 +246,65 @@
   },
   "david-courtis/opine-world": {
     "pushedAt": "2026-10-22T19:29:08Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "none",
-    "checkedAt": "2026-10-26T09:10:33.525Z"
+    "checkedAt": "2026-11-26T05:34:48.294Z"
   },
   "dicklesworthstone/rust_scriptbots": {
-    "pushedAt": "2026-11-25T07:17:16Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "pushedAt": "2026-11-26T05:07:57Z",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "none",
-    "checkedAt": "2026-11-25T10:42:20.206Z"
+    "checkedAt": "2026-11-26T05:34:06.971Z"
+  },
+  "ecro/embedeval": {
+    "pushedAt": "2026-09-09T04:49:54Z",
+    "fingerprint": "a0f0ccb7f37eb7e2",
+    "verdict": "competition",
+    "checkedAt": "2026-11-26T05:33:59.382Z",
+    "head": "fdbcb9b93476149cce2d395532bf5164811fe053",
+    "sources": [
+      "README.md",
+      "space/README.md",
+      "results/LEADERBOARD.md",
+      "results/LEADERBOARD_PER_CHECK.md",
+      "results/SAFE_GUIDE.md",
+      "results/TEST_RESULTS.md",
+      "results/history.json",
+      "results/mock-results.json",
+      "results/reference_build_check.json",
+      "results/reference_build_check_native.json",
+      "docs/BENCHMARK-COMPARISON-2026-04-05.md",
+      "docs/BENCHMARK-DELTA-sonnet5-vs-sonnet46.md",
+      "docs/BENCHMARK-DELTA-opus5-vs-sonnet5.md",
+      "docs/LLM-EMBEDDED-CONSIDERATIONS.md",
+      "docs/METHODOLOGY.md",
+      "docs/CONTEXT-QUALITY-MODE.md",
+      "ROADMAP.md",
+      "docs/CONTRIBUTING.md",
+      "docs/HILOOP-HANDOFF.md",
+      "results/"
+    ]
   },
   "eeshan-vaghjiani/spendly": {
     "pushedAt": "2026-11-17T13:56:02Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "none",
-    "checkedAt": "2026-11-23T13:10:26.954Z"
+    "checkedAt": "2026-11-26T05:37:10.111Z"
   },
   "fstandhartinger/jevbench": {
     "pushedAt": "2026-10-15T04:07:55Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-16T11:43:22.161Z",
-    "head": "609a664e81f46e03731600bd7bd9f1b7a61257c5"
+    "checkedAt": "2026-11-26T05:24:22.413Z",
+    "head": "609a664e81f46e03731600bd7bd9f1b7a61257c5",
+    "sources": [
+      "README.md",
+      "RESULTS.md",
+      "RESULTS-COMBINATIONS.md",
+      "RESULTS-v1.1.3.md",
+      "RESULTS-v1.1.md",
+      "RESULTS-v1.2.md"
+    ]
   },
   "google-deepmind/formal-conjectures": {
     "pushedAt": "2026-11-24T15:36:54Z",
@@ -171,10 +314,10 @@
     "head": "9097e2f90e66d2f6244209cb1c07f7120d17ec53"
   },
   "harbor-framework/terminal-bench-challenges": {
-    "pushedAt": "2026-11-24T20:29:36Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "pushedAt": "2026-11-25T15:50:43Z",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-25T10:42:08.466Z",
+    "checkedAt": "2026-11-26T05:32:10.430Z",
     "head": "578b75ffe20944faba321b8a0a596684428c19cb",
     "sources": [
       "README.md",
@@ -191,9 +334,9 @@
   },
   "ibm/assetopsbench": {
     "pushedAt": "2026-11-25T07:53:13Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-25T10:38:18.044Z",
+    "checkedAt": "2026-11-26T05:16:22.949Z",
     "head": "075bd1aed039cdc54ae99091cc0b551e42b294a8",
     "sources": [
       "README.md",
@@ -211,28 +354,33 @@
   },
   "identitynulll/ascension": {
     "pushedAt": "2026-05-26T09:27:32Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "none",
-    "checkedAt": "2026-10-13T23:16:08.765Z"
+    "checkedAt": "2026-11-26T05:37:31.090Z"
   },
   "jozzdart/track": {
     "pushedAt": "2025-05-27T04:01:51Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "none",
-    "checkedAt": "2026-10-13T23:14:29.087Z"
+    "checkedAt": "2026-11-26T05:34:51.942Z"
   },
   "kellerjordan/modded-nanogpt": {
     "pushedAt": "2026-09-28T21:46:14Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-25T07:08:57.157Z",
-    "head": "4ea6b937337a4889b8cfe3f38a93d120048d8f71"
+    "checkedAt": "2026-11-26T05:15:28.038Z",
+    "head": "4ea6b937337a4889b8cfe3f38a93d120048d8f71",
+    "sources": [
+      "README.md",
+      "records/track_3_optimization/README.md",
+      "records/"
+    ]
   },
   "keyu-wang-2002/depthdash": {
     "pushedAt": "2026-11-23T20:32:00Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-25T11:56:55.144Z",
+    "checkedAt": "2026-11-26T05:37:20.277Z",
     "head": "233c9babe759382c418a0687ba4c21dd244af161",
     "sources": [
       "README.md"
@@ -240,10 +388,14 @@
   },
   "kings-crown/s2n-bignum-bench": {
     "pushedAt": "2026-11-22T15:44:31Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-23T13:10:10.594Z",
-    "head": "e1c88a2826c860b20d38bd34688ccd312790b6e6"
+    "checkedAt": "2026-11-26T05:35:26.915Z",
+    "head": "e1c88a2826c860b20d38bd34688ccd312790b6e6",
+    "sources": [
+      "README.md",
+      "GUIDE.md"
+    ]
   },
   "lbx154/argus": {
     "pushedAt": "2026-11-23T11:42:56Z",
@@ -259,10 +411,16 @@
   },
   "leansolving/squeezebench": {
     "pushedAt": "2026-10-22T15:18:02Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-23T13:09:38.531Z",
-    "head": "a485258435ff389675dfcb186e58d143522a1f8c"
+    "checkedAt": "2026-11-26T05:34:45.412Z",
+    "head": "a485258435ff389675dfcb186e58d143522a1f8c",
+    "sources": [
+      "README.md",
+      "evaluation/README.md",
+      "docs/CONTRIBUTING.md",
+      "docs/ADDING_A_PROBLEM.md"
+    ]
   },
   "livesplit/livesplit": {
     "pushedAt": "2026-11-17T20:03:27Z",
@@ -278,17 +436,24 @@
   },
   "ludwigstumpp/llm-leaderboard": {
     "pushedAt": "2024-08-23T20:09:41Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-16T11:45:53.818Z",
-    "head": "1c71762818d7002ef0e6d6eb09733a4b5e1dbf66"
+    "checkedAt": "2026-11-26T05:26:37.783Z",
+    "head": "1c71762818d7002ef0e6d6eb09733a4b5e1dbf66",
+    "sources": [
+      "README.md"
+    ]
   },
   "macrocosm-os/apex-competition-humanoid-parkour": {
     "pushedAt": "2026-08-18T13:42:00Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-16T11:48:31.912Z",
-    "head": "7fc74529926e8d7c71996154323441f719051931"
+    "checkedAt": "2026-11-26T05:37:00.493Z",
+    "head": "7fc74529926e8d7c71996154323441f719051931",
+    "sources": [
+      "README.md",
+      "baseline/PROVENANCE.md"
+    ]
   },
   "marcelscruz/dev-resources": {
     "pushedAt": "2026-10-13T19:36:54Z",
@@ -310,10 +475,15 @@
   },
   "metacognitionai/navgpt-3": {
     "pushedAt": "2026-10-14T05:05:20Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-23T13:08:34.545Z",
-    "head": "f71232985b8a2edd2e2b57cc751f679c2f2b51b7"
+    "checkedAt": "2026-11-26T05:31:46.870Z",
+    "head": "f71232985b8a2edd2e2b57cc751f679c2f2b51b7",
+    "sources": [
+      "README.md",
+      "docs/DATASETS.md",
+      "docs/HUGGING_FACE.md"
+    ]
   },
   "microsoft/argusagent": {
     "pushedAt": "2026-11-23T21:41:08Z",
@@ -329,31 +499,60 @@
   },
   "molly554/whiteboard-ai-tutor": {
     "pushedAt": "2026-11-24T04:01:52Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-25T06:11:41.872Z",
-    "head": "bd0a6783e9c7df50680db1fda0908f6276f6f800"
+    "checkedAt": "2026-11-26T05:21:40.306Z",
+    "head": "bd0a6783e9c7df50680db1fda0908f6276f6f800",
+    "sources": [
+      "README.md",
+      "results/leaderboard.json",
+      "results/summary.json",
+      "results/summary.md",
+      "README.zh-CN.md",
+      "protocol/PROTOCOL.md",
+      "protocol/PROTOCOL.en.md",
+      "docs/METHOD.md",
+      "docs/REPORT.md",
+      "docs/REPORT.zh-CN.md",
+      "CHANGELOG.md",
+      "ROADMAP.md",
+      "CONTRIBUTING.md",
+      "results/"
+    ]
+  },
+  "mrs-/black-friday-deals": {
+    "pushedAt": "2026-11-25T22:05:12Z",
+    "fingerprint": "a0f0ccb7f37eb7e2",
+    "verdict": "none",
+    "checkedAt": "2026-11-26T05:17:00.551Z"
   },
   "ndif-team/looped-lens-challenge": {
     "pushedAt": "2026-11-25T18:31:37Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-25T18:49:44.761Z",
+    "checkedAt": "2026-11-26T05:34:17.302Z",
     "head": "651ab2e30a590a5a1460257bb67949a90dc06255",
     "sources": [
       "README.md",
       "final-evals/README.md",
       "space/README.md",
       "AGENTS.md"
-    ],
-    "live": true
+    ]
   },
   "openai/mle-bench": {
     "pushedAt": "2026-04-24T17:33:44Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-16T11:41:32.855Z",
-    "head": "507f92e1138bb6e40dac5c6ee7a6758e6424bf97"
+    "checkedAt": "2026-11-26T05:20:15.391Z",
+    "head": "507f92e1138bb6e40dac5c6ee7a6758e6424bf97",
+    "sources": [
+      "README.md",
+      "agents/README.md",
+      "examples/README.md",
+      "extras/README.md",
+      "runs/README.md",
+      "experiments/familiarity/README.md"
+    ]
   },
   "opengenerativeai/llm-colosseum": {
     "pushedAt": "2025-03-21T10:35:26Z",
@@ -363,10 +562,16 @@
   },
   "osgood001/riemann-hypothesis": {
     "pushedAt": "2026-11-23T07:46:03Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-25T06:18:55.680Z",
-    "head": "535c9103a305e822d2adb1830981ec4dd0916621"
+    "checkedAt": "2026-11-26T05:32:27.426Z",
+    "head": "535c9103a305e822d2adb1830981ec4dd0916621",
+    "sources": [
+      "README.md",
+      "CONTRIBUTING.md",
+      "verification/NOTES.md",
+      "verification/CACHE.md"
+    ]
   },
   "osu-nlp-group/gui-agents-paper-list": {
     "pushedAt": "2026-11-17T06:42:26Z",
@@ -382,9 +587,9 @@
   },
   "peva3/crowd-v1.5": {
     "pushedAt": "2026-11-17T17:43:14Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "none",
-    "checkedAt": "2026-11-23T13:10:32.234Z"
+    "checkedAt": "2026-11-26T05:37:05.458Z"
   },
   "programbench/submissions": {
     "pushedAt": "2026-10-22T07:00:26Z",
@@ -400,15 +605,14 @@
   },
   "qlabs-eng/noise": {
     "pushedAt": "2026-11-25T19:45:27Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-26T02:51:49.450Z",
+    "checkedAt": "2026-11-26T05:22:10.850Z",
     "head": "fbd6ed5deac1ce7e88b709c3bd74cfc656cdef0c",
     "sources": [
       "README.md",
       "archive/10M/README.md"
-    ],
-    "live": true
+    ]
   },
   "rajpurkar/squad-explorer": {
     "pushedAt": "2023-10-13T20:58:11Z",
@@ -422,10 +626,20 @@
   },
   "rdi-foundation/swe-bench-leaderboard": {
     "pushedAt": "2026-11-21T06:42:46Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-23T13:11:48.860Z",
-    "head": "f75201ee7b3ba3779d6266772e3021a4a2b50050"
+    "checkedAt": "2026-11-26T05:37:43.964Z",
+    "head": "f75201ee7b3ba3779d6266772e3021a4a2b50050",
+    "sources": [
+      "README.md",
+      "results/019d8691-0a8c-7a32-a5e1-1b72cf211f3a.json",
+      "results/019d86f7-8639-7853-bbd1-b045cc625e16.json",
+      "results/019d9025-c7b0-7240-b0e0-069d053c12c7.json",
+      "results/019d9480-9365-7273-b12a-bd76d7d604b4.json",
+      "results/019d9602-bdf5-7b71-8185-1ba4e00fa994.json",
+      "results/019da114-0d54-7310-b6be-58c57d201617.json",
+      "results/"
+    ]
   },
   "rdi-foundation/terminal-bench-leaderboard": {
     "pushedAt": "2026-07-21T03:13:20Z",
@@ -449,9 +663,9 @@
   },
   "rtl-ai/silicon-arena": {
     "pushedAt": "2026-11-26T02:07:34Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-26T02:51:29.901Z",
+    "checkedAt": "2026-11-26T05:38:06.634Z",
     "head": "6e6911d6484bab6834063d919088f369e4417cc5",
     "sources": [
       "PROBLEM.md",
@@ -479,8 +693,7 @@
       "research/discovery.md",
       "research/outreach.md",
       "submissions/"
-    ],
-    "live": true
+    ]
   },
   "ryanalberts/best-of-agent-harnesses": {
     "pushedAt": "2026-11-08T18:40:59Z",
@@ -490,16 +703,24 @@
   },
   "saircompetition/equational-theories-lean-stage2": {
     "pushedAt": "2026-08-27T18:30:50Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-16T11:47:34.651Z",
-    "head": "817a4653bf762584931d49c6714c9fcfab7df66a"
+    "checkedAt": "2026-11-26T05:32:04.805Z",
+    "head": "817a4653bf762584931d49c6714c9fcfab7df66a",
+    "sources": [
+      "README.md",
+      "docs/solo_mode.md",
+      "docs/marathon_mode.md",
+      "examples/solo/TUTORIAL.md",
+      "examples/marathon/TUTORIAL.md",
+      "CONTRIBUTING.md"
+    ]
   },
   "saivineeth147/lora-speedrun": {
     "pushedAt": "2026-09-12T04:50:56Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-25T10:54:34.319Z",
+    "checkedAt": "2026-11-26T05:31:35.661Z",
     "head": "143665849832d5f2e3e1c8486f49ea4c6f193e70",
     "sources": [
       "README.md",
@@ -544,12 +765,46 @@
       "docs/CONTRIBUTING.md"
     ]
   },
+  "sunblaze-ucb/cybergym": {
+    "pushedAt": "2026-08-28T04:34:55Z",
+    "fingerprint": "a0f0ccb7f37eb7e2",
+    "verdict": "competition",
+    "checkedAt": "2026-11-26T05:20:51.619Z",
+    "head": "c6fe2027d39471375920b92cf1025e23a99ffda5",
+    "sources": [
+      "README.md",
+      "FAQ.md",
+      "SUBMISSION.md"
+    ]
+  },
+  "sunblaze-ucb/exploitgym": {
+    "pushedAt": "2026-11-14T04:53:32Z",
+    "fingerprint": "a0f0ccb7f37eb7e2",
+    "verdict": "none",
+    "checkedAt": "2026-11-26T05:20:45.392Z"
+  },
   "suyoumo/clawprobench": {
     "pushedAt": "2026-08-25T11:47:44Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-23T13:05:53.735Z",
-    "head": "c4b8395854fe0752eef435b44f140366efd44d8e"
+    "checkedAt": "2026-11-26T05:21:04.535Z",
+    "head": "c4b8395854fe0752eef435b44f140366efd44d8e",
+    "sources": [
+      "README.md",
+      "ironclaw/README.md",
+      "nanoclaw/README.md",
+      "ironclaw/docs/reborn/setup-slack-for-reborn-binary.md",
+      "ironclaw/docs/capabilities/llm-providers.md",
+      "ironclaw/FEATURE_PARITY.md",
+      "nanoclaw/docs/v1-to-v2-changes.md",
+      "nanoclaw/docs/migration-dev.md",
+      "nanoclaw/docs/isolation-model.md",
+      "nanoclaw/docs/templates.md",
+      "nanoclaw/docs/architecture.md",
+      "nanoclaw/docs/customizing.md",
+      "nanoclaw/CONTRIBUTING.md",
+      "nanoclaw/CHANGELOG.md"
+    ]
   },
   "synopiia/psxs5": {
     "pushedAt": "2026-10-12T03:31:26Z",
@@ -565,10 +820,14 @@
   },
   "tatsu-lab/alpaca_eval": {
     "pushedAt": "2025-08-09T07:23:36Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-16T11:39:00.851Z",
-    "head": "cd543a149df89434d8a54582c0151c0b945c3d20"
+    "checkedAt": "2026-11-26T05:17:53.136Z",
+    "head": "cd543a149df89434d8a54582c0151c0b945c3d20",
+    "sources": [
+      "README.md",
+      "client_configs/README.md"
+    ]
   },
   "tencent-hunyuan/hyra-results": {
     "pushedAt": "2026-11-14T16:30:00Z",
@@ -586,17 +845,27 @@
   },
   "the-ai-alliance/geo-bench-2-leaderboard": {
     "pushedAt": "2026-01-19T11:41:51Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-25T06:21:05.860Z",
-    "head": "1659ccf54c89678ac940b26ace873f53b24ca00f"
+    "checkedAt": "2026-11-26T05:35:44.082Z",
+    "head": "1659ccf54c89678ac940b26ace873f53b24ca00f",
+    "sources": [
+      "README.md"
+    ]
   },
   "thudm/cogdl": {
     "pushedAt": "2024-02-01T21:24:47Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-16T11:40:42.167Z",
-    "head": "281f47424d58844b167ccbe41d9829c1f77689f8"
+    "checkedAt": "2026-11-26T05:19:30.220Z",
+    "head": "281f47424d58844b167ccbe41d9829c1f77689f8",
+    "sources": [
+      "README.md",
+      "results.md",
+      "third_party/README.md",
+      "cogdl/datasets/README.md",
+      "README_CN.md"
+    ]
   },
   "tmgthb/autonomous-agents": {
     "pushedAt": "2026-06-24T17:03:27Z",
@@ -606,9 +875,9 @@
   },
   "tony-montemuro/smb-website": {
     "pushedAt": "2026-08-19T23:24:41Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "none",
-    "checkedAt": "2026-10-13T23:16:03.710Z"
+    "checkedAt": "2026-11-26T05:35:52.246Z"
   },
   "trishullab/putnambench": {
     "pushedAt": "2026-10-07T13:06:18Z",
@@ -630,10 +899,15 @@
   },
   "waico/skab": {
     "pushedAt": "2024-08-11T20:53:38Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-16T11:42:26.145Z",
-    "head": "b2c0d46c2971dcbfe71e26087b6d231998bb91c2"
+    "checkedAt": "2026-11-26T05:22:28.008Z",
+    "head": "b2c0d46c2971dcbfe71e26087b6d231998bb91c2",
+    "sources": [
+      "README.md",
+      "data/README.md",
+      "notebooks/README.md"
+    ]
   },
   "wonguo199-stack/one-does-not-simply-speedrun": {
     "pushedAt": "2026-10-26T06:25:36Z",
@@ -642,22 +916,25 @@
     "checkedAt": "2026-10-26T09:09:02.445Z"
   },
   "xcpcio/xcpcio": {
-    "pushedAt": "2026-11-24T14:41:42Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "pushedAt": "2026-11-26T01:27:05Z",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "none",
-    "checkedAt": "2026-11-25T06:16:07.849Z"
+    "checkedAt": "2026-11-26T05:26:13.564Z"
   },
   "yinizhilian/iclr2025-papers-with-code": {
     "pushedAt": "2025-03-14T08:57:10Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "none",
-    "checkedAt": "2026-10-13T23:05:46.304Z"
+    "checkedAt": "2026-11-26T05:21:19.874Z"
   },
   "zhaoyiyidan/modded-nanogpt-npu": {
     "pushedAt": "2026-10-12T04:57:42Z",
-    "fingerprint": "81e7e9bf9471aa91",
+    "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-16T11:49:24.256Z",
-    "head": "2a69b9fa658ebb6fac63470c0693d3b14bf94058"
+    "checkedAt": "2026-11-26T05:36:42.041Z",
+    "head": "2a69b9fa658ebb6fac63470c0693d3b14bf94058",
+    "sources": [
+      "README.md"
+    ]
   }
 }

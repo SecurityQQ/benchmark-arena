@@ -14,7 +14,7 @@
     "name": "audio.cpp",
     "url": "https://github.com/0xShug0/audio.cpp",
     "description": "An all-in-one, pure C++ inference engine for audio models, powered by ggml. Supports TTS, STT, VAD, voice conversion, music generation, and more, with highly optimized performance. No Python dependency.",
-    "stars": 4454,
+    "stars": 4463,
     "topics": [
       "ai",
       "amd-gpu",
@@ -38,7 +38,7 @@
       "yue2"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-25T06:19:52Z"
+    "pushedAt": "2026-11-26T04:58:29Z"
   },
   {
     "owner": "cporter202",
@@ -60,7 +60,7 @@
     "name": "starVLA",
     "url": "https://github.com/starVLA/starVLA",
     "description": "StarVLA: A Lego-like Codebase for Vision-Language-Action Model Developing",
-    "stars": 3980,
+    "stars": 3977,
     "topics": [
       "robotic-foundation-model",
       "robotics",
@@ -75,7 +75,7 @@
     "name": "AssetOpsBench",
     "url": "https://github.com/IBM/AssetOpsBench",
     "description": "AssetOpsBench - Industry 4.0: A unified benchmark and framework for building, orchestrating, and evaluating domain-specific AI agents for Industry 4.0 asset operations and maintenance, with 460+ scenarios, 5 specialist agents (IoT, FMSR, TSFM, Work Order,...), and multi-agent orchestration blueprints (MetaAgent, AgentHive) over MCP.",
-    "stars": 2495,
+    "stars": 2502,
     "topics": [
       "ai-for-physical-assets",
       "condition-based-maintenance",
@@ -90,11 +90,21 @@
     "pushedAt": "2026-11-25T07:53:13Z"
   },
   {
+    "owner": "mRs-",
+    "name": "Black-Friday-Deals",
+    "url": "https://github.com/mRs-/Black-Friday-Deals",
+    "description": "Black Friday Deals for macOS / iOS Software & Books",
+    "stars": 2358,
+    "topics": [],
+    "defaultBranch": "master",
+    "pushedAt": "2026-11-25T22:05:12Z"
+  },
+  {
     "owner": "AGI-Edgerunners",
     "name": "LLM-Agents-Papers",
     "url": "https://github.com/AGI-Edgerunners/LLM-Agents-Papers",
     "description": "A repo lists papers related to LLM based agent",
-    "stars": 2356,
+    "stars": 2357,
     "topics": [
       "agents",
       "large-language-models",
@@ -109,7 +119,7 @@
     "name": "EvalAI",
     "url": "https://github.com/Cloud-CV/EvalAI",
     "description": ":cloud: :rocket: :bar_chart: :chart_with_upwards_trend: Evaluating state of the art in AI",
-    "stars": 2048,
+    "stars": 2049,
     "topics": [
       "ai",
       "ai-challenges",
@@ -186,13 +196,33 @@
     "name": "formal-conjectures",
     "url": "https://github.com/google-deepmind/formal-conjectures",
     "description": "A collection of formalized statements of conjectures in Lean.",
-    "stars": 1400,
+    "stars": 1401,
     "topics": [
       "formal-mathematics",
       "lean4"
     ],
     "defaultBranch": "main",
     "pushedAt": "2026-11-24T15:36:54Z"
+  },
+  {
+    "owner": "sunblaze-ucb",
+    "name": "exploitgym",
+    "url": "https://github.com/sunblaze-ucb/exploitgym",
+    "description": "ExploitGym is a large-scale, realistic benchmark built from real-world vulnerabilities designed to evaluate AI agents' ability to develop exploits.",
+    "stars": 1322,
+    "topics": [],
+    "defaultBranch": "main",
+    "pushedAt": "2026-11-14T04:53:32Z"
+  },
+  {
+    "owner": "sunblaze-ucb",
+    "name": "cybergym",
+    "url": "https://github.com/sunblaze-ucb/cybergym",
+    "description": "CyberGym is a large-scale, high-quality cybersecurity evaluation framework designed to rigorously assess the capabilities of AI agents on real-world vulnerability analysis tasks.",
+    "stars": 1060,
+    "topics": [],
+    "defaultBranch": "main",
+    "pushedAt": "2026-08-28T04:34:55Z"
   },
   {
     "owner": "suyoumo",
@@ -357,10 +387,10 @@
     "name": "noise",
     "url": "https://github.com/qlabs-eng/noise",
     "description": "Speedrun for pretraining without backpropagation",
-    "stars": 467,
+    "stars": 470,
     "topics": [],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-24T00:50:05Z"
+    "pushedAt": "2026-11-25T19:45:27Z"
   },
   {
     "owner": "waico",
@@ -399,7 +429,7 @@
     "name": "jevbench",
     "url": "https://github.com/fstandhartinger/jevbench",
     "description": "JevBench by Benchmark Heaven: benchmark and leaderboard for AI decision models, measuring typed decision accuracy, calibration, latency and cost.",
-    "stars": 352,
+    "stars": 355,
     "topics": [
       "ai-benchmark",
       "benchmark-heaven",
@@ -436,14 +466,14 @@
       "reproducibility"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-24T15:01:55Z"
+    "pushedAt": "2026-11-25T14:27:31Z"
   },
   {
     "owner": "gpu-mode",
     "name": "reference-kernels",
     "url": "https://github.com/gpu-mode/reference-kernels",
     "description": "Official Problem Sets / Reference Kernels for the GPU MODE Leaderboard!",
-    "stars": 334,
+    "stars": 335,
     "topics": [
       "cuda",
       "gpu",
@@ -479,7 +509,7 @@
       "visualization"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-24T14:41:42Z"
+    "pushedAt": "2026-11-26T01:27:05Z"
   },
   {
     "owner": "LudwigStumpp",
@@ -501,10 +531,10 @@
     "name": "pequalnp-proofs",
     "url": "https://github.com/open-goat/pequalnp-proofs",
     "description": "Lean 4 proofs from the public AI attempt at P vs NP (pequalnp.com). Open gaps welcome pull requests.",
-    "stars": 185,
+    "stars": 219,
     "topics": [],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-25T11:52:17Z"
+    "pushedAt": "2026-11-26T05:12:16Z"
   },
   {
     "owner": "Saivineeth147",
@@ -562,7 +592,7 @@
     "stars": 26,
     "topics": [],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-24T20:29:36Z"
+    "pushedAt": "2026-11-25T15:50:43Z"
   },
   {
     "owner": "1stproof",
@@ -578,7 +608,7 @@
     "name": "riemann-hypothesis",
     "url": "https://github.com/Osgood001/riemann-hypothesis",
     "description": "Independent Comparator setup for the Lean formalization of the Riemann Hypothesis (Alpöge, 2026-11-20)",
-    "stars": 18,
+    "stars": 23,
     "topics": [],
     "defaultBranch": "main",
     "pushedAt": "2026-11-23T07:46:03Z"
@@ -594,6 +624,16 @@
     "pushedAt": "2026-11-23T23:28:13Z"
   },
   {
+    "owner": "Ecro",
+    "name": "embedeval",
+    "url": "https://github.com/Ecro/embedeval",
+    "description": "LLM benchmark for embedded firmware development",
+    "stars": 13,
+    "topics": [],
+    "defaultBranch": "main",
+    "pushedAt": "2026-09-09T04:49:54Z"
+  },
+  {
     "owner": "Dicklesworthstone",
     "name": "rust_scriptbots",
     "url": "https://github.com/Dicklesworthstone/rust_scriptbots",
@@ -607,7 +647,21 @@
       "simulation"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-25T07:17:16Z"
+    "pushedAt": "2026-11-26T05:07:57Z"
+  },
+  {
+    "owner": "ndif-team",
+    "name": "looped-lens-challenge",
+    "url": "https://github.com/ndif-team/looped-lens-challenge",
+    "description": "The Looped Lens Challenge: an NDIF competition for lenses that read what a model computes but never writes",
+    "stars": 11,
+    "topics": [
+      "interpretability",
+      "ndif",
+      "nnsight"
+    ],
+    "defaultBranch": "main",
+    "pushedAt": "2026-11-25T18:31:37Z"
   },
   {
     "owner": "leanprover",
@@ -617,7 +671,7 @@
     "stars": 10,
     "topics": [],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-25T08:06:23Z"
+    "pushedAt": "2026-11-25T11:57:54Z"
   },
   {
     "owner": "leansolving",
@@ -663,20 +717,6 @@
     "pushedAt": "2025-05-27T04:01:51Z"
   },
   {
-    "owner": "ndif-team",
-    "name": "looped-lens-challenge",
-    "url": "https://github.com/ndif-team/looped-lens-challenge",
-    "description": "The Looped Lens Challenge: an NDIF competition for lenses that read what a model computes but never writes",
-    "stars": 8,
-    "topics": [
-      "interpretability",
-      "ndif",
-      "nnsight"
-    ],
-    "defaultBranch": "main",
-    "pushedAt": "2026-11-25T02:03:46Z"
-  },
-  {
     "owner": "programbench",
     "name": "submissions",
     "url": "https://github.com/ProgramBench/submissions",
@@ -697,7 +737,7 @@
       "research-software"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-25T11:47:25Z"
+    "pushedAt": "2026-11-26T04:47:17Z"
   },
   {
     "owner": "kings-crown",
@@ -879,7 +919,6 @@
     "stars": 0,
     "topics": [],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-25T15:04:42Z",
-    "priority": true
+    "pushedAt": "2026-11-26T02:07:34Z"
   }
 ]
