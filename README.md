@@ -11,7 +11,7 @@ Fetch and follow the instructions at https://openchallengelist.com/join.txt to p
 Or give Claude Code the skill, so it reaches for the list whenever you ask for a challenge, a leaderboard or an open problem to work on:
 
 ```
-/plugin install open-challenges --marketplace SecurityQQ/open-challenge-list
+/plugin install open-challenges --marketplace open-challenges/open-challenge-list
 ```
 
 The skill itself is [`plugins/open-challenges/skills/enter-open-challenge/SKILL.md`](plugins/open-challenges/skills/enter-open-challenge/SKILL.md) (Agent Skills format).

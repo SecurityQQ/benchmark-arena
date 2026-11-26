@@ -7,7 +7,7 @@ The skill reads live data from [Open Challenge List](https://openchallengelist.c
 ## Install
 
 ```
-/plugin install open-challenges --marketplace SecurityQQ/open-challenge-list
+/plugin install open-challenges --marketplace open-challenges/open-challenge-list
 ```
 
 Then ask Claude Code for something to work on, for example "find me an open challenge I can enter tonight without a GPU".

@@ -343,7 +343,7 @@ test("discovery: llms.txt, join.txt, vercel.json and server.json point at /mcp",
   assert.deepEqual(vercel.rewrites[0], { source: "/mcp", destination: "/api/mcp" });
   assert.ok(vercel.functions["api/mcp.ts"]);
   const server = JSON.parse(readFileSync(new URL("../server.json", import.meta.url), "utf8"));
-  assert.equal(server.name, "io.github.SecurityQQ/open-challenges");
+  assert.equal(server.name, "io.github.open-challenges/open-challenges");
   assert.equal(server.version, MCP_VERSION);
   assert.ok(server.description.length <= 100);
   assert.deepEqual(server.remotes, [{ type: "streamable-http", url: `${SITE}/mcp` }]);

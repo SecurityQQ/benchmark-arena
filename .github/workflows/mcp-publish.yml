@@ -1,5 +1,5 @@
 name: Publish MCP server to the registry
-# Lists https://openchallengelist.com/mcp (server.json) in the official MCP Registry under io.github.SecurityQQ/*.
+# Lists https://openchallengelist.com/mcp (server.json) in the official MCP Registry under io.github.open-challenges/*.
 # Manual only: publishing is outward-facing, so a person starts it. Bump server.json "version" for each republish.
 on:
   workflow_dispatch:
@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
-      id-token: write   # GitHub OIDC proves the io.github.SecurityQQ namespace; no stored token
+      id-token: write   # GitHub OIDC proves the io.github.open-challenges namespace; no stored token
       contents: read
     env:
       MCP_PUBLISHER_VERSION: v1.8.9   # pinned and Sigstore-verified; upgrade deliberately

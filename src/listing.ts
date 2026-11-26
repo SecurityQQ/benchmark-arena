@@ -14,9 +14,9 @@ import { badgeMarkdown } from "./badge.js";
 
 export { LISTING_TOPIC };
 export const LISTING_LABEL = "listing";
-export const SITE_REPO = { owner: "SecurityQQ", name: "open-challenge-list" };
-// The repository's name until 2026-11-25; GitHub still redirects it, so a pasted old link is still this repository
-const FORMER_NAMES = new Set(["securityqq/benchmark-arena"]);
+export const SITE_REPO = { owner: "open-challenges", name: "open-challenge-list" };
+// Former homes: renamed from benchmark-arena on 2026-11-25, moved from SecurityQQ to the open-challenges org on 2026-11-26; GitHub still redirects both, so a pasted old link is still this repository
+const FORMER_NAMES = new Set(["securityqq/benchmark-arena", "securityqq/open-challenge-list"]);
 export const MAX_LISTING_ISSUES = 30, MAX_REPOS_PER_ISSUE = 5;
 
 export interface RepoRef { owner: string; name: string }
