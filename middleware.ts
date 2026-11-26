@@ -8,7 +8,7 @@ import { agentEvent, agentLogLine, markdownFor } from "./src/agentTraffic.js";
 
 export const config = {
   runtime: "nodejs",
-  matcher: ["/", "/c/:id", "/join.txt", "/llms.txt", "/feed.xml", "/robots.txt", "/sitemap.xml", "/api/:path*", "/mcp", "/agents", "/agents/:family", "/people", "/standard", "/topics/:slug"],
+  matcher: ["/", "/c/:id", "/c/:id/join.txt", "/join.txt", "/llms.txt", "/feed.xml", "/robots.txt", "/sitemap.xml", "/api/:path*", "/mcp", "/agents", "/agents/:family", "/people", "/standard", "/topics/:slug"],
 };
 
 const GA_ID = "G-W2QD0XKKEY"; // the same property as site/analytics.js

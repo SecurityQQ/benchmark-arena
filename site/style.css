@@ -1029,6 +1029,45 @@ body.app .art-band { padding: 36px 0 44px; }
 .start-steps .agent-docs { margin-top: 14px; }
 .topic-links { margin-top: 28px; }
 pre.quick.join { white-space: pre-wrap; word-break: break-word; padding-right: 84px; margin-top: 10px; }
+/* Point your agent at it: a board's main call, right under the hero (app.js pointAgent, prerender.ts pointAgent) */
+.band + .band.point-band, .band.point-band { padding-top: 0; border-top: 0; }
+.point-agent { border-radius: var(--r); padding: 48px 52px 40px; }
+.point-agent .eyebrow { color: var(--clay); margin-bottom: 14px; }
+.point-agent .pa-head h2 { font-family: var(--font-serif); font-size: 34px; line-height: 1.1; letter-spacing: -.015em; font-weight: 400; color: var(--text); margin: 0; max-width: 920px; }
+.point-agent p { margin: 0; max-width: 760px; }
+.point-agent .pa-head p { margin-top: 14px; color: var(--dim); font-size: 17px; line-height: 1.55; }
+.point-agent a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(250, 249, 245, .4); }
+.point-agent a:hover { text-decoration-color: var(--text); }
+.point-agent pre.quick.pa-line, .point-agent .pre-join pre { background: var(--surface-2); border: 1px solid var(--border); color: var(--text); font-size: 17px; line-height: 1.6; padding: 22px 116px 22px 24px; margin: 28px 0 0; white-space: pre-wrap; word-break: break-word; max-width: none; }
+.point-agent pre.quick.pa-line .copy { top: 50%; transform: translateY(-50%); right: 16px; padding: 8px 16px; background: var(--clay); border-color: var(--clay); color: var(--ink); }
+.point-agent pre.quick.pa-line .copy:hover { background: #E08A6D; }
+.point-agent .pre-join { margin: 0; max-width: none; }
+.pa-steps { list-style: none; counter-reset: pa; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 32px 0 0; padding: 0; border-top: 1px solid var(--border); }
+.pa-steps li { counter-increment: pa; padding: 20px 20px 4px 0; }
+.pa-steps li + li { padding-left: 20px; border-left: 1px solid var(--border); }
+.pa-steps li::before { content: "0" counter(pa); display: block; font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; color: var(--clay); margin-bottom: 10px; }
+.pa-steps li > b { display: block; font-weight: 500; color: var(--text); margin-bottom: 6px; }
+.pa-steps li > span { display: block; color: var(--dim); font-size: 14px; line-height: 1.55; overflow-wrap: anywhere; }
+.pa-steps li > span b { color: var(--text); font-family: var(--font-mono); font-size: 13px; font-weight: 500; }
+.point-agent .pa-docs { margin-top: 24px; color: var(--dim); font-size: 13.5px; line-height: 1.6; }
+.point-agent .pa-foot { margin-top: 28px; display: flex; gap: 8px 20px; flex-wrap: wrap; align-items: baseline; font-size: 14px; }
+.point-agent .pa-foot span { color: var(--dim); }
+@media (max-width: 960px) {
+  .point-agent { padding: 36px 28px 32px; }
+  .point-agent .pa-head h2 { font-size: 30px; }
+  .pa-steps { grid-template-columns: 1fr 1fr; }
+  .pa-steps li, .pa-steps li + li { padding: 18px 16px 10px 0; border-left: 0; }
+  .pa-steps li:nth-child(even) { padding-left: 16px; border-left: 1px solid var(--border); }
+}
+@media (max-width: 560px) {
+  .point-agent { padding: 28px 20px 24px; border-radius: var(--r-sm); }
+  .point-agent .pa-head h2 { font-size: 26px; }
+  .point-agent .pa-head p { font-size: 15.5px; }
+  .point-agent pre.quick.pa-line, .point-agent .pre-join pre { font-size: 14px; padding: 16px 16px 60px; }
+  .point-agent pre.quick.pa-line .copy { top: auto; bottom: 14px; left: 16px; right: auto; transform: none; }
+  .pa-steps { grid-template-columns: 1fr; }
+  .pa-steps li, .pa-steps li + li, .pa-steps li:nth-child(even) { padding: 16px 0 4px; border-left: 0; }
+}
 /* For the organizer: the README badge at the foot of a board (app.js badgeBlock, prerender.ts badgeBox), kept quiet */
 .readme-badge { margin-top: 48px; max-width: 760px; }
 .readme-badge .eyebrow { margin-bottom: 0; }

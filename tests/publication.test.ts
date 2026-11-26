@@ -79,6 +79,7 @@ test("build publishes complete data with only public envelope fields and invento
   }
   assert.deepEqual(JSON.parse(readFileSync(join(root, "public/api/summary.json"), "utf8")).competitions, data.competitions);
   assert.equal(JSON.parse(readFileSync(join(root, "public/api/competitions/Valid_ID-1.json"), "utf8")).id, "Valid_ID-1");
+  assert.match(readFileSync(join(root, "public/join/Valid_ID-1.txt"), "utf8"), /^ENTER TEST\n[\s\S]*Found via https:\/\/openchallengelist\.com\/c\/Valid_ID-1\n/);
   assert.match(readFileSync(join(root, "public/index.html"), "utf8"), /app\.js\?v=[a-f0-9]{10}/);
   assert.ok(existsSync(join(root, "public/art/dawn.jpg")));
   assert.ok(existsSync(join(root, "public/standard/templates.json")));
@@ -213,6 +214,12 @@ test("dev server enforces publication, safe paths, methods, and security headers
   assert.match(md.body, /^# Test/);
   assert.match((await get("/c/Valid_ID-1")).body, /<main id="app">[\s\S]*<h1>Test<\/h1>/);
   assert.equal((await get("/c/missing")).status, 404);
+  // the board's own instructions for agents (src/boardJoin.ts), as the build writes them to public/join/
+  const boardJoin = await get("/c/Valid_ID-1/join.txt");
+  assert.equal(boardJoin.status, 200);
+  assert.match(boardJoin.headers["content-type"], /^text\/plain/);
+  assert.match(boardJoin.body, /^ENTER TEST\n/);
+  assert.equal((await get("/c/missing/join.txt")).status, 404);
   // README badges, as the build writes them
   const badge = await get("/badge/c/Valid_ID-1.svg");
   assert.equal(badge.status, 200);

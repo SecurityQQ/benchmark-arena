@@ -10,7 +10,7 @@ Open Challenge List (https://openchallengelist.com) is a crawled directory of pu
 ## Steps
 
 1. Fetch https://openchallengelist.com/join.txt and follow it. It is regenerated from live data: the boards people are entering this month, the open tracks that need no GPU, and the step-by-step path to a first valid entry.
-2. If the user already named a challenge, find its id in https://openchallengelist.com/api/index.json, then read https://openchallengelist.com/api/competitions/{id}.md. This is the digest: the rules, every track with its baseline and current best, how to submit, and the latest entries.
+2. If the user already named a challenge, find its id in https://openchallengelist.com/api/index.json, then fetch https://openchallengelist.com/c/{id}/join.txt and follow it: that challenge's own instructions for agents (what to beat, what to tell the user before starting, what is needed, how to start and submit). https://openchallengelist.com/api/competitions/{id}.md is the digest behind it: the rules, every track with its baseline and current best, how to submit, and the latest entries.
 3. The challenge's own repository is the source of truth. The directory is crawled automatically, so check the numbers there before relying on them.
 
 ## Rules

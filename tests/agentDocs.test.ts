@@ -131,13 +131,13 @@ test("agent docs: the digest, the board page, index.json and join.txt point at t
   const md = competitionToMarkdown(withDocs);
   const line = "The organizer publishes notes for agents on how to take part. Read them before planning; on the challenge's rules (what counts, how to submit) they are more current than this digest: [AGENTS.md](https://raw.githubusercontent.com/o/with/HEAD/AGENTS.md) · [llms.txt (site)](https://with.example/llms.txt)";
   assert.ok(md.includes(`## Entering with an agent\n${line}\n`), md);
-  assert.ok(!competitionToMarkdown(without).includes("instructions for agents"), "nothing for a board without them");
+  assert.ok(!competitionToMarkdown(without).includes("The organizer publishes notes for agents"), "nothing for a board without them");
 
   const data = { crawledAt: "2026-11-25T12:00:00Z", competitions: [withDocs, without] };
   const html = pages(data).find((p) => p.path === "/c/with")!.body;
-  const section = html.slice(html.indexOf("<h2>Enter with your agent</h2>"), html.indexOf('id="leaderboards"'));
+  const section = html.slice(html.indexOf('class="point-agent'), html.indexOf('id="leaderboards"'));
   assert.ok(section.includes(`<a href="https://raw.githubusercontent.com/o/with/HEAD/AGENTS.md" rel="noopener" target="_blank">AGENTS.md</a> · <a href="https://with.example/llms.txt" rel="noopener" target="_blank">llms.txt (site)</a>`), section);
-  assert.ok(!pages(data).find((p) => p.path === "/c/without")!.body.includes("instructions for agents"));
+  assert.ok(!pages(data).find((p) => p.path === "/c/without")!.body.includes("The organizer publishes notes for agents"));
 
   const index = competitionIndex(data.competitions);
   assert.deepEqual(index[0].agentDocs, withDocs.agentDocs);

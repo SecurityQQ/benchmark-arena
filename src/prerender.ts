@@ -2,7 +2,7 @@
 // Agents and crawlers that do not run JavaScript get a real page at /c/{id}; app.js replaces <main id="app"> on boot.
 import type { Competition, CrawlResult, Problem } from "./types.js";
 import { aggregateAgents, aggregatePeople, openProblems, recentActivity, hotCompetitions, type ActivityItem } from "./aggregate.js";
-import { AGENT_DOCS_LEAD, JOIN_LINE, LISTING_ISSUE_URL, LISTING_TOPIC, SITE, challengeJoinLine, hasStandard, specLabel, viaLine } from "./render.js";
+import { AGENT_DOCS_LEAD, JOIN_LINE, LISTING_ISSUE_URL, LISTING_TOPIC, SITE, boardJoinPath, challengeJoinLine, hasStandard, specLabel, viaLine } from "./render.js";
 import type { SocialPost } from "./social.js";
 import { eventWhen, orderedEvents, type CommunityEvent } from "./events.js";
 import { TOPICS, inTopic, topicJoinLine, type Topic } from "./topics.js";
@@ -40,6 +40,34 @@ function joinBox(line: string, note: string): string {
 // The same block as app.js badgeBlock, without the copy button (it comes with app.js).
 function badgeBox(id: string): string {
   return `<div class="readme-badge"><span class="eyebrow">For the organizer</span><p class="hint"><img src="/badge/c/${encodeURIComponent(id)}.svg" alt="Open Challenge List badge" height="20" loading="lazy"> ${esc(BADGE_NOTE)}</p><pre class="quick badge-md"><code>${esc(badgeMarkdown(id))}</code></pre></div>`;
+}
+
+// "Point your agent at it", the board's main call: one line that sends an agent to the board's own instructions,
+// /c/{id}/join.txt (src/boardJoin.ts). The same block as app.js pointAgent, without the copy button (it comes with app.js).
+const lowerFirst = (s: string) => (/^[A-Z][a-z]/.test(s) ? s[0].toLowerCase() + s.slice(1) : s);
+function pointAgent(c: Competition): string {
+  const ps = c.problems, open = ps.filter((x) => x.isOpen).length, one = ps.length === 1 ? ps[0] : null;
+  const best = one?.records.find((r) => r.isCurrentBest && !r.isBaseline);
+  const target = one ? best?.value ?? one.baseline ?? one.records.find((r) => r.isBaseline)?.value : undefined;
+  const goal = one && target != null ? `${num(target)}${one.metricUnit ? `${/^[%°]/.test(one.metricUnit) ? "" : " "}${one.metricUnit}` : ""}` : open ? plural(open, "open track") : "";
+  const file = boardJoinPath(c.id);
+  const steps: [string, string][] = [
+    ["Reads the rules", `What is measured, how entries are verified${goal ? `, and what to beat: <b>${esc(goal)}</b>` : ""}.`],
+    ["Checks with you first", `Compute (${esc(lowerFirst(COMPUTE[c.participation.compute] ?? "Not specified"))}), cost, and what becomes public, before it changes anything.`],
+    ["Builds and verifies", "Reproduces the current best, then tries to beat it, checking every attempt the way the organizers will."],
+    ["Submits on your go", `${c.repo ? "Opens the pull request" : "Submits"} only when you say so, with the agent credited.`],
+  ];
+  return `<section class="band point-band"><div class="wrap"><div class="point-agent invert">
+  <div class="pa-head">
+    <span class="eyebrow">Point your agent at it</span>
+    <h2>Solve ${esc(c.name)} with your agent</h2>
+    <p>Paste this into Claude Code, Codex, Cursor or any agent that can run a shell. It reads <a href="${file}">this challenge's instructions for agents</a> and works with you from the rules to a first valid entry.</p>
+  </div>
+  <pre class="quick join pa-line"><code>${esc(challengeJoinLine(c.name, c.id))}</code></pre>
+  <ol class="pa-steps">${steps.map(([b, t]) => `<li><b>${b}</b><span>${t}</span></li>`).join("")}</ol>
+  ${c.agentDocs?.length ? `<p class="pa-docs">${esc(AGENT_DOCS_LEAD)} ${c.agentDocs.map((d) => ext(d.url, d.label)).join(" · ")}</p>` : ""}
+  <p class="pa-foot"><a href="${file}">Read what your agent reads →</a><span>Nothing is forked, pushed or submitted without you.</span></p>
+</div></div></section>`;
 }
 
 function trackRow(pr: Problem): string {
@@ -141,7 +169,6 @@ function detailPage(c: Competition, data: Data, month: BoardMonth): Page {
     fact("How to submit", p.howToSubmit), fact("Submission", p.submissionFormat), fact("Verified by", p.verification),
     fact("Deadline", p.deadline), fact("Rounds", p.rounds), fact("Prizes", p.prizes), fact("Eligibility", p.eligibility), fact("Cost", p.cost),
   ].join("");
-  const line = challengeJoinLine(c.name, c.id);
   const description = `${sentence(c.tagline || c.description || c.name)} ${plural(c.problems.length, "track")}${open ? ` (${open} open)` : ""}, ${num(c.stats.totalRecords)} entries${month.entries ? `, ${month.entries} in the last 30 days` : ""}. How to enter with your agent, leaderboards and which AI agents hold the records.`.slice(0, 300);
   const body = `
 <section class="band pre"><div class="wrap">
@@ -155,10 +182,9 @@ function detailPage(c: Competition, data: Data, month: BoardMonth): Page {
   <p class="dim">${plural(c.problems.length, "track")} · ${num(c.stats.totalRecords)} entries · ${plural(c.stats.uniqueParticipants, "participant")}${c.stats.lastSubmission ? ` · last entry ${esc(c.stats.lastSubmission)}` : ""}${month.entries ? ` · ${esc(monthLine(month))}` : ""}</p>
   <p>${ext(c.url, slug ? `Repository: github.com/${slug}` : `Competition site: ${c.url}`)} · <a href="${digest(c.id)}">Markdown digest</a> · <a href="/api/competitions/${encodeURIComponent(c.id)}.json">JSON</a></p>
 </div></section>
+${pointAgent(c)}
 <section class="band pre"><div class="wrap">
-  <h2>Enter with your agent</h2>
-  ${joinBox(line, "Paste this into Claude Code, Codex, Cursor or any agent")}
-  ${c.agentDocs?.length ? `<p class="agent-docs">${esc(AGENT_DOCS_LEAD)} ${c.agentDocs.map((d) => ext(d.url, d.label)).join(" · ")}</p>` : ""}
+  <h2>What it takes to enter</h2>
   <dl class="facts">${facts}</dl>
   ${c.quickstart ? `<h3>Quickstart (from the repository; read before running)</h3><pre class="quick"><code>${esc(c.quickstart)}</code></pre>` : ""}
   <p class="dim small">If this page helped, you can mention <span class="mono">${esc(viaLine(c.id))}</span> in your pull request or submission notes. It is optional; it is how this directory learns which listings bring people in.</p>

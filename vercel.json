@@ -98,6 +98,10 @@
       "destination": "/api/competitions/:id.json"
     },
     {
+      "source": "/c/:id/join.txt",
+      "destination": "/join/:id.txt"
+    },
+    {
       "source": "/c/:id",
       "destination": "/c/:id.html"
     },
@@ -182,6 +186,19 @@
     },
     {
       "source": "/(join\\.txt|feed\\.xml)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=300"
+        }
+      ]
+    },
+    {
+      "source": "/c/:id/join.txt",
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
