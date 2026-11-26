@@ -358,6 +358,59 @@ test("topic hubs: a page, a Markdown twin and a sitemap entry per topic, filtere
   assert.ok(pub("index.html").includes('href="/topics/math"'));
 });
 
+test("grand challenges: the home page leads with them; each has a page, a Markdown twin and a sitemap entry with the competitions running on it", async (t) => {
+  const { root, put, dataset } = sandbox(t);
+  const pnp = competition("pnp");
+  pnp.name = `P <script>alert(1)</script> NP`;
+  pnp.tags = ["lean4", "p-vs-np"];
+  pnp.stats = { totalRecords: 1, uniqueParticipants: 1, recordsLast30d: 1, recordsLast90d: 1, lastSubmission: "2026-09-17" };
+  pnp.problems = [{ id: "p", name: "Lemma", metricName: "proofs", metricDirection: "maximize", passMark: 1, isOpen: true,
+    records: [{ value: 1, date: "2026-09-17", contributor: "ann", agent: { family: "anthropic", tool: "Claude Code", confidence: "high", role: "author" } }] }];
+  const bounds = competition("bounds");
+  bounds.name = "Bounds"; bounds.tags = ["complexity-theory"]; bounds.status = "ended";
+  const drug = competition("drug");
+  drug.name = "Drug"; drug.tags = ["drug-discovery", "smiles"];
+  const plain = competition("plain");
+  put("data/competitions.json", JSON.stringify(dataset([plain, bounds, drug, pnp])));
+  await build(root);
+  const pub = (p: string) => readFileSync(join(root, "public", p), "utf8");
+  const html = pub("challenges/p-vs-np.html");
+  assert.match(html, /<title>P vs NP: the open competitions — Open Challenge List<\/title>/);
+  assert.match(html, /<link rel="canonical" href="https:\/\/openchallengelist\.com\/challenges\/p-vs-np">/);
+  assert.match(html, /<link rel="alternate" type="text\/markdown" href="\/challenges\/p-vs-np\.md"/);
+  assert.ok(html.includes("to pick an open challenge on P vs NP or complexity bounds and enter it with me."));
+  assert.ok(html.includes("Is every problem whose answer is quick to check also quick to solve?"));
+  assert.ok(html.includes("2 competitions · 1 entry in the last 30 days, 1 credited to an AI agent · 1 open track"));
+  assert.ok(html.indexOf('href="/c/pnp"') < html.indexOf('href="/c/bounds"'), "the ended board goes last");
+  assert.ok(!html.includes('href="/c/drug"') && !html.includes('href="/c/plain"'));
+  assert.ok(html.includes("P &lt;script&gt;") && !html.includes("<script>alert"));
+  assert.equal(JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)![1])["@type"], "CollectionPage");
+  // a challenge says what it still lacks, and one with nothing listed says so
+  assert.match(pub("challenges/cure-disease.html"), /<b>Wanted\.<\/b> No cancer competition is listed yet\./);
+  assert.ok(pub("challenges/riemann-hypothesis.html").includes("No competition is listed on this yet."));
+  const md = pub("challenges/p-vs-np.md");
+  assert.match(md, /^# P vs NP\n\nGrand challenge · Computer science\. Is every problem/);
+  assert.match(md, /- \[P <script>alert\(1\)<\/script> NP\]\(https:\/\/openchallengelist\.com\/c\/pnp\)/);
+  assert.match(md, /Other grand challenges: https:\/\/openchallengelist\.com\/challenges\/cure-disease\.md \(Cure Disease\)/);
+  // the home page: the challenges come before everything that happens on the boards, each with what is running inside
+  const home = pub("index.html");
+  assert.ok(home.includes("<h1>Solve the world&#39;s hardest problems, in the open.</h1>"));
+  assert.ok(home.indexOf('id="grand"') > 0 && home.indexOf('id="grand"') < home.indexOf("Happening now"));
+  assert.match(home, /<a href="\/challenges\/p-vs-np"><b>P vs NP<\/b><\/a>[\s\S]*?Running now:<\/span> <a href="\/c\/pnp">/);
+  assert.match(home, /<a href="\/c\/pnp">[^<]*&lt;script&gt;[^<]*<\/a> <span class="dim small">\(1 entry in 30 days\)<\/span> · <a href="\/c\/bounds">Bounds<\/a> <span class="dim small">\(no entries yet\)<\/span>/);
+  // a board says which challenge it is part of, on its page and in its digest; the others say nothing
+  assert.match(pub("c/pnp.html"), /Part of the grand challenge <a href="\/challenges\/p-vs-np"><b>P vs NP<\/b><\/a>/);
+  assert.match(pub("api/competitions/pnp.md"), /- Grand challenge: P vs NP — .*\(https:\/\/openchallengelist\.com\/challenges\/p-vs-np\)/);
+  assert.ok(!pub("c/plain.html").includes("grand challenge") && !pub("api/competitions/plain.md").includes("Grand challenge"));
+  assert.match(pub("sitemap.xml"), /<loc>https:\/\/openchallengelist\.com\/challenges\/p-vs-np<\/loc>/);
+  assert.deepEqual(JSON.parse(pub("api/summary.json")).challenges.map((x: { slug: string }) => x.slug), ["p-vs-np", "cure-disease", "energy", "riemann-hypothesis"]);
+  assert.match(pub("llms.txt"), /Grand challenges, each with the competitions running on it: https:\/\/openchallengelist\.com\/challenges\/p-vs-np\.md \(P vs NP: 2 competitions\)/);
+  // join.txt points at the challenges whose boards are in its default lists: not the life-science one, not an empty one
+  const join_ = pub("join.txt");
+  assert.match(join_, /By grand challenge, the problems the list leads with: P vs NP https:\/\/openchallengelist\.com\/challenges\/p-vs-np\.md\n/);
+  assert.ok(!join_.includes("cure-disease") && !join_.includes("riemann-hypothesis"));
+});
+
 test("fresh discoveries: /api/discoveries.json, in the summary, on the home and math pages; not in the feeds or join.txt", async (t) => {
   const { root, put, dataset } = sandbox(t);
   const math = competition("proofs");

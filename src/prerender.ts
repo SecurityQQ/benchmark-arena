@@ -6,6 +6,7 @@ import { AGENT_DOCS_LEAD, JOIN_LINE, LISTING_ISSUE_URL, LISTING_TOPIC, SITE, boa
 import type { SocialPost } from "./social.js";
 import { eventWhen, orderedEvents, type CommunityEvent } from "./events.js";
 import { TOPICS, inTopic, topicJoinLine, type Topic } from "./topics.js";
+import { CHALLENGES, challengeBoards, challengeJoin, challengesOf, type GrandChallenge } from "./challenges.js";
 import { REGISTRY, SUBMIT_PROTOCOL, authorLine, discoveryHeadline, discoveryView, type Discoveries } from "./discoveries.js";
 import { OG_HEIGHT, OG_WIDTH, cardAlt, plain, type Card } from "./og.js";
 import { BADGE_NOTE, BADGE_PATTERN, badgeMarkdown } from "./badge.js";
@@ -119,6 +120,42 @@ function rubricBlock(): string {
   <p class="dim small">A rating is a judgment, written down with its reason in <a href="https://github.com/open-challenges/open-challenge-list/blob/master/data/frontier.json" rel="noopener" target="_blank">data/frontier.json</a>. Disagree? <a href="https://github.com/open-challenges/open-challenge-list/issues/new" rel="noopener" target="_blank">Open an issue</a>.</p>`;
 }
 
+// What the site says it is, in one place for the pre-rendered home page and its card. site/index.html (the shell's own
+// title and description) and app.js renderHome carry the same words.
+export const HOME = {
+  title: "Open Challenge List — open competitions on the world's hardest problems",
+  eyebrow: "Open competitions on frontier problems",
+  h1: "Solve the world's hardest problems, in the open.",
+  lede: "P vs NP, new medicines, the energy cost of intelligence, the Riemann Hypothesis: each one runs here as open competitions with public leaderboards. Point your agent at one and get on the board.",
+  about: "Open competitions on the world's hardest problems: P vs NP, new medicines, the energy cost of computing, the Riemann Hypothesis, and every other open-source challenge in one place.",
+};
+
+// One grand challenge with its competitions as they stand at the crawl: the home page's list, its own page, its Markdown
+function challengeView(ch: GrandChallenge, data: Data) {
+  const comps = challengeBoards(ch, data.competitions);
+  return { ...boardsView(comps, data.crawledAt), comps, line: challengeJoin(JOIN_LINE, ch) };
+}
+const challengeSummary = (v: ReturnType<typeof challengeView>) => `${plural(v.comps.length, "competition")} · ${plural(v.entries30, "entry", "entries")} in the last 30 days${v.byAgents30 ? `, ${v.byAgents30} credited to an AI agent` : ""} · ${plural(v.open.length, "open track")}`;
+// what one competition inside a challenge has to show: who entered this month, else what is open, else what it holds
+const runningNote = (c: Competition, v: ReturnType<typeof challengeView>) => {
+  const m = v.months.get(c.id)!, open = c.problems.filter((p) => p.isOpen).length;
+  return m.entries ? `${plural(m.entries, "entry", "entries")} in 30 days` : open ? plural(open, "open track") : c.stats.totalRecords ? `${num(c.stats.totalRecords)} entries` : "no entries yet";
+};
+
+// "Grand challenges": the first thing under the home page's header, each with the competitions running on it
+function grandBand(data: Data): string {
+  return `<section class="band pre" id="grand"><div class="wrap">
+  <span class="eyebrow">Grand challenges</span>
+  <h2>${esc(GRAND.h2)}</h2>
+  <p class="dim">${esc(GRAND.about)}</p>
+  <ul class="pre-list">${CHALLENGES.map((ch) => { const v = challengeView(ch, data); return `<li><a href="/challenges/${ch.slug}"><b>${esc(ch.name)}</b></a> <span class="dim small">${esc(ch.field)}</span> — ${esc(ch.question)} <span class="dim small">${esc(challengeSummary(v))}</span>${v.comps.length ? `<br><span class="dim small">Running now:</span> ${v.comps.slice(0, 6).map((c) => `<a href="${page(c.id)}">${esc(c.name)}</a> <span class="dim small">(${esc(runningNote(c, v))})</span>`).join(" · ")}${v.comps.length > 6 ? ` · <a href="/challenges/${ch.slug}">${v.comps.length - 6} more</a>` : ""}` : ""}</li>`; }).join("")}</ul>
+</div></section>`;
+}
+export const GRAND = {
+  h2: "The problems that matter to everyone, open to anyone.",
+  about: "Each grand challenge is split into competitions with public leaderboards. Pick a competition, point your agent at it, and every entry that holds up moves the frontier.",
+};
+
 function homePage(data: Data, social: SocialPost[], discoveries: Discoveries | null, boards: ReturnType<typeof boardsView>, events: CommunityEvent[]): Page {
   const comps = data.competitions;
   const open = openProblems(comps);
@@ -128,12 +165,13 @@ function homePage(data: Data, social: SocialPost[], discoveries: Discoveries | n
   const ranked = [...comps].sort(byImportance), frontier = ranked.filter((c) => c.importance?.tier === "frontier"), rest = ranked.filter((c) => c.importance?.tier !== "frontier");
   const body = `
 <section class="band pre"><div class="wrap">
-  <span class="eyebrow">Hackathons for AI agents on GitHub</span>
-  <h1>All open-source challenges in one place.</h1>
-  <p class="lede">Point your agent at a repo, open a pull request, get on the board. ${comps.length} competitions, ${open.length} open problems, ${num(records)} entries, crawled ${esc(data.crawledAt.slice(0, 10))}.</p>
+  <span class="eyebrow">${esc(HOME.eyebrow)}</span>
+  <h1>${esc(HOME.h1)}</h1>
+  <p class="lede">${esc(HOME.lede)} ${comps.length} competitions, ${open.length} open problems, ${num(records)} entries, crawled ${esc(data.crawledAt.slice(0, 10))}.</p>
   ${joinBox(JOIN_LINE, "Paste this into Claude Code, Codex, Cursor or any agent")}
   <p class="dim">By topic: ${TOPICS.map((t) => `<a href="/topics/${t.slug}">${esc(t.name)}</a>`).join(" · ")}</p>
 </div></section>
+${grandBand(data)}
 <section class="band pre"><div class="wrap">
   <h2>Happening now</h2>
   ${activityList(latest)}
@@ -172,8 +210,8 @@ ${eventsBand(events, Date.parse(data.crawledAt), 4)}
   <p>MCP clients can query the list directly: <span class="mono">${SITE}/mcp</span> is a read-only MCP server (Streamable HTTP). Claude Code: <span class="mono">claude mcp add --transport http open-challenges ${SITE}/mcp</span>.</p>
 </div></section>`;
   return {
-    file: "index.html", path: "/", title: "Open Challenge List — all open-source challenges in one place",
-    description: `All open-source challenges in one place: ${comps.length} benchmark competitions on GitHub with public leaderboards, ${open.length} open problems and the AI agents that hold the records. Point your agent at a repo, open a pull request, get on the board.`,
+    file: "index.html", path: "/", title: HOME.title,
+    description: `${HOME.about} ${comps.length} competitions with public leaderboards, ${open.length} open problems and the AI agents that hold the records. Point your agent at one, open a pull request, get on the board.`,
     body, markdown: "/llms.txt", card: homeCard(data, boards, discoveries),
   };
 }
@@ -199,6 +237,7 @@ function detailPage(c: Competition, data: Data, month: BoardMonth): Page {
   <span class="eyebrow">${esc(c.status)} · ${esc(c.domain)} · ${esc(COMPUTE[p.compute])}${open ? ` · ${plural(open, "open problem")}` : ""}</span>
   <h1>${esc(c.name)}</h1>
   <p class="lede">${esc(c.tagline)}</p>
+  ${challengesOf(c).map((ch) => `<p class="dim">Part of the grand challenge <a href="/challenges/${ch.slug}"><b>${esc(ch.name)}</b></a>: ${esc(ch.question)}</p>`).join("")}
   <p>${esc(c.description)}</p>
   ${c.organizer ? `<p class="dim">Run by ${ext(c.organizer.url, c.organizer.name)}</p>` : ""}
   ${c.importance ? `<p class="dim">${c.importance.tier === "frontier" ? "On the frontier" : "Importance"}: <b>${c.importance.score}/10</b> (stakes ${c.importance.stakes}/4, open ${c.importance.open}/3, verified ${c.importance.verified}/3). ${esc(c.importance.why)} <a href="/#how-we-rank">How we rank</a></p>` : ""}
@@ -370,8 +409,8 @@ const sentence = (s: string) => (/[.!?…]$/.test(s.trim()) ? s.trim() : `${s.tr
 function homeCard(data: Data, v: ReturnType<typeof boardsView>, discoveries: Discoveries | null): Card {
   const fresh = discoveries && discoveryView(discoveries, Date.parse(discoveries.fetchedAt));
   return card("og/home.png", {
-    eyebrow: "Open Challenge List", title: "Every open challenge your AI agent can enter",
-    subtitle: "Point your agent at a repo, open a pull request, get on the board.",
+    eyebrow: "Open Challenge List", title: "Open competitions on the world's hardest problems",
+    subtitle: `${CHALLENGES.map((ch) => ch.name).join(" · ")}. Point your agent at one and get on the board.`,
     stats: [stat(data.competitions.length, "competition", "competitions"), stat(v.open.length, "open track", "open tracks"),
       stat(v.entries30, "entry in 30 days", "entries in 30 days"), stat(v.byAgents30, "by an AI agent", "by AI agents")],
     notes: [fresh?.week ? `Fresh discoveries: ${fresh.week.toLocaleString("en-US")}${fresh.plus ? "+" : ""} Lean-verified ${fresh.week === 1 && !fresh.plus ? "result" : "results"} this week` : ""],
@@ -476,6 +515,76 @@ export function topicMarkdown(t: Topic, data: Data, origin = SITE, discoveries: 
   ].join("\n");
 }
 
+function challengeCard(ch: GrandChallenge, v: ReturnType<typeof challengeView>): Card {
+  const running = v.comps.filter((c) => c.status !== "ended").slice(0, 3).map((c) => plain(c.name, 40));
+  return card(`og/challenges/${ch.slug}.png`, {
+    eyebrow: `Grand challenge · ${ch.field}`, title: ch.name, subtitle: ch.question,
+    stats: [stat(v.comps.length, "competition", "competitions"), stat(v.entries30, "entry in 30 days", "entries in 30 days"),
+      stat(v.byAgents30, "by an AI agent", "by AI agents"), stat(v.open.length, "open track", "open tracks")],
+    notes: [running.length ? `Running: ${running.join(", ")}` : ""],
+    action: SHARE,
+  });
+}
+
+// One grand challenge: why it matters, the competitions running on it, what happened lately, what is open, what is missing
+function challengePage(ch: GrandChallenge, data: Data): Page {
+  const v = challengeView(ch, data), n = CHALLENGES.indexOf(ch) + 1;
+  const body = `
+<section class="band pre"><div class="wrap">
+  <a class="back" href="/">← All competitions</a>
+  <span class="eyebrow">Grand challenge ${String(n).padStart(2, "0")} · ${esc(ch.field)}</span>
+  <h1>${esc(ch.name)}</h1>
+  <p class="lede">${esc(ch.question)}</p>
+  <p>${esc(ch.stakes)}</p>
+  <p class="dim">${esc(challengeSummary(v))}${v.last ? ` · last entry ${esc(v.last)}` : ""}</p>
+  ${joinBox(v.line, "Paste this into Claude Code, Codex, Cursor or any agent")}
+</div></section>
+<section class="band pre" id="competitions"><div class="wrap">
+  <h2>Competitions running</h2>
+  <p class="dim">${esc(ch.work)}</p>
+  ${v.comps.length ? `<ul class="pre-list">${v.comps.map((c) => `<li><a href="${page(c.id)}"><b>${esc(c.name)}</b></a> — ${esc(c.tagline)} <span class="dim small">${esc(c.status)} · ${esc(COMPUTE[c.participation.compute])} · ${plural(c.problems.length, "track")}${c.problems.some((p) => p.isOpen) ? ` (${c.problems.filter((p) => p.isOpen).length} open)` : ""} · ${esc(v.recent.get(c.id))}${c.stats.lastSubmission ? ` · last ${esc(c.stats.lastSubmission)}` : ""}</span></li>`).join("")}</ul>` : `<p class="dim">No competition is listed on this yet.</p>`}
+  ${ch.wanted ? `<p><b>Wanted.</b> ${esc(ch.wanted)} <a href="/submit">Submit a competition</a> · <a href="/standard">the PROBLEM.md standard</a></p>` : `<p class="dim">Running another competition on this? <a href="/submit">Submit it</a> and it joins this challenge.</p>`}
+</div></section>
+<section class="band pre"><div class="wrap">
+  <h2>Happening now</h2>
+  ${activityList(v.latest)}
+</div></section>
+${v.open.length ? `<section class="band pre"><div class="wrap">
+  <h2>Open tracks</h2>
+  <ul class="pre-list">${v.open.slice(0, 40).map((o) => `<li><a href="${page(o.competitionId)}">${esc(o.competitionName)}</a> / <b>${esc(o.problemName)}</b>${o.passMark != null ? ` <span class="dim small">pass mark ${esc(num(o.passMark))} ${esc(o.metricName)}</span>` : ""}</li>`).join("")}</ul>
+</div></section>` : ""}
+<section class="band pre"><div class="wrap">
+  <h2>Other grand challenges</h2>
+  <p>${CHALLENGES.filter((x) => x.slug !== ch.slug).map((x) => `<a href="/challenges/${x.slug}">${esc(x.name)}</a>`).join(" · ")} · <a href="/">All competitions</a></p>
+</div></section>`;
+  return {
+    file: `challenges/${ch.slug}.html`, path: `/challenges/${ch.slug}`, title: `${ch.name}: the open competitions — Open Challenge List`,
+    description: `${ch.question} ${ch.stakes} ${challengeSummary(v)}.`.slice(0, 300), body, markdown: `/challenges/${ch.slug}.md`, card: challengeCard(ch, v),
+    jsonld: {
+      "@context": "https://schema.org", "@type": "CollectionPage", name: ch.name, description: `${ch.question} ${ch.stakes}`, url: `${SITE}/challenges/${ch.slug}`,
+      isPartOf: { "@id": `${SITE}/#website` }, ...(v.last ? { dateModified: v.last } : {}),
+      mainEntity: { "@type": "ItemList", numberOfItems: v.comps.length, itemListElement: v.comps.map((c, i) => ({ "@type": "ListItem", position: i + 1, name: c.name, url: SITE + page(c.id) })) },
+    },
+  };
+}
+
+// The same challenge for agents that ask for Markdown
+export function challengeMarkdown(ch: GrandChallenge, data: Data, origin = SITE): string {
+  const v = challengeView(ch, data);
+  const a = (x: ActivityItem) => `- ${x.date} · ${x.contributor ?? "someone"}${x.agent ? ` with ${agentName(x.agent)}` : ""} → ${x.competitionName} / ${x.problemName}: ${num(x.value)}${x.metricUnit ? ` ${x.metricUnit}` : ""} ${x.metricName}${x.isCurrentBest ? " · current best" : ""}`;
+  return [
+    `# ${ch.name}`, ``, `Grand challenge · ${ch.field}. ${ch.question}`, ``, ch.stakes, ``, ch.work, ``,
+    `${challengeSummary(v)}. Crawled ${data.crawledAt.slice(0, 10)}.`, ``,
+    `To enter one with your human, follow ${origin}/join.txt; they can paste this line into their agent:`, ``, `    ${v.line.replace(SITE, origin)}`, ``,
+    `## Competitions running`, ``,
+    ...(v.comps.length ? v.comps.map((c) => `- [${c.name}](${origin}${page(c.id)}) — ${c.tagline} (${c.status}; ${COMPUTE[c.participation.compute]}; ${plural(c.problems.length, "track")}, ${c.problems.filter((p) => p.isOpen).length} open; ${v.recent.get(c.id)}). Digest: ${origin}${digest(c.id)}`) : ["No competition is listed on this yet."]),
+    ...(ch.wanted ? [``, `Wanted: ${ch.wanted} ${origin}/submit`] : []),
+    ``, `## Latest entries`, ``, ...(v.latest.length ? v.latest.map(a) : ["No dated entries yet."]),
+    ...(v.open.length ? [``, `## Open tracks`, ``, ...v.open.slice(0, 40).map((o) => `- ${o.competitionName} / ${o.problemName}${o.passMark != null ? ` (pass mark ${num(o.passMark)} ${o.metricName})` : ""}: ${origin}${page(o.competitionId)}`)] : []),
+    ``, `Other grand challenges: ${CHALLENGES.filter((x) => x.slug !== ch.slug).map((x) => `${origin}/challenges/${x.slug}.md (${x.name})`).join(" · ")}`, ``,
+  ].join("\n");
+}
+
 function staticPage(file: string, path: string, title: string, description: string, html: string): Page {
   return { file, path, title, description, body: `\n<section class="band pre"><div class="wrap">${html}</div></section>`, markdown: "/llms.txt" };
 }
@@ -488,6 +597,7 @@ export function pages(data: Data, social: SocialPost[] = [], discoveries: Discov
     ...data.competitions.map((c) => detailPage(c, data, boards.months.get(c.id)!)),
     agentsPage(data), ...families.map((f) => familyPage(f, data)), peoplePage(profiles), ...profiles.map(profilePage),
     ...TOPICS.map((t) => topicPage(t, data, discoveries, events)),
+    ...CHALLENGES.map((ch) => challengePage(ch, data)),
     staticPage("standard.html", "/standard", "PROBLEM.md standard — Open Challenge List",
       "PROBLEM.md and SUBMISSION.md: two Markdown files that describe a competition and its entries. Add the topic open-challenge-list or open a listing issue and the repository is listed within hours; the leaderboard is built from the files.",
       `<span class="eyebrow">Standard</span><h1>PROBLEM.md and SUBMISSION.md</h1><p class="lede">Put PROBLEM.md at the root of a repository: the task, the rules, the tracks and the folder entries go into. Each entry carries a SUBMISSION.md: the approach, the value achieved per track, and the model or agent that produced it. The leaderboard is built from the files.</p><p>Get listed within hours: add the GitHub topic <code>${LISTING_TOPIC}</code> to the repository, or <a href="${esc(LISTING_ISSUE_URL)}" rel="noopener">open an issue</a> titled “List owner/repo” with the repository URL. The next live refresh (every few hours) verifies PROBLEM.md and lists it; the issue gets the link.</p><p>Once listed, the repository can show the board's live numbers in its README with a badge that links to the board: <code>${esc(BADGE_PATTERN)}</code>, where {id} is the last part of the board's address. Each board page has its exact snippet.</p><p>Templates: <a href="/standard/PROBLEM.md">/standard/PROBLEM.md</a> · <a href="/standard/SUBMISSION.md">/standard/SUBMISSION.md</a></p>`),

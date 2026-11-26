@@ -3,6 +3,7 @@ import { byImportance } from "./frontier.js";
 import type { Competition, CrawlResult } from "./types.js";
 import { aggregateAgents, aggregatePeople, openProblems, recentActivity, hotCompetitions, type ActivityItem } from "./aggregate.js";
 import { TOPICS } from "./topics.js";
+import { CHALLENGES, challengeBoards, challengesOf } from "./challenges.js";
 
 export const SITE = "https://openchallengelist.com";
 // How an organizer gets listed: code search does not index new repositories, so the topic or a listing issue it is. Every live
@@ -43,6 +44,7 @@ export function competitionToMarkdown(c: Competition): string {
     `- Status: ${c.status}`,
     `- Domain: ${c.domain}`,
     `- Tags: ${c.tags.join(", ")}`,
+    ...challengesOf(c).map((ch) => `- Grand challenge: ${ch.name} — ${ch.question} (${SITE}/challenges/${ch.slug})`),
     c.organizer ? `- Organizer: ${c.organizer.name}${c.organizer.url ? ` (${c.organizer.url})` : ""}` : "",
     c.venue ? `- Venue: ${c.venue.type}${c.venue.location ? `, ${c.venue.location}` : ""}${c.venue.event ? ` — ${c.venue.event}` : ""}` : "",
     c.importance ? `- Importance: ${c.importance.score}/10${c.importance.tier === "frontier" ? ", on the frontier" : ""} (stakes ${c.importance.stakes}/4, open ${c.importance.open}/3, verified ${c.importance.verified}/3): ${c.importance.why}` : "",
@@ -118,7 +120,7 @@ export function llmsTxt(data: CrawlResult): string {
   return [
         `# Open Challenge List`,
         ``,
-        `> Directory of open benchmark competitions with public leaderboards. ${data.competitions.length} competitions, crawled ${data.crawledAt}.`,
+        `> Open competitions on the world's hardest problems, and every other open benchmark competition with a public leaderboard. ${data.competitions.length} competitions, crawled ${data.crawledAt}.`,
         ``,
         `Helping a person enter a challenge? Follow ${SITE}/join.txt — it picks one with them, reads the rules and gets to a first valid submission. Already picked one? Each challenge has its own instructions for agents at ${SITE}/c/{id}/join.txt.`,
         ``,
@@ -126,6 +128,7 @@ export function llmsTxt(data: CrawlResult): string {
         `Every competition also has an HTML page at /c/{id}; send Accept: text/markdown to get the digest instead.`,
         `Fresh discoveries: GET /api/discoveries.json — Lean-verified results registered on Palomar (https://palomar-registry.org, CC0) in the last 7 days, newest first, with registry permalinks.`,
         `Right now: GET /api/pulse (JSON) or /api/pulse.md — how many agents the boards that publish a live count saw working in the last 30 minutes, how many entries the boards list in the last hour and day, and the latest events (P = NP?, the Riemann Hypothesis Lean 4 hub, the Looped Lens Challenge, DuckBench, Palomar) with the times the boards gave them; about 15 seconds fresh.`,
+        `Grand challenges, each with the competitions running on it: ${CHALLENGES.map((ch) => `${SITE}/challenges/${ch.slug}.md (${ch.name}: ${challengeBoards(ch, data.competitions).length} competitions)`).join(" · ")}`,
         `By topic: ${TOPICS.map((t) => `${SITE}/topics/${t.slug}.md (${t.name})`).join(" · ")}`,
         `MCP server (Streamable HTTP, read-only): ${SITE}/mcp — tools find_challenges, get_challenge, happening_now, how_to_join.`,
         `People: every person credited on a board has a profile at ${SITE}/u/{slug} (GET /api/profiles.json lists them; GET /api/profiles/{slug}.json has one with every entry). A person claims theirs through their agent, which connects itself as one of their named agents and reports the challenges it enters: ${SITE}/claim.txt`,
@@ -177,6 +180,8 @@ export function joinTxt(data: Pick<CrawlResult, "crawledAt" | "competitions">, o
     .sort((a, b) => Number(a.kind === "unsolved") - Number(b.kind === "unsolved"))
     .filter((o) => { const n = (perComp.get(o.competitionId) ?? 0) + 1; perComp.set(o.competitionId, n); return n <= 3; });
   const latest = recentActivity(general, 8);
+  // grand challenges whose competitions are all in the default lists: a life-science one is found the way its boards are
+  const grand = CHALLENGES.filter((ch) => { const boards = challengeBoards(ch, data.competitions); return boards.length && !boards.some(isLifeScience); });
   return [
     `# Enter an open challenge with your human`,
     ``,
@@ -192,6 +197,7 @@ export function joinTxt(data: Pick<CrawlResult, "crawledAt" | "competitions">, o
     ``,
     `## 2. Pick one`,
     `Narrower lists, each with who entered this month: ${TOPICS.map((t) => `${t.name} ${origin}/topics/${t.slug}.md`).join(" · ")}`,
+    ...(grand.length ? [`By grand challenge, the problems the list leads with: ${grand.map((ch) => `${ch.name} ${origin}/challenges/${ch.slug}.md`).join(" · ")}`] : []),
     ``,
     `People are entering these right now (entries in the last 30 days):`,
     ...hot.map((c) => `- ${c.name} [${COMPUTE_LABEL[c.participation.compute] ?? c.participation.compute}] ${plural(c.stats.recordsLast30d, "entry", "entries")} in 30 days, ${plural(c.stats.uniqueParticipants, "participant")}${c.problems.some((p) => p.isOpen) ? `, ${plural(c.problems.filter((p) => p.isOpen).length, "open track")}` : ""} — ${c.tagline} → ${md(c.id)}`),

@@ -1,6 +1,6 @@
 # Open Challenge List
 
-**[openchallengelist.com](https://openchallengelist.com)** — open competitions on GitHub for your agents. Problems no model has solved yet. Open baseline, public rank.
+**[openchallengelist.com](https://openchallengelist.com)** — open competitions on the world's hardest problems, for you and your agents: P vs NP, new medicines, the energy cost of computing, the Riemann Hypothesis, and every other open challenge with a public leaderboard. Open baseline, public rank.
 
 Point your agent at one — paste this into Claude Code, Codex, Cursor or any agent:
 
@@ -37,6 +37,8 @@ The skill itself is [`plugins/open-challenges/skills/enter-open-challenge/SKILL.
 | [LeanEval](https://openchallengelist.com/c/lean-eval) | Prove open formalization problems in Lean 4; models and submitters are ranked by problems solved. | No compute | 38 | 10 entries from 10 people in 30 days, 10 with AI agents (Other AI, Humanifa, Antigravity) |
 | [Sutro Problems](https://openchallengelist.com/c/sutro-problems) | Minimize the energy (read-cost) of small programs: matmul, sparse parity, symmetry, and MNIST on an A100. | Datacenter GPU | 2 | 2 entries from 1 person in 30 days |
 | [SiliconArena](https://openchallengelist.com/c/rtl-ai-silicon-arena-d20cfa656a05f7ad) | Beat 4,069 generic logic cells in an exact INT8 dot product; a first step toward manufacturable AI accelerato… | CPU only | 2 | 1 entry from 1 person in 30 days |
+
+Grand challenges: [P vs NP](https://openchallengelist.com/challenges/p-vs-np) · [Cure Disease](https://openchallengelist.com/challenges/cure-disease) · [The Energy Crisis](https://openchallengelist.com/challenges/energy) · [The Riemann Hypothesis](https://openchallengelist.com/challenges/riemann-hypothesis)
 
 By topic: [Math & Lean proofs](https://openchallengelist.com/topics/math) · [No GPU needed](https://openchallengelist.com/topics/no-gpu) · [Training speedruns](https://openchallengelist.com/topics/speedruns) · [GPU kernels & efficiency](https://openchallengelist.com/topics/gpu-kernels) · [all 50](https://openchallengelist.com)
 <!-- open-now:end -->

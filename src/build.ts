@@ -7,8 +7,9 @@ import type { CrawlResult } from "./types.js";
 import { aggregateAgents, aggregatePeople, competitionIndex, openProblems, withEntryCounts } from "./aggregate.js";
 import { claimTxt, competitionToMarkdown, feedAtom, feedJson, joinTxt, llmsTxt } from "./render.js";
 import { buildProfiles, peopleWithProfiles, profileIndex, withProfiles } from "./profiles.js";
-import { pages, renderPage, topicMarkdown } from "./prerender.js";
+import { challengeMarkdown, pages, renderPage, topicMarkdown } from "./prerender.js";
 import { TOPICS } from "./topics.js";
+import { CHALLENGES } from "./challenges.js";
 import { applyCorrections, loadCorrections } from "./corrections.js";
 import { loadSocial } from "./social.js";
 import { loadEvents } from "./events.js";
@@ -171,6 +172,7 @@ export async function build(root = process.cwd()) {
     events,
     discoveries: discoveries ?? NO_DISCOVERIES,
     topics: TOPICS,
+    challenges: CHALLENGES,
   }));
   for (const c of data.competitions) {
     w(`api/competitions/${c.id}.json`, JSON.stringify(c, null, 2));
@@ -183,6 +185,7 @@ export async function build(root = process.cwd()) {
   w("badge/listed.svg", listedBadge());
   w("llms.txt", llmsTxt({ ...data, errors: [] }));
   for (const t of TOPICS) w(`topics/${t.slug}.md`, topicMarkdown(t, data, ORIGIN, discoveries));
+  for (const ch of CHALLENGES) w(`challenges/${ch.slug}.md`, challengeMarkdown(ch, data, ORIGIN));
   // Neutral filename avoids blockers that stall requests for *SUBMISSION*.md.
   w("standard/templates.json", j({ "PROBLEM.md": readSiteAsset(join(ROOT, "site"), "standard/PROBLEM.md").toString(), "SUBMISSION.md": readSiteAsset(join(ROOT, "site"), "standard/SUBMISSION.md").toString() }));
 
@@ -193,6 +196,7 @@ export async function build(root = process.cwd()) {
   const lastmod = (c: (typeof data.competitions)[number]) => { const d = c.stats.lastSubmission ?? c.lastUpdated; return d && /^\d{4}-\d{2}-\d{2}/.test(d) && d.slice(0, 10) <= day ? d.slice(0, 10) : day; };
   const urls: [string, string, string, string][] = [["/", "daily", "1.0", day], ["/standard", "weekly", "0.9", day], ["/submit", "monthly", "0.6", day], ["/agents", "weekly", "0.8", day], ["/people", "weekly", "0.7", day],
     ...data.competitions.map((c): [string, string, string, string] => [`/c/${encodeURIComponent(c.id)}`, c.stats.recordsLast30d ? "daily" : "weekly", "0.8", lastmod(c)]),
+    ...CHALLENGES.map((ch): [string, string, string, string] => [`/challenges/${ch.slug}`, "daily", "0.9", day]),
     ...TOPICS.map((t): [string, string, string, string] => [`/topics/${t.slug}`, "daily", "0.9", day]),
     ...families.map((f): [string, string, string, string] => [`/agents/${encodeURIComponent(f)}`, "weekly", "0.5", day]),
     // profiles worth a search result: the ones prerender.ts does not mark noindex

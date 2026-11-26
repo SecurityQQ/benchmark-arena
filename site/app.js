@@ -181,12 +181,13 @@ function route() {
   const app = isApp();
   document.body.classList.toggle("app", app);
   document.body.classList.remove("nav-open");
-  document.querySelectorAll(".header-links a[data-r]").forEach((a) => a.classList.toggle("on", a.dataset.r === "/" ? p === "/" || p === "/landing" : p.startsWith(a.dataset.r)));
+  document.querySelectorAll(".header-links a[data-r]").forEach((a) => a.classList.toggle("on", a.dataset.r === "/" ? p === "/" || p === "/landing" || p.startsWith("/challenges/") : p.startsWith(a.dataset.r)));
   const m = p.match(/^\/c\/([^/]+)/);
   const fm = p.match(/^\/agents\/([^/]+)/);
   const um = p.match(/^\/u\/([^/]+)/), am = p.match(/^\/a\/([^/]+)/);
-  const topic = topicFor(p);
+  const topic = topicFor(p), grand = challengeFor(p);
   if (topic) renderTopic(topic);
+  else if (grand) renderChallenge(grand);
   else if (um) renderProfile(decodeURIComponent(um[1]).toLowerCase());
   else if (am) renderAgent(decodeURIComponent(am[1]));
   else if (p === "/claim") renderClaim();
@@ -212,7 +213,8 @@ const homePath = (p) => (p === "/landing" ? "/" : p);
 const META_IMAGE = { path: homePath(location.pathname), src: metaOf("og:image"), type: metaOf("og:image:type"), alt: metaOf("og:image:alt") };
 function socialImage(p, c, topic) {
   if (homePath(p) === META_IMAGE.path) return META_IMAGE;
-  const card = c ? `/og/c/${encodeURIComponent(c.id)}.png` : topic ? `/og/topics/${encodeURIComponent(topic.slug)}.png` : homePath(p) === "/" ? "/og/home.png" : "";
+  const grand = challengeFor(p);
+  const card = c ? `/og/c/${encodeURIComponent(c.id)}.png` : topic ? `/og/topics/${encodeURIComponent(topic.slug)}.png` : grand ? `/og/challenges/${encodeURIComponent(grand.slug)}.png` : homePath(p) === "/" ? "/og/home.png" : "";
   return card ? { src: META_ORIGIN + card, type: "image/png", alt: document.title } : { src: `${META_ORIGIN}/og.jpg`, type: "image/jpeg", alt: "All open-source challenges in one place." };
 }
 const sentence = (s) => (/[.!?…]$/.test(s.trim()) ? s.trim() : `${s.trim()}.`);
@@ -221,7 +223,7 @@ function syncMeta() {
   const desc = c ? `${sentence(c.tagline || c.description || c.name)} ${c.problems.length} track${c.problems.length === 1 ? "" : "s"}, ${c.stats.totalRecords} records. How to enter, leaderboards and which AI agents hold the records.`.slice(0, 300)
     : p === "/standard" ? "PROBLEM.md and SUBMISSION.md: two Markdown files that describe a competition and its entries. Add the topic open-challenge-list or open a listing issue and the repository is listed within hours; the leaderboard is built from the files."
     : p === "/submit" ? "Add an open benchmark competition to the directory: point us at the GitHub repository."
-    : topicFor(p) ? topicFor(p).about : META_DEFAULT;
+    : topicFor(p) ? topicFor(p).about : challengeFor(p) ? `${challengeFor(p).question} ${challengeFor(p).stakes}`.slice(0, 300) : META_DEFAULT;
   const url = META_ORIGIN + (p === "/landing" ? "/" : p);
   const set = (sel, attr, v) => document.querySelector(sel)?.setAttribute(attr, v);
   set('meta[name="description"]', "content", desc); set('meta[property="og:description"]', "content", desc); set('meta[name="twitter:description"]', "content", desc);
@@ -264,6 +266,7 @@ const I = {
   plus: '<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>',
   doc: '<svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 14l2 2 4-4"/></svg>',
   ext: '<svg viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>',
+  peak: '<svg viewBox="0 0 24 24"><path d="M2.5 20l6.5-12 4 6.5 2.5-3.5 6 9z"/><path d="M9 8V3.5h4l-1.2 1.6L13 6.7H9"/></svg>',
 };
 
 // ── Point your agent: one line to paste, the same as on the pre-rendered pages (src/render.ts JOIN_LINE, challengeJoinLine).
@@ -310,6 +313,107 @@ function renderTopic(t) {
       <p class="dim small topic-links">Other topics: ${(D.topics || []).filter((x) => x.slug !== t.slug).map((x) => `<a href="/topics/${esc(x.slug)}" data-action="nav">${esc(x.name)}</a>`).join(" · ")}</p>
     </div></section>`;
 }
+// ── Grand challenges (src/challenges.ts, shipped in /api/summary): the problems the catalog leads with, each with the
+// competitions running on it. A board belongs by its tags; inChallenge and challengeBoards are twins of the server's.
+// The copy over the cards is the pre-rendered page's (src/prerender.ts GRAND). ──
+const GRAND = { h2: "The problems that matter to everyone, open to anyone.", about: "Each grand challenge is split into competitions with public leaderboards. Pick a competition, point your agent at it, and every entry that holds up moves the frontier." };
+const grandList = () => (D && Array.isArray(D.challenges) ? D.challenges : []);
+const challengePath = (ch) => `/challenges/${pathPart(ch.slug)}`;
+const challengeFor = (path) => { const m = path.match(/^\/challenges\/([^/]+)$/); return (m && grandList().find((ch) => ch.slug === decodeURIComponent(m[1]))) || null; };
+const inChallenge = (ch, c) => (c.tags || []).some((t) => (ch.tags || []).includes(String(t).toLowerCase()));
+const challengesOf = (c) => grandList().filter((ch) => inChallenge(ch, c));
+const openTracks = (c) => c.problems.filter((p) => p.isOpen).length;
+const count = (v) => (Number.isFinite(Number(v)) ? Number(v) : 0);
+function challengeBoards(ch) {
+  const lead = (c) => { const i = (ch.lead || []).indexOf(c.id); return i < 0 ? Infinity : i; };
+  return D.competitions.filter((c) => inChallenge(ch, c)).sort((a, b) => Number(a.status === "ended") - Number(b.status === "ended") || lead(a) - lead(b)
+    || count(b.stats.recordsLast30d) - count(a.stats.recordsLast30d) || openTracks(b) - openTracks(a) || count(b.stats.totalRecords) - count(a.stats.totalRecords) || String(a.id).localeCompare(String(b.id)));
+}
+const challengeStats = (boards) => ({ boards: boards.length, entries30: boards.reduce((s, c) => s + count(c.stats.recordsLast30d), 0), open: boards.reduce((s, c) => s + openTracks(c), 0) });
+const challengeArt = (ch) => (ART[ch.art] ? ch.art : "dawn");
+const challengeNo = (ch) => String(grandList().indexOf(ch) + 1).padStart(2, "0");
+const challengeJoin = (ch) => JOIN.replace("an open challenge", ch.pick);
+const many = (n, one, more) => `<b>${esc(fmt(n))}</b> ${n === 1 ? one : more}`;
+// one competition inside a challenge: who entered this month, else what is open, else what it holds
+function runningRow(c) {
+  const month = count(c.stats.recordsLast30d), open = openTracks(c), all = count(c.stats.totalRecords);
+  const note = month ? `${many(month, "entry", "entries")} in 30 days` : open ? many(open, "open track", "open tracks") : all ? many(all, "entry", "entries") : "no entries yet";
+  return `<li><a href="/c/${pathPart(c.id)}" data-action="nav"><span class="gc-dot ${esc(c.status)}" title="${esc(c.status)}"></span><span class="gc-rn">${esc(c.name)}</span><span class="gc-rs">${note}</span></a></li>`;
+}
+// The card: the plate with the challenge's name over it, the open question, and the competitions running inside.
+// A link under everything makes the whole card open the challenge; the rows are links of their own on top of it.
+function grandCard(ch, o = {}) {
+  const boards = challengeBoards(ch), s = challengeStats(boards), k = challengeArt(ch), shown = o.rows ?? 4, more = boards.length - shown;
+  return `<article class="gc-card${o.small ? " small" : ""}">
+    <a class="gc-cover" href="${challengePath(ch)}" data-action="nav" tabindex="-1" aria-hidden="true"></a>
+    <div class="gc-art"><img src="/art/${k}-sm.jpg" srcset="/art/${k}-sm.jpg 720w, /art/${k}.jpg 1088w" sizes="(max-width: 760px) 100vw, 600px" alt="" loading="lazy" style="object-position:${ART[k].pos}">
+      <div class="gc-cap"><span class="eyebrow">${challengeNo(ch)} · ${esc(ch.field)}</span><h3 class="gc-name"><a href="${challengePath(ch)}" data-action="nav">${esc(ch.name)}</a></h3></div>
+    </div>
+    <div class="gc-body">
+      <p class="gc-q">${esc(ch.question)}</p>
+      <div class="gc-stats"><span>${many(s.boards, "competition", "competitions")}</span><span>${many(s.entries30, "entry", "entries")} in 30 days</span><span>${many(s.open, "open track", "open tracks")}</span></div>
+      ${shown && boards.length ? `<div class="gc-run"><span class="eyebrow"><span class="live-dot" aria-hidden="true"></span>Competitions running</span><ul>${boards.slice(0, shown).map(runningRow).join("")}</ul></div>` : ""}
+    </div>
+    <div class="gc-foot"><span>${shown && more > 0 ? `+ ${esc(more)} more inside` : ""}</span><span class="gc-go">Open the challenge <span aria-hidden="true">→</span></span></div>
+  </article>`;
+}
+// The hero's sentence names the challenges; each name opens its page (src/prerender.ts HOME.lede says the same in plain text)
+const HERO_NAMES = { "p-vs-np": "P vs NP", "cure-disease": "new medicines", energy: "the energy cost of intelligence", "riemann-hypothesis": "the Riemann Hypothesis" };
+function heroLede() {
+  const names = Object.entries(HERO_NAMES).map(([slug, text]) => { const ch = grandList().find((x) => x.slug === slug); return ch ? `<a class="hero-gc" href="${challengePath(ch)}" data-action="nav">${text}</a>` : text; });
+  return `${names.join(", ")}: each one runs here as open competitions with public leaderboards. Point your agent at one and get on the board.`;
+}
+// On the landing page, right under the hero
+function grandBand() {
+  const list = grandList();
+  if (!list.length) return "";
+  return `<section class="band gc-band" id="grand"><div class="wrap">
+      <div class="band-head"><div><span class="eyebrow">Grand challenges</span><h2>${GRAND.h2}</h2><p>${GRAND.about}</p></div></div>
+      <div class="gc-grid">${list.map((ch) => grandCard(ch)).join("")}</div>
+    </div></section>`;
+}
+// In the app, over the catalog; a search or a filter is about the catalog, so the block steps aside
+const catalogFiltered = () => !!(state.q || state.status || state.compute || state.domain || state.tag || state.open || (state.sort || "importance") !== "importance");
+function grandBlock() {
+  const list = grandList();
+  if (!list.length || (catalogFiltered() && !state.q)) return "";
+  return `<div class="gc-block" id="grand"${state.q ? " hidden" : ""}>
+      <div class="ah-head"><div><span class="eyebrow">Grand challenges</span><h1>${GRAND.h2}</h1><p>${GRAND.about}</p></div></div>
+      <div class="gc-grid">${list.map((ch) => grandCard(ch, { rows: 3 })).join("")}</div>
+    </div>`;
+}
+function syncGrand() { const g = document.querySelector(".gc-block"); if (g) g.hidden = !!state.q; }
+
+function renderChallenge(ch) {
+  document.title = `${ch.name}: the open competitions — Open Challenge List`;
+  const app = document.getElementById("app");
+  const boards = challengeBoards(ch), s = challengeStats(boards), ids = new Set(boards.map((c) => c.id));
+  const open = D.openProblems.filter((o) => ids.has(o.competitionId));
+  const others = grandList().filter((x) => x !== ch);
+  app.innerHTML = `
+    <section class="band art-band gc-hero">${artBg(challengeArt(ch))}<div class="wrap">
+    <a class="back" href="/" data-action="nav">← All competitions</a>
+    <div class="hero"><span class="eyebrow">Grand challenge ${challengeNo(ch)} · ${esc(ch.field)}</span><h1>${esc(ch.name)}</h1><p class="lede">${esc(ch.question)}</p><p class="gc-stakes">${esc(ch.stakes)}</p></div>
+    <div class="gc-stats big"><span>${many(s.boards, "competition", "competitions")}</span><span>${many(s.entries30, "entry", "entries")} in 30 days</span><span>${many(s.open, "open track", "open tracks")}</span></div>
+    <div class="join-line"><span class="eyebrow">Paste this into Claude Code, Codex, Cursor or any agent</span><pre class="quick join"><button type="button" class="copy" data-action="copy-join" data-topic="${esc(ch.slug)}">copy</button><code>${esc(challengeJoin(ch))}</code></pre></div>
+    </div></section>
+    <section class="band" id="competitions"><div class="wrap">
+      <div class="band-head"><div><span class="eyebrow"><span class="live-dot" aria-hidden="true"></span>Competitions running</span><h2>${boards.length ? `${esc(fmt(boards.length))} ${boards.length === 1 ? "competition is" : "competitions are"} running on this.` : "No competition is listed on this yet."}</h2><p>${esc(ch.work)}</p></div></div>
+      <div class="grid">${boards.map(card).join("")}</div>
+      <div class="gc-wanted"><span class="eyebrow">${ch.wanted ? "Wanted" : "Running one?"}</span><p>${esc(ch.wanted || "Running another competition on this? List it and it joins this challenge.")}</p><div class="cta"><a class="btn primary" href="/submit" data-action="nav">Submit a competition →</a><a class="btn" href="/standard" data-action="nav">The PROBLEM.md standard</a></div></div>
+    </div></section>
+    ${liveBand(boards)}
+    ${open.length ? `<section class="band soft"><div class="wrap">
+      <div class="band-head"><div><span class="eyebrow">${esc(open.length)} open track${open.length === 1 ? "" : "s"}</span><h2>Nobody has taken these yet.</h2><p>Tracks inside this challenge where no entry has beaten the baseline or reached the pass mark.</p></div></div>
+      <div class="open-grid">${open.slice(0, 6).map(openCard).join("")}</div>
+    </div></section>` : ""}
+    ${others.length ? `<section class="band"><div class="wrap">
+      <div class="band-head"><div><span class="eyebrow">Grand challenges</span><h2>The others.</h2></div><a class="more" href="/" data-action="nav">All competitions →</a></div>
+      <div class="gc-grid three">${others.map((x) => grandCard(x, { rows: 0, small: true })).join("")}</div>
+    </div></section>` : ""}`;
+  app.querySelectorAll(".card").forEach((el) => (el.onclick = (e) => { if (!e.target.closest(".btn, .ask")) nav(`/c/${pathPart(el.dataset.id)}`); }));
+}
+
 // Latest dated entries by people (not benchmarked models), newest first; mirrors recentActivity in src/aggregate.ts
 function activity(comps, limit) {
   const out = [];
@@ -517,6 +621,10 @@ function renderSidebar() {
       ${item({ href: "/people", icon: I.users, label: "People", n: D.profileCount ?? D.people.length, on: p === "/people", action: "nav" })}
       ${item({ href: "/", icon: I.trophy, label: "Leaderboards", n: tracks, on: false, action: "app", patch: { sort: "records" } })}
     </div>
+    ${grandList().length ? `<div class="sb-group open">
+      <div class="sb-heading">Grand challenges</div>
+      ${grandList().map((ch) => item({ href: challengePath(ch), icon: I.peak, label: ch.name, n: challengeBoards(ch).length, on: p === `/challenges/${ch.slug}`, action: "nav" })).join("")}
+    </div>` : ""}
     <div class="sb-group open">
       <div class="sb-heading">Domains</div>
       ${domains.map(([d, n]) => item({ href: "/", icon: I.folder, label: DOMAIN[d] || d, n, on: onHome && state.domain === d, action: "filter", filter: "domain", value: d })).join("")}
@@ -543,6 +651,7 @@ function crumbFor() {
   const m = p.match(/^\/c\/([^/]+)/), fm = p.match(/^\/agents\/([^/]+)/);
   if (m) { const c = D.competitions.find((x) => x.id === decodeURIComponent(m[1])); return [["Competitions", "/"], [c ? c.name : "Not found"]]; }
   if (fm) { const f = FAM[decodeURIComponent(fm[1])]; return [["Agents", "/agents"], [f ? f[0] : "Unknown"]]; }
+  if (challengeFor(p)) return [["Competitions", "/"], [challengeFor(p).name]];
   if (p === "/standard") return [["The standard"]];
   if (p === "/submit") return [["Submit a competition"]];
   if (p === "/people") return [["People"]];
@@ -566,7 +675,7 @@ function renderTopbar() {
       <a class="tb-link" href="/landing" data-action="landing">Landing</a>
     </div>`;
   const q = document.getElementById("tb-q");
-  q.oninput = (e) => { state.q = e.target.value; if (location.pathname === "/") { const g = document.getElementById("grid"); if (g) renderGrid(); else renderAppHome(); } };
+  q.oninput = (e) => { state.q = e.target.value; if (location.pathname === "/") { const g = document.getElementById("grid"); if (g) { renderGrid(); syncGrand(); } else renderAppHome(); } };
   q.onkeydown = (e) => { if (e.key === "Enter" && location.pathname !== "/") goApp({}); };
 }
 function focusSearch() { const q = document.getElementById("tb-q"); if (q && getComputedStyle(q.parentElement).display !== "none") { q.focus(); q.select(); } else { goApp({}); setTimeout(() => document.getElementById("q")?.focus(), 0); } return false; }
@@ -602,10 +711,11 @@ function renderAppHome() {
     <section class="band"><div class="wrap">
       ${(() => { const k = state.domain && ART_BY_DOMAIN[state.domain] ? ART_BY_DOMAIN[state.domain][0] : state.compute && ART_BY_COMPUTE[state.compute] ? ART_BY_COMPUTE[state.compute] : state.open ? "datacenter" : null; if (!k) return ""; const label = state.domain ? DOMAIN[state.domain] || state.domain : state.compute ? COMPUTE[state.compute] : "Open problems"; return `<div class="ah-art">${artBg(k)}<div class="ah-art-cap"><span class="eyebrow">${state.domain ? "Domain" : state.compute ? "Compute" : "Unclaimed"}</span><div class="t">${esc(label)}</div><div class="q">${ART[k].caption}</div></div></div>`; })()}
       <div class="ah-intro hero-pills"><div class="pulse-pill" id="pulse-pill" hidden></div>${introPill()}</div>
+      ${grandBlock()}
       <div class="joiners ah-joiners" id="joiners" hidden></div>
       ${sinceBand(false, true)}
       <div class="ah-head">
-        <div><h1>${state.open ? "Open problems" : state.domain ? esc(DOMAIN[state.domain] || state.domain) : state.sort === "recent" ? "Recent" : "Competitions"}</h1><p>Open benchmark competitions on GitHub with public leaderboards. Pick one, point your agent at the repository, get on the board.</p></div>
+        <div><h1>${state.open ? "Open problems" : state.domain ? esc(DOMAIN[state.domain] || state.domain) : state.sort === "recent" ? "Recent" : grandList().length ? "All competitions" : "Competitions"}</h1><p>Every open competition with a public leaderboard, the grand challenges' and the rest. Pick one, point your agent at the repository, get on the board.</p></div>
         <div class="dim small mono" id="grid-count"></div>
       </div>
 
@@ -627,7 +737,7 @@ function renderAppHome() {
       <div class="grid" id="grid"></div>
     </div></section>`;
 
-  document.getElementById("q").oninput = (e) => { state.q = e.target.value; const t = document.getElementById("tb-q"); if (t) t.value = state.q; renderGrid(); };
+  document.getElementById("q").oninput = (e) => { state.q = e.target.value; const t = document.getElementById("tb-q"); if (t) t.value = state.q; renderGrid(); syncGrand(); };
   document.getElementById("f-status").onchange = (e) => { state.status = e.target.value; renderGrid(); };
   document.getElementById("f-compute").onchange = (e) => goApp({ compute: e.target.value });
   document.getElementById("f-domain").onchange = (e) => goApp({ domain: e.target.value });
@@ -1053,7 +1163,7 @@ function sinceBand(withLive, bare) {
 }
 
 function renderHome() {
-  document.title = "Open Challenge List — all open-source challenges in one place";
+  document.title = "Open Challenge List — open competitions on the world's hardest problems";
   const app = document.getElementById("app");
   const comps = D.competitions;
   const records = comps.reduce((s, c) => s + c.stats.totalRecords, 0);
@@ -1069,12 +1179,12 @@ function renderHome() {
       <div class="wrap hero-grid">
       <div class="hero">
         <div class="hero-pills"><div class="pulse-pill" id="pulse-pill" hidden></div>${introPill()}</div>
-        <span class="eyebrow">Hackathons for AI agents on GitHub</span>
-        <h1>All open-source challenges in one place.</h1>
-        <p class="lede">Point your agent at a repo, open a pull request, get on the board.</p>
+        <span class="eyebrow">Open competitions on frontier problems</span>
+        <h1>Solve the world's hardest problems, in the open.</h1>
+        <p class="lede">${heroLede()}</p>
         <div class="cta">
           <a class="lm lm-ink" href="/" data-action="enter"><span class="lm-body" aria-hidden="true"><span class="lm-ring"></span><span class="lm-face"></span></span><span class="lm-label">Browse competitions →</span></a>
-          <a class="lm lm-cream" href="#open" data-action="section" data-section="open"><span class="lm-body" aria-hidden="true"><span class="lm-ring"></span><span class="lm-face"></span></span><span class="lm-label">${D.openProblems.length} open problems</span></a>
+          <a class="lm lm-cream" href="${grandList().length ? "#grand" : "#open"}" data-action="section" data-section="${grandList().length ? "grand" : "open"}"><span class="lm-body" aria-hidden="true"><span class="lm-ring"></span><span class="lm-face"></span></span><span class="lm-label">${grandList().length ? `${grandList().length} grand challenges ↓` : `${D.openProblems.length} open problems`}</span></a>
         </div>
         ${joinBlock(null, "Or point your agent: paste this into Claude Code, Codex or Cursor")}
       </div>
@@ -1082,7 +1192,8 @@ function renderHome() {
       <div class="joiners" id="joiners" hidden></div>
       </div>
     </section>
-    <section class="band tight kpi-band"><div class="wrap">
+    ${grandBand()}
+    <section class="band tight kpi-band${grandList().length ? " after-grand" : ""}"><div class="wrap">
       <div class="kpis">
         <a class="kpi" href="#catalog" data-action="catalog" data-patch='{"q":"","status":"","compute":"","domain":"","tag":"","open":false,"sort":"importance"}'><b>${comps.length}</b>competitions<span class="kpi-arrow">→</span></a>
         <a class="kpi" href="#open" data-action="section" data-section="open"><b>${D.openProblems.length}</b>open problems<span class="kpi-arrow">→</span></a>
@@ -1975,6 +2086,7 @@ function renderDetail(id) {
     <a class="back" href="/" data-action="nav">← All competitions</a>
     <div class="detail-hero">
       <div>
+        ${challengesOf(c).map((ch) => `<a class="gc-part" href="${challengePath(ch)}" data-action="nav" title="${esc(ch.question)}"><span class="eyebrow">Grand challenge</span><b>${esc(ch.name)}</b><span aria-hidden="true">→</span></a>`).join("")}
         <div class="badges">
           <span class="badge ${esc(c.status)}">${esc(c.status)}</span>
           ${stdBadge(c)}

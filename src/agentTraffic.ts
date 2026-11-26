@@ -57,6 +57,7 @@ export function pageType(path: string): string {
   if (path.startsWith("/api/")) return "api";
   if (path.startsWith("/c/")) return "competition";
   if (path.startsWith("/topics/")) return "topic";
+  if (path.startsWith("/challenges/")) return "grand-challenge";
   if (path.startsWith("/u/")) return "profile";
   if (path === "/") return "home";
   if (path === "/robots.txt" || path === "/sitemap.xml") return "crawl";
@@ -114,6 +115,8 @@ export function markdownFor(path: string, accept: string | null): string | null 
   if (path === "/") return "/llms.txt";
   const topic = /^\/topics\/([a-z0-9-]{1,40})$/.exec(path)?.[1];
   if (topic) return `/topics/${topic}.md`;
+  const challenge = /^\/challenges\/([a-z0-9-]{1,40})$/.exec(path)?.[1];
+  if (challenge) return `/challenges/${challenge}.md`;
   const id = /^\/c\/([A-Za-z0-9_-]{1,200})$/.exec(path)?.[1];
   return id ? `/api/competitions/${id}.md` : null;
 }

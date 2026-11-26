@@ -8,12 +8,13 @@ import { publicDataset, readSiteAsset } from "./build.js";
 import { aggregatePeople, aggregateAgents, competitionIndex, openProblems, withEntryCounts } from "./aggregate.js";
 import { competitionBadge, listedBadge } from "./badge.js";
 import { claimTxt, competitionToMarkdown, feedAtom, feedJson, joinTxt, llmsTxt } from "./render.js";
-import { pages, profilePage, renderPage, topicMarkdown } from "./prerender.js";
+import { challengeMarkdown, pages, profilePage, renderPage, topicMarkdown } from "./prerender.js";
 import { buildProfiles, peopleWithProfiles, profileIndex, withProfiles } from "./profiles.js";
 import { createAccountsHandler, memoryStore } from "./accounts.js";
 import { connectAccounts, pgStore } from "./accountsDb.js";
 import { databaseUrl } from "./db.js";
 import { TOPICS } from "./topics.js";
+import { CHALLENGES } from "./challenges.js";
 import { applyCorrections, loadCorrections } from "./corrections.js";
 import { markdownFor } from "./agentTraffic.js";
 import { createMcpHandler } from "./mcp.js";
@@ -198,6 +199,7 @@ const server = createServer(async (req, res) => {
         events: loadEvents(process.cwd()),
         discoveries: loadDiscoveries(process.cwd()) ?? NO_DISCOVERIES,
         topics: TOPICS,
+        challenges: CHALLENGES,
       }), MIME[".json"]);
     }
     const apiMatch = path.match(/^\/api\/competitions\/([^/]+?)(\.json|\.md)?$/);
@@ -220,6 +222,12 @@ const server = createServer(async (req, res) => {
       const t = TOPICS.find((x) => x.slug === topicMatch[1]);
       if (!t) return send(res, 404, "Not found");
       return send(res, 200, topicMarkdown(t, await loadData(), `http://${req.headers.host}`, loadDiscoveries(process.cwd())), MIME[".md"]);
+    }
+    const challengeMatch = path.match(/^\/challenges\/([a-z0-9-]{1,40})\.md$/);
+    if (challengeMatch) {
+      const ch = CHALLENGES.find((x) => x.slug === challengeMatch[1]);
+      if (!ch) return send(res, 404, "Not found");
+      return send(res, 200, challengeMarkdown(ch, await loadData(), `http://${req.headers.host}`), MIME[".md"]);
     }
     if (path === "/llms.txt") {
       const data = await loadData();

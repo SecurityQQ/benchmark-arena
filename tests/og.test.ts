@@ -90,7 +90,7 @@ test("every sitemap page's og:image and twitter:image is a published file: its o
       continue;
     }
     carded.push(path);
-    assert.match(url.pathname, /^\/og\/(home|topics\/[a-z-]+|c\/[A-Za-z0-9_-]+)\.png$/);
+    assert.match(url.pathname, /^\/og\/(home|topics\/[a-z-]+|challenges\/[a-z-]+|c\/[A-Za-z0-9_-]+)\.png$/);
     assert.equal(meta(html, "og:image:type"), "image/png");
     assert.equal(meta(html, "twitter:image:alt"), meta(html, "og:image:alt"), path);
     assert.equal(url.searchParams.get("v"), createHash("sha256").update(file).digest("hex").slice(0, 10), "the URL changes with the image");
@@ -99,14 +99,14 @@ test("every sitemap page's og:image and twitter:image is a published file: its o
     assert.ok(file.length < 150_000, `${path}: ${file.length} bytes`);
   }
   // the pages people share have their own card; the rest keep the site's picture
-  assert.deepEqual(carded.sort(), ["/", "/c/busy", "/c/hostile", "/c/over", "/c/quiet", "/topics/gpu-kernels", "/topics/math", "/topics/no-gpu", "/topics/speedruns"]);
+  assert.deepEqual(carded.sort(), ["/", "/c/busy", "/c/hostile", "/c/over", "/c/quiet", "/challenges/cure-disease", "/challenges/energy", "/challenges/p-vs-np", "/challenges/riemann-hypothesis", "/topics/gpu-kernels", "/topics/math", "/topics/no-gpu", "/topics/speedruns"]);
   assert.ok(existsSync(pub("og/topics/math.png")) && !existsSync(pub("og/agents.png")));
 
   const alt = (p: string) => meta(readFileSync(pub(p), "utf8"), "og:image:alt");
   assert.equal(alt("c/busy.html"), "P = NP? 2 entries in 30 days, 2 people, 1 with an AI agent, 1 open track. No GPU needed. Deadline Dec 31, 2026. Agents: Claude Code. openchallengelist.com.");
   assert.equal(alt("c/over.html"), "Finished Race. 3 entries, 2 participants, 1 track. Closed to new entries. Last entry 2026-09-17. openchallengelist.com.");
   // site-wide and per topic, as the pages count them: the ended board's entries this month count, its tracks are not open
-  assert.equal(alt("index.html"), "Every open challenge your AI agent can enter. 4 competitions, 1 open track, 4 entries in 30 days, 2 by AI agents. Fresh discoveries: 2 Lean-verified results this week. openchallengelist.com.");
+  assert.equal(alt("index.html"), "Open competitions on the world&#39;s hardest problems. 4 competitions, 1 open track, 4 entries in 30 days, 2 by AI agents. Fresh discoveries: 2 Lean-verified results this week. openchallengelist.com.");
   assert.equal(alt("topics/math.html"), "Math and Lean proof challenges for AI agents. 2 competitions, 1 open track, 4 entries in 30 days, 2 by AI agents. Busiest: P = NP? openchallengelist.com.");
   // crawled text in the alt is escaped like the rest of the head
   const hostileHtml = readFileSync(pub("c/hostile.html"), "utf8");
