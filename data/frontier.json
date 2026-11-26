@@ -455,6 +455,20 @@
       "verified": 2,
       "why": "Read the only library to survive from antiquity, carbonized by Vesuvius in 79 AD, from CT scans; $2.1M in open prizes, results verified by the team and papyrologists.",
       "checked": "2026-11-26"
+    },
+    "quantum-advantage-tracker-quantum-advantage-tracker-github-io-0184f4f5119c07a6": {
+      "stakes": 3,
+      "open": 3,
+      "verified": 2,
+      "why": "Has a quantum computer beaten every classical method yet? Quantum claims and the classical results that answer them, reviewed in public.",
+      "checked": "2026-11-26"
+    },
+    "open-challenges-keller-zero-a5e3b6508081e209": {
+      "stakes": 2,
+      "open": 3,
+      "verified": 3,
+      "why": "Shrink the gadgets that make finding a zero of a Keller map NP-hard, with every step machine-checked in Lean.",
+      "checked": "2026-11-26"
     }
   }
 }
