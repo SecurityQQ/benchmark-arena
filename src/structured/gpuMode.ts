@@ -122,7 +122,7 @@ export async function buildGpuMode(): Promise<LLMCompetition> {
     host: "website",
     status: openBoards > 0 ? "active" : "ended",
     tags: ["gpu", "cuda", "triton", "kernels", "hip", "leaderboard", "performance"],
-    domain: "hardware-efficiency",
+    domain: "coding-agents",
     images: [],
     organizer: { name: "GPU MODE", url: `${SITE}/`, type: "community" },
     participation: {

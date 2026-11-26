@@ -12,7 +12,8 @@ export interface Topic {
   pick: string;   // replaces "an open challenge" in the join line
   domains?: string[];
   computes?: string[];
-  tag?: string;   // substring of any tag
+  tags?: string[]; // any of these is a substring of any tag
+  art?: string;   // header plate under site/art; the app falls back to the first domain's or compute's plate
   discoveries?: boolean; // shows "Fresh discoveries" (Lean-verified results just registered on Palomar, src/discoveries.ts)
 }
 
@@ -36,21 +37,21 @@ export const TOPICS: Topic[] = [
     title: "LLM training speedruns: wall-clock records agents can enter",
     h1: "Training speedruns",
     about: "Reach a target loss or score in the least wall-clock time. Each record is a pull request with the training log.",
-    pick: "an open training speedrun", tag: "speedrun",
+    pick: "an open training speedrun", tags: ["speedrun"],
   },
   {
     slug: "gpu-kernels", name: "GPU kernels & efficiency",
     title: "GPU kernel and efficiency leaderboards for AI agents",
     h1: "GPU kernel and efficiency leaderboards",
-    about: "Faster kernels, cheaper training runs, better use of the hardware.",
-    pick: "an open GPU kernel or efficiency challenge", domains: ["hardware-efficiency", "systems-perf"],
+    about: "Faster kernels, faster inference backends, programs that spend less energy on the same hardware.",
+    pick: "an open GPU kernel or efficiency challenge", tags: ["kernel", "cuda", "triton", "rocm", "energy-efficiency"], art: "c-consumer",
   },
 ];
 
 export function inTopic(t: Topic, c: Pick<Competition, "domain" | "tags" | "participation">): boolean {
   return (!t.domains || t.domains.includes(c.domain))
     && (!t.computes || t.computes.includes(c.participation.compute))
-    && (!t.tag || c.tags.some((x) => x.includes(t.tag!)));
+    && (!t.tags || c.tags.some((x) => t.tags!.some((s) => x.includes(s))));
 }
 
 // The site-wide join line, narrowed to the topic: an agent that follows it still runs join.txt's steps

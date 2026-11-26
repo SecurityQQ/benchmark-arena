@@ -152,7 +152,7 @@ const fixture: Discoveries = {
   days: { "2026-11-25": 6, "2026-11-24": 22, "2026-11-18": 40 }, // the 18th is outside the window
   items: [6, 5, 4, 3, 2, 1].map(hostile),
 };
-const data = { crawledAt: "2026-11-25T10:00:00Z", competitions: [competition("proofs", "formal-methods"), competition("kernels", "systems-perf")] };
+const data = { crawledAt: "2026-11-25T10:00:00Z", competitions: [competition("proofs", "formal-methods"), competition("kernels", "coding-agents")] };
 const band = (html: string) => html.match(/<section class="band pre" id="discoveries">[\s\S]*?<\/section>/)?.[0];
 const hrefs = (html: string) => [...html.matchAll(/href="([^"]*)"/g)].map((m) => m[1].replace(/&amp;/g, "&"));
 const PERMALINK = /^https:\/\/palomar-registry\.org\/entry\?id=PALOMAR-\d{4}-\d{2}-\d{2}-\d{6}&version=\d+$/;

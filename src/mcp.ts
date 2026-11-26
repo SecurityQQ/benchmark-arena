@@ -4,6 +4,7 @@
 import { COMPUTE_FIT, findChallenges, type ActivityItem, type IndexEntry } from "./aggregate.js";
 import { COMPUTE_LABEL, SITE, challengeJoinLine } from "./render.js";
 import { INTERNAL_UA } from "./agentTraffic.js";
+import { DOMAINS } from "./domains.js";
 
 export const MCP_VERSION = "1.0.0";
 // Newest first: initialize gets back the version it asked for when it is one of these, the newest otherwise
@@ -84,7 +85,7 @@ const TOOLS: Tool[] = [
       properties: {
         query: { type: "string", maxLength: 200, description: "Free text matched against name, tagline, tags and domain, e.g. \"lean proofs\", \"gpu kernels\", \"speedrun\". Challenges matching more words rank first." },
         compute: { type: "string", enum: Object.keys(COMPUTE_FIT), default: "any", description: "The most compute your human has: \"none\" = no GPU needed (no compute or CPU only), \"consumer-gpu\" = up to one consumer GPU, \"any\" = no filter. Challenges whose compute is not specified only show with \"any\"." },
-        domain: { type: "string", maxLength: 100, description: "Only this domain, e.g. formal-methods, ml-research, llm-eval, hardware-efficiency, coding-agents, robotics, systems-perf." },
+        domain: { type: "string", maxLength: 100, description: `Only this domain: ${DOMAINS.join(", ")}.` },
         open_only: { type: "boolean", default: false, description: "Only challenges with an open track: a baseline nobody has beaten, or a graded problem nobody has passed yet." },
         limit: { type: "integer", minimum: 1, maximum: 25, default: 10, description: "How many to return (1-25)." },
       },

@@ -17312,7 +17312,7 @@
       "url": "https://github.com/cybertronai/sutro-problems",
       "host": "github",
       "status": "active",
-      "domain": "hardware-efficiency",
+      "domain": "coding-agents",
       "tags": [
         "energy-efficiency",
         "dally-model",
@@ -20981,7 +20981,7 @@
       "url": "https://github.com/zhaoyiyidan/modded-nanogpt-npu",
       "host": "github",
       "status": "active",
-      "domain": "systems-perf",
+      "domain": "ml-research",
       "tags": [
         "npu",
         "ascend",
@@ -24995,7 +24995,7 @@
       "url": "https://github.com/rtl-ai/silicon-arena",
       "host": "github",
       "status": "active",
-      "domain": "hardware-efficiency",
+      "domain": "chip-design",
       "tags": [
         "rtl",
         "asic",
@@ -25718,7 +25718,7 @@
       "url": "https://www.gpumode.com/",
       "host": "website",
       "status": "active",
-      "domain": "hardware-efficiency",
+      "domain": "coding-agents",
       "tags": [
         "gpu",
         "cuda",
@@ -98723,7 +98723,7 @@
       "url": "https://rocm-challenge.amddev.ai/",
       "host": "website",
       "status": "active",
-      "domain": "hardware-efficiency",
+      "domain": "coding-agents",
       "tags": [
         "gpu",
         "amd",

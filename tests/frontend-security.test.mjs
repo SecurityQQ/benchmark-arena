@@ -306,7 +306,7 @@ test("browser smoke: desktop and mobile interactions under the actual strict CSP
   assert.match(csp, /script-src 'self' https:\/\/www\.googletagmanager\.com;/);
   const data = fixture(), c = data.competitions[0];
   data.crawledAt = "2026-09-18T00:00:00Z";
-  Object.assign(c, { id: "demo", name: "Demo", status: "active", domain: "security", url: "https://example.test/repo", images: ["/demo.svg"], repo: { owner: "owner", name: "repo" }, quickstart: "echo safe", agentStats: [{ family: "openai", records: 3, currentBests: 1, models: ["model"] }] });
+  Object.assign(c, { id: "demo", name: "Demo", status: "active", domain: "cybersecurity", url: "https://example.test/repo", images: ["/demo.svg"], repo: { owner: "owner", name: "repo" }, quickstart: "echo safe", agentStats: [{ family: "openai", records: 3, currentBests: 1, models: ["model"] }] });
   c.participation.compute = "cpu";
   c.stats = { totalRecords: 3, uniqueParticipants: 1, recordsLast30d: 3, recordsLast90d: 3, lastSubmission: "2026-09-17", firstSubmission: "2026-09-01" };
   Object.assign(c.problems[0], { id: "one", name: "Track One", metricDirection: "minimize" });

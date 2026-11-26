@@ -10,6 +10,7 @@ import { parse as parseYaml } from "yaml";
 import type { LLMCompetition } from "./llm.js";
 import type { Problem, RecordEntry, ComputeTier, CompetitionStatus, AgentAttribution } from "./types.js";
 import { familyFromName } from "./postprocess.js";
+import { DOMAINS, currentDomain } from "./domains.js";
 
 export const STANDARD_VERSION = 1;
 export const PROBLEM_FILES = ["PROBLEM.md", "problem.md", ".github/PROBLEM.md", "docs/PROBLEM.md"];
@@ -21,7 +22,6 @@ export interface StandardInfo { problem: boolean; submission: boolean; submissio
 
 const COMPUTE: ComputeTier[] = ["none", "cpu", "consumer-gpu", "datacenter-gpu", "cluster", "unknown"];
 const STATUS: CompetitionStatus[] = ["active", "upcoming", "ended", "unknown"];
-const DOMAINS = ["formal-methods", "hardware-efficiency", "llm-eval", "coding-agents", "ml-research", "systems-perf", "robotics", "security", "other"];
 const str = (v: unknown, max = 600): string | undefined => (typeof v === "string" || typeof v === "number" ? String(v).trim().slice(0, max) || undefined : undefined);
 const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 60);
 const isProblemPath = (p: string) => /(^|\/)problem\.md$/i.test(p);
@@ -129,7 +129,8 @@ export function applyStandard(base: LLMCompetition | null, docs: StandardDoc[], 
   if (str(p.description, 900)) c.description = str(p.description, 900)!;
   else if (!c.description && P) c.description = P.body.replace(/```[\s\S]*?```/g, "").replace(/^#.*$/gm, "").replace(/\s+/g, " ").trim().slice(0, 600);
   if (STATUS.includes(p.status)) c.status = p.status;
-  if (DOMAINS.includes(p.domain)) c.domain = p.domain;
+  const domain = currentDomain(p.domain, p.tags);
+  if ((DOMAINS as readonly unknown[]).includes(domain)) c.domain = domain as string;
   if (Array.isArray(p.tags)) c.tags = [...new Set([...(p.tags.map((t: unknown) => str(t, 40)?.toLowerCase()).filter(Boolean) as string[]), ...(c.tags ?? [])])].slice(0, 8);
   for (const [label, key] of [["Website", "website"], ["Leaderboard", "leaderboard"]] as const) if (str(p[key]) && /^https?:\/\//.test(p[key])) c.links = [{ label, url: p[key] }, ...(c.links ?? []).filter((l) => l.url !== p[key])].slice(0, 6);
   if (p.organizer && typeof p.organizer === "object" && str(p.organizer.name)) c.organizer = { name: str(p.organizer.name, 80)!, url: /^https?:\/\//.test(p.organizer.url ?? "") ? p.organizer.url : undefined };

@@ -4,7 +4,7 @@ spec: problem.md/v1             # required marker: this is how the crawler recog
 name: Your competition name
 tagline: One sentence. What is optimized, and why it matters.
 status: active                  # active | upcoming | ended
-domain: ml-research             # formal-methods | hardware-efficiency | llm-eval | coding-agents | ml-research | systems-perf | robotics | security | other
+domain: ml-research             # formal-methods | llm-eval | coding-agents | ml-research | robotics | cybersecurity | firmware | chip-design | other
 tags: [speedrun, training]
 compute: consumer-gpu           # none | cpu | consumer-gpu | datacenter-gpu | cluster
 compute_details: One 24 GB GPU is enough for every track.
