@@ -25,6 +25,11 @@ if (!url) {
   console.error("SUPABASE_DB_URL is not set (see .env.example)");
   process.exit(1);
 }
+if (!/^postgres(ql)?:\/\//.test(url)) {
+  // the project URL (https://<ref>.supabase.co) sits next to the connection string in the dashboard
+  console.error("SUPABASE_DB_URL must be the Postgres connection string (postgresql://…, Supabase → Connect → Session pooler), not the project URL");
+  process.exit(1);
+}
 
 const gitSha = () => { try { return execFileSync("git", ["rev-parse", "HEAD"], { encoding: "utf-8" }).trim(); } catch { return undefined; } };
 

@@ -75,6 +75,7 @@ test("push and load round-trip the saved data through Postgres", { skip: !local 
     assert.deepEqual(await migrate(sql), ["0001_init.sql"]);
     assert.deepEqual(await migrate(sql), []);
     assert.equal(await load(sql), null);
+    await sql`set extra_float_digits = 0`;   // as on Supabase (max: 1, so this session is every query's)
 
     const d = saved();
     const s = await push(sql, d, { mode: "test" });

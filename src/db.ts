@@ -277,6 +277,9 @@ export async function push(sql: Sql, d: DataFiles, run: { mode: string; gitSha?:
 /** The data as of the last push, read in one snapshot; null when nothing was pushed yet. */
 export async function load(sql: Sql): Promise<DataFiles | null> {
   return sql.begin("isolation level repeatable read read only", async (tx) => {
+    // float8 comes back as text: Supabase sessions run with extra_float_digits = 0, which rounds it to 15 digits; above 0 it is
+    // the shortest text that parses back to the same number
+    await tx`set local extra_float_digits = 3`;
     const [run] = await tx`select crawled_at, errors from ocl.crawl_run order by id desc limit 1`;
     if (!run) return null;
     const competitions = await tx`select * from ocl.competition order by position`;
