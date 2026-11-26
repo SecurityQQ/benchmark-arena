@@ -71,7 +71,8 @@ export interface LiveCount {
 
 /** How many entries a source saw in the last hour and day; `complete` says its list reaches back past the window. */
 export interface Window { lastHour?: number; last24h?: number; complete: boolean; noun: string }
-export interface Tally { count: number; boards: number; partial: boolean; by: { source: PulseSource; name: string; count: number; noun: string }[] }
+/** by: per board, with this site's board id when it is listed, and `partial` when that board's own list does not cover the window */
+export interface Tally { count: number; boards: number; partial: boolean; by: { source: PulseSource; name: string; count: number; noun: string; board?: string; partial?: true }[] }
 
 export interface SourceState { id: PulseSource; name: string; ok: boolean; at?: string; error?: string }
 
@@ -87,7 +88,7 @@ export interface Joiner {
   first?: string;        // what the first entry was, in a few words
   url: string;           // the person's page on the board, or the board
 }
-export interface Joins { lastHour: number; last24h: number; partial: boolean; by: { source: PulseSource; name: string; count: number }[]; people: Joiner[] }
+export interface Joins { lastHour: number; last24h: number; partial: boolean; by: { source: PulseSource; name: string; count: number; board?: string }[]; people: Joiner[] }
 
 export interface Pulse {
   at: string;                                                // when this answer was made
@@ -428,17 +429,18 @@ export function boardFor(index: unknown, match: BoardMatch | string): BoardRef |
 export type SourceCache = Map<PulseSource, { readAt: number; url?: string; body?: unknown; etag?: string; goodAt?: number; error?: string }>;
 
 /** Entries on the listed boards (Palomar is a registry, not a board: its results are events, not entries), and whether the sum is a lower bound. */
-function tally(all: { source: Source; read?: SourceRead }[], key: "lastHour" | "last24h"): Tally {
+function tally(all: { source: Source; read?: SourceRead; board?: BoardRef }[], key: "lastHour" | "last24h"): Tally {
   const reads = all.filter(({ source }) => source.kind === "board");
-  const by = reads.flatMap(({ source, read }) => (read?.window?.[key] !== undefined ? [{ source: source.id, name: source.name, count: read.window[key]!, noun: read.window.noun }] : []));
+  const by = reads.flatMap(({ source, read, board }) => (read?.window?.[key] !== undefined ? [{ source: source.id, name: source.name, count: read.window[key]!, noun: read.window.noun,
+    ...(board ? { board: board.id } : {}), ...(key === "last24h" && !read.window.complete ? { partial: true as const } : {}) }] : []));
   const partial = reads.some(({ read }) => !read?.window || read.window[key] === undefined || (key === "last24h" && !read.window.complete));
   return { count: by.reduce((s, b) => s + b.count, 0), boards: by.filter((b) => b.count > 0).length, partial, by: by.filter((b) => b.count > 0) };
 }
 
 /** First entries from the sources that know them, newest first; partial when one of them could not be read. */
-function joins(reads: { source: Source; read?: SourceRead }[]): Joins {
+function joins(reads: { source: Source; read?: SourceRead; board?: BoardRef }[]): Joins {
   const from = reads.filter(({ source }) => source.id === "pequalnp-people" || source.id === "looped-lens");
-  const by = from.flatMap(({ source, read }) => (read?.joined ? [{ source: source.id, name: source.id === "pequalnp-people" ? "P = NP?" : source.name, count: read.joined.last24h }] : []));
+  const by = from.flatMap(({ source, read, board }) => (read?.joined ? [{ source: source.id, name: source.id === "pequalnp-people" ? "P = NP?" : source.name, count: read.joined.last24h, ...(board ? { board: board.id } : {}) }] : []));
   const seen = new Set<string>();
   const people = from.flatMap(({ read }) => read?.joined?.people ?? []).filter((j) => !seen.has(j.id) && !!seen.add(j.id))
     .sort((a, b) => b.at.localeCompare(a.at) || a.id.localeCompare(b.id)).slice(0, MAX_JOINERS);
@@ -521,6 +523,7 @@ export async function buildPulse(opts: { fetch: Fetch; now: number; boards?: Par
     const state: SourceState = { id: source.id, name: source.name, ok: !!read && !c?.error, ...(c?.goodAt !== undefined && read ? { at: new Date(c.goodAt).toISOString() } : {}), ...(error ? { error } : {}) };
     return { source, read, state };
   });
+  const withBoards = reads.map((r) => ({ ...r, board: opts.boards?.[r.source.id] }));
   const counts = reads.flatMap((r) => (r.read?.count ? [r.read.count] : []));
   const seen = new Set<string>();
   const events = reads.flatMap((r) => r.read?.events.slice(0, PER_SOURCE) ?? [])
@@ -530,9 +533,9 @@ export async function buildPulse(opts: { fetch: Fetch; now: number; boards?: Par
   return {
     at: new Date(now).toISOString(),
     agentsNow: counts.length ? { total: counts.reduce((s, c) => s + c.count, 0), counts } : null,
-    activity: { lastHour: tally(reads, "lastHour"), last24h: tally(reads, "last24h") },
-    joined: joins(reads),
-    leaders: leadersOf(reads.map((r) => ({ ...r, board: opts.boards?.[r.source.id] })), now),
+    activity: { lastHour: tally(withBoards, "lastHour"), last24h: tally(withBoards, "last24h") },
+    joined: joins(withBoards),
+    leaders: leadersOf(withBoards, now),
     events,
     sources: reads.map((r) => r.state),
   };
