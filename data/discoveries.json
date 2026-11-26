@@ -1,11 +1,11 @@
 {
-  "fetchedAt": "2026-11-26T02:52:01.248Z",
+  "fetchedAt": "2026-11-26T03:29:21.269Z",
   "totals": {
-    "results": 1368,
-    "projects": 1042
+    "results": 1369,
+    "projects": 1043
   },
   "days": {
-    "2026-11-26": 11,
+    "2026-11-26": 12,
     "2026-11-25": 6,
     "2026-11-24": 22,
     "2026-11-23": 36,
@@ -14,6 +14,22 @@
     "2026-11-20": 26
   },
   "items": [
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-26-000012",
+      "version": 1,
+      "title": "The Eastin-Knill theorem",
+      "authors": [
+        "Zayn Blore"
+      ],
+      "date": "2026-11-26",
+      "at": "2026-11-26T02:59:36Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000012&version=1",
+      "repo": "zblore/eastin-knill-lean",
+      "subjects": [
+        "quant-ph"
+      ]
+    },
     {
       "source": "palomar",
       "id": "PALOMAR-2026-11-26-000011",
@@ -1001,23 +1017,6 @@
       "subjects": [
         "math.SP",
         "cond-mat.mes-hall"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-23-000016",
-      "version": 1,
-      "title": "Conditional ZF-independence of the exact 192-state machine",
-      "authors": [
-        "James Chang"
-      ],
-      "date": "2026-11-23",
-      "at": "2026-11-23T10:44:07Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000016&version=1",
-      "repo": "jamesyc/BusyBeaver",
-      "subjects": [
-        "math.LO",
-        "cs.LO"
       ]
     }
   ]

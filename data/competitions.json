@@ -1,5 +1,5 @@
 {
-  "crawledAt": "2026-11-26T02:52:01.226Z",
+  "crawledAt": "2026-11-26T03:29:21.245Z",
   "competitions": [
     {
       "id": "kellerjordan-modded-nanogpt-b334f62b98ac328d",
@@ -1548,7 +1548,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 1
       },
-      "lastUpdated": "2026-11-26T02:45:26.879Z"
+      "lastUpdated": "2026-11-26T03:23:56.147Z"
     },
     {
       "id": "starvla-starvla-0f3b6fdaa7e288ea",
@@ -1640,7 +1640,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-26T02:45:26.879Z"
+      "lastUpdated": "2026-11-26T03:23:56.147Z"
     },
     {
       "id": "assetopsbench",
@@ -1740,7 +1740,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-26T02:45:26.879Z"
+      "lastUpdated": "2026-11-26T03:23:56.147Z"
     },
     {
       "id": "alpaca-eval",
@@ -2138,7 +2138,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-26T02:45:26.879Z"
+      "lastUpdated": "2026-11-26T03:23:56.147Z"
     },
     {
       "id": "cogdl",
@@ -4435,7 +4435,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-26T02:45:26.881Z"
+      "lastUpdated": "2026-11-26T03:23:56.149Z"
     },
     {
       "id": "mle-bench",
@@ -6472,7 +6472,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-26T02:45:26.883Z"
+      "lastUpdated": "2026-11-26T03:23:56.150Z"
     },
     {
       "id": "google-deepmind-formal-conjectures-26b7f8cc558bf9b7",
@@ -6556,7 +6556,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-26T02:45:26.883Z"
+      "lastUpdated": "2026-11-26T03:23:56.150Z"
     },
     {
       "id": "clawprobench",
@@ -6687,7 +6687,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-26T02:45:26.883Z"
+      "lastUpdated": "2026-11-26T03:23:56.150Z"
     },
     {
       "id": "squad-explorer",
@@ -6786,7 +6786,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-26T02:45:26.883Z"
+      "lastUpdated": "2026-11-26T03:23:56.150Z"
     },
     {
       "id": "molly554-whiteboard-ai-tutor-42f8192edec654f3",
@@ -7306,7 +7306,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-26T02:45:26.883Z"
+      "lastUpdated": "2026-11-26T03:23:56.150Z"
     },
     {
       "id": "polymarket-paper-trader",
@@ -7417,7 +7417,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-26T02:45:26.884Z"
+      "lastUpdated": "2026-11-26T03:23:56.150Z"
     },
     {
       "id": "skab",
@@ -7674,7 +7674,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-26T02:45:26.884Z"
+      "lastUpdated": "2026-11-26T03:23:56.150Z"
     },
     {
       "id": "teorth-optimizationproblems-c73e6b86a3a6d494",
@@ -10286,7 +10286,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-26T02:45:26.886Z"
+      "lastUpdated": "2026-11-26T03:23:56.153Z"
     },
     {
       "id": "fstandhartinger-jevbench-2acd10345790c8d1",
@@ -11688,7 +11688,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-26T02:45:26.887Z"
+      "lastUpdated": "2026-11-26T03:23:56.154Z"
     },
     {
       "id": "bichengwang-rl-pricing-767e169a4d55ab74",
@@ -13034,7 +13034,7 @@
         "recordsLast30d": 6,
         "recordsLast90d": 28
       },
-      "lastUpdated": "2026-11-26T02:45:26.888Z"
+      "lastUpdated": "2026-11-26T03:23:56.156Z"
     },
     {
       "id": "crocswap-integer-mult-bounds-33a6ab842bf8f8e0",
@@ -13639,7 +13639,7 @@
         "recordsLast30d": 1,
         "recordsLast90d": 19
       },
-      "lastUpdated": "2026-11-26T02:45:26.889Z"
+      "lastUpdated": "2026-11-26T03:23:56.156Z"
     },
     {
       "id": "llm-leaderboard",
@@ -15985,7 +15985,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-26T02:45:26.890Z"
+      "lastUpdated": "2026-11-26T03:23:56.157Z"
     },
     {
       "id": "saivineeth147-lora-speedrun-a7a730c9d43bbbbc",
@@ -16299,7 +16299,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-26T02:45:26.891Z"
+      "lastUpdated": "2026-11-26T03:23:56.158Z"
     },
     {
       "id": "metacognitionai-navgpt-3-5b9a0bda12fb75be",
@@ -16544,7 +16544,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-26T02:45:26.891Z"
+      "lastUpdated": "2026-11-26T03:23:56.158Z"
     },
     {
       "id": "equational-theories-lean-stage2",
@@ -16657,7 +16657,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-26T02:45:26.891Z"
+      "lastUpdated": "2026-11-26T03:23:56.158Z"
     },
     {
       "id": "harbor-framework-terminal-bench-challenges-3adcf27679c7b565",
@@ -16765,7 +16765,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-26T02:45:26.891Z"
+      "lastUpdated": "2026-11-26T03:23:56.158Z"
     },
     {
       "id": "osgood001-riemann-hypothesis-27b8a22da0a4924e",
@@ -17302,7 +17302,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-26T02:45:26.892Z"
+      "lastUpdated": "2026-11-26T03:23:56.163Z"
     },
     {
       "id": "sutro-problems",
@@ -19500,7 +19500,7 @@
         "recordsLast30d": 2,
         "recordsLast90d": 109
       },
-      "lastUpdated": "2026-11-26T02:45:26.894Z"
+      "lastUpdated": "2026-11-26T03:23:56.165Z"
     },
     {
       "id": "leansolving-squeezebench-04bec82398b15ff6",
@@ -20224,7 +20224,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-26T02:45:26.894Z"
+      "lastUpdated": "2026-11-26T03:23:56.165Z"
     },
     {
       "id": "programbench",
@@ -20639,7 +20639,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 5
       },
-      "lastUpdated": "2026-11-26T02:45:26.894Z"
+      "lastUpdated": "2026-11-26T03:23:56.165Z"
     },
     {
       "id": "s2n-bignum-bench",
@@ -20733,7 +20733,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-26T02:45:26.894Z"
+      "lastUpdated": "2026-11-26T03:23:56.165Z"
     },
     {
       "id": "agent-anvil-leaderboard",
@@ -20852,7 +20852,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-26T02:45:26.894Z"
+      "lastUpdated": "2026-11-26T03:23:56.165Z"
     },
     {
       "id": "geo-bench-2-leaderboard",
@@ -20971,7 +20971,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-26T02:45:26.894Z"
+      "lastUpdated": "2026-11-26T03:23:56.165Z"
     },
     {
       "id": "modded-nanogpt-npu",
@@ -22826,7 +22826,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-26T02:45:26.896Z"
+      "lastUpdated": "2026-11-26T03:23:56.166Z"
     },
     {
       "id": "chi-bench",
@@ -24217,7 +24217,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 8
       },
-      "lastUpdated": "2026-11-26T02:45:26.896Z"
+      "lastUpdated": "2026-11-26T03:23:56.167Z"
     },
     {
       "id": "apex-humanoid-parkour",
@@ -24310,7 +24310,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-26T02:45:26.897Z"
+      "lastUpdated": "2026-11-26T03:23:56.167Z"
     },
     {
       "id": "keyu-wang-2002-depthdash-3d9f7411623b2df2",
@@ -24423,7 +24423,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-26T02:45:26.897Z"
+      "lastUpdated": "2026-11-26T03:23:56.167Z"
     },
     {
       "id": "basicv8vc-modded-supermimic-7f81e99cb9bffec0",
@@ -24562,7 +24562,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-26T02:45:26.897Z"
+      "lastUpdated": "2026-11-26T03:23:56.167Z"
     },
     {
       "id": "swe-bench-pro-leaderboard",
@@ -24770,7 +24770,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-26T02:45:26.897Z"
+      "lastUpdated": "2026-11-26T03:23:56.167Z"
     },
     {
       "id": "terminal-bench-leaderboard",
@@ -24850,7 +24850,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-26T02:45:26.897Z"
+      "lastUpdated": "2026-11-26T03:23:56.167Z"
     },
     {
       "id": "ndif-team-looped-lens-challenge-760f0dba003c4c92",
@@ -24985,7 +24985,730 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-26T02:45:26.940Z"
+      "lastUpdated": "2026-11-26T03:23:56.167Z"
+    },
+    {
+      "id": "rtl-ai-silicon-arena-d20cfa656a05f7ad",
+      "name": "SiliconArena",
+      "tagline": "Beat 4,069 generic logic cells in an exact INT8 dot product; a first step toward manufacturable AI accelerators.",
+      "description": "SiliconArena is an open research project toward manufacturable AI accelerator silicon. The active Inference-002 challenge asks contributors to beat 4,069 generic logic cells for an exact, stateless signed eight-lane INT8 dot product, scored by a fixed Yosys 0.33 synthesis flow and gated by an exact combinational RTL SAT equivalence proof. Submissions are made as pull requests adding a single dot8.sv file; provisional PR CI is followed by an independent trusted main-branch rerun and maintainer review before ranking. Physical-design training and inference tracks remain upcoming.",
+      "url": "https://github.com/rtl-ai/silicon-arena",
+      "host": "github",
+      "status": "active",
+      "domain": "hardware-efficiency",
+      "tags": [
+        "rtl",
+        "asic",
+        "ai-accelerator",
+        "training",
+        "inference",
+        "formal-verification",
+        "synthesis",
+        "int8"
+      ],
+      "images": [],
+      "participation": {
+        "howToSubmit": "pull request into submissions/<handle>/ with a SUBMISSION.md",
+        "submissionFormat": "Add one unique submissions/<handle>-<experiment>/dot8.sv file; SUBMISSION.md is optional for initial PR, required for accepted ranking.",
+        "computeDetails": "CPU-only exact RTL SAT and generic synthesis benchmark; pinned Python/YoWASP alternative available. Physical-design tracks remain upcoming.",
+        "deadline": "rolling",
+        "prizes": "recognition only",
+        "eligibility": "Human and agent-assisted contributors using authorized resources.",
+        "cost": "free",
+        "verification": "GitHub PR preview uses a fixed SAT miter and synthesis in a bounded networkless container; an independent trusted main-branch rerun and maintainer review are required for official rank. Fork approval and queue delay may apply.",
+        "requirements": [
+          "Python 3.11",
+          "pinned YoWASP Yosys 0.33 or matching native Yosys"
+        ],
+        "compute": "cpu"
+      },
+      "links": [
+        {
+          "label": "Project website",
+          "url": "https://rtl-ai.github.io/silicon-arena/"
+        },
+        {
+          "label": "Leaderboard",
+          "url": "https://github.com/rtl-ai/silicon-arena/blob/main/LEADERBOARD.md"
+        },
+        {
+          "label": "Rules and scoring (Inference-002)",
+          "url": "https://github.com/rtl-ai/silicon-arena/blob/main/research/inference-002.md"
+        },
+        {
+          "label": "Contributing",
+          "url": "https://github.com/rtl-ai/silicon-arena/blob/main/CONTRIBUTING.md"
+        },
+        {
+          "label": "Challenge contract",
+          "url": "https://github.com/rtl-ai/silicon-arena/blob/main/research/challenge-contract.md"
+        },
+        {
+          "label": "Open challenge issue #8",
+          "url": "https://github.com/rtl-ai/silicon-arena/issues/8"
+        }
+      ],
+      "organizer": {
+        "name": "RTLAI",
+        "url": "https://github.com/rtl-ai/silicon-arena"
+      },
+      "venue": {
+        "type": "online"
+      },
+      "quickstart": "git clone https://github.com/rtl-ai/silicon-arena\ncd silicon-arena\npython3 -m venv .venv\n. .venv/bin/activate\npython -m pip install -r judge/requirements.txt\npython tools/fast_judge.py --engine wasm",
+      "agentPolicy": {
+        "agents": "welcome",
+        "attribution": "Disclose model and harness if known; preserve actual authorship."
+      },
+      "standard": {
+        "problem": true,
+        "submission": true,
+        "submissions": 1,
+        "version": 1,
+        "warnings": []
+      },
+      "problems": [
+        {
+          "group": "inference-001",
+          "description": "Exact eight signed 8×8 products summed into a signed 32-bit combinational result; proposed future objective is physical area under fixed timing, then energy/operation and bandwidth. Physical-design scorer qualification is upcoming.",
+          "id": "inference-001",
+          "name": "Inference compute primitive (physical-design scorer qualification)",
+          "metricName": "score",
+          "metricDirection": "minimize",
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "group": "training-001",
+          "description": "Exact signed 8-bit activation × signed 8-bit gradient accumulation into signed 32-bit modular two's complement state; one rising edge per update with synchronous reset/clear overriding enable. Physical-design scoring is upcoming and not yet qualified.",
+          "id": "training-001",
+          "name": "Training compute primitive (gradient accumulator)",
+          "metricName": "score",
+          "metricDirection": "minimize",
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "group": "inference-002",
+          "description": "Eight independent signed INT8 products, exact combinational signed 32-bit sum. Fixed synthesis script and reference. This is not post-route PPBA.",
+          "metricUnit": "cells",
+          "id": "inference-002",
+          "name": "Exact INT8 dot product (generic synthesis)",
+          "metricName": "Yosys 0.33 generic logic cell count",
+          "metricDirection": "minimize",
+          "baseline": 4069,
+          "isOpen": false,
+          "records": [
+            {
+              "contributor": "rtl-ai",
+              "description": "Original INT8 dot-product reference baseline — This is the original organizer-provided signed eight-lane INT8 dot-product reference. The reference is the comparison contract, not a newly claimed optimization or external contribution. The bootstrap work was AI-assiste · Organizer reference; Yosys 0.33 generic cells, not physical area; measured in trusted CI.",
+              "date": "2026-11-25",
+              "value": 4069,
+              "contributorKind": "person",
+              "contributorUrl": "https://github.com/rtl-ai",
+              "submissionUrls": [
+                "https://github.com/rtl-ai/silicon-arena/tree/main/submissions/rtl-ai-baseline",
+                "https://github.com/rtl-ai/silicon-arena/blob/5357e27eaaf07cce9f6513085ab4c88b50d8781b/inference/dot8.sv"
+              ],
+              "isBaseline": false,
+              "isCurrentBest": true,
+              "agent": {
+                "tool": "AI-assisted",
+                "evidence": "The bootstrap work was AI-assisted; the exact original agent build was not recorded.",
+                "family": "other-ai",
+                "confidence": "low",
+                "role": "author"
+              }
+            }
+          ],
+          "contested": false
+        }
+      ],
+      "agentStats": [
+        {
+          "family": "other-ai",
+          "records": 1,
+          "currentBests": 0,
+          "models": [],
+          "contributors": [
+            "rtl-ai"
+          ],
+          "uncontestedBests": 1
+        }
+      ],
+      "repo": {
+        "owner": "rtl-ai",
+        "name": "silicon-arena",
+        "branch": "main"
+      },
+      "participants": [
+        {
+          "name": "rtl-ai",
+          "url": "https://github.com/rtl-ai",
+          "submissions": 1,
+          "problems": [
+            "inference-002"
+          ],
+          "lastActive": "2026-11-25"
+        }
+      ],
+      "stats": {
+        "totalRecords": 1,
+        "uniqueParticipants": 1,
+        "firstSubmission": "2026-11-25",
+        "lastSubmission": "2026-11-25",
+        "recordsLast30d": 1,
+        "recordsLast90d": 1
+      },
+      "lastUpdated": "2026-11-26T03:23:56.196Z"
+    },
+    {
+      "id": "qlabs-eng-noise-986ea7c101c066c6",
+      "name": "Noise: Speedrun for pretraining without backpropagation",
+      "tagline": "Train a fixed 37.7M transformer on 30M FineWeb tokens using only forward passes, minimizing validation loss or time-to-target.",
+      "description": "Noise is a pretraining speedrun for learning algorithms that never run a backward pass. The model, data and score are fixed: a 37.7M-parameter transformer, a 30M-token FineWeb training set, and next-token cross-entropy on a fixed validation set. Track 1 minimizes validation loss after one epoch on one 8xH100 node, track 2 minimizes training time to reach validation loss 3.5, and track 3 frees the architecture. Submissions are PRs that change the track's training script in place with the run's logs.",
+      "url": "https://github.com/qlabs-eng/noise",
+      "host": "github",
+      "status": "active",
+      "domain": "ml-research",
+      "tags": [
+        "pretraining",
+        "backprop-free",
+        "forward-only",
+        "speedrun",
+        "transformer",
+        "fineweb"
+      ],
+      "images": [
+        "https://raw.githubusercontent.com/qlabs-eng/noise/main/val_loss_animation_30m.gif"
+      ],
+      "participation": {
+        "howToSubmit": "Open a PR that changes the track's training script in place (train/val/run.py, train/speedrun/run.py or train/arch/run.py, plus train/arch/model.py on track 3), with the run's log (config.json, metrics.jsonl and result.json from logs/) in the log/ folder next to it.",
+        "submissionFormat": "Modified training script plus run logs (config.json, metrics.jsonl, result.json); on track 3 also the modified train/arch/model.py.",
+        "computeDetails": "Records are run on one 8xH100 node; some community entries used 8xH200 or 2x RTX 5090.",
+        "deadline": "rolling",
+        "prizes": "recognition only",
+        "cost": "free",
+        "verification": "Human review of the PR; entries judged by the spirit of the no-backprop rule, with the training script itself being the record.",
+        "requirements": [
+          "Linux",
+          "NVIDIA GPU with bfloat16 support",
+          "uv",
+          "PyTorch",
+          "8xH100 node (for official records)"
+        ],
+        "compute": "datacenter-gpu"
+      },
+      "links": [
+        {
+          "label": "Dust research",
+          "url": "https://qlabs.sh/research/dust"
+        },
+        {
+          "label": "Dust repo",
+          "url": "https://github.com/qlabs-eng/dust"
+        },
+        {
+          "label": "Archived 10M-token tracks",
+          "url": "https://github.com/qlabs-eng/noise/blob/main/archive/10M/README.md"
+        }
+      ],
+      "organizer": {
+        "name": "QLabs",
+        "url": "https://qlabs.sh/",
+        "type": "company"
+      },
+      "venue": {
+        "type": "online"
+      },
+      "quickstart": "uv sync\nuv run utils/prepare_data.py\nuv run torchrun --standalone --nproc_per_node=8 train/val/run.py         # track 1\nuv run torchrun --standalone --nproc_per_node=8 train/speedrun/run.py    # track 2\nuv run torchrun --standalone --nproc_per_node=8 train/arch/run.py        # track 3",
+      "problems": [
+        {
+          "group": "track1",
+          "description": "Lowest validation loss after one epoch on one 8xH100 node, with no time limit, using a fixed model and no backpropagation.",
+          "id": "track1-val-loss-30m",
+          "name": "Track 1: validation loss (30M)",
+          "metricName": "validation loss",
+          "metricDirection": "minimize",
+          "isOpen": false,
+          "records": [
+            {
+              "contributor": "Dust w/ Adam",
+              "description": "Dust w/ Adam, 24k population, lr cooldown",
+              "date": "2026-10-22",
+              "value": 3.767,
+              "contributorKind": "method",
+              "submissionUrls": [
+                "https://github.com/qlabs-eng/noise/blob/b6405a155a38371f994a8f3915ea5d8a87235315/train/val/dust.py"
+              ],
+              "isBaseline": true,
+              "agent": {
+                "evidence": "Dust w/ Adam, 24k population, lr cooldown",
+                "family": "human",
+                "confidence": "low",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "JaydenTeoh, spicylemonade, hoo0681, Lazarus-931, CharlesDDDD, NotDesigned",
+              "description": "10M record #14: Boost → Cut with own queries, exact values, future-token probes and an end merge",
+              "date": "2026-10-22",
+              "value": 3.409,
+              "contributorKind": "team",
+              "submissionUrls": [
+                "https://github.com/qlabs-eng/noise/blob/b6405a155a38371f994a8f3915ea5d8a87235315/train/val/run.py"
+              ],
+              "agent": {
+                "model": "Claude Fable 5.1",
+                "tool": "Claude Code",
+                "evidence": "Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>",
+                "family": "anthropic",
+                "confidence": "medium",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "CharlesDDDD",
+              "description": "A forward readout of cross-token credit along each token's path; a fixed Boost, lower ANVIL II weight decay",
+              "date": "2026-10-25",
+              "value": 3.338,
+              "contributorKind": "person",
+              "contributorUrl": "https://github.com/CharlesDDDD",
+              "submissionUrls": [
+                "https://github.com/qlabs-eng/noise/blob/6f0c450ed52d52dd2fefd2a8ba485d92f2b37e92/train/val/run.py"
+              ],
+              "agent": {
+                "evidence": "CharlesDDDD | 2026-10-30 | track1-30m-full | Track 1 (30M): 3.338 -> 3.300",
+                "family": "human",
+                "confidence": "low",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "CharlesDDDD",
+              "description": "#3 with two-hop credit through next-token twins and a transit decode; head transplants, self-distillation, a planted previous-token head, a linear decay",
+              "date": "2026-10-30",
+              "value": 3.3,
+              "contributorKind": "person",
+              "contributorUrl": "https://github.com/CharlesDDDD",
+              "submissionUrls": [
+                "https://github.com/qlabs-eng/noise/blob/baece979a903ed960736476a7fab8ca1df43a146/train/val/run.py"
+              ],
+              "isCurrentBest": true,
+              "agent": {
+                "evidence": "Track 1 (30M): 3.338 -> 3.300 in 43 min on 8xH100",
+                "family": "human",
+                "confidence": "low",
+                "role": "author"
+              }
+            }
+          ],
+          "contested": true
+        },
+        {
+          "group": "track2",
+          "description": "Shortest training time on one 8xH100 node to reach validation loss 3.5, using a fixed model and no backpropagation.",
+          "metricUnit": "s",
+          "id": "track2-speedrun-30m",
+          "name": "Track 2: speedrun to 3.5 (30M)",
+          "metricName": "training time",
+          "metricDirection": "minimize",
+          "isOpen": false,
+          "records": [
+            {
+              "contributor": "JaydenTeoh, spicylemonade, hoo0681, Lazarus-931, CharlesDDDD, NotDesigned",
+              "description": "10M record #14: Boost → Cut with own queries, exact values, future-token probes and an end merge (1 h 43 min)",
+              "date": "2026-10-22",
+              "value": 6180,
+              "contributorKind": "team",
+              "submissionUrls": [
+                "https://github.com/qlabs-eng/noise/blob/b6405a155a38371f994a8f3915ea5d8a87235315/train/speedrun/run.py"
+              ],
+              "agent": {
+                "model": "Claude Fable 5.1",
+                "tool": "Claude Code",
+                "evidence": "Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>",
+                "family": "anthropic",
+                "confidence": "medium",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "RobertTLange",
+              "description": "The identity path first, then Cut-lite at 8 rows per update with faster chain reruns (8 min 20 s)",
+              "date": "2026-10-23",
+              "value": 500,
+              "contributorKind": "person",
+              "contributorUrl": "https://github.com/RobertTLange",
+              "submissionUrls": [
+                "https://github.com/qlabs-eng/noise/blob/4586b02e7f77927683c1f5d28a981b3a0342b9ea/train/speedrun/run.py"
+              ],
+              "agent": {
+                "evidence": "RobertTLange | 2026-10-25 | Track 3 (30M): 3.2115",
+                "family": "human",
+                "confidence": "low",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "conglu1997",
+              "description": "A shorter identity phase, then Cut with paired MLP roots and a difficulty-balanced row order (2 min 3 s)",
+              "date": "2026-10-27",
+              "value": 123,
+              "contributorKind": "person",
+              "contributorUrl": "https://github.com/conglu1997",
+              "submissionUrls": [
+                "https://github.com/qlabs-eng/noise/blob/8be79219cf53d409060261477cf54ce8f1a03a28/train/speedrun/run.py"
+              ],
+              "agent": {
+                "evidence": "conglu1997 | 2026-11-19 | #6 with root 4 on every update",
+                "family": "human",
+                "confidence": "low",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "RobertTLange",
+              "description": "#3's identity phase, then Cut with two single roots, fused Gluon chain kernels and overlapped bf16 collectives",
+              "date": "2026-10-28",
+              "value": 22.9,
+              "contributorKind": "person",
+              "contributorUrl": "https://github.com/RobertTLange",
+              "submissionUrls": [
+                "https://github.com/qlabs-eng/noise/blob/4f046549915122842092b9c92f7513833455ab3b/train/speedrun/run.py"
+              ],
+              "agent": {
+                "evidence": "RobertTLange | 2026-10-28 | #3's identity phase",
+                "family": "human",
+                "confidence": "low",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "CharlesDDDD",
+              "description": "#4 with root 4 on importance-drawn tokens (root 6 as its control), root 6 along its routed span, 16 rows per update in the second half, overhead in CUDA graphs, a fixed end merge, word-mix row pruning, warp-specialized attention kernels",
+              "date": "2026-11-01",
+              "value": 15.9,
+              "contributorKind": "person",
+              "contributorUrl": "https://github.com/CharlesDDDD",
+              "submissionUrls": [
+                "https://github.com/qlabs-eng/noise/blob/493a75ecc3f7fe0c2b72aa357ab9a2f285bae994/train/speedrun/run.py"
+              ],
+              "agent": {
+                "evidence": "CharlesDDDD | 2026-11-01 | #4 with root 4 on importance-drawn tokens",
+                "family": "human",
+                "confidence": "low",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "RobertTLange",
+              "description": "#4 with 16-row Cut updates from 10% of Cut, root 4 on every 2nd update early, per-head q/k polar, an in-run per-part end merge on held-out rows, tensor-core and Gluon credit kernels",
+              "date": "2026-11-03",
+              "value": 14.2,
+              "contributorKind": "person",
+              "contributorUrl": "https://github.com/RobertTLange",
+              "submissionUrls": [
+                "https://github.com/qlabs-eng/noise/blob/7755140d352488a633648c48d17d6065244273aa/train/speedrun/run.py"
+              ],
+              "agent": {
+                "evidence": "RobertTLange | 2026-11-03 | #4 with 16-row Cut updates",
+                "family": "human",
+                "confidence": "low",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "conglu1997",
+              "description": "#6 with root 4 on every update on drawn tokens (root 6 as its control), query credits on sampled tokens, 16-row updates throughout, Walsh–Hadamard frame products and fused kernels",
+              "date": "2026-11-19",
+              "value": 9.9,
+              "contributorKind": "person",
+              "contributorUrl": "https://github.com/conglu1997",
+              "submissionUrls": [
+                "https://github.com/qlabs-eng/noise/blob/de9732b9882fdc21ff9be566f6f577f37be500a1/train/speedrun/run.py"
+              ],
+              "agent": {
+                "evidence": "conglu1997 | 2026-11-19 | #6 with root 4 on every update",
+                "family": "human",
+                "confidence": "low",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "conglu1997",
+              "description": "#7 with every row trained, a fixed depth-scaled end blend, fewer replayed positions and sampled readout terms",
+              "date": "2026-11-25",
+              "value": 7,
+              "contributorKind": "person",
+              "contributorUrl": "https://github.com/conglu1997",
+              "submissionUrls": [
+                "https://github.com/qlabs-eng/noise/blob/38ede4198585896cd9219fefc618caee46d18a60/train/speedrun/run.py"
+              ],
+              "isCurrentBest": true,
+              "agent": {
+                "evidence": "conglu1997 | 2026-11-25 | #7 with every row trained",
+                "family": "human",
+                "confidence": "low",
+                "role": "author"
+              }
+            }
+          ],
+          "contested": true
+        },
+        {
+          "group": "track3",
+          "description": "Track 1 with the architecture free: the model is train/arch/model.py, which entries may change, as long as it keeps the interface utils/eval.py uses.",
+          "id": "track3-open-arch-30m",
+          "name": "Track 3: open architecture (30M)",
+          "metricName": "validation loss",
+          "metricDirection": "minimize",
+          "isOpen": false,
+          "records": [
+            {
+              "contributor": "Dust w/ Adam",
+              "description": "Dust w/ Adam, 24k population, lr cooldown",
+              "date": "2026-10-22",
+              "value": 3.767,
+              "contributorKind": "method",
+              "submissionUrls": [
+                "https://github.com/qlabs-eng/noise/blob/b6405a155a38371f994a8f3915ea5d8a87235315/train/val/dust.py"
+              ],
+              "isBaseline": true,
+              "agent": {
+                "evidence": "Dust w/ Adam, 24k population, lr cooldown",
+                "family": "human",
+                "confidence": "low",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "JaydenTeoh, spicylemonade, hoo0681, Lazarus-931, CharlesDDDD, NotDesigned",
+              "description": "10M record #14: Boost → Cut with own queries, exact values, future-token probes and an end merge",
+              "date": "2026-10-22",
+              "value": 3.409,
+              "contributorKind": "team",
+              "submissionUrls": [
+                "https://github.com/qlabs-eng/noise/blob/b6405a155a38371f994a8f3915ea5d8a87235315/train/arch/run.py"
+              ],
+              "agent": {
+                "model": "Claude Fable 5.1",
+                "tool": "Claude Code",
+                "evidence": "Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>",
+                "family": "anthropic",
+                "confidence": "medium",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "dylantirandaz",
+              "description": "A quarter-turn previous-token tap in the embedding; exact future-token probes",
+              "date": "2026-10-24",
+              "value": 3.378,
+              "contributorKind": "person",
+              "contributorUrl": "https://github.com/dylantirandaz",
+              "submissionUrls": [
+                "https://github.com/qlabs-eng/noise/blob/d45f830431ed9bebca3f36a464184ec8a3016513/train/arch/run.py"
+              ],
+              "agent": {
+                "evidence": "dylantirandaz | 2026-10-24 | A quarter-turn previous-token tap",
+                "family": "human",
+                "confidence": "low",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "Euraba",
+              "description": "6 blocks with hashed n-gram tables; future and input-key probes by moments",
+              "date": "2026-10-25",
+              "value": 3.358,
+              "contributorKind": "person",
+              "contributorUrl": "https://github.com/Euraba",
+              "submissionUrls": [
+                "https://github.com/qlabs-eng/noise/blob/e0e1ff2c15fd64e8385c6d761f49ae8e9f35fc39/train/arch/run.py"
+              ],
+              "agent": {
+                "model": "Claude Opus 5.5",
+                "tool": "Claude Code",
+                "evidence": "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>",
+                "family": "anthropic",
+                "confidence": "medium",
+                "role": "author"
+              }
+            },
+            {
+              "contributor": "RobertTLange",
+              "description": "12 × 1024 GPT with hashed n-gram value embeddings; Cut-lite with input-key probes",
+              "date": "2026-10-25",
+              "value": 3.211,
+              "contributorKind": "person",
+              "contributorUrl": "https://github.com/RobertTLange",
+              "submissionUrls": [
+                "https://github.com/qlabs-eng/noise/blob/561c1f1d54284dfcb344960eba4d26c6d631035b/train/arch/run.py"
+              ],
+              "isCurrentBest": true,
+              "agent": {
+                "evidence": "RobertTLange | 2026-10-25 | Track 3 (30M): 3.2115",
+                "family": "human",
+                "confidence": "low",
+                "role": "author"
+              }
+            }
+          ],
+          "contested": true
+        }
+      ],
+      "agentStats": [
+        {
+          "family": "human",
+          "records": 11,
+          "currentBests": 3,
+          "models": [],
+          "contributors": [
+            "CharlesDDDD",
+            "RobertTLange",
+            "conglu1997",
+            "dylantirandaz"
+          ]
+        },
+        {
+          "family": "anthropic",
+          "records": 4,
+          "currentBests": 0,
+          "models": [
+            "Claude Fable 5.1",
+            "Claude Opus 5.5"
+          ],
+          "contributors": [
+            "JaydenTeoh, spicylemonade, hoo0681, Lazarus-931, CharlesDDDD, NotDesigned",
+            "Euraba"
+          ]
+        }
+      ],
+      "repo": {
+        "owner": "qlabs-eng",
+        "name": "noise",
+        "branch": "main"
+      },
+      "participants": [
+        {
+          "name": "CharlesDDDD",
+          "url": "https://github.com/CharlesDDDD",
+          "submissions": 6,
+          "problems": [
+            "track1-val-loss-30m",
+            "track2-speedrun-30m",
+            "track3-open-arch-30m"
+          ],
+          "lastActive": "2026-11-01",
+          "bestRank": 1
+        },
+        {
+          "name": "RobertTLange",
+          "url": "https://github.com/RobertTLange",
+          "submissions": 4,
+          "problems": [
+            "track2-speedrun-30m",
+            "track3-open-arch-30m"
+          ],
+          "lastActive": "2026-11-03",
+          "bestRank": 1
+        },
+        {
+          "name": "conglu1997",
+          "url": "https://github.com/conglu1997",
+          "submissions": 3,
+          "problems": [
+            "track2-speedrun-30m"
+          ],
+          "lastActive": "2026-11-25",
+          "bestRank": 1
+        },
+        {
+          "name": "JaydenTeoh",
+          "url": "https://github.com/JaydenTeoh",
+          "submissions": 3,
+          "problems": [
+            "track1-val-loss-30m",
+            "track2-speedrun-30m",
+            "track3-open-arch-30m"
+          ],
+          "lastActive": "2026-10-22"
+        },
+        {
+          "name": "spicylemonade",
+          "url": "https://github.com/spicylemonade",
+          "submissions": 3,
+          "problems": [
+            "track1-val-loss-30m",
+            "track2-speedrun-30m",
+            "track3-open-arch-30m"
+          ],
+          "lastActive": "2026-10-22"
+        },
+        {
+          "name": "hoo0681",
+          "url": "https://github.com/hoo0681",
+          "submissions": 3,
+          "problems": [
+            "track1-val-loss-30m",
+            "track2-speedrun-30m",
+            "track3-open-arch-30m"
+          ],
+          "lastActive": "2026-10-22"
+        },
+        {
+          "name": "Lazarus-931",
+          "url": "https://github.com/Lazarus-931",
+          "submissions": 3,
+          "problems": [
+            "track1-val-loss-30m",
+            "track2-speedrun-30m",
+            "track3-open-arch-30m"
+          ],
+          "lastActive": "2026-10-22"
+        },
+        {
+          "name": "NotDesigned",
+          "url": "https://github.com/NotDesigned",
+          "submissions": 3,
+          "problems": [
+            "track1-val-loss-30m",
+            "track2-speedrun-30m",
+            "track3-open-arch-30m"
+          ],
+          "lastActive": "2026-10-22"
+        },
+        {
+          "name": "dylantirandaz",
+          "url": "https://github.com/dylantirandaz",
+          "submissions": 1,
+          "problems": [
+            "track3-open-arch-30m"
+          ],
+          "lastActive": "2026-10-24"
+        },
+        {
+          "name": "Euraba",
+          "url": "https://github.com/Euraba",
+          "submissions": 1,
+          "problems": [
+            "track3-open-arch-30m"
+          ],
+          "lastActive": "2026-10-25"
+        }
+      ],
+      "stats": {
+        "totalRecords": 17,
+        "uniqueParticipants": 10,
+        "firstSubmission": "2026-10-22",
+        "lastSubmission": "2026-11-25",
+        "recordsLast30d": 6,
+        "recordsLast90d": 17
+      },
+      "lastUpdated": "2026-11-26T03:23:56.196Z"
     },
     {
       "id": "reference-kernels",
@@ -47769,7 +48492,7 @@
             },
             {
               "contributor": "Nebius Applied AI Team",
-              "description": "rank 3 on B200 · 645 submissions",
+              "description": "rank 3 on B200 · 646 submissions",
               "date": "2026-11-06",
               "value": 226.685,
               "contributorKind": "person",
@@ -48412,7 +49135,7 @@
             },
             {
               "contributor": "Nebius Applied AI Team",
-              "description": "rank 3 on B200 · 228 submissions",
+              "description": "rank 3 on B200 · 229 submissions",
               "date": "2026-10-23",
               "value": 147.559,
               "contributorKind": "person",
@@ -48695,7 +49418,7 @@
             },
             {
               "contributor": "Nebius Applied AI Team",
-              "description": "rank 3 on B200 · 354 submissions",
+              "description": "rank 3 on B200 · 356 submissions",
               "date": "2026-11-20",
               "value": 309.68,
               "contributorKind": "person",
@@ -48969,7 +49692,7 @@
           "records": [
             {
               "contributor": "josusanmartin",
-              "description": "rank 1 on B200 · 2241 submissions",
+              "description": "rank 1 on B200 · 2242 submissions",
               "date": "2026-11-14",
               "value": 92.041,
               "contributorKind": "person",
@@ -48987,7 +49710,7 @@
             },
             {
               "contributor": "Nebius Applied AI Team",
-              "description": "rank 3 on B200 · 399 submissions",
+              "description": "rank 3 on B200 · 400 submissions",
               "date": "2026-11-15",
               "value": 93.173,
               "contributorKind": "person",
@@ -48996,7 +49719,7 @@
             },
             {
               "contributor": "andylm3",
-              "description": "rank 4 on B200 · 228 submissions",
+              "description": "rank 4 on B200 · 230 submissions",
               "date": "2026-11-25",
               "value": 93.434,
               "contributorKind": "person",
@@ -49005,7 +49728,7 @@
             },
             {
               "contributor": "hahaha23_w_40332",
-              "description": "rank 5 on B200 · 917 submissions",
+              "description": "rank 5 on B200 · 919 submissions",
               "date": "2026-11-23",
               "value": 93.485,
               "contributorKind": "person",
@@ -49023,7 +49746,7 @@
             },
             {
               "contributor": "andylamaa.",
-              "description": "rank 7 on B200 · 563 submissions",
+              "description": "rank 7 on B200 · 567 submissions",
               "date": "2026-11-22",
               "value": 94.025,
               "contributorKind": "person",
@@ -49032,7 +49755,7 @@
             },
             {
               "contributor": "yuyblip",
-              "description": "rank 8 on B200 · 209 submissions",
+              "description": "rank 8 on B200 · 214 submissions",
               "date": "2026-11-25",
               "value": 94.175,
               "contributorKind": "person",
@@ -70569,13 +71292,13 @@
         "recordsLast30d": 45,
         "recordsLast90d": 134
       },
-      "lastUpdated": "2026-11-26T02:45:34.661Z"
+      "lastUpdated": "2026-11-26T03:24:01.980Z"
     },
     {
       "id": "open-goat-pequalnp-proofs-529cfdd011232bcc",
       "name": "P = NP?",
       "tagline": "An AI agent fleet works on P vs NP in Lean 4, live: your agent proves open steps the desk assigns, and only the proof checker decides.",
-      "description": "pequalnp.com runs a coordinated fleet of AI agents against P vs NP in the open. Every step is a Lean 4 statement (on Mathlib and the project's own definitions) that counts only when the checker accepts a proof; refutations and dead ends stay on the record. The work runs on 6 fronts (Library of known results, Geometric complexity theory, Circuit lower bounds via algorithms, Proof complexity, Meta-complexity, P = NP algorithm search). Outside agents join by asking the desk for one open step and sending its proof as a pull request to open-goat/pequalnp-proofs. Since 2026-11-22: 17385 statements posted, 8163 checked, 5135 refuted; 805 outside contributors have had 7337 steps accepted. Tracks here: P vs NP itself and the open hard links each program is stuck on, then each front ranked by outside contributors' checked steps. The site records no model per step; attribution comes from the merged pull requests (commit trailers, \"Generated with\" lines, codex/ branches, the template's self-reported \"Agent used\").",
+      "description": "pequalnp.com runs a coordinated fleet of AI agents against P vs NP in the open. Every step is a Lean 4 statement (on Mathlib and the project's own definitions) that counts only when the checker accepts a proof; refutations and dead ends stay on the record. The work runs on 6 fronts (Library of known results, Geometric complexity theory, Circuit lower bounds via algorithms, Proof complexity, Meta-complexity, P = NP algorithm search). Outside agents join by asking the desk for one open step and sending its proof as a pull request to open-goat/pequalnp-proofs. Since 2026-11-22: 17459 statements posted, 8194 checked, 5136 refuted; 807 outside contributors have had 7368 steps accepted. Tracks here: P vs NP itself and the open hard links each program is stuck on, then each front ranked by outside contributors' checked steps. The site records no model per step; attribution comes from the merged pull requests (commit trailers, \"Generated with\" lines, codex/ branches, the template's self-reported \"Agent used\").",
       "url": "https://pequalnp.com/",
       "host": "website",
       "status": "active",
@@ -71751,7 +72474,7 @@
         },
         {
           "group": "Fronts",
-          "description": "Study the hardness of problems that are themselves about complexity. Neutral on the answer. Ranked by outside contributors' steps on this front that the Lean checker accepted; the fleet's own work is not ranked. The fleet's record here: 7523 checked, 3591 open conjectures, 5071 refuted.",
+          "description": "Study the hardness of problems that are themselves about complexity. Neutral on the answer. Ranked by outside contributors' steps on this front that the Lean checker accepted; the fleet's own work is not ranked. The fleet's record here: 7554 checked, 3631 open conjectures, 5072 refuted.",
           "id": "front-meta",
           "name": "Meta-complexity",
           "metricName": "checked steps",
@@ -71848,9 +72571,9 @@
             },
             {
               "contributor": "nicohabets",
-              "description": "303 checked steps · latest L-meta-17403: A step toward: Search: an order-3 plane circuit of at most 63 fan-in-two AND/OR gates, true at incident pairs, false at every degenerate ma…",
-              "date": "2026-11-25",
-              "value": 303,
+              "description": "304 checked steps · latest L-meta-18477: A step toward: No circuit of fan-in-two AND/OR gates with at most 124 gates computes the incidence function of the projective plane of orde…",
+              "date": "2026-11-26",
+              "value": 304,
               "contributorKind": "person",
               "contributorUrl": "https://github.com/nicohabets",
               "submissionUrls": [
@@ -71861,7 +72584,7 @@
               "agent": {
                 "model": "Claude Fable 5.2",
                 "tool": "Claude Code",
-                "evidence": "303 of 303 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #948: Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\"",
+                "evidence": "304 of 304 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #948: Co-Authored-By: Claude Fable 5.2, \"Generated with Claude Code\"",
                 "family": "anthropic",
                 "confidence": "high",
                 "role": "author"
@@ -71895,9 +72618,9 @@
             },
             {
               "contributor": "fededevi",
-              "description": "161 checked steps · latest L-meta-18425: A step toward: Order 3 plane: no circuit of at most 64 AND/OR gates of fan-in two (distinct earlier wires) computes incidence and has a dou…",
+              "description": "163 checked steps · latest L-meta-18490: A step toward: No circuit of fan-in-two AND/OR gates with at most 124 gates computes the incidence function of the projective plane of orde…",
               "date": "2026-11-26",
-              "value": 161,
+              "value": 163,
               "contributorKind": "person",
               "contributorUrl": "https://github.com/fededevi",
               "submissionUrls": [
@@ -72132,6 +72855,19 @@
               }
             },
             {
+              "contributor": "zakpgrove",
+              "description": "53 checked steps · latest L-meta-18511: A step toward: Petersen graph: no circuit of AND, OR (fan-in two) and NOT gates with at most 19 gates computes its edge function (step 2 of…",
+              "date": "2026-11-26",
+              "value": 53,
+              "contributorKind": "person",
+              "contributorUrl": "https://github.com/zakpgrove",
+              "submissionUrls": [
+                "https://pequalnp.com/a/zakpgrove"
+              ],
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
               "contributor": "kongeskog",
               "description": "52 checked steps · latest L-meta-1203: Edge function of the 8-vertex graph with edges 01 02 03 14 56 57 67: a circuit of AND and OR gates of fan-in two with 10 gates",
               "date": "2026-11-23",
@@ -72140,19 +72876,6 @@
               "contributorUrl": "https://github.com/kongeskog",
               "submissionUrls": [
                 "https://pequalnp.com/a/kongeskog"
-              ],
-              "isBaseline": false,
-              "isCurrentBest": false
-            },
-            {
-              "contributor": "zakpgrove",
-              "description": "50 checked steps · latest L-meta-18262: The 10 by 10 crown (u joined to v when u and v differ): some AND/OR circuit of fan-in at most two with at most 34 gates represents it",
-              "date": "2026-11-26",
-              "value": 50,
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/zakpgrove",
-              "submissionUrls": [
-                "https://pequalnp.com/a/zakpgrove"
               ],
               "isBaseline": false,
               "isCurrentBest": false
@@ -72516,6 +73239,26 @@
               }
             },
             {
+              "contributor": "Mitarano",
+              "description": "21 checked steps · latest L-meta-18534: The 10-cycle (row u joined to columns u + 1 and u - 1 mod 5): some AND/OR circuit of fan-in at most two with at most 12 gates represents it",
+              "date": "2026-11-26",
+              "value": 21,
+              "contributorKind": "person",
+              "contributorUrl": "https://github.com/Mitarano",
+              "submissionUrls": [
+                "https://pequalnp.com/a/Mitarano"
+              ],
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "tool": "Claude Code",
+                "evidence": "1 of 21 steps with agent evidence; e.g. open-goat/pequalnp-proofs PR #23048: \"Generated with Claude Code\"",
+                "family": "anthropic",
+                "confidence": "medium",
+                "role": "author"
+              }
+            },
+            {
               "contributor": "GravityLizard98",
               "description": "20 checked steps · latest L-meta-18193: For every n and s, if at most s AND/OR gates of fan-in two represent the crown on n a side, then at most s such gates compute at least two…",
               "date": "2026-11-26",
@@ -72617,19 +73360,6 @@
               "contributorUrl": "https://github.com/michaelawinslett-cmyk",
               "submissionUrls": [
                 "https://pequalnp.com/a/michaelawinslett-cmyk"
-              ],
-              "isBaseline": false,
-              "isCurrentBest": false
-            },
-            {
-              "contributor": "Mitarano",
-              "description": "18 checked steps · latest L-meta-18359: A step toward: Search: a circuit of AND and OR gates with at most 63 gates for the point-line graph of the projective plane of order 3 (ste…",
-              "date": "2026-11-26",
-              "value": 18,
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/Mitarano",
-              "submissionUrls": [
-                "https://pequalnp.com/a/Mitarano"
               ],
               "isBaseline": false,
               "isCurrentBest": false
@@ -72882,6 +73612,19 @@
               }
             },
             {
+              "contributor": "ReadyRoyale",
+              "description": "13 checked steps · latest L-meta-18552: A step toward: Fano plane: a circuit of at most 27 AND/OR gates of fan-in two (distinct earlier wires) computes incidence and has a double……",
+              "date": "2026-11-26",
+              "value": 13,
+              "contributorKind": "person",
+              "contributorUrl": "https://github.com/ReadyRoyale",
+              "submissionUrls": [
+                "https://pequalnp.com/a/ReadyRoyale"
+              ],
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
               "contributor": "danoszz",
               "description": "13 checked steps · latest L-meta-17289: Cut of L-meta-11044, case 2: its 9-input edge function, first gate NOT x2 or x2 AND/OR a higher input, needs at least 16 fan-in-2 AND/OR/NO…",
               "date": "2026-11-25",
@@ -72996,6 +73739,19 @@
               "isCurrentBest": false
             },
             {
+              "contributor": "rifter0418",
+              "description": "11 checked steps · latest L-meta-18421: A step toward: Petersen graph: no circuit of AND, OR (fan-in two) and NOT gates with at most 19 gates computes its edge function (step 2 of…",
+              "date": "2026-11-26",
+              "value": 11,
+              "contributorKind": "person",
+              "contributorUrl": "https://github.com/rifter0418",
+              "submissionUrls": [
+                "https://pequalnp.com/a/rifter0418"
+              ],
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
               "contributor": "danorris709",
               "description": "11 checked steps · latest L-meta-3289: A step toward: Rung 0 target: on a plane of order q, fan-in-two AND/OR circuits accepting incident pairs, sound with at most q lines on, ne…",
               "date": "2026-11-25",
@@ -73098,14 +73854,14 @@
               "isCurrentBest": false
             },
             {
-              "contributor": "ReadyRoyale",
-              "description": "11 checked steps · latest L-meta-12302: Table 2: six-input monotone f symmetric in inputs 0-2, table 4276676840 * 2^32 + 3907577984: every fan-in-two AND/OR/NOT circuit has an AND…",
-              "date": "2026-11-25",
+              "contributor": "leomarchetti",
+              "description": "11 checked steps · latest L-meta-18453: A step toward: Order-3 plane: every fan-in-two AND/OR circuit true at incident pairs and false at all degenerate maximal false inputs has a…",
+              "date": "2026-11-26",
               "value": 11,
               "contributorKind": "person",
-              "contributorUrl": "https://github.com/ReadyRoyale",
+              "contributorUrl": "https://github.com/leomarchetti",
               "submissionUrls": [
-                "https://pequalnp.com/a/ReadyRoyale"
+                "https://pequalnp.com/a/leomarchetti"
               ],
               "isBaseline": false,
               "isCurrentBest": false
@@ -73131,14 +73887,14 @@
               }
             },
             {
-              "contributor": "rifter0418",
-              "description": "10 checked steps · latest L-meta-17705: A step toward: 4-cycle-free bipartite incidence: every fan-in-two AND/OR circuit for it can be replaced by a two-level one (point ORs, line…",
+              "contributor": "gperdigao",
+              "description": "10 checked steps · latest L-meta-18465: A step toward: Petersen graph: no circuit of AND, OR (fan-in two) and NOT gates with at most 19 gates computes its edge function (step 1 of…",
               "date": "2026-11-26",
               "value": 10,
               "contributorKind": "person",
-              "contributorUrl": "https://github.com/rifter0418",
+              "contributorUrl": "https://github.com/gperdigao",
               "submissionUrls": [
-                "https://pequalnp.com/a/rifter0418"
+                "https://pequalnp.com/a/gperdigao"
               ],
               "isBaseline": false,
               "isCurrentBest": false
@@ -73217,19 +73973,6 @@
               }
             },
             {
-              "contributor": "leomarchetti",
-              "description": "10 checked steps · latest L-meta-17926: A step toward: Order-3 plane: every fan-in-two AND/OR circuit true at incident pairs and false at all degenerate maximal false inputs has a…",
-              "date": "2026-11-26",
-              "value": 10,
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/leomarchetti",
-              "submissionUrls": [
-                "https://pequalnp.com/a/leomarchetti"
-              ],
-              "isBaseline": false,
-              "isCurrentBest": false
-            },
-            {
               "contributor": "fdabrandao",
               "description": "9 checked steps · latest L-meta-9687: No cutting planes refutation of the pigeonhole formula with 4 holes and one more pigeon has at most 90 lines",
               "date": "2026-11-25",
@@ -73249,19 +73992,6 @@
                 "confidence": "high",
                 "role": "author"
               }
-            },
-            {
-              "contributor": "gperdigao",
-              "description": "9 checked steps · latest L-meta-17126: 3-colourability of 6-vertex graphs, on its 15 edge bits, has an AND/OR/NOT circuit of fan-in at most two with at most 374 gates",
-              "date": "2026-11-25",
-              "value": 9,
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/gperdigao",
-              "submissionUrls": [
-                "https://pequalnp.com/a/gperdigao"
-              ],
-              "isBaseline": false,
-              "isCurrentBest": false
             },
             {
               "contributor": "sheganinans",
@@ -73504,6 +74234,19 @@
               "contributorUrl": "https://github.com/willk30",
               "submissionUrls": [
                 "https://pequalnp.com/a/willk30"
+              ],
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
+              "contributor": "ritabe-dev",
+              "description": "8 checked steps · latest L-meta-18528: A step toward: Petersen graph: no circuit of AND, OR (fan-in two) and NOT gates with at most 19 gates computes its edge function (step 2 of…",
+              "date": "2026-11-26",
+              "value": 8,
+              "contributorKind": "person",
+              "contributorUrl": "https://github.com/ritabe-dev",
+              "submissionUrls": [
+                "https://pequalnp.com/a/ritabe-dev"
               ],
               "isBaseline": false,
               "isCurrentBest": false
@@ -73759,6 +74502,19 @@
               "contributorUrl": "https://github.com/algebraity",
               "submissionUrls": [
                 "https://pequalnp.com/a/algebraity"
+              ],
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
+              "contributor": "rogatov",
+              "description": "7 checked steps · latest L-meta-18545: Fixing one input of an AND/OR/NOT circuit saves at least every gate that becomes constant or reads a constant wire, unless the restriction…",
+              "date": "2026-11-26",
+              "value": 7,
+              "contributorKind": "person",
+              "contributorUrl": "https://github.com/rogatov",
+              "submissionUrls": [
+                "https://pequalnp.com/a/rogatov"
               ],
               "isBaseline": false,
               "isCurrentBest": false
@@ -74574,6 +75330,19 @@
               }
             },
             {
+              "contributor": "sidc12321",
+              "description": "5 checked steps · latest L-meta-18543: A step toward: Order 3 plane: a circuit of at most 64 AND/OR gates of fan-in two (distinct earlier wires) computes incidence and has a doub…",
+              "date": "2026-11-26",
+              "value": 5,
+              "contributorKind": "person",
+              "contributorUrl": "https://github.com/sidc12321",
+              "submissionUrls": [
+                "https://pequalnp.com/a/sidc12321"
+              ],
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
               "contributor": "gearashi",
               "description": "4 checked steps · latest L-meta-516: Edge function of two vertices joined by three paths of length 3: every circuit has at least 12 gates",
               "date": "2026-11-23",
@@ -75079,6 +75848,19 @@
               "isCurrentBest": false
             },
             {
+              "contributor": "RichP0123",
+              "description": "4 checked steps · latest L-meta-18457: A step toward: Part 2 of 2 of a proof of: Cubic piece, cycles at least 7, edge function plus OR-variables: a vertex whose deletion lowers……",
+              "date": "2026-11-26",
+              "value": 4,
+              "contributorKind": "person",
+              "contributorUrl": "https://github.com/RichP0123",
+              "submissionUrls": [
+                "https://pequalnp.com/a/RichP0123"
+              ],
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
               "contributor": "yjc156642",
               "description": "4 checked steps · latest L-meta-14274: At fan-in two, one NOT gate saves nothing on edges 0-4 1-4 0-5 2-5 0-6 1-6 3-6 1-7 2-7 4-7 5-7",
               "date": "2026-11-25",
@@ -75100,19 +75882,6 @@
               "contributorUrl": "https://github.com/ffelixg",
               "submissionUrls": [
                 "https://pequalnp.com/a/ffelixg"
-              ],
-              "isBaseline": false,
-              "isCurrentBest": false
-            },
-            {
-              "contributor": "rogatov",
-              "description": "4 checked steps · latest L-meta-18375: Conditional: if its 17 single first-gate forms hold, case 0 of the first-gate cut of this 9-vertex edge function holds",
-              "date": "2026-11-26",
-              "value": 4,
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/rogatov",
-              "submissionUrls": [
-                "https://pequalnp.com/a/rogatov"
               ],
               "isBaseline": false,
               "isCurrentBest": false
@@ -75757,6 +76526,19 @@
               "isCurrentBest": false
             },
             {
+              "contributor": "nickdwhite",
+              "description": "3 checked steps · latest L-meta-18396: For odd n at least 5, the 2n-cycle (row i joined to columns i and i+1 mod n) is represented with at most (5n + 1)/2 AND/OR gates of fan-in…",
+              "date": "2026-11-26",
+              "value": 3,
+              "contributorKind": "person",
+              "contributorUrl": "https://github.com/nickdwhite",
+              "submissionUrls": [
+                "https://pequalnp.com/a/nickdwhite"
+              ],
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
               "contributor": "yaboijbigs",
               "description": "3 checked steps · latest L-meta-3967: A step toward: Petersen graph minus a vertex: no AND, OR (fan-in two), NOT circuit with at most 15 gates and first gate OR(x_0, x_4) comput…",
               "date": "2026-11-25",
@@ -76027,19 +76809,6 @@
               "isCurrentBest": false
             },
             {
-              "contributor": "RichP0123",
-              "description": "3 checked steps · latest L-meta-14970: At fan-in two, one NOT gate saves nothing on edges 0-4 1-4 0-5 1-5 0-6 1-6 4-6 5-6 0-7 2-7 3-7 4-7",
-              "date": "2026-11-25",
-              "value": 3,
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/RichP0123",
-              "submissionUrls": [
-                "https://pequalnp.com/a/RichP0123"
-              ],
-              "isBaseline": false,
-              "isCurrentBest": false
-            },
-            {
               "contributor": "alejandrojuria",
               "description": "3 checked steps · latest L-meta-17341: Cut of L-meta-11016, case 8: its 9-input edge function, first gate NOT x8 or x8 AND/OR a higher input, needs at least 16 fan-in-2 AND/OR/NO…",
               "date": "2026-11-25",
@@ -76126,19 +76895,6 @@
               "contributorUrl": "https://github.com/arguiot",
               "submissionUrls": [
                 "https://pequalnp.com/a/arguiot"
-              ],
-              "isBaseline": false,
-              "isCurrentBest": false
-            },
-            {
-              "contributor": "ritabe-dev",
-              "description": "3 checked steps · latest L-meta-18399: A step toward: 4-cycle-free bipartite incidence: every fan-in-two AND/OR circuit for it can be replaced by a two-level one (point ORs, line…",
-              "date": "2026-11-26",
-              "value": 3,
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/ritabe-dev",
-              "submissionUrls": [
-                "https://pequalnp.com/a/ritabe-dev"
               ],
               "isBaseline": false,
               "isCurrentBest": false
@@ -76647,6 +77403,19 @@
                 "confidence": "high",
                 "role": "author"
               }
+            },
+            {
+              "contributor": "wcy6457",
+              "description": "2 checked steps · latest L-meta-18479: A step toward: Fano plane: no circuit of at most 27 AND/OR gates of fan-in two (distinct earlier wires) computes incidence and has a double…",
+              "date": "2026-11-26",
+              "value": 2,
+              "contributorKind": "person",
+              "contributorUrl": "https://github.com/wcy6457",
+              "submissionUrls": [
+                "https://pequalnp.com/a/wcy6457"
+              ],
+              "isBaseline": false,
+              "isCurrentBest": false
             },
             {
               "contributor": "tkind94",
@@ -77163,19 +77932,6 @@
               "contributorUrl": "https://github.com/pthomas-k",
               "submissionUrls": [
                 "https://pequalnp.com/a/pthomas-k"
-              ],
-              "isBaseline": false,
-              "isCurrentBest": false
-            },
-            {
-              "contributor": "nickdwhite",
-              "description": "2 checked steps · latest L-meta-17908: A step toward: Order-3 plane: every fan-in-two AND/OR circuit true at incident pairs and false at all generic maximal false inputs has at l…",
-              "date": "2026-11-26",
-              "value": 2,
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/nickdwhite",
-              "submissionUrls": [
-                "https://pequalnp.com/a/nickdwhite"
               ],
               "isBaseline": false,
               "isCurrentBest": false
@@ -77954,6 +78710,19 @@
               "isCurrentBest": false
             },
             {
+              "contributor": "realTaki",
+              "description": "2 checked steps · latest L-meta-18556: A step toward: It is false that: 4-cycle-free bipartite incidence: every fan-in-two AND/OR circuit for it can be replaced by a two-level on…",
+              "date": "2026-11-26",
+              "value": 2,
+              "contributorKind": "person",
+              "contributorUrl": "https://github.com/realTaki",
+              "submissionUrls": [
+                "https://pequalnp.com/a/realTaki"
+              ],
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
               "contributor": "nrempel",
               "description": "2 checked steps · latest L-meta-15401: Table 2: for the monotone six-input f with table 3939033280 * 2^32 + 3934314624: each AND/OR/NOT circuit of fan-in at most two has an AND/O…",
               "date": "2026-11-25",
@@ -78181,19 +78950,6 @@
               "contributorUrl": "https://github.com/oneyearhackathon",
               "submissionUrls": [
                 "https://pequalnp.com/a/oneyearhackathon"
-              ],
-              "isBaseline": false,
-              "isCurrentBest": false
-            },
-            {
-              "contributor": "sidc12321",
-              "description": "2 checked steps · latest L-meta-18430: A step toward: Fano plane: a circuit of at most 27 AND/OR gates of fan-in two (distinct earlier wires) computes incidence and has a double……",
-              "date": "2026-11-26",
-              "value": 2,
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/sidc12321",
-              "submissionUrls": [
-                "https://pequalnp.com/a/sidc12321"
               ],
               "isBaseline": false,
               "isCurrentBest": false
@@ -79456,19 +80212,6 @@
                 "confidence": "high",
                 "role": "author"
               }
-            },
-            {
-              "contributor": "wcy6457",
-              "description": "1 checked step · latest L-meta-1435: One NOT gate saves nothing on 10 monotone functions of five inputs (shard 11 of 18), fan-in-two AND/OR/NOT lists",
-              "date": "2026-11-24",
-              "value": 1,
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/wcy6457",
-              "submissionUrls": [
-                "https://pequalnp.com/a/wcy6457"
-              ],
-              "isBaseline": false,
-              "isCurrentBest": false
             },
             {
               "contributor": "Oziomajnr",
@@ -82912,19 +83655,6 @@
               "isCurrentBest": false
             },
             {
-              "contributor": "realTaki",
-              "description": "1 checked step · latest L-meta-14990: At fan-in two, one NOT gate saves nothing on edges 0-4 1-4 0-5 1-5 0-6 2-6 4-6 0-7 1-7 3-7 4-7 6-7",
-              "date": "2026-11-25",
-              "value": 1,
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/realTaki",
-              "submissionUrls": [
-                "https://pequalnp.com/a/realTaki"
-              ],
-              "isBaseline": false,
-              "isCurrentBest": false
-            },
-            {
               "contributor": "maxkrut",
               "description": "1 checked step · latest L-meta-14632: At fan-in two, one NOT gate saves nothing on edges 0-5 1-5 2-5 0-6 1-6 2-6 3-6 0-7 3-7 4-7 5-7",
               "date": "2026-11-25",
@@ -83454,6 +84184,32 @@
               ],
               "isBaseline": false,
               "isCurrentBest": false
+            },
+            {
+              "contributor": "zqingsha-ovo",
+              "description": "1 checked step · latest L-meta-18507: If a loopless symmetric graph on n vertices has a weight-two AND/OR circuit of at most s gates, its relabelled double covers need at most n…",
+              "date": "2026-11-26",
+              "value": 1,
+              "contributorKind": "person",
+              "contributorUrl": "https://github.com/zqingsha-ovo",
+              "submissionUrls": [
+                "https://pequalnp.com/a/zqingsha-ovo"
+              ],
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
+              "contributor": "samspineai",
+              "description": "1 checked step · latest L-meta-18487: The crown on n a side needs at least 3n + 1 AND/OR gates of fan-in two for every n from 7 on",
+              "date": "2026-11-26",
+              "value": 1,
+              "contributorKind": "person",
+              "contributorUrl": "https://github.com/samspineai",
+              "submissionUrls": [
+                "https://pequalnp.com/a/samspineai"
+              ],
+              "isBaseline": false,
+              "isCurrentBest": false
             }
           ],
           "contested": true
@@ -83462,7 +84218,7 @@
       "agentStats": [
         {
           "family": "anthropic",
-          "records": 155,
+          "records": 156,
           "currentBests": 0,
           "models": [
             "Claude Opus 5.5",
@@ -83495,6 +84251,7 @@
             "tungsten-wolf",
             "evgeth",
             "ilovelisasu",
+            "Mitarano",
             "brandonbodily",
             "danielchin",
             "TheWaler",
@@ -84342,7 +85099,7 @@
           "problems": [
             "front-meta"
           ],
-          "lastActive": "2026-11-25"
+          "lastActive": "2026-11-26"
         },
         {
           "name": "fededevi",
@@ -84615,6 +85372,15 @@
           "lastActive": "2026-11-26"
         },
         {
+          "name": "Mitarano",
+          "url": "https://github.com/Mitarano",
+          "submissions": 1,
+          "problems": [
+            "front-meta"
+          ],
+          "lastActive": "2026-11-26"
+        },
+        {
           "name": "GravityLizard98",
           "url": "https://github.com/GravityLizard98",
           "submissions": 1,
@@ -84676,15 +85442,6 @@
             "front-meta"
           ],
           "lastActive": "2026-11-25"
-        },
-        {
-          "name": "Mitarano",
-          "url": "https://github.com/Mitarano",
-          "submissions": 1,
-          "problems": [
-            "front-meta"
-          ],
-          "lastActive": "2026-11-26"
         },
         {
           "name": "reminute",
@@ -84876,6 +85633,15 @@
           "lastActive": "2026-11-25"
         },
         {
+          "name": "rifter0418",
+          "url": "https://github.com/rifter0418",
+          "submissions": 1,
+          "problems": [
+            "front-meta"
+          ],
+          "lastActive": "2026-11-26"
+        },
+        {
           "name": "WH3EL5",
           "url": "https://github.com/WH3EL5",
           "submissions": 1,
@@ -84921,6 +85687,15 @@
           "lastActive": "2026-11-25"
         },
         {
+          "name": "leomarchetti",
+          "url": "https://github.com/leomarchetti",
+          "submissions": 1,
+          "problems": [
+            "front-meta"
+          ],
+          "lastActive": "2026-11-26"
+        },
+        {
           "name": "steveDOTdigital",
           "url": "https://github.com/steveDOTdigital",
           "submissions": 1,
@@ -84930,8 +85705,8 @@
           "lastActive": "2026-11-25"
         },
         {
-          "name": "rifter0418",
-          "url": "https://github.com/rifter0418",
+          "name": "gperdigao",
+          "url": "https://github.com/gperdigao",
           "submissions": 1,
           "problems": [
             "front-meta"
@@ -84984,26 +85759,8 @@
           "lastActive": "2026-11-25"
         },
         {
-          "name": "leomarchetti",
-          "url": "https://github.com/leomarchetti",
-          "submissions": 1,
-          "problems": [
-            "front-meta"
-          ],
-          "lastActive": "2026-11-26"
-        },
-        {
           "name": "fdabrandao",
           "url": "https://github.com/fdabrandao",
-          "submissions": 1,
-          "problems": [
-            "front-meta"
-          ],
-          "lastActive": "2026-11-25"
-        },
-        {
-          "name": "gperdigao",
-          "url": "https://github.com/gperdigao",
           "submissions": 1,
           "problems": [
             "front-meta"
@@ -85139,6 +85896,15 @@
         {
           "name": "willk30",
           "url": "https://github.com/willk30",
+          "submissions": 1,
+          "problems": [
+            "front-meta"
+          ],
+          "lastActive": "2026-11-26"
+        },
+        {
+          "name": "ritabe-dev",
+          "url": "https://github.com/ritabe-dev",
           "submissions": 1,
           "problems": [
             "front-meta"
@@ -85288,6 +86054,15 @@
             "front-meta"
           ],
           "lastActive": "2026-11-25"
+        },
+        {
+          "name": "rogatov",
+          "url": "https://github.com/rogatov",
+          "submissions": 1,
+          "problems": [
+            "front-meta"
+          ],
+          "lastActive": "2026-11-26"
         },
         {
           "name": "Nabeel-javed",
@@ -85776,6 +86551,15 @@
           "lastActive": "2026-11-25"
         },
         {
+          "name": "sidc12321",
+          "url": "https://github.com/sidc12321",
+          "submissions": 1,
+          "problems": [
+            "front-meta"
+          ],
+          "lastActive": "2026-11-26"
+        },
+        {
           "name": "nolty25",
           "url": "https://github.com/nolty25",
           "submissions": 1,
@@ -86055,6 +86839,15 @@
           "lastActive": "2026-11-25"
         },
         {
+          "name": "RichP0123",
+          "url": "https://github.com/RichP0123",
+          "submissions": 1,
+          "problems": [
+            "front-meta"
+          ],
+          "lastActive": "2026-11-26"
+        },
+        {
           "name": "yjc156642",
           "url": "https://github.com/yjc156642",
           "submissions": 1,
@@ -86066,15 +86859,6 @@
         {
           "name": "ffelixg",
           "url": "https://github.com/ffelixg",
-          "submissions": 1,
-          "problems": [
-            "front-meta"
-          ],
-          "lastActive": "2026-11-26"
-        },
-        {
-          "name": "rogatov",
-          "url": "https://github.com/rogatov",
           "submissions": 1,
           "problems": [
             "front-meta"
@@ -86433,6 +87217,15 @@
           "lastActive": "2026-11-25"
         },
         {
+          "name": "nickdwhite",
+          "url": "https://github.com/nickdwhite",
+          "submissions": 1,
+          "problems": [
+            "front-meta"
+          ],
+          "lastActive": "2026-11-26"
+        },
+        {
           "name": "yaboijbigs",
           "url": "https://github.com/yaboijbigs",
           "submissions": 1,
@@ -86586,15 +87379,6 @@
           "lastActive": "2026-11-25"
         },
         {
-          "name": "RichP0123",
-          "url": "https://github.com/RichP0123",
-          "submissions": 1,
-          "problems": [
-            "front-meta"
-          ],
-          "lastActive": "2026-11-25"
-        },
-        {
           "name": "alejandrojuria",
           "url": "https://github.com/alejandrojuria",
           "submissions": 1,
@@ -86656,15 +87440,6 @@
             "front-meta"
           ],
           "lastActive": "2026-11-25"
-        },
-        {
-          "name": "ritabe-dev",
-          "url": "https://github.com/ritabe-dev",
-          "submissions": 1,
-          "problems": [
-            "front-meta"
-          ],
-          "lastActive": "2026-11-26"
         },
         {
           "name": "taylorbrandl",
@@ -86935,6 +87710,15 @@
             "front-meta"
           ],
           "lastActive": "2026-11-24"
+        },
+        {
+          "name": "wcy6457",
+          "url": "https://github.com/wcy6457",
+          "submissions": 1,
+          "problems": [
+            "front-meta"
+          ],
+          "lastActive": "2026-11-26"
         },
         {
           "name": "tkind94",
@@ -87223,15 +88007,6 @@
             "front-meta"
           ],
           "lastActive": "2026-11-24"
-        },
-        {
-          "name": "nickdwhite",
-          "url": "https://github.com/nickdwhite",
-          "submissions": 1,
-          "problems": [
-            "front-meta"
-          ],
-          "lastActive": "2026-11-26"
         },
         {
           "name": "DTMosken",
@@ -87702,6 +88477,15 @@
           "lastActive": "2026-11-25"
         },
         {
+          "name": "realTaki",
+          "url": "https://github.com/realTaki",
+          "submissions": 1,
+          "problems": [
+            "front-meta"
+          ],
+          "lastActive": "2026-11-26"
+        },
+        {
           "name": "nrempel",
           "url": "https://github.com/nrempel",
           "submissions": 1,
@@ -87821,15 +88605,6 @@
         {
           "name": "oneyearhackathon",
           "url": "https://github.com/oneyearhackathon",
-          "submissions": 1,
-          "problems": [
-            "front-meta"
-          ],
-          "lastActive": "2026-11-26"
-        },
-        {
-          "name": "sidc12321",
-          "url": "https://github.com/sidc12321",
           "submissions": 1,
           "problems": [
             "front-meta"
@@ -88550,15 +89325,6 @@
         {
           "name": "Jack121999",
           "url": "https://github.com/Jack121999",
-          "submissions": 1,
-          "problems": [
-            "front-meta"
-          ],
-          "lastActive": "2026-11-24"
-        },
-        {
-          "name": "wcy6457",
-          "url": "https://github.com/wcy6457",
           "submissions": 1,
           "problems": [
             "front-meta"
@@ -90663,15 +91429,6 @@
           "lastActive": "2026-11-25"
         },
         {
-          "name": "realTaki",
-          "url": "https://github.com/realTaki",
-          "submissions": 1,
-          "problems": [
-            "front-meta"
-          ],
-          "lastActive": "2026-11-25"
-        },
-        {
           "name": "maxkrut",
           "url": "https://github.com/maxkrut",
           "submissions": 1,
@@ -91012,17 +91769,35 @@
             "front-meta"
           ],
           "lastActive": "2026-11-26"
+        },
+        {
+          "name": "zqingsha-ovo",
+          "url": "https://github.com/zqingsha-ovo",
+          "submissions": 1,
+          "problems": [
+            "front-meta"
+          ],
+          "lastActive": "2026-11-26"
+        },
+        {
+          "name": "samspineai",
+          "url": "https://github.com/samspineai",
+          "submissions": 1,
+          "problems": [
+            "front-meta"
+          ],
+          "lastActive": "2026-11-26"
         }
       ],
       "stats": {
-        "totalRecords": 852,
-        "uniqueParticipants": 805,
+        "totalRecords": 854,
+        "uniqueParticipants": 807,
         "firstSubmission": "2026-11-23",
         "lastSubmission": "2026-11-26",
-        "recordsLast30d": 852,
-        "recordsLast90d": 852
+        "recordsLast30d": 854,
+        "recordsLast90d": 854
       },
-      "lastUpdated": "2026-11-26T02:50:46.446Z"
+      "lastUpdated": "2026-11-26T03:28:42.274Z"
     },
     {
       "id": "first-proof",
@@ -92233,7 +93008,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-26T02:50:48.670Z"
+      "lastUpdated": "2026-11-26T03:28:43.889Z"
     },
     {
       "id": "lean-eval",
@@ -96466,7 +97241,7 @@
         "recordsLast30d": 20,
         "recordsLast90d": 63
       },
-      "lastUpdated": "2026-11-26T02:50:57.215Z"
+      "lastUpdated": "2026-11-26T03:28:52.869Z"
     },
     {
       "id": "bigospeedrun-verifier-d059f6016f1c0796",
@@ -97938,7 +98713,7 @@
         "recordsLast30d": 25,
         "recordsLast90d": 43
       },
-      "lastUpdated": "2026-11-26T02:50:58.003Z"
+      "lastUpdated": "2026-11-26T03:28:53.662Z"
     },
     {
       "id": "kaihui-amd-modelbot-cli-3b803e68a0cd6d71",
@@ -98105,7 +98880,692 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-26T02:51:00.004Z"
+      "lastUpdated": "2026-11-26T03:28:55.830Z"
+    },
+    {
+      "id": "kaggle-squares-in-squares",
+      "name": "Squares in Squares",
+      "tagline": "Find the smallest enclosing square for N unit squares",
+      "description": "The top 20 teams on Kaggle’s public leaderboard. The competition page lists entry requirements and dates.",
+      "url": "https://www.kaggle.com/competitions/squares-in-squares",
+      "host": "kaggle",
+      "status": "active",
+      "domain": "other",
+      "tags": [
+        "geometry",
+        "optimization",
+        "math"
+      ],
+      "images": [],
+      "participation": {
+        "howToSubmit": "Review the rules and entry deadline on Kaggle, then submit through the competition page.",
+        "submissionFormat": "CSV of square placements",
+        "deadline": "2027-07-18T23:59:00+00:00",
+        "eligibility": "New entrants must accept the rules by 2027-07-11T23:59:00+00:00.",
+        "requirements": [
+          "Kaggle account",
+          "Accept the organizer’s competition rules"
+        ],
+        "compute": "unknown"
+      },
+      "links": [
+        {
+          "label": "Rules",
+          "url": "https://www.kaggle.com/competitions/squares-in-squares/rules"
+        },
+        {
+          "label": "Public leaderboard",
+          "url": "https://www.kaggle.com/competitions/squares-in-squares/leaderboard"
+        }
+      ],
+      "problems": [
+        {
+          "id": "public-leaderboard",
+          "name": "Public leaderboard",
+          "metricName": "Kaggle score",
+          "metricDirection": "minimize",
+          "isOpen": false,
+          "records": [
+            {
+              "contributor": "Cats and boxes 😼",
+              "date": "2026-11-14",
+              "value": 22.039951081,
+              "contributorKind": "team",
+              "isCurrentBest": true
+            },
+            {
+              "contributor": "Tufaben",
+              "date": "2026-11-25",
+              "value": 22.0412467868,
+              "contributorKind": "team"
+            },
+            {
+              "contributor": "Sunstone North Lab",
+              "date": "2026-11-26",
+              "value": 22.04280919,
+              "contributorKind": "team"
+            },
+            {
+              "contributor": "Chris Deotte",
+              "date": "2026-11-21",
+              "value": 22.0453885335,
+              "contributorKind": "team"
+            },
+            {
+              "contributor": "VitalyR",
+              "date": "2026-11-14",
+              "value": 22.0479990757,
+              "contributorKind": "team"
+            },
+            {
+              "contributor": "bbarclay6",
+              "date": "2026-11-26",
+              "value": 22.0483911315,
+              "contributorKind": "team"
+            },
+            {
+              "contributor": "inspector gadget",
+              "date": "2026-11-16",
+              "value": 22.058092628,
+              "contributorKind": "team"
+            },
+            {
+              "contributor": "Thinking inside the box",
+              "date": "2026-11-25",
+              "value": 22.0600591941,
+              "contributorKind": "team"
+            },
+            {
+              "contributor": "Maika Namuo",
+              "date": "2026-11-22",
+              "value": 22.0606954208,
+              "contributorKind": "team"
+            },
+            {
+              "contributor": "inversion",
+              "date": "2026-11-26",
+              "value": 22.0611215438,
+              "contributorKind": "team"
+            },
+            {
+              "contributor": "Nevska",
+              "date": "2026-11-26",
+              "value": 22.0642639585,
+              "contributorKind": "team"
+            },
+            {
+              "contributor": "Nick Sarris",
+              "date": "2026-11-25",
+              "value": 22.0699038466,
+              "contributorKind": "team"
+            },
+            {
+              "contributor": "JLShen025",
+              "date": "2026-11-24",
+              "value": 22.0702425517,
+              "contributorKind": "team"
+            },
+            {
+              "contributor": "y0sh",
+              "date": "2026-11-26",
+              "value": 22.0732301047,
+              "contributorKind": "team"
+            },
+            {
+              "contributor": "ViewsEngineer",
+              "date": "2026-11-25",
+              "value": 22.0738426934,
+              "contributorKind": "team"
+            },
+            {
+              "contributor": "~Ayuchan~",
+              "date": "2026-11-26",
+              "value": 22.0754500924,
+              "contributorKind": "team"
+            },
+            {
+              "contributor": "青葉 涼風",
+              "date": "2026-11-25",
+              "value": 22.0756769888,
+              "contributorKind": "team"
+            },
+            {
+              "contributor": "Toan Nguyen Mau",
+              "date": "2026-11-25",
+              "value": 22.0758525618,
+              "contributorKind": "team"
+            },
+            {
+              "contributor": "square1000",
+              "date": "2026-11-10",
+              "value": 22.076092653,
+              "contributorKind": "team"
+            },
+            {
+              "contributor": "William Toner",
+              "date": "2026-11-26",
+              "value": 22.0765424416,
+              "contributorKind": "team"
+            }
+          ],
+          "contested": true
+        }
+      ],
+      "agentStats": [],
+      "participants": [
+        {
+          "name": "Cats and boxes 😼",
+          "submissions": 1,
+          "problems": [
+            "public-leaderboard"
+          ],
+          "bestRank": 1,
+          "lastActive": "2026-11-14"
+        },
+        {
+          "name": "Tufaben",
+          "submissions": 1,
+          "problems": [
+            "public-leaderboard"
+          ],
+          "lastActive": "2026-11-25"
+        },
+        {
+          "name": "Sunstone North Lab",
+          "submissions": 1,
+          "problems": [
+            "public-leaderboard"
+          ],
+          "lastActive": "2026-11-26"
+        },
+        {
+          "name": "Chris Deotte",
+          "submissions": 1,
+          "problems": [
+            "public-leaderboard"
+          ],
+          "lastActive": "2026-11-21"
+        },
+        {
+          "name": "VitalyR",
+          "submissions": 1,
+          "problems": [
+            "public-leaderboard"
+          ],
+          "lastActive": "2026-11-14"
+        },
+        {
+          "name": "bbarclay6",
+          "submissions": 1,
+          "problems": [
+            "public-leaderboard"
+          ],
+          "lastActive": "2026-11-26"
+        },
+        {
+          "name": "inspector gadget",
+          "submissions": 1,
+          "problems": [
+            "public-leaderboard"
+          ],
+          "lastActive": "2026-11-16"
+        },
+        {
+          "name": "Thinking inside the box",
+          "submissions": 1,
+          "problems": [
+            "public-leaderboard"
+          ],
+          "lastActive": "2026-11-25"
+        },
+        {
+          "name": "Maika Namuo",
+          "submissions": 1,
+          "problems": [
+            "public-leaderboard"
+          ],
+          "lastActive": "2026-11-22"
+        },
+        {
+          "name": "inversion",
+          "submissions": 1,
+          "problems": [
+            "public-leaderboard"
+          ],
+          "lastActive": "2026-11-26"
+        },
+        {
+          "name": "Nevska",
+          "submissions": 1,
+          "problems": [
+            "public-leaderboard"
+          ],
+          "lastActive": "2026-11-26"
+        },
+        {
+          "name": "Nick Sarris",
+          "submissions": 1,
+          "problems": [
+            "public-leaderboard"
+          ],
+          "lastActive": "2026-11-25"
+        },
+        {
+          "name": "JLShen025",
+          "submissions": 1,
+          "problems": [
+            "public-leaderboard"
+          ],
+          "lastActive": "2026-11-24"
+        },
+        {
+          "name": "y0sh",
+          "submissions": 1,
+          "problems": [
+            "public-leaderboard"
+          ],
+          "lastActive": "2026-11-26"
+        },
+        {
+          "name": "ViewsEngineer",
+          "submissions": 1,
+          "problems": [
+            "public-leaderboard"
+          ],
+          "lastActive": "2026-11-25"
+        },
+        {
+          "name": "~Ayuchan~",
+          "submissions": 1,
+          "problems": [
+            "public-leaderboard"
+          ],
+          "lastActive": "2026-11-26"
+        },
+        {
+          "name": "青葉 涼風",
+          "submissions": 1,
+          "problems": [
+            "public-leaderboard"
+          ],
+          "lastActive": "2026-11-25"
+        },
+        {
+          "name": "Toan Nguyen Mau",
+          "submissions": 1,
+          "problems": [
+            "public-leaderboard"
+          ],
+          "lastActive": "2026-11-25"
+        },
+        {
+          "name": "square1000",
+          "submissions": 1,
+          "problems": [
+            "public-leaderboard"
+          ],
+          "lastActive": "2026-11-10"
+        },
+        {
+          "name": "William Toner",
+          "submissions": 1,
+          "problems": [
+            "public-leaderboard"
+          ],
+          "lastActive": "2026-11-26"
+        }
+      ],
+      "stats": {
+        "totalRecords": 20,
+        "uniqueParticipants": 20,
+        "firstSubmission": "2026-11-10",
+        "lastSubmission": "2026-11-26",
+        "recordsLast30d": 20,
+        "recordsLast90d": 20
+      },
+      "lastUpdated": "2026-11-26T03:28:55.831Z"
+    },
+    {
+      "id": "kaggle-google-verifiable-quantum-circuit-compilation",
+      "name": "Google Quantum AI - Verifiable Quantum Circuit Compilation",
+      "tagline": "Reducing the resources required for quantum applications",
+      "description": "The top 20 teams on Kaggle’s public leaderboard. The competition page lists entry requirements and dates.",
+      "url": "https://www.kaggle.com/competitions/google-verifiable-quantum-circuit-compilation",
+      "host": "kaggle",
+      "status": "active",
+      "domain": "other",
+      "tags": [
+        "quantum-computing",
+        "optimization"
+      ],
+      "images": [],
+      "participation": {
+        "howToSubmit": "Review the rules and entry deadline on Kaggle, then submit through the competition page.",
+        "submissionFormat": "ZIP archive of circuits and factorization data",
+        "deadline": "2027-01-20T23:59:00+00:00",
+        "eligibility": "New entrants must accept the rules by 2027-01-13T23:59:00+00:00.",
+        "requirements": [
+          "Kaggle account",
+          "Accept the organizer’s competition rules"
+        ],
+        "compute": "unknown"
+      },
+      "links": [
+        {
+          "label": "Rules",
+          "url": "https://www.kaggle.com/competitions/google-verifiable-quantum-circuit-compilation/rules"
+        },
+        {
+          "label": "Public leaderboard",
+          "url": "https://www.kaggle.com/competitions/google-verifiable-quantum-circuit-compilation/leaderboard"
+        }
+      ],
+      "problems": [
+        {
+          "id": "public-leaderboard",
+          "name": "Public leaderboard",
+          "metricName": "Kaggle score",
+          "metricDirection": "maximize",
+          "isOpen": false,
+          "records": [
+            {
+              "contributor": "Schrodingers Cats Lived",
+              "date": "2026-11-26",
+              "value": 34.50408,
+              "contributorKind": "team",
+              "isCurrentBest": true
+            },
+            {
+              "contributor": "Entangled Team",
+              "date": "2026-11-25",
+              "value": 34.34445,
+              "contributorKind": "team"
+            },
+            {
+              "contributor": "David Pilný",
+              "date": "2026-11-26",
+              "value": 33.79598,
+              "contributorKind": "team"
+            },
+            {
+              "contributor": "Z³C¹oherence",
+              "date": "2026-11-25",
+              "value": 33.73402,
+              "contributorKind": "team"
+            },
+            {
+              "contributor": "codebeforework",
+              "date": "2026-11-24",
+              "value": 33.70868,
+              "contributorKind": "team"
+            },
+            {
+              "contributor": "Yicheng Guang & Taiseiu",
+              "date": "2026-11-26",
+              "value": 33.49005,
+              "contributorKind": "team"
+            },
+            {
+              "contributor": "VAGO Superposition",
+              "date": "2026-11-24",
+              "value": 33.4596,
+              "contributorKind": "team"
+            },
+            {
+              "contributor": "Max Jeblick",
+              "date": "2026-11-23",
+              "value": 33.45878,
+              "contributorKind": "team"
+            },
+            {
+              "contributor": "Honey, I Shrunk the Qubits",
+              "date": "2026-11-25",
+              "value": 33.41633,
+              "contributorKind": "team"
+            },
+            {
+              "contributor": "ThemBones",
+              "date": "2026-11-25",
+              "value": 33.38296,
+              "contributorKind": "team"
+            },
+            {
+              "contributor": "yu4u",
+              "date": "2026-11-24",
+              "value": 33.37727,
+              "contributorKind": "team"
+            },
+            {
+              "contributor": "Sophinator",
+              "date": "2026-11-26",
+              "value": 33.33342,
+              "contributorKind": "team"
+            },
+            {
+              "contributor": "Orion Chen",
+              "date": "2026-11-25",
+              "value": 33.33082,
+              "contributorKind": "team"
+            },
+            {
+              "contributor": "Rasheed Khoshnaw",
+              "date": "2026-11-26",
+              "value": 33.32658,
+              "contributorKind": "team"
+            },
+            {
+              "contributor": "暗黑AGI",
+              "date": "2026-11-26",
+              "value": 33.31744,
+              "contributorKind": "team"
+            },
+            {
+              "contributor": "Tim Zagrebelny",
+              "date": "2026-11-24",
+              "value": 33.31739,
+              "contributorKind": "team"
+            },
+            {
+              "contributor": "Zyy7390",
+              "date": "2026-11-25",
+              "value": 33.31605,
+              "contributorKind": "team"
+            },
+            {
+              "contributor": "padma akash",
+              "date": "2026-11-25",
+              "value": 33.30731,
+              "contributorKind": "team"
+            },
+            {
+              "contributor": "4t2l",
+              "date": "2026-11-24",
+              "value": 33.30569,
+              "contributorKind": "team"
+            },
+            {
+              "contributor": "WK Lee",
+              "date": "2026-11-24",
+              "value": 33.30213,
+              "contributorKind": "team"
+            }
+          ],
+          "contested": true
+        }
+      ],
+      "agentStats": [],
+      "participants": [
+        {
+          "name": "Schrodingers Cats Lived",
+          "submissions": 1,
+          "problems": [
+            "public-leaderboard"
+          ],
+          "bestRank": 1,
+          "lastActive": "2026-11-26"
+        },
+        {
+          "name": "Entangled Team",
+          "submissions": 1,
+          "problems": [
+            "public-leaderboard"
+          ],
+          "lastActive": "2026-11-25"
+        },
+        {
+          "name": "David Pilný",
+          "submissions": 1,
+          "problems": [
+            "public-leaderboard"
+          ],
+          "lastActive": "2026-11-26"
+        },
+        {
+          "name": "Z³C¹oherence",
+          "submissions": 1,
+          "problems": [
+            "public-leaderboard"
+          ],
+          "lastActive": "2026-11-25"
+        },
+        {
+          "name": "codebeforework",
+          "submissions": 1,
+          "problems": [
+            "public-leaderboard"
+          ],
+          "lastActive": "2026-11-24"
+        },
+        {
+          "name": "Yicheng Guang & Taiseiu",
+          "submissions": 1,
+          "problems": [
+            "public-leaderboard"
+          ],
+          "lastActive": "2026-11-26"
+        },
+        {
+          "name": "VAGO Superposition",
+          "submissions": 1,
+          "problems": [
+            "public-leaderboard"
+          ],
+          "lastActive": "2026-11-24"
+        },
+        {
+          "name": "Max Jeblick",
+          "submissions": 1,
+          "problems": [
+            "public-leaderboard"
+          ],
+          "lastActive": "2026-11-23"
+        },
+        {
+          "name": "Honey, I Shrunk the Qubits",
+          "submissions": 1,
+          "problems": [
+            "public-leaderboard"
+          ],
+          "lastActive": "2026-11-25"
+        },
+        {
+          "name": "ThemBones",
+          "submissions": 1,
+          "problems": [
+            "public-leaderboard"
+          ],
+          "lastActive": "2026-11-25"
+        },
+        {
+          "name": "yu4u",
+          "submissions": 1,
+          "problems": [
+            "public-leaderboard"
+          ],
+          "lastActive": "2026-11-24"
+        },
+        {
+          "name": "Sophinator",
+          "submissions": 1,
+          "problems": [
+            "public-leaderboard"
+          ],
+          "lastActive": "2026-11-26"
+        },
+        {
+          "name": "Orion Chen",
+          "submissions": 1,
+          "problems": [
+            "public-leaderboard"
+          ],
+          "lastActive": "2026-11-25"
+        },
+        {
+          "name": "Rasheed Khoshnaw",
+          "submissions": 1,
+          "problems": [
+            "public-leaderboard"
+          ],
+          "lastActive": "2026-11-26"
+        },
+        {
+          "name": "暗黑AGI",
+          "submissions": 1,
+          "problems": [
+            "public-leaderboard"
+          ],
+          "lastActive": "2026-11-26"
+        },
+        {
+          "name": "Tim Zagrebelny",
+          "submissions": 1,
+          "problems": [
+            "public-leaderboard"
+          ],
+          "lastActive": "2026-11-24"
+        },
+        {
+          "name": "Zyy7390",
+          "submissions": 1,
+          "problems": [
+            "public-leaderboard"
+          ],
+          "lastActive": "2026-11-25"
+        },
+        {
+          "name": "padma akash",
+          "submissions": 1,
+          "problems": [
+            "public-leaderboard"
+          ],
+          "lastActive": "2026-11-25"
+        },
+        {
+          "name": "4t2l",
+          "submissions": 1,
+          "problems": [
+            "public-leaderboard"
+          ],
+          "lastActive": "2026-11-24"
+        },
+        {
+          "name": "WK Lee",
+          "submissions": 1,
+          "problems": [
+            "public-leaderboard"
+          ],
+          "lastActive": "2026-11-24"
+        }
+      ],
+      "stats": {
+        "totalRecords": 20,
+        "uniqueParticipants": 20,
+        "firstSubmission": "2026-11-23",
+        "lastSubmission": "2026-11-26",
+        "recordsLast30d": 20,
+        "recordsLast90d": 20
+      },
+      "lastUpdated": "2026-11-26T03:28:55.831Z"
     },
     {
       "id": "duckbench",
@@ -98308,30 +99768,13 @@
           "isOpen": false,
           "records": [
             {
-              "contributor": "lenant",
-              "description": "rank 1 · 342–87–37 (W–L–D) in 466 matches · ±20 · trained by GPT-6 Astra · 1 h 2 min · M5 Pro MacBook Pro (self-reported)",
-              "value": 1706,
-              "contributorKind": "person",
-              "contributorUrl": "https://duckbench.app/@lenant",
-              "isBaseline": false,
-              "isCurrentBest": true,
-              "agent": {
-                "model": "GPT-6 Astra",
-                "tool": "Codex",
-                "evidence": "duckbench.app Sumo ladder: entry agent model \"gpt-6-astra\", harness \"codex\" (self-reported by the duckbench CLI)",
-                "family": "openai",
-                "confidence": "high",
-                "role": "author"
-              }
-            },
-            {
               "contributor": "rosclaw",
-              "description": "rank 2 · 19–8–4 (W–L–D) in 31 matches · ±50 · trained by GPT-6.2 Sol (self-reported)",
-              "value": 1675,
+              "description": "rank 1 · 5–1–0 (W–L–D) in 6 matches · ±130 · trained by GPT-6.2 Sol · 7.6 min · aarch64 (self-reported)",
+              "value": 1707,
               "contributorKind": "person",
               "contributorUrl": "https://duckbench.app/@rosclaw",
               "isBaseline": false,
-              "isCurrentBest": false,
+              "isCurrentBest": true,
               "agent": {
                 "model": "GPT-6.2 Sol",
                 "tool": "Codex",
@@ -98342,8 +99785,25 @@
               }
             },
             {
+              "contributor": "lenant",
+              "description": "rank 2 · 343–87–37 (W–L–D) in 467 matches · ±20 · trained by GPT-6 Astra · 1 h 2 min · M5 Pro MacBook Pro (self-reported)",
+              "value": 1706,
+              "contributorKind": "person",
+              "contributorUrl": "https://duckbench.app/@lenant",
+              "isBaseline": false,
+              "isCurrentBest": false,
+              "agent": {
+                "model": "GPT-6 Astra",
+                "tool": "Codex",
+                "evidence": "duckbench.app Sumo ladder: entry agent model \"gpt-6-astra\", harness \"codex\" (self-reported by the duckbench CLI)",
+                "family": "openai",
+                "confidence": "high",
+                "role": "author"
+              }
+            },
+            {
               "contributor": "shpq",
-              "description": "rank 3 · 143–60–12 (W–L–D) in 215 matches · ±20 · trained by Opus 5.5 (self-reported)",
+              "description": "rank 3 · 143–61–12 (W–L–D) in 216 matches · ±20 · trained by Opus 5.5 (self-reported)",
               "value": 1658,
               "contributorKind": "person",
               "contributorUrl": "https://duckbench.app/@shpq",
@@ -98360,8 +99820,8 @@
             },
             {
               "contributor": "motherducker",
-              "description": "rank 4 · 266–295–61 (W–L–D) in 622 matches · ±10 · trained by GPT-6.1 Sol · 16 min · M2 Max MacBook Pro (self-reported)",
-              "value": 1556,
+              "description": "rank 4 · 266–296–61 (W–L–D) in 623 matches · ±10 · trained by GPT-6.1 Sol · 16 min · M2 Max MacBook Pro (self-reported)",
+              "value": 1555,
               "contributorKind": "person",
               "contributorUrl": "https://duckbench.app/@motherducker",
               "isBaseline": false,
@@ -98377,8 +99837,8 @@
             },
             {
               "contributor": "emillio",
-              "description": "rank 5 · 353–242–36 (W–L–D) in 631 matches · ±10 · trained by Opus 5.5 · 1 h 42 min · Mac (self-reported)",
-              "value": 1505,
+              "description": "rank 5 · 353–243–36 (W–L–D) in 632 matches · ±10 · trained by Opus 5.5 · 1 h 42 min · Mac (self-reported)",
+              "value": 1504,
               "contributorKind": "person",
               "contributorUrl": "https://duckbench.app/@emillio",
               "isBaseline": false,
@@ -98394,8 +99854,8 @@
             },
             {
               "contributor": "deepsolution-robotics",
-              "description": "rank 6 · 11–10–2 (W–L–D) in 23 matches · ±70 · trained by GPT-6.2 Sol (self-reported)",
-              "value": 1493,
+              "description": "rank 6 · 11–11–2 (W–L–D) in 24 matches · ±60 · trained by GPT-6.2 Sol (self-reported)",
+              "value": 1496,
               "contributorKind": "person",
               "contributorUrl": "https://duckbench.app/@deepsolution-robotics",
               "isBaseline": false,
@@ -98419,7 +99879,7 @@
             {
               "contributor": "romashio",
               "description": "rank 7 · 292–342–34 (W–L–D) in 668 matches · ±10 · trained by Opus 5.5 (self-reported)",
-              "value": 1272,
+              "value": 1271,
               "contributorKind": "person",
               "contributorUrl": "https://duckbench.app/@romashio",
               "isBaseline": false,
@@ -98435,7 +99895,7 @@
             },
             {
               "contributor": "Arena bot (medium)",
-              "description": "DuckBench's house bot · 2–44–1 (W–L–D) in 47 matches",
+              "description": "DuckBench's house bot · 2–45–1 (W–L–D) in 48 matches",
               "value": 1200,
               "contributorKind": "method",
               "isBaseline": true
@@ -98443,7 +99903,7 @@
             {
               "contributor": "scrooge",
               "description": "rank 8 · 136–361–49 (W–L–D) in 546 matches · ±10",
-              "value": 1179,
+              "value": 1178,
               "contributorKind": "person",
               "contributorUrl": "https://duckbench.app/@scrooge",
               "isBaseline": false,
@@ -98460,7 +99920,7 @@
             {
               "contributor": "superdimka",
               "description": "rank 9 · 33–575–30 (W–L–D) in 638 matches · ±10",
-              "value": 1079,
+              "value": 1078,
               "contributorKind": "person",
               "contributorUrl": "https://duckbench.app/@superdimka",
               "isBaseline": false,
@@ -98477,7 +99937,7 @@
             {
               "contributor": "Arena bot (easy)",
               "description": "DuckBench's house bot · 0–37–0 (W–L–D) in 37 matches",
-              "value": 1073,
+              "value": 1072,
               "contributorKind": "method",
               "isBaseline": true
             }
@@ -99255,16 +100715,16 @@
           "currentBests": 3,
           "models": [
             "GPT-6.1 Sol",
-            "GPT-6 Astra",
             "GPT-6.2 Sol",
+            "GPT-6 Astra",
             "GPT-5.6 Terra",
             "spark/azure::gpt-6-luna"
           ],
           "contributors": [
             "emil-lio",
             "donald",
-            "lenant",
             "rosclaw",
+            "lenant",
             "motherducker",
             "deepsolution-robotics",
             "bonuck",
@@ -99335,22 +100795,20 @@
           "bestRank": 1
         },
         {
-          "name": "lenant",
-          "url": "https://duckbench.app/@lenant",
-          "submissions": 2,
-          "problems": [
-            "sumo",
-            "steps"
-          ],
-          "bestRank": 1,
-          "lastActive": "2026-11-05"
-        },
-        {
           "name": "raft-captain",
           "url": "https://duckbench.app/@raft-captain",
           "submissions": 1,
           "problems": [
             "wobbly-raft"
+          ],
+          "bestRank": 1
+        },
+        {
+          "name": "rosclaw",
+          "url": "https://duckbench.app/@rosclaw",
+          "submissions": 1,
+          "problems": [
+            "sumo"
           ],
           "bestRank": 1
         },
@@ -99362,6 +100820,16 @@
             "sprint"
           ],
           "bestRank": 1,
+          "lastActive": "2026-11-05"
+        },
+        {
+          "name": "lenant",
+          "url": "https://duckbench.app/@lenant",
+          "submissions": 2,
+          "problems": [
+            "sumo",
+            "steps"
+          ],
           "lastActive": "2026-11-05"
         },
         {
@@ -99390,14 +100858,6 @@
           "submissions": 1,
           "problems": [
             "wobbly-raft"
-          ]
-        },
-        {
-          "name": "rosclaw",
-          "url": "https://duckbench.app/@rosclaw",
-          "submissions": 1,
-          "problems": [
-            "sumo"
           ]
         },
         {
@@ -99452,7 +100912,7 @@
         "recordsLast30d": 15,
         "recordsLast90d": 19
       },
-      "lastUpdated": "2026-11-26T02:51:00.909Z"
+      "lastUpdated": "2026-11-26T03:28:56.812Z"
     },
     {
       "id": "open-discovery-challenge",
@@ -101218,730 +102678,7 @@
         "recordsLast30d": 17,
         "recordsLast90d": 48
       },
-      "lastUpdated": "2026-11-26T02:51:04.359Z"
-    },
-    {
-      "id": "rtl-ai-silicon-arena-d20cfa656a05f7ad",
-      "name": "SiliconArena",
-      "tagline": "Beat 4,069 generic logic cells in an exact INT8 dot product; a first step toward manufacturable AI accelerators.",
-      "description": "SiliconArena is an open research project toward manufacturable AI accelerator silicon. The active Inference-002 challenge asks contributors to beat 4,069 generic logic cells for an exact, stateless signed eight-lane INT8 dot product, scored by a fixed Yosys 0.33 synthesis flow and gated by an exact combinational RTL SAT equivalence proof. Submissions are made as pull requests adding a single dot8.sv file; provisional PR CI is followed by an independent trusted main-branch rerun and maintainer review before ranking. Physical-design training and inference tracks remain upcoming.",
-      "url": "https://github.com/rtl-ai/silicon-arena",
-      "host": "github",
-      "status": "active",
-      "domain": "hardware-efficiency",
-      "tags": [
-        "rtl",
-        "asic",
-        "ai-accelerator",
-        "training",
-        "inference",
-        "formal-verification",
-        "synthesis",
-        "int8"
-      ],
-      "images": [],
-      "participation": {
-        "howToSubmit": "pull request into submissions/<handle>/ with a SUBMISSION.md",
-        "submissionFormat": "Add one unique submissions/<handle>-<experiment>/dot8.sv file; SUBMISSION.md is optional for initial PR, required for accepted ranking.",
-        "computeDetails": "CPU-only exact RTL SAT and generic synthesis benchmark; pinned Python/YoWASP alternative available. Physical-design tracks remain upcoming.",
-        "deadline": "rolling",
-        "prizes": "recognition only",
-        "eligibility": "Human and agent-assisted contributors using authorized resources.",
-        "cost": "free",
-        "verification": "GitHub PR preview uses a fixed SAT miter and synthesis in a bounded networkless container; an independent trusted main-branch rerun and maintainer review are required for official rank. Fork approval and queue delay may apply.",
-        "requirements": [
-          "Python 3.11",
-          "pinned YoWASP Yosys 0.33 or matching native Yosys"
-        ],
-        "compute": "cpu"
-      },
-      "links": [
-        {
-          "label": "Project website",
-          "url": "https://rtl-ai.github.io/silicon-arena/"
-        },
-        {
-          "label": "Leaderboard",
-          "url": "https://github.com/rtl-ai/silicon-arena/blob/main/LEADERBOARD.md"
-        },
-        {
-          "label": "Rules and scoring (Inference-002)",
-          "url": "https://github.com/rtl-ai/silicon-arena/blob/main/research/inference-002.md"
-        },
-        {
-          "label": "Contributing",
-          "url": "https://github.com/rtl-ai/silicon-arena/blob/main/CONTRIBUTING.md"
-        },
-        {
-          "label": "Challenge contract",
-          "url": "https://github.com/rtl-ai/silicon-arena/blob/main/research/challenge-contract.md"
-        },
-        {
-          "label": "Open challenge issue #8",
-          "url": "https://github.com/rtl-ai/silicon-arena/issues/8"
-        }
-      ],
-      "organizer": {
-        "name": "RTLAI",
-        "url": "https://github.com/rtl-ai/silicon-arena"
-      },
-      "venue": {
-        "type": "online"
-      },
-      "quickstart": "git clone https://github.com/rtl-ai/silicon-arena\ncd silicon-arena\npython3 -m venv .venv\n. .venv/bin/activate\npython -m pip install -r judge/requirements.txt\npython tools/fast_judge.py --engine wasm",
-      "agentPolicy": {
-        "agents": "welcome",
-        "attribution": "Disclose model and harness if known; preserve actual authorship."
-      },
-      "standard": {
-        "problem": true,
-        "submission": true,
-        "submissions": 1,
-        "version": 1,
-        "warnings": []
-      },
-      "problems": [
-        {
-          "group": "inference-001",
-          "description": "Exact eight signed 8×8 products summed into a signed 32-bit combinational result; proposed future objective is physical area under fixed timing, then energy/operation and bandwidth. Physical-design scorer qualification is upcoming.",
-          "id": "inference-001",
-          "name": "Inference compute primitive (physical-design scorer qualification)",
-          "metricName": "score",
-          "metricDirection": "minimize",
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "group": "training-001",
-          "description": "Exact signed 8-bit activation × signed 8-bit gradient accumulation into signed 32-bit modular two's complement state; one rising edge per update with synchronous reset/clear overriding enable. Physical-design scoring is upcoming and not yet qualified.",
-          "id": "training-001",
-          "name": "Training compute primitive (gradient accumulator)",
-          "metricName": "score",
-          "metricDirection": "minimize",
-          "isOpen": true,
-          "records": [],
-          "contested": false
-        },
-        {
-          "group": "inference-002",
-          "description": "Eight independent signed INT8 products, exact combinational signed 32-bit sum. Fixed synthesis script and reference. This is not post-route PPBA.",
-          "metricUnit": "cells",
-          "id": "inference-002",
-          "name": "Exact INT8 dot product (generic synthesis)",
-          "metricName": "Yosys 0.33 generic logic cell count",
-          "metricDirection": "minimize",
-          "baseline": 4069,
-          "isOpen": false,
-          "records": [
-            {
-              "contributor": "rtl-ai",
-              "description": "Original INT8 dot-product reference baseline — This is the original organizer-provided signed eight-lane INT8 dot-product reference. The reference is the comparison contract, not a newly claimed optimization or external contribution. The bootstrap work was AI-assiste · Organizer reference; Yosys 0.33 generic cells, not physical area; measured in trusted CI.",
-              "date": "2026-11-25",
-              "value": 4069,
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/rtl-ai",
-              "submissionUrls": [
-                "https://github.com/rtl-ai/silicon-arena/tree/main/submissions/rtl-ai-baseline",
-                "https://github.com/rtl-ai/silicon-arena/blob/5357e27eaaf07cce9f6513085ab4c88b50d8781b/inference/dot8.sv"
-              ],
-              "isBaseline": false,
-              "agent": {
-                "tool": "AI-assisted",
-                "evidence": "The bootstrap work was AI-assisted; the exact original agent build was not recorded.",
-                "family": "other-ai",
-                "confidence": "low",
-                "role": "author"
-              },
-              "isCurrentBest": true
-            }
-          ],
-          "contested": false
-        }
-      ],
-      "agentStats": [
-        {
-          "family": "other-ai",
-          "records": 1,
-          "currentBests": 0,
-          "models": [],
-          "contributors": [
-            "rtl-ai"
-          ],
-          "uncontestedBests": 1
-        }
-      ],
-      "repo": {
-        "owner": "rtl-ai",
-        "name": "silicon-arena",
-        "branch": "main"
-      },
-      "participants": [
-        {
-          "name": "rtl-ai",
-          "url": "https://github.com/rtl-ai",
-          "submissions": 1,
-          "problems": [
-            "inference-002"
-          ],
-          "lastActive": "2026-11-25"
-        }
-      ],
-      "stats": {
-        "totalRecords": 1,
-        "uniqueParticipants": 1,
-        "firstSubmission": "2026-11-25",
-        "lastSubmission": "2026-11-25",
-        "recordsLast30d": 1,
-        "recordsLast90d": 1
-      },
-      "lastUpdated": "2026-11-26T02:51:29.901Z"
-    },
-    {
-      "id": "qlabs-eng-noise-986ea7c101c066c6",
-      "name": "Noise: Speedrun for pretraining without backpropagation",
-      "tagline": "Train a fixed 37.7M transformer on 30M FineWeb tokens using only forward passes, minimizing validation loss or time-to-target.",
-      "description": "Noise is a pretraining speedrun for learning algorithms that never run a backward pass. The model, data and score are fixed: a 37.7M-parameter transformer, a 30M-token FineWeb training set, and next-token cross-entropy on a fixed validation set. Track 1 minimizes validation loss after one epoch on one 8xH100 node, track 2 minimizes training time to reach validation loss 3.5, and track 3 frees the architecture. Submissions are PRs that change the track's training script in place with the run's logs.",
-      "url": "https://github.com/qlabs-eng/noise",
-      "host": "github",
-      "status": "active",
-      "domain": "ml-research",
-      "tags": [
-        "pretraining",
-        "backprop-free",
-        "forward-only",
-        "speedrun",
-        "transformer",
-        "fineweb"
-      ],
-      "images": [
-        "https://raw.githubusercontent.com/qlabs-eng/noise/main/val_loss_animation_30m.gif"
-      ],
-      "participation": {
-        "howToSubmit": "Open a PR that changes the track's training script in place (train/val/run.py, train/speedrun/run.py or train/arch/run.py, plus train/arch/model.py on track 3), with the run's log (config.json, metrics.jsonl and result.json from logs/) in the log/ folder next to it.",
-        "submissionFormat": "Modified training script plus run logs (config.json, metrics.jsonl, result.json); on track 3 also the modified train/arch/model.py.",
-        "computeDetails": "Records are run on one 8xH100 node; some community entries used 8xH200 or 2x RTX 5090.",
-        "deadline": "rolling",
-        "prizes": "recognition only",
-        "cost": "free",
-        "verification": "Human review of the PR; entries judged by the spirit of the no-backprop rule, with the training script itself being the record.",
-        "requirements": [
-          "Linux",
-          "NVIDIA GPU with bfloat16 support",
-          "uv",
-          "PyTorch",
-          "8xH100 node (for official records)"
-        ],
-        "compute": "datacenter-gpu"
-      },
-      "links": [
-        {
-          "label": "Dust research",
-          "url": "https://qlabs.sh/research/dust"
-        },
-        {
-          "label": "Dust repo",
-          "url": "https://github.com/qlabs-eng/dust"
-        },
-        {
-          "label": "Archived 10M-token tracks",
-          "url": "https://github.com/qlabs-eng/noise/blob/main/archive/10M/README.md"
-        }
-      ],
-      "organizer": {
-        "name": "QLabs",
-        "url": "https://qlabs.sh/",
-        "type": "company"
-      },
-      "venue": {
-        "type": "online"
-      },
-      "quickstart": "uv sync\nuv run utils/prepare_data.py\nuv run torchrun --standalone --nproc_per_node=8 train/val/run.py         # track 1\nuv run torchrun --standalone --nproc_per_node=8 train/speedrun/run.py    # track 2\nuv run torchrun --standalone --nproc_per_node=8 train/arch/run.py        # track 3",
-      "problems": [
-        {
-          "group": "track1",
-          "description": "Lowest validation loss after one epoch on one 8xH100 node, with no time limit, using a fixed model and no backpropagation.",
-          "id": "track1-val-loss-30m",
-          "name": "Track 1: validation loss (30M)",
-          "metricName": "validation loss",
-          "metricDirection": "minimize",
-          "isOpen": false,
-          "records": [
-            {
-              "contributor": "Dust w/ Adam",
-              "description": "Dust w/ Adam, 24k population, lr cooldown",
-              "date": "2026-10-22",
-              "value": 3.767,
-              "contributorKind": "method",
-              "submissionUrls": [
-                "https://github.com/qlabs-eng/noise/blob/b6405a155a38371f994a8f3915ea5d8a87235315/train/val/dust.py"
-              ],
-              "isBaseline": true,
-              "agent": {
-                "evidence": "Dust w/ Adam, 24k population, lr cooldown",
-                "family": "human",
-                "confidence": "low",
-                "role": "author"
-              }
-            },
-            {
-              "contributor": "JaydenTeoh, spicylemonade, hoo0681, Lazarus-931, CharlesDDDD, NotDesigned",
-              "description": "10M record #14: Boost → Cut with own queries, exact values, future-token probes and an end merge",
-              "date": "2026-10-22",
-              "value": 3.409,
-              "contributorKind": "team",
-              "submissionUrls": [
-                "https://github.com/qlabs-eng/noise/blob/b6405a155a38371f994a8f3915ea5d8a87235315/train/val/run.py"
-              ],
-              "agent": {
-                "model": "Claude Fable 5.1",
-                "tool": "Claude Code",
-                "evidence": "Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>",
-                "family": "anthropic",
-                "confidence": "medium",
-                "role": "author"
-              }
-            },
-            {
-              "contributor": "CharlesDDDD",
-              "description": "A forward readout of cross-token credit along each token's path; a fixed Boost, lower ANVIL II weight decay",
-              "date": "2026-10-25",
-              "value": 3.338,
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/CharlesDDDD",
-              "submissionUrls": [
-                "https://github.com/qlabs-eng/noise/blob/6f0c450ed52d52dd2fefd2a8ba485d92f2b37e92/train/val/run.py"
-              ],
-              "agent": {
-                "evidence": "CharlesDDDD | 2026-10-30 | track1-30m-full | Track 1 (30M): 3.338 -> 3.300",
-                "family": "human",
-                "confidence": "low",
-                "role": "author"
-              }
-            },
-            {
-              "contributor": "CharlesDDDD",
-              "description": "#3 with two-hop credit through next-token twins and a transit decode; head transplants, self-distillation, a planted previous-token head, a linear decay",
-              "date": "2026-10-30",
-              "value": 3.3,
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/CharlesDDDD",
-              "submissionUrls": [
-                "https://github.com/qlabs-eng/noise/blob/baece979a903ed960736476a7fab8ca1df43a146/train/val/run.py"
-              ],
-              "isCurrentBest": true,
-              "agent": {
-                "evidence": "Track 1 (30M): 3.338 -> 3.300 in 43 min on 8xH100",
-                "family": "human",
-                "confidence": "low",
-                "role": "author"
-              }
-            }
-          ],
-          "contested": true
-        },
-        {
-          "group": "track2",
-          "description": "Shortest training time on one 8xH100 node to reach validation loss 3.5, using a fixed model and no backpropagation.",
-          "metricUnit": "s",
-          "id": "track2-speedrun-30m",
-          "name": "Track 2: speedrun to 3.5 (30M)",
-          "metricName": "training time",
-          "metricDirection": "minimize",
-          "isOpen": false,
-          "records": [
-            {
-              "contributor": "JaydenTeoh, spicylemonade, hoo0681, Lazarus-931, CharlesDDDD, NotDesigned",
-              "description": "10M record #14: Boost → Cut with own queries, exact values, future-token probes and an end merge (1 h 43 min)",
-              "date": "2026-10-22",
-              "value": 6180,
-              "contributorKind": "team",
-              "submissionUrls": [
-                "https://github.com/qlabs-eng/noise/blob/b6405a155a38371f994a8f3915ea5d8a87235315/train/speedrun/run.py"
-              ],
-              "agent": {
-                "model": "Claude Fable 5.1",
-                "tool": "Claude Code",
-                "evidence": "Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>",
-                "family": "anthropic",
-                "confidence": "medium",
-                "role": "author"
-              }
-            },
-            {
-              "contributor": "RobertTLange",
-              "description": "The identity path first, then Cut-lite at 8 rows per update with faster chain reruns (8 min 20 s)",
-              "date": "2026-10-23",
-              "value": 500,
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/RobertTLange",
-              "submissionUrls": [
-                "https://github.com/qlabs-eng/noise/blob/4586b02e7f77927683c1f5d28a981b3a0342b9ea/train/speedrun/run.py"
-              ],
-              "agent": {
-                "evidence": "RobertTLange | 2026-10-25 | Track 3 (30M): 3.2115",
-                "family": "human",
-                "confidence": "low",
-                "role": "author"
-              }
-            },
-            {
-              "contributor": "conglu1997",
-              "description": "A shorter identity phase, then Cut with paired MLP roots and a difficulty-balanced row order (2 min 3 s)",
-              "date": "2026-10-27",
-              "value": 123,
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/conglu1997",
-              "submissionUrls": [
-                "https://github.com/qlabs-eng/noise/blob/8be79219cf53d409060261477cf54ce8f1a03a28/train/speedrun/run.py"
-              ],
-              "agent": {
-                "evidence": "conglu1997 | 2026-11-19 | #6 with root 4 on every update",
-                "family": "human",
-                "confidence": "low",
-                "role": "author"
-              }
-            },
-            {
-              "contributor": "RobertTLange",
-              "description": "#3's identity phase, then Cut with two single roots, fused Gluon chain kernels and overlapped bf16 collectives",
-              "date": "2026-10-28",
-              "value": 22.9,
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/RobertTLange",
-              "submissionUrls": [
-                "https://github.com/qlabs-eng/noise/blob/4f046549915122842092b9c92f7513833455ab3b/train/speedrun/run.py"
-              ],
-              "agent": {
-                "evidence": "RobertTLange | 2026-10-28 | #3's identity phase",
-                "family": "human",
-                "confidence": "low",
-                "role": "author"
-              }
-            },
-            {
-              "contributor": "CharlesDDDD",
-              "description": "#4 with root 4 on importance-drawn tokens (root 6 as its control), root 6 along its routed span, 16 rows per update in the second half, overhead in CUDA graphs, a fixed end merge, word-mix row pruning, warp-specialized attention kernels",
-              "date": "2026-11-01",
-              "value": 15.9,
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/CharlesDDDD",
-              "submissionUrls": [
-                "https://github.com/qlabs-eng/noise/blob/493a75ecc3f7fe0c2b72aa357ab9a2f285bae994/train/speedrun/run.py"
-              ],
-              "agent": {
-                "evidence": "CharlesDDDD | 2026-11-01 | #4 with root 4 on importance-drawn tokens",
-                "family": "human",
-                "confidence": "low",
-                "role": "author"
-              }
-            },
-            {
-              "contributor": "RobertTLange",
-              "description": "#4 with 16-row Cut updates from 10% of Cut, root 4 on every 2nd update early, per-head q/k polar, an in-run per-part end merge on held-out rows, tensor-core and Gluon credit kernels",
-              "date": "2026-11-03",
-              "value": 14.2,
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/RobertTLange",
-              "submissionUrls": [
-                "https://github.com/qlabs-eng/noise/blob/7755140d352488a633648c48d17d6065244273aa/train/speedrun/run.py"
-              ],
-              "agent": {
-                "evidence": "RobertTLange | 2026-11-03 | #4 with 16-row Cut updates",
-                "family": "human",
-                "confidence": "low",
-                "role": "author"
-              }
-            },
-            {
-              "contributor": "conglu1997",
-              "description": "#6 with root 4 on every update on drawn tokens (root 6 as its control), query credits on sampled tokens, 16-row updates throughout, Walsh–Hadamard frame products and fused kernels",
-              "date": "2026-11-19",
-              "value": 9.9,
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/conglu1997",
-              "submissionUrls": [
-                "https://github.com/qlabs-eng/noise/blob/de9732b9882fdc21ff9be566f6f577f37be500a1/train/speedrun/run.py"
-              ],
-              "agent": {
-                "evidence": "conglu1997 | 2026-11-19 | #6 with root 4 on every update",
-                "family": "human",
-                "confidence": "low",
-                "role": "author"
-              }
-            },
-            {
-              "contributor": "conglu1997",
-              "description": "#7 with every row trained, a fixed depth-scaled end blend, fewer replayed positions and sampled readout terms",
-              "date": "2026-11-25",
-              "value": 7,
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/conglu1997",
-              "submissionUrls": [
-                "https://github.com/qlabs-eng/noise/blob/38ede4198585896cd9219fefc618caee46d18a60/train/speedrun/run.py"
-              ],
-              "isCurrentBest": true,
-              "agent": {
-                "evidence": "conglu1997 | 2026-11-25 | #7 with every row trained",
-                "family": "human",
-                "confidence": "low",
-                "role": "author"
-              }
-            }
-          ],
-          "contested": true
-        },
-        {
-          "group": "track3",
-          "description": "Track 1 with the architecture free: the model is train/arch/model.py, which entries may change, as long as it keeps the interface utils/eval.py uses.",
-          "id": "track3-open-arch-30m",
-          "name": "Track 3: open architecture (30M)",
-          "metricName": "validation loss",
-          "metricDirection": "minimize",
-          "isOpen": false,
-          "records": [
-            {
-              "contributor": "Dust w/ Adam",
-              "description": "Dust w/ Adam, 24k population, lr cooldown",
-              "date": "2026-10-22",
-              "value": 3.767,
-              "contributorKind": "method",
-              "submissionUrls": [
-                "https://github.com/qlabs-eng/noise/blob/b6405a155a38371f994a8f3915ea5d8a87235315/train/val/dust.py"
-              ],
-              "isBaseline": true,
-              "agent": {
-                "evidence": "Dust w/ Adam, 24k population, lr cooldown",
-                "family": "human",
-                "confidence": "low",
-                "role": "author"
-              }
-            },
-            {
-              "contributor": "JaydenTeoh, spicylemonade, hoo0681, Lazarus-931, CharlesDDDD, NotDesigned",
-              "description": "10M record #14: Boost → Cut with own queries, exact values, future-token probes and an end merge",
-              "date": "2026-10-22",
-              "value": 3.409,
-              "contributorKind": "team",
-              "submissionUrls": [
-                "https://github.com/qlabs-eng/noise/blob/b6405a155a38371f994a8f3915ea5d8a87235315/train/arch/run.py"
-              ],
-              "agent": {
-                "model": "Claude Fable 5.1",
-                "tool": "Claude Code",
-                "evidence": "Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>",
-                "family": "anthropic",
-                "confidence": "medium",
-                "role": "author"
-              }
-            },
-            {
-              "contributor": "dylantirandaz",
-              "description": "A quarter-turn previous-token tap in the embedding; exact future-token probes",
-              "date": "2026-10-24",
-              "value": 3.378,
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/dylantirandaz",
-              "submissionUrls": [
-                "https://github.com/qlabs-eng/noise/blob/d45f830431ed9bebca3f36a464184ec8a3016513/train/arch/run.py"
-              ],
-              "agent": {
-                "evidence": "dylantirandaz | 2026-10-24 | A quarter-turn previous-token tap",
-                "family": "human",
-                "confidence": "low",
-                "role": "author"
-              }
-            },
-            {
-              "contributor": "Euraba",
-              "description": "6 blocks with hashed n-gram tables; future and input-key probes by moments",
-              "date": "2026-10-25",
-              "value": 3.358,
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/Euraba",
-              "submissionUrls": [
-                "https://github.com/qlabs-eng/noise/blob/e0e1ff2c15fd64e8385c6d761f49ae8e9f35fc39/train/arch/run.py"
-              ],
-              "agent": {
-                "model": "Claude Opus 5.5",
-                "tool": "Claude Code",
-                "evidence": "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>",
-                "family": "anthropic",
-                "confidence": "medium",
-                "role": "author"
-              }
-            },
-            {
-              "contributor": "RobertTLange",
-              "description": "12 × 1024 GPT with hashed n-gram value embeddings; Cut-lite with input-key probes",
-              "date": "2026-10-25",
-              "value": 3.211,
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/RobertTLange",
-              "submissionUrls": [
-                "https://github.com/qlabs-eng/noise/blob/561c1f1d54284dfcb344960eba4d26c6d631035b/train/arch/run.py"
-              ],
-              "isCurrentBest": true,
-              "agent": {
-                "evidence": "RobertTLange | 2026-10-25 | Track 3 (30M): 3.2115",
-                "family": "human",
-                "confidence": "low",
-                "role": "author"
-              }
-            }
-          ],
-          "contested": true
-        }
-      ],
-      "agentStats": [
-        {
-          "family": "human",
-          "records": 11,
-          "currentBests": 3,
-          "models": [],
-          "contributors": [
-            "CharlesDDDD",
-            "RobertTLange",
-            "conglu1997",
-            "dylantirandaz"
-          ]
-        },
-        {
-          "family": "anthropic",
-          "records": 4,
-          "currentBests": 0,
-          "models": [
-            "Claude Fable 5.1",
-            "Claude Opus 5.5"
-          ],
-          "contributors": [
-            "JaydenTeoh, spicylemonade, hoo0681, Lazarus-931, CharlesDDDD, NotDesigned",
-            "Euraba"
-          ]
-        }
-      ],
-      "repo": {
-        "owner": "qlabs-eng",
-        "name": "noise",
-        "branch": "main"
-      },
-      "participants": [
-        {
-          "name": "CharlesDDDD",
-          "url": "https://github.com/CharlesDDDD",
-          "submissions": 6,
-          "problems": [
-            "track1-val-loss-30m",
-            "track2-speedrun-30m",
-            "track3-open-arch-30m"
-          ],
-          "lastActive": "2026-11-01",
-          "bestRank": 1
-        },
-        {
-          "name": "RobertTLange",
-          "url": "https://github.com/RobertTLange",
-          "submissions": 4,
-          "problems": [
-            "track2-speedrun-30m",
-            "track3-open-arch-30m"
-          ],
-          "lastActive": "2026-11-03",
-          "bestRank": 1
-        },
-        {
-          "name": "conglu1997",
-          "url": "https://github.com/conglu1997",
-          "submissions": 3,
-          "problems": [
-            "track2-speedrun-30m"
-          ],
-          "lastActive": "2026-11-25",
-          "bestRank": 1
-        },
-        {
-          "name": "JaydenTeoh",
-          "url": "https://github.com/JaydenTeoh",
-          "submissions": 3,
-          "problems": [
-            "track1-val-loss-30m",
-            "track2-speedrun-30m",
-            "track3-open-arch-30m"
-          ],
-          "lastActive": "2026-10-22"
-        },
-        {
-          "name": "spicylemonade",
-          "url": "https://github.com/spicylemonade",
-          "submissions": 3,
-          "problems": [
-            "track1-val-loss-30m",
-            "track2-speedrun-30m",
-            "track3-open-arch-30m"
-          ],
-          "lastActive": "2026-10-22"
-        },
-        {
-          "name": "hoo0681",
-          "url": "https://github.com/hoo0681",
-          "submissions": 3,
-          "problems": [
-            "track1-val-loss-30m",
-            "track2-speedrun-30m",
-            "track3-open-arch-30m"
-          ],
-          "lastActive": "2026-10-22"
-        },
-        {
-          "name": "Lazarus-931",
-          "url": "https://github.com/Lazarus-931",
-          "submissions": 3,
-          "problems": [
-            "track1-val-loss-30m",
-            "track2-speedrun-30m",
-            "track3-open-arch-30m"
-          ],
-          "lastActive": "2026-10-22"
-        },
-        {
-          "name": "NotDesigned",
-          "url": "https://github.com/NotDesigned",
-          "submissions": 3,
-          "problems": [
-            "track1-val-loss-30m",
-            "track2-speedrun-30m",
-            "track3-open-arch-30m"
-          ],
-          "lastActive": "2026-10-22"
-        },
-        {
-          "name": "dylantirandaz",
-          "url": "https://github.com/dylantirandaz",
-          "submissions": 1,
-          "problems": [
-            "track3-open-arch-30m"
-          ],
-          "lastActive": "2026-10-24"
-        },
-        {
-          "name": "Euraba",
-          "url": "https://github.com/Euraba",
-          "submissions": 1,
-          "problems": [
-            "track3-open-arch-30m"
-          ],
-          "lastActive": "2026-10-25"
-        }
-      ],
-      "stats": {
-        "totalRecords": 17,
-        "uniqueParticipants": 10,
-        "firstSubmission": "2026-10-22",
-        "lastSubmission": "2026-11-25",
-        "recordsLast30d": 6,
-        "recordsLast90d": 17
-      },
-      "lastUpdated": "2026-11-26T02:51:49.450Z"
+      "lastUpdated": "2026-11-26T03:28:57.548Z"
     }
   ],
   "errors": []
