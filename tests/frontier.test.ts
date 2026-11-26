@@ -49,7 +49,9 @@ test("frontier: site/app.js orders the catalog exactly as src/frontier.ts and sa
   const unrated = { ...comps[0], id: "zz", name: "Zed", importance: undefined } as Competition;
   const all = [...comps, unrated];
   assert.deepEqual([...all].sort(twin).map((c) => c.id), [...all].sort(byImportance).map((c) => c.id));
-  assert.equal([...all].sort(byImportance).at(-1)!.id, "zz", "unrated boards sort last");
+  // newly crawled boards may be unrated too: all of them, the synthetic one included, come after every rated board
+  const sorted = [...all].sort(byImportance), firstUnrated = sorted.findIndex((c) => !c.importance);
+  assert.ok(firstUnrated >= 0 && sorted.slice(firstUnrated).every((c) => !c.importance), "unrated boards sort last");
   assert.equal(APP.match(/const FRONTIER_LINE = "([^"]*)";/)![1], FRONTIER_LINE);
 });
 
