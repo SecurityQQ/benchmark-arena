@@ -92,7 +92,7 @@ const TOOLS: Tool[] = [
   {
     name: "find_challenges",
     title: "Find open challenges",
-    description: "Search the open challenges (benchmark leaderboards and open problems, mostly GitHub repositories that take entries by pull request) by topic, compute and domain. Boards people entered in the last 30 days come first, then challenges with an open track. Each result has its id, a one-line summary, compute, recent entries, open tracks, page and Markdown digest URLs, and the line a person pastes into their agent to enter it. Ended challenges are left out. Call get_challenge with an id for the rules.",
+    description: "Search the open challenges (benchmark leaderboards and open problems, mostly GitHub repositories that take entries by pull request) by topic, compute and domain. Frontier boards (rated on stakes, openness and verification) come first, then by rating, then boards people entered in the last 30 days. Each result has its id, a one-line summary, compute, recent entries, open tracks, page and Markdown digest URLs, and the line a person pastes into their agent to enter it. Ended challenges are left out. Call get_challenge with an id for the rules.",
     inputSchema: {
       type: "object",
       properties: {
@@ -110,7 +110,7 @@ const TOOLS: Tool[] = [
         crawledAt: str, matched: int,
         challenges: { type: "array", items: { type: "object", properties: {
           id: str, name: str, tagline: str, domain: str, compute: str, entriesLast30d: int, participants: int, tracks: int, openTracks: int,
-          lastEntry: str, url: str, page: str, digest: str, join: str,
+          lastEntry: str, frontier: { type: "boolean" }, score: int, why: str, url: str, page: str, digest: str, join: str,
         }, required: ["id", "name", "tagline", "domain", "compute", "entriesLast30d", "participants", "tracks", "openTracks", "url", "page", "digest", "join"] } },
       },
       required: ["crawledAt", "matched", "challenges"],
@@ -124,7 +124,8 @@ const TOOLS: Tool[] = [
       const challenges = matched.slice(0, (args.limit as number | undefined) ?? 10).map((c) => ({
         id: c.id, name: c.name, tagline: c.tagline, domain: c.domain, compute: c.compute,
         entriesLast30d: c.entriesLast30d, participants: c.participants, tracks: c.tracks, openTracks: c.openTracks,
-        ...(c.lastEntry ? { lastEntry: c.lastEntry } : {}), url: c.url,
+        ...(c.lastEntry ? { lastEntry: c.lastEntry } : {}),
+        ...(c.score !== undefined ? { frontier: c.tier === "frontier", score: c.score, why: c.why } : {}), url: c.url,
         page: `${SITE}/c/${encodeURIComponent(c.id)}`, digest: `${SITE}/api/competitions/${encodeURIComponent(c.id)}.md`, join: challengeJoinLine(c.name, c.id),
       }));
       const structured = { crawledAt: index.crawledAt, matched: matched.length, challenges };
@@ -138,6 +139,7 @@ const TOOLS: Tool[] = [
         ...challenges.map((c, i) => [
           `${i + 1}. ${c.name} (id: ${c.id})`,
           `   ${c.tagline}`,
+          ...(c.score !== undefined ? [`   ${c.frontier ? "On the frontier" : "Rated"} ${c.score}/10: ${c.why}`] : []),
           `   ${COMPUTE_LABEL[c.compute] ?? c.compute} · ${c.domain} · ${plural(c.entriesLast30d, "entry", "entries")} in the last 30 days · ${c.openTracks ? `${plural(c.openTracks, "open track")} of ${c.tracks}` : `${plural(c.tracks, "track")}, none open`}${c.lastEntry ? ` · last entry ${c.lastEntry}` : ""}`,
           `   Page: ${c.page} · digest: ${c.digest}`,
           `   Join line: ${c.join}`,

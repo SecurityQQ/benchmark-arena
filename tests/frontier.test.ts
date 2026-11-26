@@ -65,3 +65,11 @@ test("frontier: the home page lists the frontier before everything else, and boa
   assert.ok(all.find((p) => p.path === "/c/alchemistry-2027")!.body.includes(`On the frontier: <b>${c.importance!.score}/10</b>`));
   assert.ok(withImportance([c], {})[0].importance, "an attached rating is kept when nothing new is rated");
 });
+
+test("frontier: find_challenges (MCP) ranks frontier boards first when the query does not decide", async () => {
+  const { competitionIndex, findChallenges } = await import("../src/aggregate.js");
+  const found = findChallenges(competitionIndex(loadPublished(process.cwd()).competitions));
+  const firstOther = found.findIndex((c) => c.tier !== "frontier");
+  assert.ok(firstOther > 0 && found.slice(firstOther).every((c) => c.tier !== "frontier"));
+  assert.equal(found[0].score, Math.max(...found.map((c) => c.score ?? 0)));
+});
