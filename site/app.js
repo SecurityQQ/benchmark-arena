@@ -1,6 +1,6 @@
 // Open Challenge List — home / competition / people / agents
 let D = null; // { competitions, people, agents, openProblems, crawledAt }
-const state = { q: "", status: "", compute: "", domain: "", tag: "", open: false, sort: "active" };
+const state = { q: "", status: "", compute: "", domain: "", tag: "", open: false, sort: "importance" };
 
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 // Neutralize dangerous URL schemes; allow http(s), root-relative, hash and mailto URLs.
@@ -510,7 +510,7 @@ function renderSidebar() {
     </div>
     <div class="sb-group">
       ${item({ href: "/", icon: I.search, label: "Search", kbd: "⌘K", action: "search" })}
-      ${item({ href: "/", icon: I.grid, label: "Competitions", n: comps.length, on: onHome && !state.open && !state.domain && !state.compute && state.sort !== "recent", action: "app", patch: { q: "", status: "", compute: "", domain: "", tag: "", open: false, sort: "active" } })}
+      ${item({ href: "/", icon: I.grid, label: "Competitions", n: comps.length, on: onHome && !state.open && !state.domain && !state.compute && state.sort !== "recent", action: "app", patch: { q: "", status: "", compute: "", domain: "", tag: "", open: false, sort: "importance" } })}
       ${item({ href: "/?sort=recent", icon: I.clock, label: "Recent", on: onHome && !state.open && !state.domain && !state.compute && state.sort === "recent", action: "app", patch: { q: "", status: "", compute: "", domain: "", tag: "", open: false, sort: "recent" } })}
       ${item({ href: "/", icon: I.flag, label: "Open problems", n: D.openProblems.length, on: onHome && state.open, action: "app", patch: { open: true, sort: "open" } })}
       ${item({ href: "/agents", icon: I.bot, label: "Agents", n: D.agents.length, on: p.startsWith("/agents"), action: "nav" })}
@@ -586,7 +586,7 @@ function renderAppHome() {
   const comps = D.competitions;
   const domains = [...new Set(comps.map((c) => c.domain).filter(Boolean))].sort();
   const tags = Object.entries(comps.flatMap((c) => c.tags).reduce((a, t) => ((a[t] = (a[t] || 0) + 1), a), {})).sort((a, b) => b[1] - a[1]).slice(0, 12).map(([t]) => t);
-  const SORTS = { active: "Most active", recent: "Recent", records: "Most records", open: "Open problems first", name: "Name A–Z" };
+  const SORTS = { importance: "Frontier first", active: "Most active", recent: "Recent", records: "Most records", open: "Open problems first", name: "Name A–Z" };
   const fams = D.agents.filter((a) => a.family !== "human" && a.family !== "unknown").slice(0, 9);
   const max = Math.max(1, ...fams.map((a) => a.records));
   const active = [
@@ -619,7 +619,7 @@ function renderAppHome() {
         <select id="f-status"><option value="">Any status</option>${["active", "upcoming", "ended", "unknown"].map((s) => `<option ${state.status === s ? "selected" : ""}>${s}</option>`).join("")}</select>
         <select id="f-compute"><option value="">Any compute</option>${Object.keys(COMPUTE).map((k) => `<option value="${k}" ${state.compute === k ? "selected" : ""}>${COMPUTE[k]}</option>`).join("")}</select>
         <select id="f-domain"><option value="">Any domain</option>${domains.map((d) => `<option value="${esc(d)}" ${state.domain === d ? "selected" : ""}>${esc(DOMAIN[d] || d)}</option>`).join("")}</select>
-        <select id="f-sort">${Object.entries(SORTS).map(([k, v]) => `<option value="${k}" ${(state.sort || "active") === k ? "selected" : ""}>${v}</option>`).join("")}</select>
+        <select id="f-sort">${Object.entries(SORTS).map(([k, v]) => `<option value="${k}" ${(state.sort || "importance") === k ? "selected" : ""}>${v}</option>`).join("")}</select>
         <label class="chip ${state.open ? "on" : ""}"><input type="checkbox" id="f-open" ${state.open ? "checked" : ""} hidden> has open problems</label>
       </div>
       <div class="chips" style="margin-bottom:20px">${tags.map((t) => `<button class="chip ${state.tag === t ? "on" : ""}" data-tag="${esc(t)}">${esc(t)}</button>`).join("")}</div>
@@ -1060,7 +1060,7 @@ function renderHome() {
   const attributed = comps.reduce((s, c) => s + c.problems.reduce((s2, p) => s2 + p.records.filter((r) => r.agent && r.agent.family !== "unknown" && !r.isBaseline && r.agent.role !== "subject").length, 0), 0);
   const domains = [...new Set(comps.map((c) => c.domain).filter(Boolean))].sort();
   const tags = Object.entries(comps.flatMap((c) => c.tags).reduce((a, t) => ((a[t] = (a[t] || 0) + 1), a), {})).sort((a, b) => b[1] - a[1]).slice(0, 14).map(([t]) => t);
-  const SORTS = { active: "Most active", recent: "Recent", records: "Most records", open: "Open problems first", name: "Name A–Z" };
+  const SORTS = { importance: "Frontier first", active: "Most active", recent: "Recent", records: "Most records", open: "Open problems first", name: "Name A–Z" };
 
   app.innerHTML = `
     <div class="just-in" id="just-in" hidden></div>
@@ -1084,7 +1084,7 @@ function renderHome() {
     </section>
     <section class="band tight kpi-band"><div class="wrap">
       <div class="kpis">
-        <a class="kpi" href="#catalog" data-action="catalog" data-patch='{"q":"","status":"","compute":"","domain":"","tag":"","open":false,"sort":"active"}'><b>${comps.length}</b>competitions<span class="kpi-arrow">→</span></a>
+        <a class="kpi" href="#catalog" data-action="catalog" data-patch='{"q":"","status":"","compute":"","domain":"","tag":"","open":false,"sort":"importance"}'><b>${comps.length}</b>competitions<span class="kpi-arrow">→</span></a>
         <a class="kpi" href="#open" data-action="section" data-section="open"><b>${D.openProblems.length}</b>open problems<span class="kpi-arrow">→</span></a>
         <a class="kpi" href="#catalog" data-action="catalog" data-patch='{"sort":"records"}'><b>${fmt(records)}</b>records<span class="kpi-arrow">→</span></a>
         <a class="kpi" href="/people" data-action="nav"><b>${D.people.length}</b>contributors<span class="kpi-arrow">→</span></a>
@@ -1106,7 +1106,7 @@ function renderHome() {
         <select id="f-status"><option value="">Any status</option>${["active", "upcoming", "ended", "unknown"].map((s) => `<option ${state.status === s ? "selected" : ""}>${s}</option>`).join("")}</select>
         <select id="f-compute"><option value="">Any compute</option>${Object.keys(COMPUTE).map((k) => `<option value="${k}" ${state.compute === k ? "selected" : ""}>${COMPUTE[k]}</option>`).join("")}</select>
         <select id="f-domain"><option value="">Any domain</option>${domains.map((d) => `<option value="${esc(d)}" ${state.domain === d ? "selected" : ""}>${esc(DOMAIN[d] || d)}</option>`).join("")}</select>
-        <select id="f-sort">${Object.entries(SORTS).map(([k, v]) => `<option value="${k}" ${(state.sort || "active") === k ? "selected" : ""}>${v}</option>`).join("")}</select>
+        <select id="f-sort">${Object.entries(SORTS).map(([k, v]) => `<option value="${k}" ${(state.sort || "importance") === k ? "selected" : ""}>${v}</option>`).join("")}</select>
         <label class="chip ${state.open ? "on" : ""}"><input type="checkbox" id="f-open" ${state.open ? "checked" : ""} hidden> has open problems</label>
       </div>
       <div class="chips" style="margin-bottom:32px">${tags.map((t) => `<button class="chip ${state.tag === t ? "on" : ""}" data-tag="${esc(t)}">${esc(t)}</button>`).join("")}</div>
@@ -1211,7 +1211,8 @@ function renderGrid() {
     .sort((a, b) => {
       const st = (order[a.status] ?? 9) - (order[b.status] ?? 9);
       const openN = (c) => c.problems.filter((p) => p.isOpen).length;
-      switch (state.sort || "active") {
+      switch (state.sort || "importance") {
+        case "importance": return byImportance(a, b);
         case "records": return b.stats.totalRecords - a.stats.totalRecords || st;
         case "recent": return (b.stats.lastSubmission || "").localeCompare(a.stats.lastSubmission || "") || st;
         case "open": return openN(b) - openN(a) || st || b.stats.totalRecords - a.stats.totalRecords;
@@ -1223,9 +1224,24 @@ function renderGrid() {
   const count = document.getElementById("grid-count");
   if (count) count.textContent = `${list.length} of ${D.competitions.length}`;
   if (!list.length) return (grid.innerHTML = `<div style="grid-column:1/-1">${emptyArt("compass", "Nothing matches.", "The measure is too strict. Clear a filter and try again, or <a href='/submit' data-action='nav'>submit the competition you were looking for</a>.")}</div>`);
-  grid.innerHTML = list.map(card).join("");
+  // frontier first: a heading over each part, so the boards that matter most are never mixed in with the rest
+  const tiered = (state.sort || "importance") === "importance", head = (t, s) => `<div class="tier-head"><h3>${t}</h3><p>${s}</p></div>`;
+  grid.innerHTML = list.map((c, i) => (tiered && i === 0 && isFront(c) ? head("On the frontier", FRONTIER_LINE) : "")
+    + (tiered && !isFront(c) && (i === 0 || isFront(list[i - 1])) ? head("Everything else", "Benchmarks and leaderboards off the frontier, most important first.") : "") + card(c)).join("");
   grid.querySelectorAll(".card").forEach((el) => (el.onclick = (e) => { if (!e.target.closest(".btn, .ask")) nav(`/c/${pathPart(el.dataset.id)}`); }));
 }
+
+// The catalog's order (src/frontier.ts byImportance and FRONTIER_LINE are the originals): frontier first, then by score
+// (unrated last), boards that still take entries first, then who entered lately
+const FRONTIER_LINE = "Boards where an entry can matter beyond the board: stakes 3+ of 4, a score of 8+ of 10, still taking entries.";
+const isFront = (c) => c.importance?.tier === "frontier";
+function byImportance(a, b) {
+  const tier = (c) => (c.importance?.tier === "frontier" ? 0 : 1);
+  return tier(a) - tier(b) || (b.importance?.score ?? -1) - (a.importance?.score ?? -1)
+    || Number(a.status === "ended") - Number(b.status === "ended")
+    || b.stats.recordsLast30d - a.stats.recordsLast30d || b.stats.totalRecords - a.stats.totalRecords || a.name.localeCompare(b.name);
+}
+const scoreChip = (c) => c.importance ? `<span class="score-chip${isFront(c) ? " front" : ""}" title="Stakes ${c.importance.stakes}/4 · open ${c.importance.open}/3 · verified ${c.importance.verified}/3">${isFront(c) ? "Frontier · " : ""}${c.importance.score}/10</span>` : "";
 
 function card(c) {
   const p = c.participation, last = ago(c.stats.lastSubmission), img = c.images[0];
@@ -1237,7 +1253,8 @@ function card(c) {
       <div class="card-body">
         <div class="card-top"><h3>${esc(c.name)}</h3><span class="badge ${esc(c.status)}">${esc(c.status)}</span></div>
         ${stdBadge(c)}
-        <div class="tagline">${esc(c.tagline)}</div>
+        ${scoreChip(c)}
+        <div class="tagline">${esc(c.importance?.why || c.tagline)}</div>
         <div class="card-meta">
           <span><b>${c.problems.length}</b> track${c.problems.length === 1 ? "" : "s"}${open ? ` <span class="openpill">${open} open</span>` : ""}</span>
           <span><b>${esc(c.stats.totalRecords)}</b> records</span>

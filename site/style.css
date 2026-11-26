@@ -1327,3 +1327,11 @@ img.pc-face { object-fit: cover; background: var(--canvas-2); }
 .since-list a { color: var(--ink); }
 .since-n { font-family: var(--font-mono); font-size: 12px; color: var(--olive); }
 .since-none { margin: 8px 0 0; font-size: 14px; color: var(--muted); }
+
+/* Frontier first (src/frontier.ts): a heading over each part of the catalog, and each card's score */
+.tier-head { grid-column: 1 / -1; display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin: 12px 0 -4px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+.tier-head:first-child { margin-top: 0; }
+.tier-head h3 { font-family: var(--font-serif); font-size: 26px; font-weight: 500; }
+.tier-head p { color: var(--muted); font-size: 14px; }
+.score-chip { align-self: flex-start; font-family: var(--font-mono); font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 2px 9px; }
+.score-chip.front { color: #fff; background: var(--ink, #141413); border-color: transparent; }

@@ -16,6 +16,7 @@ import { NO_DISCOVERIES, loadDiscoveries } from "./discoveries.js";
 import { cardRenderer, type CardRenderer } from "./og.js";
 import { loadAgentDocs, withAgentDocs } from "./agentDocs.js";
 import { badgeFile, competitionBadge, listedBadge } from "./badge.js";
+import { loadRatings, withImportance } from "./frontier.js";
 import { boardJoinFile, boardJoinTxt } from "./boardJoin.js";
 
 // IndexNow (Bing, Yandex, Seznam…): the key is public by design; the file at /{key}.txt proves the site owns it
@@ -68,12 +69,12 @@ export function publicDataset(value: CrawlResult): Pick<CrawlResult, "crawledAt"
 }
 
 // What the site publishes: the crawled dataset with the checked corrections applied, the 30/90-day entry counts as of the crawl,
-// links to the organizers' own instructions for agents (data/agent-docs.json, when present) and each entry's people's
-// profiles (src/profiles.ts)
+// links to the organizers' own instructions for agents (data/agent-docs.json, when present), each board's rating
+// (data/frontier.json, src/frontier.ts) and each entry's people's profiles (src/profiles.ts)
 export function loadPublished(root: string) {
   const crawled = publicDataset(JSON.parse(readFileSync(join(root, "data", "competitions.json"), "utf-8")));
   const corrected = applyCorrections(crawled.competitions, loadCorrections(root, new Set(crawled.competitions.map((c) => c.id))));
-  const comps = withAgentDocs(withEntryCounts(corrected, crawled.crawledAt), loadAgentDocs(root));
+  const comps = withImportance(withAgentDocs(withEntryCounts(corrected, crawled.crawledAt), loadAgentDocs(root)), loadRatings(root));
   return { ...crawled, competitions: withProfiles(comps, buildProfiles(comps)) };
 }
 

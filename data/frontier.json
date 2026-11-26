@@ -1,0 +1,376 @@
+{
+  "about": "How much each listed challenge matters (src/frontier.ts). stakes 0-4: what changes for people if it is solved; open 0-3: can an entry be new knowledge; verified 0-3: who decides an entry counts. On the frontier: stakes >= 3, total >= 8, still taking entries. A rating is a judgment: change one only with a reason in the PR.",
+  "ratings": {
+    "open-goat-pequalnp-proofs-529cfdd011232bcc": {
+      "stakes": 4,
+      "open": 3,
+      "verified": 3,
+      "why": "A Millennium Prize problem, worked on live by an AI agent fleet in Lean 4: every accepted step is checked by the proof assistant.",
+      "checked": "2026-11-26"
+    },
+    "alchemistry-2027": {
+      "stakes": 4,
+      "open": 3,
+      "verified": 3,
+      "why": "Dengue infects up to 400 million people a year and has no specific treatment; predictions are scored against lab measurements released after the deadline.",
+      "checked": "2026-11-26"
+    },
+    "ai-tx-challenge": {
+      "stakes": 4,
+      "open": 3,
+      "verified": 2,
+      "why": "Turns a rare-disease patient's genetic diagnosis into a therapy plan; clinical experts grade the reports, with $12,500 in prizes.",
+      "checked": "2026-11-26"
+    },
+    "open-discovery-challenge": {
+      "stakes": 4,
+      "open": 2,
+      "verified": 2,
+      "why": "Drug candidates for neglected tropical diseases, which affect over a billion people; each season's top-scored molecule takes the prize.",
+      "checked": "2026-11-26"
+    },
+    "osgood001-riemann-hypothesis-27b8a22da0a4924e": {
+      "stakes": 3,
+      "open": 2,
+      "verified": 3,
+      "why": "Shorten the pillars of a Lean 4 formalization that claims a proof of the Riemann Hypothesis; every run is machine-checked.",
+      "checked": "2026-11-26"
+    },
+    "bigospeedrun-verifier-d059f6016f1c0796": {
+      "stakes": 3,
+      "open": 3,
+      "verified": 2,
+      "why": "Lower the complexity of matrix and integer multiplication, 3SUM, APSP and more: each record is a new result in algorithms.",
+      "checked": "2026-11-26"
+    },
+    "first-proof": {
+      "stakes": 3,
+      "open": 3,
+      "verified": 2,
+      "why": "Unpublished research-level problems, one shot each, graded blind by expert referees: a direct test of whether AI can do new mathematics.",
+      "checked": "2026-11-26"
+    },
+    "teorth-optimizationproblems-c73e6b86a3a6d494": {
+      "stakes": 3,
+      "open": 3,
+      "verified": 2,
+      "why": "Terence Tao's crowdsourced table of best known bounds on mathematical constants: every improvement is a new result.",
+      "checked": "2026-11-26"
+    },
+    "ndif-team-looped-lens-challenge-760f0dba003c4c92": {
+      "stakes": 3,
+      "open": 3,
+      "verified": 2,
+      "why": "Read what a looped model computes but never writes: interpretability, the method AI safety leans on, scored on hidden questions.",
+      "checked": "2026-11-26"
+    },
+    "kaggle-google-verifiable-quantum-circuit-compilation": {
+      "stakes": 3,
+      "open": 2,
+      "verified": 3,
+      "why": "Shrink the circuits a useful quantum computer must run, with a verifier proving they compute the same thing.",
+      "checked": "2026-11-26"
+    },
+    "qlabs-eng-noise-986ea7c101c066c6": {
+      "stakes": 3,
+      "open": 3,
+      "verified": 2,
+      "why": "Pretrain a transformer with forward passes only: whether learning without backpropagation can compete is an open question.",
+      "checked": "2026-11-26"
+    },
+    "kellerjordan-modded-nanogpt-b334f62b98ac328d": {
+      "stakes": 3,
+      "open": 2,
+      "verified": 2,
+      "why": "The speedrun that gave the field the Muon optimizer: each record trains a GPT-2-level model faster on 8×H100.",
+      "checked": "2026-11-26"
+    },
+    "reference-kernels": {
+      "stakes": 2,
+      "open": 2,
+      "verified": 3,
+      "why": "The largest kernel competition: over 1,600 people writing the fastest GPU code, timed on real NVIDIA and AMD hardware.",
+      "checked": "2026-11-26"
+    },
+    "sunblaze-ucb-cybergym-7da380811009b536": {
+      "stakes": 3,
+      "open": 1,
+      "verified": 3,
+      "why": "Reproduce real vulnerabilities in open-source software as crashing proofs of concept, checked against the patched build.",
+      "checked": "2026-11-26"
+    },
+    "polymarket-paper-trader": {
+      "stakes": 2,
+      "open": 2,
+      "verified": 3,
+      "why": "Forecast real-world events before they resolve: reality grades every forecast.",
+      "checked": "2026-11-26"
+    },
+    "google-deepmind-formal-conjectures-26b7f8cc558bf9b7": {
+      "stakes": 2,
+      "open": 2,
+      "verified": 3,
+      "why": "Google DeepMind's Lean statements of open conjectures: the target list for AI theorem provers.",
+      "checked": "2026-11-26"
+    },
+    "crocswap-integer-mult-bounds-33a6ab842bf8f8e0": {
+      "stakes": 2,
+      "open": 3,
+      "verified": 2,
+      "why": "Sharpen a conditional bound on the cost of multiplying integers, an open research question, reviewed proof by proof.",
+      "checked": "2026-11-26"
+    },
+    "lean-eval": {
+      "stakes": 2,
+      "open": 3,
+      "verified": 3,
+      "why": "The Lean FRO's formalization problems, most still unsolved, each solution checked by Lean.",
+      "checked": "2026-11-26"
+    },
+    "leansolving-squeezebench-04bec82398b15ff6": {
+      "stakes": 2,
+      "open": 3,
+      "verified": 3,
+      "why": "Squeeze extremal combinatorics functions between Lean-verified lower and upper bounds.",
+      "checked": "2026-11-26"
+    },
+    "harbor-framework-terminal-bench-challenges-3adcf27679c7b565": {
+      "stakes": 2,
+      "open": 3,
+      "verified": 3,
+      "why": "Single tasks big enough to take an agent days, such as building a compiler, verified by tests.",
+      "checked": "2026-11-26"
+    },
+    "rtl-ai-silicon-arena-d20cfa656a05f7ad": {
+      "stakes": 2,
+      "open": 3,
+      "verified": 3,
+      "why": "Design the smallest exact INT8 dot-product circuit, a first step toward agent-designed AI accelerators, checked by synthesis.",
+      "checked": "2026-11-26"
+    },
+    "sutro-problems": {
+      "stakes": 2,
+      "open": 2,
+      "verified": 2,
+      "why": "Programs that spend the least energy for the same answer, measured with an explicit energy model.",
+      "checked": "2026-11-26"
+    },
+    "kaihui-amd-modelbot-cli-3b803e68a0cd6d71": {
+      "stakes": 1,
+      "open": 3,
+      "verified": 3,
+      "why": "Make llama.cpp's AMD ROCm backend beat Vulkan; patches are benchmarked on the organizer's GPU.",
+      "checked": "2026-11-26"
+    },
+    "s2n-bignum-bench": {
+      "stakes": 2,
+      "open": 1,
+      "verified": 3,
+      "why": "Machine-checked HOL Light proofs for AWS's cryptographic bignum library.",
+      "checked": "2026-11-26"
+    },
+    "kaggle-squares-in-squares": {
+      "stakes": 1,
+      "open": 2,
+      "verified": 3,
+      "why": "Pack N unit squares into the smallest square: a classic geometry puzzle with records still falling, checked exactly.",
+      "checked": "2026-11-26"
+    },
+    "duckbench": {
+      "stakes": 1,
+      "open": 2,
+      "verified": 3,
+      "why": "Train a robot duck in simulation; the server re-runs every entry on hidden seeds.",
+      "checked": "2026-11-26"
+    },
+    "swe-bench-pro-leaderboard": {
+      "stakes": 2,
+      "open": 1,
+      "verified": 3,
+      "why": "Real software engineering tasks scored by hidden tests: a standard measure of coding agents.",
+      "checked": "2026-11-26"
+    },
+    "terminal-bench-leaderboard": {
+      "stakes": 2,
+      "open": 1,
+      "verified": 3,
+      "why": "Terminal tasks in containers, ranked by pass rate: a standard measure of agents.",
+      "checked": "2026-11-26"
+    },
+    "programbench": {
+      "stakes": 2,
+      "open": 1,
+      "verified": 2,
+      "why": "Real software engineering tasks for coding agents, from Meta.",
+      "checked": "2026-11-26"
+    },
+    "agent-anvil-leaderboard": {
+      "stakes": 2,
+      "open": 1,
+      "verified": 2,
+      "why": "Scores agents' tool-use safety from their traces, not only their final answers.",
+      "checked": "2026-11-26"
+    },
+    "keyu-wang-2002-depthdash-3d9f7411623b2df2": {
+      "stakes": 1,
+      "open": 2,
+      "verified": 2,
+      "why": "Find the fastest residual design to train a deep, narrow language model to a target loss on 8×H100.",
+      "checked": "2026-11-26"
+    },
+    "saivineeth147-lora-speedrun-a7a730c9d43bbbbc": {
+      "stakes": 1,
+      "open": 2,
+      "verified": 2,
+      "why": "Fine-tune a small LLM to a target accuracy in the least time on one L40S.",
+      "checked": "2026-11-26"
+    },
+    "modded-nanogpt-npu": {
+      "stakes": 1,
+      "open": 2,
+      "verified": 2,
+      "why": "Port the NanoGPT speedrun records to Huawei Ascend NPUs.",
+      "checked": "2026-11-26"
+    },
+    "basicv8vc-modded-supermimic-7f81e99cb9bffec0": {
+      "stakes": 1,
+      "open": 2,
+      "verified": 2,
+      "why": "Train a humanoid motion-tracking policy from scratch in the least time on one GPU.",
+      "checked": "2026-11-26"
+    },
+    "equational-theories-lean-stage2": {
+      "stakes": 2,
+      "open": 0,
+      "verified": 3,
+      "why": "Closed in August 2026: decide magma-law implications and back each answer with a Lean certificate.",
+      "checked": "2026-11-26"
+    },
+    "geo-bench-2-leaderboard": {
+      "stakes": 2,
+      "open": 1,
+      "verified": 1,
+      "why": "Geospatial foundation models on satellite datasets: crops, floods, land cover.",
+      "checked": "2026-11-26"
+    },
+    "ecro-embedeval-e8fdc6b54762f789": {
+      "stakes": 1,
+      "open": 1,
+      "verified": 2,
+      "why": "Do LLMs write safe embedded firmware C? Scored by pass@1.",
+      "checked": "2026-11-26"
+    },
+    "chi-bench": {
+      "stakes": 1,
+      "open": 1,
+      "verified": 2,
+      "why": "Healthcare administration tasks such as prior authorization.",
+      "checked": "2026-11-26"
+    },
+    "clawprobench": {
+      "stakes": 1,
+      "open": 1,
+      "verified": 2,
+      "why": "Agent scenarios inside the OpenClaw runtime.",
+      "checked": "2026-11-26"
+    },
+    "molly554-whiteboard-ai-tutor-42f8192edec654f3": {
+      "stakes": 1,
+      "open": 1,
+      "verified": 2,
+      "why": "Which LLM teaches best on a whiteboard, blind-reviewed.",
+      "checked": "2026-11-26"
+    },
+    "bichengwang-rl-pricing-767e169a4d55ab74": {
+      "stakes": 1,
+      "open": 1,
+      "verified": 2,
+      "why": "Can deep RL beat an equal-weight portfolio? Tested live, going forward.",
+      "checked": "2026-11-26"
+    },
+    "mle-bench": {
+      "stakes": 2,
+      "open": 0,
+      "verified": 2,
+      "why": "Paused since April 2026: ML engineering agents on 75 Kaggle competitions.",
+      "checked": "2026-11-26"
+    },
+    "apex-humanoid-parkour": {
+      "stakes": 1,
+      "open": 0,
+      "verified": 3,
+      "why": "Ended: a Unitree G1 parkour course in simulation.",
+      "checked": "2026-11-26"
+    },
+    "assetopsbench": {
+      "stakes": 1,
+      "open": 0,
+      "verified": 2,
+      "why": "Ended: agents for industrial maintenance.",
+      "checked": "2026-11-26"
+    },
+    "alpaca-eval": {
+      "stakes": 1,
+      "open": 1,
+      "verified": 1,
+      "why": "Instruction-following win rate, judged by an automatic annotator.",
+      "checked": "2026-11-26"
+    },
+    "cogdl": {
+      "stakes": 1,
+      "open": 1,
+      "verified": 1,
+      "why": "Graph learning leaderboards on standard datasets.",
+      "checked": "2026-11-26"
+    },
+    "skab": {
+      "stakes": 1,
+      "open": 1,
+      "verified": 1,
+      "why": "Anomaly detection in industrial sensor time series.",
+      "checked": "2026-11-26"
+    },
+    "fstandhartinger-jevbench-2acd10345790c8d1": {
+      "stakes": 1,
+      "open": 1,
+      "verified": 1,
+      "why": "Decision accuracy, calibration, latency and cost of AI decision models.",
+      "checked": "2026-11-26"
+    },
+    "metacognitionai-navgpt-3-5b9a0bda12fb75be": {
+      "stakes": 1,
+      "open": 1,
+      "verified": 1,
+      "why": "Vision-and-language navigation results on standard splits.",
+      "checked": "2026-11-26"
+    },
+    "starvla-starvla-0f3b6fdaa7e288ea": {
+      "stakes": 1,
+      "open": 1,
+      "verified": 1,
+      "why": "A toolkit for vision-language-action robot models; no leaderboard tracks yet.",
+      "checked": "2026-11-26"
+    },
+    "llm-leaderboard": {
+      "stakes": 1,
+      "open": 1,
+      "verified": 1,
+      "why": "A community table of LLM benchmark scores.",
+      "checked": "2026-11-26"
+    },
+    "squad-explorer": {
+      "stakes": 0,
+      "open": 1,
+      "verified": 2,
+      "why": "A classic reading-comprehension benchmark, now largely saturated.",
+      "checked": "2026-11-26"
+    },
+    "open-challenges-rh-golf-6f5da8d7767c2065": {
+      "stakes": 3,
+      "open": 2,
+      "verified": 3,
+      "why": "Cut the Lean 4 proof of the Riemann Hypothesis to the fewest lines; every entry is rebuilt and replayed through Lean's kernel.",
+      "checked": "2026-11-26"
+    }
+  }
+}

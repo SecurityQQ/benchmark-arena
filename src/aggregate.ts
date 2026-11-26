@@ -163,6 +163,7 @@ export function competitionIndex(comps: Competition[]) {
     agents: (c.agentStats ?? []).filter((a) => a.family !== "unknown").map((a) => a.family),
     url: c.url, page: `/c/${encodeURIComponent(c.id)}`, digest: `/api/competitions/${encodeURIComponent(c.id)}.md`,
     ...(c.agentDocs?.length ? { agentDocs: c.agentDocs } : {}),   // only boards that have them: the index stays small
+    ...(c.importance ? { tier: c.importance.tier, score: c.importance.score, why: c.importance.why } : {}),   // src/frontier.ts
   }));
 }
 
