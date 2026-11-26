@@ -498,11 +498,11 @@
     "checkedAt": "2026-10-13T23:04:09.588Z"
   },
   "molly554/whiteboard-ai-tutor": {
-    "pushedAt": "2026-11-26T07:11:56Z",
+    "pushedAt": "2026-11-26T09:39:31Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-26T09:11:35.432Z",
-    "head": "5a277a9abe51ca9a24918ec07c57d209fbc69d90",
+    "checkedAt": "2026-11-26T12:24:53.990Z",
+    "head": "3fae0a6f12a32b41914b5a8ce0ba2179f5e1a40d",
     "sources": [
       "README.md",
       "results/leaderboard.json",
@@ -514,6 +514,7 @@
       "docs/METHOD.md",
       "docs/REPORT.md",
       "docs/REPORT.zh-CN.md",
+      "docs/INTERACTIVE.md",
       "CHANGELOG.md",
       "ROADMAP.md",
       "CONTRIBUTING.md",
@@ -663,11 +664,11 @@
     "checkedAt": "2026-10-19T09:13:56.124Z"
   },
   "rtl-ai/silicon-arena": {
-    "pushedAt": "2026-11-26T02:07:34Z",
+    "pushedAt": "2026-11-26T12:20:15Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-26T05:38:06.634Z",
-    "head": "6e6911d6484bab6834063d919088f369e4417cc5",
+    "checkedAt": "2026-11-26T12:24:18.710Z",
+    "head": "28876b9ae6b790107f7ac86eb6a5233f990db511",
     "sources": [
       "PROBLEM.md",
       "submissions/rtl-ai-baseline/SUBMISSION.md",
@@ -694,7 +695,8 @@
       "research/discovery.md",
       "research/outreach.md",
       "submissions/"
-    ]
+    ],
+    "live": true
   },
   "ryanalberts/best-of-agent-harnesses": {
     "pushedAt": "2026-11-08T18:40:59Z",
