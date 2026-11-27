@@ -443,10 +443,10 @@
       "checked": "2026-11-26"
     },
     "cdcgov-rsv-forecast-hub-5eaa3b3e4b32caea": {
-      "stakes": 3,
+      "stakes": 2,
       "open": 2,
       "verified": 3,
-      "why": "The CDC's weekly RSV hospitalization forecasts, used in public health planning; every forecast is scored against what actually happened.",
+      "why": "The CDC's weekly RSV hospitalization forecasts, the same weekly format as FluSight (the frontier pick of the three hubs); every forecast is scored against what actually happened.",
       "checked": "2026-11-26"
     },
     "vesuvius-challenge": {
@@ -485,10 +485,10 @@
       "checked": "2026-11-26"
     },
     "cdcgov-covid19-forecast-hub-19ca6a18d0b65744": {
-      "stakes": 3,
+      "stakes": 2,
       "open": 2,
       "verified": 3,
-      "why": "The CDC's weekly COVID-19 hospitalization forecasts, used in public health planning; every forecast is scored against what actually happened.",
+      "why": "The CDC's weekly COVID-19 hospitalization forecasts, the same weekly format as FluSight (the frontier pick of the three hubs); every forecast is scored against what actually happened.",
       "checked": "2026-11-26"
     },
     "dronperminov-fastmatrixmultiplication-4d5281f8ef73e8de": {
