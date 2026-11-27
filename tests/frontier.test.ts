@@ -40,7 +40,8 @@ test("frontier: the published data puts the Millennium problems and neglected cu
   const comps = loadPublished(process.cwd()).competitions, front = frontierBoards(comps).map((c) => c.id);
   for (const id of ["open-goat-pequalnp-proofs-529cfdd011232bcc", "alchemistry-2027", "osgood001-riemann-hypothesis-27b8a22da0a4924e"]) assert.ok(front.includes(id), id);
   assert.ok(!front.includes("squad-explorer"));
-  assert.ok(front.length >= 8 && front.length <= 20, `${front.length} frontier boards: the tier should stay selective`);
+  // selective: at most a third of the list (raise the bar in src/frontier.ts rather than this line if it grows past that)
+  assert.ok(front.length >= 8 && front.length <= comps.length / 3, `${front.length} of ${comps.length} boards on the frontier: the tier should stay selective`);
 });
 
 test("frontier: site/app.js orders the catalog exactly as src/frontier.ts and says the same rule", () => {
