@@ -113,6 +113,11 @@ const SEED_REPOS = [
   { owner: "CDCgov", name: "covid19-forecast-hub" },        // CDC COVID-19 Forecast Hub: weekly hospital admission forecasts by PR, scored against reported data
   { owner: "CDCgov", name: "rsv-forecast-hub" },            // CDC RSV Forecast Hub: the same weekly format for RSV, 2026-27 season opened September 23
   { owner: "google-research", name: "weatherbench2" },      // WeatherBench 2: global ML weather models scored against ERA5 on a public scorecard; models join through the submission guide
+  { owner: "lean-dojo", name: "LeanMillenniumPrizeProblems" }, // Lean 4 statements of all seven Millennium Prize problems and what counts as a solution; status table, PRs checked by lake build
+  { owner: "sedoglavic", name: "fmm_digest" },                // the Lille catalogue of best known matrix multiplication tensor ranks (fmm_sota.json), new schemes by PR
+  { owner: "dronperminov", name: "FastMatrixMultiplication" }, // fast matrix multiplication schemes (2,2,2)…(16,16,16), record table in docs/results.md, PRs
+  { owner: "jlevy", name: "squares" },                        // the Squares Project: best known packings of n unit squares (Erdős–Graham), results registered by issue and validated
+  { owner: "andrewnakas", name: "powderbench" },              // PowderBench: live mountain snowfall forecasts at ~2,400 stations, scored daily by Actions against observations, entries by PR
 ];
 
 // A raw file on a branch, or null when GitHub says it is not there. Any other failure throws: it may pass by the next run.
