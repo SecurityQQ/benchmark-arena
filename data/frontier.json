@@ -504,6 +504,13 @@
       "verified": 3,
       "why": "Forecast mountain snowfall 24 to 72 hours ahead at about 2,400 stations; observations score every forecast daily.",
       "checked": "2026-11-26"
+    },
+    "lean-dojo-leanmillenniumprizeproblems-e4f5a223cc810838": {
+      "stakes": 4,
+      "open": 3,
+      "verified": 3,
+      "why": "All seven Millennium Prize problems stated in Lean 4: a sorry-free proof of any open one would be checked by the kernel; Hodge and Yang–Mills still need faithful statements.",
+      "checked": "2026-11-26"
     }
   }
 }
