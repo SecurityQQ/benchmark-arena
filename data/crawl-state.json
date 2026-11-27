@@ -115,11 +115,11 @@
     "checkedAt": "2026-10-13T23:18:30.958Z"
   },
   "andrewnakas/powderbench": {
-    "pushedAt": "2026-11-27T04:02:11Z",
+    "pushedAt": "2026-11-27T13:27:29Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-27T04:18:15.202Z",
-    "head": "3f862abc739592fcb53c14302903c11de91f45fc",
+    "checkedAt": "2026-11-27T13:59:31.075Z",
+    "head": "3f92658fced72b8d8113e869dd78efa024ee93cc",
     "sources": [
       "README.md",
       "data/leagues.yaml",
@@ -771,21 +771,25 @@
     ]
   },
   "open-challenges/keller-zero": {
-    "pushedAt": "2026-11-26T23:18:20Z",
+    "pushedAt": "2026-11-27T08:13:37Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-27T00:19:12.339Z",
-    "head": "9157ffe4fac78586e43c42fc8e74df45f718dda2",
+    "checkedAt": "2026-11-27T14:00:10.682Z",
+    "head": "654a8ec202b86a9e2ae0f7a0e931fb80c0b0b296",
     "sources": [
       "PROBLEM.md",
       "submissions/SecurityQQ/SUBMISSION.md",
       "submissions/alpoge-stambler/SUBMISSION.md",
+      "submissions/spacerat/SUBMISSION.md",
       "README.md",
-      "DIRECTION.md",
       "FINDINGS.md",
+      "COMPLEXITY.md",
+      "DIRECTION.md",
+      "submissions/SecurityQQ/../spacerat/SUBMISSION.md",
       "AGENTS.md",
       "submissions/"
-    ]
+    ],
+    "live": true
   },
   "open-challenges/rh-golf": {
     "pushedAt": "2026-11-26T17:26:19Z",
@@ -973,11 +977,11 @@
     "checkedAt": "2026-10-19T09:13:56.124Z"
   },
   "rtl-ai/silicon-arena": {
-    "pushedAt": "2026-11-26T12:20:15Z",
+    "pushedAt": "2026-11-27T13:12:35Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-26T12:24:18.710Z",
-    "head": "28876b9ae6b790107f7ac86eb6a5233f990db511",
+    "checkedAt": "2026-11-27T13:59:53.596Z",
+    "head": "a4a477f9ae90d6286a305e2218364c661fd05ded",
     "sources": [
       "PROBLEM.md",
       "submissions/rtl-ai-baseline/SUBMISSION.md",
