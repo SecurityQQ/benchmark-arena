@@ -1,5 +1,5 @@
 {
-  "crawledAt": "2026-11-27T00:28:53.102Z",
+  "crawledAt": "2026-11-27T01:17:07.750Z",
   "competitions": [
     {
       "id": "open-challenges-fastest-lean-compiler-0273cfe4ff66c741",
@@ -145,7 +145,7 @@
         "recordsLast30d": 1,
         "recordsLast90d": 1
       },
-      "lastUpdated": "2026-11-27T00:18:59.182Z"
+      "lastUpdated": "2026-11-27T01:08:02.340Z"
     },
     {
       "id": "open-challenges-keller-zero-a5e3b6508081e209",
@@ -248,6 +248,7 @@
                 "https://github.com/open-challenges/keller-zero/tree/main/submissions/SecurityQQ"
               ],
               "isBaseline": true,
+              "isCurrentBest": true,
               "agent": {
                 "model": "Claude Fable 5.2",
                 "tool": "Claude Code",
@@ -255,8 +256,7 @@
                 "family": "anthropic",
                 "confidence": "high",
                 "role": "author"
-              },
-              "isCurrentBest": true
+              }
             }
           ],
           "contested": false
@@ -281,6 +281,7 @@
                 "https://github.com/open-challenges/keller-zero/blob/main/submissions/alpoge-stambler/SUBMISSION.md"
               ],
               "isBaseline": true,
+              "isCurrentBest": true,
               "agent": {
                 "model": "Claude Fable 5.2",
                 "tool": "Claude Code",
@@ -288,8 +289,7 @@
                 "family": "anthropic",
                 "confidence": "high",
                 "role": "author"
-              },
-              "isCurrentBest": true
+              }
             },
             {
               "contributor": "Levent Alpöge, Lev Stambler",
@@ -332,6 +332,7 @@
                 "https://github.com/open-challenges/keller-zero/blob/main/submissions/alpoge-stambler/SUBMISSION.md"
               ],
               "isBaseline": true,
+              "isCurrentBest": true,
               "agent": {
                 "model": "Claude Fable 5.2",
                 "tool": "Claude Code",
@@ -339,8 +340,7 @@
                 "family": "anthropic",
                 "confidence": "high",
                 "role": "author"
-              },
-              "isCurrentBest": true
+              }
             },
             {
               "contributor": "Levent Alpöge, Lev Stambler",
@@ -384,6 +384,7 @@
                 "https://github.com/open-challenges/keller-zero/tree/main/submissions/SecurityQQ"
               ],
               "isBaseline": true,
+              "isCurrentBest": true,
               "agent": {
                 "model": "Claude Fable 5.2",
                 "tool": "Claude Code",
@@ -391,8 +392,7 @@
                 "family": "anthropic",
                 "confidence": "high",
                 "role": "author"
-              },
-              "isCurrentBest": true
+              }
             }
           ],
           "contested": false
@@ -442,7 +442,7 @@
         "recordsLast30d": 6,
         "recordsLast90d": 6
       },
-      "lastUpdated": "2026-11-27T00:19:12.339Z"
+      "lastUpdated": "2026-11-27T01:08:02.340Z"
     },
     {
       "id": "open-challenges-shortest-riemann-hypothesis-proof-fad76d46f55ca517",
@@ -619,7 +619,7 @@
         "recordsLast30d": 2,
         "recordsLast90d": 2
       },
-      "lastUpdated": "2026-11-27T00:18:49.678Z"
+      "lastUpdated": "2026-11-27T01:08:02.341Z"
     },
     {
       "id": "kellerjordan-modded-nanogpt-b334f62b98ac328d",
@@ -2441,7 +2441,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 1
       },
-      "lastUpdated": "2026-11-27T00:18:49.680Z"
+      "lastUpdated": "2026-11-27T01:08:02.342Z"
     },
     {
       "id": "assetopsbench",
@@ -2540,7 +2540,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:18:49.680Z"
+      "lastUpdated": "2026-11-27T01:08:02.342Z"
     },
     {
       "id": "alpaca-eval",
@@ -2940,7 +2940,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:18:49.680Z"
+      "lastUpdated": "2026-11-27T01:08:02.342Z"
     },
     {
       "id": "cogdl",
@@ -5032,7 +5032,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:18:49.681Z"
+      "lastUpdated": "2026-11-27T01:08:02.344Z"
     },
     {
       "id": "mle-bench",
@@ -7046,7 +7046,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:18:49.685Z"
+      "lastUpdated": "2026-11-27T01:08:02.345Z"
     },
     {
       "id": "google-deepmind-formal-conjectures-26b7f8cc558bf9b7",
@@ -7129,7 +7129,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:18:49.685Z"
+      "lastUpdated": "2026-11-27T01:08:02.345Z"
     },
     {
       "id": "sunblaze-ucb-cybergym-7da380811009b536",
@@ -7223,7 +7223,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:18:49.685Z"
+      "lastUpdated": "2026-11-27T01:08:02.345Z"
     },
     {
       "id": "clawprobench",
@@ -7365,7 +7365,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:18:49.685Z"
+      "lastUpdated": "2026-11-27T01:08:02.345Z"
     },
     {
       "id": "molly554-whiteboard-ai-tutor-42f8192edec654f3",
@@ -7887,7 +7887,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:18:49.685Z"
+      "lastUpdated": "2026-11-27T01:08:02.347Z"
     },
     {
       "id": "squad-explorer",
@@ -7970,7 +7970,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:18:49.685Z"
+      "lastUpdated": "2026-11-27T01:08:02.347Z"
     },
     {
       "id": "polymarket-paper-trader",
@@ -8074,7 +8074,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:18:49.686Z"
+      "lastUpdated": "2026-11-27T01:08:02.347Z"
     },
     {
       "id": "qlabs-eng-noise-986ea7c101c066c6",
@@ -8549,7 +8549,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:18:49.686Z"
+      "lastUpdated": "2026-11-27T01:08:02.348Z"
     },
     {
       "id": "skab",
@@ -8796,7 +8796,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:18:49.686Z"
+      "lastUpdated": "2026-11-27T01:08:02.348Z"
     },
     {
       "id": "teorth-optimizationproblems-c73e6b86a3a6d494",
@@ -13056,7 +13056,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:18:49.688Z"
+      "lastUpdated": "2026-11-27T01:08:02.350Z"
     },
     {
       "id": "model-checking-verify-rust-std-fc1c70a47712029e",
@@ -13614,7 +13614,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:18:49.689Z"
+      "lastUpdated": "2026-11-27T01:08:02.350Z"
     },
     {
       "id": "fstandhartinger-jevbench-2acd10345790c8d1",
@@ -15011,7 +15011,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:18:49.689Z"
+      "lastUpdated": "2026-11-27T01:08:02.351Z"
     },
     {
       "id": "bichengwang-rl-pricing-767e169a4d55ab74",
@@ -16390,7 +16390,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:18:49.692Z"
+      "lastUpdated": "2026-11-27T01:08:02.352Z"
     },
     {
       "id": "reference-kernels",
@@ -40374,7 +40374,7 @@
           "records": [
             {
               "contributor": "josusanmartin",
-              "description": "rank 1 on B200 · 2302 submissions",
+              "description": "rank 1 on B200 · 2305 submissions",
               "date": "2026-11-14",
               "value": 92.041,
               "contributorKind": "person",
@@ -40401,7 +40401,7 @@
             },
             {
               "contributor": "andylm3",
-              "description": "rank 4 on B200 · 327 submissions",
+              "description": "rank 4 on B200 · 330 submissions",
               "date": "2026-11-25",
               "value": 93.434,
               "contributorKind": "person",
@@ -40410,7 +40410,7 @@
             },
             {
               "contributor": "hahaha23_w_40332",
-              "description": "rank 5 on B200 · 1015 submissions",
+              "description": "rank 5 on B200 · 1019 submissions",
               "date": "2026-11-23",
               "value": 93.485,
               "contributorKind": "person",
@@ -40428,7 +40428,7 @@
             },
             {
               "contributor": "andylamaa.",
-              "description": "rank 7 on B200 · 656 submissions",
+              "description": "rank 7 on B200 · 660 submissions",
               "date": "2026-11-22",
               "value": 94.025,
               "contributorKind": "person",
@@ -40437,7 +40437,7 @@
             },
             {
               "contributor": "yuyblip",
-              "description": "rank 8 on B200 · 258 submissions",
+              "description": "rank 8 on B200 · 263 submissions",
               "date": "2026-11-25",
               "value": 94.175,
               "contributorKind": "person",
@@ -61974,7 +61974,7 @@
         "recordsLast30d": 45,
         "recordsLast90d": 133
       },
-      "lastUpdated": "2026-11-27T00:19:40.881Z"
+      "lastUpdated": "2026-11-27T01:08:23.070Z"
     },
     {
       "id": "crocswap-integer-mult-bounds-33a6ab842bf8f8e0",
@@ -62578,7 +62578,7 @@
         "recordsLast30d": 1,
         "recordsLast90d": 19
       },
-      "lastUpdated": "2026-11-27T00:18:49.693Z"
+      "lastUpdated": "2026-11-27T01:08:02.380Z"
     },
     {
       "id": "llm-leaderboard",
@@ -64606,13 +64606,13 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:18:49.694Z"
+      "lastUpdated": "2026-11-27T01:08:02.381Z"
     },
     {
       "id": "open-goat-pequalnp-proofs-529cfdd011232bcc",
       "name": "P = NP?",
       "tagline": "An AI agent fleet works on P vs NP in Lean 4, live: your agent proves open steps the desk assigns, and only the proof checker decides.",
-      "description": "pequalnp.com runs a coordinated fleet of AI agents against P vs NP in the open. Every step is a Lean 4 statement (on Mathlib and the project's own definitions) that counts only when the checker accepts a proof; refutations and dead ends stay on the record. The work runs on 6 fronts (Library of known results, Geometric complexity theory, Circuit lower bounds via algorithms, Proof complexity, Meta-complexity, P = NP algorithm search). Outside agents join by asking the desk for one open step and sending its proof as a pull request to open-goat/pequalnp-proofs. Since 2026-11-22: 24154 statements posted, 12599 checked, 5197 refuted; 950 outside contributors have had 11771 steps accepted. Tracks here: P vs NP itself and the open hard links each program is stuck on, then each front ranked by outside contributors' checked steps. The site records no model per step; attribution comes from the merged pull requests (commit trailers, \"Generated with\" lines, codex/ branches, the template's self-reported \"Agent used\").",
+      "description": "pequalnp.com runs a coordinated fleet of AI agents against P vs NP in the open. Every step is a Lean 4 statement (on Mathlib and the project's own definitions) that counts only when the checker accepts a proof; refutations and dead ends stay on the record. The work runs on 6 fronts (Library of known results, Geometric complexity theory, Circuit lower bounds via algorithms, Proof complexity, Meta-complexity, P = NP algorithm search). Outside agents join by asking the desk for one open step and sending its proof as a pull request to open-goat/pequalnp-proofs. Since 2026-11-22: 24154 statements posted, 12601 checked, 5197 refuted; 950 outside contributors have had 11773 steps accepted. Tracks here: P vs NP itself and the open hard links each program is stuck on, then each front ranked by outside contributors' checked steps. The site records no model per step; attribution comes from the merged pull requests (commit trailers, \"Generated with\" lines, codex/ branches, the template's self-reported \"Agent used\").",
       "url": "https://pequalnp.com/",
       "host": "website",
       "status": "active",
@@ -65801,7 +65801,7 @@
         },
         {
           "group": "Fronts",
-          "description": "Study the hardness of problems that are themselves about complexity. Neutral on the answer. Ranked by outside contributors' steps on this front that the Lean checker accepted; the fleet's own work is not ranked. The fleet's record here: 11957 checked, 5838 open conjectures, 5131 refuted.",
+          "description": "Study the hardness of problems that are themselves about complexity. Neutral on the answer. Ranked by outside contributors' steps on this front that the Lean checker accepted; the fleet's own work is not ranked. The fleet's record here: 11959 checked, 5836 open conjectures, 5131 refuted.",
           "id": "front-meta",
           "name": "Meta-complexity",
           "metricName": "checked steps",
@@ -67947,6 +67947,19 @@
               "isCurrentBest": false
             },
             {
+              "contributor": "zera1004",
+              "description": "9 checked steps · latest L-meta-25472: One-a-side promise, no row or column inside all others: a fan-in-two AND/OR circuit of at most n + m - 1 gates exists only for a cross plus…",
+              "date": "2026-11-27",
+              "value": 9,
+              "contributorKind": "person",
+              "contributorUrl": "https://github.com/zera1004",
+              "submissionUrls": [
+                "https://pequalnp.com/a/zera1004"
+              ],
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
               "contributor": "bolitow",
               "description": "9 checked steps · latest L-meta-25203: One-a-side promise, n >= 3: row 0 to all columns but 0, row 1 to all columns but 1, rows 2 on to column 0; a fan-in-two AND/OR circuit need…",
               "date": "2026-11-26",
@@ -68171,19 +68184,6 @@
               "contributorUrl": "https://github.com/binharold",
               "submissionUrls": [
                 "https://pequalnp.com/a/binharold"
-              ],
-              "isBaseline": false,
-              "isCurrentBest": false
-            },
-            {
-              "contributor": "zera1004",
-              "description": "8 checked steps · latest L-meta-25446: A binary encoder with negations on 2^k one-hot inputs, by AND/OR gates of fan-in two, has at least 2 * 2^k - 2k gates, for every k from 2",
-              "date": "2026-11-26",
-              "value": 8,
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/zera1004",
-              "submissionUrls": [
-                "https://pequalnp.com/a/zera1004"
               ],
               "isBaseline": false,
               "isCurrentBest": false
@@ -73538,6 +73538,19 @@
               "contributorUrl": "https://github.com/JackDanger",
               "submissionUrls": [
                 "https://pequalnp.com/a/JackDanger"
+              ],
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
+              "contributor": "brendan-sherrin",
+              "description": "2 checked steps · latest L-meta-25475: One-a-side promise, sides at least 2: an AND/OR circuit of at most s gates, each reading two earlier wires, none of at most s with AND gate…",
+              "date": "2026-11-27",
+              "value": 2,
+              "contributorKind": "person",
+              "contributorUrl": "https://github.com/brendan-sherrin",
+              "submissionUrls": [
+                "https://pequalnp.com/a/brendan-sherrin"
               ],
               "isBaseline": false,
               "isCurrentBest": false
@@ -79582,19 +79595,6 @@
               ],
               "isBaseline": false,
               "isCurrentBest": false
-            },
-            {
-              "contributor": "brendan-sherrin",
-              "description": "1 checked step · latest L-meta-25463: Any n by m graph: an AND/OR circuit right on the one-a-side promise gives an AND/OR one right on all inputs for the 2-slice function, at mo…",
-              "date": "2026-11-26",
-              "value": 1,
-              "contributorKind": "person",
-              "contributorUrl": "https://github.com/brendan-sherrin",
-              "submissionUrls": [
-                "https://pequalnp.com/a/brendan-sherrin"
-              ],
-              "isBaseline": false,
-              "isCurrentBest": false
             }
           ],
           "contested": true
@@ -81550,6 +81550,15 @@
           "lastActive": "2026-11-25"
         },
         {
+          "name": "zera1004",
+          "url": "https://github.com/zera1004",
+          "submissions": 1,
+          "problems": [
+            "front-meta"
+          ],
+          "lastActive": "2026-11-27"
+        },
+        {
           "name": "bolitow",
           "url": "https://github.com/bolitow",
           "submissions": 1,
@@ -81669,15 +81678,6 @@
         {
           "name": "binharold",
           "url": "https://github.com/binharold",
-          "submissions": 1,
-          "problems": [
-            "front-meta"
-          ],
-          "lastActive": "2026-11-26"
-        },
-        {
-          "name": "zera1004",
-          "url": "https://github.com/zera1004",
           "submissions": 1,
           "problems": [
             "front-meta"
@@ -84770,6 +84770,15 @@
             "front-meta"
           ],
           "lastActive": "2026-11-26"
+        },
+        {
+          "name": "brendan-sherrin",
+          "url": "https://github.com/brendan-sherrin",
+          "submissions": 1,
+          "problems": [
+            "front-meta"
+          ],
+          "lastActive": "2026-11-27"
         },
         {
           "name": "thequestfor",
@@ -88478,15 +88487,6 @@
             "front-meta"
           ],
           "lastActive": "2026-11-26"
-        },
-        {
-          "name": "brendan-sherrin",
-          "url": "https://github.com/brendan-sherrin",
-          "submissions": 1,
-          "problems": [
-            "front-meta"
-          ],
-          "lastActive": "2026-11-26"
         }
       ],
       "stats": {
@@ -88497,7 +88497,7 @@
         "recordsLast30d": 999,
         "recordsLast90d": 999
       },
-      "lastUpdated": "2026-11-27T00:26:16.023Z"
+      "lastUpdated": "2026-11-27T01:15:53.173Z"
     },
     {
       "id": "janosh-matbench-discovery-c92970f85167ceb2",
@@ -88576,7 +88576,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:18:49.694Z"
+      "lastUpdated": "2026-11-27T01:08:02.398Z"
     },
     {
       "id": "saivineeth147-lora-speedrun-a7a730c9d43bbbbc",
@@ -88898,7 +88898,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:18:49.694Z"
+      "lastUpdated": "2026-11-27T01:08:02.398Z"
     },
     {
       "id": "quantum-advantage-tracker-quantum-advantage-tracker-github-io-0184f4f5119c07a6",
@@ -89356,7 +89356,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:26:16.953Z"
+      "lastUpdated": "2026-11-27T01:15:54.025Z"
     },
     {
       "id": "metacognitionai-navgpt-3-5b9a0bda12fb75be",
@@ -89593,7 +89593,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:18:49.694Z"
+      "lastUpdated": "2026-11-27T01:08:02.399Z"
     },
     {
       "id": "layr-labs-ecdsafail-challenge-f28541809c8aa2a4",
@@ -89758,7 +89758,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:18:49.694Z"
+      "lastUpdated": "2026-11-27T01:08:02.399Z"
     },
     {
       "id": "cdcepi-flusight-forecast-hub-a5cf2bf0ddd4b3ea",
@@ -89899,7 +89899,154 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:26:40.430Z"
+      "lastUpdated": "2026-11-27T01:08:02.399Z"
+    },
+    {
+      "id": "lean-dojo-leanmillenniumprizeproblems-e4f5a223cc810838",
+      "name": "Millennium Prize Problems in Lean 4",
+      "tagline": "The seven Clay Millennium Prize problems stated in Lean 4, with the exact propositions a machine-checked solution must prove.",
+      "description": "The Clay Mathematics Institute's seven Millennium Prize problems, $1 million each, formalized in Lean 4 with Mathlib. For each problem the repository names the propositions that count as a solution: a sorry-free proof using only the standard axioms. 4 are open targets today; Poincaré is solved (Perelman), and the Hodge and Yang–Mills statements are marked incomplete after a September 2026 review, so the open work there is a faithful statement. CI builds every statement and check on each pull request. The repository makes no claim to solutions; a proof here is a formal certificate, not the Clay prize, which has its own rules.",
+      "url": "https://github.com/lean-dojo/LeanMillenniumPrizeProblems",
+      "host": "github",
+      "status": "active",
+      "domain": "formal-methods",
+      "tags": [
+        "millennium-prize",
+        "lean4",
+        "mathlib",
+        "formal-verification",
+        "p-vs-np",
+        "riemann-hypothesis",
+        "navier-stokes",
+        "open-problem"
+      ],
+      "images": [],
+      "participation": {
+        "howToSubmit": "Open a pull request on https://github.com/lean-dojo/LeanMillenniumPrizeProblems: replace the placeholder theorem's sorry with a proof (Riemann, BSD, Poincaré), or prove one of the listed alternative propositions (P vs NP, Navier–Stokes). For Hodge and Yang–Mills, a pull request that replaces the sketch with a faithful statement.",
+        "submissionFormat": "Lean 4 source in the repository's layout; `lake build` must pass and `#print axioms` must show only propext, Classical.choice and Quot.sound.",
+        "computeDetails": "Building Mathlib's cache and the statements runs on a laptop; the mathematics is the hard part.",
+        "deadline": "rolling",
+        "prizes": "None from the repository; the Clay Mathematics Institute's $1M prizes follow Clay's own rules (publication and two years of scrutiny).",
+        "eligibility": "Open to anyone.",
+        "cost": "free",
+        "verification": "CI builds every statement and test on each pull request; a solution is a sorry-free proof checked by Lean's kernel with only the standard axioms.",
+        "requirements": [
+          "Lean 4 and Mathlib (lake exe cache get)",
+          "Python 3 for the Clay reference check"
+        ],
+        "compute": "cpu"
+      },
+      "links": [
+        {
+          "label": "Repository and the seven statements",
+          "url": "https://github.com/lean-dojo/LeanMillenniumPrizeProblems"
+        },
+        {
+          "label": "Clay Mathematics Institute: the Millennium Prize Problems",
+          "url": "https://www.claymath.org/millennium-problems/"
+        }
+      ],
+      "organizer": {
+        "name": "LeanDojo",
+        "url": "https://github.com/lean-dojo/LeanMillenniumPrizeProblems",
+        "type": "academic"
+      },
+      "venue": {
+        "type": "online"
+      },
+      "problems": [
+        {
+          "group": "Millennium Prize Problems",
+          "description": "A sorry-free proof, using only the standard axioms, of Millennium.ClayPVersusNP (P = NP) or Millennium.ClayPVersusNP.Formulations.NegativeBranch (P ≠ NP). Lean file: Problems/PVersusNP/Millennium.lean. Status in the repository: open.",
+          "id": "p-versus-np",
+          "name": "P versus NP: a proof",
+          "metricName": "sorry-free Lean proof accepted",
+          "metricDirection": "maximize",
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "group": "Millennium Prize Problems",
+          "description": "A sorry-free proof, using only the standard axioms, of Millennium.ClayRiemannHypothesis. Lean file: Problems/RiemannHypothesis/Millennium.lean. Status in the repository: open.",
+          "id": "riemann-hypothesis",
+          "name": "Riemann Hypothesis: a proof",
+          "metricName": "sorry-free Lean proof accepted",
+          "metricDirection": "maximize",
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "group": "Millennium Prize Problems",
+          "description": "A sorry-free proof, using only the standard axioms, of any one of MillenniumNavierStokes.FeffermanA, FeffermanB, FeffermanC, FeffermanD. Lean file: Problems/NavierStokes/Millennium.lean. Status in the repository: open.",
+          "id": "navier-stokes",
+          "name": "Navier–Stokes: a proof",
+          "metricName": "sorry-free Lean proof accepted",
+          "metricDirection": "maximize",
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "group": "Millennium Prize Problems",
+          "description": "A sorry-free proof, using only the standard axioms, of MillenniumBirchSwinnertonDyer.ClayBirchSwinnertonDyer. Lean file: Problems/BirchSwinnertonDyer/Millennium.lean. Status in the repository: open.",
+          "id": "birch-and-swinnerton-dyer",
+          "name": "Birch and Swinnerton-Dyer: a proof",
+          "metricName": "sorry-free Lean proof accepted",
+          "metricDirection": "maximize",
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "group": "Millennium Prize Problems",
+          "description": "Solved by Perelman; Lean proof not included. A sorry-free proof, using only the standard axioms, of MillenniumPoincare.ClayPoincareConjecture. Lean file: Problems/Poincare/Millennium.lean.",
+          "id": "poincare-conjecture",
+          "name": "Poincaré Conjecture: a proof",
+          "metricName": "sorry-free Lean proof accepted",
+          "metricDirection": "maximize",
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "group": "Millennium Prize Problems",
+          "description": "The repository's Lean statement of Hodge Conjecture is incomplete and not a valid target (Statement incomplete, not a valid target (see below)). The open work is a faithful statement, which the README calls a substantial project. Lean file: Problems/Hodge/Millennium.lean.",
+          "id": "hodge-conjecture-statement",
+          "name": "Hodge Conjecture: a faithful statement",
+          "metricName": "faithful statement merged",
+          "metricDirection": "maximize",
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        },
+        {
+          "group": "Millennium Prize Problems",
+          "description": "The repository's Lean statement of Yang–Mills existence and mass gap is incomplete and not a valid target (Statement incomplete, not a valid target (see below)). The open work is a faithful statement, which the README calls a substantial project. Lean file: Problems/YangMills/Millennium.lean.",
+          "id": "yang-mills-existence-and-mass-gap-statement",
+          "name": "Yang–Mills existence and mass gap: a faithful statement",
+          "metricName": "faithful statement merged",
+          "metricDirection": "maximize",
+          "isOpen": true,
+          "records": [],
+          "contested": false
+        }
+      ],
+      "agentStats": [],
+      "repo": {
+        "owner": "lean-dojo",
+        "name": "LeanMillenniumPrizeProblems",
+        "branch": "main"
+      },
+      "participants": [],
+      "stats": {
+        "totalRecords": 0,
+        "uniqueParticipants": 0,
+        "recordsLast30d": 0,
+        "recordsLast90d": 0
+      },
+      "lastUpdated": "2026-11-27T01:15:55.395Z"
     },
     {
       "id": "proximafusion-constellaration-f56ac3da72a27be6",
@@ -90021,7 +90168,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:18:49.694Z"
+      "lastUpdated": "2026-11-27T01:08:02.399Z"
     },
     {
       "id": "jlevy-squares-e1438952293c25f7",
@@ -90121,7 +90268,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:27:02.916Z"
+      "lastUpdated": "2026-11-27T01:08:02.400Z"
     },
     {
       "id": "unitaryfoundation-qldpc-challenge-64ff83271307dd6f",
@@ -90353,7 +90500,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:18:49.694Z"
+      "lastUpdated": "2026-11-27T01:08:02.400Z"
     },
     {
       "id": "cdcgov-covid19-forecast-hub-19ca6a18d0b65744",
@@ -90460,7 +90607,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:27:23.962Z"
+      "lastUpdated": "2026-11-27T01:08:02.400Z"
     },
     {
       "id": "equational-theories-lean-stage2",
@@ -90562,7 +90709,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:18:49.694Z"
+      "lastUpdated": "2026-11-27T01:08:02.400Z"
     },
     {
       "id": "harbor-framework-terminal-bench-challenges-3adcf27679c7b565",
@@ -90659,13 +90806,13 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:18:49.695Z"
+      "lastUpdated": "2026-11-27T01:08:02.400Z"
     },
     {
       "id": "osgood001-riemann-hypothesis-27b8a22da0a4924e",
       "name": "Riemann Hypothesis Lean 4 Community Collaboration Hub",
       "tagline": "Shorten the pillars of the Lean 4 formalization that claims a proof of the Riemann Hypothesis: every run is machine-checked (0 sorry, standard axioms) and scored on normalized Lean tokens.",
-      "description": "A community hub for the Lean 4 formalization that claims a proof of the Riemann Hypothesis and of GRH for Dirichlet L-functions, announced by Levent Alpöge on 2026-11-20. The proof is split into pillars (sub-theorems with their own Lean entry point) plus the full proof as the Grand Challenge; entrants and their agents shorten a pillar's proof without breaking it. Bohrium's Agentic Science Playground builds and checks every submission (0 sorry, only the standard axioms) and scores it on its anti-golf normalized Lean token count; a run that beats the pillar's best score is kept as a breakthrough, and the hub's live board mirrors the results. 1,764 verified runs and 668 breakthroughs from 98 contributors (2,498 submissions in all) so far; 42 of 48 core pillars have a verified run, and their best proofs are 33.58% shorter in normalized tokens than the originals. Tracks here are the board's 49 pillars; each lists every author's best verified run, over a baseline row for the unmodified proof. Models and harnesses are what each author's CLI reported (self-reported telemetry); a row carries a model only where that text names one.",
+      "description": "A community hub for the Lean 4 formalization that claims a proof of the Riemann Hypothesis and of GRH for Dirichlet L-functions, announced by Levent Alpöge on 2026-11-20. The proof is split into pillars (sub-theorems with their own Lean entry point) plus the full proof as the Grand Challenge; entrants and their agents shorten a pillar's proof without breaking it. Bohrium's Agentic Science Playground builds and checks every submission (0 sorry, only the standard axioms) and scores it on its anti-golf normalized Lean token count; a run that beats the pillar's best score is kept as a breakthrough, and the hub's live board mirrors the results. 1,765 verified runs and 668 breakthroughs from 98 contributors (2,505 submissions in all) so far; 42 of 48 core pillars have a verified run, and their best proofs are 33.58% shorter in normalized tokens than the originals. Tracks here are the board's 49 pillars; each lists every author's best verified run, over a baseline row for the unmodified proof. Models and harnesses are what each author's CLI reported (self-reported telemetry); a row carries a model only where that text names one.",
       "url": "https://github.com/Osgood001/riemann-hypothesis",
       "host": "website",
       "status": "active",
@@ -90835,7 +90982,7 @@
           "contested": false
         },
         {
-          "description": "Constructs smooth projective toroidal compactifications with log Kodaira–Spencer isomorphisms for Siegel moduli spaces of abelian varieties (Faltings–Chai). Almost completely self-contained (20,231 editable files · 13.38% of full RH, only 43 frozen files), providing the compact boundary geometry required for Arakelov… The original proof: 38,808,445 normalized tokens (131,223,241 chars). Ranked by the board's score, higher is better: it rises as the proof gets shorter in normalized Lean tokens and the unmodified proof scores 50; a run counts only with 0 sorry and the standard axioms. 0 verified runs (0 breakthroughs) by 0 contributors, 34 submitted on the board. No verified run has shortened it yet.",
+          "description": "Constructs smooth projective toroidal compactifications with log Kodaira–Spencer isomorphisms for Siegel moduli spaces of abelian varieties (Faltings–Chai). Almost completely self-contained (20,231 editable files · 13.38% of full RH, only 43 frozen files), providing the compact boundary geometry required for Arakelov… The original proof: 38,808,445 normalized tokens (131,223,241 chars). Ranked by the board's score, higher is better: it rises as the proof gets shorter in normalized Lean tokens and the unmodified proof scores 50; a run counts only with 0 sorry and the standard axioms. 0 verified runs (0 breakthroughs) by 0 contributors, 35 submitted on the board. No verified run has shortened it yet.",
           "id": "core22",
           "name": "Core 22: Siegel Toroidal Compactification",
           "metricName": "score",
@@ -95791,7 +95938,7 @@
           "contested": true
         },
         {
-          "description": "Unconditionally transfers automorphic representations from compact (definite) unitary groups to isobaric automorphic representations of GL_n via Hecke eigenvalue finiteness and frame matching. Anchors modularity lifting and Core 17’s automorphy window (34,429 editable files · 25.62% of full RH, only 1,978 frozen upstr… The original proof: 75,331,745 normalized tokens (251,168,059 chars). Ranked by the board's score, higher is better: it rises as the proof gets shorter in normalized Lean tokens and the unmodified proof scores 50; a run counts only with 0 sorry and the standard axioms. 6 verified runs (5 breakthroughs) by 5 contributors, 16 submitted on the board.",
+          "description": "Unconditionally transfers automorphic representations from compact (definite) unitary groups to isobaric automorphic representations of GL_n via Hecke eigenvalue finiteness and frame matching. Anchors modularity lifting and Core 17’s automorphy window (34,429 editable files · 25.62% of full RH, only 1,978 frozen upstr… The original proof: 75,331,745 normalized tokens (251,168,059 chars). Ranked by the board's score, higher is better: it rises as the proof gets shorter in normalized Lean tokens and the unmodified proof scores 50; a run counts only with 0 sorry and the standard axioms. 6 verified runs (5 breakthroughs) by 5 contributors, 17 submitted on the board.",
           "id": "core18",
           "name": "Core 18: Definite Unitary Base Change",
           "metricName": "score",
@@ -95873,7 +96020,7 @@
           "contested": true
         },
         {
-          "description": "Combines real Howe duality, local matching, Weil tensor models, and Hecke–Tate functional equations to prove theta-lift evaluation grids stay non-degenerate at large parameters. First of three sub-pillars of Alpöge’s largest backbone hub (8,526 editable files · 5.04% of full RH), feeding Cores 20 and 21. The original proof: 14,158,514 normalized tokens (49,453,584 chars). Ranked by the board's score, higher is better: it rises as the proof gets shorter in normalized Lean tokens and the unmodified proof scores 50; a run counts only with 0 sorry and the standard axioms. 4 verified runs (3 breakthroughs) by 3 contributors, 28 submitted on the board.",
+          "description": "Combines real Howe duality, local matching, Weil tensor models, and Hecke–Tate functional equations to prove theta-lift evaluation grids stay non-degenerate at large parameters. First of three sub-pillars of Alpöge’s largest backbone hub (8,526 editable files · 5.04% of full RH), feeding Cores 20 and 21. The original proof: 14,158,514 normalized tokens (49,453,584 chars). Ranked by the board's score, higher is better: it rises as the proof gets shorter in normalized Lean tokens and the unmodified proof scores 50; a run counts only with 0 sorry and the standard axioms. 4 verified runs (3 breakthroughs) by 3 contributors, 29 submitted on the board.",
           "id": "core19",
           "name": "Core 19: Theta Lift Evaluation Grids",
           "metricName": "score",
@@ -95938,7 +96085,7 @@
           "contested": true
         },
         {
-          "description": "Establishes asymptotic existence bounds for small integral sections of ample and nef Hermitian line bundles in Arakelov geometry (Gillet–Soulé / Abbes–Bouche) via principalisation. A low-freeze counting engine (20,010 editable files · 16.00% of full RH, only 327 frozen) powering Moriwaki bigness and Core 15’s covolume… The original proof: 47,617,266 normalized tokens (156,858,585 chars). Ranked by the board's score, higher is better: it rises as the proof gets shorter in normalized Lean tokens and the unmodified proof scores 50; a run counts only with 0 sorry and the standard axioms. 13 verified runs (9 breakthroughs) by 8 contributors, 30 submitted on the board.",
+          "description": "Establishes asymptotic existence bounds for small integral sections of ample and nef Hermitian line bundles in Arakelov geometry (Gillet–Soulé / Abbes–Bouche) via principalisation. A low-freeze counting engine (20,010 editable files · 16.00% of full RH, only 327 frozen) powering Moriwaki bigness and Core 15’s covolume… The original proof: 47,617,266 normalized tokens (156,858,585 chars). Ranked by the board's score, higher is better: it rises as the proof gets shorter in normalized Lean tokens and the unmodified proof scores 50; a run counts only with 0 sorry and the standard axioms. 13 verified runs (9 breakthroughs) by 8 contributors, 31 submitted on the board.",
           "id": "core23",
           "name": "Core 23: Arithmetic Hilbert–Samuel",
           "metricName": "score",
@@ -96074,7 +96221,7 @@
           "contested": true
         },
         {
-          "description": "Derives explicit Arakelov height formulas and arithmetic intersection bounds for algebraic cycles directly from the Poincaré–Lelong curvature equation and residue-degree rules. A clean, low-freeze geometry pillar (15,277 editable files · 10.73% of full RH, only 408 frozen) feeding the height tower behind Cores 15 and… The original proof: 30,828,159 normalized tokens (105,183,892 chars). Ranked by the board's score, higher is better: it rises as the proof gets shorter in normalized Lean tokens and the unmodified proof scores 50; a run counts only with 0 sorry and the standard axioms. 9 verified runs (7 breakthroughs) by 8 contributors, 26 submitted on the board.",
+          "description": "Derives explicit Arakelov height formulas and arithmetic intersection bounds for algebraic cycles directly from the Poincaré–Lelong curvature equation and residue-degree rules. A clean, low-freeze geometry pillar (15,277 editable files · 10.73% of full RH, only 408 frozen) feeding the height tower behind Cores 15 and… The original proof: 30,828,159 normalized tokens (105,183,892 chars). Ranked by the board's score, higher is better: it rises as the proof gets shorter in normalized Lean tokens and the unmodified proof scores 50; a run counts only with 0 sorry and the standard axioms. 9 verified runs (7 breakthroughs) by 8 contributors, 27 submitted on the board.",
           "id": "core24",
           "name": "Core 24: Arakelov Cycle Heights",
           "metricName": "score",
@@ -96210,7 +96357,7 @@
           "contested": true
         },
         {
-          "description": "Unconditionally identifies regularized global unitary theta integrals with special values of Siegel–Eisenstein series, scaling Core 8’s local Hermitian densities to the global setting. Anchors the L-function non-vanishing and theta-lift engine (12,399 editable files · 9.93% of full RH, only 884 frozen upstream). The original proof: 29,435,752 normalized tokens (97,314,102 chars). Ranked by the board's score, higher is better: it rises as the proof gets shorter in normalized Lean tokens and the unmodified proof scores 50; a run counts only with 0 sorry and the standard axioms. 8 verified runs (5 breakthroughs) by 5 contributors, 32 submitted on the board.",
+          "description": "Unconditionally identifies regularized global unitary theta integrals with special values of Siegel–Eisenstein series, scaling Core 8’s local Hermitian densities to the global setting. Anchors the L-function non-vanishing and theta-lift engine (12,399 editable files · 9.93% of full RH, only 884 frozen upstream). The original proof: 29,435,752 normalized tokens (97,314,102 chars). Ranked by the board's score, higher is better: it rises as the proof gets shorter in normalized Lean tokens and the unmodified proof scores 50; a run counts only with 0 sorry and the standard axioms. 8 verified runs (5 breakthroughs) by 5 contributors, 33 submitted on the board.",
           "id": "core25",
           "name": "Core 25: Global Siegel–Weil Formula",
           "metricName": "score",
@@ -97324,7 +97471,7 @@
           "contested": true
         },
         {
-          "description": "Fast in-place Lean v4.33.1 sub-pillar (383 editable files · 7.6 min grading · 4.1 GiB peak RSS; 99 frozen upstream): Over a discrete valuation ring O/ℤ_ℓ, propagates modularity across irreducible components of rank-2 and rank-3 deformation rings via seed points and specialization curves (PropagationTheoremGL3), yieldi… The original proof: 607,551 normalized tokens (2,090,710 chars). Ranked by the board's score, higher is better: it rises as the proof gets shorter in normalized Lean tokens and the unmodified proof scores 50; a run counts only with 0 sorry and the standard axioms. 51 verified runs (15 breakthroughs) by 16 contributors, 75 submitted on the board.",
+          "description": "Fast in-place Lean v4.33.1 sub-pillar (383 editable files · 7.6 min grading · 4.1 GiB peak RSS; 99 frozen upstream): Over a discrete valuation ring O/ℤ_ℓ, propagates modularity across irreducible components of rank-2 and rank-3 deformation rings via seed points and specialization curves (PropagationTheoremGL3), yieldi… The original proof: 607,551 normalized tokens (2,090,710 chars). Ranked by the board's score, higher is better: it rises as the proof gets shorter in normalized Lean tokens and the unmodified proof scores 50; a run counts only with 0 sorry and the standard axioms. 52 verified runs (15 breakthroughs) by 16 contributors, 76 submitted on the board.",
           "id": "core32",
           "name": "Core 32 · Fast: DVR Curve Deformation Propagation",
           "metricName": "score",
@@ -97398,7 +97545,7 @@
             },
             {
               "contributor": "Emanuel Barbosa de Moura",
-              "description": "725,772 normalized tokens (the original has 607,551) · 2,448,593 chars · best of 11 verified runs by this author here · run #114045",
+              "description": "725,772 normalized tokens (the original has 607,551) · 2,448,593 chars · best of 12 verified runs by this author here · run #114045",
               "date": "2026-11-26",
               "value": 51.64,
               "contributorKind": "person",
@@ -101302,7 +101449,7 @@
         "recordsLast30d": 499,
         "recordsLast90d": 499
       },
-      "lastUpdated": "2026-11-27T00:27:25.379Z"
+      "lastUpdated": "2026-11-27T01:15:57.510Z"
     },
     {
       "id": "first-proof",
@@ -102513,7 +102660,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:27:27.371Z"
+      "lastUpdated": "2026-11-27T01:15:59.954Z"
     },
     {
       "id": "saircompetition-lean-kernel-challenge-d09e1d4be0a1fb34",
@@ -102689,7 +102836,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:18:49.695Z"
+      "lastUpdated": "2026-11-27T01:08:02.407Z"
     },
     {
       "id": "dronperminov-fastmatrixmultiplication-4d5281f8ef73e8de",
@@ -102770,8 +102917,8 @@
               "submissionUrls": [
                 "https://github.com/dronperminov/FastMatrixMultiplication/blob/master/schemes/results/addition_reduced_ZT/2x2x2_m7_cr15_cn24_ZT_reduced.json"
               ],
-              "isCurrentBest": true,
-              "isBaseline": true
+              "isBaseline": true,
+              "isCurrentBest": true
             },
             {
               "contributor": "ZT",
@@ -103036,7 +103183,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:27:41.108Z"
+      "lastUpdated": "2026-11-27T01:08:02.407Z"
     },
     {
       "id": "sutro-problems",
@@ -105842,7 +105989,7 @@
         "recordsLast30d": 2,
         "recordsLast90d": 108
       },
-      "lastUpdated": "2026-11-27T00:18:49.696Z"
+      "lastUpdated": "2026-11-27T01:08:02.409Z"
     },
     {
       "id": "ai-sec-lab-patchbench-c7930aa755d0d303",
@@ -105931,7 +106078,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:18:49.697Z"
+      "lastUpdated": "2026-11-27T01:08:02.410Z"
     },
     {
       "id": "ecro-embedeval-e8fdc6b54762f789",
@@ -106146,13 +106293,13 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:18:49.697Z"
+      "lastUpdated": "2026-11-27T01:08:02.410Z"
     },
     {
       "id": "ndif-team-looped-lens-challenge-760f0dba003c4c92",
       "name": "The Looped Lens Challenge",
       "tagline": "Build an nnsight lens that reads what the looped model Inkling 2 Mini computes but never writes; NDIF runs it and a judge model scores it on hidden questions, ranked by pass rate.",
-      "description": "NDIF's challenge for lenses on Inkling 2 Mini, a looped model: of its 24 layers, 6 to 17 run three times, so a token passes through 48 layer visits. A lens reads the model's internal state at up to 10 visits per question and returns up to 10 tokens per readout; a judge model checks which of five options (the intermediate the model works out but never writes, and four distractors) each layer names, and a question passes when the intermediate gets more layer votes than any other option. Lenses run on NDIF, which hosts the model, so entrants need no GPU; phases add harder questions, and the final ranking mixes early and later ones. Phase 1: 108 teams and 782 scored submissions so far (21 more under review); the organizers' reference lens (Starter logit lens) passes 66.19%. Tracks here are the leaderboard's phases; each lists every team's best submission not under review, over the organizers' reference lens. The leaderboard records no model or agent, so entries carry no attribution.",
+      "description": "NDIF's challenge for lenses on Inkling 2 Mini, a looped model: of its 24 layers, 6 to 17 run three times, so a token passes through 48 layer visits. A lens reads the model's internal state at up to 10 visits per question and returns up to 10 tokens per readout; a judge model checks which of five options (the intermediate the model works out but never writes, and four distractors) each layer names, and a question passes when the intermediate gets more layer votes than any other option. Lenses run on NDIF, which hosts the model, so entrants need no GPU; phases add harder questions, and the final ranking mixes early and later ones. Phase 1: 108 teams and 783 scored submissions so far (21 more under review); the organizers' reference lens (Starter logit lens) passes 66.19%. Tracks here are the leaderboard's phases; each lists every team's best submission not under review, over the organizers' reference lens. The leaderboard records no model or agent, so entries carry no attribution.",
       "url": "https://github.com/ndif-team/looped-lens-challenge",
       "host": "huggingface",
       "status": "active",
@@ -106227,7 +106374,7 @@
       "quickstart": "git clone https://github.com/ndif-team/looped-lens-challenge && cd looped-lens-challenge\nuv sync && source .venv/bin/activate\nexport NDIF_API_KEY=...                   # from login.ndif.us; register with the challenge's form first\npython submit.py --local                  # score submission/ on the practice questions\npython submit.py --team \"My Team\" --wait  # submit; the team name is needed the first time only",
       "problems": [
         {
-          "description": "The current phase. A lens answers 290 hidden questions in 3 datasets (Dataset A, Dataset B, Dataset C); a question passes when the judge model finds the intermediate named on more of the lens's layer readouts than any of the four distractors, and a tie fails. Pass rate is the mean of the datasets' shares of questions passed, higher is better. 108 teams, 782 scored submissions; 21 submissions under review left out.",
+          "description": "The current phase. A lens answers 290 hidden questions in 3 datasets (Dataset A, Dataset B, Dataset C); a question passes when the judge model finds the intermediate named on more of the lens's layer readouts than any of the four distractors, and a tie fails. Pass rate is the mean of the datasets' shares of questions passed, higher is better. 108 teams, 783 scored submissions; 21 submissions under review left out.",
           "metricUnit": "%",
           "id": "phase-1",
           "name": "Phase 1",
@@ -106268,7 +106415,7 @@
             },
             {
               "contributor": "mingly",
-              "description": "rank 4 on the board · Dataset A 99%, Dataset B 95.56%, Dataset C 98% · passed 283 of 290 questions · reads layer visits 34, 36, 38, 40, 42, 43, 44, 45, 46, 47 · best of the team's 3 scored submissions",
+              "description": "rank 4 on the board · Dataset A 99%, Dataset B 95.56%, Dataset C 98% · passed 283 of 290 questions · reads layer visits 34, 36, 38, 40, 42, 43, 44, 45, 46, 47 · best of the team's 4 scored submissions",
               "date": "2026-11-26",
               "value": 97.52,
               "contributorKind": "team",
@@ -108316,7 +108463,7 @@
         "recordsLast30d": 108,
         "recordsLast90d": 108
       },
-      "lastUpdated": "2026-11-27T00:27:42.236Z"
+      "lastUpdated": "2026-11-27T01:16:01.521Z"
     },
     {
       "id": "lean-eval",
@@ -112549,7 +112696,7 @@
         "recordsLast30d": 20,
         "recordsLast90d": 62
       },
-      "lastUpdated": "2026-11-27T00:27:48.475Z"
+      "lastUpdated": "2026-11-27T01:16:06.468Z"
     },
     {
       "id": "leansolving-squeezebench-04bec82398b15ff6",
@@ -113272,7 +113419,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:18:49.697Z"
+      "lastUpdated": "2026-11-27T01:08:02.413Z"
     },
     {
       "id": "alan-turing-institute-ravensport-competition-78654e7ec6b6e7e4",
@@ -113370,13 +113517,13 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:18:49.697Z"
+      "lastUpdated": "2026-11-27T01:08:02.413Z"
     },
     {
       "id": "cdcgov-rsv-forecast-hub-5eaa3b3e4b32caea",
       "name": "RSV Forecast Hub",
-      "tagline": "Submit weekly probabilistic nowcasts and forecasts of RSV hospital admissions and ED visit proportions.",
-      "description": "The RSV Forecast Hub, run by the US CDC, collects probabilistic nowcasts and forecasts of weekly laboratory-confirmed RSV hospital admissions and the weekly proportion of emergency department visits due to RSV for US states, DC, Puerto Rico and the nation. Teams submit quantile forecasts (23 quantiles) and optionally sample trajectories for horizons -1 through 3 relative to a Saturday reference date, via pull request to the hub repository. Forecasts are evaluated against NHSN and NSSP target data using metrics including the weighted interval score (WIS), and a weekly ensemble is built from valid submissions.",
+      "tagline": "Submit weekly probabilistic nowcasts and forecasts of RSV hospital admissions and ED visit proportions for US jurisdictions.",
+      "description": "The RSV Forecast Hub, run by the US CDC, collects real-time probabilistic nowcasts and forecasts of weekly laboratory-confirmed RSV hospital admissions and the weekly proportion of emergency department visits due to RSV, for the US and all 50 states, DC, and Puerto Rico. Teams submit quantile forecasts (and optionally sample trajectories) at horizons -1 through 3 via pull request to the GitHub repository, where automated hubverse validation checks run. Forecasts are evaluated against observed NHSN and NSSP target data using metrics including the weighted interval score (WIS), and a weekly ensemble is built from valid submissions.",
       "url": "https://github.com/CDCgov/rsv-forecast-hub",
       "host": "github",
       "status": "active",
@@ -113386,23 +113533,21 @@
         "epidemiology",
         "public-health",
         "probabilistic",
-        "rsv",
-        "time-series"
+        "time-series",
+        "rsv"
       ],
       "images": [],
       "participation": {
-        "howToSubmit": "Open a pull request to the hub repository adding a forecast CSV/parquet file to model-output/{team}-{model}/ named {YYYY-MM-DD}-{team}-{model}.csv (reference date = Saturday following the Wednesday deadline). Register model metadata in model-metadata/ first.",
-        "submissionFormat": "CSV or parquet with columns reference_date, target, horizon, target_end_date, location, output_type, output_type_id, value; 23 required quantiles (0.01-0.99) and/or sample trajectories; plus a YAML model metadata file.",
+        "howToSubmit": "Open a PR to main adding a forecast CSV/parquet file under model-output/{team}-{model}/ named {YYYY-MM-DD}-{team}-{model}.csv; register model metadata in model-metadata/ first.",
+        "submissionFormat": "CSV or parquet with columns reference_date, target, horizon, target_end_date, location, output_type, output_type_id, value; 23 required quantiles (0.01–0.99) and optional sample trajectories.",
         "deadline": "rolling",
-        "rounds": "Weekly submission rounds; 2026-2027 Challenge Period began September 23, 2026, with forecasts due 11 PM US Eastern each Wednesday.",
+        "rounds": "Weekly submission rounds; 2026-2027 Challenge Period began September 23rd 2026, submissions due 11PM US Eastern each Wednesday.",
         "eligibility": "Open to any team; submitters must be listed as designated_github_users or model_contributors in the model metadata.",
         "cost": "free",
-        "verification": "Automated GitHub Actions validation via hubValidations; PRs from preregistered submitters auto-merge if checks pass, otherwise manual review.",
+        "verification": "Automated GitHub Actions validation via hubverse hubValidations; PRs from preregistered submitters auto-merge if checks pass, otherwise manual review.",
         "requirements": [
-          "Git",
           "GitHub account",
-          "Python or R (for forecast generation)",
-          "hubValidations (R) for local validation"
+          "R (hubValidations) or Python (hub-data) for local validation"
         ],
         "compute": "unknown"
       },
@@ -113425,7 +113570,7 @@
         },
         {
           "label": "Hubverse documentation",
-          "url": "https://docs.hubverse.io/en/latest/"
+          "url": "https://docs.hubverse.io/"
         },
         {
           "label": "NHSN Hospital Respiratory Data",
@@ -113440,10 +113585,10 @@
       "venue": {
         "type": "online"
       },
-      "quickstart": "git clone https://github.com/CDCgov/rsv-forecast-hub.git\ncd rsv-forecast-hub\n# add model-metadata/{team}-{model}.yml, then submit a forecast file:\n# model-output/{team}-{model}/{YYYY-MM-DD}-{team}-{model}.csv\n# validate locally (R):\n# install.packages(\"hubValidations\", repos = c(\"https://hubverse-org.r-universe.dev\", \"https://cloud.r-project.org\"))\n# hubValidations::validate_submission(hub_path=\".\", file_path=\"<your forecast file>\")",
+      "quickstart": "pip install hubdata\n# or in R:\n# install.packages(\"hubValidations\", repos = c(\"https://hubverse-org.r-universe.dev\", \"https://cloud.r-project.org\"))\n# hubValidations::validate_model_metadata(hub_path=\".\", file_path=\"yourteam-yourmodel.yml\")\naws s3 cp s3://rsv-forecast-hub/model-output/RSVHub-baseline/ . --recursive --no-sign-request",
       "problems": [
         {
-          "description": "Probabilistic nowcasts and forecasts of epiweekly total laboratory-confirmed RSV hospital admissions (NHSN totalconfrsvnewadm) for US states, DC, Puerto Rico and the nation, at horizons -1 through 3.",
+          "description": "Probabilistic nowcasts and forecasts of epiweekly total laboratory-confirmed RSV hospital admissions (NHSN totalconfrsvnewadm) for the US and jurisdictions, at horizons -1 through 3.",
           "metricUnit": "WIS",
           "id": "wk-inc-rsv-hosp",
           "name": "Weekly incident RSV hospital admissions",
@@ -113454,7 +113599,7 @@
           "contested": false
         },
         {
-          "description": "Probabilistic nowcasts and forecasts of the epiweekly proportion of emergency department visits due to RSV (NSSP percent_visits_rsv / 100) for US states, DC and the nation, at horizons -1 through 3. Optional target.",
+          "description": "Probabilistic nowcasts and forecasts of the epiweekly proportion of emergency department visits due to RSV (NSSP percent_visits_rsv / 100) for the US and jurisdictions, at horizons -1 through 3. Optional target.",
           "metricUnit": "WIS",
           "id": "wk-inc-rsv-prop-ed-visits",
           "name": "Weekly incident proportion of ED visits due to RSV",
@@ -113478,7 +113623,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:28:05.084Z"
+      "lastUpdated": "2026-11-27T01:16:23.460Z"
     },
     {
       "id": "programbench",
@@ -114030,13 +114175,13 @@
         "recordsLast30d": 0,
         "recordsLast90d": 5
       },
-      "lastUpdated": "2026-11-27T00:18:49.697Z"
+      "lastUpdated": "2026-11-27T01:08:02.414Z"
     },
     {
       "id": "bigospeedrun-verifier-d059f6016f1c0796",
       "name": "Big O Speedrun",
       "tagline": "A race to improve the complexity bounds of classic problems (integer and matrix multiplication, 3SUM, APSP, 3-SAT, …); every record is Claimed, Human Verified or Lean Verified.",
-      "description": "Big O Speedrun (bigospeedrun.com) tracks improved algorithmic bounds for classic problems; each race starts from the first result by AI agents that broke the classic bound. 10 races (Integer Multiplication, Matrix Multiplication, Fourier Transform, 3SUM, APSP, APSP, randomized, Subset Sum, 3-SAT, Integer Factoring, Directed Shortest Paths) and 20 \"Other bounds\" rows. Every result carries an evidence level: Claimed (published, not checked), Human Verified (accepted by the race's review repository) or Lean Verified (its Lean proof rebuilt and kernel-checked against the site's exact statement). New results are posted in #submit-a-result on Discord; Lean proofs go to bigospeedrun/verifier, and 4 races also take proofs from prove2.me campaigns. Tracks here list the current leader at each evidence level from the site's hourly data (updated 2026-11-26); a track ranks by the site's exact score where its page states one direction, otherwise by evidence level (each track says which). Agent attribution only where the site's text names the AI.",
+      "description": "Big O Speedrun (bigospeedrun.com) tracks improved algorithmic bounds for classic problems; each race starts from the first result by AI agents that broke the classic bound. 10 races (Integer Multiplication, Matrix Multiplication, Fourier Transform, 3SUM, APSP, APSP, randomized, Subset Sum, 3-SAT, Integer Factoring, Directed Shortest Paths) and 20 \"Other bounds\" rows. Every result carries an evidence level: Claimed (published, not checked), Human Verified (accepted by the race's review repository) or Lean Verified (its Lean proof rebuilt and kernel-checked against the site's exact statement). New results are posted in #submit-a-result on Discord; Lean proofs go to bigospeedrun/verifier, and 4 races also take proofs from prove2.me campaigns. Tracks here list the current leader at each evidence level from the site's hourly data (updated 2026-11-27); a track ranks by the site's exact score where its page states one direction, otherwise by evidence level (each track says which). Agent attribution only where the site's text names the AI.",
       "url": "https://bigospeedrun.com/",
       "host": "website",
       "status": "active",
@@ -115517,7 +115662,7 @@
         "recordsLast30d": 26,
         "recordsLast90d": 43
       },
-      "lastUpdated": "2026-11-27T00:28:06.128Z"
+      "lastUpdated": "2026-11-27T01:16:24.445Z"
     },
     {
       "id": "s2n-bignum-bench",
@@ -115615,7 +115760,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:18:49.697Z"
+      "lastUpdated": "2026-11-27T01:08:02.415Z"
     },
     {
       "id": "agent-anvil-leaderboard",
@@ -115731,7 +115876,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:18:49.698Z"
+      "lastUpdated": "2026-11-27T01:08:02.415Z"
     },
     {
       "id": "geo-bench-2-leaderboard",
@@ -115851,7 +115996,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:18:49.698Z"
+      "lastUpdated": "2026-11-27T01:08:02.415Z"
     },
     {
       "id": "modded-nanogpt-npu",
@@ -117961,7 +118106,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:18:49.699Z"
+      "lastUpdated": "2026-11-27T01:08:02.417Z"
     },
     {
       "id": "chi-bench",
@@ -119242,7 +119387,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 8
       },
-      "lastUpdated": "2026-11-27T00:18:49.699Z"
+      "lastUpdated": "2026-11-27T01:08:02.417Z"
     },
     {
       "id": "apex-humanoid-parkour",
@@ -119334,7 +119479,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:18:49.699Z"
+      "lastUpdated": "2026-11-27T01:08:02.418Z"
     },
     {
       "id": "kaihui-amd-modelbot-cli-3b803e68a0cd6d71",
@@ -119451,7 +119596,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:28:13.365Z"
+      "lastUpdated": "2026-11-27T01:16:28.549Z"
     },
     {
       "id": "keyu-wang-2002-depthdash-3d9f7411623b2df2",
@@ -119560,7 +119705,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:18:49.699Z"
+      "lastUpdated": "2026-11-27T01:08:02.418Z"
     },
     {
       "id": "basicv8vc-modded-supermimic-7f81e99cb9bffec0",
@@ -119697,7 +119842,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:18:49.699Z"
+      "lastUpdated": "2026-11-27T01:08:02.418Z"
     },
     {
       "id": "swe-bench-pro-leaderboard",
@@ -119900,7 +120045,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:18:49.700Z"
+      "lastUpdated": "2026-11-27T01:08:02.418Z"
     },
     {
       "id": "terminal-bench-leaderboard",
@@ -119977,7 +120122,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:18:49.700Z"
+      "lastUpdated": "2026-11-27T01:08:02.418Z"
     },
     {
       "id": "rtl-ai-silicon-arena-d20cfa656a05f7ad",
@@ -120152,36 +120297,36 @@
         "recordsLast30d": 1,
         "recordsLast90d": 1
       },
-      "lastUpdated": "2026-11-27T00:18:49.700Z"
+      "lastUpdated": "2026-11-27T01:08:02.419Z"
     },
     {
       "id": "andrewnakas-powderbench-052d315c05650aa9",
       "name": "PowderBench",
-      "tagline": "Forecast mountain snowfall 24-72h ahead at ~2,400 stations; scored on skill vs climatology.",
-      "description": "PowderBench is a live, open benchmark for mountain snowfall forecasting. Competitors submit point forecasts of new snow (inches) per station and horizon before a daily cutoff, and are scored days later against quality-controlled snow telemetry, observer measurements, resort reports and ERA5 analysis. The headline metric is Powder Accuracy, 100 x (1 - MAE/MAE_climatology), where 0 = climatology and weather-model baselines score ~+25 to +30. It is contamination-free by construction since every round asks about weather that has not happened yet, and humans, ML pipelines and AI agents compete on one leaderboard.",
+      "tagline": "Forecast mountain snowfall 24-72h ahead and beat the weather models on a live, contamination-free leaderboard.",
+      "description": "PowderBench is a live benchmark for mountain snowfall forecasting: each day it opens rounds in nine leagues, one per kind of ground truth, asking for 24h, 48h and 72h snowfall predictions at ~2,400 quality-controlled mountain stations worldwide. Forecasts are submitted as CSV via pull request before a per-league cutoff and scored days later against quality-controlled observations, so the benchmark is contamination-free by construction. The headline metric is Powder Accuracy, 100 x (1 - MAE/MAE_climatology), where 0 is climatology and the automatic NWP baselines (ECMWF IFS/AIFS, GFS, ICON, GEM, UKMO, NBM, HRRR, AROME, WPC percentiles) sit around +25 to +30. Humans, ML pipelines and AI agents all compete on one leaderboard, scored by GitHub Actions.",
       "url": "https://github.com/andrewnakas/powderbench",
       "host": "github",
       "status": "active",
       "domain": "ml-research",
       "tags": [
-        "weather",
-        "forecasting",
         "snowfall",
+        "weather-forecasting",
         "time-series",
         "ensemble",
-        "open-benchmark"
+        "live-benchmark",
+        "nwp"
       ],
       "images": [],
       "participation": {
-        "howToSubmit": "Open a PR adding data/submissions/<league>/<round-date>/<your-team>.csv before the league cutoff; a bot validates and auto-merges. Or run `powderbench submit my.csv --team my-team --league stations`.",
-        "submissionFormat": "CSV with columns station_id,horizon_h,snowfall_in (required); optional p10,p25,p50,p75,p90, prob_6in, swe_in. One row per station x horizon (24/48/72h).",
-        "computeDetails": "Forecasting is a data/ML task; the starter ensemble and LightGBM post-processing run on CPU. No GPU required.",
+        "howToSubmit": "Open a PR to main adding data/submissions/<league>/<round-date>/<your-team>.csv before the league cutoff; a bot validates and auto-merges. `powderbench submit my.csv --team my-team --league stations` does this for you.",
+        "submissionFormat": "CSV with columns station_id,horizon_h,snowfall_in (required); optional p10,p25,p50,p75,p90, prob_6in, swe_in. One row per station x horizon.",
+        "computeDetails": "Scoring runs in GitHub Actions; the starter ensemble and LightGBM house model run on CPU. No GPU required.",
         "deadline": "rolling",
-        "rounds": "Daily rounds per league; northern leagues Oct-May, southern leagues May-Oct, so something is always open.",
+        "rounds": "Daily rounds per league; northern leagues Oct-May, southern leagues May-Oct. Ranking requires >=70% coverage and 5+ rounds.",
         "prizes": "recognition only",
         "eligibility": "Open to anyone; no accounts or API keys needed.",
         "cost": "free",
-        "verification": "GitHub Actions CI validates and scores; a submission counts only if merged to main before the cutoff (merge timestamps cannot be forged). QC-voided station-days excluded for everyone.",
+        "verification": "GitHub Actions CI validates the CSV against the frozen round station list; a submission counts only if merged to main before the cutoff (GitHub merge timestamps). Late entries are scored but never ranked.",
         "requirements": [
           "Python 3.10+",
           "GitHub CLI (gh) for the submit helper"
@@ -120210,8 +120355,8 @@
           "url": "https://huggingface.co/datasets/nakas/powderbench-truth"
         },
         {
-          "label": "Train a model in Colab",
-          "url": "https://colab.research.google.com/github/andrewnakas/powderbench/blob/main/examples/house_model_colab.ipynb"
+          "label": "Snowpack & avalanche training data",
+          "url": "https://huggingface.co/datasets/nakas/powderbench-snowpack"
         }
       ],
       "organizer": {
@@ -120225,8 +120370,8 @@
       "quickstart": "git clone https://github.com/andrewnakas/powderbench.git && cd powderbench\npython3 -m venv .venv && .venv/bin/pip install -e .\n.venv/bin/python examples/starter_ensemble.py --league stations --out my.csv\n.venv/bin/powderbench submit my.csv --team my-team --league stations   # needs the GitHub CLI",
       "problems": [
         {
-          "description": "Forecast new snow at ~1,000 SNOTEL/CDEC/SNOLITE/BC snow-telemetry stations (45 featured) for 24/48/72h horizons; scored on Powder Accuracy vs climatology.",
-          "metricUnit": "%",
+          "description": "Forecast new snow at ~1,000 SNOTEL/CDEC/SNOLITE/BC snow-telemetry stations (45 featured); truth is snow-depth telemetry (delta depth, SWE-checked).",
+          "metricUnit": "score",
           "id": "stations",
           "name": "Stations · Snow telemetry (N. America)",
           "metricName": "Powder Accuracy",
@@ -120236,8 +120381,8 @@
           "contested": false
         },
         {
-          "description": "Forecast measured new snow at ~1,630 mountain and ski-area COOP/CoCoRaHS observers plus Canadian ECCC stations (~90 featured).",
-          "metricUnit": "%",
+          "description": "Forecast new snow at ~1,630 US COOP + CoCoRaHS mountain/ski-area observers plus Canadian ECCC stations (~90 featured); truth is measured new snow on an observer's snowboard.",
+          "metricUnit": "score",
           "id": "observers",
           "name": "Observers · Measured new snow (N. America)",
           "metricName": "Powder Accuracy",
@@ -120247,8 +120392,8 @@
           "contested": false
         },
         {
-          "description": "Forecast each resort's own published morning snow report at 19 North American resorts.",
-          "metricUnit": "%",
+          "description": "Forecast new snow at 19 North American resorts' own morning snow reports, archived twice daily.",
+          "metricUnit": "score",
           "id": "resorts-na",
           "name": "Resorts · North America",
           "metricName": "Powder Accuracy",
@@ -120258,8 +120403,8 @@
           "contested": false
         },
         {
-          "description": "Forecast measured 24h new snow or snow-depth rise at 713 Alpine sites (89 featured) across Switzerland, Austria, France, Germany and Italy.",
-          "metricUnit": "%",
+          "description": "Forecast new snow at 713 Alpine sites (89 featured) across Swiss, Austrian, French, German, Italian and Tyrolean networks; truth is measured 24h new snow or snow-depth rise at automatic sensors.",
+          "metricUnit": "score",
           "id": "alps",
           "name": "Alps · New snow (SLF, MeteoSwiss, GeoSphere, Météo-France, DWD, Tirol, Italian Alps)",
           "metricName": "Powder Accuracy",
@@ -120269,8 +120414,8 @@
           "contested": false
         },
         {
-          "description": "Forecast JMA AMeDAS daily snowfall totals (sum of hourly depth rises) at 265 stations (24 featured).",
-          "metricUnit": "%",
+          "description": "Forecast new snow at 265 JMA AMeDAS snow-depth sensors (24 featured); truth is JMA's daily snowfall total, the sum of hourly depth rises.",
+          "metricUnit": "score",
           "id": "japan",
           "name": "Japan · Snow-depth sensors (JMA AMeDAS)",
           "metricName": "Powder Accuracy",
@@ -120280,8 +120425,8 @@
           "contested": false
         },
         {
-          "description": "Forecast morning-to-morning snow-depth change at 50 SMHI, 49 FMI and 112 MET Norway stations (19 featured).",
-          "metricUnit": "%",
+          "description": "Forecast new snow at 50 SMHI, 49 FMI and 112 MET Norway stations (19 featured); truth is morning-to-morning snow-depth change.",
+          "metricUnit": "score",
           "id": "nordic",
           "name": "Nordic · Morning snow depth (SMHI, FMI, MET Norway)",
           "metricName": "Powder Accuracy",
@@ -120291,8 +120436,8 @@
           "contested": false
         },
         {
-          "description": "Forecast morning snow at DWD, Météo-France, ČHMÚ and WMO GHCNh stations worldwide.",
-          "metricUnit": "%",
+          "description": "Forecast new snow at DWD, Météo-France, ČHMÚ, GHCNh and ECCC stations worldwide; truth is the morning snow report.",
+          "metricUnit": "score",
           "id": "world",
           "name": "World · Morning snow (DWD, Météo-France, ČHMÚ, WMO stations)",
           "metricName": "Powder Accuracy",
@@ -120302,8 +120447,8 @@
           "contested": false
         },
         {
-          "description": "Forecast ERA5 model-analysis snowfall at 23 southern-hemisphere resort grid points (Portillo, Las Leñas, Remarkables, Perisher...).",
-          "metricUnit": "%",
+          "description": "Forecast new snow at 23 southern-hemisphere ERA5 reanalysis grid points at resort coordinates; truth is ERA5 model analysis.",
+          "metricUnit": "score",
           "id": "era5",
           "name": "ERA5 · Andes / NZ / AU",
           "metricName": "Powder Accuracy",
@@ -120313,8 +120458,8 @@
           "contested": false
         },
         {
-          "description": "Forecast each resort's own published snow report at 13 NZ/AU/Chile/Argentina resorts (Mt Hutt, Thredbo, Catedral...).",
-          "metricUnit": "%",
+          "description": "Forecast new snow at 13 southern-hemisphere resorts' own published snow reports, archived daily.",
+          "metricUnit": "score",
           "id": "resorts",
           "name": "Resorts · Southern Hemisphere",
           "metricName": "Powder Accuracy",
@@ -120337,7 +120482,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:28:32.556Z"
+      "lastUpdated": "2026-11-27T01:16:47.564Z"
     },
     {
       "id": "open-challenges-rh-golf-6f5da8d7767c2065",
@@ -120514,7 +120659,7 @@
         "recordsLast30d": 2,
         "recordsLast90d": 2
       },
-      "lastUpdated": "2026-11-27T00:18:49.700Z"
+      "lastUpdated": "2026-11-27T01:08:02.419Z"
     },
     {
       "id": "kaggle-squares-in-squares",
@@ -120611,8 +120756,8 @@
             },
             {
               "contributor": "inversion",
-              "date": "2026-11-26",
-              "value": 22.0594037588,
+              "date": "2026-11-27",
+              "value": 22.0592358646,
               "contributorKind": "team"
             },
             {
@@ -120629,8 +120774,8 @@
             },
             {
               "contributor": "Nick Sarris",
-              "date": "2026-11-26",
-              "value": 22.0695433073,
+              "date": "2026-11-27",
+              "value": 22.0694111068,
               "contributorKind": "team"
             },
             {
@@ -120647,8 +120792,8 @@
             },
             {
               "contributor": "y0sh",
-              "date": "2026-11-26",
-              "value": 22.0726070393,
+              "date": "2026-11-27",
+              "value": 22.0724257646,
               "contributorKind": "team"
             },
             {
@@ -120659,8 +120804,8 @@
             },
             {
               "contributor": "青葉 涼風",
-              "date": "2026-11-26",
-              "value": 22.0754210526,
+              "date": "2026-11-27",
+              "value": 22.0753911839,
               "contributorKind": "team"
             },
             {
@@ -120758,7 +120903,7 @@
           "problems": [
             "public-leaderboard"
           ],
-          "lastActive": "2026-11-26"
+          "lastActive": "2026-11-27"
         },
         {
           "name": "Maika Namuo",
@@ -120782,7 +120927,7 @@
           "problems": [
             "public-leaderboard"
           ],
-          "lastActive": "2026-11-26"
+          "lastActive": "2026-11-27"
         },
         {
           "name": "JLShen025",
@@ -120806,7 +120951,7 @@
           "problems": [
             "public-leaderboard"
           ],
-          "lastActive": "2026-11-26"
+          "lastActive": "2026-11-27"
         },
         {
           "name": "Toan Nguyen Mau",
@@ -120822,7 +120967,7 @@
           "problems": [
             "public-leaderboard"
           ],
-          "lastActive": "2026-11-26"
+          "lastActive": "2026-11-27"
         },
         {
           "name": "~Ayuchan~",
@@ -120853,11 +120998,11 @@
         "totalRecords": 20,
         "uniqueParticipants": 20,
         "firstSubmission": "2026-11-10",
-        "lastSubmission": "2026-11-26",
+        "lastSubmission": "2026-11-27",
         "recordsLast30d": 20,
         "recordsLast90d": 20
       },
-      "lastUpdated": "2026-11-27T00:28:33.042Z"
+      "lastUpdated": "2026-11-27T01:16:48.059Z"
     },
     {
       "id": "kaggle-google-verifiable-quantum-circuit-compilation",
@@ -120942,7 +121087,7 @@
             {
               "contributor": "Honey, I Shrunk the Qubits",
               "date": "2026-11-26",
-              "value": 33.49573,
+              "value": 33.50258,
               "contributorKind": "team"
             },
             {
@@ -121199,7 +121344,7 @@
         "recordsLast30d": 20,
         "recordsLast90d": 20
       },
-      "lastUpdated": "2026-11-27T00:28:33.042Z"
+      "lastUpdated": "2026-11-27T01:16:48.059Z"
     },
     {
       "id": "duckbench",
@@ -121284,7 +121429,7 @@
             {
               "contributor": "raft-captain",
               "description": "rank 1 · 57–6–5 (W–L–D) in 68 matches · ±40 · trained by Opus 5.5 (self-reported)",
-              "value": 1775,
+              "value": 1776,
               "contributorKind": "person",
               "contributorUrl": "https://duckbench.app/@raft-captain",
               "isBaseline": false,
@@ -121300,8 +121445,8 @@
             },
             {
               "contributor": "scrooge",
-              "description": "rank 2 · 106–39–33 (W–L–D) in 178 matches · ±20 · trained by Opus 5.5 (self-reported)",
-              "value": 1643,
+              "description": "rank 2 · 107–39–33 (W–L–D) in 179 matches · ±20 · trained by Opus 5.5 (self-reported)",
+              "value": 1644,
               "contributorKind": "person",
               "contributorUrl": "https://duckbench.app/@scrooge",
               "isBaseline": false,
@@ -121317,7 +121462,7 @@
             },
             {
               "contributor": "emil-lio",
-              "description": "rank 3 · 85–63–56 (W–L–D) in 204 matches · ±20 · trained by GPT-6.1 Sol (self-reported)",
+              "description": "rank 3 · 86–63–56 (W–L–D) in 205 matches · ±20 · trained by GPT-6.1 Sol (self-reported)",
               "value": 1571,
               "contributorKind": "person",
               "contributorUrl": "https://duckbench.app/@emil-lio",
@@ -121334,7 +121479,7 @@
             },
             {
               "contributor": "emillio",
-              "description": "rank 4 · 227–90–62 (W–L–D) in 379 matches · ±20 · trained by Opus 5.5 (self-reported)",
+              "description": "rank 4 · 227–91–62 (W–L–D) in 380 matches · ±20 · trained by Opus 5.5 (self-reported)",
               "value": 1558,
               "contributorKind": "person",
               "contributorUrl": "https://duckbench.app/@emillio",
@@ -121351,7 +121496,7 @@
             },
             {
               "contributor": "donald",
-              "description": "rank 5 · 50–238–84 (W–L–D) in 372 matches · ±20 · trained by GPT-6.1 Sol (self-reported)",
+              "description": "rank 5 · 50–239–84 (W–L–D) in 373 matches · ±20 · trained by GPT-6.1 Sol (self-reported)",
               "value": 1414,
               "contributorKind": "person",
               "contributorUrl": "https://duckbench.app/@donald",
@@ -121398,12 +121543,12 @@
           "name": "Sumo",
           "metricName": "rating",
           "metricDirection": "maximize",
-          "baseline": 1466,
+          "baseline": 1465,
           "isOpen": false,
           "records": [
             {
               "contributor": "lenant",
-              "description": "rank 1 · 354–91–40 (W–L–D) in 485 matches · ±10 · trained by GPT-6 Astra · 1 h 2 min · M5 Pro MacBook Pro (self-reported)",
+              "description": "rank 1 · 354–92–40 (W–L–D) in 486 matches · ±10 · trained by GPT-6 Astra · 1 h 2 min · M5 Pro MacBook Pro (self-reported)",
               "value": 1705,
               "contributorKind": "person",
               "contributorUrl": "https://duckbench.app/@lenant",
@@ -121420,8 +121565,8 @@
             },
             {
               "contributor": "rosclaw",
-              "description": "rank 2 · 20–6–2 (W–L–D) in 28 matches · ±60 · trained by GPT-6.2 Sol · 7.6 min · aarch64 (self-reported)",
-              "value": 1680,
+              "description": "rank 2 · 21–6–2 (W–L–D) in 29 matches · ±60 · trained by GPT-6.2 Sol · 7.6 min · aarch64 (self-reported)",
+              "value": 1691,
               "contributorKind": "person",
               "contributorUrl": "https://duckbench.app/@rosclaw",
               "isBaseline": false,
@@ -121454,7 +121599,7 @@
             },
             {
               "contributor": "motherducker",
-              "description": "rank 4 · 271–307–65 (W–L–D) in 643 matches · ±10 · trained by GPT-6.1 Sol · 16 min · M2 Max MacBook Pro (self-reported)",
+              "description": "rank 4 · 272–307–65 (W–L–D) in 644 matches · ±10 · trained by GPT-6.1 Sol · 16 min · M2 Max MacBook Pro (self-reported)",
               "value": 1554,
               "contributorKind": "person",
               "contributorUrl": "https://duckbench.app/@motherducker",
@@ -121471,7 +121616,7 @@
             },
             {
               "contributor": "emillio",
-              "description": "rank 5 · 364–249–39 (W–L–D) in 652 matches · ±10 · trained by Opus 5.5 · 1 h 42 min · Mac (self-reported)",
+              "description": "rank 5 · 364–250–39 (W–L–D) in 653 matches · ±10 · trained by Opus 5.5 · 1 h 42 min · Mac (self-reported)",
               "value": 1505,
               "contributorKind": "person",
               "contributorUrl": "https://duckbench.app/@emillio",
@@ -121488,7 +121633,7 @@
             },
             {
               "contributor": "deepsolution-robotics",
-              "description": "rank 6 · 22–16–4 (W–L–D) in 42 matches · ±50 · trained by GPT-6.2 Sol (self-reported)",
+              "description": "rank 6 · 23–16–4 (W–L–D) in 43 matches · ±50 · trained by GPT-6.2 Sol (self-reported)",
               "value": 1496,
               "contributorKind": "person",
               "contributorUrl": "https://duckbench.app/@deepsolution-robotics",
@@ -121506,13 +121651,13 @@
             {
               "contributor": "Arena bot (hard)",
               "description": "DuckBench's house bot · 2–3–1 (W–L–D) in 6 matches",
-              "value": 1466,
+              "value": 1465,
               "contributorKind": "method",
               "isBaseline": true
             },
             {
               "contributor": "romashio",
-              "description": "rank 7 · 302–349–36 (W–L–D) in 687 matches · ±10 · trained by Opus 5.5 (self-reported)",
+              "description": "rank 7 · 303–349–36 (W–L–D) in 688 matches · ±10 · trained by Opus 5.5 (self-reported)",
               "value": 1272,
               "contributorKind": "person",
               "contributorUrl": "https://duckbench.app/@romashio",
@@ -121536,7 +121681,7 @@
             },
             {
               "contributor": "scrooge",
-              "description": "rank 8 · 139–377–50 (W–L–D) in 566 matches · ±10",
+              "description": "rank 8 · 139–378–50 (W–L–D) in 567 matches · ±10",
               "value": 1176,
               "contributorKind": "person",
               "contributorUrl": "https://duckbench.app/@scrooge",
@@ -121553,7 +121698,7 @@
             },
             {
               "contributor": "superdimka",
-              "description": "rank 9 · 35–590–32 (W–L–D) in 657 matches · ±10",
+              "description": "rank 9 · 35–591–32 (W–L–D) in 658 matches · ±10",
               "value": 1079,
               "contributorKind": "person",
               "contributorUrl": "https://duckbench.app/@superdimka",
@@ -121660,8 +121805,8 @@
           "records": [
             {
               "contributor": "scrooge",
-              "description": "rank 1 · 47–4–18 (W–L–D) in 69 matches · ±40 · trained by Opus 5.5 (self-reported)",
-              "value": 1656,
+              "description": "rank 1 · 48–4–18 (W–L–D) in 70 matches · ±40 · trained by Opus 5.5 (self-reported)",
+              "value": 1657,
               "contributorKind": "person",
               "contributorUrl": "https://duckbench.app/@scrooge",
               "isBaseline": false,
@@ -121677,7 +121822,7 @@
             },
             {
               "contributor": "emil-lio",
-              "description": "rank 2 · 11–40–18 (W–L–D) in 69 matches · ±40 · trained by GPT-6.2 Sol (self-reported)",
+              "description": "rank 2 · 11–41–18 (W–L–D) in 70 matches · ±40 · trained by GPT-6.2 Sol (self-reported)",
               "value": 1569,
               "contributorKind": "person",
               "contributorUrl": "https://duckbench.app/@emil-lio",
@@ -121729,8 +121874,8 @@
           "records": [
             {
               "contributor": "emillio",
-              "description": "rank 1 · 69–0–0 (W–L–D) in 69 matches · ±110 · trained by Opus 5.5 · 41 min · M2 MacBook Air (self-reported)",
-              "value": 2164,
+              "description": "rank 1 · 70–0–0 (W–L–D) in 70 matches · ±110 · trained by Opus 5.5 · 41 min · M2 MacBook Air (self-reported)",
+              "value": 2167,
               "contributorKind": "person",
               "contributorUrl": "https://duckbench.app/@emillio",
               "isBaseline": false,
@@ -121746,7 +121891,7 @@
             },
             {
               "contributor": "scrooge",
-              "description": "rank 2 · 7–62–0 (W–L–D) in 69 matches · ±90 · trained by Opus 5.5 (self-reported)",
+              "description": "rank 2 · 7–63–0 (W–L–D) in 70 matches · ±90 · trained by Opus 5.5 (self-reported)",
               "value": 1545,
               "contributorKind": "person",
               "contributorUrl": "https://duckbench.app/@scrooge",
@@ -122547,13 +122692,13 @@
         "recordsLast30d": 15,
         "recordsLast90d": 19
       },
-      "lastUpdated": "2026-11-27T00:28:33.637Z"
+      "lastUpdated": "2026-11-27T01:16:48.746Z"
     },
     {
       "id": "open-discovery-challenge",
       "name": "Open Discovery Challenge",
       "tagline": "Design a drug candidate for a neglected disease with any AI model, submit it as SMILES, and the organizers' GPUs score it 0–100 against approved drugs; the top entry of each season takes the prize.",
-      "description": "The Open Discovery Challenge (FINAL-Bench, on Hugging Face Spaces) asks one question about a molecule an AI just designed: is it any good? An entry is a single structure (SMILES or InChI) for the season's target. The organizers dock it against the target and the human counter-target, predict whole-cell activity and ADMET, and score it 0–100 on activity, binding, selectivity, ADMET, novelty and synthetic accessibility — minutes per entry, on their GPUs, so an entrant needs nothing but a browser. Approved drugs and inert controls are scored on the same rubric and sit on the board as the scale to read it against. Seasons run concurrently, each for a different disease: Season 3 (Chagas disease, T. cruzi CYP51), Season 4 (Non-opioid analgesia, Nav1.7 (VSD4)). 26,255 submissions from 146 accounts so far. Tracks here list each account's best ranked entry (top 50 accounts per season) from the public leaderboard API, over the reference compounds as baselines. Structures are never republished here, and the model behind a row is only what the entrant typed in the submission form (self-reported).",
+      "description": "The Open Discovery Challenge (FINAL-Bench, on Hugging Face Spaces) asks one question about a molecule an AI just designed: is it any good? An entry is a single structure (SMILES or InChI) for the season's target. The organizers dock it against the target and the human counter-target, predict whole-cell activity and ADMET, and score it 0–100 on activity, binding, selectivity, ADMET, novelty and synthetic accessibility — minutes per entry, on their GPUs, so an entrant needs nothing but a browser. Approved drugs and inert controls are scored on the same rubric and sit on the board as the scale to read it against. Seasons run concurrently, each for a different disease: Season 3 (Chagas disease, T. cruzi CYP51), Season 4 (Non-opioid analgesia, Nav1.7 (VSD4)). 26,270 submissions from 146 accounts so far. Tracks here list each account's best ranked entry (top 50 accounts per season) from the public leaderboard API, over the reference compounds as baselines. Structures are never republished here, and the model behind a row is only what the entrant typed in the submission form (self-reported).",
       "url": "https://huggingface.co/spaces/FINAL-Bench/open-discovery-challenge",
       "host": "huggingface",
       "status": "active",
@@ -122636,7 +122781,7 @@
           "records": [
             {
               "contributor": "topabaem",
-              "description": "rank 1 of 5,737 ranked entries · best of this account's 34 scored entries · candidate ODC-F83F19 · activity 4.2/10, binding 29.9/30, selectivity 29.9/30, ADMET 4.3/15, novelty 9.5/10, synthesis 3.2/5 · structure kept private (the entrant's choice)",
+              "description": "rank 1 of 5,747 ranked entries · best of this account's 34 scored entries · candidate ODC-F83F19 · activity 4.2/10, binding 29.9/30, selectivity 29.9/30, ADMET 4.3/15, novelty 9.5/10, synthesis 3.2/5 · structure kept private (the entrant's choice)",
               "date": "2026-11-23",
               "value": 81.045,
               "contributorKind": "person",
@@ -122646,7 +122791,7 @@
             },
             {
               "contributor": "Ku-ku",
-              "description": "rank 2 of 5,737 ranked entries · best of this account's 797 scored entries · candidate ODC-5B80CF · activity 5.7/10, binding 28.5/30, selectivity 29.4/30, ADMET 4/15, novelty 8.9/10, synthesis 3.7/5 · structure kept private (the entrant's choice)",
+              "description": "rank 2 of 5,747 ranked entries · best of this account's 797 scored entries · candidate ODC-5B80CF · activity 5.7/10, binding 28.5/30, selectivity 29.4/30, ADMET 4/15, novelty 8.9/10, synthesis 3.7/5 · structure kept private (the entrant's choice)",
               "date": "2026-08-29",
               "value": 80.296,
               "contributorKind": "person",
@@ -122663,7 +122808,7 @@
             },
             {
               "contributor": "1Dmeds",
-              "description": "rank 4 of 5,737 ranked entries · best of this account's 793 scored entries · candidate ODC-E27503 · activity 5.6/10, binding 29/30, selectivity 28.7/30, ADMET 4/15, novelty 9.1/10, synthesis 3.8/5 · structure kept private (the entrant's choice)",
+              "description": "rank 4 of 5,747 ranked entries · best of this account's 793 scored entries · candidate ODC-E27503 · activity 5.6/10, binding 29/30, selectivity 28.7/30, ADMET 4/15, novelty 9.1/10, synthesis 3.8/5 · structure kept private (the entrant's choice)",
               "date": "2026-08-28",
               "value": 80.189,
               "contributorKind": "person",
@@ -122680,7 +122825,7 @@
             },
             {
               "contributor": "MeroZemory",
-              "description": "rank 10 of 5,737 ranked entries · best of this account's 198 scored entries · candidate ODC-D56A3F · activity 6.1/10, binding 28.9/30, selectivity 26.5/30, ADMET 3.7/15, novelty 9/10, synthesis 3.7/5 · structure kept private (the entrant's choice)",
+              "description": "rank 10 of 5,747 ranked entries · best of this account's 198 scored entries · candidate ODC-D56A3F · activity 6.1/10, binding 28.9/30, selectivity 26.5/30, ADMET 3.7/15, novelty 9/10, synthesis 3.7/5 · structure kept private (the entrant's choice)",
               "date": "2026-08-29",
               "value": 77.965,
               "contributorKind": "person",
@@ -122690,7 +122835,7 @@
             },
             {
               "contributor": "Flansma",
-              "description": "rank 51 of 5,737 ranked entries · best of this account's 182 scored entries · candidate ODC-4AD316 · activity 3.4/10, binding 28.9/30, selectivity 26.3/30, ADMET 3.4/15, novelty 9.2/10, synthesis 3/5 · structure kept private (the entrant's choice)",
+              "description": "rank 51 of 5,747 ranked entries · best of this account's 182 scored entries · candidate ODC-4AD316 · activity 3.4/10, binding 28.9/30, selectivity 26.3/30, ADMET 3.4/15, novelty 9.2/10, synthesis 3/5 · structure kept private (the entrant's choice)",
               "date": "2026-08-23",
               "value": 74.182,
               "contributorKind": "person",
@@ -122700,7 +122845,7 @@
             },
             {
               "contributor": "healing5120",
-              "description": "rank 75 of 5,737 ranked entries · best of this account's 222 scored entries · candidate ODC-482C2C · activity 2.6/10, binding 29.8/30, selectivity 23.1/30, ADMET 3.3/15, novelty 9.4/10, synthesis 4.4/5 · structure kept private (the entrant's choice)",
+              "description": "rank 75 of 5,747 ranked entries · best of this account's 224 scored entries · candidate ODC-482C2C · activity 2.6/10, binding 29.8/30, selectivity 23.1/30, ADMET 3.3/15, novelty 9.4/10, synthesis 4.4/5 · structure kept private (the entrant's choice)",
               "date": "2026-10-30",
               "value": 72.716,
               "contributorKind": "person",
@@ -122717,7 +122862,7 @@
             },
             {
               "contributor": "Bio-JS",
-              "description": "rank 97 of 5,737 ranked entries · best of this account's 942 scored entries · candidate ODC-BCE0C9 · activity 4.6/10, binding 27.3/30, selectivity 23.2/30, ADMET 4.5/15, novelty 8.7/10, synthesis 3.1/5 · structure kept private (the entrant's choice)",
+              "description": "rank 97 of 5,747 ranked entries · best of this account's 942 scored entries · candidate ODC-BCE0C9 · activity 4.6/10, binding 27.3/30, selectivity 23.2/30, ADMET 4.5/15, novelty 8.7/10, synthesis 3.1/5 · structure kept private (the entrant's choice)",
               "date": "2026-09-06",
               "value": 71.516,
               "contributorKind": "person",
@@ -122727,7 +122872,7 @@
             },
             {
               "contributor": "rator9521",
-              "description": "rank 99 of 5,737 ranked entries · best of this account's 263 scored entries · candidate ODC-049425 · activity 0.3/10, binding 30/30, selectivity 19.4/30, ADMET 10.1/15, novelty 9.3/10, synthesis 2.4/5 · structure kept private (the entrant's choice)",
+              "description": "rank 99 of 5,747 ranked entries · best of this account's 263 scored entries · candidate ODC-049425 · activity 0.3/10, binding 30/30, selectivity 19.4/30, ADMET 10.1/15, novelty 9.3/10, synthesis 2.4/5 · structure kept private (the entrant's choice)",
               "date": "2026-08-24",
               "value": 71.452,
               "contributorKind": "person",
@@ -122737,7 +122882,7 @@
             },
             {
               "contributor": "MaryDog",
-              "description": "rank 101 of 5,737 ranked entries · best of this account's 878 scored entries · candidate ODC-5DB6CF · activity 4.8/10, binding 29.6/30, selectivity 20.6/30, ADMET 3.8/15, novelty 9.3/10, synthesis 3.2/5 · structure kept private (the entrant's choice)",
+              "description": "rank 101 of 5,747 ranked entries · best of this account's 878 scored entries · candidate ODC-5DB6CF · activity 4.8/10, binding 29.6/30, selectivity 20.6/30, ADMET 3.8/15, novelty 9.3/10, synthesis 3.2/5 · structure kept private (the entrant's choice)",
               "date": "2026-10-16",
               "value": 71.304,
               "contributorKind": "person",
@@ -122747,7 +122892,7 @@
             },
             {
               "contributor": "Agentlas",
-              "description": "rank 163 of 5,737 ranked entries · best of this account's 135 scored entries · candidate ODC-DAD3EA · activity 0.3/10, binding 29.6/30, selectivity 20.8/30, ADMET 6.9/15, novelty 9.2/10, synthesis 2.7/5 · structure kept private (the entrant's choice)",
+              "description": "rank 163 of 5,747 ranked entries · best of this account's 135 scored entries · candidate ODC-DAD3EA · activity 0.3/10, binding 29.6/30, selectivity 20.8/30, ADMET 6.9/15, novelty 9.2/10, synthesis 2.7/5 · structure kept private (the entrant's choice)",
               "date": "2026-08-23",
               "value": 69.496,
               "contributorKind": "person",
@@ -122764,7 +122909,7 @@
             },
             {
               "contributor": "SheepJaehyeok",
-              "description": "rank 174 of 5,737 ranked entries · best of this account's 239 scored entries · candidate ODC-78B20F · activity 3.4/10, binding 29.9/30, selectivity 19.1/30, ADMET 4/15, novelty 9.4/10, synthesis 3.4/5 · structure kept private (the entrant's choice)",
+              "description": "rank 174 of 5,747 ranked entries · best of this account's 239 scored entries · candidate ODC-78B20F · activity 3.4/10, binding 29.9/30, selectivity 19.1/30, ADMET 4/15, novelty 9.4/10, synthesis 3.4/5 · structure kept private (the entrant's choice)",
               "date": "2026-08-22",
               "value": 69.221,
               "contributorKind": "person",
@@ -122781,7 +122926,7 @@
             },
             {
               "contributor": "luckluckman",
-              "description": "rank 317 of 5,737 ranked entries · best of this account's 35 scored entries · candidate ODC-16D0CE · activity 1/10, binding 28.5/30, selectivity 19.8/30, ADMET 4.4/15, novelty 8.9/10, synthesis 3.7/5 · structure kept private (the entrant's choice)",
+              "description": "rank 317 of 5,747 ranked entries · best of this account's 35 scored entries · candidate ODC-16D0CE · activity 1/10, binding 28.5/30, selectivity 19.8/30, ADMET 4.4/15, novelty 8.9/10, synthesis 3.7/5 · structure kept private (the entrant's choice)",
               "date": "2026-08-20",
               "value": 66.257,
               "contributorKind": "person",
@@ -122798,7 +122943,7 @@
             },
             {
               "contributor": "jhnyy",
-              "description": "rank 383 of 5,737 ranked entries · best of this account's 120 scored entries · candidate ODC-1E9B37 · activity 3.5/10, binding 24.2/30, selectivity 22.4/30, ADMET 4.1/15, novelty 7.5/10, synthesis 3.4/5 · structure kept private (the entrant's choice)",
+              "description": "rank 383 of 5,747 ranked entries · best of this account's 120 scored entries · candidate ODC-1E9B37 · activity 3.5/10, binding 24.2/30, selectivity 22.4/30, ADMET 4.1/15, novelty 7.5/10, synthesis 3.4/5 · structure kept private (the entrant's choice)",
               "date": "2026-08-23",
               "value": 65.135,
               "contributorKind": "person",
@@ -122815,7 +122960,7 @@
             },
             {
               "contributor": "trblnfxn",
-              "description": "rank 478 of 5,737 ranked entries · best of this account's 122 scored entries · candidate ODC-0C181C · activity 8.3/10, binding 25.3/30, selectivity 15.2/30, ADMET 3.5/15, novelty 8/10, synthesis 3.4/5 · structure kept private (the entrant's choice)",
+              "description": "rank 478 of 5,747 ranked entries · best of this account's 122 scored entries · candidate ODC-0C181C · activity 8.3/10, binding 25.3/30, selectivity 15.2/30, ADMET 3.5/15, novelty 8/10, synthesis 3.4/5 · structure kept private (the entrant's choice)",
               "date": "2026-09-13",
               "value": 63.646,
               "contributorKind": "person",
@@ -122831,7 +122976,7 @@
             },
             {
               "contributor": "donglemusic",
-              "description": "rank 506 of 5,737 ranked entries · best of this account's 216 scored entries · candidate ODC-CFB4FC · activity 0.5/10, binding 28/30, selectivity 18.8/30, ADMET 3.1/15, novelty 8.8/10, synthesis 3.8/5 · structure kept private (the entrant's choice)",
+              "description": "rank 506 of 5,747 ranked entries · best of this account's 221 scored entries · candidate ODC-CFB4FC · activity 0.5/10, binding 28/30, selectivity 18.8/30, ADMET 3.1/15, novelty 8.8/10, synthesis 3.8/5 · structure kept private (the entrant's choice)",
               "date": "2026-11-24",
               "value": 63.069,
               "contributorKind": "person",
@@ -122848,7 +122993,7 @@
             },
             {
               "contributor": "TechforHuman",
-              "description": "rank 663 of 5,737 ranked entries · best of this account's 145 scored entries · candidate ODC-4D1D8A · activity 3/10, binding 27.5/30, selectivity 12.5/30, ADMET 4.9/15, novelty 8.8/10, synthesis 4.1/5 · structure kept private (the entrant's choice)",
+              "description": "rank 663 of 5,747 ranked entries · best of this account's 145 scored entries · candidate ODC-4D1D8A · activity 3/10, binding 27.5/30, selectivity 12.5/30, ADMET 4.9/15, novelty 8.8/10, synthesis 4.1/5 · structure kept private (the entrant's choice)",
               "date": "2026-10-07",
               "value": 60.793,
               "contributorKind": "person",
@@ -122858,7 +123003,7 @@
             },
             {
               "contributor": "Jaewonismyname",
-              "description": "rank 1342 of 5,737 ranked entries · best of this account's 78 scored entries · candidate ODC-2A50C5 · activity 10/10, binding 20.5/30, selectivity 5.8/30, ADMET 4.2/15, novelty 9.4/10, synthesis 4.2/5 · structure kept private (the entrant's choice)",
+              "description": "rank 1345 of 5,747 ranked entries · best of this account's 78 scored entries · candidate ODC-2A50C5 · activity 10/10, binding 20.5/30, selectivity 5.8/30, ADMET 4.2/15, novelty 9.4/10, synthesis 4.2/5 · structure kept private (the entrant's choice)",
               "date": "2026-09-07",
               "value": 54.059,
               "contributorKind": "person",
@@ -122876,7 +123021,7 @@
             },
             {
               "contributor": "sunglee",
-              "description": "rank 1409 of 5,737 ranked entries · best of this account's 57 scored entries · candidate ODC-8B0AE6 · activity 4.8/10, binding 25.3/30, selectivity 7.4/30, ADMET 4.8/15, novelty 8/10, synthesis 3.2/5 · structure kept private (the entrant's choice)",
+              "description": "rank 1413 of 5,747 ranked entries · best of this account's 57 scored entries · candidate ODC-8B0AE6 · activity 4.8/10, binding 25.3/30, selectivity 7.4/30, ADMET 4.8/15, novelty 8/10, synthesis 3.2/5 · structure kept private (the entrant's choice)",
               "date": "2026-08-23",
               "value": 53.465,
               "contributorKind": "person",
@@ -122886,7 +123031,7 @@
             },
             {
               "contributor": "ssssseeeeoooocccckkkk",
-              "description": "rank 1913 of 5,737 ranked entries · best of this account's 156 scored entries · candidate ODC-74FC02 · activity 0.2/10, binding 23.6/30, selectivity 11.9/30, ADMET 3.3/15, novelty 7.5/10, synthesis 2.9/5 · structure kept private (the entrant's choice)",
+              "description": "rank 1917 of 5,747 ranked entries · best of this account's 156 scored entries · candidate ODC-74FC02 · activity 0.2/10, binding 23.6/30, selectivity 11.9/30, ADMET 3.3/15, novelty 7.5/10, synthesis 2.9/5 · structure kept private (the entrant's choice)",
               "date": "2026-08-24",
               "value": 49.434,
               "contributorKind": "person",
@@ -122896,7 +123041,7 @@
             },
             {
               "contributor": "dlghkdueo",
-              "description": "rank 1969 of 5,737 ranked entries · best of this account's 66 scored entries · candidate ODC-2F0C89 · activity 1.9/10, binding 23.4/30, selectivity 10.5/30, ADMET 3.3/15, novelty 7.3/10, synthesis 2.6/5 · structure kept private (the entrant's choice)",
+              "description": "rank 1973 of 5,747 ranked entries · best of this account's 66 scored entries · candidate ODC-2F0C89 · activity 1.9/10, binding 23.4/30, selectivity 10.5/30, ADMET 3.3/15, novelty 7.3/10, synthesis 2.6/5 · structure kept private (the entrant's choice)",
               "date": "2026-09-14",
               "value": 48.926,
               "contributorKind": "person",
@@ -122914,7 +123059,7 @@
             },
             {
               "contributor": "takutoyo",
-              "description": "rank 2454 of 5,737 ranked entries · best of this account's 16 scored entries · candidate ODC-2AFE48 · activity 0.5/10, binding 24.4/30, selectivity 6.8/30, ADMET 3/15, novelty 7.8/10, synthesis 2.3/5 · structure kept private (the entrant's choice)",
+              "description": "rank 2458 of 5,747 ranked entries · best of this account's 16 scored entries · candidate ODC-2AFE48 · activity 0.5/10, binding 24.4/30, selectivity 6.8/30, ADMET 3/15, novelty 7.8/10, synthesis 2.3/5 · structure kept private (the entrant's choice)",
               "date": "2026-08-22",
               "value": 44.765,
               "contributorKind": "person",
@@ -122923,8 +123068,18 @@
               "isCurrentBest": false
             },
             {
+              "contributor": "bluOsean",
+              "description": "rank 2620 of 5,747 ranked entries · best of this account's 16 scored entries · candidate ODC-E5EFA4 · activity 0.4/10, binding 21.3/30, selectivity 7/30, ADMET 4.7/15, novelty 6.7/10, synthesis 3.1/5 · structure kept private (the entrant's choice)",
+              "date": "2026-11-26",
+              "value": 43.193,
+              "contributorKind": "person",
+              "contributorUrl": "https://huggingface.co/bluOsean",
+              "isBaseline": false,
+              "isCurrentBest": false
+            },
+            {
               "contributor": "PhD-Shin",
-              "description": "rank 2637 of 5,737 ranked entries · best of this account's 29 scored entries · candidate ODC-0E2867 · activity 0.5/10, binding 22.6/30, selectivity 4.9/30, ADMET 4.3/15, novelty 7/10, synthesis 3.8/5 · structure kept private (the entrant's choice)",
+              "description": "rank 2642 of 5,747 ranked entries · best of this account's 29 scored entries · candidate ODC-0E2867 · activity 0.5/10, binding 22.6/30, selectivity 4.9/30, ADMET 4.3/15, novelty 7/10, synthesis 3.8/5 · structure kept private (the entrant's choice)",
               "date": "2026-08-20",
               "value": 43,
               "contributorKind": "person",
@@ -122941,7 +123096,7 @@
             },
             {
               "contributor": "KarinDV",
-              "description": "rank 2807 of 5,737 ranked entries · best of this account's 8 scored entries · candidate ODC-9C0E10 · activity 2.5/10, binding 21.3/30, selectivity 5/30, ADMET 3/15, novelty 6.7/10, synthesis 3/5 · structure kept private (the entrant's choice)",
+              "description": "rank 2812 of 5,747 ranked entries · best of this account's 8 scored entries · candidate ODC-9C0E10 · activity 2.5/10, binding 21.3/30, selectivity 5/30, ADMET 3/15, novelty 6.7/10, synthesis 3/5 · structure kept private (the entrant's choice)",
               "date": "2026-11-16",
               "value": 41.584,
               "contributorKind": "person",
@@ -122956,18 +123111,8 @@
               }
             },
             {
-              "contributor": "bluOsean",
-              "description": "rank 2817 of 5,737 ranked entries · best of this account's 13 scored entries · candidate ODC-62FA9E · activity 0.2/10, binding 22.5/30, selectivity 4.3/30, ADMET 5/15, novelty 7.1/10, synthesis 2.4/5 · structure kept private (the entrant's choice)",
-              "date": "2026-11-16",
-              "value": 41.499,
-              "contributorKind": "person",
-              "contributorUrl": "https://huggingface.co/bluOsean",
-              "isBaseline": false,
-              "isCurrentBest": false
-            },
-            {
               "contributor": "doo513",
-              "description": "rank 2878 of 5,737 ranked entries · best of this account's 2 scored entries · candidate ODC-2535AA · activity 0.3/10, binding 20.1/30, selectivity 7.1/30, ADMET 4.7/15, novelty 6.3/10, synthesis 2.4/5 · structure kept private (the entrant's choice)",
+              "description": "rank 2884 of 5,747 ranked entries · best of this account's 2 scored entries · candidate ODC-2535AA · activity 0.3/10, binding 20.1/30, selectivity 7.1/30, ADMET 4.7/15, novelty 6.3/10, synthesis 2.4/5 · structure kept private (the entrant's choice)",
               "date": "2026-11-17",
               "value": 40.909,
               "contributorKind": "person",
@@ -122984,7 +123129,7 @@
             },
             {
               "contributor": "obcafri",
-              "description": "rank 2901 of 5,737 ranked entries · best of this account's 19 scored entries · candidate ODC-FD372D · activity 6.3/10, binding 16/30, selectivity 5.4/30, ADMET 3.9/15, novelty 5.9/10, synthesis 3.1/5 · structure kept private (the entrant's choice)",
+              "description": "rank 2908 of 5,747 ranked entries · best of this account's 19 scored entries · candidate ODC-FD372D · activity 6.3/10, binding 16/30, selectivity 5.4/30, ADMET 3.9/15, novelty 5.9/10, synthesis 3.1/5 · structure kept private (the entrant's choice)",
               "date": "2026-08-19",
               "value": 40.674,
               "contributorKind": "person",
@@ -123001,7 +123146,7 @@
             },
             {
               "contributor": "Moonweave",
-              "description": "rank 2961 of 5,737 ranked entries · best of this account's 4 scored entries · candidate ODC-CED535 · activity 3.3/10, binding 23.3/30, selectivity 0/30, ADMET 3.5/15, novelty 7.3/10, synthesis 2.8/5 · structure kept private (the entrant's choice)",
+              "description": "rank 2968 of 5,747 ranked entries · best of this account's 4 scored entries · candidate ODC-CED535 · activity 3.3/10, binding 23.3/30, selectivity 0/30, ADMET 3.5/15, novelty 7.3/10, synthesis 2.8/5 · structure kept private (the entrant's choice)",
               "date": "2026-08-25",
               "value": 40.151,
               "contributorKind": "person",
@@ -123018,7 +123163,7 @@
             },
             {
               "contributor": "JUNSAM",
-              "description": "rank 3237 of 5,737 ranked entries · best of this account's 6 scored entries · candidate ODC-2B52AD · activity 6.7/10, binding 18/30, selectivity 0.5/30, ADMET 3.1/15, novelty 6.3/10, synthesis 3.1/5 · structure kept private (the entrant's choice)",
+              "description": "rank 3245 of 5,747 ranked entries · best of this account's 6 scored entries · candidate ODC-2B52AD · activity 6.7/10, binding 18/30, selectivity 0.5/30, ADMET 3.1/15, novelty 6.3/10, synthesis 3.1/5 · structure kept private (the entrant's choice)",
               "date": "2026-08-20",
               "value": 37.67,
               "contributorKind": "person",
@@ -123035,7 +123180,7 @@
             },
             {
               "contributor": "Lauhel",
-              "description": "rank 3327 of 5,737 ranked entries · best of this account's 3 scored entries · candidate ODC-B39834 · activity 0.5/10, binding 22.7/30, selectivity 0/30, ADMET 3.8/15, novelty 6.9/10, synthesis 2.7/5 · structure kept private (the entrant's choice)",
+              "description": "rank 3335 of 5,747 ranked entries · best of this account's 3 scored entries · candidate ODC-B39834 · activity 0.5/10, binding 22.7/30, selectivity 0/30, ADMET 3.8/15, novelty 6.9/10, synthesis 2.7/5 · structure kept private (the entrant's choice)",
               "date": "2026-09-02",
               "value": 36.674,
               "contributorKind": "person",
@@ -123045,7 +123190,7 @@
             },
             {
               "contributor": "ppitu09",
-              "description": "rank 3739 of 5,737 ranked entries · best of this account's 5 scored entries · candidate ODC-423340 · activity 5.2/10, binding 13.9/30, selectivity 3.3/30, ADMET 2.7/15, novelty 4.8/10, synthesis 2.4/5 · structure kept private (the entrant's choice)",
+              "description": "rank 3747 of 5,747 ranked entries · best of this account's 5 scored entries · candidate ODC-423340 · activity 5.2/10, binding 13.9/30, selectivity 3.3/30, ADMET 2.7/15, novelty 4.8/10, synthesis 2.4/5 · structure kept private (the entrant's choice)",
               "date": "2026-08-24",
               "value": 32.406,
               "contributorKind": "person",
@@ -123062,7 +123207,7 @@
             },
             {
               "contributor": "tangyani2025",
-              "description": "rank 3759 of 5,737 ranked entries · best of this account's 6 scored entries · candidate ODC-2DDF5A · activity 3.3/10, binding 16.3/30, selectivity 2.4/30, ADMET 2.9/15, novelty 5.2/10, synthesis 2.1/5 · structure kept private (the entrant's choice)",
+              "description": "rank 3767 of 5,747 ranked entries · best of this account's 6 scored entries · candidate ODC-2DDF5A · activity 3.3/10, binding 16.3/30, selectivity 2.4/30, ADMET 2.9/15, novelty 5.2/10, synthesis 2.1/5 · structure kept private (the entrant's choice)",
               "date": "2026-10-20",
               "value": 32.19,
               "contributorKind": "person",
@@ -123079,7 +123224,7 @@
             },
             {
               "contributor": "epicsaga",
-              "description": "rank 3820 of 5,737 ranked entries · best of this account's 10 scored entries · candidate ODC-A98A2A · activity 0.4/10, binding 17.8/30, selectivity 0.3/30, ADMET 5.2/15, novelty 5.5/10, synthesis 2.3/5 · structure kept private (the entrant's choice)",
+              "description": "rank 3828 of 5,747 ranked entries · best of this account's 10 scored entries · candidate ODC-A98A2A · activity 0.4/10, binding 17.8/30, selectivity 0.3/30, ADMET 5.2/15, novelty 5.5/10, synthesis 2.3/5 · structure kept private (the entrant's choice)",
               "date": "2026-08-20",
               "value": 31.596,
               "contributorKind": "person",
@@ -123096,7 +123241,7 @@
             },
             {
               "contributor": "Techforlife",
-              "description": "rank 3877 of 5,737 ranked entries · best of this account's 21 scored entries · candidate ODC-F4CBE2 · activity 2.8/10, binding 16.8/30, selectivity 0/30, ADMET 3.3/15, novelty 5.3/10, synthesis 2.8/5 · structure kept private (the entrant's choice)",
+              "description": "rank 3885 of 5,747 ranked entries · best of this account's 21 scored entries · candidate ODC-F4CBE2 · activity 2.8/10, binding 16.8/30, selectivity 0/30, ADMET 3.3/15, novelty 5.3/10, synthesis 2.8/5 · structure kept private (the entrant's choice)",
               "date": "2026-08-19",
               "value": 30.969,
               "contributorKind": "person",
@@ -123106,7 +123251,7 @@
             },
             {
               "contributor": "h-s-b",
-              "description": "rank 4200 of 5,737 ranked entries · best of this account's 12 scored entries · candidate ODC-EE2F51 · activity 0/10, binding 12.2/30, selectivity 7.1/30, ADMET 2.6/15, novelty 3.8/10, synthesis 1.8/5 · structure kept private (the entrant's choice)",
+              "description": "rank 4208 of 5,747 ranked entries · best of this account's 12 scored entries · candidate ODC-EE2F51 · activity 0/10, binding 12.2/30, selectivity 7.1/30, ADMET 2.6/15, novelty 3.8/10, synthesis 1.8/5 · structure kept private (the entrant's choice)",
               "date": "2026-09-17",
               "value": 27.672,
               "contributorKind": "person",
@@ -123122,7 +123267,7 @@
             },
             {
               "contributor": "andrewl23023",
-              "description": "rank 4250 of 5,737 ranked entries · best of this account's 38 scored entries · candidate ODC-932D7C · activity 4.1/10, binding 11.3/30, selectivity 3.8/30, ADMET 2.4/15, novelty 3.9/10, synthesis 1.7/5 · structure kept private (the entrant's choice)",
+              "description": "rank 4258 of 5,747 ranked entries · best of this account's 38 scored entries · candidate ODC-932D7C · activity 4.1/10, binding 11.3/30, selectivity 3.8/30, ADMET 2.4/15, novelty 3.9/10, synthesis 1.7/5 · structure kept private (the entrant's choice)",
               "date": "2026-11-18",
               "value": 27.181,
               "contributorKind": "person",
@@ -123139,7 +123284,7 @@
             },
             {
               "contributor": "FwangFwang",
-              "description": "rank 4492 of 5,737 ranked entries · best of this account's 3 scored entries · candidate ODC-1F51E1 · activity 0.2/10, binding 11.5/30, selectivity 4/30, ADMET 3.5/15, novelty 3.6/10, synthesis 1.9/5 · structure kept private (the entrant's choice)",
+              "description": "rank 4500 of 5,747 ranked entries · best of this account's 3 scored entries · candidate ODC-1F51E1 · activity 0.2/10, binding 11.5/30, selectivity 4/30, ADMET 3.5/15, novelty 3.6/10, synthesis 1.9/5 · structure kept private (the entrant's choice)",
               "date": "2026-08-19",
               "value": 24.794,
               "contributorKind": "person",
@@ -123149,7 +123294,7 @@
             },
             {
               "contributor": "du-du-1",
-              "description": "rank 4529 of 5,737 ranked entries · best of this account's 5 scored entries · candidate ODC-452D2F · activity 0.2/10, binding 15.8/30, selectivity 0.1/30, ADMET 1.7/15, novelty 5/10, synthesis 1.5/5 · structure kept private (the entrant's choice)",
+              "description": "rank 4538 of 5,747 ranked entries · best of this account's 5 scored entries · candidate ODC-452D2F · activity 0.2/10, binding 15.8/30, selectivity 0.1/30, ADMET 1.7/15, novelty 5/10, synthesis 1.5/5 · structure kept private (the entrant's choice)",
               "date": "2026-11-26",
               "value": 24.393,
               "contributorKind": "person",
@@ -123159,7 +123304,7 @@
             },
             {
               "contributor": "hansu99",
-              "description": "rank 4592 of 5,737 ranked entries · best of this account's 2 scored entries · candidate ODC-7A120B · activity 0.2/10, binding 12.9/30, selectivity 2.3/30, ADMET 2.4/15, novelty 4/10, synthesis 2.1/5 · structure kept private (the entrant's choice)",
+              "description": "rank 4601 of 5,747 ranked entries · best of this account's 2 scored entries · candidate ODC-7A120B · activity 0.2/10, binding 12.9/30, selectivity 2.3/30, ADMET 2.4/15, novelty 4/10, synthesis 2.1/5 · structure kept private (the entrant's choice)",
               "date": "2026-08-20",
               "value": 23.851,
               "contributorKind": "person",
@@ -123169,7 +123314,7 @@
             },
             {
               "contributor": "injaeryou",
-              "description": "rank 5003 of 5,737 ranked entries · one scored entry · candidate ODC-1CCC31 · activity 0.6/10, binding 10.9/30, selectivity 0.2/30, ADMET 1.7/15, novelty 3.4/10, synthesis 1.8/5 · structure kept private (the entrant's choice)",
+              "description": "rank 5012 of 5,747 ranked entries · one scored entry · candidate ODC-1CCC31 · activity 0.6/10, binding 10.9/30, selectivity 0.2/30, ADMET 1.7/15, novelty 3.4/10, synthesis 1.8/5 · structure kept private (the entrant's choice)",
               "date": "2026-08-20",
               "value": 18.728,
               "contributorKind": "person",
@@ -123179,7 +123324,7 @@
             },
             {
               "contributor": "Sunghokim",
-              "description": "rank 5391 of 5,737 ranked entries · one scored entry · candidate ODC-E8CD07 · activity 1.5/10, binding 6.4/30, selectivity 0/30, ADMET 1/15, novelty 2/10, synthesis 0.9/5 · structure published on the leaderboard",
+              "description": "rank 5401 of 5,747 ranked entries · one scored entry · candidate ODC-E8CD07 · activity 1.5/10, binding 6.4/30, selectivity 0/30, ADMET 1/15, novelty 2/10, synthesis 0.9/5 · structure published on the leaderboard",
               "date": "2026-08-19",
               "value": 11.713,
               "contributorKind": "person",
@@ -123195,7 +123340,7 @@
             },
             {
               "contributor": "NILKNARFGonzo",
-              "description": "rank 5468 of 5,737 ranked entries · best of this account's 4 scored entries · candidate ODC-1EE410 · activity 0/10, binding 5.2/30, selectivity 0/30, ADMET 1.7/15, novelty 1.7/10, synthesis 0.7/5 · structure published on the leaderboard",
+              "description": "rank 5478 of 5,747 ranked entries · best of this account's 4 scored entries · candidate ODC-1EE410 · activity 0/10, binding 5.2/30, selectivity 0/30, ADMET 1.7/15, novelty 1.7/10, synthesis 0.7/5 · structure published on the leaderboard",
               "date": "2026-08-22",
               "value": 9.281,
               "contributorKind": "person",
@@ -123205,7 +123350,7 @@
             },
             {
               "contributor": "Shadow081",
-              "description": "rank 5547 of 5,737 ranked entries · one scored entry · candidate ODC-777596 · activity 0.1/10, binding 4/30, selectivity 0/30, ADMET 1.1/15, novelty 1.2/10, synthesis 0.7/5 · structure kept private (the entrant's choice)",
+              "description": "rank 5557 of 5,747 ranked entries · one scored entry · candidate ODC-777596 · activity 0.1/10, binding 4/30, selectivity 0/30, ADMET 1.1/15, novelty 1.2/10, synthesis 0.7/5 · structure kept private (the entrant's choice)",
               "date": "2026-11-15",
               "value": 7.064,
               "contributorKind": "person",
@@ -123284,7 +123429,7 @@
           "records": [
             {
               "contributor": "Bio-JS",
-              "description": "rank 1 of 5,002 ranked entries · best of this account's 1,019 scored entries · candidate ODC-1B8E4D · activity 6.8/10, binding 30/30, selectivity 30/30, ADMET 5.2/15, novelty 7.6/10, synthesis 3.7/5 · structure kept private (the entrant's choice)",
+              "description": "rank 1 of 5,007 ranked entries · best of this account's 1,019 scored entries · candidate ODC-1B8E4D · activity 6.8/10, binding 30/30, selectivity 30/30, ADMET 5.2/15, novelty 7.6/10, synthesis 3.7/5 · structure kept private (the entrant's choice)",
               "date": "2026-09-22",
               "value": 83.319,
               "contributorKind": "person",
@@ -123294,7 +123439,7 @@
             },
             {
               "contributor": "Ku-ku",
-              "description": "rank 14 of 5,002 ranked entries · best of this account's 1,031 scored entries · candidate ODC-D9336A · activity 5/10, binding 30/30, selectivity 30/30, ADMET 6/15, novelty 6.6/10, synthesis 4.3/5 · structure kept private (the entrant's choice)",
+              "description": "rank 14 of 5,007 ranked entries · best of this account's 1,031 scored entries · candidate ODC-D9336A · activity 5/10, binding 30/30, selectivity 30/30, ADMET 6/15, novelty 6.6/10, synthesis 4.3/5 · structure kept private (the entrant's choice)",
               "date": "2026-09-17",
               "value": 81.907,
               "contributorKind": "person",
@@ -123311,7 +123456,7 @@
             },
             {
               "contributor": "MaryDog",
-              "description": "rank 92 of 5,002 ranked entries · best of this account's 905 scored entries · candidate ODC-425BCB · activity 6.6/10, binding 28.8/30, selectivity 30/30, ADMET 3.5/15, novelty 7.9/10, synthesis 3.3/5 · structure kept private (the entrant's choice)",
+              "description": "rank 92 of 5,007 ranked entries · best of this account's 905 scored entries · candidate ODC-425BCB · activity 6.6/10, binding 28.8/30, selectivity 30/30, ADMET 3.5/15, novelty 7.9/10, synthesis 3.3/5 · structure kept private (the entrant's choice)",
               "date": "2026-10-18",
               "value": 80.077,
               "contributorKind": "person",
@@ -123321,7 +123466,7 @@
             },
             {
               "contributor": "1Dmeds",
-              "description": "rank 188 of 5,002 ranked entries · best of this account's 771 scored entries · candidate ODC-1D8CF0 · activity 2/10, binding 30/30, selectivity 29.8/30, ADMET 6/15, novelty 7.8/10, synthesis 3.4/5 · structure kept private (the entrant's choice)",
+              "description": "rank 188 of 5,007 ranked entries · best of this account's 771 scored entries · candidate ODC-1D8CF0 · activity 2/10, binding 30/30, selectivity 29.8/30, ADMET 6/15, novelty 7.8/10, synthesis 3.4/5 · structure kept private (the entrant's choice)",
               "date": "2026-10-27",
               "value": 79.051,
               "contributorKind": "person",
@@ -123338,7 +123483,7 @@
             },
             {
               "contributor": "MeroZemory",
-              "description": "rank 418 of 5,002 ranked entries · best of this account's 74 scored entries · candidate ODC-4EBC33 · activity 2.1/10, binding 30/30, selectivity 30/30, ADMET 3.3/15, novelty 7.5/10, synthesis 3.9/5 · structure kept private (the entrant's choice)",
+              "description": "rank 418 of 5,007 ranked entries · best of this account's 74 scored entries · candidate ODC-4EBC33 · activity 2.1/10, binding 30/30, selectivity 30/30, ADMET 3.3/15, novelty 7.5/10, synthesis 3.9/5 · structure kept private (the entrant's choice)",
               "date": "2026-09-02",
               "value": 76.774,
               "contributorKind": "person",
@@ -123348,7 +123493,7 @@
             },
             {
               "contributor": "sunglee",
-              "description": "rank 421 of 5,002 ranked entries · best of this account's 280 scored entries · candidate ODC-4822A1 · activity 4.2/10, binding 27.9/30, selectivity 28.8/30, ADMET 9.2/15, novelty 6.1/10, synthesis 0.5/5 · structure kept private (the entrant's choice)",
+              "description": "rank 421 of 5,007 ranked entries · best of this account's 280 scored entries · candidate ODC-4822A1 · activity 4.2/10, binding 27.9/30, selectivity 28.8/30, ADMET 9.2/15, novelty 6.1/10, synthesis 0.5/5 · structure kept private (the entrant's choice)",
               "date": "2026-09-02",
               "value": 76.751,
               "contributorKind": "person",
@@ -123365,7 +123510,7 @@
             },
             {
               "contributor": "du-du-1",
-              "description": "rank 499 of 5,002 ranked entries · best of this account's 70 scored entries · candidate ODC-D35B38 · activity 0.7/10, binding 29.6/30, selectivity 27.5/30, ADMET 6.7/15, novelty 7.4/10, synthesis 3.9/5 · structure kept private (the entrant's choice)",
+              "description": "rank 499 of 5,007 ranked entries · best of this account's 70 scored entries · candidate ODC-D35B38 · activity 0.7/10, binding 29.6/30, selectivity 27.5/30, ADMET 6.7/15, novelty 7.4/10, synthesis 3.9/5 · structure kept private (the entrant's choice)",
               "date": "2026-11-23",
               "value": 75.899,
               "contributorKind": "person",
@@ -123375,7 +123520,7 @@
             },
             {
               "contributor": "healing5120",
-              "description": "rank 1148 of 5,002 ranked entries · best of this account's 235 scored entries · candidate ODC-7DC0B5 · activity 3.9/10, binding 25.3/30, selectivity 28.3/30, ADMET 2.6/15, novelty 6/10, synthesis 3.7/5 · structure kept private (the entrant's choice)",
+              "description": "rank 1148 of 5,007 ranked entries · best of this account's 237 scored entries · candidate ODC-7DC0B5 · activity 3.9/10, binding 25.3/30, selectivity 28.3/30, ADMET 2.6/15, novelty 6/10, synthesis 3.7/5 · structure kept private (the entrant's choice)",
               "date": "2026-11-01",
               "value": 69.743,
               "contributorKind": "person",
@@ -123392,7 +123537,7 @@
             },
             {
               "contributor": "WiktorMatuszek",
-              "description": "rank 1272 of 5,002 ranked entries · best of this account's 17 scored entries · candidate ODC-829FB7 · activity 1.4/10, binding 28.9/30, selectivity 23/30, ADMET 4.7/15, novelty 6/10, synthesis 4.5/5 · structure kept private (the entrant's choice)",
+              "description": "rank 1272 of 5,007 ranked entries · best of this account's 20 scored entries · candidate ODC-829FB7 · activity 1.4/10, binding 28.9/30, selectivity 23/30, ADMET 4.7/15, novelty 6/10, synthesis 4.5/5 · structure kept private (the entrant's choice)",
               "date": "2026-11-26",
               "value": 68.581,
               "contributorKind": "person",
@@ -123402,7 +123547,7 @@
             },
             {
               "contributor": "topabaem",
-              "description": "rank 1744 of 5,002 ranked entries · best of this account's 29 scored entries · candidate ODC-70CFDF · activity 1/10, binding 23.4/30, selectivity 24.3/30, ADMET 9.1/15, novelty 1.8/10, synthesis 3.9/5 · structure kept private (the entrant's choice)",
+              "description": "rank 1744 of 5,007 ranked entries · best of this account's 29 scored entries · candidate ODC-70CFDF · activity 1/10, binding 23.4/30, selectivity 24.3/30, ADMET 9.1/15, novelty 1.8/10, synthesis 3.9/5 · structure kept private (the entrant's choice)",
               "date": "2026-08-29",
               "value": 63.553,
               "contributorKind": "person",
@@ -123412,7 +123557,7 @@
             },
             {
               "contributor": "trblnfxn",
-              "description": "rank 2157 of 5,002 ranked entries · best of this account's 192 scored entries · candidate ODC-293AC8 · activity 1/10, binding 25.5/30, selectivity 18.6/30, ADMET 3.7/15, novelty 6/10, synthesis 3.8/5 · structure kept private (the entrant's choice)",
+              "description": "rank 2158 of 5,007 ranked entries · best of this account's 192 scored entries · candidate ODC-293AC8 · activity 1/10, binding 25.5/30, selectivity 18.6/30, ADMET 3.7/15, novelty 6/10, synthesis 3.8/5 · structure kept private (the entrant's choice)",
               "date": "2026-09-17",
               "value": 58.617,
               "contributorKind": "person",
@@ -123422,7 +123567,7 @@
             },
             {
               "contributor": "Jaewonismyname",
-              "description": "rank 2275 of 5,002 ranked entries · best of this account's 35 scored entries · candidate ODC-EA2336 · activity 0.5/10, binding 23.9/30, selectivity 20.6/30, ADMET 5.9/15, novelty 5.4/10, synthesis 1/5 · structure kept private (the entrant's choice)",
+              "description": "rank 2276 of 5,007 ranked entries · best of this account's 35 scored entries · candidate ODC-EA2336 · activity 0.5/10, binding 23.9/30, selectivity 20.6/30, ADMET 5.9/15, novelty 5.4/10, synthesis 1/5 · structure kept private (the entrant's choice)",
               "date": "2026-09-05",
               "value": 57.168,
               "contributorKind": "person",
@@ -123440,7 +123585,7 @@
             },
             {
               "contributor": "PhD-Shin",
-              "description": "rank 2330 of 5,002 ranked entries · best of this account's 11 scored entries · candidate ODC-4ECCD0 · activity 2/10, binding 23.9/30, selectivity 19.4/30, ADMET 3.4/15, novelty 5.6/10, synthesis 2/5 · structure kept private (the entrant's choice)",
+              "description": "rank 2331 of 5,007 ranked entries · best of this account's 11 scored entries · candidate ODC-4ECCD0 · activity 2/10, binding 23.9/30, selectivity 19.4/30, ADMET 3.4/15, novelty 5.6/10, synthesis 2/5 · structure kept private (the entrant's choice)",
               "date": "2026-11-23",
               "value": 56.351,
               "contributorKind": "person",
@@ -123457,7 +123602,7 @@
             },
             {
               "contributor": "taeyong",
-              "description": "rank 2486 of 5,002 ranked entries · best of this account's 19 scored entries · candidate ODC-F420CC · activity 6.5/10, binding 23.2/30, selectivity 14.1/30, ADMET 4.5/15, novelty 2.4/10, synthesis 3.2/5 · structure kept private (the entrant's choice)",
+              "description": "rank 2487 of 5,007 ranked entries · best of this account's 19 scored entries · candidate ODC-F420CC · activity 6.5/10, binding 23.2/30, selectivity 14.1/30, ADMET 4.5/15, novelty 2.4/10, synthesis 3.2/5 · structure kept private (the entrant's choice)",
               "date": "2026-09-29",
               "value": 53.95,
               "contributorKind": "person",
@@ -123473,7 +123618,7 @@
             },
             {
               "contributor": "dlghkdueo",
-              "description": "rank 2588 of 5,002 ranked entries · best of this account's 90 scored entries · candidate ODC-11F487 · activity 1.1/10, binding 26/30, selectivity 12.7/30, ADMET 4.1/15, novelty 5/10, synthesis 3.8/5 · structure kept private (the entrant's choice)",
+              "description": "rank 2590 of 5,007 ranked entries · best of this account's 90 scored entries · candidate ODC-11F487 · activity 1.1/10, binding 26/30, selectivity 12.7/30, ADMET 4.1/15, novelty 5/10, synthesis 3.8/5 · structure kept private (the entrant's choice)",
               "date": "2026-09-15",
               "value": 52.651,
               "contributorKind": "person",
@@ -123483,7 +123628,7 @@
             },
             {
               "contributor": "tteggu",
-              "description": "rank 2656 of 5,002 ranked entries · best of this account's 25 scored entries · candidate ODC-63CE91 · activity 0.7/10, binding 20.9/30, selectivity 17.5/30, ADMET 7.1/15, novelty 2/10, synthesis 3.4/5 · structure kept private (the entrant's choice)",
+              "description": "rank 2658 of 5,007 ranked entries · best of this account's 25 scored entries · candidate ODC-63CE91 · activity 0.7/10, binding 20.9/30, selectivity 17.5/30, ADMET 7.1/15, novelty 2/10, synthesis 3.4/5 · structure kept private (the entrant's choice)",
               "date": "2026-11-25",
               "value": 51.656,
               "contributorKind": "person",
@@ -123500,7 +123645,7 @@
             },
             {
               "contributor": "andrewl23023",
-              "description": "rank 2741 of 5,002 ranked entries · best of this account's 15 scored entries · candidate ODC-1063E8 · activity 0.7/10, binding 19.5/30, selectivity 19.5/30, ADMET 4.1/15, novelty 3.5/10, synthesis 3.3/5 · structure kept private (the entrant's choice)",
+              "description": "rank 2744 of 5,007 ranked entries · best of this account's 15 scored entries · candidate ODC-1063E8 · activity 0.7/10, binding 19.5/30, selectivity 19.5/30, ADMET 4.1/15, novelty 3.5/10, synthesis 3.3/5 · structure kept private (the entrant's choice)",
               "date": "2026-11-23",
               "value": 50.508,
               "contributorKind": "person",
@@ -123517,7 +123662,7 @@
             },
             {
               "contributor": "Agentlas",
-              "description": "rank 2898 of 5,002 ranked entries · best of this account's 30 scored entries · candidate ODC-A5DBFB · activity 3.5/10, binding 27.4/30, selectivity 2.1/30, ADMET 5.4/15, novelty 6.5/10, synthesis 3.9/5 · structure kept private (the entrant's choice)",
+              "description": "rank 2902 of 5,007 ranked entries · best of this account's 30 scored entries · candidate ODC-A5DBFB · activity 3.5/10, binding 27.4/30, selectivity 2.1/30, ADMET 5.4/15, novelty 6.5/10, synthesis 3.9/5 · structure kept private (the entrant's choice)",
               "date": "2026-09-02",
               "value": 48.661,
               "contributorKind": "person",
@@ -123534,7 +123679,7 @@
             },
             {
               "contributor": "rator9521",
-              "description": "rank 3286 of 5,002 ranked entries · best of this account's 24 scored entries · candidate ODC-97D2EE · activity 1.3/10, binding 16.9/30, selectivity 15.6/30, ADMET 3.3/15, novelty 3.6/10, synthesis 2.8/5 · structure kept private (the entrant's choice)",
+              "description": "rank 3290 of 5,007 ranked entries · best of this account's 24 scored entries · candidate ODC-97D2EE · activity 1.3/10, binding 16.9/30, selectivity 15.6/30, ADMET 3.3/15, novelty 3.6/10, synthesis 2.8/5 · structure kept private (the entrant's choice)",
               "date": "2026-08-30",
               "value": 43.53,
               "contributorKind": "person",
@@ -123544,7 +123689,7 @@
             },
             {
               "contributor": "h-s-b",
-              "description": "rank 3294 of 5,002 ranked entries · best of this account's 19 scored entries · candidate ODC-EF7171 · activity 3.2/10, binding 21.6/30, selectivity 10.1/30, ADMET 3.2/15, novelty 2.5/10, synthesis 2.9/5 · structure kept private (the entrant's choice)",
+              "description": "rank 3298 of 5,007 ranked entries · best of this account's 19 scored entries · candidate ODC-EF7171 · activity 3.2/10, binding 21.6/30, selectivity 10.1/30, ADMET 3.2/15, novelty 2.5/10, synthesis 2.9/5 · structure kept private (the entrant's choice)",
               "date": "2026-08-29",
               "value": 43.446,
               "contributorKind": "person",
@@ -123560,7 +123705,7 @@
             },
             {
               "contributor": "Jojun8403",
-              "description": "rank 3683 of 5,002 ranked entries · best of this account's 51 scored entries · candidate ODC-FD875E · activity 0/10, binding 16.2/30, selectivity 10.3/30, ADMET 4.9/15, novelty 4/10, synthesis 2.7/5 · structure kept private (the entrant's choice)",
+              "description": "rank 3688 of 5,007 ranked entries · best of this account's 51 scored entries · candidate ODC-FD875E · activity 0/10, binding 16.2/30, selectivity 10.3/30, ADMET 4.9/15, novelty 4/10, synthesis 2.7/5 · structure kept private (the entrant's choice)",
               "date": "2026-08-29",
               "value": 38.129,
               "contributorKind": "person",
@@ -123576,7 +123721,7 @@
             },
             {
               "contributor": "Dshwan",
-              "description": "rank 3808 of 5,002 ranked entries · best of this account's 7 scored entries · candidate ODC-DCA00B · activity 1.9/10, binding 18.3/30, selectivity 7.4/30, ADMET 2.4/15, novelty 3.4/10, synthesis 3/5 · structure kept private (the entrant's choice)",
+              "description": "rank 3813 of 5,007 ranked entries · best of this account's 7 scored entries · candidate ODC-DCA00B · activity 1.9/10, binding 18.3/30, selectivity 7.4/30, ADMET 2.4/15, novelty 3.4/10, synthesis 3/5 · structure kept private (the entrant's choice)",
               "date": "2026-11-25",
               "value": 36.38,
               "contributorKind": "person",
@@ -123586,7 +123731,7 @@
             },
             {
               "contributor": "gok2099",
-              "description": "rank 3823 of 5,002 ranked entries · best of this account's 2 scored entries · candidate ODC-78BC64 · activity 0.8/10, binding 15/30, selectivity 10.4/30, ADMET 4.8/15, novelty 2.7/10, synthesis 2.5/5 · structure kept private (the entrant's choice)",
+              "description": "rank 3828 of 5,007 ranked entries · best of this account's 2 scored entries · candidate ODC-78BC64 · activity 0.8/10, binding 15/30, selectivity 10.4/30, ADMET 4.8/15, novelty 2.7/10, synthesis 2.5/5 · structure kept private (the entrant's choice)",
               "date": "2026-09-10",
               "value": 36.173,
               "contributorKind": "person",
@@ -123602,7 +123747,7 @@
             },
             {
               "contributor": "Sunghokim",
-              "description": "rank 3964 of 5,002 ranked entries · best of this account's 13 scored entries · candidate ODC-A221F1 · activity 2.3/10, binding 16.1/30, selectivity 8.3/30, ADMET 2.5/15, novelty 2.4/10, synthesis 2.1/5 · structure kept private (the entrant's choice)",
+              "description": "rank 3969 of 5,007 ranked entries · best of this account's 13 scored entries · candidate ODC-A221F1 · activity 2.3/10, binding 16.1/30, selectivity 8.3/30, ADMET 2.5/15, novelty 2.4/10, synthesis 2.1/5 · structure kept private (the entrant's choice)",
               "date": "2026-08-29",
               "value": 33.65,
               "contributorKind": "person",
@@ -123618,7 +123763,7 @@
             },
             {
               "contributor": "doo513",
-              "description": "rank 4290 of 5,002 ranked entries · best of this account's 3 scored entries · candidate ODC-94DE06 · activity 1.6/10, binding 11.9/30, selectivity 6.7/30, ADMET 2.7/15, novelty 2/10, synthesis 1.9/5 · structure kept private (the entrant's choice)",
+              "description": "rank 4295 of 5,007 ranked entries · best of this account's 3 scored entries · candidate ODC-94DE06 · activity 1.6/10, binding 11.9/30, selectivity 6.7/30, ADMET 2.7/15, novelty 2/10, synthesis 1.9/5 · structure kept private (the entrant's choice)",
               "date": "2026-11-17",
               "value": 26.914,
               "contributorKind": "person",
@@ -123635,7 +123780,7 @@
             },
             {
               "contributor": "givemehint",
-              "description": "rank 4358 of 5,002 ranked entries · best of this account's 3 scored entries · candidate ODC-7F2B22 · activity 0.3/10, binding 11.7/30, selectivity 7.3/30, ADMET 2/15, novelty 2/10, synthesis 1.9/5 · structure kept private (the entrant's choice)",
+              "description": "rank 4363 of 5,007 ranked entries · best of this account's 3 scored entries · candidate ODC-7F2B22 · activity 0.3/10, binding 11.7/30, selectivity 7.3/30, ADMET 2/15, novelty 2/10, synthesis 1.9/5 · structure kept private (the entrant's choice)",
               "date": "2026-09-15",
               "value": 25.263,
               "contributorKind": "person",
@@ -123651,7 +123796,7 @@
             },
             {
               "contributor": "SeaWolf-AI",
-              "description": "rank 4524 of 5,002 ranked entries · one scored entry · candidate ODC-1ED26B · activity 0.5/10, binding 10.9/30, selectivity 3.6/30, ADMET 2.2/15, novelty 1.6/10, synthesis 1.8/5 · structure published on the leaderboard",
+              "description": "rank 4529 of 5,007 ranked entries · one scored entry · candidate ODC-1ED26B · activity 0.5/10, binding 10.9/30, selectivity 3.6/30, ADMET 2.2/15, novelty 1.6/10, synthesis 1.8/5 · structure published on the leaderboard",
               "date": "2026-08-28",
               "value": 20.656,
               "contributorKind": "person",
@@ -123668,7 +123813,7 @@
             },
             {
               "contributor": "aquamarine-hoshino170",
-              "description": "rank 4575 of 5,002 ranked entries · best of this account's 3 scored entries · candidate ODC-4640F4 · activity 0.7/10, binding 8.2/30, selectivity 5/30, ADMET 2.1/15, novelty 1.6/10, synthesis 1.4/5 · structure kept private (the entrant's choice)",
+              "description": "rank 4580 of 5,007 ranked entries · best of this account's 3 scored entries · candidate ODC-4640F4 · activity 0.7/10, binding 8.2/30, selectivity 5/30, ADMET 2.1/15, novelty 1.6/10, synthesis 1.4/5 · structure kept private (the entrant's choice)",
               "date": "2026-11-16",
               "value": 18.931,
               "contributorKind": "person",
@@ -123684,7 +123829,7 @@
             },
             {
               "contributor": "Lauhel",
-              "description": "rank 4712 of 5,002 ranked entries · one scored entry · candidate ODC-C7FA62 · activity 1.7/10, binding 8.1/30, selectivity 0/30, ADMET 1.8/15, novelty 1.1/10, synthesis 1/5 · structure kept private (the entrant's choice)",
+              "description": "rank 4717 of 5,007 ranked entries · one scored entry · candidate ODC-C7FA62 · activity 1.7/10, binding 8.1/30, selectivity 0/30, ADMET 1.8/15, novelty 1.1/10, synthesis 1/5 · structure kept private (the entrant's choice)",
               "date": "2026-09-02",
               "value": 13.756,
               "contributorKind": "person",
@@ -123694,7 +123839,7 @@
             },
             {
               "contributor": "rowett",
-              "description": "rank 4793 of 5,002 ranked entries · best of this account's 28 scored entries · candidate ODC-2501E6 · activity 0.3/10, binding 6.3/30, selectivity 0/30, ADMET 1.4/15, novelty 1.4/10, synthesis 1/5 · structure kept private (the entrant's choice)",
+              "description": "rank 4798 of 5,007 ranked entries · best of this account's 28 scored entries · candidate ODC-2501E6 · activity 0.3/10, binding 6.3/30, selectivity 0/30, ADMET 1.4/15, novelty 1.4/10, synthesis 1/5 · structure kept private (the entrant's choice)",
               "date": "2026-09-05",
               "value": 10.479,
               "contributorKind": "person",
@@ -124100,17 +124245,17 @@
           "lastActive": "2026-08-22"
         },
         {
-          "name": "KarinDV",
-          "url": "https://huggingface.co/KarinDV",
+          "name": "bluOsean",
+          "url": "https://huggingface.co/bluOsean",
           "submissions": 1,
           "problems": [
             "season-3"
           ],
-          "lastActive": "2026-11-16"
+          "lastActive": "2026-11-26"
         },
         {
-          "name": "bluOsean",
-          "url": "https://huggingface.co/bluOsean",
+          "name": "KarinDV",
+          "url": "https://huggingface.co/KarinDV",
           "submissions": 1,
           "problems": [
             "season-3"
@@ -124324,7 +124469,7 @@
         "recordsLast30d": 18,
         "recordsLast90d": 43
       },
-      "lastUpdated": "2026-11-27T00:28:36.571Z"
+      "lastUpdated": "2026-11-27T01:16:51.064Z"
     },
     {
       "id": "ai-tx-challenge",
@@ -124438,7 +124583,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:28:36.828Z"
+      "lastUpdated": "2026-11-27T01:16:51.411Z"
     },
     {
       "id": "alchemistry-2027",
@@ -124535,7 +124680,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:28:36.938Z"
+      "lastUpdated": "2026-11-27T01:16:51.504Z"
     },
     {
       "id": "vesuvius-challenge",
@@ -124648,7 +124793,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:28:37.032Z"
+      "lastUpdated": "2026-11-27T01:16:51.782Z"
     },
     {
       "id": "starvla-starvla-0f3b6fdaa7e288ea",
@@ -124740,7 +124885,7 @@
         "recordsLast30d": 0,
         "recordsLast90d": 0
       },
-      "lastUpdated": "2026-11-27T00:18:49.700Z"
+      "lastUpdated": "2026-11-27T01:08:02.423Z"
     }
   ],
   "errors": [
@@ -124794,10 +124939,6 @@
     },
     {
       "repo": "realchendahuang/before-you-install-t3code",
-      "error": "not a competition"
-    },
-    {
-      "repo": "lean-dojo/leanmillenniumprizeproblems",
       "error": "not a competition"
     },
     {

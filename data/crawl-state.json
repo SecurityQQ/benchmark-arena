@@ -115,11 +115,11 @@
     "checkedAt": "2026-10-13T23:18:30.958Z"
   },
   "andrewnakas/powderbench": {
-    "pushedAt": "2026-11-27T00:18:18Z",
+    "pushedAt": "2026-11-27T01:05:44Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-27T00:28:32.556Z",
-    "head": "e8a38c62810b974d73a68573a996473d16ec4d49",
+    "checkedAt": "2026-11-27T01:16:47.564Z",
+    "head": "df243b95d2ab53850157218596d10b7aede4375e",
     "sources": [
       "README.md",
       "data/leagues.yaml",
@@ -240,11 +240,11 @@
     ]
   },
   "cdcgov/rsv-forecast-hub": {
-    "pushedAt": "2026-11-26T22:39:45Z",
+    "pushedAt": "2026-11-27T01:04:03Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-27T00:28:05.084Z",
-    "head": "61d390423c2a53302f3ccdd5659d49be435e1c41",
+    "checkedAt": "2026-11-27T01:16:23.460Z",
+    "head": "38b43bb7a9d7a161399e4307feacb65b853d80c5",
     "sources": [
       "README.md",
       "hub-config/README.md",
@@ -1287,10 +1287,10 @@
     "checkedAt": "2026-10-26T09:09:02.445Z"
   },
   "xcpcio/xcpcio": {
-    "pushedAt": "2026-11-26T15:02:51Z",
+    "pushedAt": "2026-11-27T00:42:04Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "none",
-    "checkedAt": "2026-11-26T17:55:03.422Z"
+    "checkedAt": "2026-11-27T01:08:34.887Z"
   },
   "yinizhilian/iclr2025-papers-with-code": {
     "pushedAt": "2025-03-14T08:57:10Z",

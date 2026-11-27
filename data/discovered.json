@@ -71,7 +71,7 @@
     "name": "audio.cpp",
     "url": "https://github.com/0xShug0/audio.cpp",
     "description": "An all-in-one, pure C++ inference engine for audio models, powered by ggml. Supports TTS, STT, VAD, voice conversion, music generation, and more, with highly optimized performance. No Python dependency.",
-    "stars": 4475,
+    "stars": 4477,
     "topics": [
       "ai",
       "amd-gpu",
@@ -117,7 +117,7 @@
     "name": "AssetOpsBench",
     "url": "https://github.com/IBM/AssetOpsBench",
     "description": "AssetOpsBench - Industry 4.0: A unified benchmark and framework for building, orchestrating, and evaluating domain-specific AI agents for Industry 4.0 asset operations and maintenance, with 460+ scenarios, 5 specialist agents (IoT, FMSR, TSFM, Work Order,...), and multi-agent orchestration blueprints (MetaAgent, AgentHive) over MCP.",
-    "stars": 2509,
+    "stars": 2510,
     "topics": [
       "ai-for-physical-assets",
       "condition-based-maintenance",
@@ -581,7 +581,7 @@
       "visualization"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-26T15:02:51Z"
+    "pushedAt": "2026-11-27T00:42:04Z"
   },
   {
     "owner": "LudwigStumpp",
@@ -603,10 +603,10 @@
     "name": "pequalnp-proofs",
     "url": "https://github.com/open-goat/pequalnp-proofs",
     "description": "Lean 4 proofs from the public AI attempt at P vs NP (pequalnp.com). Open gaps welcome pull requests.",
-    "stars": 260,
+    "stars": 261,
     "topics": [],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-27T00:13:45Z"
+    "pushedAt": "2026-11-27T01:07:31Z"
   },
   {
     "owner": "janosh",
@@ -971,7 +971,7 @@
       "respiratory-syncytial-virus"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-26T22:39:45Z"
+    "pushedAt": "2026-11-27T01:04:03Z"
   },
   {
     "owner": "programbench",
@@ -994,7 +994,7 @@
       "research-software"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-27T00:17:26Z"
+    "pushedAt": "2026-11-27T00:47:20Z"
   },
   {
     "owner": "kings-crown",
@@ -1219,7 +1219,7 @@
       "weather-forecasting"
     ],
     "defaultBranch": "main",
-    "pushedAt": "2026-11-27T00:18:18Z"
+    "pushedAt": "2026-11-27T01:05:44Z"
   },
   {
     "owner": "open-challenges",
