@@ -115,11 +115,11 @@
     "checkedAt": "2026-10-13T23:18:30.958Z"
   },
   "andrewnakas/powderbench": {
-    "pushedAt": "2026-11-27T13:27:29Z",
+    "pushedAt": "2026-11-27T22:45:46Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-27T13:59:31.075Z",
-    "head": "3f92658fced72b8d8113e869dd78efa024ee93cc",
+    "checkedAt": "2026-11-27T22:50:41.655Z",
+    "head": "c6c27e9fd268b9be316d6aefd3bc3cb4d7a5b2c7",
     "sources": [
       "README.md",
       "data/leagues.yaml",
@@ -222,11 +222,11 @@
     ]
   },
   "cdcgov/covid19-forecast-hub": {
-    "pushedAt": "2026-11-26T22:39:31Z",
+    "pushedAt": "2026-11-27T18:11:55Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-27T00:27:23.962Z",
-    "head": "6a59659fdb44d019dd3d5f91d2686a78c4d35f8f",
+    "checkedAt": "2026-11-27T22:51:34.095Z",
+    "head": "0f5dc27b1dec512fa3a2f8d2b03f39e9a4056186",
     "sources": [
       "README.md",
       "hub-config/README.md",
@@ -238,14 +238,15 @@
       "DISCLAIMER.md",
       "code-of-conduct.md",
       "model-output/../model-metadata/README.md"
-    ]
+    ],
+    "live": true
   },
   "cdcgov/rsv-forecast-hub": {
-    "pushedAt": "2026-11-27T01:04:03Z",
+    "pushedAt": "2026-11-27T18:47:51Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-27T01:16:23.460Z",
-    "head": "38b43bb7a9d7a161399e4307feacb65b853d80c5",
+    "checkedAt": "2026-11-27T22:51:15.390Z",
+    "head": "2363a62cebc294dd654a994b89b120b38d27e20a",
     "sources": [
       "README.md",
       "hub-config/README.md",
@@ -259,7 +260,8 @@
       "code-of-conduct.md",
       "model-output/../target-data/README.md",
       "model-output/../model-metadata/README.md"
-    ]
+    ],
+    "live": true
   },
   "changwookjun/nlp-paper": {
     "pushedAt": "2026-11-12T05:06:57Z",
@@ -1243,11 +1245,11 @@
     "checkedAt": "2026-10-13T23:10:28.396Z"
   },
   "unitaryfoundation/qldpc-challenge": {
-    "pushedAt": "2026-11-26T19:54:15Z",
+    "pushedAt": "2026-11-27T22:30:02Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-26T21:10:15.456Z",
-    "head": "e142c3fdfdc83a4df1b7d417b1ce2c833ebe9712",
+    "checkedAt": "2026-11-27T22:50:59.629Z",
+    "head": "a20a091d38bd2fbc53278e05e859f5b4360a935f",
     "sources": [
       "README.md",
       "fieldnotes/README.md",
@@ -1256,10 +1258,12 @@
       "TRACKS.md",
       "AGENTS.md",
       "CONTRIBUTING.md",
+      "SUBMIT.md",
       "research/AUTORESEARCH.md",
       "beat-the-surface-code.md",
       "notes/TEMPLATE.md"
-    ]
+    ],
+    "live": true
   },
   "vchitect/vbench": {
     "pushedAt": "2026-08-21T15:28:08Z",
