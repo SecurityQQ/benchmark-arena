@@ -114,6 +114,29 @@
     "verdict": "none",
     "checkedAt": "2026-10-13T23:18:30.958Z"
   },
+  "andrewnakas/powderbench": {
+    "pushedAt": "2026-11-27T00:18:18Z",
+    "fingerprint": "a0f0ccb7f37eb7e2",
+    "verdict": "competition",
+    "checkedAt": "2026-11-27T00:28:32.556Z",
+    "head": "e8a38c62810b974d73a68573a996473d16ec4d49",
+    "sources": [
+      "README.md",
+      "data/leagues.yaml",
+      "data/sources.yaml",
+      "data/stations.yaml",
+      "data/teams.yaml",
+      "data/gates/README.md",
+      "data/skiareas/README.md",
+      "docs/METHODOLOGY.md",
+      "docs/DATA.md",
+      "docs/RULES.md",
+      "docs/RESORTS.md",
+      "docs/SOURCES.md",
+      "docs/SUBMITTING.md",
+      "data/"
+    ]
+  },
   "arcelewyn/discord": {
     "pushedAt": "2025-12-02T08:21:37Z",
     "fingerprint": "81e7e9bf9471aa91",
@@ -182,11 +205,11 @@
     ]
   },
   "cdcepi/flusight-forecast-hub": {
-    "pushedAt": "2026-11-26T20:26:38Z",
+    "pushedAt": "2026-11-26T22:31:17Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-26T21:09:53.559Z",
-    "head": "4ad732daf72f7c7b981ab9a343b9ebd58a4c4cbe",
+    "checkedAt": "2026-11-27T00:26:40.431Z",
+    "head": "7bedf1d6c8b099da33828e858b0dc5b30bae8115",
     "sources": [
       "README.md",
       "auxiliary-data/README.md",
@@ -198,16 +221,29 @@
     ]
   },
   "cdcgov/covid19-forecast-hub": {
-    "pushedAt": "2026-11-26T15:19:26Z",
-    "fingerprint": "a0f0ccb7f37eb7e2",
-    "verdict": "none",
-    "checkedAt": "2026-11-26T19:51:42.270Z"
-  },
-  "cdcgov/rsv-forecast-hub": {
-    "pushedAt": "2026-11-26T05:35:27Z",
+    "pushedAt": "2026-11-26T22:39:31Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-26T19:52:29.614Z",
+    "checkedAt": "2026-11-27T00:27:23.962Z",
+    "head": "6a59659fdb44d019dd3d5f91d2686a78c4d35f8f",
+    "sources": [
+      "README.md",
+      "hub-config/README.md",
+      "model-metadata/README.md",
+      "model-output/README.md",
+      "target-data/README.md",
+      "open_practices.md",
+      "rules_of_behavior.md",
+      "DISCLAIMER.md",
+      "code-of-conduct.md",
+      "model-output/../model-metadata/README.md"
+    ]
+  },
+  "cdcgov/rsv-forecast-hub": {
+    "pushedAt": "2026-11-26T22:39:45Z",
+    "fingerprint": "a0f0ccb7f37eb7e2",
+    "verdict": "competition",
+    "checkedAt": "2026-11-27T00:28:05.084Z",
     "head": "61d390423c2a53302f3ccdd5659d49be435e1c41",
     "sources": [
       "README.md",
@@ -231,10 +267,10 @@
     "checkedAt": "2026-11-26T05:21:16.449Z"
   },
   "cjmellor/level-up": {
-    "pushedAt": "2026-11-23T16:12:47Z",
+    "pushedAt": "2026-11-26T23:32:01Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "none",
-    "checkedAt": "2026-11-26T05:21:12.759Z"
+    "checkedAt": "2026-11-27T00:19:32.207Z"
   },
   "cloud-cv/evalai": {
     "pushedAt": "2026-11-14T03:31:50Z",
@@ -337,6 +373,20 @@
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "none",
     "checkedAt": "2026-11-26T18:33:36.048Z"
+  },
+  "dronperminov/fastmatrixmultiplication": {
+    "pushedAt": "2026-11-16T15:19:30Z",
+    "fingerprint": "a0f0ccb7f37eb7e2",
+    "verdict": "competition",
+    "checkedAt": "2026-11-27T00:27:41.108Z",
+    "head": "f70078cd9d1674cbc9c27e71011d4d6dff771d40",
+    "sources": [
+      "README.md",
+      "CHANGELOG.md",
+      "docs/results.md",
+      "docs/ranks.md",
+      "docs/additions.md"
+    ]
   },
   "ecro/embedeval": {
     "pushedAt": "2026-09-09T04:49:54Z",
@@ -463,6 +513,33 @@
       "readme.md"
     ]
   },
+  "jlevy/squares": {
+    "pushedAt": "2026-11-25T15:18:50Z",
+    "fingerprint": "a0f0ccb7f37eb7e2",
+    "verdict": "competition",
+    "checkedAt": "2026-11-27T00:27:02.917Z",
+    "head": "c5775bae40085f67f4c30f8916b0d6e998c304ab",
+    "sources": [
+      "README.md",
+      "packing/frontier/n-011.md",
+      "docs/project/reviews/review-2026-09-29-n11-optimality.md",
+      "packing/frontier/n-017.md",
+      "CHANGELOG.md",
+      "TUTORIAL.md",
+      "TUTORIAL-ADVANCED.md",
+      "SYNOPSIS.md",
+      "epistemics.md",
+      "packing/frontier/STATUS.md",
+      "packing/atlas/README.md",
+      "packing/resources/README.md",
+      "development.md",
+      "docs/project/guides/verification-tooling.md",
+      "packing/campaign/README.md",
+      "defects.md",
+      "packing/campaign/ledger.md",
+      "packing/campaign/agenda-map.md"
+    ]
+  },
   "jozzdart/track": {
     "pushedAt": "2025-05-27T04:01:51Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
@@ -524,6 +601,12 @@
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "none",
     "checkedAt": "2026-10-13T23:11:26.289Z"
+  },
+  "lean-dojo/leanmillenniumprizeproblems": {
+    "pushedAt": "2026-09-14T22:20:36Z",
+    "fingerprint": "a0f0ccb7f37eb7e2",
+    "verdict": "none",
+    "checkedAt": "2026-11-27T00:26:44.045Z"
   },
   "leansolving/squeezebench": {
     "pushedAt": "2026-10-22T15:18:02Z",
@@ -673,11 +756,11 @@
     ]
   },
   "open-challenges/fastest-lean-compiler": {
-    "pushedAt": "2026-11-26T22:28:28Z",
+    "pushedAt": "2026-11-27T00:14:18Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-26T22:41:11.801Z",
-    "head": "b602a02c5e529aef817c38c03d1717016bb8b4ab",
+    "checkedAt": "2026-11-27T00:18:59.182Z",
+    "head": "b050fa3b6ff3bdec897d8fd737be4a2798bf7951",
     "sources": [
       "PROBLEM.md",
       "submissions/lean-v4.36.0/SUBMISSION.md",
@@ -687,16 +770,18 @@
     ]
   },
   "open-challenges/keller-zero": {
-    "pushedAt": "2026-11-26T22:06:34Z",
+    "pushedAt": "2026-11-26T23:18:20Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-26T22:22:59.014Z",
-    "head": "60e77c3e81dc36b28be04b989985e538291fc6f0",
+    "checkedAt": "2026-11-27T00:19:12.339Z",
+    "head": "9157ffe4fac78586e43c42fc8e74df45f718dda2",
     "sources": [
       "PROBLEM.md",
+      "submissions/SecurityQQ/SUBMISSION.md",
       "submissions/alpoge-stambler/SUBMISSION.md",
       "README.md",
       "DIRECTION.md",
+      "FINDINGS.md",
       "AGENTS.md",
       "submissions/"
     ]
@@ -1004,6 +1089,12 @@
     "fingerprint": "81e7e9bf9471aa91",
     "verdict": "competition",
     "checkedAt": "2026-11-16T11:41:42.833Z"
+  },
+  "sedoglavic/fmm_digest": {
+    "pushedAt": "2026-11-24T12:03:27Z",
+    "fingerprint": "a0f0ccb7f37eb7e2",
+    "verdict": "none",
+    "checkedAt": "2026-11-27T00:28:09.845Z"
   },
   "starvla/starvla": {
     "pushedAt": "2026-11-18T04:24:21Z",
