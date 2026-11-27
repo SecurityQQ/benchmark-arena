@@ -40,6 +40,16 @@
         "url": "https://raw.githubusercontent.com/google-deepmind/formal-conjectures/HEAD/AGENTS.md"
       }
     ],
+    "jlevy-squares-e1438952293c25f7": [
+      {
+        "label": "AGENTS.md",
+        "url": "https://raw.githubusercontent.com/jlevy/squares/HEAD/AGENTS.md"
+      },
+      {
+        "label": "CLAUDE.md",
+        "url": "https://raw.githubusercontent.com/jlevy/squares/HEAD/CLAUDE.md"
+      }
+    ],
     "leansolving-squeezebench-04bec82398b15ff6": [
       {
         "label": "AGENTS.md",

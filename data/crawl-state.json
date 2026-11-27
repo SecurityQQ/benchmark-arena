@@ -115,11 +115,11 @@
     "checkedAt": "2026-10-13T23:18:30.958Z"
   },
   "andrewnakas/powderbench": {
-    "pushedAt": "2026-11-27T01:05:44Z",
+    "pushedAt": "2026-11-27T04:02:11Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-27T01:16:47.564Z",
-    "head": "df243b95d2ab53850157218596d10b7aede4375e",
+    "checkedAt": "2026-11-27T04:18:15.202Z",
+    "head": "3f862abc739592fcb53c14302903c11de91f45fc",
     "sources": [
       "README.md",
       "data/leagues.yaml",
@@ -135,7 +135,8 @@
       "docs/SOURCES.md",
       "docs/SUBMITTING.md",
       "data/"
-    ]
+    ],
+    "live": true
   },
   "arcelewyn/discord": {
     "pushedAt": "2025-12-02T08:21:37Z",
@@ -712,11 +713,11 @@
     ]
   },
   "molly554/whiteboard-ai-tutor": {
-    "pushedAt": "2026-11-26T09:39:31Z",
+    "pushedAt": "2026-11-27T02:20:11Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-26T12:24:53.990Z",
-    "head": "3fae0a6f12a32b41914b5a8ce0ba2179f5e1a40d",
+    "checkedAt": "2026-11-27T04:18:37.373Z",
+    "head": "67d574c8b662baf587c1fd50e392c879878ef6bf",
     "sources": [
       "README.md",
       "results/leaderboard.json",
