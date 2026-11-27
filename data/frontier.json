@@ -476,6 +476,34 @@
       "verified": 3,
       "why": "Make the Lean 4 toolchain build proofs faster: CI times each entry against stock Lean on the Cedar workload, and every theorem must come out byte-identical.",
       "checked": "2026-11-26"
+    },
+    "jlevy-squares-e1438952293c25f7": {
+      "stakes": 2,
+      "open": 3,
+      "verified": 3,
+      "why": "Find and prove the smallest square that holds n unit squares, for every n up to 324: an Erdős–Graham problem with records falling daily.",
+      "checked": "2026-11-26"
+    },
+    "cdcgov-covid19-forecast-hub-19ca6a18d0b65744": {
+      "stakes": 3,
+      "open": 2,
+      "verified": 3,
+      "why": "The CDC's weekly COVID-19 hospitalization forecasts, used in public health planning; every forecast is scored against what actually happened.",
+      "checked": "2026-11-26"
+    },
+    "dronperminov-fastmatrixmultiplication-4d5281f8ef73e8de": {
+      "stakes": 3,
+      "open": 3,
+      "verified": 3,
+      "why": "Find matrix multiplication schemes with fewer multiplications for small formats: the building blocks of every bound on ω, each scheme checked exactly.",
+      "checked": "2026-11-26"
+    },
+    "andrewnakas-powderbench-052d315c05650aa9": {
+      "stakes": 2,
+      "open": 2,
+      "verified": 3,
+      "why": "Forecast mountain snowfall 24 to 72 hours ahead at about 2,400 stations; observations score every forecast daily.",
+      "checked": "2026-11-26"
     }
   }
 }
