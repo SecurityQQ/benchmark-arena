@@ -115,11 +115,11 @@
     "checkedAt": "2026-10-13T23:18:30.958Z"
   },
   "andrewnakas/powderbench": {
-    "pushedAt": "2026-11-28T03:53:13Z",
+    "pushedAt": "2026-11-28T13:02:16Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-28T04:24:51.354Z",
-    "head": "ca957cead67328d00c74938ddf8edf8aa3216b6b",
+    "checkedAt": "2026-11-28T13:43:12.927Z",
+    "head": "25c04905519398ef1e32085bbd05f61b2e5a1e7a",
     "sources": [
       "README.md",
       "data/leagues.yaml",
@@ -507,14 +507,15 @@
     "checkedAt": "2026-11-26T05:37:31.090Z"
   },
   "janosh/matbench-discovery": {
-    "pushedAt": "2026-11-23T13:22:26Z",
+    "pushedAt": "2026-11-28T12:19:29Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-26T17:55:23.102Z",
-    "head": "20739948ec8d6b9a17e0959200c6bbd267bc88a0",
+    "checkedAt": "2026-11-28T13:43:23.492Z",
+    "head": "7ecb1e5ab97ed7db33c246f9e5cb47990de0effe",
     "sources": [
       "readme.md"
-    ]
+    ],
+    "live": true
   },
   "jlevy/squares": {
     "pushedAt": "2026-11-25T15:18:50Z",
@@ -1247,11 +1248,11 @@
     "checkedAt": "2026-10-13T23:10:28.396Z"
   },
   "unitaryfoundation/qldpc-challenge": {
-    "pushedAt": "2026-11-27T22:30:02Z",
+    "pushedAt": "2026-11-28T13:31:39Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-27T22:50:59.629Z",
-    "head": "a20a091d38bd2fbc53278e05e859f5b4360a935f",
+    "checkedAt": "2026-11-28T13:42:46.571Z",
+    "head": "3f949d4d42c49d9715ec4e9618e0b06c3dcccda8",
     "sources": [
       "README.md",
       "fieldnotes/README.md",
