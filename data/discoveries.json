@@ -1,20 +1,415 @@
 {
-  "fetchedAt": "2026-11-27T22:51:49.988Z",
+  "fetchedAt": "2026-11-28T04:25:45.232Z",
   "totals": {
-    "results": 1508,
-    "projects": 1145
+    "results": 1532,
+    "projects": 1165
   },
   "days": {
-    "2026-11-27": 84,
+    "2026-11-28": 18,
+    "2026-11-27": 90,
     "2026-11-26": 66,
     "2026-11-25": 7,
     "2026-11-24": 22,
     "2026-11-23": 36,
-    "2026-11-22": 33,
-    "2026-11-21": 2
+    "2026-11-22": 11
   },
   "partial": true,
   "items": [
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-28-000018",
+      "version": 1,
+      "title": "Ben Yaacov–Pedersen 2010 continuous FOL completeness in Lean 4",
+      "authors": [
+        "Lars Warren Ericson"
+      ],
+      "date": "2026-11-28",
+      "at": "2026-11-28T04:08:35Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-28-000018&version=1",
+      "repo": "catskillsresearch/yaacov-pedersen-2010",
+      "subjects": [
+        "math.LO",
+        "cs.LO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-28-000017",
+      "version": 1,
+      "title": "Erdős Problem #64 for minimum degree at least 4 and diameter at most 3",
+      "authors": [
+        "David I. Goldstick"
+      ],
+      "date": "2026-11-28",
+      "at": "2026-11-28T03:54:19Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-28-000017&version=1",
+      "repo": "innov8ion/erdos64-diam3",
+      "subjects": [
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-28-000016",
+      "version": 1,
+      "title": "Intervals in the closure of the single-hypergraph Turán spectrum",
+      "authors": [
+        "Xizhi Liu"
+      ],
+      "date": "2026-11-28",
+      "at": "2026-11-28T03:30:16Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-28-000016&version=1",
+      "repo": "xliu2022/single-spectrum-lean",
+      "subjects": [
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-28-000015",
+      "version": 1,
+      "title": "Counterexamples to Tokareva's conjectures on bent functions",
+      "authors": [
+        "David I. Goldstick"
+      ],
+      "date": "2026-11-28",
+      "at": "2026-11-28T03:22:40Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-28-000015&version=1",
+      "repo": "innov8ion/tokareva-bent-counterexamples",
+      "subjects": [
+        "math.CO",
+        "cs.IT"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-28-000014",
+      "version": 1,
+      "title": "Triangle decompositions of two-dimensional simplicial complexes",
+      "authors": [
+        "Juan Pablo Traverso Gianini"
+      ],
+      "date": "2026-11-28",
+      "at": "2026-11-28T03:03:58Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-28-000014&version=1",
+      "repo": "jtraverso/dlp-triangle-decompositions-lean",
+      "subjects": [
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-28-000013",
+      "version": 1,
+      "title": "A counterexample to Graffiti.pc Conjecture 155 on distinct radial-circle orders",
+      "authors": [
+        "Ronak Patel (Avon Labs)"
+      ],
+      "date": "2026-11-28",
+      "at": "2026-11-28T03:00:08Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-28-000013&version=1",
+      "repo": "ronak14p/wowii-155-lean",
+      "subjects": [
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-28-000012",
+      "version": 1,
+      "title": "A fifteen-vertex counterexample to Graffiti.pc Conjecture 154",
+      "authors": [
+        "Ronak Patel (Avon Labs)"
+      ],
+      "date": "2026-11-28",
+      "at": "2026-11-28T02:31:17Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-28-000012&version=1",
+      "repo": "ronak14p/wowii-154-lean",
+      "subjects": [
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-28-000011",
+      "version": 1,
+      "title": "Universality and regularity of the Type 6 origami torus triangulation",
+      "authors": [
+        "The-Anh Vu-Le"
+      ],
+      "date": "2026-11-28",
+      "at": "2026-11-28T02:14:45Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-28-000011&version=1",
+      "repo": "vltanh/lean4-origami-torus",
+      "subjects": [
+        "math.MG",
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-28-000010",
+      "version": 1,
+      "title": "A twenty-vertex counterexample to Graffiti.pc Conjecture 166",
+      "authors": [
+        "Ronak Patel (Avon Labs)"
+      ],
+      "date": "2026-11-28",
+      "at": "2026-11-28T02:10:34Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-28-000010&version=1",
+      "repo": "ronak14p/wowii-166-lean",
+      "subjects": [
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-28-000009",
+      "version": 1,
+      "title": "A tree counterexample to Graffiti.pc Conjecture 171",
+      "authors": [
+        "Ronak Patel (Avon Labs)"
+      ],
+      "date": "2026-11-28",
+      "at": "2026-11-28T01:56:21Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-28-000009&version=1",
+      "repo": "ronak14p/wowii-171-lean",
+      "subjects": [
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-28-000008",
+      "version": 1,
+      "title": "The five-colour triangle-forcing threshold from 47 vertices",
+      "authors": [
+        "Prabhav Agrawal"
+      ],
+      "date": "2026-11-28",
+      "at": "2026-11-28T01:28:08Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-28-000008&version=1",
+      "repo": "prabhavag/erdos-1011-five-colour",
+      "subjects": [
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-28-000007",
+      "version": 2,
+      "title": "Dyadic-grid Type 5 origami tori near the square",
+      "authors": [
+        "The-Anh Vu-Le"
+      ],
+      "date": "2026-11-28",
+      "at": "2026-11-28T03:34:55Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-28-000007&version=2",
+      "repo": "vltanh/lean4-origami-torus",
+      "subjects": [
+        "math.MG",
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-28-000006",
+      "version": 1,
+      "title": "Balanced recoloring and dense-core factorization",
+      "authors": [
+        "Juan Pablo Traverso Gianini"
+      ],
+      "date": "2026-11-28",
+      "at": "2026-11-28T01:19:46Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-28-000006&version=1",
+      "repo": "jtraverso/overfull-criteria",
+      "subjects": [
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-28-000005",
+      "version": 1,
+      "title": "OEIS A234360, conjecture (ii), fails at n = 1408",
+      "authors": [
+        "Alexander Wilms"
+      ],
+      "date": "2026-11-28",
+      "at": "2026-11-28T01:15:50Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-28-000005&version=1",
+      "repo": "8xp4jtb47i5h/oeis234360-lean",
+      "subjects": [
+        "math.NT"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-28-000004",
+      "version": 1,
+      "title": "A counterexample to the unbordered-factor conjecture in OEIS A225179",
+      "authors": [
+        "Dhruvik Patel"
+      ],
+      "date": "2026-11-28",
+      "at": "2026-11-28T01:11:21Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-28-000004&version=1",
+      "repo": "DhruRules/oeis-a225179",
+      "subjects": [
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-28-000003",
+      "version": 1,
+      "title": "Finite digit-sum patterns in Pascal rows and record growth for A249609",
+      "authors": [
+        "DhruRules"
+      ],
+      "date": "2026-11-28",
+      "at": "2026-11-28T00:59:31Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-28-000003&version=1",
+      "repo": "DhruRules/a249609-pascal-patterns",
+      "subjects": [
+        "math.NT",
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-28-000002",
+      "version": 1,
+      "title": "A 2-hyperperfect number not of the form 3^m(3^(m+1) − 2)",
+      "authors": [
+        "Alexander Wilms"
+      ],
+      "date": "2026-11-28",
+      "at": "2026-11-28T00:40:35Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-28-000002&version=1",
+      "repo": "8xp4jtb47i5h/hyperperfect2-lean",
+      "subjects": [
+        "math.NT"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-28-000001",
+      "version": 1,
+      "title": "Nonexistence of a Type 2 origami torus",
+      "authors": [
+        "The-Anh Vu-Le"
+      ],
+      "date": "2026-11-28",
+      "at": "2026-11-28T00:24:42Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-28-000001&version=1",
+      "repo": "vltanh/lean4-origami-torus",
+      "subjects": [
+        "math.MG",
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-27-000090",
+      "version": 1,
+      "title": "Written on the Wall II, Conjecture 377: total domination of trees, isolated maximum-degree vertices and the upper median degree",
+      "authors": [
+        "Ari Gilchrist"
+      ],
+      "date": "2026-11-27",
+      "at": "2026-11-27T23:37:20Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-27-000090&version=1",
+      "repo": "Ari-Gilchrist/wowii-conjecture-377",
+      "subjects": [
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-27-000089",
+      "version": 1,
+      "title": "Written on the Wall II, Conjecture 380: total domination, even degrees and the eccentricity of the centre of a tree",
+      "authors": [
+        "Ari Gilchrist"
+      ],
+      "date": "2026-11-27",
+      "at": "2026-11-27T23:21:39Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-27-000089&version=1",
+      "repo": "Ari-Gilchrist/wowii-conjecture-380",
+      "subjects": [
+        "math.CO"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-27-000088",
+      "version": 1,
+      "title": "Unconditional lower bound C1a >= 13/10 for Tao's Sidon autocorrelation constant",
+      "authors": [
+        "Pavel Akhtyamov"
+      ],
+      "date": "2026-11-27",
+      "at": "2026-11-27T23:17:38Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-27-000088&version=1",
+      "repo": "akhtyamovpavel/c1a-lower-bound-lean4",
+      "subjects": [
+        "math.CA",
+        "math.CO",
+        "math.NT"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-27-000087",
+      "version": 1,
+      "title": "One-sided discretization of L_p norms with equal weights",
+      "authors": [
+        "Mario Ullrich"
+      ],
+      "date": "2026-11-27",
+      "at": "2026-11-27T23:12:55Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-27-000087&version=1",
+      "repo": "mario-ullrich/Lean-Discretization",
+      "subjects": [
+        "math.NA",
+        "math.FA"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-27-000086",
+      "version": 1,
+      "title": "Erdős Problem 107: the Erdős–Szekeres bounds",
+      "authors": [
+        "Ellweb3",
+        "Linmiao Xu"
+      ],
+      "date": "2026-11-27",
+      "at": "2026-11-27T22:51:39Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-27-000086&version=1",
+      "repo": "Ellweb3/erdos-107-ersz-bounds",
+      "subjects": [
+        "math.CO",
+        "math.MG"
+      ]
+    },
+    {
+      "source": "palomar",
+      "id": "PALOMAR-2026-11-27-000085",
+      "version": 1,
+      "title": "Kourovka problem 20.52, a partial answer: |G| - k(G) = 16m for groups of odd order",
+      "authors": [
+        "Marcos Martín Salvador"
+      ],
+      "date": "2026-11-27",
+      "at": "2026-11-27T22:46:42Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-27-000085&version=1",
+      "repo": "marcosmartinsalvador/conjecture-proofs-palomar",
+      "subjects": [
+        "math.GR"
+      ]
+    },
     {
       "source": "palomar",
       "id": "PALOMAR-2026-11-27-000084",
@@ -223,14 +618,14 @@
     {
       "source": "palomar",
       "id": "PALOMAR-2026-11-27-000072",
-      "version": 1,
+      "version": 2,
       "title": "Written on the Wall II Conjecture 267 is false (a 14-vertex counterexample of girth 5)",
       "authors": [
         "Ari Gilchrist"
       ],
       "date": "2026-11-27",
-      "at": "2026-11-27T20:28:55Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-27-000072&version=1",
+      "at": "2026-11-27T23:41:25Z",
+      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-27-000072&version=2",
       "repo": "Ari-Gilchrist/wowii-conjecture-267",
       "subjects": [
         "math.CO"
@@ -616,407 +1011,6 @@
       "subjects": [
         "math.CA",
         "math.NA"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-27-000048",
-      "version": 2,
-      "title": "A quantitative lower-tail bound for random stable matchings",
-      "authors": [
-        "Bo Cowgill",
-        "Will Cook"
-      ],
-      "date": "2026-11-27",
-      "at": "2026-11-27T16:53:36Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-27-000048&version=2",
-      "repo": "bocowgill/stable-matchings-lower-tail",
-      "subjects": [
-        "math.CO",
-        "math.PR"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-27-000047",
-      "version": 1,
-      "title": "Periodic equilibrium in Simon’s four-player quitting game",
-      "authors": [
-        "Bo Cowgill"
-      ],
-      "date": "2026-11-27",
-      "at": "2026-11-27T14:54:12Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-27-000047&version=1",
-      "repo": "bocowgill/simon-quitting-game",
-      "subjects": [
-        "math.OC"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-27-000046",
-      "version": 1,
-      "title": "Gisin's theorem for two finite-dimensional systems",
-      "authors": [
-        "Zayn Blore"
-      ],
-      "date": "2026-11-27",
-      "at": "2026-11-27T14:47:41Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-27-000046&version=1",
-      "repo": "zblore/gisin-lean",
-      "subjects": [
-        "quant-ph",
-        "math-ph"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-27-000045",
-      "version": 1,
-      "title": "Counterexample to Cazenave's second spectral graph conjecture",
-      "authors": [
-        "Jaime Nistal"
-      ],
-      "date": "2026-11-27",
-      "at": "2026-11-27T14:37:25Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-27-000045&version=1",
-      "repo": "n1stal/conjecture-lab",
-      "subjects": [
-        "math.CO"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-27-000044",
-      "version": 2,
-      "title": "Window Sweep Acycloids W(n, m) Answer Padrol–Philippe Question 7.21 in Every Rank r >= 4",
-      "authors": [
-        "Tyler B. Hughes"
-      ],
-      "date": "2026-11-27",
-      "at": "2026-11-27T15:22:05Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-27-000044&version=2",
-      "repo": "mathdiscoveries/sweep-acycloids-not-oriented-matroids",
-      "subjects": [
-        "math.CO"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-27-000043",
-      "version": 1,
-      "title": "Erdős–Rado partition relation 𝔠 → (ω + n, 4)³ for the real line (Erdős Problem 70, variant)",
-      "authors": [
-        "Ming-Chih Kao"
-      ],
-      "date": "2026-11-27",
-      "at": "2026-11-27T14:27:10Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-27-000043&version=1",
-      "repo": "koolkao/left-to-solve-palomar",
-      "subjects": [
-        "math.LO",
-        "math.CO"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-27-000042",
-      "version": 1,
-      "title": "Exact Double Eigenvalue and Spectral Isolation on an Infinite Ammann–Beenker Graph with a Bounded Plateau Potential",
-      "authors": [
-        "Alessandro Odasso"
-      ],
-      "date": "2026-11-27",
-      "at": "2026-11-27T14:03:10Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-27-000042&version=1",
-      "repo": "alexodas/spectral_geometry",
-      "subjects": [
-        "math.SP",
-        "cond-mat.mes-hall"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-27-000041",
-      "version": 1,
-      "title": "Reflection of exceptional breakpoints for k-wise independent bits",
-      "authors": [
-        "Jaime Nistal"
-      ],
-      "date": "2026-11-27",
-      "at": "2026-11-27T13:58:42Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-27-000041&version=1",
-      "repo": "n1stal/conjecture-lab",
-      "subjects": [
-        "math.PR",
-        "math.CO",
-        "math.OC"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-27-000040",
-      "version": 1,
-      "title": "Erdős–Taylor theorem: the maximal local time of the planar simple random walk is of order (log n)² (Erdős Problem 1166, variant)",
-      "authors": [
-        "Ming-Chih Kao"
-      ],
-      "date": "2026-11-27",
-      "at": "2026-11-27T13:52:08Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-27-000040&version=1",
-      "repo": "koolkao/left-to-solve-palomar",
-      "subjects": [
-        "math.PR"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-27-000039",
-      "version": 1,
-      "title": "A sharp lower bound on quantum state discrimination error from conditional subentropy",
-      "authors": [
-        "Pratik Patil"
-      ],
-      "date": "2026-11-27",
-      "at": "2026-11-27T13:42:21Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-27-000039&version=1",
-      "repo": "ispnp/lean-subentropy",
-      "subjects": [
-        "quant-ph",
-        "cs.IT"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-27-000038",
-      "version": 1,
-      "title": "Intervals of hypergraph Turán densities",
-      "authors": [
-        "Xizhi Liu"
-      ],
-      "date": "2026-11-27",
-      "at": "2026-11-27T13:24:53Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-27-000038&version=1",
-      "repo": "xliu2022/intervals-turan-lean",
-      "subjects": [
-        "math.CO"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-27-000037",
-      "version": 1,
-      "title": "A coefficient-mass separation for the pigeonhole principle",
-      "authors": [
-        "John Tripodo"
-      ],
-      "date": "2026-11-27",
-      "at": "2026-11-27T12:38:00Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-27-000037&version=1",
-      "repo": "jjtripodo-lgtm/proof-complexity-companions",
-      "subjects": [
-        "math.LO",
-        "cs.CC"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-27-000036",
-      "version": 1,
-      "title": "Nonexistence of an unrestricted symmetric configuration 93_10",
-      "authors": [
-        "John Tripodo"
-      ],
-      "date": "2026-11-27",
-      "at": "2026-11-27T12:34:16Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-27-000036&version=1",
-      "repo": "jjtripodo-lgtm/symconf93-lean",
-      "subjects": [
-        "math.CO"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-27-000035",
-      "version": 1,
-      "title": "An odd Giuga sequence, the Brenton–Hill equation with n₀ = 2, and Borwein et al.'s Giuga Problems 7 and 8",
-      "authors": [
-        "Doug Phillips"
-      ],
-      "date": "2026-11-27",
-      "at": "2026-11-27T12:30:12Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-27-000035&version=1",
-      "repo": "duggiephresh/palomar-giuga-sequences",
-      "subjects": [
-        "math.NT"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-27-000034",
-      "version": 1,
-      "title": "Seven-denomination case of Van Cott–Zhang Conjecture 5.2(1)",
-      "authors": [
-        "Jaime Nistal"
-      ],
-      "date": "2026-11-27",
-      "at": "2026-11-27T11:46:57Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-27-000034&version=1",
-      "repo": "n1stal/conjecture-lab",
-      "subjects": [
-        "math.CO",
-        "cs.DM"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-27-000033",
-      "version": 1,
-      "title": "Erdős Problem 14 (Parts (i) and (ii)): Uniform square-root lower bound for non-unique sums",
-      "authors": [
-        "Maxence Faldor"
-      ],
-      "date": "2026-11-27",
-      "at": "2026-11-27T11:31:48Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-27-000033&version=1",
-      "repo": "maxencefaldor/formal-conjectures",
-      "subjects": [
-        "math.NT",
-        "math.CO"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-27-000032",
-      "version": 1,
-      "title": "Classical strong subadditivity of subentropy",
-      "authors": [
-        "Pratik Patil"
-      ],
-      "date": "2026-11-27",
-      "at": "2026-11-27T11:27:24Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-27-000032&version=1",
-      "repo": "ispnp/lean-subentropy",
-      "subjects": [
-        "quant-ph",
-        "cs.IT"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-27-000031",
-      "version": 1,
-      "title": "Erdős Problem #308 at every height",
-      "authors": [
-        "Elia Yousf (research direction and submission)"
-      ],
-      "date": "2026-11-27",
-      "at": "2026-11-27T10:49:57Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-27-000031&version=1",
-      "repo": "eliayousf/erdos-308-palomar",
-      "subjects": [
-        "math.NT",
-        "math.CO"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-27-000030",
-      "version": 1,
-      "title": "Ben Green's Open Problem 51 at density one half (Sanders' Question 5.1)",
-      "authors": [
-        "Maxence Faldor"
-      ],
-      "date": "2026-11-27",
-      "at": "2026-11-27T10:36:22Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-27-000030&version=1",
-      "repo": "maxencefaldor/formal-conjectures",
-      "subjects": [
-        "math.CO",
-        "math.NT"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-27-000029",
-      "version": 1,
-      "title": "Ben Green's Open Problem 40 (radius 2): asymptotically optimal binary linear covering codes",
-      "authors": [
-        "Maxence Faldor"
-      ],
-      "date": "2026-11-27",
-      "at": "2026-11-27T10:20:03Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-27-000029&version=1",
-      "repo": "maxencefaldor/formal-conjectures",
-      "subjects": [
-        "math.CO",
-        "math.IT"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-27-000028",
-      "version": 1,
-      "title": "Disproof of Firoozbakht's conjecture on OEIS A086766",
-      "authors": [
-        "Maxence Faldor"
-      ],
-      "date": "2026-11-27",
-      "at": "2026-11-27T10:16:05Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-27-000028&version=1",
-      "repo": "maxencefaldor/formal-conjectures",
-      "subjects": [
-        "math.NT"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-27-000027",
-      "version": 1,
-      "title": "Disproof of the Pierce-Birkhoff conjecture in dimension 30",
-      "authors": [
-        "Maxence Faldor"
-      ],
-      "date": "2026-11-27",
-      "at": "2026-11-27T09:19:14Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-27-000027&version=1",
-      "repo": "maxencefaldor/formal-conjectures",
-      "subjects": [
-        "math.AG",
-        "math.AC"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-27-000026",
-      "version": 1,
-      "title": "Sharp Second Constants in L^1 Landau-Kolmogorov Inequalities on a Finite Interval",
-      "authors": [
-        "Lijails"
-      ],
-      "date": "2026-11-27",
-      "at": "2026-11-27T09:02:37Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-27-000026&version=1",
-      "repo": "Ye-Chern/sharp-L1-interpolation",
-      "subjects": [
-        "math.CA",
-        "math.FA"
-      ]
-    },
-    {
-      "source": "palomar",
-      "id": "PALOMAR-2026-11-27-000025",
-      "version": 1,
-      "title": "Chen's total-domination conjecture for the delta complement",
-      "authors": [
-        "Jaime Nistal"
-      ],
-      "date": "2026-11-27",
-      "at": "2026-11-27T08:57:40Z",
-      "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-27-000025&version=1",
-      "repo": "n1stal/conjecture-lab",
-      "subjects": [
-        "math.CO"
       ]
     }
   ]

@@ -115,11 +115,11 @@
     "checkedAt": "2026-10-13T23:18:30.958Z"
   },
   "andrewnakas/powderbench": {
-    "pushedAt": "2026-11-27T22:45:46Z",
+    "pushedAt": "2026-11-28T03:53:13Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-27T22:50:41.655Z",
-    "head": "c6c27e9fd268b9be316d6aefd3bc3cb4d7a5b2c7",
+    "checkedAt": "2026-11-28T04:24:51.354Z",
+    "head": "ca957cead67328d00c74938ddf8edf8aa3216b6b",
     "sources": [
       "README.md",
       "data/leagues.yaml",
@@ -562,14 +562,15 @@
     ]
   },
   "keyu-wang-2002/depthdash": {
-    "pushedAt": "2026-11-23T20:32:00Z",
+    "pushedAt": "2026-11-27T16:32:00Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-26T05:37:20.277Z",
-    "head": "233c9babe759382c418a0687ba4c21dd244af161",
+    "checkedAt": "2026-11-28T04:25:18.327Z",
+    "head": "dbc1752ae841acace6c41b49907222b9f1361fe9",
     "sources": [
       "README.md"
-    ]
+    ],
+    "live": true
   },
   "kings-crown/s2n-bignum-bench": {
     "pushedAt": "2026-11-22T15:44:31Z",
@@ -773,11 +774,11 @@
     ]
   },
   "open-challenges/keller-zero": {
-    "pushedAt": "2026-11-27T08:13:37Z",
+    "pushedAt": "2026-11-28T02:31:12Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-27T14:00:10.682Z",
-    "head": "654a8ec202b86a9e2ae0f7a0e931fb80c0b0b296",
+    "checkedAt": "2026-11-28T04:25:10.782Z",
+    "head": "85cc9989052c030f43eadce8573b5ff30ffa4b07",
     "sources": [
       "PROBLEM.md",
       "submissions/SecurityQQ/SUBMISSION.md",
@@ -979,14 +980,15 @@
     "checkedAt": "2026-10-19T09:13:56.124Z"
   },
   "rtl-ai/silicon-arena": {
-    "pushedAt": "2026-11-27T13:12:35Z",
+    "pushedAt": "2026-11-27T15:44:15Z",
     "fingerprint": "a0f0ccb7f37eb7e2",
     "verdict": "competition",
-    "checkedAt": "2026-11-27T13:59:53.596Z",
-    "head": "a4a477f9ae90d6286a305e2218364c661fd05ded",
+    "checkedAt": "2026-11-28T04:25:28.902Z",
+    "head": "d894faa7495607cc3afb80729be4dd5b9bef0ac6",
     "sources": [
       "PROBLEM.md",
       "submissions/rtl-ai-baseline/SUBMISSION.md",
+      "submissions/rtl-ai-seed-google-gemma-4-31b-it-20261127-1/SUBMISSION.md",
       "README.md",
       "LEADERBOARD.md",
       "mcp_bundle/README.md",
